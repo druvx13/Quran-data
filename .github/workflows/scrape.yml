@@ -1,4 +1,4 @@
-name: Download and Upload Alafasy Zip (Raw Git Storage)
+name: Download and Split Alafasy Zip (Raw Git Storage)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  download-and-upload:
+  download-and-split:
     runs-on: ubuntu-latest
     timeout-minutes: 180
 
@@ -31,21 +31,20 @@ jobs:
       - name: Create work branch
         id: create_branch
         run: |
-          BRANCH="raw-audio/zip-${GITHUB_RUN_ID}"
+          BRANCH="raw-audio/split-${GITHUB_RUN_ID}"
           echo "Created branch name: $BRANCH"
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           git checkout -b "$BRANCH"
 
-      - name: Cleanup existing audio folder
+      - name: Cleanup existing audio zip folder
         run: |
           set -e
-          if [ -d docs/audio/Alafasy ]; then
-            echo "Removing existing audio directory..."
-            git rm -r --ignore-unmatch docs/audio/Alafasy
-            git commit -m "Remove existing audio directory" || echo "No changes"
-          else
-            mkdir -p docs/audio/Alafasy
-          fi
+          mkdir -p docs/audio/Alafasy/zip
+          echo "Removing old split parts..."
+          rm -rf docs/audio/Alafasy/zip/*
+          git add -A docs/audio/Alafasy/zip
+          git commit -m "Remove old split parts" || echo "No changes"
+          git push --set-upstream origin ${{ env.BRANCH }}
 
       - name: Clean gitattributes
         run: |
@@ -56,13 +55,15 @@ jobs:
             mv .gitattributes.clean .gitattributes
             grep -v '\*\.zip' .gitattributes > .gitattributes.clean2 || true
             mv .gitattributes.clean2 .gitattributes
+            grep -v '\.part' .gitattributes > .gitattributes.clean3 || true
+            mv .gitattributes.clean3 .gitattributes
             
             git add .gitattributes
             git commit -m "Remove audio extensions from .gitattributes" || echo "No changes"
+            git push origin HEAD
           else
             echo "No .gitattributes found"
           fi
-          git push --set-upstream origin ${{ env.BRANCH }}
 
       - name: Download zip
         run: |
@@ -73,21 +74,56 @@ jobs:
             exit 1
           fi
           ls -lh 000_versebyverse.zip
+          echo "FILE_SIZE=$(stat -c%s "000_versebyverse.zip")" >> $GITHUB_ENV
 
-      - name: Move zip to audio folder
+      - name: Split zip into 90MB parts
         run: |
-          echo "Moving zip to docs/audio/Alafasy..."
-          mkdir -p docs/audio/Alafasy
-          mv 000_versebyverse.zip docs/audio/Alafasy/
-          ls -lh docs/audio/Alafasy/
+          echo "Creating directory..."
+          mkdir -p docs/audio/Alafasy/zip
+          
+          echo "Splitting zip into 90MB parts..."
+          # -b 90m: 90MB size
+          # -d: numeric suffixes (00, 01, 02)
+          # -a 2: suffix length (allows up to 100 parts)
+          split -b 90m -d -a 2 000_versebyverse.zip docs/audio/Alafasy/zip/000_versebyverse.zip.part
+          
+          echo "Listing split parts..."
+          ls -lh docs/audio/Alafasy/zip/
+          
+          PART_COUNT=$(ls docs/audio/Alafasy/zip/ | wc -l)
+          echo "PART_COUNT=$PART_COUNT" >> $GITHUB_ENV
+          echo "✅ Created $PART_COUNT parts"
 
-      - name: Add and commit zip file
+      - name: Create manifest file
+        run: |
+          echo "Creating manifest..."
+          {
+            echo "Alafasy Audio Split Manifest"
+            echo "Generated: $(date)"
+            echo "Total Parts: ${{ env.PART_COUNT }}"
+            echo "Original Size: ${{ env.FILE_SIZE }} bytes"
+            echo ""
+            echo "Reassembly command:"
+            echo "cat docs/audio/Alafasy/zip/000_versebyverse.zip.part* > 000_versebyverse.zip"
+            echo ""
+            echo "Files:"
+            ls -1 docs/audio/Alafasy/zip/
+          } > docs/audio/Alafasy/zip/manifest.txt
+          
+          cat docs/audio/Alafasy/zip/manifest.txt
+
+      - name: Remove original zip
+        run: |
+          rm -f 000_versebyverse.zip
+          echo "Original zip removed (only parts kept)"
+
+      - name: Add and commit split parts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          echo "Adding zip file..."
-          git add -f docs/audio/Alafasy/000_versebyverse.zip
+          echo "Adding split parts..."
+          git add -f docs/audio/Alafasy/zip/
           
           echo "Verifying staged files..."
           git status --short
@@ -97,7 +133,7 @@ jobs:
             exit 1
           fi
           
-          git commit -m "Add Alafasy audio zip (Raw Git storage)"
+          git commit -m "Add Alafasy audio zip split parts (90MB each)"
           
           echo "Pushing to branch ${{ env.BRANCH }}..."
           for i in 1 2 3; do
@@ -110,22 +146,25 @@ jobs:
             fi
           done
 
-      - name: Verify Remote File
+      - name: Verify Remote Files
         run: |
-          echo "Verifying zip exists on remote..."
+          echo "Verifying parts exist on remote..."
           git fetch origin ${{ env.BRANCH }}
-          REMOTE_FILE=$(git ls-tree -r --name-only origin/${{ env.BRANCH }} docs/audio/Alafasy | grep "000_versebyverse.zip" || true)
-          if [ -z "$REMOTE_FILE" ]; then
-            echo "CRITICAL: Zip file not found on remote!"
+          REMOTE_COUNT=$(git ls-tree -r --name-only origin/${{ env.BRANCH }} docs/audio/Alafasy/zip | grep "\.part" | wc -l)
+          echo "Remote branch has $REMOTE_COUNT split parts"
+          if [ "$REMOTE_COUNT" -eq 0 ]; then
+            echo "CRITICAL: No split parts found on remote!"
             exit 1
           else
-            echo "Remote file found: $REMOTE_FILE"
+            echo "✅ Remote parts verified"
           fi
 
       - name: Create Pull Request
         uses: actions/github-script@v6
         env:
           BRANCH: ${{ env.BRANCH }}
+          PART_COUNT: ${{ env.PART_COUNT }}
+          FILE_SIZE: ${{ env.FILE_SIZE }}
         with:
           script: |
             const owner = context.repo.owner;
@@ -133,23 +172,32 @@ jobs:
             const base = 'copilot/add-dynamic-verse-selection';
             const head = process.env.BRANCH;
 
-            const title = `Add Alafasy Audio Zip (Raw Storage) - ${head}`;
+            const title = `Add Alafasy Audio Split Parts (Raw Storage) - ${head}`;
             const body = [
-              "## 📦 Audio Import (Zip Archive)",
+              "## 📦 Audio Import (Split Zip Archive)",
               "",
-              "This PR adds the Alafasy 128kbps audio archive.",
+              "This PR adds the Alafasy 128kbps audio archive split into 90MB parts.",
               "",
               "### Details",
               `- **Target Branch:** \`${base}\``,
-              `- **File:** \`docs/audio/Alafasy/000_versebyverse.zip\``,
-              `- **Storage Type:** Raw Git Blob (No LFS)`,
+              `- **Location:** \`docs/audio/Alafasy/zip/\``,
+              `- **Parts Count:** ${process.env.PART_COUNT}`,
+              `- **Total Size:** ${process.env.FILE_SIZE} bytes`,
+              `- **Storage Type:** Raw Git Blobs (No LFS)`,
+              "",
+              "### 🔧 Reassembly",
+              "To reconstruct the original zip:",
+              "```bash",
+              "cat docs/audio/Alafasy/zip/000_versebyverse.zip.part* > 000_versebyverse.zip",
+              "```",
               "",
               "### ⚠️ Important",
-              "- File is stored directly in Git history.",
-              "- Application must extract zip at runtime/build.",
+              "- Files are stored directly in Git history.",
+              "- Application must download and reassemble parts before extraction.",
+              "- Monitor repository size (GitHub soft limit: 1GB).",
               "",
               "### Checklist",
-              "- [ ] Verify app can extract and play audio",
+              "- [ ] Verify app can download and reassemble parts",
               "- [ ] Confirm repo size is acceptable"
             ].join("\n");
 
