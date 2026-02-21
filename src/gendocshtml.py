@@ -317,7 +317,7 @@ for sura_idx in range(1, 115):
             out.write(
                 "<tr class='ayah-sep'><td colspan='2'>Ayah %d</td></tr>\n"
                 "<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>%s</td></tr>\n"
-                "<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='audio/Alafasy/%03d%03d.mp3'></audio></td></tr>\n"
+                "<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/%03d%03d.mp3'></audio></td></tr>\n"
                 "<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>%s</td></tr>\n"
                 "<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>%s</td></tr>\n"
                 "<tr class='trans'><td class='label'>English (Pickthall)</td><td>%s</td></tr>\n"
