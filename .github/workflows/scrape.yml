@@ -1,4 +1,4 @@
-name: Download and Extract Alafasy Quran Audio (full cleanup + PR)
+name: Download and Extract Alafasy Quran Audio (Raw Git Storage)
 
 on:
   workflow_dispatch:
@@ -16,162 +16,182 @@ jobs:
       - name: Checkout repository (target specific branch)
         uses: actions/checkout@v4
         with:
-          ref: copilot/add-dynamic-verse-selection  # ← Target your feature branch
-          lfs: false
+          ref: copilot/add-dynamic-verse-selection
+          lfs: false              # ← Explicitly disable LFS fetching
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Install git-lfs (best-effort)
+      - name: Configure Git for Raw Storage (Disable LFS filters)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y git-lfs || true
-          git lfs install --local || true
+          # Ensure no LFS filters are active in this runner environment
+          git config --global filter.lfs.smudge ""
+          git config --global filter.lfs.clean ""
+          git config --global filter.lfs.process ""
+          git config --global filter.lfs.required false
+          echo "✅ LFS filters disabled globally"
 
       - name: Create work branch
         id: create_branch
         run: |
-          BRANCH="unlfs/alafasy-${GITHUB_RUN_ID}"
+          BRANCH="raw-audio/alafasy-${GITHUB_RUN_ID}"
           echo "Created branch name: $BRANCH"
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           git checkout -b "$BRANCH"
 
-      - name: Cleanup existing audio files (pointer removal, fallback aggressive)
+      - name: Cleanup existing audio files
         run: |
           set -e
-          BRANCH=${BRANCH:-"unlfs/alafasy-${GITHUB_RUN_ID}"}
           if [ -d docs/audio/Alafasy ]; then
-            echo "docs/audio/Alafasy exists, searching for Git LFS pointer files..."
-            pointers=$(grep -rl "version https://git-lfs.github.com/spec/v1" docs/audio/Alafasy || true)
-            if [ -n "$pointers" ]; then
-              echo "Found LFS pointer files (will remove them):"
-              echo "$pointers"
-              echo "$pointers" | xargs -r rm -f
-              git add -A docs/audio/Alafasy || true
-              if ! git diff --cached --quiet; then
-                git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-                  commit -m "Remove Git LFS pointer files from docs/audio/Alafasy"
-                git push --set-upstream origin "$BRANCH"
-              else
-                echo "No changes staged after pointer removal"
-              fi
-            else
-              echo "No LFS pointer files found. Performing aggressive cleanup: remove entire docs/audio/Alafasy directory from branch (if present)."
-              git rm -r --ignore-unmatch docs/audio/Alafasy || true
-              if ! git diff --cached --quiet; then
-                git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-                  commit -m "Remove existing docs/audio/Alafasy files (cleanup)"
-                git push --set-upstream origin "$BRANCH"
-              else
-                echo "Nothing to remove during aggressive cleanup"
-              fi
-            fi
+            echo "🧹 Removing existing audio directory..."
+            git rm -r --ignore-unmatch docs/audio/Alafasy
+            git commit -m "Remove existing audio files (prepare for raw import)" || echo "No changes to commit"
           else
-            echo "docs/audio/Alafasy not present — nothing to clean"
+            echo "ℹ️ No existing audio directory found"
           fi
 
-      - name: Stop tracking *.mp3 in .gitattributes (keep *.zip LFS rule)
+      - name: Clean .gitattributes (Remove LFS tracking for mp3)
         run: |
           set -e
           if [ -f .gitattributes ]; then
-            echo "Before .gitattributes:"
-            sed -n '1,200p' .gitattributes || true
-
-            awk '!/^\s*\*\.mp3\b/' .gitattributes > .gitattributes.tmp || true
-            mv .gitattributes.tmp .gitattributes
-
-            git lfs untrack "*.mp3" || true
-
-            echo "After .gitattributes:"
-            sed -n '1,200p' .gitattributes || true
-
-            git add .gitattributes || true
-            if ! git diff --cached --quiet; then
-              git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-                commit -m "Stop tracking *.mp3 with Git LFS (prepare to store mp3 as normal blobs)"
-              git push origin HEAD
+            echo "📄 Cleaning .gitattributes..."
+            # Remove any line containing *.mp3
+            grep -v '\*\.mp3' .gitattributes > .gitattributes.clean || true
+            mv .gitattributes.clean .gitattributes
+            
+            # Verify cleanup
+            if grep -q '\*\.mp3' .gitattributes; then
+              echo "❌ ERROR: Failed to remove *.mp3 from .gitattributes"
+              exit 1
             else
-              echo "No .gitattributes changes to commit"
+              echo "✅ .gitattributes is clean (no *.mp3 LFS tracking)"
             fi
+            
+            git add .gitattributes
+            git commit -m "Remove *.mp3 from .gitattributes (switch to raw storage)" || echo "No changes"
           else
-            echo ".gitattributes not found; nothing to change."
+            echo "ℹ️ No .gitattributes found, creating clean one..."
+            echo "*.zip filter=lfs diff=lfs merge=lfs -text" > .gitattributes
+            git add .gitattributes
+            git commit -m "Add .gitattributes (only zip is LFS)" || echo "No changes"
           fi
+          
+          # Push cleanup commits immediately to avoid conflicts later
+          git push --set-upstream origin ${{ env.BRANCH }}
 
       - name: Download zip
         run: |
+          echo "⬇️ Downloading Alafasy audio zip..."
           curl -fL --retry 3 -o 000_versebyverse.zip "https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip"
-          ls -lh 000_versebyverse.zip || true
+          if [ ! -f 000_versebyverse.zip ]; then
+            echo "❌ Download failed!"
+            exit 1
+          fi
+          ls -lh 000_versebyverse.zip
 
       - name: Extract zip into Alafasy directory
         run: |
+          echo "📦 Extracting zip..."
           mkdir -p docs/audio/Alafasy
           unzip -o 000_versebyverse.zip -d docs/audio/Alafasy
-          echo "Extracted files count:"
-          find docs/audio/Alafasy -type f | wc -l
-          echo "Sample largest files (if any):"
-          find docs/audio/Alafasy -type f -printf '%p %s\n' | sort -k2 -n | tail -n 20 || true
+          
+          FILE_COUNT=$(find docs/audio/Alafasy -type f -name "*.mp3" | wc -l)
+          echo "✅ Extracted $FILE_COUNT MP3 files"
+          echo "FILE_COUNT=$FILE_COUNT" >> $GITHUB_ENV
+          
+          if [ "$FILE_COUNT" -eq 0 ]; then
+            echo "❌ ERROR: No MP3 files found!"
+            exit 1
+          fi
 
-      - name: Abort if any extracted file >= 100 MB (GitHub limit)
+      - name: Abort if any file >= 100 MB
         run: |
           set -e
           bigfile=$(find docs/audio/Alafasy -type f -size +99M -print -quit || true)
           if [ -n "$bigfile" ]; then
-            echo "ERROR: Found file >=100MB: $bigfile"
-            echo "GitHub rejects files >=100MB. Move large files to Releases/S3 or split them."
+            echo "❌ ERROR: File exceeds 100MB limit: $bigfile"
             exit 1
           else
-            echo "No file >=100MB found."
+            echo "✅ All files are under 100MB limit"
           fi
 
-      - name: Add and renormalize, commit extracted files (mp3s will be normal blobs)
+      - name: DEBUG: Check Git Attributes & Ignore
+        run: |
+          echo "🔍 Checking if mp3 files are ignored..."
+          SAMPLE_FILE=$(find docs/audio/Alafasy -name "*.mp3" | head -1)
+          echo "Sample file: $SAMPLE_FILE"
+          git check-ignore -v "$SAMPLE_FILE" && echo "❌ File is ignored!" || echo "✅ File is NOT ignored"
+          
+          echo "🔍 Checking git attributes..."
+          git check-attr -a "$SAMPLE_FILE"
+          
+          echo "🔍 Git status..."
+          git status --short | head -20
+
+      - name: Add and commit extracted files (RAW BLOBS)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add --renormalize docs/audio/Alafasy 000_versebyverse.zip || true
+          echo "➕ Adding files..."
+          # Use -f to force add if any ignore rules are interfering
+          git add -f docs/audio/Alafasy 000_versebyverse.zip
+          
+          echo "🔍 Verifying staged files..."
+          STAGED_COUNT=$(git diff --cached --name-only | grep "\.mp3$" | wc -l)
+          echo "✅ Staged $STAGED_COUNT MP3 files"
+          
+          if [ "$STAGED_COUNT" -eq 0 ]; then
+            echo "❌ ERROR: No files staged! Check debug logs above."
+            exit 1
+          fi
+          
+          git commit -m "Add Alafasy 128kbps audio (RAW Git storage, no LFS)"
+          
+          echo "🚀 Pushing to branch ${{ env.BRANCH }}..."
+          git push origin HEAD
 
-          if git diff --cached --quiet; then
-            echo "Nothing to commit (no changes staged)"
-          else
-            echo "Files staged for commit (first 200 lines):"
-            git --no-pager diff --cached --name-status | sed -n '1,200p'
-            git commit -m "Add Alafasy 128kbps audio (store .mp3 as normal Git blobs) and zip"
-            for i in 1 2 3; do
-              git push origin HEAD && break || sleep 5
-            done
+      - name: Verify Remote Files
+        run: |
+          echo "🔍 Verifying files exist on remote..."
+          git fetch origin ${{ env.BRANCH }}
+          REMOTE_COUNT=$(git ls-tree -r --name-only origin/${{ env.BRANCH }} docs/audio/Alafasy | grep "\.mp3$" | wc -l)
+          echo "✅ Remote branch has $REMOTE_COUNT MP3 files"
+          if [ "$REMOTE_COUNT" -eq 0 ]; then
+            echo "❌ CRITICAL: No files found on remote!"
+            exit 1
           fi
 
-      - name: Create a Pull Request for review
+      - name: Create a Pull Request
         uses: actions/github-script@v6
         env:
           BRANCH: ${{ env.BRANCH }}
+          FILE_COUNT: ${{ env.FILE_COUNT }}
         with:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-
-            // Use your target feature branch as the BASE for the PR
             const base = 'copilot/add-dynamic-verse-selection';
-            const head = process.env.BRANCH || `unlfs/alafasy-${process.env.GITHUB_RUN_ID}`;
+            const head = process.env.BRANCH;
 
-            const title = `Add Alafasy audio and stop tracking *.mp3 with Git LFS (${head})`;
+            const title = `Add Alafasy Audio (Raw Storage) - ${head}`;
             const body = [
-              "This PR was created automatically by the `download_extract_quran` workflow.",
+              "## 📦 Audio Import (Raw Git Storage)",
               "",
-              "## 🎯 Target Branch",
-              `\`${base}\``,
+              "This PR adds Alafasy 128kbps verse-by-verse audio files.",
               "",
-              "## ✅ Changes Included",
-              "- Removes `*.mp3` from LFS tracking on this branch",
-              "- Cleans up existing pointer files (or removes the whole `docs/audio/Alafasy` directory if none found)",
-              "- Adds the extracted Alafasy 128kbps audio files as normal Git blobs and the zip",
-              "- Updates `.gitattributes` to stop tracking `*.mp3` via LFS",
+              "### 🔑 Details",
+              `- **Target Branch:** \`${base}\``,
+              `- **Files Added:** ${process.env.FILE_COUNT} MP3s`,
+              `- **Storage Type:** Raw Git Blobs (No LFS)`,
               "",
-              "## ⚠️ Review Checklist",
-              "- [ ] Confirm repository size implications are acceptable",
-              "- [ ] Verify audio files play correctly after merge",
-              "- [ ] Ensure `.gitattributes` changes align with project LFS strategy",
+              "### ⚠️ Important",
+              "- Files are stored directly in Git history.",
+              "- Ensure no single file exceeds 100MB (verified).",
+              "- Monitor repository size (GitHub soft limit: 1GB).",
               "",
-              "> ℹ️ This workflow runs on `workflow_dispatch` — triggered manually."
+              "### ✅ Checklist",
+              "- [ ] Verify audio plays correctly",
+              "- [ ] Confirm repo size is acceptable"
             ].join("\n");
 
             try {
@@ -184,24 +204,12 @@ jobs:
                 body,
                 maintainer_can_modify: true
               });
-
               core.setOutput('pr_url', pr.data.html_url);
-              core.setOutput('pr_number', pr.data.number);
               console.log("✅ PR created:", pr.data.html_url);
-              
-              // Optional: Add a comment with workflow run link
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: pr.data.number,
-                body: `🤖 Automated PR from [workflow run #${process.env.GITHUB_RUN_ID}](${process.env.GITHUB_SERVER_URL}/${owner}/${repo}/actions/runs/${process.env.GITHUB_RUN_ID})`
-              });
             } catch (error) {
-              if (error.message && error.message.includes('A pull request already exists')) {
-                console.log("⚠️ PR already exists for this branch. Skipping creation.");
-                core.setOutput('pr_exists', 'true');
+              if (error.message?.includes('A pull request already exists')) {
+                console.log("⚠️ PR already exists.");
               } else {
-                core.setFailed(`Failed to create PR: ${error.message}`);
-                throw error;
+                core.setFailed(error.message);
               }
             }
