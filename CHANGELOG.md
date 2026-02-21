@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] — 2026-02-21
+
+### Added
+- **Audio recitation** embedded in every per-surah HTML page — Mishary Rashid Alafasy MP3 files stored in `docs/audio/Alafasy/` (sourced from versebyversequran.com; see `docs/audio/Alafasy/000_license.html`).
+- **Yusuf Ali English translation** (`data/en.yusufali.txt`) — `sura|ayah|text` pipe-delimited format; output: `output/quran_english_yusufali.txt`.
+- **Quran Unicode Project transliteration** (`data/translit_en.txt`) — sequential one-line-per-ayah format; output: `output/quran_translit_unicode.txt`.
+- **Abridged Explanation of the Quran** (`data/abridged-explanation-of-the-quran.json.zip`) — JSON data; output: `output/quran_english_abridged.txt`.
+- **Hindi Tafsir — Al-Mokhtasar** (`data/hindi-mokhtasar.json.zip`) — JSON data; output: `output/quran_hindi_mokhtasar.txt`.
+- `src/gentxtforquran.py` now generates five additional output files: `quran_english_yusufali.txt`, `quran_translit_unicode.txt`, `quran_english_abridged.txt`, `quran_hindi_mokhtasar.txt`.
+- `src/gendocshtml.py` now renders all ten content streams per ayah (Arabic, audio, two transliterations, three English translations, English explanation, two Hindi translations, Hindi Tafsir).
+- `docs/index.html` updated with full source attribution for all new content streams.
+
+### Changed
+- Each per-surah HTML page now renders twelve table rows per ayah (one ayah-number separator row + eleven content rows: Arabic, audio, two transliterations, three English translations, English explanation, two Hindi translations, Hindi Tafsir).
+
+---
+
 ## [Unreleased] — 2026-02-20
 
 ### Added
