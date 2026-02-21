@@ -1,4 +1,4 @@
-name: Download and Split Alafasy Zip (Raw Git Storage)
+name: Upload Audio to Hugging Face Hub
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  download-and-split:
+  upload-to-hf:
     runs-on: ubuntu-latest
     timeout-minutes: 180
 
@@ -17,154 +17,83 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: copilot/add-dynamic-verse-selection
-          lfs: false
           fetch-depth: 0
-          persist-credentials: true
-
-      - name: Configure Git for Large Pushes
-        run: |
-          git config --global http.postBuffer 524288000
-          git config --global filter.lfs.smudge ""
-          git config --global filter.lfs.clean ""
-          echo "Git buffer increased for large file push"
 
       - name: Create work branch
         id: create_branch
         run: |
-          BRANCH="raw-audio/split-${GITHUB_RUN_ID}"
-          echo "Created branch name: $BRANCH"
+          BRANCH="hf-upload-${GITHUB_RUN_ID}"
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           git checkout -b "$BRANCH"
 
-      - name: Cleanup existing audio zip folder
+      - name: Download Audio Zip
         run: |
-          set -e
-          mkdir -p docs/audio/Alafasy/zip
-          echo "Removing old split parts..."
-          rm -rf docs/audio/Alafasy/zip/*
-          git add -A docs/audio/Alafasy/zip
-          git commit -m "Remove old split parts" || echo "No changes"
-          git push --set-upstream origin ${{ env.BRANCH }}
-
-      - name: Clean gitattributes
-        run: |
-          set -e
-          if [ -f .gitattributes ]; then
-            echo "Cleaning .gitattributes..."
-            grep -v '\*\.mp3' .gitattributes > .gitattributes.clean || true
-            mv .gitattributes.clean .gitattributes
-            grep -v '\*\.zip' .gitattributes > .gitattributes.clean2 || true
-            mv .gitattributes.clean2 .gitattributes
-            grep -v '\.part' .gitattributes > .gitattributes.clean3 || true
-            mv .gitattributes.clean3 .gitattributes
-            
-            git add .gitattributes
-            git commit -m "Remove audio extensions from .gitattributes" || echo "No changes"
-            git push origin HEAD
-          else
-            echo "No .gitattributes found"
-          fi
-
-      - name: Download zip
-        run: |
-          echo "Downloading Alafasy audio zip..."
+          echo "⬇️ Downloading Alafasy audio..."
           curl -fL --retry 3 -o 000_versebyverse.zip "https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip"
           if [ ! -f 000_versebyverse.zip ]; then
-            echo "Download failed!"
+            echo "❌ Download failed!"
             exit 1
           fi
           ls -lh 000_versebyverse.zip
-          echo "FILE_SIZE=$(stat -c%s "000_versebyverse.zip")" >> $GITHUB_ENV
 
-      - name: Split zip into 90MB parts
+      - name: Install Hugging Face Hub CLI
         run: |
-          echo "Creating directory..."
-          mkdir -p docs/audio/Alafasy/zip
-          
-          echo "Splitting zip into 90MB parts..."
-          # -b 90m: 90MB size
-          # -d: numeric suffixes (00, 01, 02)
-          # -a 2: suffix length (allows up to 100 parts)
-          split -b 90m -d -a 2 000_versebyverse.zip docs/audio/Alafasy/zip/000_versebyverse.zip.part
-          
-          echo "Listing split parts..."
-          ls -lh docs/audio/Alafasy/zip/
-          
-          PART_COUNT=$(ls docs/audio/Alafasy/zip/ | wc -l)
-          echo "PART_COUNT=$PART_COUNT" >> $GITHUB_ENV
-          echo "✅ Created $PART_COUNT parts"
+          pip install huggingface_hub
+          huggingface-cli version
 
-      - name: Create manifest file
+      - name: Upload to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          # ⚠️ UPDATE THIS TO YOUR ACTUAL HUGGING FACE USERNAME AND REPO NAME
+          HF_REPO_ID: "druvx13/quran-audio-alafasy"
         run: |
-          echo "Creating manifest..."
+          echo "🚀 Uploading to Hugging Face Dataset: $HF_REPO_ID"
+          
+          # Upload the file using HF CLI (handles LFS automatically)
+          huggingface-cli upload \
+            "$HF_REPO_ID" \
+            "./000_versebyverse.zip" \
+            "000_versebyverse.zip" \
+            --token "$HF_TOKEN" \
+            --repo-type dataset
+          
+          echo "✅ Upload complete!"
+          
+          # Generate Direct Download URL
+          # Format: https://huggingface.co/datasets/<user>/<repo>/resolve/main/<file>
+          FILE_URL="https://huggingface.co/datasets/${HF_REPO_ID}/resolve/main/000_versebyverse.zip"
+          echo "FILE_URL=$FILE_URL" >> $GITHUB_ENV
+          echo "🔗 Download URL: $FILE_URL"
+
+      - name: Update Config File with HF URL
+        run: |
+          echo "📝 Updating config with Hugging Face URL..."
+          
+          mkdir -p config
+          cat > config/audio_config.json << EOF
           {
-            echo "Alafasy Audio Split Manifest"
-            echo "Generated: $(date)"
-            echo "Total Parts: ${{ env.PART_COUNT }}"
-            echo "Original Size: ${{ env.FILE_SIZE }} bytes"
-            echo ""
-            echo "Reassembly command:"
-            echo "cat docs/audio/Alafasy/zip/000_versebyverse.zip.part* > 000_versebyverse.zip"
-            echo ""
-            echo "Files:"
-            ls -1 docs/audio/Alafasy/zip/
-          } > docs/audio/Alafasy/zip/manifest.txt
+            "source": "huggingface",
+            "url": "${{ env.FILE_URL }}",
+            "format": "zip",
+            "reciter": "Alafasy",
+            "bitrate": "128kbps",
+            "updated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
           
-          cat docs/audio/Alafasy/zip/manifest.txt
-
-      - name: Remove original zip
-        run: |
-          rm -f 000_versebyverse.zip
-          echo "Original zip removed (only parts kept)"
-
-      - name: Add and commit split parts
-        run: |
+          cat config/audio_config.json
+          
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          echo "Adding split parts..."
-          git add -f docs/audio/Alafasy/zip/
-          
-          echo "Verifying staged files..."
-          git status --short
-          
-          if git diff --cached --quiet; then
-            echo "ERROR: No files staged!"
-            exit 1
-          fi
-          
-          git commit -m "Add Alafasy audio zip split parts (90MB each)"
-          
-          echo "Pushing to branch ${{ env.BRANCH }}..."
-          for i in 1 2 3; do
-            if git push origin HEAD; then
-              echo "Push succeeded"
-              break
-            else
-              echo "Push attempt $i failed, retrying in 10s..."
-              sleep 10
-            fi
-          done
-
-      - name: Verify Remote Files
-        run: |
-          echo "Verifying parts exist on remote..."
-          git fetch origin ${{ env.BRANCH }}
-          REMOTE_COUNT=$(git ls-tree -r --name-only origin/${{ env.BRANCH }} docs/audio/Alafasy/zip | grep "\.part" | wc -l)
-          echo "Remote branch has $REMOTE_COUNT split parts"
-          if [ "$REMOTE_COUNT" -eq 0 ]; then
-            echo "CRITICAL: No split parts found on remote!"
-            exit 1
-          else
-            echo "✅ Remote parts verified"
-          fi
+          git add config/audio_config.json
+          git commit -m "Update audio config with Hugging Face URL" || echo "No changes"
+          git push --set-upstream origin ${{ env.BRANCH }}
 
       - name: Create Pull Request
         uses: actions/github-script@v6
         env:
           BRANCH: ${{ env.BRANCH }}
-          PART_COUNT: ${{ env.PART_COUNT }}
-          FILE_SIZE: ${{ env.FILE_SIZE }}
+          FILE_URL: ${{ env.FILE_URL }}
         with:
           script: |
             const owner = context.repo.owner;
@@ -172,33 +101,23 @@ jobs:
             const base = 'copilot/add-dynamic-verse-selection';
             const head = process.env.BRANCH;
 
-            const title = `Add Alafasy Audio Split Parts (Raw Storage) - ${head}`;
+            const title = `Update Audio Source to Hugging Face (${head})`;
             const body = [
-              "## 📦 Audio Import (Split Zip Archive)",
+              "## 🎵 Audio Hosting Migration",
               "",
-              "This PR adds the Alafasy 128kbps audio archive split into 90MB parts.",
+              "Moved audio hosting from GitHub to Hugging Face Hub to bypass file size limits.",
               "",
-              "### Details",
-              `- **Target Branch:** \`${base}\``,
-              `- **Location:** \`docs/audio/Alafasy/zip/\``,
-              `- **Parts Count:** ${process.env.PART_COUNT}`,
-              `- **Total Size:** ${process.env.FILE_SIZE} bytes`,
-              `- **Storage Type:** Raw Git Blobs (No LFS)`,
+              "### 📦 Details",
+              `- **Host:** Hugging Face Dataset`,
+              `- **File:** \`000_versebyverse.zip\``,
+              `- **Download URL:** [Click Here](${process.env.FILE_URL})`,
               "",
-              "### 🔧 Reassembly",
-              "To reconstruct the original zip:",
-              "```bash",
-              "cat docs/audio/Alafasy/zip/000_versebyverse.zip.part* > 000_versebyverse.zip",
-              "```",
+              "### 🔧 App Integration",
+              "Your app should read \`config/audio_config.json\` to get the latest audio URL.",
               "",
-              "### ⚠️ Important",
-              "- Files are stored directly in Git history.",
-              "- Application must download and reassemble parts before extraction.",
-              "- Monitor repository size (GitHub soft limit: 1GB).",
-              "",
-              "### Checklist",
-              "- [ ] Verify app can download and reassemble parts",
-              "- [ ] Confirm repo size is acceptable"
+              "### ✅ Checklist",
+              "- [ ] Verify download link works",
+              "- [ ] Test app extraction from HF URL"
             ].join("\n");
 
             try {
@@ -211,11 +130,10 @@ jobs:
                 body,
                 maintainer_can_modify: true
               });
-              core.setOutput('pr_url', pr.data.html_url);
-              console.log("PR created:", pr.data.html_url);
+              console.log("✅ PR created:", pr.data.html_url);
             } catch (error) {
               if (error.message && error.message.includes('A pull request already exists')) {
-                console.log("PR already exists.");
+                console.log("⚠️ PR already exists.");
               } else {
                 core.setFailed(error.message);
               }
