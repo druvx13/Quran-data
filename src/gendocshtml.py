@@ -272,13 +272,14 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
 .vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
 .vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
-.vc-list{display:flex;flex-wrap:wrap;gap:4px;max-height:140px;overflow-y:auto;padding:2px}
-.vc-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
-.vc-item label{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:2px 6px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.9em;color:#1a3a5c;user-select:none}
-.vc-item label:hover{background:#dde8f2}
-.vc-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
-.vc-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
-@media(max-width:600px){.vc-list{max-height:120px}.vc-controls button{min-height:44px}}"""
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}"""
 
 HEADER_HTML = """\
 <!DOCTYPE html>
@@ -324,85 +325,122 @@ def make_surah_select(current=0):
 
 def make_verse_chooser(size):
     """Build the verse chooser <details> HTML for a surah with `size` verses."""
-    items = []
-    for v in range(1, size + 1):
-        items.append(
-            "<span class='vc-item'>"
-            "<input type='checkbox' id='vc-%d' data-ayah='%d' checked>"
-            "<label for='vc-%d'>%d</label>"
-            "</span>" % (v, v, v, v)
+    CF_ITEMS = [
+        ('arabic',           'Arabic',                           True),
+        ('audio',            'Audio',                            False),
+        ('translit',         'Translit. (Tanzil)',               False),
+        ('translit-unicode', 'Translit. (Unicode)',              True),
+        ('trans',            'English (Pickthall)',              False),
+        ('trans-yusuf',      'English (Yusuf Ali)',              True),
+        ('trans-sahih',      'English (Saheeh Int\u2019l)',      False),
+        ('eng-abridged',     'Abridged Expl.',                   False),
+        ('hindi',            '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)',              False),
+        ('hindi-suhail',     '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)',             True),
+        ('hindi-mokhtasar',  '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)', True),
+    ]
+    cf_html = []
+    for idx, (cls, label, checked) in enumerate(CF_ITEMS):
+        chk = ' checked' if checked else ''
+        cf_html.append(
+            "<span class='cf-item'>"
+            "<input type='checkbox' id='cf-%d' data-rowclass='%s'%s>"
+            "<label for='cf-%d'>%s</label>"
+            "</span>" % (idx, cls, chk, idx, label)
         )
     return (
         "<details class='verse-chooser'>"
-        "<summary><span class='vc-title'>&#x2714; Verse Filter (%d verses)</span>"
+        "<summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span>"
         "<span class='vc-arrow'>&#x25BC;</span></summary>"
         "<div class='vc-body'>"
+        "<div class='vc-section-title'>Verse Range</div>"
         "<div class='vc-controls'>"
-        "<button onclick='vcSelectAll()'>Select All</button>"
-        "<button onclick='vcClearAll()'>Clear All</button>"
+        "<button onclick='vcSelectAll()'>Show All</button>"
+        "<button onclick='vcClearAll()'>Hide All</button>"
         "</div>"
         "<div class='vc-range'>"
         "<label>From <input type='number' id='vc-from' min='1' max='%d' value='1'></label>"
         "<label>To <input type='number' id='vc-to' min='1' max='%d' value='%d'></label>"
         "<button onclick='vcApplyRange()'>Apply Range</button>"
         "</div>"
-        "<div class='vc-list' id='vc-list'>%s</div>"
+        "<div class='vc-section-title' style='margin-top:12px'>Content</div>"
+        "<div class='cf-list' id='cf-list'>%s</div>"
         "</div>"
         "</details>\n"
-    ) % (size, size, size, size, ''.join(items))
+    ) % (size, size, size, ''.join(cf_html))
 
 
 VC_JS = """\
 <script>
 (function(){
-  var list=document.getElementById('vc-list');
-  if(!list)return;
-  function applyRows(){
-    list.querySelectorAll('input[type=checkbox]').forEach(function(cb){
-      document.querySelectorAll('tr[data-ayah="'+cb.dataset.ayah+'"]').forEach(function(tr){
-        tr.style.display=cb.checked?'':'none';
-      });
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxVerse=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxVerse;
+  var enabledTypes=new Set();
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      if(cb.checked)enabledTypes.add(cb.dataset.rowclass);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      applyAllRows();
+    });
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
+      var ayah=+tr.dataset.ayah;
+      var inRange=(ayah>=vcFrom&&ayah<=vcTo);
+      if(tr.classList.contains('ayah-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
     });
     updateHash();
   }
   function updateHash(){
-    var on=[];
-    list.querySelectorAll('input:checked').forEach(function(cb){on.push(+cb.dataset.ayah);});
-    on.sort(function(a,b){return a-b;});
-    var parts=[],i=0;
-    while(i<on.length){
-      var s=on[i],e=s;
-      while(i+1<on.length&&on[i+1]===e+1){i++;e=on[i];}
-      parts.push(s===e?String(s):s+'-'+e);
-      i++;
+    if(vcFrom===1&&vcTo===maxVerse){
+      history.replaceState(null,'',location.pathname+location.search);
+    }else{
+      history.replaceState(null,'','#'+vcFrom+(vcTo!==vcFrom?'-'+vcTo:''));
     }
-    history.replaceState(null,'',parts.length?'#'+parts.join(','):location.pathname+location.search);
   }
   function loadHash(){
     var h=location.hash.slice(1);
     if(!h)return;
-    var sel=new Set();
-    h.split(',').forEach(function(p){
-      var m=p.match(/^(\\d+)(?:-(\\d+))?$/);
-      if(m){var a=+m[1],b=m[2]?+m[2]:a;for(var i=a;i<=b;i++)sel.add(i);}
-    });
-    list.querySelectorAll('input[type=checkbox]').forEach(function(cb){cb.checked=sel.has(+cb.dataset.ayah);});
-    applyRows();
+    var m=h.match(/^(\\d+)(?:-(\\d+))?$/);
+    if(m){
+      vcFrom=+m[1];vcTo=m[2]?+m[2]:+m[1];
+      if(fromInput)fromInput.value=vcFrom;
+      if(toInput)toInput.value=vcTo;
+    }
   }
-  list.addEventListener('change',function(e){if(e.target.type==='checkbox')applyRows();});
-  window.vcSelectAll=function(){list.querySelectorAll('input').forEach(function(cb){cb.checked=true;});applyRows();};
-  window.vcClearAll=function(){list.querySelectorAll('input').forEach(function(cb){cb.checked=false;});applyRows();};
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxVerse;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxVerse;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
   window.vcApplyRange=function(){
-    var from=parseInt(document.getElementById('vc-from').value,10)||1;
-    var to=parseInt(document.getElementById('vc-to').value,10)||1;
-    if(from>to){var tmp=from;from=to;to=tmp;}
-    list.querySelectorAll('input[type=checkbox]').forEach(function(cb){
-      var n=+cb.dataset.ayah;
-      cb.checked=(n>=from&&n<=to);
-    });
-    applyRows();
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
   };
   loadHash();
+  applyAllRows();
 })();
 </script>
 """
