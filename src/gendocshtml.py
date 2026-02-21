@@ -268,6 +268,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
 .vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
 .vc-list{display:flex;flex-wrap:wrap;gap:4px;max-height:140px;overflow-y:auto;padding:2px}
 .vc-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
 .vc-item label{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:2px 6px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.9em;color:#1a3a5c;user-select:none}
@@ -329,7 +333,7 @@ def make_verse_chooser(size):
             "</span>" % (v, v, v, v)
         )
     return (
-        "<details class='verse-chooser' open>"
+        "<details class='verse-chooser'>"
         "<summary><span class='vc-title'>&#x2714; Verse Filter (%d verses)</span>"
         "<span class='vc-arrow'>&#x25BC;</span></summary>"
         "<div class='vc-body'>"
@@ -337,10 +341,15 @@ def make_verse_chooser(size):
         "<button onclick='vcSelectAll()'>Select All</button>"
         "<button onclick='vcClearAll()'>Clear All</button>"
         "</div>"
+        "<div class='vc-range'>"
+        "<label>From <input type='number' id='vc-from' min='1' max='%d' value='1'></label>"
+        "<label>To <input type='number' id='vc-to' min='1' max='%d' value='%d'></label>"
+        "<button onclick='vcApplyRange()'>Apply Range</button>"
+        "</div>"
         "<div class='vc-list' id='vc-list'>%s</div>"
         "</div>"
         "</details>\n"
-    ) % (size, ''.join(items))
+    ) % (size, size, size, size, ''.join(items))
 
 
 VC_JS = """\
@@ -383,6 +392,16 @@ VC_JS = """\
   list.addEventListener('change',function(e){if(e.target.type==='checkbox')applyRows();});
   window.vcSelectAll=function(){list.querySelectorAll('input').forEach(function(cb){cb.checked=true;});applyRows();};
   window.vcClearAll=function(){list.querySelectorAll('input').forEach(function(cb){cb.checked=false;});applyRows();};
+  window.vcApplyRange=function(){
+    var from=parseInt(document.getElementById('vc-from').value,10)||1;
+    var to=parseInt(document.getElementById('vc-to').value,10)||1;
+    if(from>to){var tmp=from;from=to;to=tmp;}
+    list.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var n=+cb.dataset.ayah;
+      cb.checked=(n>=from&&n<=to);
+    });
+    applyRows();
+  };
   loadHash();
 })();
 </script>
