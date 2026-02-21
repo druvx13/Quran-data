@@ -1,4 +1,4 @@
-name: Download and Extract Alafasy Quran Audio (full cleanup + PR)
+name: Download and Extract Alafasy Quran Audio (full cleanup + PR to additional)
 
 on:
   workflow_dispatch:
@@ -19,6 +19,7 @@ jobs:
           lfs: false
           fetch-depth: 0
           persist-credentials: true
+          ref: additional
 
       - name: Install git-lfs (best-effort)
         run: |
@@ -26,13 +27,12 @@ jobs:
           sudo apt-get install -y git-lfs || true
           git lfs install --local || true
 
-      - name: Create work branch
+      - name: Create work branch off additional
         id: create_branch
         run: |
           BRANCH="unlfs/alafasy-${GITHUB_RUN_ID}"
-          echo "Created branch name: $BRANCH"
-          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           git checkout -b "$BRANCH"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
 
       - name: Cleanup existing audio files (pointer removal, fallback aggressive)
         run: |
@@ -47,7 +47,7 @@ jobs:
               echo "$pointers" | xargs -r rm -f
               git add -A docs/audio/Alafasy || true
               if ! git diff --cached --quiet; then
-                git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+                git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
                   commit -m "Remove Git LFS pointer files from docs/audio/Alafasy"
                 git push --set-upstream origin "$BRANCH"
               else
@@ -57,7 +57,7 @@ jobs:
               echo "No LFS pointer files found. Performing aggressive cleanup: remove entire docs/audio/Alafasy directory from branch (if present)."
               git rm -r --ignore-unmatch docs/audio/Alafasy || true
               if ! git diff --cached --quiet; then
-                git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+                git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
                   commit -m "Remove existing docs/audio/Alafasy files (cleanup)"
                 git push --set-upstream origin "$BRANCH"
               else
@@ -74,14 +74,18 @@ jobs:
           if [ -f .gitattributes ]; then
             echo "Before .gitattributes:"
             sed -n '1,200p' .gitattributes || true
+
             awk '!/^\s*\*\.mp3\b/' .gitattributes > .gitattributes.tmp || true
             mv .gitattributes.tmp .gitattributes
+
             git lfs untrack "*.mp3" || true
+
             echo "After .gitattributes:"
             sed -n '1,200p' .gitattributes || true
+
             git add .gitattributes || true
             if ! git diff --cached --quiet; then
-              git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+              git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
                 commit -m "Stop tracking *.mp3 with Git LFS (prepare to store mp3 as normal blobs)"
               git push origin HEAD
             else
@@ -120,8 +124,9 @@ jobs:
       - name: Add and renormalize, commit extracted files (mp3s will be normal blobs)
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add --renormalize docs/audio/Alafasy 000_versebyverse.zip || true
+
           if git diff --cached --quiet; then
             echo "Nothing to commit (no changes staged)"
           else
@@ -133,7 +138,7 @@ jobs:
             done
           fi
 
-      - name: Create a Pull Request for review (base: additional)
+      - name: Create a Pull Request for review (into 'additional')
         uses: actions/github-script@v6
         env:
           BRANCH: ${{ env.BRANCH }}
@@ -141,10 +146,8 @@ jobs:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-
-            const base = 'additional';
+            const base = "additional";
             const head = process.env.BRANCH || `unlfs/alafasy-${process.env.GITHUB_RUN_ID}`;
-
             const title = `Add Alafasy audio and stop tracking *.mp3 with Git LFS (${head})`;
             const body = [
               "This PR was created automatically by the `download_extract_quran` workflow.",
@@ -165,4 +168,5 @@ jobs:
               body
             });
 
+            core.setOutput('pr_url', pr.data.html_url);
             console.log("PR created:", pr.data.html_url)
