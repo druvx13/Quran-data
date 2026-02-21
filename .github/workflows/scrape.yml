@@ -1,4 +1,4 @@
-name: Download and Extract Alafasy Quran Audio (Raw Git Storage)
+name: Download and Upload Alafasy Zip (Raw Git Storage)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  download-and-extract:
+  download-and-upload:
     runs-on: ubuntu-latest
     timeout-minutes: 180
 
@@ -21,31 +21,30 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Configure Git for Raw Storage
+      - name: Configure Git for Large Pushes
         run: |
+          git config --global http.postBuffer 524288000
           git config --global filter.lfs.smudge ""
           git config --global filter.lfs.clean ""
-          git config --global filter.lfs.process ""
-          git config --global filter.lfs.required false
-          echo "LFS filters disabled globally"
+          echo "Git buffer increased for large file push"
 
       - name: Create work branch
         id: create_branch
         run: |
-          BRANCH="raw-audio/alafasy-${GITHUB_RUN_ID}"
+          BRANCH="raw-audio/zip-${GITHUB_RUN_ID}"
           echo "Created branch name: $BRANCH"
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           git checkout -b "$BRANCH"
 
-      - name: Cleanup existing audio files
+      - name: Cleanup existing audio folder
         run: |
           set -e
           if [ -d docs/audio/Alafasy ]; then
             echo "Removing existing audio directory..."
             git rm -r --ignore-unmatch docs/audio/Alafasy
-            git commit -m "Remove existing audio files" || echo "No changes to commit"
+            git commit -m "Remove existing audio directory" || echo "No changes"
           else
-            echo "No existing audio directory found"
+            mkdir -p docs/audio/Alafasy
           fi
 
       - name: Clean gitattributes
@@ -55,21 +54,13 @@ jobs:
             echo "Cleaning .gitattributes..."
             grep -v '\*\.mp3' .gitattributes > .gitattributes.clean || true
             mv .gitattributes.clean .gitattributes
-            
-            if grep -q '\*\.mp3' .gitattributes; then
-              echo "ERROR: Failed to remove *.mp3 from .gitattributes"
-              exit 1
-            else
-              echo ".gitattributes is clean"
-            fi
+            grep -v '\*\.zip' .gitattributes > .gitattributes.clean2 || true
+            mv .gitattributes.clean2 .gitattributes
             
             git add .gitattributes
-            git commit -m "Remove *.mp3 from .gitattributes" || echo "No changes"
+            git commit -m "Remove audio extensions from .gitattributes" || echo "No changes"
           else
-            echo "No .gitattributes found, creating clean one..."
-            echo "*.zip filter=lfs diff=lfs merge=lfs -text" > .gitattributes
-            git add .gitattributes
-            git commit -m "Add .gitattributes" || echo "No changes"
+            echo "No .gitattributes found"
           fi
           git push --set-upstream origin ${{ env.BRANCH }}
 
@@ -83,80 +74,58 @@ jobs:
           fi
           ls -lh 000_versebyverse.zip
 
-      - name: Extract zip
+      - name: Move zip to audio folder
         run: |
-          echo "Extracting zip..."
+          echo "Moving zip to docs/audio/Alafasy..."
           mkdir -p docs/audio/Alafasy
-          unzip -o 000_versebyverse.zip -d docs/audio/Alafasy
-          
-          FILE_COUNT=$(find docs/audio/Alafasy -type f -name "*.mp3" | wc -l)
-          echo "Extracted $FILE_COUNT MP3 files"
-          echo "FILE_COUNT=$FILE_COUNT" >> $GITHUB_ENV
-          
-          if [ "$FILE_COUNT" -eq 0 ]; then
-            echo "ERROR: No MP3 files found!"
-            exit 1
-          fi
+          mv 000_versebyverse.zip docs/audio/Alafasy/
+          ls -lh docs/audio/Alafasy/
 
-      - name: Abort if file exceeds 100 MB
-        run: |
-          set -e
-          bigfile=$(find docs/audio/Alafasy -type f -size +99M -print -quit || true)
-          if [ -n "$bigfile" ]; then
-            echo "ERROR: File exceeds 100MB limit: $bigfile"
-            exit 1
-          else
-            echo "All files are under 100MB limit"
-          fi
-
-      - name: Debug Check Git Attributes
-        run: |
-          echo "Checking if mp3 files are ignored..."
-          SAMPLE_FILE=$(find docs/audio/Alafasy -name "*.mp3" | head -1)
-          echo "Sample file: $SAMPLE_FILE"
-          git check-ignore -v "$SAMPLE_FILE" && echo "File is ignored!" || echo "File is NOT ignored"
-          echo "Checking git attributes..."
-          git check-attr -a "$SAMPLE_FILE"
-          echo "Git status..."
-          git status --short | head -20
-
-      - name: Add and commit extracted files
+      - name: Add and commit zip file
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          echo "Adding files..."
-          git add -f docs/audio/Alafasy 000_versebyverse.zip
+          echo "Adding zip file..."
+          git add -f docs/audio/Alafasy/000_versebyverse.zip
           
           echo "Verifying staged files..."
-          STAGED_COUNT=$(git diff --cached --name-only | grep "\.mp3$" | wc -l)
-          echo "Staged $STAGED_COUNT MP3 files"
+          git status --short
           
-          if [ "$STAGED_COUNT" -eq 0 ]; then
-            echo "ERROR: No files staged! Check debug logs above."
+          if git diff --cached --quiet; then
+            echo "ERROR: No files staged!"
             exit 1
           fi
           
-          git commit -m "Add Alafasy 128kbps audio (RAW Git storage)"
+          git commit -m "Add Alafasy audio zip (Raw Git storage)"
+          
           echo "Pushing to branch ${{ env.BRANCH }}..."
-          git push origin HEAD
+          for i in 1 2 3; do
+            if git push origin HEAD; then
+              echo "Push succeeded"
+              break
+            else
+              echo "Push attempt $i failed, retrying in 10s..."
+              sleep 10
+            fi
+          done
 
-      - name: Verify Remote Files
+      - name: Verify Remote File
         run: |
-          echo "Verifying files exist on remote..."
+          echo "Verifying zip exists on remote..."
           git fetch origin ${{ env.BRANCH }}
-          REMOTE_COUNT=$(git ls-tree -r --name-only origin/${{ env.BRANCH }} docs/audio/Alafasy | grep "\.mp3$" | wc -l)
-          echo "Remote branch has $REMOTE_COUNT MP3 files"
-          if [ "$REMOTE_COUNT" -eq 0 ]; then
-            echo "CRITICAL: No files found on remote!"
+          REMOTE_FILE=$(git ls-tree -r --name-only origin/${{ env.BRANCH }} docs/audio/Alafasy | grep "000_versebyverse.zip" || true)
+          if [ -z "$REMOTE_FILE" ]; then
+            echo "CRITICAL: Zip file not found on remote!"
             exit 1
+          else
+            echo "Remote file found: $REMOTE_FILE"
           fi
 
       - name: Create Pull Request
         uses: actions/github-script@v6
         env:
           BRANCH: ${{ env.BRANCH }}
-          FILE_COUNT: ${{ env.FILE_COUNT }}
         with:
           script: |
             const owner = context.repo.owner;
@@ -164,24 +133,23 @@ jobs:
             const base = 'copilot/add-dynamic-verse-selection';
             const head = process.env.BRANCH;
 
-            const title = `Add Alafasy Audio (Raw Storage) - ${head}`;
+            const title = `Add Alafasy Audio Zip (Raw Storage) - ${head}`;
             const body = [
-              "## Audio Import (Raw Git Storage)",
+              "## 📦 Audio Import (Zip Archive)",
               "",
-              "This PR adds Alafasy 128kbps verse-by-verse audio files.",
+              "This PR adds the Alafasy 128kbps audio archive.",
               "",
               "### Details",
-              `- Target Branch: \`${base}\``,
-              `- Files Added: ${process.env.FILE_COUNT} MP3s`,
-              `- Storage Type: Raw Git Blobs (No LFS)`,
+              `- **Target Branch:** \`${base}\``,
+              `- **File:** \`docs/audio/Alafasy/000_versebyverse.zip\``,
+              `- **Storage Type:** Raw Git Blob (No LFS)`,
               "",
-              "### Important",
-              "- Files are stored directly in Git history.",
-              "- Ensure no single file exceeds 100MB (verified).",
-              "- Monitor repository size (GitHub soft limit: 1GB).",
+              "### ⚠️ Important",
+              "- File is stored directly in Git history.",
+              "- Application must extract zip at runtime/build.",
               "",
               "### Checklist",
-              "- [ ] Verify audio plays correctly",
+              "- [ ] Verify app can extract and play audio",
               "- [ ] Confirm repo size is acceptable"
             ].join("\n");
 
