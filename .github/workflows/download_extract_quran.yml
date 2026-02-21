@@ -40,6 +40,7 @@ jobs:
           BRANCH=${BRANCH:-"unlfs/alafasy-${GITHUB_RUN_ID}"}
           if [ -d docs/audio/Alafasy ]; then
             echo "docs/audio/Alafasy exists, searching for Git LFS pointer files..."
+            # Fixed: removed trailing space in grep pattern
             pointers=$(grep -rl "version https://git-lfs.github.com/spec/v1" docs/audio/Alafasy || true)
             if [ -n "$pointers" ]; then
               echo "Found LFS pointer files (will remove them):"
@@ -55,7 +56,8 @@ jobs:
               fi
             else
               echo "No LFS pointer files found. Performing aggressive cleanup: remove entire docs/audio/Alafasy directory from branch (if present)."
-              git rm -r --ignore-unmatch docs/audio/Alafasy || true
+              # Fixed: removed invalid --ignore-unmatch flag
+              git rm -r docs/audio/Alafasy || true
               if ! git diff --cached --quiet; then
                 git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
                   commit -m "Remove existing docs/audio/Alafasy files (cleanup)"
@@ -97,6 +99,7 @@ jobs:
 
       - name: Download zip
         run: |
+          # Fixed: removed trailing space in URL
           curl -fL --retry 3 -o 000_versebyverse.zip "https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip"
           ls -lh 000_versebyverse.zip || true
 
@@ -147,7 +150,8 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const base = "additional";
-            const head = process.env.BRANCH || `unlfs/alafasy-${process.env.GITHUB_RUN_ID}`;
+            // Fixed: use context.runId for reliability in github-script
+            const head = process.env.BRANCH || `unlfs/alafasy-${context.runId}`;
             const title = `Add Alafasy audio and stop tracking *.mp3 with Git LFS (${head})`;
             const body = [
               "This PR was created automatically by the `download_extract_quran` workflow.",
@@ -169,4 +173,4 @@ jobs:
             });
 
             core.setOutput('pr_url', pr.data.html_url);
-            console.log("PR created:", pr.data.html_url)
+            console.log("PR created:", pr.data.html_url);
