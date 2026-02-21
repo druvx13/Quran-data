@@ -8,7 +8,7 @@
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
   font-size:16px;background:#fff;color:#111;line-height:1.6}
-header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
 header a:hover{text-decoration:underline}
 main{padding:16px;max-width:900px;margin:0 auto}
@@ -50,244 +50,307 @@ nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
 footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-list{display:flex;flex-wrap:wrap;gap:4px;max-height:140px;overflow-y:auto;padding:2px}
+.vc-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.vc-item label{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:2px 6px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.9em;color:#1a3a5c;user-select:none}
+.vc-item label:hover{background:#dde8f2}
+.vc-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.vc-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){.vc-list{max-height:120px}.vc-controls button{min-height:44px}}
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a></header>
+<header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html' selected>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select></header>
 <main>
 <h1>Surah 87: Al-A'la (The Most High)</h1>
+<details class='verse-chooser' open><summary><span class='vc-title'>&#x2714; Verse Filter (19 verses)</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-controls'><button onclick='vcSelectAll()'>Select All</button><button onclick='vcClearAll()'>Clear All</button></div><div class='vc-list' id='vc-list'><span class='vc-item'><input type='checkbox' id='vc-1' data-ayah='1' checked><label for='vc-1'>1</label></span><span class='vc-item'><input type='checkbox' id='vc-2' data-ayah='2' checked><label for='vc-2'>2</label></span><span class='vc-item'><input type='checkbox' id='vc-3' data-ayah='3' checked><label for='vc-3'>3</label></span><span class='vc-item'><input type='checkbox' id='vc-4' data-ayah='4' checked><label for='vc-4'>4</label></span><span class='vc-item'><input type='checkbox' id='vc-5' data-ayah='5' checked><label for='vc-5'>5</label></span><span class='vc-item'><input type='checkbox' id='vc-6' data-ayah='6' checked><label for='vc-6'>6</label></span><span class='vc-item'><input type='checkbox' id='vc-7' data-ayah='7' checked><label for='vc-7'>7</label></span><span class='vc-item'><input type='checkbox' id='vc-8' data-ayah='8' checked><label for='vc-8'>8</label></span><span class='vc-item'><input type='checkbox' id='vc-9' data-ayah='9' checked><label for='vc-9'>9</label></span><span class='vc-item'><input type='checkbox' id='vc-10' data-ayah='10' checked><label for='vc-10'>10</label></span><span class='vc-item'><input type='checkbox' id='vc-11' data-ayah='11' checked><label for='vc-11'>11</label></span><span class='vc-item'><input type='checkbox' id='vc-12' data-ayah='12' checked><label for='vc-12'>12</label></span><span class='vc-item'><input type='checkbox' id='vc-13' data-ayah='13' checked><label for='vc-13'>13</label></span><span class='vc-item'><input type='checkbox' id='vc-14' data-ayah='14' checked><label for='vc-14'>14</label></span><span class='vc-item'><input type='checkbox' id='vc-15' data-ayah='15' checked><label for='vc-15'>15</label></span><span class='vc-item'><input type='checkbox' id='vc-16' data-ayah='16' checked><label for='vc-16'>16</label></span><span class='vc-item'><input type='checkbox' id='vc-17' data-ayah='17' checked><label for='vc-17'>17</label></span><span class='vc-item'><input type='checkbox' id='vc-18' data-ayah='18' checked><label for='vc-18'>18</label></span><span class='vc-item'><input type='checkbox' id='vc-19' data-ayah='19' checked><label for='vc-19'>19</label></span></div></div></details>
 <div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
-<tr class='ayah-sep'><td colspan='2'>Ayah 1</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>سَبِّحِ اسمَ رَبِّكَ الأَعلَى</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087001.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Sabbi<u>h</u>i isma rabbika alaAAl<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Sabbihisma Rabbikal A'laa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Praise the name of thy Lord the Most High,</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Glorify the name of thy Guardian-Lord Most High,</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Exalt the name of your Lord, the Most High,</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Declare the transcendence of your Lord Who is High above His creation, by uttering His Name when you remember and revere Him.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>तसबीह करो, अपने सर्वाच्च रब के नाम की,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>ऐ रसूल अपने आलीशान परवरदिगार के नाम की तस्बीह करो</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>अपने उस पानलहार की पवित्रता का वर्णन करें, जो अपनी सृष्टि के ऊपर है, उसे याद करते और उसका महिमामंडन करते समय अपनी ज़बान से उसका नाम लेते हुए।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 2</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>الَّذي خَلَقَ فَسَوّىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087002.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Alla<u>th</u>ee khalaqa fasaww<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Allazee khalaqa fasawwaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Who createth, then disposeth;</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Who hath created, and further, given order and proportion;</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Who created and proportioned</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The One Who created man in due proportion and balanced his stature.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिसने पैदा किया, फिर ठीक-ठाक किया,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>जिसने (हर चीज़ को) पैदा किया</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जिसने इनसान को ठीक-ठाक पैदा किया और उसके क़द को सुगठित और सानुपातिक बनाया।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 3</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَالَّذي قَدَّرَ فَهَدىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087003.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>lla<u>th</u>ee qaddara fahad<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wallazee qaddara fahadaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Who measureth, then guideth;</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Who hath ordained laws. And granted guidance;</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And who destined and [then] guided</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The One Who determined for all created things their species, types and attributes and Who guided every creation to what is appropriate and suitable for it.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिसने निर्धारित किया, फिर मार्ग दिखाया,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और दुरूस्त किया और जिसने (उसका) अन्दाज़ा मुक़र्रर किया फिर राह बतायी</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जिसने जीवों के प्रकार, उनके वर्गों, जातियों और विशेषताओं का निर्धारण किया, और प्रत्येक प्राणी को उस चीज़ की ओर निर्देशित किया, जो उसके उपयुक्त है और उसके साथ मेल खाती है।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 4</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَالَّذي أَخرَجَ المَرعىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087004.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>lla<u>th</u>ee akhraja almarAA<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wallazeee akhrajal mar'aa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Who bringeth forth the pasturage,</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>And Who bringeth out the (green and luscious) pasture,</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And who brings out the pasture</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The One Who brought out from the earth what your animals graze on.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिसने वनस्पति उगाई,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और जिसने (हैवानात के लिए) चारा उगाया</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और जिसने धरती से चारा उगाया, जिसे तुम्हारे जानवर चरते हैं।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 5</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>فَجَعَلَهُ غُثاءً أَحوىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087005.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>FajaAAalahu ghuth<u>a</u>an a<u>h</u>w<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Faja'alahoo ghusaaa'an ahwaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Then turneth it to russet stubble.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>And then doth make it (but) swarthy stubble.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And [then] makes it black stubble.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The He made it into dry blackish straw after it had been green and fresh.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>फिर उसे ख़ूब घना और हरा-भरा कर दिया</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>फिर ख़ुश्क उसे सियाह रंग का कूड़ा कर दिया</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>फिर उसे काले रंग की सूखी घास बना दी, जबकि वह पहले हरी ताज़ी (घास) थी।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 6</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>سَنُقرِئُكَ فَلا تَنسىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087006.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Sanuqrioka fal<u>a</u> tans<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Sanuqri'uka falaa tansaaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>We shall make thee read (O Muhammad) so that thou shalt not forget</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>By degrees shall We teach thee to declare (the Message), so thou shalt not forget,</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>We will make you recite, [O Muhammad], and you will not forget,</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>I will teach you, O Messenger, the Qur’ān, and gather it in your chest so you do not forget it. So do not race with Gabriel in the recitation as you used to do with the desire that you do not forget it.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हम तुम्हें पढ़ा देंगे, फिर तुम भूलोगे नहीं</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>हम तुम्हें (ऐसा) पढ़ा देंगे कि कभी भूलो ही नहीं</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>(ऐ रसूल) हम आपको क़ुरआन पढ़ा देंगे और इसे आपके सीने में इकट्ठा कर देंगे और आप इसे कभी नहीं भूलेंगे। इसलिए इसके पढ़ने में जिबरील से आगे ने बढ़ें, जैसा कि आप भूलने के डर से पहले किया करते थे।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 7</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِلّا ما شاءَ اللَّهُ ۚ إِنَّهُ يَعلَمُ الجَهرَ وَما يَخفىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087007.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ill<u>a</u> m<u>a</u> sh<u>a</u>a All<u>a</u>hu innahu yaAAlamu aljahra wam<u>a</u> yakhf<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Illaa maa shaaa'al laah; innahoo ya'lamul jahra wa maa yakhfaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Save that which Allah willeth. Lo! He knoweth the disclosed and that which still is hidden;</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Except as Allah wills: For He knoweth what is manifest and what is hidden.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Except what Allah should will. Indeed, He knows what is declared and what is hidden.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Except for what Allah wishes you to forget for some reason. He (may He be glorified) knows what is made public and what is hidden. Nothing of that is hidden from Him.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>बात यह है कि अल्लाह की इच्छा ही क्रियान्वित है। निश्चय ही वह जानता है खुले को भी और उसे भी जो छिपा रहे</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>मगर जो ख़ुदा चाहे (मन्सूख़ कर दे) बेशक वह खुली बात को भी जानता है और छुपे हुए को भी</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>सिवाय इसके कि अल्लाह यह चाहे कि किसी हिकमत के तहत आप उसमें से कोई बात भूल जाएँ। निश्चय अल्लाह खुली तथा छिपी सभी बातों को जानता है। उससे इसमें से कोई बात छिपी नहीं है।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 8</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَنُيَسِّرُكَ لِليُسرىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087008.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wanuyassiruka lilyusr<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa nu-yassiruka lilyusraa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>And We shall ease thy way unto the state of ease.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>And We will make it easy for thee (to follow) the simple (Path).</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And We will ease you toward ease.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>I will make it easy for you to do actions that please Allah and enter you into Paradise.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हम तुम्हें सहज ढंग से उस चीज़ की पात्र बना देंगे जो सहज एवं मृदुल (आरामदायक) है</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और हम तुमको आसान तरीके की तौफ़ीक़ देंगे</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और हम आपके लिए जन्नत में दाख़िल करने वाले ऐसे कार्य करना आसान कर देंगे, जो अल्लाह को प्रसन्न करने वाले हैं।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 9</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>فَذَكِّر إِن نَفَعَتِ الذِّكرىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087009.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<u>th</u>akkir in nafaAAati a<b>l</b><u>thth</u>ikr<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Fazakkir in nafa'atizzikraa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Therefor remind (men), for of use is the reminder.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Therefore give admonition in case the admonition profits (the hearer).</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>So remind, if the reminder should benefit;</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>So give counsel to people with the Qur’ān that I reveal to you and remind them as long as the reminder is heard.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>अतः नसीहत करो, यदि नसीहत लाभप्रद हो!</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>तो जहाँ तक समझाना मुफ़ीद हो समझते रहो</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>अतः आप लोगों को उस क़ुरआन के द्वारा नसीहत करते रहें, जिसकी हम आपकी ओर वह़्य (प्रकाशना) करते हैं, तथा जब तक उपदेश सुनी जाती है, तब तक उन्हें उपदेश देते रहें।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 10</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>سَيَذَّكَّرُ مَن يَخشىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087010.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Saya<u>thth</u>akkaru man yakhsh<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Sa yazzakkaru maiyakhshaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>He will heed who feareth,</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>The admonition will be received by those who fear (Allah):</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>He who fears [Allah] will be reminded.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The one who fears Allah will pay heed to your counsel, because he is the one who benefits from counsel.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>नसीहत हासिल कर लेगा जिसको डर होगा,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>जो खौफ रखता हो वह तो फौरी समझ जाएगा</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>आपके उपदेशों से वही व्यक्ति सीख ग्रहण करेगा, जो अल्लाह से डरता है। क्योंकि वही उपदेश से लाभान्वित होता है।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 11</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَيَتَجَنَّبُهَا الأَشقَى</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087011.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wayatajannabuh<u>a</u> alashq<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa yatajannabuhal ashqaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>But the most hapless will flout it,</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>But it will be avoided by those most unfortunate ones,</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>But the wretched one will avoid it -</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The disbeliever will keep away and alienate himself from the counsel, because he is the most wretched person in the afterlife as he will enter the Fire.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>किन्तु उससे कतराएगा वह अत्यन्त दुर्भाग्यवाला,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और बदबख्त उससे पहलू तही करेगा</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और काफ़िर उपदेश से दूर और अलग रहेगा, क्योंकि वह आख़िरत में जहन्नम में दाखिल होने के कारण लोगों में सबसे बड़ा अभागा ठहरेगा।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 12</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>الَّذي يَصلَى النّارَ الكُبرىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087012.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Alla<u>th</u>ee ya<u>s</u>l<u>a</u> a<b>l</b>nn<u>a</u>ra alkubr<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Allazee yaslan Naaral kubraa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>He who will be flung to the great Fire</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Who will enter the Great Fire,</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>[He] who will [enter and] burn in the greatest Fire,</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The one who will enter the great Fire of the afterlife to suffer and bear its heat forever.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जो बड़ी आग में पड़ेगा,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>जो (क़यामत में) बड़ी (तेज़) आग में दाख़िल होगा</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जो आख़िरत की सबसे बड़ी आग में दाखिल होगा और हमेशा के लिए उसकी तपिश और गर्मी को झेलेगा।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 13</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>ثُمَّ لا يَموتُ فيها وَلا يَحيىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087013.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Thumma l<u>a</u> yamootu feeh<u>a</u> wal<u>a</u> ya<u>h</u>y<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Summa laa yamootu feehaa wa laa yahyaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Wherein he will neither die nor live.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>In which they will then neither die nor live.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Neither dying therein nor living.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Then he will remain forever in the Fire without dying therein and being relieved of the punishment he suffers from, and without living a good and decent life.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>फिर वह उसमें न मरेगा न जिएगा</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>फिर न वहाँ मरेगा ही न जीयेगा</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>फिर वह हमेशा के लिए जहन्नम में रहेगा, न तो उसमें मरेगा कि उस यातना से आराम पा जाए, जो वह झेल रहा होगा, और न ही वह एक अच्छा और सम्मानजनक जीवन जिएगा।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 14</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>قَد أَفلَحَ مَن تَزَكّىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087014.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Qad afla<u>h</u>a man tazakk<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Qad aflaha man tazakkaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>He is successful who groweth,</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>But those will prosper who purify themselves,</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>He has certainly succeeded who purifies himself</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The one who purified himself from idolatry and sins has attained the objective.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>सफल हो गया वह जिसने अपने आपको निखार लिया,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>वह यक़ीनन मुराद दिली को पहुँचा जो (शिर्क से) पाक हो</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>वह व्यक्ति सफल हो गया, जिसने अपने आपको शिर्क और गुनाहों से पाक कर लिया।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 15</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَذَكَرَ اسمَ رَبِّهِ فَصَلّىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087015.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<u>th</u>akara isma rabbihi fa<u>s</u>all<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa zakaras ma Rabbihee fasallaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>And remembereth the name of his Lord, so prayeth,</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>And glorify the name of their Guardian-Lord, and (lift their hearts) in prayer.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And mentions the name of his Lord and prays.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Who remembered his Lord by the various forms of remembrance that He ordained. Who discharged the prayer in the required manner.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>और अपने रब के नाम का स्मरण किया, अतः नमाज़ अदा की</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और अपने परवरदिगार का ज़िक्र करता और नमाज़ पढ़ता रहा</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और अपने पालनहार को, उसके निर्धारित किए हुए अज़कार (दुआओं) के साथ याद किया और उसी तरीक़े से नमाज़ पढ़ी, जिस तरीक़े से पढ़ना आवश्यक है।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 16</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>بَل تُؤثِرونَ الحَياةَ الدُّنيا</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087016.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Bal tuthiroona al<u>h</u>ay<u>a</u>ta a<b>l</b>dduny<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Bal tu'siroonal hayaatad dunyaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>But ye prefer the life of the world</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Nay (behold), ye prefer the life of this world;</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>But you prefer the worldly life,</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>But, you give preference to the worldly life and prefer it over the afterlife despite the huge disparity between them.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>नहीं, बल्कि तुम तो सांसारिक जीवन को प्राथमिकता देते हो,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>मगर तुम लोग दुनियावी ज़िन्दगी को तरजीह देते हो</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>बल्कि तुम दुनिया के जीवन को प्रधान रखते हो और उसे आख़िरत पर वरीयता देते हो, हालाँकि दोनों के बीच भारी असमानता है।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 17</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَالآخِرَةُ خَيرٌ وَأَبقىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087017.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>l<u>a</u>khiratu khayrun waabq<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wal Aakhiratu khairunw wa abqaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Although the Hereafter is better and more lasting.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>But the Hereafter is better and more enduring.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>While the Hereafter is better and more enduring.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The Hereafter is indeed, better and superior to the world and the enjoyments and pleasures it contains, and it is more lasting, because the bliss it contains does not ever end.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हालाँकि आख़िरत अधिक उत्तम और शेष रहनेवाली है</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>हालॉकि आख़ोरत कहीं बेहतर और देर पा है</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>हालाँकि आख़िरत अधिक उत्तम और दुनिया तथा उसके आनंदों एवं सुख-सामग्रियों से बेहतर और अधिक स्थायी है, क्योंकि उसकी नेमतें कभी समाप्त नहीं होंगी।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 18</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِنَّ هٰذا لَفِي الصُّحُفِ الأولىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087018.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna h<u>atha</u> lafee a<b>l</b><u>ss</u>u<u>h</u>ufi alool<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Inna haazaa lafis suhu fil oolaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Lo! This is in the former scrolls.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>And this is in the Books of the earliest (Revelation),-</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Indeed, this is in the former scriptures,</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>These instructions and stories that I mentioned to you are in the scriptures revealed before you.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>निस्संदेह यही बात पहले की किताबों में भी है;</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>बेशक यही बात अगले सहीफ़ों</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>ये आदेश और समाचार, जिनका हमने आपसे उल्लेख किया है, निश्चय क़ुरआन से पहले उतरने वाले सह़ीफ़ों (दिव्य ग्रंथों) में भी मौजूद थे।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 19</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>صُحُفِ إِبراهيمَ وَموسىٰ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087019.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'><u>S</u>u<u>h</u>ufi ibr<u>a</u>heema wamoos<u>a</u></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Suhufi Ibraaheema wa Moosaa</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>The Books of Abraham and Moses.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>The Books of Abraham and Moses.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>The scriptures of Abraham and Moses.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>These are the scriptures revealed to Abraham and Moses (peace be upon them).</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>इबराईम और मूसा की किताबों में</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>इबराहीम और मूसा के सहीफ़ों में भी है</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>ये इबराहीम और मूसा अलैहिमस्सलाम पर उतरने वाले सह़ीफ़े हैं।</td></tr>
+<tr class='ayah-sep' data-ayah='1'><td colspan='2'>Ayah 1</td></tr>
+<tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>سَبِّحِ اسمَ رَبِّكَ الأَعلَى</td></tr>
+<tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087001.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Sabbi<u>h</u>i isma rabbika alaAAl<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='1'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Sabbihisma Rabbikal A'laa</td></tr>
+<tr class='trans' data-ayah='1'><td class='label'>English (Pickthall)</td><td>Praise the name of thy Lord the Most High,</td></tr>
+<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td>Glorify the name of thy Guardian-Lord Most High,</td></tr>
+<tr class='trans-sahih' data-ayah='1'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Exalt the name of your Lord, the Most High,</td></tr>
+<tr class='eng-abridged' data-ayah='1'><td class='label'>English (Abridged Expl.)</td><td>Declare the transcendence of your Lord Who is High above His creation, by uttering His Name when you remember and revere Him.</td></tr>
+<tr class='hindi' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>तसबीह करो, अपने सर्वाच्च रब के नाम की,</td></tr>
+<tr class='hindi-suhail' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>ऐ रसूल अपने आलीशान परवरदिगार के नाम की तस्बीह करो</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>अपने उस पानलहार की पवित्रता का वर्णन करें, जो अपनी सृष्टि के ऊपर है, उसे याद करते और उसका महिमामंडन करते समय अपनी ज़बान से उसका नाम लेते हुए।</td></tr>
+<tr class='ayah-sep' data-ayah='2'><td colspan='2'>Ayah 2</td></tr>
+<tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>الَّذي خَلَقَ فَسَوّىٰ</td></tr>
+<tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087002.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Alla<u>th</u>ee khalaqa fasaww<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='2'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Allazee khalaqa fasawwaa</td></tr>
+<tr class='trans' data-ayah='2'><td class='label'>English (Pickthall)</td><td>Who createth, then disposeth;</td></tr>
+<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td>Who hath created, and further, given order and proportion;</td></tr>
+<tr class='trans-sahih' data-ayah='2'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Who created and proportioned</td></tr>
+<tr class='eng-abridged' data-ayah='2'><td class='label'>English (Abridged Expl.)</td><td>The One Who created man in due proportion and balanced his stature.</td></tr>
+<tr class='hindi' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिसने पैदा किया, फिर ठीक-ठाक किया,</td></tr>
+<tr class='hindi-suhail' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>जिसने (हर चीज़ को) पैदा किया</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जिसने इनसान को ठीक-ठाक पैदा किया और उसके क़द को सुगठित और सानुपातिक बनाया।</td></tr>
+<tr class='ayah-sep' data-ayah='3'><td colspan='2'>Ayah 3</td></tr>
+<tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَالَّذي قَدَّرَ فَهَدىٰ</td></tr>
+<tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087003.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>lla<u>th</u>ee qaddara fahad<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='3'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wallazee qaddara fahadaa</td></tr>
+<tr class='trans' data-ayah='3'><td class='label'>English (Pickthall)</td><td>Who measureth, then guideth;</td></tr>
+<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td>Who hath ordained laws. And granted guidance;</td></tr>
+<tr class='trans-sahih' data-ayah='3'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And who destined and [then] guided</td></tr>
+<tr class='eng-abridged' data-ayah='3'><td class='label'>English (Abridged Expl.)</td><td>The One Who determined for all created things their species, types and attributes and Who guided every creation to what is appropriate and suitable for it.</td></tr>
+<tr class='hindi' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिसने निर्धारित किया, फिर मार्ग दिखाया,</td></tr>
+<tr class='hindi-suhail' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और दुरूस्त किया और जिसने (उसका) अन्दाज़ा मुक़र्रर किया फिर राह बतायी</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जिसने जीवों के प्रकार, उनके वर्गों, जातियों और विशेषताओं का निर्धारण किया, और प्रत्येक प्राणी को उस चीज़ की ओर निर्देशित किया, जो उसके उपयुक्त है और उसके साथ मेल खाती है।</td></tr>
+<tr class='ayah-sep' data-ayah='4'><td colspan='2'>Ayah 4</td></tr>
+<tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَالَّذي أَخرَجَ المَرعىٰ</td></tr>
+<tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087004.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>lla<u>th</u>ee akhraja almarAA<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='4'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wallazeee akhrajal mar'aa</td></tr>
+<tr class='trans' data-ayah='4'><td class='label'>English (Pickthall)</td><td>Who bringeth forth the pasturage,</td></tr>
+<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td>And Who bringeth out the (green and luscious) pasture,</td></tr>
+<tr class='trans-sahih' data-ayah='4'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And who brings out the pasture</td></tr>
+<tr class='eng-abridged' data-ayah='4'><td class='label'>English (Abridged Expl.)</td><td>The One Who brought out from the earth what your animals graze on.</td></tr>
+<tr class='hindi' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिसने वनस्पति उगाई,</td></tr>
+<tr class='hindi-suhail' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और जिसने (हैवानात के लिए) चारा उगाया</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और जिसने धरती से चारा उगाया, जिसे तुम्हारे जानवर चरते हैं।</td></tr>
+<tr class='ayah-sep' data-ayah='5'><td colspan='2'>Ayah 5</td></tr>
+<tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>فَجَعَلَهُ غُثاءً أَحوىٰ</td></tr>
+<tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087005.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>FajaAAalahu ghuth<u>a</u>an a<u>h</u>w<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='5'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Faja'alahoo ghusaaa'an ahwaa</td></tr>
+<tr class='trans' data-ayah='5'><td class='label'>English (Pickthall)</td><td>Then turneth it to russet stubble.</td></tr>
+<tr class='trans-yusuf' data-ayah='5'><td class='label'>English (Yusuf Ali)</td><td>And then doth make it (but) swarthy stubble.</td></tr>
+<tr class='trans-sahih' data-ayah='5'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And [then] makes it black stubble.</td></tr>
+<tr class='eng-abridged' data-ayah='5'><td class='label'>English (Abridged Expl.)</td><td>The He made it into dry blackish straw after it had been green and fresh.</td></tr>
+<tr class='hindi' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>फिर उसे ख़ूब घना और हरा-भरा कर दिया</td></tr>
+<tr class='hindi-suhail' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>फिर ख़ुश्क उसे सियाह रंग का कूड़ा कर दिया</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>फिर उसे काले रंग की सूखी घास बना दी, जबकि वह पहले हरी ताज़ी (घास) थी।</td></tr>
+<tr class='ayah-sep' data-ayah='6'><td colspan='2'>Ayah 6</td></tr>
+<tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>سَنُقرِئُكَ فَلا تَنسىٰ</td></tr>
+<tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087006.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Sanuqrioka fal<u>a</u> tans<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='6'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Sanuqri'uka falaa tansaaa</td></tr>
+<tr class='trans' data-ayah='6'><td class='label'>English (Pickthall)</td><td>We shall make thee read (O Muhammad) so that thou shalt not forget</td></tr>
+<tr class='trans-yusuf' data-ayah='6'><td class='label'>English (Yusuf Ali)</td><td>By degrees shall We teach thee to declare (the Message), so thou shalt not forget,</td></tr>
+<tr class='trans-sahih' data-ayah='6'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>We will make you recite, [O Muhammad], and you will not forget,</td></tr>
+<tr class='eng-abridged' data-ayah='6'><td class='label'>English (Abridged Expl.)</td><td>I will teach you, O Messenger, the Qur’ān, and gather it in your chest so you do not forget it. So do not race with Gabriel in the recitation as you used to do with the desire that you do not forget it.</td></tr>
+<tr class='hindi' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हम तुम्हें पढ़ा देंगे, फिर तुम भूलोगे नहीं</td></tr>
+<tr class='hindi-suhail' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>हम तुम्हें (ऐसा) पढ़ा देंगे कि कभी भूलो ही नहीं</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>(ऐ रसूल) हम आपको क़ुरआन पढ़ा देंगे और इसे आपके सीने में इकट्ठा कर देंगे और आप इसे कभी नहीं भूलेंगे। इसलिए इसके पढ़ने में जिबरील से आगे ने बढ़ें, जैसा कि आप भूलने के डर से पहले किया करते थे।</td></tr>
+<tr class='ayah-sep' data-ayah='7'><td colspan='2'>Ayah 7</td></tr>
+<tr class='arabic' data-ayah='7'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِلّا ما شاءَ اللَّهُ ۚ إِنَّهُ يَعلَمُ الجَهرَ وَما يَخفىٰ</td></tr>
+<tr class='audio' data-ayah='7'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087007.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='7'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ill<u>a</u> m<u>a</u> sh<u>a</u>a All<u>a</u>hu innahu yaAAlamu aljahra wam<u>a</u> yakhf<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='7'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Illaa maa shaaa'al laah; innahoo ya'lamul jahra wa maa yakhfaa</td></tr>
+<tr class='trans' data-ayah='7'><td class='label'>English (Pickthall)</td><td>Save that which Allah willeth. Lo! He knoweth the disclosed and that which still is hidden;</td></tr>
+<tr class='trans-yusuf' data-ayah='7'><td class='label'>English (Yusuf Ali)</td><td>Except as Allah wills: For He knoweth what is manifest and what is hidden.</td></tr>
+<tr class='trans-sahih' data-ayah='7'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Except what Allah should will. Indeed, He knows what is declared and what is hidden.</td></tr>
+<tr class='eng-abridged' data-ayah='7'><td class='label'>English (Abridged Expl.)</td><td>Except for what Allah wishes you to forget for some reason. He (may He be glorified) knows what is made public and what is hidden. Nothing of that is hidden from Him.</td></tr>
+<tr class='hindi' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>बात यह है कि अल्लाह की इच्छा ही क्रियान्वित है। निश्चय ही वह जानता है खुले को भी और उसे भी जो छिपा रहे</td></tr>
+<tr class='hindi-suhail' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>मगर जो ख़ुदा चाहे (मन्सूख़ कर दे) बेशक वह खुली बात को भी जानता है और छुपे हुए को भी</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>सिवाय इसके कि अल्लाह यह चाहे कि किसी हिकमत के तहत आप उसमें से कोई बात भूल जाएँ। निश्चय अल्लाह खुली तथा छिपी सभी बातों को जानता है। उससे इसमें से कोई बात छिपी नहीं है।</td></tr>
+<tr class='ayah-sep' data-ayah='8'><td colspan='2'>Ayah 8</td></tr>
+<tr class='arabic' data-ayah='8'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَنُيَسِّرُكَ لِليُسرىٰ</td></tr>
+<tr class='audio' data-ayah='8'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087008.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='8'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wanuyassiruka lilyusr<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='8'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa nu-yassiruka lilyusraa</td></tr>
+<tr class='trans' data-ayah='8'><td class='label'>English (Pickthall)</td><td>And We shall ease thy way unto the state of ease.</td></tr>
+<tr class='trans-yusuf' data-ayah='8'><td class='label'>English (Yusuf Ali)</td><td>And We will make it easy for thee (to follow) the simple (Path).</td></tr>
+<tr class='trans-sahih' data-ayah='8'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And We will ease you toward ease.</td></tr>
+<tr class='eng-abridged' data-ayah='8'><td class='label'>English (Abridged Expl.)</td><td>I will make it easy for you to do actions that please Allah and enter you into Paradise.</td></tr>
+<tr class='hindi' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हम तुम्हें सहज ढंग से उस चीज़ की पात्र बना देंगे जो सहज एवं मृदुल (आरामदायक) है</td></tr>
+<tr class='hindi-suhail' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और हम तुमको आसान तरीके की तौफ़ीक़ देंगे</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और हम आपके लिए जन्नत में दाख़िल करने वाले ऐसे कार्य करना आसान कर देंगे, जो अल्लाह को प्रसन्न करने वाले हैं।</td></tr>
+<tr class='ayah-sep' data-ayah='9'><td colspan='2'>Ayah 9</td></tr>
+<tr class='arabic' data-ayah='9'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>فَذَكِّر إِن نَفَعَتِ الذِّكرىٰ</td></tr>
+<tr class='audio' data-ayah='9'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087009.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='9'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<u>th</u>akkir in nafaAAati a<b>l</b><u>thth</u>ikr<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='9'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Fazakkir in nafa'atizzikraa</td></tr>
+<tr class='trans' data-ayah='9'><td class='label'>English (Pickthall)</td><td>Therefor remind (men), for of use is the reminder.</td></tr>
+<tr class='trans-yusuf' data-ayah='9'><td class='label'>English (Yusuf Ali)</td><td>Therefore give admonition in case the admonition profits (the hearer).</td></tr>
+<tr class='trans-sahih' data-ayah='9'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>So remind, if the reminder should benefit;</td></tr>
+<tr class='eng-abridged' data-ayah='9'><td class='label'>English (Abridged Expl.)</td><td>So give counsel to people with the Qur’ān that I reveal to you and remind them as long as the reminder is heard.</td></tr>
+<tr class='hindi' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>अतः नसीहत करो, यदि नसीहत लाभप्रद हो!</td></tr>
+<tr class='hindi-suhail' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>तो जहाँ तक समझाना मुफ़ीद हो समझते रहो</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>अतः आप लोगों को उस क़ुरआन के द्वारा नसीहत करते रहें, जिसकी हम आपकी ओर वह़्य (प्रकाशना) करते हैं, तथा जब तक उपदेश सुनी जाती है, तब तक उन्हें उपदेश देते रहें।</td></tr>
+<tr class='ayah-sep' data-ayah='10'><td colspan='2'>Ayah 10</td></tr>
+<tr class='arabic' data-ayah='10'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>سَيَذَّكَّرُ مَن يَخشىٰ</td></tr>
+<tr class='audio' data-ayah='10'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087010.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='10'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Saya<u>thth</u>akkaru man yakhsh<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='10'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Sa yazzakkaru maiyakhshaa</td></tr>
+<tr class='trans' data-ayah='10'><td class='label'>English (Pickthall)</td><td>He will heed who feareth,</td></tr>
+<tr class='trans-yusuf' data-ayah='10'><td class='label'>English (Yusuf Ali)</td><td>The admonition will be received by those who fear (Allah):</td></tr>
+<tr class='trans-sahih' data-ayah='10'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>He who fears [Allah] will be reminded.</td></tr>
+<tr class='eng-abridged' data-ayah='10'><td class='label'>English (Abridged Expl.)</td><td>The one who fears Allah will pay heed to your counsel, because he is the one who benefits from counsel.</td></tr>
+<tr class='hindi' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>नसीहत हासिल कर लेगा जिसको डर होगा,</td></tr>
+<tr class='hindi-suhail' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>जो खौफ रखता हो वह तो फौरी समझ जाएगा</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>आपके उपदेशों से वही व्यक्ति सीख ग्रहण करेगा, जो अल्लाह से डरता है। क्योंकि वही उपदेश से लाभान्वित होता है।</td></tr>
+<tr class='ayah-sep' data-ayah='11'><td colspan='2'>Ayah 11</td></tr>
+<tr class='arabic' data-ayah='11'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَيَتَجَنَّبُهَا الأَشقَى</td></tr>
+<tr class='audio' data-ayah='11'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087011.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='11'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wayatajannabuh<u>a</u> alashq<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='11'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa yatajannabuhal ashqaa</td></tr>
+<tr class='trans' data-ayah='11'><td class='label'>English (Pickthall)</td><td>But the most hapless will flout it,</td></tr>
+<tr class='trans-yusuf' data-ayah='11'><td class='label'>English (Yusuf Ali)</td><td>But it will be avoided by those most unfortunate ones,</td></tr>
+<tr class='trans-sahih' data-ayah='11'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>But the wretched one will avoid it -</td></tr>
+<tr class='eng-abridged' data-ayah='11'><td class='label'>English (Abridged Expl.)</td><td>The disbeliever will keep away and alienate himself from the counsel, because he is the most wretched person in the afterlife as he will enter the Fire.</td></tr>
+<tr class='hindi' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>किन्तु उससे कतराएगा वह अत्यन्त दुर्भाग्यवाला,</td></tr>
+<tr class='hindi-suhail' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और बदबख्त उससे पहलू तही करेगा</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और काफ़िर उपदेश से दूर और अलग रहेगा, क्योंकि वह आख़िरत में जहन्नम में दाखिल होने के कारण लोगों में सबसे बड़ा अभागा ठहरेगा।</td></tr>
+<tr class='ayah-sep' data-ayah='12'><td colspan='2'>Ayah 12</td></tr>
+<tr class='arabic' data-ayah='12'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>الَّذي يَصلَى النّارَ الكُبرىٰ</td></tr>
+<tr class='audio' data-ayah='12'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087012.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='12'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Alla<u>th</u>ee ya<u>s</u>l<u>a</u> a<b>l</b>nn<u>a</u>ra alkubr<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='12'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Allazee yaslan Naaral kubraa</td></tr>
+<tr class='trans' data-ayah='12'><td class='label'>English (Pickthall)</td><td>He who will be flung to the great Fire</td></tr>
+<tr class='trans-yusuf' data-ayah='12'><td class='label'>English (Yusuf Ali)</td><td>Who will enter the Great Fire,</td></tr>
+<tr class='trans-sahih' data-ayah='12'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>[He] who will [enter and] burn in the greatest Fire,</td></tr>
+<tr class='eng-abridged' data-ayah='12'><td class='label'>English (Abridged Expl.)</td><td>The one who will enter the great Fire of the afterlife to suffer and bear its heat forever.</td></tr>
+<tr class='hindi' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जो बड़ी आग में पड़ेगा,</td></tr>
+<tr class='hindi-suhail' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>जो (क़यामत में) बड़ी (तेज़) आग में दाख़िल होगा</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जो आख़िरत की सबसे बड़ी आग में दाखिल होगा और हमेशा के लिए उसकी तपिश और गर्मी को झेलेगा।</td></tr>
+<tr class='ayah-sep' data-ayah='13'><td colspan='2'>Ayah 13</td></tr>
+<tr class='arabic' data-ayah='13'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>ثُمَّ لا يَموتُ فيها وَلا يَحيىٰ</td></tr>
+<tr class='audio' data-ayah='13'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087013.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='13'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Thumma l<u>a</u> yamootu feeh<u>a</u> wal<u>a</u> ya<u>h</u>y<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='13'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Summa laa yamootu feehaa wa laa yahyaa</td></tr>
+<tr class='trans' data-ayah='13'><td class='label'>English (Pickthall)</td><td>Wherein he will neither die nor live.</td></tr>
+<tr class='trans-yusuf' data-ayah='13'><td class='label'>English (Yusuf Ali)</td><td>In which they will then neither die nor live.</td></tr>
+<tr class='trans-sahih' data-ayah='13'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Neither dying therein nor living.</td></tr>
+<tr class='eng-abridged' data-ayah='13'><td class='label'>English (Abridged Expl.)</td><td>Then he will remain forever in the Fire without dying therein and being relieved of the punishment he suffers from, and without living a good and decent life.</td></tr>
+<tr class='hindi' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>फिर वह उसमें न मरेगा न जिएगा</td></tr>
+<tr class='hindi-suhail' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>फिर न वहाँ मरेगा ही न जीयेगा</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>फिर वह हमेशा के लिए जहन्नम में रहेगा, न तो उसमें मरेगा कि उस यातना से आराम पा जाए, जो वह झेल रहा होगा, और न ही वह एक अच्छा और सम्मानजनक जीवन जिएगा।</td></tr>
+<tr class='ayah-sep' data-ayah='14'><td colspan='2'>Ayah 14</td></tr>
+<tr class='arabic' data-ayah='14'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>قَد أَفلَحَ مَن تَزَكّىٰ</td></tr>
+<tr class='audio' data-ayah='14'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087014.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='14'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Qad afla<u>h</u>a man tazakk<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='14'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Qad aflaha man tazakkaa</td></tr>
+<tr class='trans' data-ayah='14'><td class='label'>English (Pickthall)</td><td>He is successful who groweth,</td></tr>
+<tr class='trans-yusuf' data-ayah='14'><td class='label'>English (Yusuf Ali)</td><td>But those will prosper who purify themselves,</td></tr>
+<tr class='trans-sahih' data-ayah='14'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>He has certainly succeeded who purifies himself</td></tr>
+<tr class='eng-abridged' data-ayah='14'><td class='label'>English (Abridged Expl.)</td><td>The one who purified himself from idolatry and sins has attained the objective.</td></tr>
+<tr class='hindi' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>सफल हो गया वह जिसने अपने आपको निखार लिया,</td></tr>
+<tr class='hindi-suhail' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>वह यक़ीनन मुराद दिली को पहुँचा जो (शिर्क से) पाक हो</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>वह व्यक्ति सफल हो गया, जिसने अपने आपको शिर्क और गुनाहों से पाक कर लिया।</td></tr>
+<tr class='ayah-sep' data-ayah='15'><td colspan='2'>Ayah 15</td></tr>
+<tr class='arabic' data-ayah='15'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَذَكَرَ اسمَ رَبِّهِ فَصَلّىٰ</td></tr>
+<tr class='audio' data-ayah='15'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087015.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='15'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<u>th</u>akara isma rabbihi fa<u>s</u>all<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='15'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa zakaras ma Rabbihee fasallaa</td></tr>
+<tr class='trans' data-ayah='15'><td class='label'>English (Pickthall)</td><td>And remembereth the name of his Lord, so prayeth,</td></tr>
+<tr class='trans-yusuf' data-ayah='15'><td class='label'>English (Yusuf Ali)</td><td>And glorify the name of their Guardian-Lord, and (lift their hearts) in prayer.</td></tr>
+<tr class='trans-sahih' data-ayah='15'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And mentions the name of his Lord and prays.</td></tr>
+<tr class='eng-abridged' data-ayah='15'><td class='label'>English (Abridged Expl.)</td><td>Who remembered his Lord by the various forms of remembrance that He ordained. Who discharged the prayer in the required manner.</td></tr>
+<tr class='hindi' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>और अपने रब के नाम का स्मरण किया, अतः नमाज़ अदा की</td></tr>
+<tr class='hindi-suhail' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>और अपने परवरदिगार का ज़िक्र करता और नमाज़ पढ़ता रहा</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>और अपने पालनहार को, उसके निर्धारित किए हुए अज़कार (दुआओं) के साथ याद किया और उसी तरीक़े से नमाज़ पढ़ी, जिस तरीक़े से पढ़ना आवश्यक है।</td></tr>
+<tr class='ayah-sep' data-ayah='16'><td colspan='2'>Ayah 16</td></tr>
+<tr class='arabic' data-ayah='16'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>بَل تُؤثِرونَ الحَياةَ الدُّنيا</td></tr>
+<tr class='audio' data-ayah='16'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087016.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='16'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Bal tuthiroona al<u>h</u>ay<u>a</u>ta a<b>l</b>dduny<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='16'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Bal tu'siroonal hayaatad dunyaa</td></tr>
+<tr class='trans' data-ayah='16'><td class='label'>English (Pickthall)</td><td>But ye prefer the life of the world</td></tr>
+<tr class='trans-yusuf' data-ayah='16'><td class='label'>English (Yusuf Ali)</td><td>Nay (behold), ye prefer the life of this world;</td></tr>
+<tr class='trans-sahih' data-ayah='16'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>But you prefer the worldly life,</td></tr>
+<tr class='eng-abridged' data-ayah='16'><td class='label'>English (Abridged Expl.)</td><td>But, you give preference to the worldly life and prefer it over the afterlife despite the huge disparity between them.</td></tr>
+<tr class='hindi' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>नहीं, बल्कि तुम तो सांसारिक जीवन को प्राथमिकता देते हो,</td></tr>
+<tr class='hindi-suhail' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>मगर तुम लोग दुनियावी ज़िन्दगी को तरजीह देते हो</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>बल्कि तुम दुनिया के जीवन को प्रधान रखते हो और उसे आख़िरत पर वरीयता देते हो, हालाँकि दोनों के बीच भारी असमानता है।</td></tr>
+<tr class='ayah-sep' data-ayah='17'><td colspan='2'>Ayah 17</td></tr>
+<tr class='arabic' data-ayah='17'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَالآخِرَةُ خَيرٌ وَأَبقىٰ</td></tr>
+<tr class='audio' data-ayah='17'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087017.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='17'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>l<u>a</u>khiratu khayrun waabq<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='17'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wal Aakhiratu khairunw wa abqaa</td></tr>
+<tr class='trans' data-ayah='17'><td class='label'>English (Pickthall)</td><td>Although the Hereafter is better and more lasting.</td></tr>
+<tr class='trans-yusuf' data-ayah='17'><td class='label'>English (Yusuf Ali)</td><td>But the Hereafter is better and more enduring.</td></tr>
+<tr class='trans-sahih' data-ayah='17'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>While the Hereafter is better and more enduring.</td></tr>
+<tr class='eng-abridged' data-ayah='17'><td class='label'>English (Abridged Expl.)</td><td>The Hereafter is indeed, better and superior to the world and the enjoyments and pleasures it contains, and it is more lasting, because the bliss it contains does not ever end.</td></tr>
+<tr class='hindi' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हालाँकि आख़िरत अधिक उत्तम और शेष रहनेवाली है</td></tr>
+<tr class='hindi-suhail' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>हालॉकि आख़ोरत कहीं बेहतर और देर पा है</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>हालाँकि आख़िरत अधिक उत्तम और दुनिया तथा उसके आनंदों एवं सुख-सामग्रियों से बेहतर और अधिक स्थायी है, क्योंकि उसकी नेमतें कभी समाप्त नहीं होंगी।</td></tr>
+<tr class='ayah-sep' data-ayah='18'><td colspan='2'>Ayah 18</td></tr>
+<tr class='arabic' data-ayah='18'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِنَّ هٰذا لَفِي الصُّحُفِ الأولىٰ</td></tr>
+<tr class='audio' data-ayah='18'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087018.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='18'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna h<u>atha</u> lafee a<b>l</b><u>ss</u>u<u>h</u>ufi alool<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='18'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Inna haazaa lafis suhu fil oolaa</td></tr>
+<tr class='trans' data-ayah='18'><td class='label'>English (Pickthall)</td><td>Lo! This is in the former scrolls.</td></tr>
+<tr class='trans-yusuf' data-ayah='18'><td class='label'>English (Yusuf Ali)</td><td>And this is in the Books of the earliest (Revelation),-</td></tr>
+<tr class='trans-sahih' data-ayah='18'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Indeed, this is in the former scriptures,</td></tr>
+<tr class='eng-abridged' data-ayah='18'><td class='label'>English (Abridged Expl.)</td><td>These instructions and stories that I mentioned to you are in the scriptures revealed before you.</td></tr>
+<tr class='hindi' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>निस्संदेह यही बात पहले की किताबों में भी है;</td></tr>
+<tr class='hindi-suhail' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>बेशक यही बात अगले सहीफ़ों</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>ये आदेश और समाचार, जिनका हमने आपसे उल्लेख किया है, निश्चय क़ुरआन से पहले उतरने वाले सह़ीफ़ों (दिव्य ग्रंथों) में भी मौजूद थे।</td></tr>
+<tr class='ayah-sep' data-ayah='19'><td colspan='2'>Ayah 19</td></tr>
+<tr class='arabic' data-ayah='19'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>صُحُفِ إِبراهيمَ وَموسىٰ</td></tr>
+<tr class='audio' data-ayah='19'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/087019.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='19'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'><u>S</u>u<u>h</u>ufi ibr<u>a</u>heema wamoos<u>a</u></td></tr>
+<tr class='translit-unicode' data-ayah='19'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Suhufi Ibraaheema wa Moosaa</td></tr>
+<tr class='trans' data-ayah='19'><td class='label'>English (Pickthall)</td><td>The Books of Abraham and Moses.</td></tr>
+<tr class='trans-yusuf' data-ayah='19'><td class='label'>English (Yusuf Ali)</td><td>The Books of Abraham and Moses.</td></tr>
+<tr class='trans-sahih' data-ayah='19'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>The scriptures of Abraham and Moses.</td></tr>
+<tr class='eng-abridged' data-ayah='19'><td class='label'>English (Abridged Expl.)</td><td>These are the scriptures revealed to Abraham and Moses (peace be upon them).</td></tr>
+<tr class='hindi' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>इबराईम और मूसा की किताबों में</td></tr>
+<tr class='hindi-suhail' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>इबराहीम और मूसा के सहीफ़ों में भी है</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>ये इबराहीम और मूसा अलैहिमस्सलाम पर उतरने वाले सह़ीफ़े हैं।</td></tr>
 </tbody></table></div>
 <nav class='chapter-nav'><span><a href='086.html'>&laquo; Surah 86</a></span><span><a href='088.html'>Surah 88 &raquo;</a></span></nav>
 </main>
 <footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</footer>
+<script>
+(function(){
+  var list=document.getElementById('vc-list');
+  if(!list)return;
+  function applyRows(){
+    list.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      document.querySelectorAll('tr[data-ayah="'+cb.dataset.ayah+'"]').forEach(function(tr){
+        tr.style.display=cb.checked?'':'none';
+      });
+    });
+    updateHash();
+  }
+  function updateHash(){
+    var on=[];
+    list.querySelectorAll('input:checked').forEach(function(cb){on.push(+cb.dataset.ayah);});
+    on.sort(function(a,b){return a-b;});
+    var parts=[],i=0;
+    while(i<on.length){
+      var s=on[i],e=s;
+      while(i+1<on.length&&on[i+1]===e+1){i++;e=on[i];}
+      parts.push(s===e?String(s):s+'-'+e);
+      i++;
+    }
+    history.replaceState(null,'',parts.length?'#'+parts.join(','):location.pathname+location.search);
+  }
+  function loadHash(){
+    var h=location.hash.slice(1);
+    if(!h)return;
+    var sel=new Set();
+    h.split(',').forEach(function(p){
+      var m=p.match(/^(\d+)(?:-(\d+))?$/);
+      if(m){var a=+m[1],b=m[2]?+m[2]:a;for(var i=a;i<=b;i++)sel.add(i);}
+    });
+    list.querySelectorAll('input[type=checkbox]').forEach(function(cb){cb.checked=sel.has(+cb.dataset.ayah);});
+    applyRows();
+  }
+  list.addEventListener('change',function(e){if(e.target.type==='checkbox')applyRows();});
+  window.vcSelectAll=function(){list.querySelectorAll('input').forEach(function(cb){cb.checked=true;});applyRows();};
+  window.vcClearAll=function(){list.querySelectorAll('input').forEach(function(cb){cb.checked=false;});applyRows();};
+  loadHash();
+})();
+</script>
 </body>
 </html>
