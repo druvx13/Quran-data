@@ -1,42 +1,166 @@
-name: Download and Extract Alafasy Quran Audio
+name: Redownload & Extract Alafasy Quran Audio (store .mp3 as normal blobs)
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   download-and-extract:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 180
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (do NOT fetch LFS objects)
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: false
+          fetch-depth: 0
+          persist-credentials: true
 
-      - name: Set up Git LFS
-        run: git lfs install
-
-      - name: Download zip
+      - name: Install git-lfs (best-effort)
         run: |
-          curl -fL --retry 3 -o 000_versebyverse.zip \
-            "https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip"
+          sudo apt-get update
+          sudo apt-get install -y git-lfs || true
+          git lfs install --local || true
 
-      - name: Extract zip into Alafasy directory
+      - name: Create work branch
+        id: create_branch
+        run: |
+          BRANCH="unlfs/alafasy-${GITHUB_RUN_ID}"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          git checkout -b "$BRANCH"
+          echo "Created branch $BRANCH"
+
+      - name: Remove Git LFS pointer files in docs/audio/Alafasy (if any)
+        run: |
+          set -e
+          if [ -d docs/audio/Alafasy ]; then
+            echo "Searching for LFS pointer files in docs/audio/Alafasy..."
+            pointers=$(grep -rl "version https://git-lfs.github.com/spec/v1" docs/audio/Alafasy || true)
+            if [ -n "$pointers" ]; then
+              echo "Found pointer files (will remove):"
+              echo "$pointers"
+              echo "$pointers" | xargs -r rm -f
+              git add -A docs/audio/Alafasy || true
+              if ! git diff --cached --quiet; then
+                git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                  commit -m "Remove Git LFS pointer files from docs/audio/Alafasy"
+                git push --set-upstream origin "$BRANCH"
+              else
+                echo "No staged changes after pointer removal"
+              fi
+            else
+              echo "No LFS pointer files found in docs/audio/Alafasy"
+            fi
+          else
+            echo "docs/audio/Alafasy does not exist; nothing to clean"
+          fi
+
+      - name: Remove only the '*.mp3' rule from .gitattributes (preserve other rules)
+        run: |
+          set -e
+          if [ -f .gitattributes ]; then
+            echo "Before .gitattributes:"
+            sed -n '1,200p' .gitattributes || true
+
+            awk '!/^\s*\*\.mp3\b/' .gitattributes > .gitattributes.tmp || true
+            mv .gitattributes.tmp .gitattributes || true
+
+            # Best-effort update via git-lfs if available
+            git lfs untrack "*.mp3" || true
+
+            echo "After .gitattributes:"
+            sed -n '1,200p' .gitattributes || true
+
+            git add .gitattributes || true
+            if ! git diff --cached --quiet; then
+              git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                commit -m "Stop tracking *.mp3 with Git LFS (prepare to store mp3s as normal blobs)"
+              git push origin HEAD
+            else
+              echo "No .gitattributes changes to commit"
+            fi
+          else
+            echo ".gitattributes not present; nothing to change"
+          fi
+
+      - name: Download Alafasy zip
+        run: |
+          curl -fL --retry 3 -o 000_versebyverse.zip "https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip"
+          ls -lh 000_versebyverse.zip || true
+
+      - name: Extract zip into docs/audio/Alafasy
         run: |
           mkdir -p docs/audio/Alafasy
           unzip -o 000_versebyverse.zip -d docs/audio/Alafasy
+          echo "Extracted file count:"
+          find docs/audio/Alafasy -type f | wc -l
+          echo "Sample largest files (if any):"
+          find docs/audio/Alafasy -type f -printf '%p %s\n' | sort -k2 -n | tail -n 20 || true
 
-      - name: Commit zip and extracted files
+      - name: Abort if any extracted file >= 100 MB (GitHub limit)
+        run: |
+          set -e
+          bigfile=$(find docs/audio/Alafasy -type f -size +99M -print -quit || true)
+          if [ -n "$bigfile" ]; then
+            echo "ERROR: Found file >=100MB: $bigfile"
+            echo "GitHub rejects files >=100MB. Move large files to Releases/S3 or split them."
+            exit 1
+          else
+            echo "No file >=100MB found."
+          fi
+
+      - name: Add and renormalize, commit extracted files (mp3s as normal blobs)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add 000_versebyverse.zip docs/audio/Alafasy/
+
+          git add --renormalize docs/audio/Alafasy 000_versebyverse.zip || true
+
           if git diff --cached --quiet; then
-            echo "Nothing to commit"
+            echo "Nothing to commit (no staged changes)"
           else
-            git commit -m "Add Alafasy 128kbps Quran audio zip and extracted files"
-            git push
+            echo "Files staged (first 200 lines):"
+            git --no-pager diff --cached --name-status | sed -n '1,200p'
+            git commit -m "Add Alafasy 128kbps audio (store .mp3 as normal Git blobs) and zip"
+            for i in 1 2 3; do
+              git push origin HEAD && break || sleep 5
+            done
           fi
-          
+
+      - name: Create a Pull Request for review
+        uses: actions/github-script@v6
+        env:
+          BRANCH: ${{ env.BRANCH }}
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const repoInfo = await github.rest.repos.get({ owner, repo });
+            const base = repoInfo.data.default_branch || 'main';
+            const head = process.env.BRANCH || `unlfs/alafasy-${process.env.GITHUB_RUN_ID}`;
+
+            const title = `Add Alafasy audio as normal .mp3 files (${head})`;
+            const body = [
+              "This PR was created automatically by the workflow to add Alafasy audio mp3 files as normal Git blobs.",
+              "",
+              "- *.mp3 removed from LFS tracking for this branch.",
+              "- Extracted audio files added under docs/audio/Alafasy.",
+              "",
+              "Please review repository size implications and confirm before merging."
+            ].join("\n");
+
+            const pr = await github.rest.pulls.create({
+              owner,
+              repo,
+              title,
+              head,
+              base,
+              body
+            });
+
+            console.log("PR created:", pr.data.html_url);
