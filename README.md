@@ -1,8 +1,22 @@
-# Qur'an — Hindi & English PDF Translations using XeLaTeX
+# Qur'an — Multi-Translation Study Website & PDF Typesetting
 
-Generate typeset PDF editions of the Qur'an with Arabic text alongside Hindi and English translations, plus a browsable HTML website for each Surah.
+A static HTML website (GitHub Pages) for side-by-side study of the Qur'an — Arabic text, audio recitation, two transliterations, three English translations, an English explanation, two Hindi translations, and a Hindi Tafsir — plus typeset PDF editions generated with XeLaTeX.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-brightgreen)](https://druvx13.github.io/Quran-data/)
+
+---
+
+## Live Website
+
+[**https://druvx13.github.io/Quran-data/**](https://druvx13.github.io/Quran-data/)
+
+Features:
+- **114 Surah pages** — every ayah displayed with all content streams
+- **Full-text search** (`search.html`) — searches Arabic, transliteration, Yusuf Ali translation, and Hindi Tafsir; results paginated with match highlighting
+- **Surah navigator** — jump to any surah via a dropdown in the page header
+- **Verse & Content Filter** — collapsible widget per surah to show specific verse ranges and toggle individual content rows on/off
+- **Audio recitation** — per-ayah audio player (Mishary Rashid Alafasy, 128 kbps), streamed from Hugging Face Space
 
 ---
 
@@ -11,9 +25,10 @@ Generate typeset PDF editions of the Qur'an with Arabic text alongside Hindi and
 | Component | Technology |
 |-----------|-----------|
 | PDF typesetting | [XeLaTeX](https://xetex.sourceforge.net/) with `polyglossia`, `fontspec`, `quran` packages |
-| Script language | Python 3 |
+| Script language | Python 3.6+ |
 | Web output | Static HTML (GitHub Pages via `docs/`) |
 | Build system | GNU Make |
+| Audio hosting | [Hugging Face Space](https://huggingface.co/spaces/druvx13/quran-audio-alafasy) (`druvx13-quran-audio-alafasy.hf.space`) |
 
 ---
 
@@ -24,28 +39,49 @@ Generate typeset PDF editions of the Qur'an with Arabic text alongside Hindi and
 ├── src/                    # Python generator scripts
 │   ├── gentexforquran.py   # Generate intermediate LaTeX content files
 │   ├── gentxtforquran.py   # Generate formatted plain-text output files
-│   └── gendocshtml.py      # Generate static HTML documentation (docs/)
-├── data/                   # Source translation data (input)
-│   ├── ar.quran.txt        # Arabic Uthmani script (one line per ayah)
-│   ├── hi.farooq.txt       # Hindi – Muhammad Farooq Khan & Muhammad Ahmed
-│   ├── hi.hindi.txt        # Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi
-│   ├── en.sahih.txt        # English – Saheeh International
-│   ├── en.pickthall.txt    # English – Mohammed Marmaduke Pickthall
-│   ├── en.transliteration.txt  # English transliteration (Tanzil.net)
-│   ├── suranamemal.txt     # Surah name data (Malayalam script)
-│   └── surna.txt           # Surah name reference data
+│   └── gendocshtml.py      # Generate static HTML docs (docs/) + search-data.js
+├── data/                   # Source translation data (input — do not modify)
+│   ├── ar.quran.txt                         # Arabic Uthmani script (one line per ayah)
+│   ├── hi.farooq.txt                        # Hindi – Muhammad Farooq Khan & Muhammad Ahmed
+│   ├── hi.hindi.txt                         # Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi
+│   ├── en.sahih.txt                         # English – Saheeh International (one line per ayah)
+│   ├── en.pickthall.txt                     # English – Pickthall (one line per ayah)
+│   ├── en.yusufali.txt                      # English – Yusuf Ali (sura|ayah|text format)
+│   ├── en.transliteration.txt               # Transliteration – Tanzil.net (one line per ayah)
+│   ├── translit_en.txt                      # Transliteration – Quran Unicode Project (num|text)
+│   ├── abridged-explanation-of-the-quran.json.zip  # English Explanation (JSON, "sura:ayah" keys)
+│   ├── hindi-mokhtasar.json.zip             # Hindi Tafsir – Al-Mokhtasar (JSON, "sura:ayah" keys)
+│   ├── suranamemal.txt                      # Surah names – Malayalam script
+│   └── surna.txt                            # Surah name reference data
 ├── latex/                  # LaTeX document sources & generated content
 │   ├── farooq.tex          # Main document – Farooq Khan Hindi translation
 │   ├── suhail.tex          # Main document – Suhel Farooq Khan Hindi translation
 │   ├── sahih.tex           # Main document – Saheeh International English
-│   ├── translit.tex        # Main document – English transliteration
+│   ├── translit.tex        # Main document – Tanzil.net transliteration
 │   ├── pickthall.tex       # Main document – Pickthall English
 │   ├── quran.sty           # Custom LaTeX style (Arabic ayah macros)
-│   └── q*.tex              # Generated content files (created by gentexforquran.py)
-├── output/                 # Generated output files (plain text & PDFs)
-├── trans/                  # HTML-format translation sources (used by gendocshtml.py)
+│   └── q*.tex              # Generated content files (written by gentexforquran.py)
+├── output/                 # Generated output files
+│   ├── quran_arabic.txt
+│   ├── quran_english_pickthall.txt
+│   ├── quran_english_sahih.txt
+│   ├── quran_english_translit.txt
+│   ├── quran_english_yusufali.txt
+│   ├── quran_english_abridged.txt
+│   ├── quran_hindi_farooq.txt
+│   ├── quran_hindi_suhail.txt
+│   ├── quran_hindi_mokhtasar.txt
+│   ├── quran_translit_unicode.txt
+│   ├── farooq.pdf          # Compiled PDF
+│   └── suhail.pdf          # Compiled PDF
+├── trans/                  # Tanzil.net transliteration with HTML tags (used by gendocshtml.py)
+│   └── en.transliteration.txt
 ├── docs/                   # Generated static HTML – GitHub Pages
-├── archive/                # Archived legacy files
+│   ├── index.html          # Surah index (with surah navigator + search link)
+│   ├── search.html         # Client-side full-text search page
+│   ├── search-data.js      # Search index (compact JSON, all 6236 verses)
+│   └── 001.html … 114.html # Per-surah pages
+├── archive/                # Legacy files (Readme.txt, original makefile)
 ├── Makefile
 ├── README.md
 ├── CONTRIBUTING.md
@@ -55,25 +91,41 @@ Generate typeset PDF editions of the Qur'an with Arabic text alongside Hindi and
 
 ---
 
-## Translations Included
+## Translations & Content
 
-| File | Language | Translator |
-|------|----------|-----------|
-| `farooq.pdf` | Hindi | Muhammad Farooq Khan & Muhammad Ahmed |
-| `suhail.pdf` | Hindi | Suhel Farooq Khan & Saifur Rahman Nadwi |
-| `sahih.pdf` | English | Saheeh International |
-| `translit.pdf` | Transliteration | Tanzil.net |
-| `pickthall.pdf` | English | Mohammed Marmaduke Pickthall (1930, Public Domain) |
+### PDF outputs
 
-Arabic text uses the Standard Arabic Uthmani Script sourced from [tanzil.net](https://tanzil.net).
+| Output file | Language | Translator |
+|-------------|----------|-----------|
+| `output/farooq.pdf` | Hindi | Muhammad Farooq Khan & Muhammad Ahmed |
+| `output/suhail.pdf` | Hindi | Suhel Farooq Khan & Saifur Rahman Nadwi |
+| *(sahih.pdf — build locally)* | English | Saheeh International |
+| *(translit.pdf — build locally)* | Transliteration | Tanzil.net |
+| *(pickthall.pdf — build locally)* | English | Pickthall (1930, Public Domain) |
+
+### HTML website content per ayah
+
+| Row | Content | Source |
+|-----|---------|--------|
+| Arabic | Arabic text (Uthmani script) | [tanzil.net](https://tanzil.net) |
+| Audio | Recitation player | Mishary Rashid Alafasy (128 kbps) — [HF Space](https://druvx13-quran-audio-alafasy.hf.space) |
+| Transliteration | Tanzil.net | `trans/en.transliteration.txt` (HTML-tagged) |
+| Transliteration | Quran Unicode Project | `data/translit_en.txt` |
+| English | Pickthall (1930, Public Domain) | `data/en.pickthall.txt` |
+| English | Yusuf Ali (Public Domain) | `data/en.yusufali.txt` |
+| English | Saheeh International | `data/en.sahih.txt` |
+| English Explanation | Abridged Explanation of the Quran | `data/abridged-explanation-of-the-quran.json.zip` |
+| Hindi (हिन्दी) | Muhammad Farooq Khan & Muhammad Ahmed | `data/hi.farooq.txt` |
+| Hindi (हिन्दी) | Suhel Farooq Khan & Saifur Rahman Nadwi | `data/hi.hindi.txt` |
+| Hindi Tafsir (हिन्दी तफ्सीर) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim | `data/hindi-mokhtasar.json.zip` |
 
 ---
 
 ## Prerequisites
 
-- **XeLaTeX** — part of TeX Live or MiKTeX distributions
-  - Required fonts: `Scheherazade` (Arabic), `Lohit Hindi` (Devanagari)
-  - Required LaTeX packages: `polyglossia`, `fontspec`, `forloop`, `hyperref`, `menukeys`, `hologo`
+- **XeLaTeX** (for PDF compilation only) — TeX Live or MiKTeX
+  - Required fonts: `Scheherazade` / `Scheherazade New` (Arabic), `Lohit Hindi` (Devanagari)
+  - Required packages: `polyglossia`, `fontspec`, `forloop`, `hyperref`, `menukeys`, `hologo`
 - **Python 3.6+**
 - **GNU Make** (optional, for convenience)
 
@@ -103,21 +155,21 @@ brew install python3
 python3 src/gentexforquran.py
 ```
 
-This reads from `data/` and writes `latex/qum.tex`, `latex/qup.tex`, `latex/qus.tex`,
+Reads from `data/` and writes `latex/qum.tex`, `latex/qup.tex`, `latex/qus.tex`,
 `latex/qut.tex`, and `latex/qupk.tex`.
 
 ### 2. Compile PDFs
 
 ```bash
-# Using Make (all PDFs):
+# All PDFs via Make (step 1 must be run first):
 make all
 
-# Or compile individually:
-cd latex && xelatex farooq.tex    # → output/farooq.pdf  (Hindi – Farooq Khan)
-cd latex && xelatex suhail.tex    # → output/suhail.pdf  (Hindi – Suhel Farooq Khan)
-cd latex && xelatex sahih.tex     # → output/sahih.pdf   (English – Saheeh International)
-cd latex && xelatex translit.tex  # → output/translit.pdf (Transliteration)
-cd latex && xelatex pickthall.tex # → output/pickthall.pdf (English – Pickthall)
+# Or individually:
+cd latex && xelatex farooq.tex    # → output/farooq.pdf
+cd latex && xelatex suhail.tex    # → output/suhail.pdf
+cd latex && xelatex sahih.tex     # → output/sahih.pdf
+cd latex && xelatex translit.tex  # → output/translit.pdf
+cd latex && xelatex pickthall.tex # → output/pickthall.pdf
 ```
 
 ### 3. Generate formatted plain-text outputs
@@ -126,36 +178,108 @@ cd latex && xelatex pickthall.tex # → output/pickthall.pdf (English – Pickth
 python3 src/gentxtforquran.py
 ```
 
-Produces `output/quran_hindi_farooq.txt`, `output/quran_hindi_suhail.txt`,
-`output/quran_english_sahih.txt`, `output/quran_english_translit.txt`,
-`output/quran_english_pickthall.txt`, and `output/quran_arabic.txt`.
+Produces ten files in `output/`:
 
-### 4. Regenerate HTML documentation (GitHub Pages)
+| Output file | Source |
+|-------------|--------|
+| `quran_arabic.txt` | `data/ar.quran.txt` |
+| `quran_english_pickthall.txt` | `data/en.pickthall.txt` |
+| `quran_english_sahih.txt` | `data/en.sahih.txt` |
+| `quran_english_translit.txt` | `data/en.transliteration.txt` |
+| `quran_english_yusufali.txt` | `data/en.yusufali.txt` |
+| `quran_english_abridged.txt` | `data/abridged-explanation-of-the-quran.json.zip` |
+| `quran_hindi_farooq.txt` | `data/hi.farooq.txt` |
+| `quran_hindi_suhail.txt` | `data/hi.hindi.txt` |
+| `quran_hindi_mokhtasar.txt` | `data/hindi-mokhtasar.json.zip` |
+| `quran_translit_unicode.txt` | `data/translit_en.txt` |
+
+All output files use the `[sura:ayah] text` format, grouped by surah.
+
+### 4. Regenerate the HTML website (GitHub Pages)
 
 ```bash
-# First generate the plain-text outputs (step 3 above), then:
+# Step 3 must be run first, then:
 python3 src/gendocshtml.py
 ```
 
-This regenerates the `docs/` HTML pages used for the GitHub Pages site.
+Regenerates all 114 surah pages, `docs/index.html`, `docs/search.html`, and
+`docs/search-data.js`.
+
+**Audio note:** Audio players stream MP3 files from
+`https://druvx13-quran-audio-alafasy.hf.space/<sura><ayah>.mp3`.
 
 ### Make targets
 
 ```bash
-make all           # Generate all PDFs
+make all           # Compile all PDFs (requires generate-tex first)
 make generate-tex  # Run gentexforquran.py
 make generate-txt  # Run gentxtforquran.py
-make generate-docs # Run gendocshtml.py
-make clean         # Remove LaTeX build artefacts (aux, log, toc, out)
+make generate-docs # Run gendocshtml.py (requires generate-txt first)
+make clean         # Remove LaTeX build artefacts (.aux, .log, .toc, .out, .synctex.gz)
 ```
+
+---
+
+## Hosting Your Own Audio Server
+
+The audio players in `docs/` stream MP3 files from a Hugging Face Space that acts as
+a simple open-directory HTTP server. If you want to host the Alafasy recitation yourself
+(on Hugging Face Spaces, a VPS, or any Docker-capable host), use the following
+`Dockerfile`:
+
+```dockerfile
+# Use a lightweight Python image
+FROM python:3.9-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Install required tools for downloading and unzipping
+RUN apt-get update && \
+    apt-get install -y wget unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create a folder specifically for the public files
+RUN mkdir -p /app/public
+
+# Download the specific zip file
+RUN wget -q https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip -O /app/000_versebyverse.zip
+
+# Extract the verses into the public folder
+RUN unzip -q /app/000_versebyverse.zip -d /app/public/
+
+# Clean up the original zip file to save disk space
+RUN rm /app/000_versebyverse.zip
+
+# Hugging Face Spaces expose port 7860 by default
+EXPOSE 7860
+
+# Switch working directory to the public folder so the server roots here
+WORKDIR /app/public
+
+# Start Python's built-in HTTP server to create the Open Directory
+CMD ["python", "-m", "http.server", "7860"]
+```
+
+Deploy this image on Hugging Face Spaces (Docker SDK), a VPS, or any Docker host.
+Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
+`hf.space` in the file) to point at your server, then re-run `python3 src/gendocshtml.py`.
 
 ---
 
 ## Data Sources
 
-- **Arabic text**: Standard Arabic Uthmani Script — [tanzil.net](https://tanzil.net)
-- **Hindi translations**: Downloaded from [zekr.org](http://zekr.org)
-- **English translations**: [tanzil.net](https://tanzil.net) and Pickthall (1930, Public Domain)
+| Data | Source |
+|------|--------|
+| Arabic text (Uthmani script) | [tanzil.net](https://tanzil.net) |
+| Hindi translations | [zekr.org](http://zekr.org) |
+| Hindi Tafsir (Al-Mokhtasar) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim (JSON) |
+| English translations (Tanzil.net, Saheeh) | [tanzil.net](https://tanzil.net) |
+| English translation (Pickthall, 1930) | Public Domain |
+| English translation (Yusuf Ali) | Public Domain |
+| English Explanation (Abridged) | Abridged Explanation of the Quran (JSON) |
+| Transliteration (Unicode) | Quran Unicode Project |
+| Audio recitation | Mishary Rashid Alafasy, 128 kbps — [versebyversequran.com](https://versebyversequran.com) / [HF Hub](https://huggingface.co/datasets/druvx13/quran-audio-alafasy) |
 
 ---
 
@@ -163,6 +287,7 @@ make clean         # Remove LaTeX build artefacts (aux, log, toc, out)
 
 This project's scripts and configuration are licensed under the [MIT License](LICENSE).
 
-The translation texts are reproduced verbatim and are subject to their respective original
-copyrights. The Pickthall translation (1930) is in the public domain. All other translations
-are used for non-commercial, educational purposes.
+The translation texts, audio, and explanation data are reproduced verbatim and are subject
+to their respective original copyrights and licenses. The Pickthall (1930) and Yusuf Ali
+translations are in the public domain. All other translations and data are used for
+non-commercial, educational purposes.
