@@ -6,16 +6,17 @@ Run from the repository root:
     python3 src/gendocshtml.py
 
 Sources used:
-  - trans/en.transliteration.txt      : sura|ayah|transliteration (with HTML tags)
-  - output/quran_translit_unicode.txt : [sura:ayah] Unicode transliteration (Quran Unicode Project)
-  - output/quran_hindi_farooq.txt     : [sura:ayah] Hindi translation (Farooq Khan)
-  - output/quran_hindi_suhail.txt     : [sura:ayah] Hindi translation (Suhail)
-  - output/quran_hindi_mokhtasar.txt  : [sura:ayah] Hindi Tafsir (Al-Mokhtasar)
-  - output/quran_english_abridged.txt : [sura:ayah] English Explanation (Abridged)
-  - data/en.pickthall.txt             : one English line per ayah (Pickthall)
-  - output/quran_english_yusufali.txt : [sura:ayah] English translation (Yusuf Ali)
-  - output/quran_english_sahih.txt    : [sura:ayah] English translation (Saheeh International)
-  - output/quran_arabic.txt           : [sura:ayah] Arabic text (Uthmani script)
+  - trans/en.transliteration.txt       : sura|ayah|transliteration (with HTML tags)
+  - output/quran_translit_unicode.txt  : [sura:ayah] Unicode transliteration (Quran Unicode Project)
+  - output/quran_hindi_farooq.txt      : [sura:ayah] Hindi translation (Farooq Khan)
+  - output/quran_hindi_suhail.txt      : [sura:ayah] Hindi translation (Suhail)
+  - output/quran_hindi_mokhtasar.txt   : [sura:ayah] Hindi Tafsir (Al-Mokhtasar)
+  - output/quran_english_abridged.txt  : [sura:ayah] English Explanation (Abridged)
+  - data/en.pickthall.txt              : one English line per ayah (Pickthall)
+  - output/quran_english_yusufali.txt  : [sura:ayah] English translation (Yusuf Ali)
+  - output/quran_english_sahih.txt     : [sura:ayah] English translation (Saheeh International)
+  - output/quran_arabic.txt            : [sura:ayah] Arabic text (Uthmani script)
+  - output/quran_gujarati_rabila.txt   : [sura:ayah] Gujarati translation (Rabila Al-Umry)
 """
 
 import os
@@ -195,6 +196,18 @@ with open('output/quran_english_abridged.txt', 'r', encoding='utf-8') as f:
             eng_abridged[(int(m.group(1)), int(m.group(2)))] = m.group(3)
 
 # ---------------------------------------------------------------------------
+# Load Gujarati translation  quran_gujarati_rabila.txt
+# Format: [sura:ayah] text
+# ---------------------------------------------------------------------------
+gujarati = {}
+with open('output/quran_gujarati_rabila.txt', 'r', encoding='utf-8') as f:
+    for line in f:
+        line = line.rstrip('\n')
+        m = re.match(r'^\[(\d+):(\d+)\]\s*(.*)', line)
+        if m:
+            gujarati[(int(m.group(1)), int(m.group(2)))] = m.group(3)
+
+# ---------------------------------------------------------------------------
 # Load Unicode transliteration  quran_translit_unicode.txt
 # Format: [sura:ayah] text
 # ---------------------------------------------------------------------------
@@ -248,6 +261,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
 .hindi-suhail-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#5d4037}
 .hindi-mokhtasar-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20}
+.gujarati td{background:#fce4ec}
+.gujarati-text{font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -299,6 +314,7 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .hindi-suhail td{background:#2a1f10}
   .hindi-mokhtasar td{background:#102010}
   .eng-abridged td{background:#102028}
+  .gujarati td{background:#200010}
   .audio td{background:#0d2228}
   .arabic td{background:#2a2010}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
@@ -318,6 +334,7 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .hindi-text{color:#b39ddb}
   .hindi-suhail-text{color:#ffcc80}
   .hindi-mokhtasar-text{color:#a5d6a7}
+  .gujarati-text{color:#f48fb1}
 }
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
@@ -345,14 +362,14 @@ HEADER_HTML = """\
 <main>
 <h1>Surah {num}: {name}</h1>
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
-{verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
+{verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry)</th></tr></thead><tbody>
 """
 
 FOOTER_HTML = """\
 </tbody></table></div>
 {nav}
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry</footer>
 {script}</body>
 </html>"""
 
@@ -386,6 +403,7 @@ def make_verse_chooser(size):
         ('hindi',            '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)',              False),
         ('hindi-suhail',     '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)',             True),
         ('hindi-mokhtasar',  '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)', True),
+        ('gujarati',         '\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 (Rabila)',                                  False),
     ]
     cf_html = []
     for idx, (cls, label, checked) in enumerate(CF_ITEMS):
@@ -527,6 +545,7 @@ for sura_idx in range(1, 115):
             hm = hindi_mokhtasar.get((sura_idx, ayah), '')
             ea = eng_abridged.get((sura_idx, ayah), '')
             ar = arabic.get((sura_idx, ayah), '')
+            gu = gujarati.get((sura_idx, ayah), '')
             out.write(
                 "<tr class='ayah-sep' data-ayah='%d' id='ayah-%d'><td colspan='2'>Ayah %d</td></tr>\n"
                 "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>%s</td></tr>\n"
@@ -540,6 +559,7 @@ for sura_idx in range(1, 115):
                 "<tr class='hindi' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>%s</td></tr>\n"
                 "<tr class='hindi-suhail' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>%s</td></tr>\n"
                 "<tr class='hindi-mokhtasar' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>%s</td></tr>\n"
+                "<tr class='gujarati' data-ayah='%d'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>%s</td></tr>\n"
                 % (ayah, ayah, ayah,
                    ayah, ar,
                    ayah, sura_idx, ayah, sura_idx, ayah,
@@ -551,7 +571,8 @@ for sura_idx in range(1, 115):
                    ayah, ea,
                    ayah, hi,
                    ayah, hs,
-                   ayah, hm)
+                   ayah, hm,
+                   ayah, gu)
             )
         out.write(FOOTER_HTML.format(nav=nav, script=VC_JS))
 
@@ -576,7 +597,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 <body>
 <header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
-<h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English &amp; Hindi Translation</h1>
+<h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English, Hindi &amp; Gujarati Translation</h1>
 <details class="notice">
 <summary><strong>Public Domain Notice &amp; Source Attribution</strong></summary>
 <em>Arabic Text:</em> Standard Arabic Uthmani Script.<br>
@@ -590,6 +611,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 <em>Hindi Translation (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342;):</em> Muhammad Farooq Khan &amp; Muhammad Ahmed.<br>
 <em>Hindi Translation (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342;):</em> Suhel Farooq Khan &amp; Saifur Rahman Nadwi.<br>
 <em>Hindi Tafsir (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352;):</em> Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim.<br>
+<em>Gujarati Translation (&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; &#2733;&#2750;&#2743;&#2750;&#2690;&#2724;&#2736;):</em> Rabila Al-Umry.<br>
 Texts are reproduced verbatim; no alterations have been made.
 </details>
 <h2>Surahs (Chapters)</h2>
@@ -600,7 +622,7 @@ Texts are reproduced verbatim; no alterations have been made.
     out.write("""\
 </div>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry</footer>
 </body>
 </html>""")
 
