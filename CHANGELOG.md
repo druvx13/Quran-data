@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] — 2026-02-22
+
+### Added
+- **Dark mode support** — `@media (prefers-color-scheme: dark)` CSS block added to all
+  surah pages and the search page; colours adapt automatically to system preference.
+- **Print stylesheet** — `@media print` CSS block hides navigation controls and forces all
+  rows to be visible when a surah page is printed.
+- **`<noscript>` fallback** on every surah page — a visible warning banner informs users
+  that the Verse & Content Filter requires JavaScript and that all verses are shown.
+- **`id="ayah-N"` attributes** on every ayah separator row, enabling reliable deep-linking
+  via native browser fragment navigation (e.g. `001.html#ayah-5`).
+- **`lang` attributes on content cells** — Arabic text cells carry `lang="ar"`,
+  Hindi cells carry `lang="hi"`, and English translation cells carry `lang="en"`,
+  improving screen-reader pronunciation and font selection.
+- **`title` attributes on `<audio>` elements** — each audio player now carries a
+  descriptive title (`"Surah N, Ayah M — Mishary Alafasy recitation"`) for
+  assistive-technology users.
+- **`<meta name="description">` on surah pages** — each surah page now has a descriptive
+  meta description for search-engine indexing.
+- **`make help` target** in `Makefile` — prints a summary of all available Make targets
+  and their purpose.
+- **`.noscript-warn` CSS class** for the noscript banner.
+
+### Fixed
+- **Broken dead link** in `docs/index.html`: the `audio/Alafasy/000_license.html`
+  reference (leftover from the old Git LFS audio setup) has been replaced with a link
+  to the active Hugging Face Space that hosts the audio.
+
+---
+
 ## [Unreleased] — 2026-02-21
 
 ### Added
