@@ -29,7 +29,6 @@ Features:
 | Web output | Static HTML (GitHub Pages via `docs/`) |
 | Build system | GNU Make |
 | Audio hosting | [Hugging Face Space](https://huggingface.co/spaces/druvx13/quran-audio-alafasy) (`druvx13-quran-audio-alafasy.hf.space`) |
-| Audio automation | GitHub Actions (`.github/workflows/scrape.yml`) |
 
 ---
 
@@ -82,9 +81,6 @@ Features:
 │   ├── search.html         # Client-side full-text search page
 │   ├── search-data.js      # Search index (compact JSON, all 6236 verses)
 │   └── 001.html … 114.html # Per-surah pages
-├── .github/
-│   └── workflows/
-│       └── scrape.yml      # GH Actions: upload Alafasy audio zip to Hugging Face Hub
 ├── archive/                # Legacy files (Readme.txt, original makefile)
 ├── Makefile
 ├── README.md
@@ -211,9 +207,6 @@ Regenerates all 114 surah pages, `docs/index.html`, `docs/search.html`, and
 
 **Audio note:** Audio players stream MP3 files from
 `https://druvx13-quran-audio-alafasy.hf.space/<sura><ayah>.mp3`.
-To refresh the audio source, run the
-[Upload Audio to Hugging Face Hub](.github/workflows/scrape.yml) GitHub Actions
-workflow (`workflow_dispatch`).
 
 ### Make targets
 
@@ -224,6 +217,53 @@ make generate-txt  # Run gentxtforquran.py
 make generate-docs # Run gendocshtml.py (requires generate-txt first)
 make clean         # Remove LaTeX build artefacts (.aux, .log, .toc, .out, .synctex.gz)
 ```
+
+---
+
+## Hosting Your Own Audio Server
+
+The audio players in `docs/` stream MP3 files from a Hugging Face Space that acts as
+a simple open-directory HTTP server. If you want to host the Alafasy recitation yourself
+(on Hugging Face Spaces, a VPS, or any Docker-capable host), use the following
+`Dockerfile`:
+
+```dockerfile
+# Use a lightweight Python image
+FROM python:3.9-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Install required tools for downloading and unzipping
+RUN apt-get update && \
+    apt-get install -y wget unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create a folder specifically for the public files
+RUN mkdir -p /app/public
+
+# Download the specific zip file
+RUN wget -q https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip -O /app/000_versebyverse.zip
+
+# Extract the verses into the public folder
+RUN unzip -q /app/000_versebyverse.zip -d /app/public/
+
+# Clean up the original zip file to save disk space
+RUN rm /app/000_versebyverse.zip
+
+# Hugging Face Spaces expose port 7860 by default
+EXPOSE 7860
+
+# Switch working directory to the public folder so the server roots here
+WORKDIR /app/public
+
+# Start Python's built-in HTTP server to create the Open Directory
+CMD ["python", "-m", "http.server", "7860"]
+```
+
+Deploy this image on Hugging Face Spaces (Docker SDK), a VPS, or any Docker host.
+Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
+`hf.space` in the file) to point at your server, then re-run `python3 src/gendocshtml.py`.
 
 ---
 

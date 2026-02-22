@@ -6,17 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased] — 2026-02-22
-
-### Added
-- **GitHub Actions workflow** (`.github/workflows/scrape.yml` — "Upload Audio to Hugging Face Hub"):
-  manually triggered (`workflow_dispatch`) workflow that downloads the Alafasy 128 kbps audio
-  zip from everyayah.com, uploads it to the Hugging Face dataset
-  `druvx13/quran-audio-alafasy`, writes `config/audio_config.json` with the resolved
-  download URL, and opens a pull request automatically.
-
----
-
 ## [Unreleased] — 2026-02-21
 
 ### Added
