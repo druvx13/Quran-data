@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Qur'an &ndash; Transliteration &amp; Translation</title>
+<title>Search &ndash; Qur&rsquo;an</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
@@ -75,145 +75,103 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
 .cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
 @media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}
+.search-box{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.search-box input[type=text]{flex:1;min-width:200px;padding:9px 12px;border:1px solid #ccd6e0;border-radius:4px;font-size:1em;color:#111}
+.search-box input[type=text]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:9px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:1em}
+.search-box button:hover{background:#2a5a8c}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold}
+.result-header a:hover{text-decoration:underline}
+.result-arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;padding:8px 12px;background:#fff8e1}
+.result-translit{padding:6px 12px;background:#e8eaf6;font-weight:600;color:#283593;font-size:.95em}
+.result-trans{padding:6px 12px;background:#e8f5e9;font-size:.95em}
+.result-highlight{background:#fff176;border-radius:2px}
+
 </style>
 </head>
 <body>
 <header><a href="index.html">&#8962; Index</a><a href="search.html">&#128269; Search</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select></header>
 <main>
-<h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English &amp; Hindi Translation</h1>
-<details class="notice">
-<summary><strong>Public Domain Notice &amp; Source Attribution</strong></summary>
-<em>Arabic Text:</em> Standard Arabic Uthmani Script.<br>
-<em>Audio Recitation:</em> Mishary Rashid Alafasy &mdash; via versebyversequran.com (see <a href="audio/Alafasy/000_license.html">license</a>).<br>
-<em>Transliteration:</em> Tanzil.net English Transliteration of the Qur&#x2019;an.<br>
-<em>Transliteration:</em> Quran Unicode Project (translit_en.txt).<br>
-<em>English Translation:</em> Mohammed Marmaduke Pickthall, <em>The Meaning of the Glorious Koran</em> (1930) &mdash; Public Domain.<br>
-<em>English Translation:</em> Abdullah Yusuf Ali, <em>The Holy Quran: Text, Translation and Commentary</em> &mdash; Public Domain.<br>
-<em>English Translation:</em> Saheeh International.<br>
-<em>English Explanation:</em> Abridged Explanation of the Quran.<br>
-<em>Hindi Translation (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342;):</em> Muhammad Farooq Khan &amp; Muhammad Ahmed.<br>
-<em>Hindi Translation (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342;):</em> Suhel Farooq Khan &amp; Saifur Rahman Nadwi.<br>
-<em>Hindi Tafsir (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352;):</em> Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim.<br>
-Texts are reproduced verbatim; no alterations have been made.
-</details>
-<h2>Surahs (Chapters)</h2>
-<div class="surah-grid">
-<a href='001.html'><strong>1.</strong> Al-Fatihah (The Opening)</a>
-<a href='002.html'><strong>2.</strong> Al-Baqarah (The Cow)</a>
-<a href='003.html'><strong>3.</strong> Al-'Imran (The Family of Amran)</a>
-<a href='004.html'><strong>4.</strong> An-Nisa' (The Women)</a>
-<a href='005.html'><strong>5.</strong> Al-Ma'idah (The Food)</a>
-<a href='006.html'><strong>6.</strong> Al-An'am (The Cattle)</a>
-<a href='007.html'><strong>7.</strong> Al-A'raf (The Elevated Places)</a>
-<a href='008.html'><strong>8.</strong> Al-Anfal (Voluntary Gifts)</a>
-<a href='009.html'><strong>9.</strong> Al-Bara'at / At-Taubah(The Immunity)</a>
-<a href='010.html'><strong>10.</strong> Yunus (Jonah)</a>
-<a href='011.html'><strong>11.</strong> Hud (Hud)</a>
-<a href='012.html'><strong>12.</strong> Yusuf (Joseph)</a>
-<a href='013.html'><strong>13.</strong> Ar-Ra'd (The Thunder)</a>
-<a href='014.html'><strong>14.</strong> Ibrahim (Abraham)</a>
-<a href='015.html'><strong>15.</strong> Al-Hijr (The Rock)</a>
-<a href='016.html'><strong>16.</strong> An-Nahl (The Bee)</a>
-<a href='017.html'><strong>17.</strong> Bani Isra'il (The Israelites)</a>
-<a href='018.html'><strong>18.</strong> Al-Kahf (The Cave)</a>
-<a href='019.html'><strong>19.</strong> Maryam (Mary)</a>
-<a href='020.html'><strong>20.</strong> Ta Ha (Ta Ha)</a>
-<a href='021.html'><strong>21.</strong> Al-Anbiya' (The Prophets)</a>
-<a href='022.html'><strong>22.</strong> Al-Hajj (The Pilgrimage)</a>
-<a href='023.html'><strong>23.</strong> Al-Mu'minun (The Believers)</a>
-<a href='024.html'><strong>24.</strong> An-Nur (The Light)</a>
-<a href='025.html'><strong>25.</strong> Al-Furqan (The Discrimination)</a>
-<a href='026.html'><strong>26.</strong> Ash-Shu'ara' (The Poets)</a>
-<a href='027.html'><strong>27.</strong> An-Naml (The Naml)</a>
-<a href='028.html'><strong>28.</strong> Al-Qasas (The Narrative)</a>
-<a href='029.html'><strong>29.</strong> Al-'Ankabut (The Spider)</a>
-<a href='030.html'><strong>30.</strong> Ar-Rum (The Romans)</a>
-<a href='031.html'><strong>31.</strong> Luqman (Luqman)</a>
-<a href='032.html'><strong>32.</strong> As-Sajdah (The Adoration)</a>
-<a href='033.html'><strong>33.</strong> Al-Ahzab (The Allies)</a>
-<a href='034.html'><strong>34.</strong> Al-Saba' (The Saba')</a>
-<a href='035.html'><strong>35.</strong> Al-Fatir (The Originator)</a>
-<a href='036.html'><strong>36.</strong> Ya Sin (Ya Sin)</a>
-<a href='037.html'><strong>37.</strong> As-Saffat (Those Ranging in Ranks)</a>
-<a href='038.html'><strong>38.</strong> Sad (Sad)</a>
-<a href='039.html'><strong>39.</strong> Az-Zumar (The Companies)</a>
-<a href='040.html'><strong>40.</strong> Al-Mu'min (The Believer)</a>
-<a href='041.html'><strong>41.</strong> Ha Mim (Ha Mim)</a>
-<a href='042.html'><strong>42.</strong> Ash-Shura (Counsel)</a>
-<a href='043.html'><strong>43.</strong> Az-Zukhruf (Gold)</a>
-<a href='044.html'><strong>44.</strong> Ad-Dukhan (The Drought)</a>
-<a href='045.html'><strong>45.</strong> Al-Jathiyah (The Kneeling)</a>
-<a href='046.html'><strong>46.</strong> Al-Ahqaf (The Sandhills)</a>
-<a href='047.html'><strong>47.</strong> Muhammad (Muhammad)</a>
-<a href='048.html'><strong>48.</strong> Al-Fath (The Victory)</a>
-<a href='049.html'><strong>49.</strong> Al-Hujurat (The Apartments)</a>
-<a href='050.html'><strong>50.</strong> Qaf (Qaf)</a>
-<a href='051.html'><strong>51.</strong> Ad-Dhariyat (The Scatterers)</a>
-<a href='052.html'><strong>52.</strong> At-Tur (The Mountain)</a>
-<a href='053.html'><strong>53.</strong> An-Najm (The Star)</a>
-<a href='054.html'><strong>54.</strong> Al-Qamar (The Moon)</a>
-<a href='055.html'><strong>55.</strong> Ar-Rahman (The Beneficent)</a>
-<a href='056.html'><strong>56.</strong> Al-Waqi'ah (The Event)</a>
-<a href='057.html'><strong>57.</strong> Al-Hadid (Iron)</a>
-<a href='058.html'><strong>58.</strong> Al-Mujadilah (The Pleading Woman)</a>
-<a href='059.html'><strong>59.</strong> Al-Hashr (The Banishment)</a>
-<a href='060.html'><strong>60.</strong> Al-Mumtahanah (The Woman who is Examined)</a>
-<a href='061.html'><strong>61.</strong> As-Saff (The Ranks)</a>
-<a href='062.html'><strong>62.</strong> Al-Jumu'ah (The Congregation)</a>
-<a href='063.html'><strong>63.</strong> Al-Munafiqun (The Hypocrites)</a>
-<a href='064.html'><strong>64.</strong> At-Taghabun (The Manifestation of Losses)</a>
-<a href='065.html'><strong>65.</strong> At-Talaq (Divorce)</a>
-<a href='066.html'><strong>66.</strong> At-Tahrim (The Prohibition)</a>
-<a href='067.html'><strong>67.</strong> Al-Mulk (The Kingdom)</a>
-<a href='068.html'><strong>68.</strong> Al-Qalam (The Pen)</a>
-<a href='069.html'><strong>69.</strong> Al-Haqqah (The Sure Truth)</a>
-<a href='070.html'><strong>70.</strong> Al-Ma'arij (The Ways of Ascent)</a>
-<a href='071.html'><strong>71.</strong> Nuh (Noah)</a>
-<a href='072.html'><strong>72.</strong> Al-Jinn (The Jinn)</a>
-<a href='073.html'><strong>73.</strong> Al-Muzzammil (The One Covering Himself)</a>
-<a href='074.html'><strong>74.</strong> Al-Muddaththir (The One Wrapping Himself Up)</a>
-<a href='075.html'><strong>75.</strong> Al-Qiyamah (The Resurrection)</a>
-<a href='076.html'><strong>76.</strong> Al-Insan (The Man)</a>
-<a href='077.html'><strong>77.</strong> Al-Mursalat (Those Sent Forth)</a>
-<a href='078.html'><strong>78.</strong> An-Naba' (The Announcement)</a>
-<a href='079.html'><strong>79.</strong> An-Nazi'at (Those Who Yearn)</a>
-<a href='080.html'><strong>80.</strong> 'Abasa (He Frowned)</a>
-<a href='081.html'><strong>81.</strong> At-Takwir (The Folding Up)</a>
-<a href='082.html'><strong>82.</strong> Al-Infitar (The Cleaving)</a>
-<a href='083.html'><strong>83.</strong> At-Tatfif (Default in Duty)</a>
-<a href='084.html'><strong>84.</strong> Al-Inshiqaq (The Bursting Asunder)</a>
-<a href='085.html'><strong>85.</strong> Al-Buruj (The Stars)</a>
-<a href='086.html'><strong>86.</strong> At-Tariq (The Comer by Night)</a>
-<a href='087.html'><strong>87.</strong> Al-A'la (The Most High)</a>
-<a href='088.html'><strong>88.</strong> Al-Ghashiyah (The Overwhelming Event)</a>
-<a href='089.html'><strong>89.</strong> Al-Fajr (The Daybreak)</a>
-<a href='090.html'><strong>90.</strong> Al-Balad (The City)</a>
-<a href='091.html'><strong>91.</strong> Ash-Shams (The Sun)</a>
-<a href='092.html'><strong>92.</strong> Al-Lail (The Night)</a>
-<a href='093.html'><strong>93.</strong> Ad-Duha (The Brightness of the Day)</a>
-<a href='094.html'><strong>94.</strong> Al-Inshirah (The Expansion)</a>
-<a href='095.html'><strong>95.</strong> At-Tin (The Fig)</a>
-<a href='096.html'><strong>96.</strong> Al-'Alaq (The Clot)</a>
-<a href='097.html'><strong>97.</strong> Al-Qadr (The Majesty)</a>
-<a href='098.html'><strong>98.</strong> Al-Bayyinah (The Clear Evidence)</a>
-<a href='099.html'><strong>99.</strong> Al-Zilzal (The Shaking)</a>
-<a href='100.html'><strong>100.</strong> Al-'Adiyat (The Assaulters)</a>
-<a href='101.html'><strong>101.</strong> Al-Qari'ah (The Calamity)</a>
-<a href='102.html'><strong>102.</strong> At-Takathur (The Abundance of Wealth)</a>
-<a href='103.html'><strong>103.</strong> Al-'Asr (The Time)</a>
-<a href='104.html'><strong>104.</strong> Al-Humazah (The Slanderer)</a>
-<a href='105.html'><strong>105.</strong> Al-Fil (The Elephant)</a>
-<a href='106.html'><strong>106.</strong> Al-Quraish (The Quraish)</a>
-<a href='107.html'><strong>107.</strong> Al-Ma'un (Acts of Kindness)</a>
-<a href='108.html'><strong>108.</strong> Al-Kauthar (The Abundance of Good)</a>
-<a href='109.html'><strong>109.</strong> Al-Kafirun (The Disbelievers)</a>
-<a href='110.html'><strong>110.</strong> An-Nasr (The Help)</a>
-<a href='111.html'><strong>111.</strong> Al-Lahab (The Flame)</a>
-<a href='112.html'><strong>112.</strong> Al-Ikhlas (The Unity)</a>
-<a href='113.html'><strong>113.</strong> Al-Falaq (The Dawn)</a>
-<a href='114.html'><strong>114.</strong> An-Nas (The Men)</a>
+<h1>&#128269; Search the Qur&#x2019;an</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, or English translation (Yusuf Ali). Results link directly to the verse.</p>
+<div class="search-box">
+  <input type="text" id="q" placeholder="e.g. mercy, rahman, bismillah&hellip;" autofocus autocomplete="off" spellcheck="false">
+  <button onclick="doSearch()">Search</button>
 </div>
+<div id="search-status"></div>
+<div id="results"></div>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain</footer>
+<script src="search-data.js"></script>
+<script>
+(function(){
+  var MAX_RESULTS = 50;
+  var input = document.getElementById('q');
+  var statusEl = document.getElementById('search-status');
+  var resultsEl = document.getElementById('results');
+
+  function escHtml(s){
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function highlight(text, terms){
+    var escaped = escHtml(text);
+    terms.forEach(function(term){
+      if(!term) return;
+      var re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+      escaped = escaped.replace(re, '<mark class="result-highlight">$1</mark>');
+    });
+    return escaped;
+  }
+
+  window.doSearch = function(){
+    var q = input.value.trim();
+    if(!q){ resultsEl.innerHTML=''; statusEl.textContent=''; return; }
+    var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    var matches = [];
+    for(var i=0;i<QURAN_DATA.length;i++){
+      var row = QURAN_DATA[i];
+      var sura=row[0], ayah=row[1], name=row[2], ar=row[3], tu=row[4], ya=row[5];
+      var haystack = (ar + ' ' + tu + ' ' + ya + ' ' + name).toLowerCase();
+      var ok = terms.every(function(t){ return haystack.indexOf(t) !== -1; });
+      if(ok) matches.push(row);
+      if(matches.length >= MAX_RESULTS + 1) break;
+    }
+    var truncated = matches.length > MAX_RESULTS;
+    if(truncated) matches = matches.slice(0, MAX_RESULTS);
+    if(matches.length === 0){
+      statusEl.textContent = 'No results found.';
+      resultsEl.innerHTML = '';
+      return;
+    }
+    statusEl.textContent = 'Showing ' + matches.length + (truncated ? '+' : '') + ' result(s) for “' + q + '”';
+    var html = '';
+    matches.forEach(function(row){
+      var sura=row[0], ayah=row[1], name=row[2], ar=row[3], tu=row[4], ya=row[5];
+      var href = String(sura).padStart(3,'0') + '.html#' + ayah;
+      html += '<div class="result-card">'
+        + '<div class="result-header"><span>Surah ' + sura + ':' + ayah + ' &mdash; ' + escHtml(name) + '</span>'
+        + '<a href="' + href + '">View verse &rarr;</a></div>'
+        + '<div class="result-arabic">' + highlight(ar, terms) + '</div>'
+        + (tu ? '<div class="result-translit">' + highlight(tu, terms) + '</div>' : '')
+        + (ya ? '<div class="result-trans">' + highlight(ya, terms) + '</div>' : '')
+        + '</div>';
+    });
+    resultsEl.innerHTML = html;
+  };
+
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') doSearch();
+  });
+
+  // Auto-search from URL ?q=...
+  var params = new URLSearchParams(location.search);
+  var qs = params.get('q');
+  if(qs){ input.value = qs; doSearch(); }
+})();
+</script>
 </body>
 </html>

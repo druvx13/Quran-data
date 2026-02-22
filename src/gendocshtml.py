@@ -293,7 +293,7 @@ HEADER_HTML = """\
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}</header>
+<header><a href="index.html">&#8962; Index</a><a href="search.html">&#128269; Search</a>{surah_select}</header>
 <main>
 <h1>Surah {num}: {name}</h1>
 {verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
@@ -327,7 +327,7 @@ def make_verse_chooser(size):
     """Build the verse chooser <details> HTML for a surah with `size` verses."""
     CF_ITEMS = [
         ('arabic',           'Arabic',                           True),
-        ('audio',            'Audio',                            False),
+        ('audio',            'Audio',                            True),
         ('translit',         'Translit. (Tanzil)',               False),
         ('translit-unicode', 'Translit. (Unicode)',              True),
         ('trans',            'English (Pickthall)',              False),
@@ -525,7 +525,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s</header>
+<header><a href="index.html">&#8962; Index</a><a href="search.html">&#128269; Search</a>%s</header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English &amp; Hindi Translation</h1>
 <details class="notice">
@@ -556,4 +556,155 @@ Texts are reproduced verbatim; no alterations have been made.
 </html>""")
 
 print('Written: %s' % index_path)
-print('Done. %d surah files + index regenerated.' % 114)
+
+# ---------------------------------------------------------------------------
+# Generate search-data.js  (compact JSON array for client-side search)
+# Each entry: [surahNum, ayahNum, surahName, arabic, translit_unicode, yusuf_ali]
+# ---------------------------------------------------------------------------
+import json
+
+search_data = []
+for sura_idx in range(1, 115):
+    size = SURA_SIZE[sura_idx - 1]
+    name = SURA_NAME[sura_idx - 1]
+    for ayah in range(1, size + 1):
+        search_data.append([
+            sura_idx,
+            ayah,
+            name,
+            arabic.get((sura_idx, ayah), ''),
+            translit_unicode.get((sura_idx, ayah), ''),
+            yusufali.get((sura_idx, ayah), ''),
+        ])
+
+search_data_path = os.path.join(docs_dir, 'search-data.js')
+with open(search_data_path, 'w', encoding='utf-8') as f:
+    f.write('var QURAN_DATA=')
+    json.dump(search_data, f, ensure_ascii=False, separators=(',', ':'))
+    f.write(';')
+print('Written: %s' % search_data_path)
+
+# ---------------------------------------------------------------------------
+# Generate search.html
+# ---------------------------------------------------------------------------
+SEARCH_CSS = CSS + """
+.search-box{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.search-box input[type=text]{flex:1;min-width:200px;padding:9px 12px;border:1px solid #ccd6e0;border-radius:4px;font-size:1em;color:#111}
+.search-box input[type=text]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:9px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:1em}
+.search-box button:hover{background:#2a5a8c}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold}
+.result-header a:hover{text-decoration:underline}
+.result-arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;padding:8px 12px;background:#fff8e1}
+.result-translit{padding:6px 12px;background:#e8eaf6;font-weight:600;color:#283593;font-size:.95em}
+.result-trans{padding:6px 12px;background:#e8f5e9;font-size:.95em}
+.result-highlight{background:#fff176;border-radius:2px}
+"""
+
+SEARCH_HTML = """\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search &ndash; Qur&rsquo;an</title>
+<style>
+{css}
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a><a href="search.html">&#128269; Search</a>{surah_select}</header>
+<main>
+<h1>&#128269; Search the Qur&#x2019;an</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, or English translation (Yusuf Ali). Results link directly to the verse.</p>
+<div class="search-box">
+  <input type="text" id="q" placeholder="e.g. mercy, rahman, bismillah&hellip;" autofocus autocomplete="off" spellcheck="false">
+  <button onclick="doSearch()">Search</button>
+</div>
+<div id="search-status"></div>
+<div id="results"></div>
+</main>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain</footer>
+<script src="search-data.js"></script>
+<script>
+(function(){{
+  var MAX_RESULTS = 50;
+  var input = document.getElementById('q');
+  var statusEl = document.getElementById('search-status');
+  var resultsEl = document.getElementById('results');
+
+  function escHtml(s){{
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }}
+
+  function highlight(text, terms){{
+    var escaped = escHtml(text);
+    terms.forEach(function(term){{
+      if(!term) return;
+      var re = new RegExp('(' + term.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&') + ')', 'gi');
+      escaped = escaped.replace(re, '<mark class="result-highlight">$1</mark>');
+    }});
+    return escaped;
+  }}
+
+  window.doSearch = function(){{
+    var q = input.value.trim();
+    if(!q){{ resultsEl.innerHTML=''; statusEl.textContent=''; return; }}
+    var terms = q.toLowerCase().split(/\\s+/).filter(Boolean);
+    var matches = [];
+    for(var i=0;i<QURAN_DATA.length;i++){{
+      var row = QURAN_DATA[i];
+      var sura=row[0], ayah=row[1], name=row[2], ar=row[3], tu=row[4], ya=row[5];
+      var haystack = (ar + ' ' + tu + ' ' + ya + ' ' + name).toLowerCase();
+      var ok = terms.every(function(t){{ return haystack.indexOf(t) !== -1; }});
+      if(ok) matches.push(row);
+      if(matches.length >= MAX_RESULTS + 1) break;
+    }}
+    var truncated = matches.length > MAX_RESULTS;
+    if(truncated) matches = matches.slice(0, MAX_RESULTS);
+    if(matches.length === 0){{
+      statusEl.textContent = 'No results found.';
+      resultsEl.innerHTML = '';
+      return;
+    }}
+    statusEl.textContent = 'Showing ' + matches.length + (truncated ? '+' : '') + ' result(s) for \u201c' + q + '\u201d';
+    var html = '';
+    matches.forEach(function(row){{
+      var sura=row[0], ayah=row[1], name=row[2], ar=row[3], tu=row[4], ya=row[5];
+      var href = String(sura).padStart(3,'0') + '.html#' + ayah;
+      html += '<div class="result-card">'
+        + '<div class="result-header"><span>Surah ' + sura + ':' + ayah + ' &mdash; ' + escHtml(name) + '</span>'
+        + '<a href="' + href + '">View verse &rarr;</a></div>'
+        + '<div class="result-arabic">' + highlight(ar, terms) + '</div>'
+        + (tu ? '<div class="result-translit">' + highlight(tu, terms) + '</div>' : '')
+        + (ya ? '<div class="result-trans">' + highlight(ya, terms) + '</div>' : '')
+        + '</div>';
+    }});
+    resultsEl.innerHTML = html;
+  }};
+
+  input.addEventListener('keydown', function(e){{
+    if(e.key === 'Enter') doSearch();
+  }});
+
+  // Auto-search from URL ?q=...
+  var params = new URLSearchParams(location.search);
+  var qs = params.get('q');
+  if(qs){{ input.value = qs; doSearch(); }}
+}})();
+</script>
+</body>
+</html>"""
+
+search_html_path = os.path.join(docs_dir, 'search.html')
+with open(search_html_path, 'w', encoding='utf-8') as f:
+    f.write(SEARCH_HTML.format(
+        css=SEARCH_CSS,
+        surah_select=make_surah_select(0),
+    ))
+print('Written: %s' % search_html_path)
+
+print('Done. %d surah files + index + search regenerated.' % 114)
