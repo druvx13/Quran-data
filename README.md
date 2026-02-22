@@ -51,6 +51,7 @@ Features:
 │   ├── translit_en.txt                      # Transliteration – Quran Unicode Project (num|text)
 │   ├── abridged-explanation-of-the-quran.json.zip  # English Explanation (JSON, "sura:ayah" keys)
 │   ├── hindi-mokhtasar.json.zip             # Hindi Tafsir – Al-Mokhtasar (JSON, "sura:ayah" keys)
+│   ├── rabila-al-umry-simple.json.zip       # Gujarati – Rabila Al-Umry (JSON, "sura:ayah" keys, "t" field)
 │   ├── suranamemal.txt                      # Surah names – Malayalam script
 │   └── surna.txt                            # Surah name reference data
 ├── latex/                  # LaTeX document sources & generated content
@@ -71,6 +72,7 @@ Features:
 │   ├── quran_hindi_farooq.txt
 │   ├── quran_hindi_suhail.txt
 │   ├── quran_hindi_mokhtasar.txt
+│   ├── quran_gujarati_rabila.txt
 │   ├── quran_translit_unicode.txt
 │   ├── farooq.pdf          # Compiled PDF
 │   └── suhail.pdf          # Compiled PDF
@@ -118,6 +120,7 @@ Features:
 | Hindi (हिन्दी) | Muhammad Farooq Khan & Muhammad Ahmed | `data/hi.farooq.txt` |
 | Hindi (हिन्दी) | Suhel Farooq Khan & Saifur Rahman Nadwi | `data/hi.hindi.txt` |
 | Hindi Tafsir (हिन्दी तफ्सीर) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim | `data/hindi-mokhtasar.json.zip` |
+| Gujarati (ગુજરાતી) | Rabila Al-Umry | `data/rabila-al-umry-simple.json.zip` |
 
 ---
 
@@ -178,7 +181,7 @@ cd latex && xelatex pickthall.tex # → output/pickthall.pdf
 python3 src/gentxtforquran.py
 ```
 
-Produces ten files in `output/`:
+Produces eleven files in `output/`:
 
 | Output file | Source |
 |-------------|--------|
@@ -191,6 +194,7 @@ Produces ten files in `output/`:
 | `quran_hindi_farooq.txt` | `data/hi.farooq.txt` |
 | `quran_hindi_suhail.txt` | `data/hi.hindi.txt` |
 | `quran_hindi_mokhtasar.txt` | `data/hindi-mokhtasar.json.zip` |
+| `quran_gujarati_rabila.txt` | `data/rabila-al-umry-simple.json.zip` |
 | `quran_translit_unicode.txt` | `data/translit_en.txt` |
 
 All output files use the `[sura:ayah] text` format, grouped by surah.
