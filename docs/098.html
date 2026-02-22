@@ -8,7 +8,7 @@
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
   font-size:16px;background:#fff;color:#111;line-height:1.6}
-header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
 header a:hover{text-decoration:underline}
 main{padding:16px;max-width:900px;margin:0 auto}
@@ -50,112 +50,211 @@ nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
 footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a></header>
+<header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html' selected>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select></header>
 <main>
 <h1>Surah 98: Al-Bayyinah (The Clear Evidence)</h1>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='8' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='8' value='8'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio'><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='eng-abridged'><label for='cf-7'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='hindi'><label for='cf-8'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='hindi-suhail' checked><label for='cf-9'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi-mokhtasar' checked><label for='cf-10'>हिन्दी तफ्सीर (Mokhtasar)</label></span></div></div></details>
 <div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
-<tr class='ayah-sep'><td colspan='2'>Ayah 1</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>لَم يَكُنِ الَّذينَ كَفَروا مِن أَهلِ الكِتابِ وَالمُشرِكينَ مُنفَكّينَ حَتّىٰ تَأتِيَهُمُ البَيِّنَةُ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098001.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lam yakuni alla<u>th</u>eena kafaroo min ahli alkit<u>a</u>bi wa<b>a</b>lmushrikeena munfakkeena <u>h</u>att<u>a</u> tatiyahumu albayyina<b>tu</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Lam ya kunil lazeena kafaru min ahlil kitaabi wal mushri keena mun fak keena hattaa ta-tiya humul bayyinah</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Those who disbelieve among the People of the Scripture and the idolaters could not have left off (erring) till the clear proof came unto them,</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Those who reject (Truth), among the People of the Book and among the Polytheists, were not going to depart (from their ways) until there should come to them Clear Evidence,-</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Those who disbelieved among the People of the Scripture and the polytheists were not to be parted [from misbelief] until there came to them clear evidence -</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Those who disbelieved, from the Jews, the Christians and the idolaters, are not going to break their consensus and agreement on disbelief, until a clear proof and manifest evidence comes to them.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>किताबवालों और मुशरिकों (बहुदेववादियों) में से जिन लोगों ने इनकार किया वे कुफ़्र (इनकार) से अलग होनेवाले नहीं जब तक कि उनके पास स्पष्ट प्रमाण न आ जाए;</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>अहले किताब और मुशरिकों से जो लोग काफिर थे जब तक कि उनके पास खुली हुई दलीलें न पहुँचे वह (अपने कुफ्र से) बाज़ आने वाले न थे</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यहूदियों, ईसाइयों और मुश्रिकों में से जिन लोगों ने कुफ़्र किया, वे कुफ़्र पर अपनी सर्वसम्मति और एकजुटता से हटने वाले नहीं थे, जब तक कि उनके पास एक स्पष्ट प्रमाण और एक स्पष्ट तर्क न आ जाए।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 2</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>رَسولٌ مِنَ اللَّهِ يَتلو صُحُفًا مُطَهَّرَةً</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098002.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Rasoolun mina All<u>a</u>hi yatloo <u>s</u>u<u>h</u>ufan mu<u>t</u>ahhara<b>tan</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Rasoolum minal laahi yatlu suhufam mutahharah</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>A messenger from Allah, reading purified pages</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>An messenger from Allah, rehearsing scriptures kept pure and holy:</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>A Messenger from Allah, reciting purified scriptures</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>This clear proof and manifest evidence is a Messenger from Allah whom He has sent, and who recites pure scriptures, only the purest of beings may touch them.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>अल्लाह की ओर से एक रसूल पवित्र पृष्ठों को पढ़ता हुआ;</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>(यानि) ख़ुदा के रसूल जो पाक औराक़ पढ़ते हैं (आए और)</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यह स्पष्ट प्रमाण और स्पष्ट तर्क अल्लाह का भेजा हुआ एक रसूल है, जो ऐसे पवित्र सहीफ़ों को पढ़कर सुनाता है, जिन्हें अल्लाह के पाक बंदे ही छूते हैं।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 3</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>فيها كُتُبٌ قَيِّمَةٌ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098003.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Feeh<u>a</u> kutubun qayyima<b>tun</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Feeha kutubun qaiyimah</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Containing correct scriptures.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Wherein are laws (or decrees) right and straight.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Within which are correct writings.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>In those scriptures is true information and fair rulings, which guide the people towards that in which lies their righteousness and decency.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिनमें ठोस और ठीक आदेश अंकित हों,</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>उनमें (जो) पुरज़ोर और दरूस्त बातें लिखी हुई हैं (सुनाये)</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>उन सहीफ़ों में सच्ची ख़बरें और ठीक आदेश अंकित हैं, जो लोगों का उस चीज़ की ओर मार्गदर्शन करते हैं जिसमें उनकी भलाई और हिदायत है।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 4</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَما تَفَرَّقَ الَّذينَ أوتُوا الكِتابَ إِلّا مِن بَعدِ ما جاءَتهُمُ البَيِّنَةُ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098004.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wam<u>a</u> tafarraqa alla<u>th</u>eena ootoo alkit<u>a</u>ba ill<u>a</u> min baAAdi m<u>a</u> j<u>a</u>athumu albayyina<b>tu</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa maa tafarraqal lazeena ootul kitaaba il-la mim b'adi ma jaa-at humul baiyyinah</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Nor were the People of the Scripture divided until after the clear proof came unto them.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Nor did the People of the Book make schisms, until after there came to them Clear Evidence.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Nor did those who were given the Scripture become divided until after there had come to them clear evidence.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The Jews who were given the Torah and the Christians who were given the Gospel, did not disagree except after Allah sent His Prophet to them. There were some who became Muslims, and others who persisted in their disbelief despite knowing of the truth of their Prophet.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हालाँकि जिन्हें किताब दी गई थी। वे इसके पश्चात फूट में पड़े कि उनके पास स्पष्ट प्रमाण आ चुका था</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>अहले किताब मुताफ़र्रिक़ हुए भी तो जब उनके पास खुली हुई दलील आ चुकी</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यहूदी जिन्हें तौरात दिया गया था और ईसाई जिन्हें इंजील दिया गया था, वे अल्लाह के उनकी ओर अपने नबी को भेजने के बाद ही अलग हुए थे। चुनाँचे उनमें से कुछ ने इस्लाम धर्म अपना लिया और उनमें से कुछ अपने नबी की सच्चाई जानते हुए भी अपने कुफ़्र पर क़ायम रहे।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 5</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَما أُمِروا إِلّا لِيَعبُدُوا اللَّهَ مُخلِصينَ لَهُ الدّينَ حُنَفاءَ وَيُقيمُوا الصَّلاةَ وَيُؤتُوا الزَّكاةَ ۚ وَذٰلِكَ دينُ القَيِّمَةِ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098005.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wam<u>a</u> omiroo ill<u>a</u> liyaAAbudoo All<u>a</u>ha mukhli<u>s</u>eena lahu a<b>l</b>ddeena <u>h</u>unaf<u>a</u>a wayuqeemoo a<b>l</b><u>ss</u>al<u>a</u>ta wayutoo a<b>l</b>zzak<u>a</u>ta wa<u>tha</u>lika deenu alqayyima<b>ti</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa maa umiroo il-la liy'abu dul laaha mukhliseena lahud-deena huna faa-a wa yuqeemus salaahta wa yu-tuz zakaata; wa zaalika deenul qaiyimah</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>And they have been commanded no more than this: To worship Allah, offering Him sincere devotion, being true (in faith); to establish regular prayer; and to practise regular charity; and that is the Religion Right and Straight.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And they were not commanded except to worship Allah, [being] sincere to Him in religion, inclining to truth, and to establish prayer and to give zakah. And that is the correct religion.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>The criminality and stubbornness of the Jews and the Christians is evident, in that they have not been commanded in this Qur’ān, except to do those very things they have been commanded to do in both their books, i.e. worshipping Allah alone, refraining from ascribing partners to Him, establishing prayer and giving in Zakat. So whatever they have been commanded to do, is actually the straight religion in which there is no deviance.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>और उन्हें आदेश भी बस यही दिया गया था कि वे अल्लाह की बन्दगी करे निष्ठा एवं विनयशीलता को उसके लिए विशिष्ट करके, बिलकुल एकाग्र होकर, और नमाज़ की पाबन्दी करें और ज़कात दे। और यही है सत्यवादी समुदाय का धर्म</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>(तब) और उन्हें तो बस ये हुक्म दिया गया था कि निरा ख़ुरा उसी का एतक़ाद रख के बातिल से कतरा के ख़ुदा की इबादत करे और पाबन्दी से नमाज़ पढ़े और ज़कात अदा करता रहे और यही सच्चा दीन है</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यहूदियों और ईसाइयों का अपराध और हठ इस बात से प्रकट होता है कि उन्हें इस क़ुरआन में उन्हीं बातों का आदेश दिया गया, जिनका आदेश उन्हें उनकी किताबों में दिया गया था, जैसे केवल एक अल्लाह की इबादत करना, शिर्क से बचना, नमाज़ पढ़ना और ज़कात अदा करना। अतः उन्हें जिस चीज़ का आदेश दिया गया है, वही सीधा धर्म है, जिसमें कोई टेढ़ापन नहीं है।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 6</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِنَّ الَّذينَ كَفَروا مِن أَهلِ الكِتابِ وَالمُشرِكينَ في نارِ جَهَنَّمَ خالِدينَ فيها ۚ أُولٰئِكَ هُم شَرُّ البَرِيَّةِ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098006.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna alla<u>th</u>eena kafaroo min ahli alkit<u>a</u>bi wa<b>a</b>lmushrikeena fee n<u>a</u>ri jahannama kh<u>a</u>lideena feeh<u>a</u> ol<u>a</u>ika hum sharru albariyya<b>ti</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Innal lazeena kafaru min ahlil kitaabi wal mushri keena fee nari jahan nama khaali deena feeha; ulaa-ika hum shar rul ba reeyah</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Lo! those who disbelieve, among the People of the Scripture and the idolaters, will abide in fire of hell. They are the worst of created beings.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Those who reject (Truth), among the People of the Book and among the Polytheists, will be in Hell-Fire, to dwell therein (for aye). They are the worst of creatures.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Indeed, they who disbelieved among the People of the Scripture and the polytheists will be in the fire of Hell, abiding eternally therein. Those are the worst of creatures.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Indeed, those who disbelieved - from the Jews, the Christians and the idolaters - will enter into hell on the Day of Judgement, wherein they shall remain forever. They are the worst of the creation because of their disbelief in Allah and rejection of His Messenger.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>निस्संदेह किताबवालों और मुशरिकों (बहुदेववादियों) में से जिन लोगों ने इनकार किया है, वे जहन्नम की आग में पड़ेगे; उसमें सदैव रहने के लिए। वही पैदा किए गए प्राणियों में सबसे बुरे है</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>बेशक अहले किताब और मुशरेकीन से जो लोग (अब तक) काफ़िर हैं वह दोज़ख़ की आग में (होंगे) हमेशा उसी में रहेंगे यही लोग बदतरीन ख़लाएक़ हैं</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>निश्चय (यहूदियों, ईसाइयों और मुश्रिकों में से) जिन लोगों ने कुफ़्र किया, वे क़ियामत के दिन जहन्नम में दाखिल होंगे और हमेशा के लिए उसी में रहेंगे। वही लोग सबसे बुरे प्राणी हैं, क्योंकि उन्होंने अल्लाह का इनकार किया और उसके रसूल को झुठलाया।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 7</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِنَّ الَّذينَ آمَنوا وَعَمِلُوا الصّالِحاتِ أُولٰئِكَ هُم خَيرُ البَرِيَّةِ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098007.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna alla<u>th</u>eena <u>a</u>manoo waAAamiloo a<b>l</b><u>ssa</u>li<u>ha</u>ti ol<u>a</u>ika hum khayru albariyya<b>ti</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Innal lazeena aamanu wa 'amilus saalihaati ula-ika hum khairul bareey yah</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>(And) lo! those who believe and do good works are the best of created beings.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Those who have faith and do righteous deeds,- they are the best of creatures.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Indeed, they who have believed and done righteous deeds - those are the best of creatures.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Indeed, those who have faith in Allah and do good deeds, they are the ones who are the best of creation.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>किन्तु निश्चय ही वे लोग, जो ईमान लाए और उन्होंने अच्छे कर्म किए पैदा किए गए प्राणियों में सबसे अच्छे है</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>बेशक जो लोग ईमान लाए और अच्छे काम करते रहे यही लोग बेहतरीन ख़लाएक़ हैं</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जो लोग अल्लाह पर ईमान लाए और उन्होंने अच्छे कार्य किए, वही लोग सबसे अच्छे प्राणी हैं।</td></tr>
-<tr class='ayah-sep'><td colspan='2'>Ayah 8</td></tr>
-<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>جَزاؤُهُم عِندَ رَبِّهِم جَنّاتُ عَدنٍ تَجري مِن تَحتِهَا الأَنهارُ خالِدينَ فيها أَبَدًا ۖ رَضِيَ اللَّهُ عَنهُم وَرَضوا عَنهُ ۚ ذٰلِكَ لِمَن خَشِيَ رَبَّهُ</td></tr>
-<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/098008.mp3'></audio></td></tr>
-<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Jaz<u>a</u>ohum AAinda rabbihim jann<u>a</u>tu AAadnin tajree min ta<u>h</u>tih<u>a</u> alanh<u>a</u>ru kh<u>a</u>lideena feeh<u>a</u> abadan ra<u>d</u>iya All<u>a</u>hu AAanhum wara<u>d</u>oo AAanhu <u>tha</u>lika liman khashiya rabbah<b>u</b></td></tr>
-<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Jazaa-uhum inda rabbihim jan naatu 'adnin tajree min tahtihal an haaru khalideena feeha abada; radiy-yallaahu 'anhum wa ra du 'an zaalika liman khashiya rabbah.</td></tr>
-<tr class='trans'><td class='label'>English (Pickthall)</td><td>Their reward is with their Lord: Gardens of Eden underneath which rivers flow, wherein they dwell for ever. Allah hath pleasure in them and they have pleasure in Him. This is (in store) for him who feareth his Lord.</td></tr>
-<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>Their reward is with Allah: Gardens of Eternity, beneath which rivers flow; they will dwell therein for ever; Allah well pleased with them, and they with Him: all this for such as fear their Lord and Cherisher.</td></tr>
-<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Their reward with Allah will be gardens of perpetual residence beneath which rivers flow, wherein they will abide forever, Allah being pleased with them and they with Him. That is for whoever has feared his Lord.</td></tr>
-<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>Their reward with their Lord (may He be glorified) is gardens under the trees and palaces of which rivers flow, and wherein they shall remain forever. Allah is pleased with them because of them bringing faith in Him and obeying Him, and they are also pleased with Him because of Him giving them His mercy. This mercy can be acquired by the one who fears his Lord, and so fulfils His command and refrains from the thing He has not allowed.</td></tr>
-<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>उनका बदला उनके अपने रब के पास सदाबहार बाग़ है, जिनके नीचे नहरें बह रही होंगी। उनमें वे सदैव रहेंगे। अल्लाह उनसे राज़ी हुआ और वे उससे राज़ी हुए। यह कुछ उसके लिए है, जो अपने रब से डरा</td></tr>
-<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>उनकी जज़ा उनके परवरदिगार के यहाँ हमेशा रहने (सहने) के बाग़ हैं जिनके नीचे नहरें जारी हैं और वह आबादुल आबाद हमेशा उसी में रहेंगे ख़ुदा उनसे राज़ी और वह ख़ुदा से ख़ुश ये (जज़ा) ख़ास उस शख़्श की है जो अपने परवरदिगार से डरे</td></tr>
-<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>उनका बदला, उनके रब के पास ऐसे बाग़ हैं, जिनके महलों और पेड़ों के नीचे से नहरें बहती हैं। वे उसमें हमेशा के लिए रहेंगे। अल्लाह उनके उसपर ईमान लाने और उसकी आज्ञा मानने के कारण उनसे खुश हुआ और वे उसकी दया को पाकर उससे खुश हुए। यह दया उसे प्राप्त होती है जो अपने पालनहार से डरता है, इसलिए उसकी आज्ञा का पालन करता है और उसके निषेध से बचता है।</td></tr>
+<tr class='ayah-sep' data-ayah='1'><td colspan='2'>Ayah 1</td></tr>
+<tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>لَم يَكُنِ الَّذينَ كَفَروا مِن أَهلِ الكِتابِ وَالمُشرِكينَ مُنفَكّينَ حَتّىٰ تَأتِيَهُمُ البَيِّنَةُ</td></tr>
+<tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098001.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lam yakuni alla<u>th</u>eena kafaroo min ahli alkit<u>a</u>bi wa<b>a</b>lmushrikeena munfakkeena <u>h</u>att<u>a</u> tatiyahumu albayyina<b>tu</b></td></tr>
+<tr class='translit-unicode' data-ayah='1'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Lam ya kunil lazeena kafaru min ahlil kitaabi wal mushri keena mun fak keena hattaa ta-tiya humul bayyinah</td></tr>
+<tr class='trans' data-ayah='1'><td class='label'>English (Pickthall)</td><td>Those who disbelieve among the People of the Scripture and the idolaters could not have left off (erring) till the clear proof came unto them,</td></tr>
+<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td>Those who reject (Truth), among the People of the Book and among the Polytheists, were not going to depart (from their ways) until there should come to them Clear Evidence,-</td></tr>
+<tr class='trans-sahih' data-ayah='1'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Those who disbelieved among the People of the Scripture and the polytheists were not to be parted [from misbelief] until there came to them clear evidence -</td></tr>
+<tr class='eng-abridged' data-ayah='1'><td class='label'>English (Abridged Expl.)</td><td>Those who disbelieved, from the Jews, the Christians and the idolaters, are not going to break their consensus and agreement on disbelief, until a clear proof and manifest evidence comes to them.</td></tr>
+<tr class='hindi' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>किताबवालों और मुशरिकों (बहुदेववादियों) में से जिन लोगों ने इनकार किया वे कुफ़्र (इनकार) से अलग होनेवाले नहीं जब तक कि उनके पास स्पष्ट प्रमाण न आ जाए;</td></tr>
+<tr class='hindi-suhail' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>अहले किताब और मुशरिकों से जो लोग काफिर थे जब तक कि उनके पास खुली हुई दलीलें न पहुँचे वह (अपने कुफ्र से) बाज़ आने वाले न थे</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यहूदियों, ईसाइयों और मुश्रिकों में से जिन लोगों ने कुफ़्र किया, वे कुफ़्र पर अपनी सर्वसम्मति और एकजुटता से हटने वाले नहीं थे, जब तक कि उनके पास एक स्पष्ट प्रमाण और एक स्पष्ट तर्क न आ जाए।</td></tr>
+<tr class='ayah-sep' data-ayah='2'><td colspan='2'>Ayah 2</td></tr>
+<tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>رَسولٌ مِنَ اللَّهِ يَتلو صُحُفًا مُطَهَّرَةً</td></tr>
+<tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098002.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Rasoolun mina All<u>a</u>hi yatloo <u>s</u>u<u>h</u>ufan mu<u>t</u>ahhara<b>tan</b></td></tr>
+<tr class='translit-unicode' data-ayah='2'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Rasoolum minal laahi yatlu suhufam mutahharah</td></tr>
+<tr class='trans' data-ayah='2'><td class='label'>English (Pickthall)</td><td>A messenger from Allah, reading purified pages</td></tr>
+<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td>An messenger from Allah, rehearsing scriptures kept pure and holy:</td></tr>
+<tr class='trans-sahih' data-ayah='2'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>A Messenger from Allah, reciting purified scriptures</td></tr>
+<tr class='eng-abridged' data-ayah='2'><td class='label'>English (Abridged Expl.)</td><td>This clear proof and manifest evidence is a Messenger from Allah whom He has sent, and who recites pure scriptures, only the purest of beings may touch them.</td></tr>
+<tr class='hindi' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>अल्लाह की ओर से एक रसूल पवित्र पृष्ठों को पढ़ता हुआ;</td></tr>
+<tr class='hindi-suhail' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>(यानि) ख़ुदा के रसूल जो पाक औराक़ पढ़ते हैं (आए और)</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यह स्पष्ट प्रमाण और स्पष्ट तर्क अल्लाह का भेजा हुआ एक रसूल है, जो ऐसे पवित्र सहीफ़ों को पढ़कर सुनाता है, जिन्हें अल्लाह के पाक बंदे ही छूते हैं।</td></tr>
+<tr class='ayah-sep' data-ayah='3'><td colspan='2'>Ayah 3</td></tr>
+<tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>فيها كُتُبٌ قَيِّمَةٌ</td></tr>
+<tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098003.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Feeh<u>a</u> kutubun qayyima<b>tun</b></td></tr>
+<tr class='translit-unicode' data-ayah='3'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Feeha kutubun qaiyimah</td></tr>
+<tr class='trans' data-ayah='3'><td class='label'>English (Pickthall)</td><td>Containing correct scriptures.</td></tr>
+<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td>Wherein are laws (or decrees) right and straight.</td></tr>
+<tr class='trans-sahih' data-ayah='3'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Within which are correct writings.</td></tr>
+<tr class='eng-abridged' data-ayah='3'><td class='label'>English (Abridged Expl.)</td><td>In those scriptures is true information and fair rulings, which guide the people towards that in which lies their righteousness and decency.</td></tr>
+<tr class='hindi' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>जिनमें ठोस और ठीक आदेश अंकित हों,</td></tr>
+<tr class='hindi-suhail' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>उनमें (जो) पुरज़ोर और दरूस्त बातें लिखी हुई हैं (सुनाये)</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>उन सहीफ़ों में सच्ची ख़बरें और ठीक आदेश अंकित हैं, जो लोगों का उस चीज़ की ओर मार्गदर्शन करते हैं जिसमें उनकी भलाई और हिदायत है।</td></tr>
+<tr class='ayah-sep' data-ayah='4'><td colspan='2'>Ayah 4</td></tr>
+<tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَما تَفَرَّقَ الَّذينَ أوتُوا الكِتابَ إِلّا مِن بَعدِ ما جاءَتهُمُ البَيِّنَةُ</td></tr>
+<tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098004.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wam<u>a</u> tafarraqa alla<u>th</u>eena ootoo alkit<u>a</u>ba ill<u>a</u> min baAAdi m<u>a</u> j<u>a</u>athumu albayyina<b>tu</b></td></tr>
+<tr class='translit-unicode' data-ayah='4'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa maa tafarraqal lazeena ootul kitaaba il-la mim b'adi ma jaa-at humul baiyyinah</td></tr>
+<tr class='trans' data-ayah='4'><td class='label'>English (Pickthall)</td><td>Nor were the People of the Scripture divided until after the clear proof came unto them.</td></tr>
+<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td>Nor did the People of the Book make schisms, until after there came to them Clear Evidence.</td></tr>
+<tr class='trans-sahih' data-ayah='4'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Nor did those who were given the Scripture become divided until after there had come to them clear evidence.</td></tr>
+<tr class='eng-abridged' data-ayah='4'><td class='label'>English (Abridged Expl.)</td><td>The Jews who were given the Torah and the Christians who were given the Gospel, did not disagree except after Allah sent His Prophet to them. There were some who became Muslims, and others who persisted in their disbelief despite knowing of the truth of their Prophet.</td></tr>
+<tr class='hindi' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>हालाँकि जिन्हें किताब दी गई थी। वे इसके पश्चात फूट में पड़े कि उनके पास स्पष्ट प्रमाण आ चुका था</td></tr>
+<tr class='hindi-suhail' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>अहले किताब मुताफ़र्रिक़ हुए भी तो जब उनके पास खुली हुई दलील आ चुकी</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यहूदी जिन्हें तौरात दिया गया था और ईसाई जिन्हें इंजील दिया गया था, वे अल्लाह के उनकी ओर अपने नबी को भेजने के बाद ही अलग हुए थे। चुनाँचे उनमें से कुछ ने इस्लाम धर्म अपना लिया और उनमें से कुछ अपने नबी की सच्चाई जानते हुए भी अपने कुफ़्र पर क़ायम रहे।</td></tr>
+<tr class='ayah-sep' data-ayah='5'><td colspan='2'>Ayah 5</td></tr>
+<tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>وَما أُمِروا إِلّا لِيَعبُدُوا اللَّهَ مُخلِصينَ لَهُ الدّينَ حُنَفاءَ وَيُقيمُوا الصَّلاةَ وَيُؤتُوا الزَّكاةَ ۚ وَذٰلِكَ دينُ القَيِّمَةِ</td></tr>
+<tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098005.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wam<u>a</u> omiroo ill<u>a</u> liyaAAbudoo All<u>a</u>ha mukhli<u>s</u>eena lahu a<b>l</b>ddeena <u>h</u>unaf<u>a</u>a wayuqeemoo a<b>l</b><u>ss</u>al<u>a</u>ta wayutoo a<b>l</b>zzak<u>a</u>ta wa<u>tha</u>lika deenu alqayyima<b>ti</b></td></tr>
+<tr class='translit-unicode' data-ayah='5'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa maa umiroo il-la liy'abu dul laaha mukhliseena lahud-deena huna faa-a wa yuqeemus salaahta wa yu-tuz zakaata; wa zaalika deenul qaiyimah</td></tr>
+<tr class='trans' data-ayah='5'><td class='label'>English (Pickthall)</td><td>And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.</td></tr>
+<tr class='trans-yusuf' data-ayah='5'><td class='label'>English (Yusuf Ali)</td><td>And they have been commanded no more than this: To worship Allah, offering Him sincere devotion, being true (in faith); to establish regular prayer; and to practise regular charity; and that is the Religion Right and Straight.</td></tr>
+<tr class='trans-sahih' data-ayah='5'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>And they were not commanded except to worship Allah, [being] sincere to Him in religion, inclining to truth, and to establish prayer and to give zakah. And that is the correct religion.</td></tr>
+<tr class='eng-abridged' data-ayah='5'><td class='label'>English (Abridged Expl.)</td><td>The criminality and stubbornness of the Jews and the Christians is evident, in that they have not been commanded in this Qur’ān, except to do those very things they have been commanded to do in both their books, i.e. worshipping Allah alone, refraining from ascribing partners to Him, establishing prayer and giving in Zakat. So whatever they have been commanded to do, is actually the straight religion in which there is no deviance.</td></tr>
+<tr class='hindi' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>और उन्हें आदेश भी बस यही दिया गया था कि वे अल्लाह की बन्दगी करे निष्ठा एवं विनयशीलता को उसके लिए विशिष्ट करके, बिलकुल एकाग्र होकर, और नमाज़ की पाबन्दी करें और ज़कात दे। और यही है सत्यवादी समुदाय का धर्म</td></tr>
+<tr class='hindi-suhail' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>(तब) और उन्हें तो बस ये हुक्म दिया गया था कि निरा ख़ुरा उसी का एतक़ाद रख के बातिल से कतरा के ख़ुदा की इबादत करे और पाबन्दी से नमाज़ पढ़े और ज़कात अदा करता रहे और यही सच्चा दीन है</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>यहूदियों और ईसाइयों का अपराध और हठ इस बात से प्रकट होता है कि उन्हें इस क़ुरआन में उन्हीं बातों का आदेश दिया गया, जिनका आदेश उन्हें उनकी किताबों में दिया गया था, जैसे केवल एक अल्लाह की इबादत करना, शिर्क से बचना, नमाज़ पढ़ना और ज़कात अदा करना। अतः उन्हें जिस चीज़ का आदेश दिया गया है, वही सीधा धर्म है, जिसमें कोई टेढ़ापन नहीं है।</td></tr>
+<tr class='ayah-sep' data-ayah='6'><td colspan='2'>Ayah 6</td></tr>
+<tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِنَّ الَّذينَ كَفَروا مِن أَهلِ الكِتابِ وَالمُشرِكينَ في نارِ جَهَنَّمَ خالِدينَ فيها ۚ أُولٰئِكَ هُم شَرُّ البَرِيَّةِ</td></tr>
+<tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098006.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna alla<u>th</u>eena kafaroo min ahli alkit<u>a</u>bi wa<b>a</b>lmushrikeena fee n<u>a</u>ri jahannama kh<u>a</u>lideena feeh<u>a</u> ol<u>a</u>ika hum sharru albariyya<b>ti</b></td></tr>
+<tr class='translit-unicode' data-ayah='6'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Innal lazeena kafaru min ahlil kitaabi wal mushri keena fee nari jahan nama khaali deena feeha; ulaa-ika hum shar rul ba reeyah</td></tr>
+<tr class='trans' data-ayah='6'><td class='label'>English (Pickthall)</td><td>Lo! those who disbelieve, among the People of the Scripture and the idolaters, will abide in fire of hell. They are the worst of created beings.</td></tr>
+<tr class='trans-yusuf' data-ayah='6'><td class='label'>English (Yusuf Ali)</td><td>Those who reject (Truth), among the People of the Book and among the Polytheists, will be in Hell-Fire, to dwell therein (for aye). They are the worst of creatures.</td></tr>
+<tr class='trans-sahih' data-ayah='6'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Indeed, they who disbelieved among the People of the Scripture and the polytheists will be in the fire of Hell, abiding eternally therein. Those are the worst of creatures.</td></tr>
+<tr class='eng-abridged' data-ayah='6'><td class='label'>English (Abridged Expl.)</td><td>Indeed, those who disbelieved - from the Jews, the Christians and the idolaters - will enter into hell on the Day of Judgement, wherein they shall remain forever. They are the worst of the creation because of their disbelief in Allah and rejection of His Messenger.</td></tr>
+<tr class='hindi' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>निस्संदेह किताबवालों और मुशरिकों (बहुदेववादियों) में से जिन लोगों ने इनकार किया है, वे जहन्नम की आग में पड़ेगे; उसमें सदैव रहने के लिए। वही पैदा किए गए प्राणियों में सबसे बुरे है</td></tr>
+<tr class='hindi-suhail' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>बेशक अहले किताब और मुशरेकीन से जो लोग (अब तक) काफ़िर हैं वह दोज़ख़ की आग में (होंगे) हमेशा उसी में रहेंगे यही लोग बदतरीन ख़लाएक़ हैं</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>निश्चय (यहूदियों, ईसाइयों और मुश्रिकों में से) जिन लोगों ने कुफ़्र किया, वे क़ियामत के दिन जहन्नम में दाखिल होंगे और हमेशा के लिए उसी में रहेंगे। वही लोग सबसे बुरे प्राणी हैं, क्योंकि उन्होंने अल्लाह का इनकार किया और उसके रसूल को झुठलाया।</td></tr>
+<tr class='ayah-sep' data-ayah='7'><td colspan='2'>Ayah 7</td></tr>
+<tr class='arabic' data-ayah='7'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>إِنَّ الَّذينَ آمَنوا وَعَمِلُوا الصّالِحاتِ أُولٰئِكَ هُم خَيرُ البَرِيَّةِ</td></tr>
+<tr class='audio' data-ayah='7'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098007.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='7'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna alla<u>th</u>eena <u>a</u>manoo waAAamiloo a<b>l</b><u>ssa</u>li<u>ha</u>ti ol<u>a</u>ika hum khayru albariyya<b>ti</b></td></tr>
+<tr class='translit-unicode' data-ayah='7'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Innal lazeena aamanu wa 'amilus saalihaati ula-ika hum khairul bareey yah</td></tr>
+<tr class='trans' data-ayah='7'><td class='label'>English (Pickthall)</td><td>(And) lo! those who believe and do good works are the best of created beings.</td></tr>
+<tr class='trans-yusuf' data-ayah='7'><td class='label'>English (Yusuf Ali)</td><td>Those who have faith and do righteous deeds,- they are the best of creatures.</td></tr>
+<tr class='trans-sahih' data-ayah='7'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Indeed, they who have believed and done righteous deeds - those are the best of creatures.</td></tr>
+<tr class='eng-abridged' data-ayah='7'><td class='label'>English (Abridged Expl.)</td><td>Indeed, those who have faith in Allah and do good deeds, they are the ones who are the best of creation.</td></tr>
+<tr class='hindi' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>किन्तु निश्चय ही वे लोग, जो ईमान लाए और उन्होंने अच्छे कर्म किए पैदा किए गए प्राणियों में सबसे अच्छे है</td></tr>
+<tr class='hindi-suhail' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>बेशक जो लोग ईमान लाए और अच्छे काम करते रहे यही लोग बेहतरीन ख़लाएक़ हैं</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>जो लोग अल्लाह पर ईमान लाए और उन्होंने अच्छे कार्य किए, वही लोग सबसे अच्छे प्राणी हैं।</td></tr>
+<tr class='ayah-sep' data-ayah='8'><td colspan='2'>Ayah 8</td></tr>
+<tr class='arabic' data-ayah='8'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>جَزاؤُهُم عِندَ رَبِّهِم جَنّاتُ عَدنٍ تَجري مِن تَحتِهَا الأَنهارُ خالِدينَ فيها أَبَدًا ۖ رَضِيَ اللَّهُ عَنهُم وَرَضوا عَنهُ ۚ ذٰلِكَ لِمَن خَشِيَ رَبَّهُ</td></tr>
+<tr class='audio' data-ayah='8'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098008.mp3'></audio></td></tr>
+<tr class='translit' data-ayah='8'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Jaz<u>a</u>ohum AAinda rabbihim jann<u>a</u>tu AAadnin tajree min ta<u>h</u>tih<u>a</u> alanh<u>a</u>ru kh<u>a</u>lideena feeh<u>a</u> abadan ra<u>d</u>iya All<u>a</u>hu AAanhum wara<u>d</u>oo AAanhu <u>tha</u>lika liman khashiya rabbah<b>u</b></td></tr>
+<tr class='translit-unicode' data-ayah='8'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Jazaa-uhum inda rabbihim jan naatu 'adnin tajree min tahtihal an haaru khalideena feeha abada; radiy-yallaahu 'anhum wa ra du 'an zaalika liman khashiya rabbah.</td></tr>
+<tr class='trans' data-ayah='8'><td class='label'>English (Pickthall)</td><td>Their reward is with their Lord: Gardens of Eden underneath which rivers flow, wherein they dwell for ever. Allah hath pleasure in them and they have pleasure in Him. This is (in store) for him who feareth his Lord.</td></tr>
+<tr class='trans-yusuf' data-ayah='8'><td class='label'>English (Yusuf Ali)</td><td>Their reward is with Allah: Gardens of Eternity, beneath which rivers flow; they will dwell therein for ever; Allah well pleased with them, and they with Him: all this for such as fear their Lord and Cherisher.</td></tr>
+<tr class='trans-sahih' data-ayah='8'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>Their reward with Allah will be gardens of perpetual residence beneath which rivers flow, wherein they will abide forever, Allah being pleased with them and they with Him. That is for whoever has feared his Lord.</td></tr>
+<tr class='eng-abridged' data-ayah='8'><td class='label'>English (Abridged Expl.)</td><td>Their reward with their Lord (may He be glorified) is gardens under the trees and palaces of which rivers flow, and wherein they shall remain forever. Allah is pleased with them because of them bringing faith in Him and obeying Him, and they are also pleased with Him because of Him giving them His mercy. This mercy can be acquired by the one who fears his Lord, and so fulfils His command and refrains from the thing He has not allowed.</td></tr>
+<tr class='hindi' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>उनका बदला उनके अपने रब के पास सदाबहार बाग़ है, जिनके नीचे नहरें बह रही होंगी। उनमें वे सदैव रहेंगे। अल्लाह उनसे राज़ी हुआ और वे उससे राज़ी हुए। यह कुछ उसके लिए है, जो अपने रब से डरा</td></tr>
+<tr class='hindi-suhail' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>उनकी जज़ा उनके परवरदिगार के यहाँ हमेशा रहने (सहने) के बाग़ हैं जिनके नीचे नहरें जारी हैं और वह आबादुल आबाद हमेशा उसी में रहेंगे ख़ुदा उनसे राज़ी और वह ख़ुदा से ख़ुश ये (जज़ा) ख़ास उस शख़्श की है जो अपने परवरदिगार से डरे</td></tr>
+<tr class='hindi-mokhtasar' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>उनका बदला, उनके रब के पास ऐसे बाग़ हैं, जिनके महलों और पेड़ों के नीचे से नहरें बहती हैं। वे उसमें हमेशा के लिए रहेंगे। अल्लाह उनके उसपर ईमान लाने और उसकी आज्ञा मानने के कारण उनसे खुश हुआ और वे उसकी दया को पाकर उससे खुश हुए। यह दया उसे प्राप्त होती है जो अपने पालनहार से डरता है, इसलिए उसकी आज्ञा का पालन करता है और उसके निषेध से बचता है।</td></tr>
 </tbody></table></div>
 <nav class='chapter-nav'><span><a href='097.html'>&laquo; Surah 97</a></span><span><a href='099.html'>Surah 99 &raquo;</a></span></nav>
 </main>
 <footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxVerse=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxVerse;
+  var enabledTypes=new Set();
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      if(cb.checked)enabledTypes.add(cb.dataset.rowclass);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      applyAllRows();
+    });
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
+      var ayah=+tr.dataset.ayah;
+      var inRange=(ayah>=vcFrom&&ayah<=vcTo);
+      if(tr.classList.contains('ayah-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+    updateHash();
+  }
+  function updateHash(){
+    if(vcFrom===1&&vcTo===maxVerse){
+      history.replaceState(null,'',location.pathname+location.search);
+    }else{
+      history.replaceState(null,'','#'+vcFrom+(vcTo!==vcFrom?'-'+vcTo:''));
+    }
+  }
+  function loadHash(){
+    var h=location.hash.slice(1);
+    if(!h)return;
+    var m=h.match(/^(\d+)(?:-(\d+))?$/);
+    if(m){
+      vcFrom=+m[1];vcTo=m[2]?+m[2]:+m[1];
+      if(fromInput)fromInput.value=vcFrom;
+      if(toInput)toInput.value=vcTo;
+    }
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxVerse;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxVerse;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  loadHash();
+  applyAllRows();
+})();
+</script>
 </body>
 </html>
