@@ -261,6 +261,15 @@ WORKDIR /app/public
 CMD ["python", "-m", "http.server", "7860"]
 ```
 
+⚠️ In case this doesn't work
+```
+https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip
+```
+, you may try 
+```
+https://web.archive.org/web/20260222041205/https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip
+```
+
 Deploy this image on Hugging Face Spaces (Docker SDK), a VPS, or any Docker host.
 Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 `hf.space` in the file) to point at your server, then re-run `python3 src/gendocshtml.py`.
