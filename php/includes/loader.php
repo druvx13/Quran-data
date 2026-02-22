@@ -1,133 +1,104 @@
 <?php
 /**
- * loader.php — Functions to parse Qur'an data files and return verse data.
+ * loader.php — SQLite-backed data access for the Qur'an PHP site.
  *
- * All public functions accept a surah number (1–114) and return an array
- * keyed by ayah number, or a flat array of all verses for search use.
+ * All queries go to the local SQLite database (db/quran.sqlite).
+ * Run db/init_db.php once to build the database from the bundled
+ * text files in data/.  After that the site has zero external
+ * file dependencies.
  */
 
 require_once __DIR__ . '/config.php';
 
 /**
- * Parse a file with lines in the format:
- *   [sura:ayah] text
- * and return an array [$sura][$ayah] => $text.
- * When $sura_filter > 0, only lines for that surah are included.
+ * Return a shared PDO connection to the SQLite database.
+ * Throws a RuntimeException if the database has not been initialised yet.
  */
-function parse_bracket_file(string $path, int $sura_filter = 0): array {
-    $data = [];
-    $fh = @fopen($path, 'r');
-    if ($fh === false) return $data;
-    while (($line = fgets($fh)) !== false) {
-        $line = rtrim($line, "\r\n");
-        if (!preg_match('/^\[(\d+):(\d+)\]\s*(.*)$/', $line, $m)) continue;
-        $s = (int)$m[1];
-        $a = (int)$m[2];
-        if ($sura_filter > 0 && $s !== $sura_filter) {
-            // Once we've passed the target surah, stop reading
-            if ($s > $sura_filter) break;
-            continue;
+function get_db(): PDO {
+    static $pdo = null;
+    if ($pdo === null) {
+        if (!file_exists(DB_PATH)) {
+            throw new RuntimeException(
+                'Database not found. Please run <code>php db/init_db.php</code> first.'
+            );
         }
-        $data[$s][$a] = $m[3];
+        $pdo = new PDO('sqlite:' . DB_PATH);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $pdo->exec('PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;');
     }
-    fclose($fh);
-    return $data;
+    return $pdo;
 }
 
 /**
- * Parse the Tanzil transliteration file (trans/en.transliteration.txt).
- * Format: sura|ayah|text_with_html_tags  (comment lines start with #)
- * Returns array [$sura][$ayah] => $text.
- */
-function parse_translit_file(string $path, int $sura_filter = 0): array {
-    $data = [];
-    $fh = @fopen($path, 'r');
-    if ($fh === false) return $data;
-    while (($line = fgets($fh)) !== false) {
-        $line = rtrim($line, "\r\n");
-        if ($line === '' || $line[0] === '#') continue;
-        $parts = explode('|', $line, 3);
-        if (count($parts) !== 3) continue;
-        $s = (int)$parts[0];
-        $a = (int)$parts[1];
-        if ($sura_filter > 0 && $s !== $sura_filter) {
-            if ($s > $sura_filter) break;
-            continue;
-        }
-        $data[$s][$a] = $parts[2];
-    }
-    fclose($fh);
-    return $data;
-}
-
-/**
- * Load all verse data for a single surah.
- * Returns an array indexed by ayah number (1-based) where each element is an
- * associative array with keys: arabic, translit, translit_unicode, pickthall,
- * yusufali, sahih, eng_abridged, hindi, hindi_suhail, hindi_mokhtasar, gujarati.
+ * Load all verses for a single surah from SQLite.
+ * Returns array indexed by ayah number (1-based); each element is an
+ * associative array with all content columns.
  */
 function load_surah_verses(int $sura): array {
-    $size = surah_size($sura);
-    if ($size === 0) return [];
-
-    // Load each data source for this surah only
-    $arabic          = parse_bracket_file(OUTPUT_DIR . 'quran_arabic.txt',           $sura)[$sura] ?? [];
-    $translit_u      = parse_bracket_file(OUTPUT_DIR . 'quran_translit_unicode.txt',  $sura)[$sura] ?? [];
-    $pickthall       = parse_bracket_file(OUTPUT_DIR . 'quran_english_pickthall.txt', $sura)[$sura] ?? [];
-    $yusufali        = parse_bracket_file(OUTPUT_DIR . 'quran_english_yusufali.txt',  $sura)[$sura] ?? [];
-    $sahih           = parse_bracket_file(OUTPUT_DIR . 'quran_english_sahih.txt',     $sura)[$sura] ?? [];
-    $eng_abridged    = parse_bracket_file(OUTPUT_DIR . 'quran_english_abridged.txt',  $sura)[$sura] ?? [];
-    $hindi           = parse_bracket_file(OUTPUT_DIR . 'quran_hindi_farooq.txt',      $sura)[$sura] ?? [];
-    $hindi_suhail    = parse_bracket_file(OUTPUT_DIR . 'quran_hindi_suhail.txt',      $sura)[$sura] ?? [];
-    $hindi_mokhtasar = parse_bracket_file(OUTPUT_DIR . 'quran_hindi_mokhtasar.txt',   $sura)[$sura] ?? [];
-    $gujarati        = parse_bracket_file(OUTPUT_DIR . 'quran_gujarati_rabila.txt',   $sura)[$sura] ?? [];
-    $translit        = parse_translit_file(TRANS_DIR  . 'en.transliteration.txt',     $sura)[$sura] ?? [];
-
-    $verses = [];
-    for ($a = 1; $a <= $size; $a++) {
-        $verses[$a] = [
-            'arabic'          => $arabic[$a]          ?? '',
-            'translit'        => $translit[$a]         ?? '',
-            'translit_unicode'=> $translit_u[$a]       ?? '',
-            'pickthall'       => $pickthall[$a]        ?? '',
-            'yusufali'        => $yusufali[$a]         ?? '',
-            'sahih'           => $sahih[$a]            ?? '',
-            'eng_abridged'    => $eng_abridged[$a]     ?? '',
-            'hindi'           => $hindi[$a]            ?? '',
-            'hindi_suhail'    => $hindi_suhail[$a]     ?? '',
-            'hindi_mokhtasar' => $hindi_mokhtasar[$a]  ?? '',
-            'gujarati'        => $gujarati[$a]         ?? '',
-        ];
+    $db   = get_db();
+    $stmt = $db->prepare(
+        'SELECT ayah_id, arabic, translit, translit_unicode,
+                pickthall, yusufali, sahih, eng_abridged,
+                hindi, hindi_suhail, hindi_mokhtasar, gujarati
+         FROM   verses
+         WHERE  surah_id = :s
+         ORDER  BY ayah_id'
+    );
+    $stmt->execute([':s' => $sura]);
+    $rows = [];
+    foreach ($stmt->fetchAll() as $row) {
+        $rows[(int)$row['ayah_id']] = $row;
     }
-    return $verses;
+    return $rows;
 }
 
 /**
- * Load a lightweight dataset for all 6236 ayahs for the search page.
- * Returns an array of rows: [sura, ayah, surah_name, arabic, translit_unicode,
- * yusufali, hindi_mokhtasar].
+ * Full-text search across Arabic, Unicode transliteration, Yusuf Ali
+ * translation, and Hindi Mokhtasar tafsir.
+ *
+ * Uses SQLite LIKE for broad compatibility (no FTS5 required).
+ * Returns an array of result rows, each with keys:
+ *   surah_id, ayah_id, surah_name, arabic, translit_unicode,
+ *   yusufali, hindi_mokhtasar
+ *
+ * $terms is an array of lowercase search tokens (all must match).
  */
-function load_search_data(): array {
-    $arabic          = parse_bracket_file(OUTPUT_DIR . 'quran_arabic.txt');
-    $translit_u      = parse_bracket_file(OUTPUT_DIR . 'quran_translit_unicode.txt');
-    $yusufali        = parse_bracket_file(OUTPUT_DIR . 'quran_english_yusufali.txt');
-    $hindi_mokhtasar = parse_bracket_file(OUTPUT_DIR . 'quran_hindi_mokhtasar.txt');
+function search_verses(array $terms, int $limit = 500): array {
+    if (empty($terms)) return [];
 
-    $rows = [];
-    for ($s = 1; $s <= 114; $s++) {
-        $size = surah_size($s);
-        $name = surah_name($s);
-        for ($a = 1; $a <= $size; $a++) {
-            $rows[] = [
-                'sura'            => $s,
-                'ayah'            => $a,
-                'name'            => $name,
-                'arabic'          => $arabic[$s][$a]          ?? '',
-                'translit_unicode'=> $translit_u[$s][$a]      ?? '',
-                'yusufali'        => $yusufali[$s][$a]        ?? '',
-                'hindi_mokhtasar' => $hindi_mokhtasar[$s][$a] ?? '',
-            ];
-        }
+    $db = get_db();
+
+    // Build WHERE clause: every term must appear in the concatenated haystack.
+    // Keys are constructed as ':t' . $i (always a safe integer-derived string).
+    $conditions = [];
+    $params     = [];
+    foreach ($terms as $i => $term) {
+        $key = ':t' . $i;
+        // Search across four columns; LOWER() for case-insensitive matching
+        $conditions[] =
+            "(LOWER(v.arabic) LIKE {$key}"
+            . " OR LOWER(v.translit_unicode) LIKE {$key}"
+            . " OR LOWER(v.yusufali) LIKE {$key}"
+            . " OR LOWER(v.hindi_mokhtasar) LIKE {$key}"
+            . " OR LOWER(s.name) LIKE {$key})";
+        $params[$key] = '%' . $term . '%';
     }
-    return $rows;
+    $where = implode(' AND ', $conditions);
+
+    $sql = "SELECT v.surah_id, v.ayah_id, s.name AS surah_name,
+                   v.arabic, v.translit_unicode, v.yusufali, v.hindi_mokhtasar
+            FROM   verses v
+            JOIN   surahs s ON s.id = v.surah_id
+            WHERE  {$where}
+            ORDER  BY v.surah_id, v.ayah_id
+            LIMIT  :lim";
+
+    $stmt = $db->prepare($sql);
+    foreach ($params as $k => $v) {
+        $stmt->bindValue($k, $v, PDO::PARAM_STR);
+    }
+    $stmt->bindValue(':lim', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
 }
