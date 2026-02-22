@@ -481,7 +481,7 @@ for sura_idx in range(1, 115):
             out.write(
                 "<tr class='ayah-sep' data-ayah='%d'><td colspan='2'>Ayah %d</td></tr>\n"
                 "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>%s</td></tr>\n"
-                "<tr class='audio' data-ayah='%d'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://media.githubusercontent.com/media/druvx13/Quran-data/cairo/docs/audio/Alafasy/%03d%03d.mp3'></audio></td></tr>\n"
+                "<tr class='audio' data-ayah='%d'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/%03d%03d.mp3'></audio></td></tr>\n"
                 "<tr class='translit' data-ayah='%d'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>%s</td></tr>\n"
                 "<tr class='translit-unicode' data-ayah='%d'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>%s</td></tr>\n"
                 "<tr class='trans' data-ayah='%d'><td class='label'>English (Pickthall)</td><td>%s</td></tr>\n"
