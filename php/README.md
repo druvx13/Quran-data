@@ -1,6 +1,8 @@
 # Qur'an PHP Site (LAMP / LEMP)
 
-A fully self-contained PHP website for the Qur'an — Arabic text, audio recitation, two transliterations, three English translations, an English explanation, two Hindi translations, a Hindi Tafsir, and a Gujarati translation — backed by a local **SQLite** database.
+A fully self-contained PHP website for the Qur'an — Arabic text, audio recitation, two transliterations, three English translations, an English explanation, two Hindi translations, a Hindi Tafsir, and a Gujarati translation — backed by a pre-built local **SQLite** database.
+
+**No configuration required.** Download, upload to any PHP host, done.
 
 ## Features
 
@@ -8,8 +10,8 @@ A fully self-contained PHP website for the Qur'an — Arabic text, audio recitat
 - **Server-side full-text search** — searches Arabic, transliteration, Yusuf Ali, and Hindi Tafsir; results paginated
 - **Verse & Content Filter** — collapse/expand content rows and jump to verse ranges
 - **Audio recitation** — per-ayah audio player (Mishary Rashid Alafasy), streamed from Hugging Face Space
-- **SQLite database** — all 6 236 verses stored locally; zero external file reads at runtime
-- **Self-contained** — copy the `/php` directory to any LAMP/LEMP server and it works
+- **Pre-built SQLite database** — all 6 236 verses ready to use; no setup commands needed
+- **Self-contained** — upload the `/php` directory to any LAMP/LEMP host and it works instantly
 
 ---
 
@@ -17,7 +19,7 @@ A fully self-contained PHP website for the Qur'an — Arabic text, audio recitat
 
 ```
 php/
-├── data/                   # Bundled plain-text source files (read only by init_db.php)
+├── data/                   # Bundled plain-text source files
 │   ├── quran_arabic.txt
 │   ├── en.transliteration.txt
 │   ├── quran_translit_unicode.txt
@@ -30,8 +32,8 @@ php/
 │   ├── quran_hindi_mokhtasar.txt
 │   └── quran_gujarati_rabila.txt
 ├── db/
-│   ├── init_db.php         # One-time setup: imports data/ → quran.sqlite
-│   └── quran.sqlite        # Generated SQLite database (gitignored)
+│   ├── quran.sqlite        # Pre-built SQLite database (included — no setup needed)
+│   └── init_db.php         # Optional: rebuild the DB if data/ files are updated
 ├── includes/
 │   ├── config.php          # Paths, surah metadata, helper functions
 │   ├── loader.php          # PDO SQLite queries (load_surah_verses, search_verses)
@@ -50,83 +52,79 @@ php/
 | Requirement | Minimum version |
 |-------------|-----------------|
 | PHP         | 7.4+            |
-| PHP extensions | `pdo`, `pdo_sqlite` (usually bundled) |
+| PHP extensions | `pdo`, `pdo_sqlite` (usually bundled on all hosts) |
 | Web server  | Apache 2.4+ or Nginx 1.18+ |
-| Disk space  | ~120 MB (19 MB data + ~95 MB SQLite DB) |
-
-### Check PHP extensions
-
-```bash
-php -m | grep -i 'pdo\|sqlite'
-```
-
-Expected output includes `PDO`, `pdo_sqlite`.
+| Disk space  | ~50 MB          |
 
 ---
 
 ## Installation (LAMP — Apache)
 
 ```bash
-# 1. Clone / copy the repository
+# 1. Download / clone the repository
 git clone https://github.com/druvx13/Quran-data.git
-cd Quran-data/php
 
-# 2. Initialise the SQLite database (one-time, takes ~30 seconds)
-php db/init_db.php
+# 2. Upload the php/ directory to your server's document root (or a subdirectory)
+#    e.g. copy to /var/www/html/quran
 
-# 3. Set permissions
-chmod 664 db/quran.sqlite
-chmod 775 db/
+# 3. Set permissions (the db/ directory must be readable by the web server)
+chmod 644 db/quran.sqlite
+chmod 755 db/
 
-# 4. Point your virtual host document root to this directory
-#    Example Apache VirtualHost:
-#
-#    <VirtualHost *:80>
-#        ServerName quran.example.com
-#        DocumentRoot /var/www/html/Quran-data/php
-#        <Directory /var/www/html/Quran-data/php>
-#            Options -Indexes
-#            AllowOverride All
-#            Require all granted
-#        </Directory>
-#    </VirtualHost>
+# That's it — open your browser and go!
+```
 
-# 5. Reload Apache
-sudo systemctl reload apache2
+Example Apache VirtualHost:
+
+```apache
+<VirtualHost *:80>
+    ServerName quran.example.com
+    DocumentRoot /var/www/html/quran
+    <Directory /var/www/html/quran>
+        Options -Indexes
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
 ```
 
 ---
 
 ## Installation (LEMP — Nginx + PHP-FPM)
 
-```bash
-# 1–3. Same as above
+Upload the `php/` directory, set permissions as above, then add an Nginx server block:
 
-# 4. Example Nginx server block:
-#
-#    server {
-#        listen 80;
-#        server_name quran.example.com;
-#        root /var/www/html/Quran-data/php;
-#        index index.php;
-#
-#        location / {
-#            try_files $uri $uri/ /index.php$is_args$args;
-#        }
-#
-#        location ~ \.php$ {
-#            fastcgi_pass unix:/run/php/php8.1-fpm.sock;
-#            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#            include fastcgi_params;
-#        }
-#
-#        # Deny direct access to data and db directories
-#        location ~* ^/(data|db)/ { deny all; }
-#    }
+```nginx
+server {
+    listen 80;
+    server_name quran.example.com;
+    root /var/www/html/quran;
+    index index.php;
 
-# 5. Reload Nginx
-sudo systemctl reload nginx
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Deny direct web access to data and db directories
+    location ~* ^/(data|db)/ { deny all; }
+}
 ```
+
+---
+
+## Shared / cPanel hosting
+
+1. Download this repository as a ZIP from GitHub.
+2. Extract and upload the contents of `php/` into `public_html/` (or a subdirectory) via FTP or cPanel File Manager.
+3. Open your browser — the site works immediately.
+
+> **Note:** Most shared hosts (cPanel, Plesk, DirectAdmin) ship with PHP 7.4+ and PDO SQLite pre-enabled. No SSH or terminal access is required.
 
 ---
 
@@ -134,29 +132,28 @@ sudo systemctl reload nginx
 
 ```bash
 cd Quran-data/php
-php db/init_db.php           # first-time setup
 php -S localhost:8080
 # Open http://localhost:8080
 ```
 
 ---
 
-## Updating the database
+## Rebuilding the database (optional)
 
-If the source data files in `data/` are updated, simply re-run:
+The pre-built `db/quran.sqlite` is included in the repository and is ready to use.
+You only need to rebuild it if you modify the source data files in `data/`:
 
 ```bash
+cd Quran-data/php
 php db/init_db.php
 ```
-
-This drops and recreates all tables from scratch.
 
 ---
 
 ## Security notes
 
 - The `data/` and `db/` directories should **not** be directly accessible from the web.
-  Use the Nginx `deny all` rule shown above, or add an Apache `.htaccess`:
+  The Nginx config above already blocks them. For Apache, an `.htaccess` is sufficient:
   ```
   Deny from all
   ```
