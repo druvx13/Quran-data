@@ -560,7 +560,7 @@ print('Written: %s' % index_path)
 
 # ---------------------------------------------------------------------------
 # Generate search-data.js  (compact JSON array for client-side search)
-# Each entry: [surahNum, ayahNum, surahName, arabic, translit_unicode, yusuf_ali]
+# Each entry: [surahNum, ayahNum, surahName, arabic, translit_unicode, yusuf_ali, hindi_mokhtasar]
 # ---------------------------------------------------------------------------
 import json
 
@@ -576,6 +576,7 @@ for sura_idx in range(1, 115):
             arabic.get((sura_idx, ayah), ''),
             translit_unicode.get((sura_idx, ayah), ''),
             yusufali.get((sura_idx, ayah), ''),
+            hindi_mokhtasar.get((sura_idx, ayah), ''),
         ])
 
 search_data_path = os.path.join(docs_dir, 'search-data.js')
@@ -603,6 +604,13 @@ SEARCH_CSS = CSS + """
 .result-translit{padding:6px 12px;background:#e8eaf6;font-weight:600;color:#283593;font-size:.95em}
 .result-trans{padding:6px 12px;background:#e8f5e9;font-size:.95em}
 .result-highlight{background:#fff176;border-radius:2px}
+.result-hindi-mokhtasar{padding:6px 12px;background:#e8f5e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20;font-size:.95em}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-current{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pagination .pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
 """
 
 SEARCH_HTML = """\
@@ -620,22 +628,27 @@ SEARCH_HTML = """\
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
-<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, or English translation (Yusuf Ali). Results link directly to the verse.</p>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, English translation (Yusuf Ali), or &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Hindi Tafsir). Results link directly to the verse.</p>
 <div class="search-box">
   <input type="text" id="q" placeholder="e.g. mercy, rahman, bismillah&hellip;" autofocus autocomplete="off" spellcheck="false">
   <button onclick="doSearch()">Search</button>
 </div>
 <div id="search-status"></div>
 <div id="results"></div>
+<div id="pagination"></div>
 </main>
 <footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain</footer>
 <script src="search-data.js"></script>
 <script>
 (function(){{
-  var MAX_RESULTS = 50;
+  var PAGE_SIZE = 20;
+  var allMatches = [];
+  var currentPage = 1;
+  var currentTerms = [];
   var input = document.getElementById('q');
   var statusEl = document.getElementById('search-status');
   var resultsEl = document.getElementById('results');
+  var paginEl = document.getElementById('pagination');
 
   function escHtml(s){{
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -651,50 +664,84 @@ SEARCH_HTML = """\
     return escaped;
   }}
 
-  window.doSearch = function(){{
-    var q = input.value.trim();
-    if(!q){{ resultsEl.innerHTML=''; statusEl.textContent=''; return; }}
-    var terms = q.toLowerCase().split(/\\s+/).filter(Boolean);
-    var matches = [];
-    for(var i=0;i<QURAN_DATA.length;i++){{
-      var row = QURAN_DATA[i];
-      var sura=row[0], ayah=row[1], name=row[2], ar=row[3], tu=row[4], ya=row[5];
-      var haystack = (ar + ' ' + tu + ' ' + ya + ' ' + name).toLowerCase();
-      var ok = terms.every(function(t){{ return haystack.indexOf(t) !== -1; }});
-      if(ok) matches.push(row);
-      if(matches.length >= MAX_RESULTS + 1) break;
-    }}
-    var truncated = matches.length > MAX_RESULTS;
-    if(truncated) matches = matches.slice(0, MAX_RESULTS);
-    if(matches.length === 0){{
-      statusEl.textContent = 'No results found.';
-      resultsEl.innerHTML = '';
-      return;
-    }}
-    statusEl.textContent = 'Showing ' + matches.length + (truncated ? '+' : '') + ' result(s) for \u201c' + q + '\u201d';
+  function renderPage(page){{
+    var total = allMatches.length;
+    var totalPages = Math.ceil(total / PAGE_SIZE);
+    if(page < 1) page = 1;
+    if(page > totalPages) page = totalPages;
+    currentPage = page;
+    var start = (page - 1) * PAGE_SIZE;
+    var end = Math.min(start + PAGE_SIZE, total);
+    statusEl.textContent = 'Showing ' + (start+1) + '\u2013' + end + ' of ' + total + ' result(s) for \u201c' + input.value.trim() + '\u201d';
     var html = '';
-    matches.forEach(function(row){{
-      var sura=row[0], ayah=row[1], name=row[2], ar=row[3], tu=row[4], ya=row[5];
-      var href = String(sura).padStart(3,'0') + '.html#' + ayah;
-      html += '<div class="result-card">'
-        + '<div class="result-header"><span>Surah ' + sura + ':' + ayah + ' &mdash; ' + escHtml(name) + '</span>'
-        + '<a href="' + href + '">View verse &rarr;</a></div>'
-        + '<div class="result-arabic">' + highlight(ar, terms) + '</div>'
-        + (tu ? '<div class="result-translit">' + highlight(tu, terms) + '</div>' : '')
-        + (ya ? '<div class="result-trans">' + highlight(ya, terms) + '</div>' : '')
-        + '</div>';
-    }});
+    for(var i=start;i<end;i++){{
+      var row=allMatches[i];
+      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
+      var href=String(sura).padStart(3,'0')+'.html#'+ayah;
+      html+='<div class="result-card">'
+        +'<div class="result-header"><span>Surah '+sura+':'+ayah+' &mdash; '+escHtml(name)+'</span>'
+        +'<a href="'+href+'">View verse &rarr;</a></div>'
+        +'<div class="result-arabic">'+highlight(ar,currentTerms)+'</div>'
+        +(tu?'<div class="result-translit">'+highlight(tu,currentTerms)+'</div>':'')
+        +(ya?'<div class="result-trans">'+highlight(ya,currentTerms)+'</div>':'')
+        +(hm?'<div class="result-hindi-mokhtasar">'+highlight(hm,currentTerms)+'</div>':'')
+        +'</div>';
+    }}
     resultsEl.innerHTML = html;
+    var pgHtml = '';
+    if(totalPages > 1){{
+      pgHtml += '<div class="pagination">';
+      pgHtml += '<button onclick="goPage('+(page-1)+')"'+(page<=1?' disabled':'')+'>&laquo; Prev</button>';
+      var pStart=Math.max(1,page-3), pEnd=Math.min(totalPages,page+3);
+      if(pStart>1){{
+        pgHtml+='<button onclick="goPage(1)">1</button>';
+        if(pStart>2) pgHtml+='<span class="pg-ellipsis">&hellip;</span>';
+      }}
+      for(var p=pStart;p<=pEnd;p++){{
+        if(p===page) pgHtml+='<button class="pg-current" disabled>'+p+'</button>';
+        else pgHtml+='<button onclick="goPage('+p+')">'+p+'</button>';
+      }}
+      if(pEnd<totalPages){{
+        if(pEnd<totalPages-1) pgHtml+='<span class="pg-ellipsis">&hellip;</span>';
+        pgHtml+='<button onclick="goPage('+totalPages+')">'+totalPages+'</button>';
+      }}
+      pgHtml += '<button onclick="goPage('+(page+1)+')"'+(page>=totalPages?' disabled':'')+'>Next &raquo;</button>';
+      pgHtml += '</div>';
+    }}
+    paginEl.innerHTML = pgHtml;
+  }}
+
+  window.goPage = function(page){{
+    renderPage(page);
+    resultsEl.scrollIntoView({{behavior:'smooth',block:'start'}});
   }};
 
-  input.addEventListener('keydown', function(e){{
-    if(e.key === 'Enter') doSearch();
-  }});
+  window.doSearch = function(){{
+    var q = input.value.trim();
+    if(!q){{ resultsEl.innerHTML=''; statusEl.textContent=''; paginEl.innerHTML=''; allMatches=[]; return; }}
+    currentTerms = q.toLowerCase().split(/\\s+/).filter(Boolean);
+    allMatches = [];
+    for(var i=0;i<QURAN_DATA.length;i++){{
+      var row=QURAN_DATA[i];
+      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
+      var haystack=(ar+' '+tu+' '+ya+' '+hm+' '+name).toLowerCase();
+      if(currentTerms.every(function(t){{ return haystack.indexOf(t)!==-1; }})) allMatches.push(row);
+    }}
+    if(allMatches.length===0){{
+      statusEl.textContent='No results found.';
+      resultsEl.innerHTML='';
+      paginEl.innerHTML='';
+      return;
+    }}
+    renderPage(1);
+  }};
+
+  input.addEventListener('keydown',function(e){{ if(e.key==='Enter') doSearch(); }});
 
   // Auto-search from URL ?q=...
-  var params = new URLSearchParams(location.search);
-  var qs = params.get('q');
-  if(qs){{ input.value = qs; doSearch(); }}
+  var params=new URLSearchParams(location.search);
+  var qs=params.get('q');
+  if(qs){{ input.value=qs; doSearch(); }}
 }})();
 </script>
 </body>
