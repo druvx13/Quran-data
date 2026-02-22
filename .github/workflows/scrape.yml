@@ -1,42 +1,140 @@
-name: Download and Extract Alafasy Quran Audio
+name: Upload Audio to Hugging Face Hub
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  download-and-extract:
+  upload-to-hf:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 180
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          lfs: true
+          ref: copilot/add-dynamic-verse-selection
+          fetch-depth: 0
 
-      - name: Set up Git LFS
-        run: git lfs install
-
-      - name: Download zip
+      - name: Create work branch
+        id: create_branch
         run: |
-          curl -fL --retry 3 -o 000_versebyverse.zip \
-            "https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip"
+          BRANCH="hf-upload-${GITHUB_RUN_ID}"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          git checkout -b "$BRANCH"
 
-      - name: Extract zip into Alafasy directory
+      - name: Download Audio Zip
         run: |
-          mkdir -p docs/audio/Alafasy
-          unzip -o 000_versebyverse.zip -d docs/audio/Alafasy
-
-      - name: Commit zip and extracted files
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add 000_versebyverse.zip docs/audio/Alafasy/
-          if git diff --cached --quiet; then
-            echo "Nothing to commit"
-          else
-            git commit -m "Add Alafasy 128kbps Quran audio zip and extracted files"
-            git push
+          echo "⬇️ Downloading Alafasy audio..."
+          curl -fL --retry 3 -o 000_versebyverse.zip "https://everyayah.com/data/Alafasy_128kbps/000_versebyverse.zip"
+          if [ ! -f 000_versebyverse.zip ]; then
+            echo "❌ Download failed!"
+            exit 1
           fi
+          ls -lh 000_versebyverse.zip
+
+      - name: Install Hugging Face Hub CLI
+        run: |
+          pip install huggingface_hub
+          huggingface-cli version
+
+      - name: Upload to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          # ⚠️ UPDATE THIS TO YOUR ACTUAL HUGGING FACE USERNAME AND REPO NAME
+          HF_REPO_ID: "druvx13/quran-audio-alafasy"
+        run: |
+          echo "🚀 Uploading to Hugging Face Dataset: $HF_REPO_ID"
           
+          # Upload the file using HF CLI (handles LFS automatically)
+          huggingface-cli upload \
+            "$HF_REPO_ID" \
+            "./000_versebyverse.zip" \
+            "000_versebyverse.zip" \
+            --token "$HF_TOKEN" \
+            --repo-type dataset
+          
+          echo "✅ Upload complete!"
+          
+          # Generate Direct Download URL
+          # Format: https://huggingface.co/datasets/<user>/<repo>/resolve/main/<file>
+          FILE_URL="https://huggingface.co/datasets/${HF_REPO_ID}/resolve/main/000_versebyverse.zip"
+          echo "FILE_URL=$FILE_URL" >> $GITHUB_ENV
+          echo "🔗 Download URL: $FILE_URL"
+
+      - name: Update Config File with HF URL
+        run: |
+          echo "📝 Updating config with Hugging Face URL..."
+          
+          mkdir -p config
+          cat > config/audio_config.json << EOF
+          {
+            "source": "huggingface",
+            "url": "${{ env.FILE_URL }}",
+            "format": "zip",
+            "reciter": "Alafasy",
+            "bitrate": "128kbps",
+            "updated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+          
+          cat config/audio_config.json
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/audio_config.json
+          git commit -m "Update audio config with Hugging Face URL" || echo "No changes"
+          git push --set-upstream origin ${{ env.BRANCH }}
+
+      - name: Create Pull Request
+        uses: actions/github-script@v6
+        env:
+          BRANCH: ${{ env.BRANCH }}
+          FILE_URL: ${{ env.FILE_URL }}
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const base = 'copilot/add-dynamic-verse-selection';
+            const head = process.env.BRANCH;
+
+            const title = `Update Audio Source to Hugging Face (${head})`;
+            const body = [
+              "## 🎵 Audio Hosting Migration",
+              "",
+              "Moved audio hosting from GitHub to Hugging Face Hub to bypass file size limits.",
+              "",
+              "### 📦 Details",
+              `- **Host:** Hugging Face Dataset`,
+              `- **File:** \`000_versebyverse.zip\``,
+              `- **Download URL:** [Click Here](${process.env.FILE_URL})`,
+              "",
+              "### 🔧 App Integration",
+              "Your app should read \`config/audio_config.json\` to get the latest audio URL.",
+              "",
+              "### ✅ Checklist",
+              "- [ ] Verify download link works",
+              "- [ ] Test app extraction from HF URL"
+            ].join("\n");
+
+            try {
+              const pr = await github.rest.pulls.create({
+                owner,
+                repo,
+                title,
+                head,
+                base,
+                body,
+                maintainer_can_modify: true
+              });
+              console.log("✅ PR created:", pr.data.html_url);
+            } catch (error) {
+              if (error.message && error.message.includes('A pull request already exists')) {
+                console.log("⚠️ PR already exists.");
+              } else {
+                core.setFailed(error.message);
+              }
+            }

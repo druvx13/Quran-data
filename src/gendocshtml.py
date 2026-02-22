@@ -213,9 +213,10 @@ CSS = """\
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
   font-size:16px;background:#fff;color:#111;line-height:1.6}
-header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
 header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
 main{padding:16px;max-width:900px;margin:0 auto}
 h1{font-size:1.4em;margin:0 0 12px}
 h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
@@ -254,7 +255,32 @@ nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8p
 nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
-footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}"""
+footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}"""
 
 HEADER_HTML = """\
 <!DOCTYPE html>
@@ -268,10 +294,10 @@ HEADER_HTML = """\
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
-<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
+{verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
 """
 
 FOOTER_HTML = """\
@@ -279,12 +305,147 @@ FOOTER_HTML = """\
 {nav}
 </main>
 <footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</footer>
-</body>
+{script}</body>
 </html>"""
 
 # ---------------------------------------------------------------------------
 # Generate surah HTML files
 # ---------------------------------------------------------------------------
+
+def make_surah_select(current=0):
+    """Build the surah navigator <select> HTML."""
+    opts = ['<option value="">Jump to Surah\u2026</option>']
+    for i, n in enumerate(SURA_NAME, 1):
+        sel = ' selected' if i == current else ''
+        opts.append("<option value='%03d.html'%s>%d. %s</option>" % (i, sel, i, n))
+    return (
+        "<select class='surah-nav-select' onchange='location.href=this.value'"
+        " aria-label='Navigate to Surah'>%s</select>" % ''.join(opts)
+    )
+
+
+def make_verse_chooser(size):
+    """Build the verse chooser <details> HTML for a surah with `size` verses."""
+    CF_ITEMS = [
+        ('arabic',           'Arabic',                           True),
+        ('audio',            'Audio',                            True),
+        ('translit',         'Translit. (Tanzil)',               False),
+        ('translit-unicode', 'Translit. (Unicode)',              True),
+        ('trans',            'English (Pickthall)',              False),
+        ('trans-yusuf',      'English (Yusuf Ali)',              True),
+        ('trans-sahih',      'English (Saheeh Int\u2019l)',      False),
+        ('eng-abridged',     'Abridged Expl.',                   False),
+        ('hindi',            '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)',              False),
+        ('hindi-suhail',     '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)',             True),
+        ('hindi-mokhtasar',  '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)', True),
+    ]
+    cf_html = []
+    for idx, (cls, label, checked) in enumerate(CF_ITEMS):
+        chk = ' checked' if checked else ''
+        cf_html.append(
+            "<span class='cf-item'>"
+            "<input type='checkbox' id='cf-%d' data-rowclass='%s'%s>"
+            "<label for='cf-%d'>%s</label>"
+            "</span>" % (idx, cls, chk, idx, label)
+        )
+    return (
+        "<details class='verse-chooser'>"
+        "<summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span>"
+        "<span class='vc-arrow'>&#x25BC;</span></summary>"
+        "<div class='vc-body'>"
+        "<div class='vc-section-title'>Verse Range</div>"
+        "<div class='vc-controls'>"
+        "<button onclick='vcSelectAll()'>Show All</button>"
+        "<button onclick='vcClearAll()'>Hide All</button>"
+        "</div>"
+        "<div class='vc-range'>"
+        "<label>From <input type='number' id='vc-from' min='1' max='%d' value='1'></label>"
+        "<label>To <input type='number' id='vc-to' min='1' max='%d' value='%d'></label>"
+        "<button onclick='vcApplyRange()'>Apply Range</button>"
+        "</div>"
+        "<div class='vc-section-title' style='margin-top:12px'>Content</div>"
+        "<div class='cf-list' id='cf-list'>%s</div>"
+        "</div>"
+        "</details>\n"
+    ) % (size, size, size, ''.join(cf_html))
+
+
+VC_JS = """\
+<script>
+(function(){
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxVerse=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxVerse;
+  var enabledTypes=new Set();
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      if(cb.checked)enabledTypes.add(cb.dataset.rowclass);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      applyAllRows();
+    });
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
+      var ayah=+tr.dataset.ayah;
+      var inRange=(ayah>=vcFrom&&ayah<=vcTo);
+      if(tr.classList.contains('ayah-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+    updateHash();
+  }
+  function updateHash(){
+    if(vcFrom===1&&vcTo===maxVerse){
+      history.replaceState(null,'',location.pathname+location.search);
+    }else{
+      history.replaceState(null,'','#'+vcFrom+(vcTo!==vcFrom?'-'+vcTo:''));
+    }
+  }
+  function loadHash(){
+    var h=location.hash.slice(1);
+    if(!h)return;
+    var m=h.match(/^(\\d+)(?:-(\\d+))?$/);
+    if(m){
+      vcFrom=+m[1];vcTo=m[2]?+m[2]:+m[1];
+      if(fromInput)fromInput.value=vcFrom;
+      if(toInput)toInput.value=vcTo;
+    }
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxVerse;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxVerse;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  loadHash();
+  applyAllRows();
+})();
+</script>
+"""
+
 docs_dir = 'docs'
 os.makedirs(docs_dir, exist_ok=True)
 
@@ -302,7 +463,11 @@ for sura_idx in range(1, 115):
     nav = "<nav class='chapter-nav'><span>%s</span><span>%s</span></nav>" % (prev_link, next_link)
 
     with open(filename, 'w', encoding='utf-8') as out:
-        out.write(HEADER_HTML.format(num=sura_idx, name=name, css=CSS))
+        out.write(HEADER_HTML.format(
+            num=sura_idx, name=name, css=CSS,
+            surah_select=make_surah_select(sura_idx),
+            verse_chooser=make_verse_chooser(size),
+        ))
         for ayah in range(1, size + 1):
             tl = translit.get((sura_idx, ayah), '')
             tu = translit_unicode.get((sura_idx, ayah), '')
@@ -315,21 +480,32 @@ for sura_idx in range(1, 115):
             ea = eng_abridged.get((sura_idx, ayah), '')
             ar = arabic.get((sura_idx, ayah), '')
             out.write(
-                "<tr class='ayah-sep'><td colspan='2'>Ayah %d</td></tr>\n"
-                "<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>%s</td></tr>\n"
-                "<tr class='audio'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='audio/Alafasy/%03d%03d.mp3'></audio></td></tr>\n"
-                "<tr class='translit'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>%s</td></tr>\n"
-                "<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>%s</td></tr>\n"
-                "<tr class='trans'><td class='label'>English (Pickthall)</td><td>%s</td></tr>\n"
-                "<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td><td>%s</td></tr>\n"
-                "<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>%s</td></tr>\n"
-                "<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td><td>%s</td></tr>\n"
-                "<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>%s</td></tr>\n"
-                "<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>%s</td></tr>\n"
-                "<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>%s</td></tr>\n"
-                % (ayah, ar, sura_idx, ayah, tl, tu, pk, ya, sa, ea, hi, hs, hm)
+                "<tr class='ayah-sep' data-ayah='%d'><td colspan='2'>Ayah %d</td></tr>\n"
+                "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>%s</td></tr>\n"
+                "<tr class='audio' data-ayah='%d'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/%03d%03d.mp3'></audio></td></tr>\n"
+                "<tr class='translit' data-ayah='%d'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>%s</td></tr>\n"
+                "<tr class='translit-unicode' data-ayah='%d'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>%s</td></tr>\n"
+                "<tr class='trans' data-ayah='%d'><td class='label'>English (Pickthall)</td><td>%s</td></tr>\n"
+                "<tr class='trans-yusuf' data-ayah='%d'><td class='label'>English (Yusuf Ali)</td><td>%s</td></tr>\n"
+                "<tr class='trans-sahih' data-ayah='%d'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>%s</td></tr>\n"
+                "<tr class='eng-abridged' data-ayah='%d'><td class='label'>English (Abridged Expl.)</td><td>%s</td></tr>\n"
+                "<tr class='hindi' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>%s</td></tr>\n"
+                "<tr class='hindi-suhail' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>%s</td></tr>\n"
+                "<tr class='hindi-mokhtasar' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>%s</td></tr>\n"
+                % (ayah, ayah,
+                   ayah, ar,
+                   ayah, sura_idx, ayah,
+                   ayah, tl,
+                   ayah, tu,
+                   ayah, pk,
+                   ayah, ya,
+                   ayah, sa,
+                   ayah, ea,
+                   ayah, hi,
+                   ayah, hs,
+                   ayah, hm)
             )
-        out.write(FOOTER_HTML.format(nav=nav))
+        out.write(FOOTER_HTML.format(nav=nav, script=VC_JS))
 
     print('Written: %s' % filename)
 
@@ -350,7 +526,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English &amp; Hindi Translation</h1>
 <details class="notice">
@@ -370,7 +546,7 @@ Texts are reproduced verbatim; no alterations have been made.
 </details>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
-""" % CSS)
+""" % (CSS, make_surah_select(0)))
     for i, name in enumerate(SURA_NAME, 1):
         out.write("<a href='%03d.html'><strong>%d.</strong> %s</a>\n" % (i, i, name))
     out.write("""\
@@ -381,4 +557,202 @@ Texts are reproduced verbatim; no alterations have been made.
 </html>""")
 
 print('Written: %s' % index_path)
-print('Done. %d surah files + index regenerated.' % 114)
+
+# ---------------------------------------------------------------------------
+# Generate search-data.js  (compact JSON array for client-side search)
+# Each entry: [surahNum, ayahNum, surahName, arabic, translit_unicode, yusuf_ali, hindi_mokhtasar]
+# ---------------------------------------------------------------------------
+import json
+
+search_data = []
+for sura_idx in range(1, 115):
+    size = SURA_SIZE[sura_idx - 1]
+    name = SURA_NAME[sura_idx - 1]
+    for ayah in range(1, size + 1):
+        search_data.append([
+            sura_idx,
+            ayah,
+            name,
+            arabic.get((sura_idx, ayah), ''),
+            translit_unicode.get((sura_idx, ayah), ''),
+            yusufali.get((sura_idx, ayah), ''),
+            hindi_mokhtasar.get((sura_idx, ayah), ''),
+        ])
+
+search_data_path = os.path.join(docs_dir, 'search-data.js')
+with open(search_data_path, 'w', encoding='utf-8') as f:
+    f.write('var QURAN_DATA=')
+    json.dump(search_data, f, ensure_ascii=False, separators=(',', ':'))
+    f.write(';')
+print('Written: %s' % search_data_path)
+
+# ---------------------------------------------------------------------------
+# Generate search.html
+# ---------------------------------------------------------------------------
+SEARCH_CSS = CSS + """
+.search-box{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.search-box input[type=text]{flex:1;min-width:200px;padding:9px 12px;border:1px solid #ccd6e0;border-radius:4px;font-size:1em;color:#111}
+.search-box input[type=text]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:9px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:1em}
+.search-box button:hover{background:#2a5a8c}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold}
+.result-header a:hover{text-decoration:underline}
+.result-arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;padding:8px 12px;background:#fff8e1}
+.result-translit{padding:6px 12px;background:#e8eaf6;font-weight:600;color:#283593;font-size:.95em}
+.result-trans{padding:6px 12px;background:#e8f5e9;font-size:.95em}
+.result-highlight{background:#fff176;border-radius:2px}
+.result-hindi-mokhtasar{padding:6px 12px;background:#e8f5e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20;font-size:.95em}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-current{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pagination .pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+"""
+
+SEARCH_HTML = """\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search &ndash; Qur&rsquo;an</title>
+<style>
+{css}
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>&#128269; Search the Qur&#x2019;an</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, English translation (Yusuf Ali), or &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Hindi Tafsir). Results link directly to the verse.</p>
+<div class="search-box">
+  <input type="text" id="q" placeholder="e.g. mercy, rahman, bismillah&hellip;" autofocus autocomplete="off" spellcheck="false">
+  <button onclick="doSearch()">Search</button>
+</div>
+<div id="search-status"></div>
+<div id="results"></div>
+<div id="pagination"></div>
+</main>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain</footer>
+<script src="search-data.js"></script>
+<script>
+(function(){{
+  var PAGE_SIZE = 20;
+  var allMatches = [];
+  var currentPage = 1;
+  var currentTerms = [];
+  var input = document.getElementById('q');
+  var statusEl = document.getElementById('search-status');
+  var resultsEl = document.getElementById('results');
+  var paginEl = document.getElementById('pagination');
+
+  function escHtml(s){{
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }}
+
+  function highlight(text, terms){{
+    var escaped = escHtml(text);
+    terms.forEach(function(term){{
+      if(!term) return;
+      var re = new RegExp('(' + term.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&') + ')', 'gi');
+      escaped = escaped.replace(re, '<mark class="result-highlight">$1</mark>');
+    }});
+    return escaped;
+  }}
+
+  function renderPage(page){{
+    var total = allMatches.length;
+    var totalPages = Math.ceil(total / PAGE_SIZE);
+    if(page < 1) page = 1;
+    if(page > totalPages) page = totalPages;
+    currentPage = page;
+    var start = (page - 1) * PAGE_SIZE;
+    var end = Math.min(start + PAGE_SIZE, total);
+    statusEl.textContent = 'Showing ' + (start+1) + '\u2013' + end + ' of ' + total + ' result(s) for \u201c' + input.value.trim() + '\u201d';
+    var html = '';
+    for(var i=start;i<end;i++){{
+      var row=allMatches[i];
+      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
+      var href=String(sura).padStart(3,'0')+'.html#'+ayah;
+      html+='<div class="result-card">'
+        +'<div class="result-header"><span>Surah '+sura+':'+ayah+' &mdash; '+escHtml(name)+'</span>'
+        +'<a href="'+href+'">View verse &rarr;</a></div>'
+        +'<div class="result-arabic">'+highlight(ar,currentTerms)+'</div>'
+        +(tu?'<div class="result-translit">'+highlight(tu,currentTerms)+'</div>':'')
+        +(ya?'<div class="result-trans">'+highlight(ya,currentTerms)+'</div>':'')
+        +(hm?'<div class="result-hindi-mokhtasar">'+highlight(hm,currentTerms)+'</div>':'')
+        +'</div>';
+    }}
+    resultsEl.innerHTML = html;
+    var pgHtml = '';
+    if(totalPages > 1){{
+      pgHtml += '<div class="pagination">';
+      pgHtml += '<button onclick="goPage('+(page-1)+')"'+(page<=1?' disabled':'')+'>&laquo; Prev</button>';
+      var pStart=Math.max(1,page-3), pEnd=Math.min(totalPages,page+3);
+      if(pStart>1){{
+        pgHtml+='<button onclick="goPage(1)">1</button>';
+        if(pStart>2) pgHtml+='<span class="pg-ellipsis">&hellip;</span>';
+      }}
+      for(var p=pStart;p<=pEnd;p++){{
+        if(p===page) pgHtml+='<button class="pg-current" disabled>'+p+'</button>';
+        else pgHtml+='<button onclick="goPage('+p+')">'+p+'</button>';
+      }}
+      if(pEnd<totalPages){{
+        if(pEnd<totalPages-1) pgHtml+='<span class="pg-ellipsis">&hellip;</span>';
+        pgHtml+='<button onclick="goPage('+totalPages+')">'+totalPages+'</button>';
+      }}
+      pgHtml += '<button onclick="goPage('+(page+1)+')"'+(page>=totalPages?' disabled':'')+'>Next &raquo;</button>';
+      pgHtml += '</div>';
+    }}
+    paginEl.innerHTML = pgHtml;
+  }}
+
+  window.goPage = function(page){{
+    renderPage(page);
+    resultsEl.scrollIntoView({{behavior:'smooth',block:'start'}});
+  }};
+
+  window.doSearch = function(){{
+    var q = input.value.trim();
+    if(!q){{ resultsEl.innerHTML=''; statusEl.textContent=''; paginEl.innerHTML=''; allMatches=[]; return; }}
+    currentTerms = q.toLowerCase().split(/\\s+/).filter(Boolean);
+    allMatches = [];
+    for(var i=0;i<QURAN_DATA.length;i++){{
+      var row=QURAN_DATA[i];
+      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
+      var haystack=(ar+' '+tu+' '+ya+' '+hm+' '+name).toLowerCase();
+      if(currentTerms.every(function(t){{ return haystack.indexOf(t)!==-1; }})) allMatches.push(row);
+    }}
+    if(allMatches.length===0){{
+      statusEl.textContent='No results found.';
+      resultsEl.innerHTML='';
+      paginEl.innerHTML='';
+      return;
+    }}
+    renderPage(1);
+  }};
+
+  input.addEventListener('keydown',function(e){{ if(e.key==='Enter') doSearch(); }});
+
+  // Auto-search from URL ?q=...
+  var params=new URLSearchParams(location.search);
+  var qs=params.get('q');
+  if(qs){{ input.value=qs; doSearch(); }}
+}})();
+</script>
+</body>
+</html>"""
+
+search_html_path = os.path.join(docs_dir, 'search.html')
+with open(search_html_path, 'w', encoding='utf-8') as f:
+    f.write(SEARCH_HTML.format(
+        css=SEARCH_CSS,
+        surah_select=make_surah_select(0),
+    ))
+print('Written: %s' % search_html_path)
+
+print('Done. %d surah files + index + search regenerated.' % 114)
