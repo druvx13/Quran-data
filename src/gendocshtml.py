@@ -280,7 +280,53 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .cf-item label:hover{background:#dde8f2}
 .cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
 .cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
-@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}"""
+@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .translit td{background:#1e2a3a}
+  .translit-unicode td{background:#1a1f3a}
+  .trans td{background:#1a1a1a}
+  .trans-yusuf td{background:#1a2a1a}
+  .trans-sahih td{background:#132030}
+  .hindi td{background:#1e1530}
+  .hindi-suhail td{background:#2a1f10}
+  .hindi-mokhtasar td{background:#102010}
+  .eng-abridged td{background:#102028}
+  .audio td{background:#0d2228}
+  .arabic td{background:#2a2010}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  th{background:#0d2136}
+  .translit-unicode-text{color:#9fa8da}
+  .hindi-text{color:#b39ddb}
+  .hindi-suhail-text{color:#ffcc80}
+  .hindi-mokhtasar-text{color:#a5d6a7}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .ayah-sep td{background:#ddd!important;color:#000!important}
+  tr[data-ayah]{display:table-row!important}
+}"""
 
 HEADER_HTML = """\
 <!DOCTYPE html>
@@ -288,6 +334,7 @@ HEADER_HTML = """\
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Surah {num}: {name} \u2014 Arabic text, transliteration, and English &amp; Hindi translations of the Qur\u2019an.">
 <title>Surah {num}: {name}</title>
 <style>
 {css}
@@ -297,6 +344,7 @@ HEADER_HTML = """\
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
+<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
 {verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
 """
 
@@ -480,21 +528,21 @@ for sura_idx in range(1, 115):
             ea = eng_abridged.get((sura_idx, ayah), '')
             ar = arabic.get((sura_idx, ayah), '')
             out.write(
-                "<tr class='ayah-sep' data-ayah='%d'><td colspan='2'>Ayah %d</td></tr>\n"
-                "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text'>%s</td></tr>\n"
-                "<tr class='audio' data-ayah='%d'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/%03d%03d.mp3'></audio></td></tr>\n"
+                "<tr class='ayah-sep' data-ayah='%d' id='ayah-%d'><td colspan='2'>Ayah %d</td></tr>\n"
+                "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>%s</td></tr>\n"
+                "<tr class='audio' data-ayah='%d'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/%03d%03d.mp3' title='Surah %d, Ayah %d \u2014 Mishary Alafasy recitation'></audio></td></tr>\n"
                 "<tr class='translit' data-ayah='%d'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>%s</td></tr>\n"
                 "<tr class='translit-unicode' data-ayah='%d'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>%s</td></tr>\n"
-                "<tr class='trans' data-ayah='%d'><td class='label'>English (Pickthall)</td><td>%s</td></tr>\n"
-                "<tr class='trans-yusuf' data-ayah='%d'><td class='label'>English (Yusuf Ali)</td><td>%s</td></tr>\n"
-                "<tr class='trans-sahih' data-ayah='%d'><td class='label'>English (Saheeh Int&#x2019;l)</td><td>%s</td></tr>\n"
-                "<tr class='eng-abridged' data-ayah='%d'><td class='label'>English (Abridged Expl.)</td><td>%s</td></tr>\n"
-                "<tr class='hindi' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text'>%s</td></tr>\n"
-                "<tr class='hindi-suhail' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text'>%s</td></tr>\n"
-                "<tr class='hindi-mokhtasar' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text'>%s</td></tr>\n"
-                % (ayah, ayah,
+                "<tr class='trans' data-ayah='%d'><td class='label'>English (Pickthall)</td><td lang='en'>%s</td></tr>\n"
+                "<tr class='trans-yusuf' data-ayah='%d'><td class='label'>English (Yusuf Ali)</td><td lang='en'>%s</td></tr>\n"
+                "<tr class='trans-sahih' data-ayah='%d'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>%s</td></tr>\n"
+                "<tr class='eng-abridged' data-ayah='%d'><td class='label'>English (Abridged Expl.)</td><td lang='en'>%s</td></tr>\n"
+                "<tr class='hindi' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>%s</td></tr>\n"
+                "<tr class='hindi-suhail' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>%s</td></tr>\n"
+                "<tr class='hindi-mokhtasar' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>%s</td></tr>\n"
+                % (ayah, ayah, ayah,
                    ayah, ar,
-                   ayah, sura_idx, ayah,
+                   ayah, sura_idx, ayah, sura_idx, ayah,
                    ayah, tl,
                    ayah, tu,
                    ayah, pk,
@@ -532,7 +580,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 <details class="notice">
 <summary><strong>Public Domain Notice &amp; Source Attribution</strong></summary>
 <em>Arabic Text:</em> Standard Arabic Uthmani Script.<br>
-<em>Audio Recitation:</em> Mishary Rashid Alafasy &mdash; via versebyversequran.com (see <a href="audio/Alafasy/000_license.html">license</a>).<br>
+<em>Audio Recitation:</em> Mishary Rashid Alafasy &mdash; via <a href="https://druvx13-quran-audio-alafasy.hf.space" rel="noopener noreferrer">Hugging Face Space</a> (audio sourced from versebyversequran.com).<br>
 <em>Transliteration:</em> Tanzil.net English Transliteration of the Qur&#x2019;an.<br>
 <em>Transliteration:</em> Quran Unicode Project (translit_en.txt).<br>
 <em>English Translation:</em> Mohammed Marmaduke Pickthall, <em>The Meaning of the Glorious Koran</em> (1930) &mdash; Public Domain.<br>

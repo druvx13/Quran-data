@@ -4,7 +4,16 @@ LATEX    = xelatex
 LATEX_DIR = latex
 OUTPUT_DIR = output
 
-.PHONY: all generate-tex generate-txt generate-docs clean
+.PHONY: all generate-tex generate-txt generate-docs clean help
+
+## Show available targets.
+help:
+	@echo "Available targets:"
+	@echo "  make generate-tex   Generate intermediate LaTeX content files (run first for PDFs)"
+	@echo "  make all            Compile all PDFs (requires generate-tex first)"
+	@echo "  make generate-txt   Generate formatted plain-text output files"
+	@echo "  make generate-docs  Regenerate the docs/ HTML pages (requires generate-txt first)"
+	@echo "  make clean          Remove LaTeX build artefacts"
 
 ## Build all PDFs (requires generate-tex to have been run first).
 all: $(OUTPUT_DIR)/farooq.pdf $(OUTPUT_DIR)/suhail.pdf \
