@@ -216,6 +216,7 @@ body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
 header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
 header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
 main{padding:16px;max-width:900px;margin:0 auto}
 h1{font-size:1.4em;margin:0 0 12px}
 h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
@@ -293,7 +294,7 @@ HEADER_HTML = """\
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a><a href="search.html">&#128269; Search</a>{surah_select}</header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
 {verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali &amp; Saheeh Int&#x2019;l) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar)</th></tr></thead><tbody>
@@ -525,7 +526,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a><a href="search.html">&#128269; Search</a>%s</header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English &amp; Hindi Translation</h1>
 <details class="notice">
@@ -616,7 +617,7 @@ SEARCH_HTML = """\
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a><a href="search.html">&#128269; Search</a>{surah_select}</header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, or English translation (Yusuf Ali). Results link directly to the verse.</p>
