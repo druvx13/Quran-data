@@ -55,10 +55,16 @@ for src_file, out_file, translator, lang in translations:
             out.write("Bhashantar: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
-            with zipfile.ZipFile(src_file, 'r') as zf:
-                json_name = next(n for n in zf.namelist() if n.endswith('.json'))
-                with zf.open(json_name) as jf:
-                    ayah_data = json.load(jf)
+            try:
+                with zipfile.ZipFile(src_file, 'r') as zf:
+                    json_name = next(n for n in zf.namelist() if n.endswith('.json'))
+                    with zf.open(json_name) as jf:
+                        ayah_data = json.load(jf)
+            except zipfile.BadZipFile:
+                out.write("[Error: %s is not a valid zip file (possibly a Git LFS pointer). "
+                          "Run `git lfs pull` to download the actual data.]\n" % src_file)
+                print("Warning: %s is not a valid zip file — skipped." % src_file)
+                continue
             for sura_num in range(114):
                 out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
                 out.write("-" * 40 + "\n")
@@ -82,6 +88,21 @@ for src_file, out_file, translator, lang in translations:
                     key = "%d:%d" % (sura_num + 1, ayah_num)
                     entry = ayah_data.get(key, {})
                     text = entry.get('t', '') if isinstance(entry, dict) else ''
+                    out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
+                out.write("\n")
+        elif lang == 'English-Piped':
+            with open(src_file, 'r', encoding='utf-8') as src:
+                # Parse sura|ayah|text format; skip comment and blank lines
+                lines = [l.rstrip('\n') for l in src
+                         if l.strip() and not l.startswith('#')]
+            line_iter = iter(lines)
+            for sura_num in range(114):
+                out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
+                out.write("-" * 40 + "\n")
+                for ayah_num in range(1, surasize[sura_num] + 1):
+                    raw = next(line_iter, '')
+                    parts = raw.split('|', 2)
+                    text = parts[2] if len(parts) == 3 else raw
                     out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                 out.write("\n")
         elif lang == 'Transliteration-Sequential':

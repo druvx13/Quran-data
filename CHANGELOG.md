@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] — 2026-02-23
+
+### Changed
+- **Replaced Git LFS pointer files with real zip archives** — `data/hindi-mokhtasar.json.zip`
+  and `data/abridged-explanation-of-the-quran.json.zip` were stored as Git LFS pointers,
+  requiring paid LFS storage and causing `zipfile.BadZipFile` crashes at run time.  Both
+  files have been reconstructed from the content already embedded in `docs/` and are now
+  committed as real Deflate-compressed zip archives directly in the repository (no LFS
+  required).  All 6 236 ayah entries are intact for both sources.
+
+### Fixed
+- **Yusuf Ali output was corrupted** — `src/gentxtforquran.py` read `en.yusufali.txt`
+  (pipe-delimited `sura|ayah|text` format) sequentially without extracting the text
+  field, producing lines like `[1:1] 1|1|In the name of Allah…` in the output file
+  instead of `[1:1] In the name of Allah…`.  Added an `English-Piped` handler that
+  skips comment/blank lines and splits on `|` to extract only the translation text.
+- **Script crashed on Git LFS pointer files** — `src/gentxtforquran.py` raised
+  `zipfile.BadZipFile` when the JSON zip data files were stored as Git LFS pointers.
+  The script now catches `BadZipFile` gracefully, writes a clear error message with
+  `git lfs pull` instructions, prints a warning, and continues processing the remaining
+  translations.
+
+### Changed
+- **Refactored `src/gentexforquran.py`** — replaced five near-identical copy-pasted
+  `with open(…)` blocks (one per PDF target) with a data-driven `TARGET_FILES` list and
+  a single shared loop.  Behaviour is identical; the script is now significantly shorter
+  and easier to extend with new translations.
+
+---
+
 ## [Unreleased] — 2026-02-22
 
 ### Added
