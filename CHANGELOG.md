@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] — 2026-02-23
+
+### Fixed
+- **Yusuf Ali output was corrupted** — `src/gentxtforquran.py` read `en.yusufali.txt`
+  (pipe-delimited `sura|ayah|text` format) sequentially without extracting the text
+  field, producing lines like `[1:1] 1|1|In the name of Allah…` in the output file
+  instead of `[1:1] In the name of Allah…`.  Added an `English-Piped` handler that
+  skips comment/blank lines and splits on `|` to extract only the translation text.
+- **Script crashed on Git LFS pointer files** — `src/gentxtforquran.py` raised
+  `zipfile.BadZipFile` when the JSON zip data files (`hindi-mokhtasar.json.zip`,
+  `abridged-explanation-of-the-quran.json.zip`) are stored as Git LFS pointers rather
+  than real archives.  The script now catches `BadZipFile`, writes a clear error message
+  to the output file (instructing the user to run `git lfs pull`), prints a warning, and
+  continues processing the remaining translations.
+
+### Changed
+- **Refactored `src/gentexforquran.py`** — replaced five near-identical copy-pasted
+  `with open(…)` blocks (one per PDF target) with a data-driven `TARGET_FILES` list and
+  a single shared loop.  Behaviour is identical; the script is now significantly shorter
+  and easier to extend with new translations.
+
+---
+
 ## [Unreleased] — 2026-02-22
 
 ### Added
