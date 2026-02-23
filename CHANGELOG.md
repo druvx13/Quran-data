@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] — 2026-02-23
 
+### Changed
+- **Replaced Git LFS pointer files with real zip archives** — `data/hindi-mokhtasar.json.zip`
+  and `data/abridged-explanation-of-the-quran.json.zip` were stored as Git LFS pointers,
+  requiring paid LFS storage and causing `zipfile.BadZipFile` crashes at run time.  Both
+  files have been reconstructed from the content already embedded in `docs/` and are now
+  committed as real Deflate-compressed zip archives directly in the repository (no LFS
+  required).  All 6 236 ayah entries are intact for both sources.
+
 ### Fixed
 - **Yusuf Ali output was corrupted** — `src/gentxtforquran.py` read `en.yusufali.txt`
   (pipe-delimited `sura|ayah|text` format) sequentially without extracting the text
@@ -15,11 +23,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   instead of `[1:1] In the name of Allah…`.  Added an `English-Piped` handler that
   skips comment/blank lines and splits on `|` to extract only the translation text.
 - **Script crashed on Git LFS pointer files** — `src/gentxtforquran.py` raised
-  `zipfile.BadZipFile` when the JSON zip data files (`hindi-mokhtasar.json.zip`,
-  `abridged-explanation-of-the-quran.json.zip`) are stored as Git LFS pointers rather
-  than real archives.  The script now catches `BadZipFile`, writes a clear error message
-  to the output file (instructing the user to run `git lfs pull`), prints a warning, and
-  continues processing the remaining translations.
+  `zipfile.BadZipFile` when the JSON zip data files were stored as Git LFS pointers.
+  The script now catches `BadZipFile` gracefully, writes a clear error message with
+  `git lfs pull` instructions, prints a warning, and continues processing the remaining
+  translations.
 
 ### Changed
 - **Refactored `src/gentexforquran.py`** — replaced five near-identical copy-pasted
