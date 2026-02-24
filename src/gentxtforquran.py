@@ -29,6 +29,7 @@ translations = [
     ('data/abridged-explanation-of-the-quran.json.zip', 'output/quran_english_abridged.txt', 'Abridged Explanation of the Quran', 'English-Tafsir-JSON'),
     ('data/rabila-al-umry-simple.json.zip', 'output/quran_gujarati_rabila.txt', 'Rabila Al-Umry', 'Gujarati-JSON'),
     ('data/en.qarai.txt', 'output/quran_english_qarai.txt', 'Ali Quli Qarai', 'English-SuraAyah'),
+    ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Muhammad Taqi-ud-Din al-Hilali and Muhammad Muhsin Khan', 'English-SuraAyah'),
 ]
 
 for src_file, out_file, translator, lang in translations:
