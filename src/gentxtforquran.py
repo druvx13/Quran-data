@@ -28,6 +28,7 @@ translations = [
     ('data/hindi-mokhtasar.json.zip', 'output/quran_hindi_mokhtasar.txt', 'Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim', 'Hindi-Tafsir-JSON'),
     ('data/abridged-explanation-of-the-quran.json.zip', 'output/quran_english_abridged.txt', 'Abridged Explanation of the Quran', 'English-Tafsir-JSON'),
     ('data/rabila-al-umry-simple.json.zip', 'output/quran_gujarati_rabila.txt', 'Rabila Al-Umry', 'Gujarati-JSON'),
+    ('data/en.qarai.txt', 'output/quran_english_qarai.txt', 'Ali Quli Qarai', 'English-SuraAyah'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -35,7 +36,7 @@ for src_file, out_file, translator, lang in translations:
         if lang in ('Transliteration', 'Transliteration-Sequential'):
             out.write("Quran - English Transliteration\n")
             out.write("Source: %s\n" % translator)
-        elif lang in ('English', 'English-Piped'):
+        elif lang in ('English', 'English-Piped', 'English-SuraAyah'):
             out.write("Quran - English Translation\n")
             out.write("Translator: %s\n" % translator)
         elif lang == 'Arabic':
@@ -93,6 +94,16 @@ for src_file, out_file, translator, lang in translations:
                     for ayah_num in range(1, surasize[sura_num] + 1):
                         raw_line = src.readline().rstrip('\n')
                         text = raw_line.split('|', 1)[1] if '|' in raw_line else ''
+                        out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
+                    out.write("\n")
+        elif lang == 'English-SuraAyah':
+            with open(src_file, 'r', encoding='utf-8') as src:
+                for sura_num in range(114):
+                    out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
+                    out.write("-" * 40 + "\n")
+                    for ayah_num in range(1, surasize[sura_num] + 1):
+                        raw_line = src.readline().rstrip('\n')
+                        text = raw_line.split('|', 2)[2] if raw_line.count('|') >= 2 else raw_line
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
         else:
