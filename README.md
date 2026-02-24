@@ -298,6 +298,12 @@ Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 
 ## License
 
+```
+Copyright (C) 2026 Anonymous
+This Work is licensed under the Unconditional Liberty Instrument (ULI), Version 1.0.
+A copy of the License is included herein or is available at LICENSE.
+```
+
 This project's scripts and configuration are licensed under the [Unconditional Liberty Instrument (ULI), Version 1.0](LICENSE).
 
 The translation texts, audio, and explanation data are reproduced verbatim and are subject
