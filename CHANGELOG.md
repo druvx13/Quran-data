@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] — 2026-02-24
+
+### Changed
+- **License** — replaced MIT license with the Unconditional Liberty Instrument (ULI),
+  Version 1.0. Updated `LICENSE`, `README.md` badge, and `README.md` license section.
+
+---
+
 ## [Unreleased] — 2026-02-22
 
 ### Added
@@ -119,7 +127,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   usage examples, directory layout, and tech-stack table.
 - `CONTRIBUTING.md` — guidelines for contributors.
 - `CHANGELOG.md` — this file.
-- `LICENSE` — MIT licence for the project's scripts and configuration.
+- `LICENSE` — Unconditional Liberty Instrument (ULI), Version 1.0, for the project's scripts and configuration.
 - `.gitignore` — ignore rules covering XeLaTeX build artefacts (`.aux`, `.log`, `.toc`,
   `.out`, `.synctex.gz`), generated PDF and plain-text outputs, Python cache, editor/OS
   metadata.

@@ -2,7 +2,7 @@
 
 A static HTML website (GitHub Pages) for side-by-side study of the Qur'an — Arabic text, audio recitation, two transliterations, three English translations, an English explanation, two Hindi translations, and a Hindi Tafsir — plus typeset PDF editions generated with XeLaTeX.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: ULI](https://img.shields.io/badge/License-ULI%201.0-blue.svg)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-brightgreen)](https://druvx13.github.io/Quran-data/)
 
 ---
@@ -298,7 +298,7 @@ Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 
 ## License
 
-This project's scripts and configuration are licensed under the [MIT License](LICENSE).
+This project's scripts and configuration are licensed under the [Unconditional Liberty Instrument (ULI), Version 1.0](LICENSE).
 
 The translation texts, audio, and explanation data are reproduced verbatim and are subject
 to their respective original copyrights and licenses. The Pickthall (1930) and Yusuf Ali
