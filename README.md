@@ -46,6 +46,7 @@ Features:
 │   ├── hi.hindi.txt                         # Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi
 │   ├── en.sahih.txt                         # English – Saheeh International (one line per ayah)
 │   ├── en.pickthall.txt                     # English – Pickthall (one line per ayah)
+│   ├── en.hilali.txt                        # English – Hilali-Khan (sura|ayah|text format)
 │   ├── en.yusufali.txt                      # English – Yusuf Ali (sura|ayah|text format)
 │   ├── en.transliteration.txt               # Transliteration – Tanzil.net (one line per ayah)
 │   ├── translit_en.txt                      # Transliteration – Quran Unicode Project (num|text)
@@ -60,12 +61,14 @@ Features:
 │   ├── sahih.tex           # Main document – Saheeh International English
 │   ├── translit.tex        # Main document – Tanzil.net transliteration
 │   ├── pickthall.tex       # Main document – Pickthall English
+│   ├── hilali.tex          # Main document – Hilali-Khan English
 │   ├── hindi_mokhtasar.tex # Main document – Hindi Tafsir (Al-Mokhtasar) with Arabic & transliteration
 │   ├── hilali.tex          # Main document – Hilali & Khan English translation with Arabic
 │   ├── quran.sty           # Custom LaTeX style (Arabic ayah macros)
 │   └── q*.tex              # Generated content files (written by gentexforquran.py)
 ├── output/                 # Generated output files
 │   ├── quran_arabic.txt
+│   ├── quran_english_hilali.txt
 │   ├── quran_english_pickthall.txt
 │   ├── quran_english_sahih.txt
 │   ├── quran_english_translit.txt
@@ -109,6 +112,7 @@ Features:
 | *(sahih.pdf — build locally)* | English | Saheeh International |
 | *(translit.pdf — build locally)* | Transliteration | Tanzil.net |
 | *(pickthall.pdf — build locally)* | English | Pickthall (1930, Public Domain) |
+| `output/hilali.pdf` | English | Hilali-Khan (Noble Quran) |
 | `output/hindi_mokhtasar.pdf` | Hindi Tafsir | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim |
 | `output/hilali.pdf` | English | Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan |
 
@@ -123,6 +127,7 @@ Features:
 | English | Pickthall (1930, Public Domain) | `data/en.pickthall.txt` |
 | English | Yusuf Ali (Public Domain) | `data/en.yusufali.txt` |
 | English | Saheeh International | `data/en.sahih.txt` |
+| English | Hilali-Khan (Noble Quran) | `data/en.hilali.txt` |
 | English Explanation | Abridged Explanation of the Quran | `data/abridged-explanation-of-the-quran.json.zip` |
 | Hindi (हिन्दी) | Muhammad Farooq Khan & Muhammad Ahmed | `data/hi.farooq.txt` |
 | Hindi (हिन्दी) | Suhel Farooq Khan & Saifur Rahman Nadwi | `data/hi.hindi.txt` |
@@ -180,6 +185,7 @@ cd latex && xelatex suhail.tex          # → output/suhail.pdf
 cd latex && xelatex sahih.tex           # → output/sahih.pdf
 cd latex && xelatex translit.tex        # → output/translit.pdf
 cd latex && xelatex pickthall.tex       # → output/pickthall.pdf
+cd latex && xelatex hilali.tex          # → output/hilali.pdf
 cd latex && xelatex hindi_mokhtasar.tex # → output/hindi_mokhtasar.pdf
 ```
 
@@ -196,6 +202,7 @@ Produces eleven files in `output/`:
 | `quran_arabic.txt` | `data/ar.quran.txt` |
 | `quran_english_pickthall.txt` | `data/en.pickthall.txt` |
 | `quran_english_sahih.txt` | `data/en.sahih.txt` |
+| `quran_english_hilali.txt` | `data/en.hilali.txt` |
 | `quran_english_translit.txt` | `data/en.transliteration.txt` |
 | `quran_english_yusufali.txt` | `data/en.yusufali.txt` |
 | `quran_english_abridged.txt` | `data/abridged-explanation-of-the-quran.json.zip` |

@@ -85,6 +85,20 @@ with open('latex/qupk.tex','w') as targetpk, open('data/en.pickthall.txt','r', e
             translation_line=transpk.readline()
             targetpk.write("\\flushleft{%s}\n" % translation_line.rstrip('\n'))
 
+with open('latex/quhilali.tex','w') as targeth, open('data/en.hilali.txt','r', encoding='utf-8') as transh:
+    for sura_idx in range(114):
+        targeth.write("\\chapter{%s}\n" % (suraname[sura_idx]) )
+        targeth.write("\\begin{Arabic}\n\\Huge{\\centerline{\\basmalah}}\\end{Arabic}\n")
+        count=0
+        while(count<surasize[sura_idx]):
+            targeth.write("\\flushright{\\begin{Arabic}\n")
+            targeth.write("\\quranayah[%d][%d]\n" %(sura_idx+1,count+1))
+            targeth.write("\\end{Arabic}}\n")
+            count=count+1
+            raw_line=transh.readline()
+            translation_text=raw_line.split('|',2)[2] if raw_line.count('|')>=2 else raw_line
+            targeth.write("\\flushleft{%s}\n" % translation_text.rstrip('\n'))
+
 import json, zipfile
 
 with zipfile.ZipFile('data/hindi-mokhtasar.json.zip', 'r') as zf:
