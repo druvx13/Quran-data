@@ -61,9 +61,8 @@ Features:
 │   ├── sahih.tex           # Main document – Saheeh International English
 │   ├── translit.tex        # Main document – Tanzil.net transliteration
 │   ├── pickthall.tex       # Main document – Pickthall English
-│   ├── hilali.tex          # Main document – Hilali-Khan English
-│   ├── hindi_mokhtasar.tex # Main document – Hindi Tafsir (Al-Mokhtasar) with Arabic & transliteration
 │   ├── hilali.tex          # Main document – Hilali & Khan English translation with Arabic
+│   ├── hindi_mokhtasar.tex # Main document – Hindi Tafsir (Al-Mokhtasar) with Arabic & transliteration
 │   ├── quran.sty           # Custom LaTeX style (Arabic ayah macros)
 │   └── q*.tex              # Generated content files (written by gentexforquran.py)
 ├── output/                 # Generated output files
@@ -74,7 +73,6 @@ Features:
 │   ├── quran_english_translit.txt
 │   ├── quran_english_yusufali.txt
 │   ├── quran_english_abridged.txt
-│   ├── quran_english_hilali.txt
 │   ├── quran_hindi_farooq.txt
 │   ├── quran_hindi_suhail.txt
 │   ├── quran_hindi_mokhtasar.txt
@@ -112,7 +110,6 @@ Features:
 | *(sahih.pdf — build locally)* | English | Saheeh International |
 | *(translit.pdf — build locally)* | Transliteration | Tanzil.net |
 | *(pickthall.pdf — build locally)* | English | Pickthall (1930, Public Domain) |
-| `output/hilali.pdf` | English | Hilali-Khan (Noble Quran) |
 | `output/hindi_mokhtasar.pdf` | Hindi Tafsir | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim |
 | `output/hilali.pdf` | English | Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan |
 
