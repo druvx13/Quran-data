@@ -29,6 +29,8 @@ translations = [
     ('data/abridged-explanation-of-the-quran.json.zip', 'output/quran_english_abridged.txt', 'Abridged Explanation of the Quran', 'English-Tafsir-JSON'),
     ('data/rabila-al-umry-simple.json.zip', 'output/quran_gujarati_rabila.txt', 'Rabila Al-Umry', 'Gujarati-JSON'),
     ('data/en.qarai.txt', 'output/quran_english_qarai.txt', 'Ali Quli Qarai', 'English-SuraAyah'),
+    ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan', 'English-SuraAyah'),
+    ('data/ahl-al-hadith-central-society-of-nepal-simple.json.zip', 'output/quran_nepali_ahl_al_hadith.txt', 'Ahl-al-Hadith Central Society of Nepal', 'Nepali-JSON'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -54,6 +56,9 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Gujarati-JSON':
             out.write("Quran - Gujarati Bhashantar\n")
             out.write("Bhashantar: %s\n" % translator)
+        elif lang == 'Nepali-JSON':
+            out.write("Quran - Nepali Anuvad\n")
+            out.write("Anuvadak: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
             with zipfile.ZipFile(src_file, 'r') as zf:
@@ -85,6 +90,20 @@ for src_file, out_file, translator, lang in translations:
                     text = entry.get('t', '') if isinstance(entry, dict) else ''
                     out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                 out.write("\n")
+        elif lang == 'Nepali-JSON':
+            with zipfile.ZipFile(src_file, 'r') as zf:
+                json_name = next(n for n in zf.namelist() if n.endswith('.json'))
+                with zf.open(json_name) as jf:
+                    ayah_data = json.load(jf)
+            for sura_num in range(114):
+                out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
+                out.write("-" * 40 + "\n")
+                for ayah_num in range(1, surasize[sura_num] + 1):
+                    key = "%d:%d" % (sura_num + 1, ayah_num)
+                    entry = ayah_data.get(key, {})
+                    text = entry.get('t', '') if isinstance(entry, dict) else ''
+                    out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
+                out.write("\n")
         elif lang == 'Transliteration-Sequential':
             with open(src_file, 'r', encoding='utf-8') as src:
                 # Parse num|text format with sequential global ayah numbers
@@ -96,7 +115,7 @@ for src_file, out_file, translator, lang in translations:
                         text = raw_line.split('|', 1)[1] if '|' in raw_line else ''
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
-        elif lang == 'English-SuraAyah':
+        elif lang in ('English-SuraAyah', 'English-Piped'):
             with open(src_file, 'r', encoding='utf-8') as src:
                 for sura_num in range(114):
                     out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
