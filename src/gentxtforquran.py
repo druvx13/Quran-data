@@ -22,13 +22,14 @@ translations = [
     ('data/en.sahih.txt', 'output/quran_english_sahih.txt', 'Saheeh International', 'English'),
     ('data/en.transliteration.txt', 'output/quran_english_translit.txt', 'Tanzil.net', 'Transliteration'),
     ('data/en.pickthall.txt', 'output/quran_english_pickthall.txt', 'Mohammed Marmaduke Pickthall', 'English'),
-    ('data/en.yusufali.txt', 'output/quran_english_yusufali.txt', 'Abdullah Yusuf Ali', 'English-Piped'),
+    ('data/en.yusufali.txt', 'output/quran_english_yusufali.txt', 'Abdullah Yusuf Ali', 'English-SuraAyah'),
     ('data/ar.quran.txt', 'output/quran_arabic.txt', 'Standard Arabic Uthmani Script', 'Arabic'),
     ('data/translit_en.txt', 'output/quran_translit_unicode.txt', 'Quran Unicode Project', 'Transliteration-Sequential'),
     ('data/hindi-mokhtasar.json.zip', 'output/quran_hindi_mokhtasar.txt', 'Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim', 'Hindi-Tafsir-JSON'),
     ('data/abridged-explanation-of-the-quran.json.zip', 'output/quran_english_abridged.txt', 'Abridged Explanation of the Quran', 'English-Tafsir-JSON'),
     ('data/rabila-al-umry-simple.json.zip', 'output/quran_gujarati_rabila.txt', 'Rabila Al-Umry', 'Gujarati-JSON'),
     ('data/en.qarai.txt', 'output/quran_english_qarai.txt', 'Ali Quli Qarai', 'English-SuraAyah'),
+    ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Muhammad Taqi-ud-Din al-Hilali and Muhammad Muhsin Khan', 'English-SuraAyah'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -36,7 +37,7 @@ for src_file, out_file, translator, lang in translations:
         if lang in ('Transliteration', 'Transliteration-Sequential'):
             out.write("Quran - English Transliteration\n")
             out.write("Source: %s\n" % translator)
-        elif lang in ('English', 'English-Piped', 'English-SuraAyah'):
+        elif lang in ('English', 'English-SuraAyah'):
             out.write("Quran - English Translation\n")
             out.write("Translator: %s\n" % translator)
         elif lang == 'Arabic':
