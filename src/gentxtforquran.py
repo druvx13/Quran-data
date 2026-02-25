@@ -115,7 +115,7 @@ for src_file, out_file, translator, lang in translations:
                         text = raw_line.split('|', 1)[1] if '|' in raw_line else ''
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
-        elif lang == 'English-SuraAyah':
+        elif lang in ('English-SuraAyah', 'English-Piped'):
             with open(src_file, 'r', encoding='utf-8') as src:
                 for sura_num in range(114):
                     out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
