@@ -1,0 +1,71 @@
+\documentclass{report}
+\usepackage[a4paper,margin=1.5cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=true,          % non-Latin characters in Acrobat's bookmarks
+    pdftoolbar=true,        % show Acrobat's toolbar?
+    pdfmenubar=true,        % show Acrobat's menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={Quran - Hindi Tafsir (Al-Mokhtasar)},    % title
+    pdfauthor={Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim},     % author
+    pdfsubject={Hindi Tafsir with Arabic and Transliteration},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={Quran, Hindi, Tafsir, Arabic, Transliteration}, % list of keywords
+    pdfnewwindow=true,      % links in new PDF window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+\usepackage{forloop}
+\usepackage{quran}
+
+%%% For accessing system, OTF and TTF fonts
+%%% (would have been loaded by polylossia anyway)
+\usepackage{fontspec}
+
+%%% For language switching -- like babel, but for xelatex
+\usepackage{polyglossia}
+
+%%% For those cool-looking menus and keystrokes
+\usepackage{menukeys}
+
+%%% For the xelatex (and other LaTeX friends) logos
+\usepackage{hologo}
+
+\date{}
+\setmainlanguage{english}
+\setotherlanguages{arabic,hindi} %% or other languages
+
+
+
+%%% You'll probably want these lines if
+%%% you are also using tikz-related packages with
+%%% RTL languages. Put these lines *after* you 
+%%% loaded the RTL languages.
+\makeatletter
+    \let\pgfpicture\origin@pgfpicture%
+    \let\endpgfpicture\origin@endpgfpicture%
+\makeatother
+
+
+% define fonts for other languages
+\newfontfamily\arabicfont[Script=Arabic,Scale=2]{Scheherazade}
+\newfontfamily\devanagarifont[Script=Devanagari]{Lohit Hindi}
+
+
+
+
+\title{Quran - Hindi Tafsir (Al-Mokhtasar)}
+\author{Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\input{qumokhtasar.tex}
+\end{document}
