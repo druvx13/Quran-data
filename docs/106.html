@@ -34,6 +34,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .trans-yusuf td{background:#e8f5e9}
 .trans-sahih td{background:#e3f2fd}
 .trans-qarai td{background:#e0f2f1}
+.trans-hilali td{background:#f3e5f5}
+.trans-hilali-text{color:#4a148c}
 .hindi td{background:#f5f0ff}
 .hindi-suhail td{background:#fff3e0}
 .hindi-mokhtasar td{background:#e8f5e0}
@@ -47,6 +49,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .hindi-mokhtasar-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20}
 .gujarati td{background:#fce4ec}
 .gujarati-text{font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
+.nepali td{background:#e8f5f0}
+.nepali-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -95,11 +99,13 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .trans-yusuf td{background:#1a2a1a}
   .trans-sahih td{background:#132030}
   .trans-qarai td{background:#0d2520}
+  .trans-hilali td{background:#1e0a2a}
   .hindi td{background:#1e1530}
   .hindi-suhail td{background:#2a1f10}
   .hindi-mokhtasar td{background:#102010}
   .eng-abridged td{background:#102028}
   .gujarati td{background:#200010}
+  .nepali td{background:#0a1e18}
   .audio td{background:#0d2228}
   .arabic td{background:#2a2010}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
@@ -120,6 +126,8 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .hindi-suhail-text{color:#ffcc80}
   .hindi-mokhtasar-text{color:#a5d6a7}
   .gujarati-text{color:#f48fb1}
+  .trans-hilali-text{color:#ce93d8}
+  .nepali-text{color:#80cbc4}
 }
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
@@ -136,68 +144,76 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <main>
 <h1>Surah 106: Al-Quraish (The Quraish)</h1>
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
-<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='4' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='4' value='4'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='eng-abridged'><label for='cf-8'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='hindi'><label for='cf-9'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi-suhail' checked><label for='cf-10'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-mokhtasar' checked><label for='cf-11'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='gujarati'><label for='cf-12'>ગુજરાતી (Rabila)</label></span></div></div></details>
-<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l &amp; Qarai) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry)</th></tr></thead><tbody>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='4' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='4' value='4'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail' checked><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar' checked><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith)</th></tr></thead><tbody>
 <tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'>Ayah 1</td></tr>
 <tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لِإيلافِ قُرَيشٍ</td></tr>
 <tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/106001.mp3' title='Surah 106, Ayah 1 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lieel<u>a</u>fi quraysh<b>in</b></td></tr>
 <tr class='translit-unicode' data-ayah='1'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Li-ilaafi quraish</td></tr>
 <tr class='trans' data-ayah='1'><td class='label'>English (Pickthall)</td><td lang='en'>For the taming of Qureysh.</td></tr>
-<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td lang='en'>For the covenants (of security and safeguard enjoyed) by the Quraish,</td></tr>
+<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td lang='en'>106|1|For the covenants (of security and safeguard enjoyed) by the Quraish,</td></tr>
 <tr class='trans-sahih' data-ayah='1'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>For the accustomed security of the Quraysh -</td></tr>
 <tr class='trans-qarai' data-ayah='1'><td class='label'>English (Qarai)</td><td lang='en'>[In gratitude] for solidarity among the Quraysh,</td></tr>
+<tr class='trans-hilali' data-ayah='1'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>(It is a great Grace and Protection from Allah), for the taming of the Quraish,</td></tr>
 <tr class='eng-abridged' data-ayah='1'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Because of the habit of the Quraysh and their acquaintance.</td></tr>
 <tr class='hindi' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>कितना है क़ुरैश को लगाए और परचाए रखना,</td></tr>
 <tr class='hindi-suhail' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>चूँकि क़ुरैश को जाड़े और गर्मी के सफ़र से मानूस कर दिया है</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क़ुरैश की आदत और उनके मानूस होने के कारण।</td></tr>
 <tr class='gujarati' data-ayah='1'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧. કારણકે કુરૈશના લોકો આદી હતા.</td></tr>
+<tr class='nepali' data-ayah='1'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१) कुरैशलाई परिचित गर्नको लागि ।</td></tr>
 <tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'>Ayah 2</td></tr>
 <tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إيلافِهِم رِحلَةَ الشِّتاءِ وَالصَّيفِ</td></tr>
 <tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/106002.mp3' title='Surah 106, Ayah 2 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Eel<u>a</u>fihim ri<u>h</u>lata a<b>l</b>shshit<u>a</u>i wa<b>al</b><u>ss</u>ayf<b>i</b></td></tr>
 <tr class='translit-unicode' data-ayah='2'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Elaafihim rihlatash shitaa-i wass saif</td></tr>
 <tr class='trans' data-ayah='2'><td class='label'>English (Pickthall)</td><td lang='en'>For their taming (We cause) the caravans to set forth in winter and summer.</td></tr>
-<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Their covenants (covering) journeys by winter and summer,-</td></tr>
+<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td lang='en'>106|2|Their covenants (covering) journeys by winter and summer,-</td></tr>
 <tr class='trans-sahih' data-ayah='2'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Their accustomed security [in] the caravan of winter and summer -</td></tr>
 <tr class='trans-qarai' data-ayah='2'><td class='label'>English (Qarai)</td><td lang='en'>their solidarity during winter and summer journeys,</td></tr>
+<tr class='trans-hilali' data-ayah='2'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>(And with all those Allah's Grace and Protections for their taming, We cause) the (Quraish) caravans to set forth safe in winter (to the south), and in summer (to the north without any fear),</td></tr>
 <tr class='eng-abridged' data-ayah='2'><td class='label'>English (Abridged Expl.)</td><td lang='en'>With travelling in the winter towards Yemen, and in the summer towards the Levant, in security.</td></tr>
 <tr class='hindi' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>लगाए और परचाए रखना उन्हें जाड़े और गर्मी की यात्रा से</td></tr>
 <tr class='hindi-suhail' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>तो उनको मानूस कर देने की वजह से</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>सुरक्षित होकर यमन की ओर शीतकालीन यात्रा, और शाम (लेवंत) की ओर गर्मियों की यात्रा।</td></tr>
 <tr class='gujarati' data-ayah='2'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨. (એટલે કે) તેમને શિયાળા અને ઉનાળામાં (વેપાર કરવા માટે) સફરથી ટેવાઇ ગયા હતા.</td></tr>
+<tr class='nepali' data-ayah='2'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२) उनीहरूलाई जाडो र गर्मीको समयमा यात्रासँग परिचित गराउनको लागि ।</td></tr>
 <tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'>Ayah 3</td></tr>
 <tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَليَعبُدوا رَبَّ هٰذَا البَيتِ</td></tr>
 <tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/106003.mp3' title='Surah 106, Ayah 3 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>FalyaAAbudoo rabba h<u>atha</u> albayt<b>i</b></td></tr>
 <tr class='translit-unicode' data-ayah='3'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Fal y'abudu rabba haazal-bait</td></tr>
 <tr class='trans' data-ayah='3'><td class='label'>English (Pickthall)</td><td lang='en'>So let them worship the Lord of this House,</td></tr>
-<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Let them adore the Lord of this House,</td></tr>
+<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td lang='en'>106|3|Let them adore the Lord of this House,</td></tr>
 <tr class='trans-sahih' data-ayah='3'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Let them worship the Lord of this House,</td></tr>
 <tr class='trans-qarai' data-ayah='3'><td class='label'>English (Qarai)</td><td lang='en'>let them worship the Lord of this House,</td></tr>
+<tr class='trans-hilali' data-ayah='3'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>So let them worship (Allah) the Lord of this House (the Ka'bah in Makkah).</td></tr>
 <tr class='eng-abridged' data-ayah='3'><td class='label'>English (Abridged Expl.)</td><td lang='en'>They should worship Allah alone, who is the Lord of this sacred house. He is the one who has made these journeys easy for them. They should not ascribe any partners to Him.</td></tr>
 <tr class='hindi' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>अतः उन्हें चाहिए कि इस घर (काबा) के रब की बन्दगी करे,</td></tr>
 <tr class='hindi-suhail' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>इस घर (काबा) के मालिक की इबादत करनी चाहिए</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>अतः उन्हें चाहिए कि केवल इस सम्मानित घर के मालिक अल्लाह की इबादत करें, जिसने उनके लिए इस यात्रा की सुविधा प्रदान की, और उसके साथ किसी को साझी न बनाएँ।</td></tr>
 <tr class='gujarati' data-ayah='3'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩. બસ! તેમણે તે ઘરના માલિકની જ ઈબાદત કરવી જોઈએ.</td></tr>
+<tr class='nepali' data-ayah='3'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३) अतः उनीहरूलाई आवश्यक छ कि यसै घरको प्रतिपालकको पूजा गरुन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'>Ayah 4</td></tr>
 <tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>الَّذي أَطعَمَهُم مِن جوعٍ وَآمَنَهُم مِن خَوفٍ</td></tr>
 <tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/106004.mp3' title='Surah 106, Ayah 4 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Alla<u>th</u>ee a<u>t</u>AAamahum min jooAAin wa<u>a</u>manahum min khawf<b>in</b></td></tr>
 <tr class='translit-unicode' data-ayah='4'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Allazi at'amahum min ju'inw-wa-aamana hum min khawf</td></tr>
 <tr class='trans' data-ayah='4'><td class='label'>English (Pickthall)</td><td lang='en'>Who hath fed them against hunger and hath made them safe from fear.</td></tr>
-<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Who provides them with food against hunger, and with security against fear (of danger).</td></tr>
+<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td lang='en'>106|4|Who provides them with food against hunger, and with security against fear (of danger).</td></tr>
 <tr class='trans-sahih' data-ayah='4'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Who has fed them, [saving them] from hunger and made them safe, [saving them] from fear.</td></tr>
 <tr class='trans-qarai' data-ayah='4'><td class='label'>English (Qarai)</td><td lang='en'>who has fed them [and saved them] from hunger, and secured them from fear.</td></tr>
+<tr class='trans-hilali' data-ayah='4'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>(He) Who has fed them against hunger, and has made them safe from fear.</td></tr>
 <tr class='eng-abridged' data-ayah='4'><td class='label'>English (Abridged Expl.)</td><td lang='en'>The one who has fed them from hunger, and given them security from fear by placing reverence of the Ḥaram and its inhabitants in their hearts.</td></tr>
 <tr class='hindi' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>जिसने उन्हें खिलाकर भूख से बचाया और निश्चिन्तता प्रदान करके भय से बचाया</td></tr>
 <tr class='hindi-suhail' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>जिसने उनको भूख में खाना दिया और उनको खौफ़ से अमन अता किया</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जिसने उन्हें भूख में खिलाया और उन्हें भय से सुरक्षित किया; क्योंकि उसने अरबों के दिलों में हरम (काबा) और उसके निवासियों का सम्मान डाल दिया।</td></tr>
 <tr class='gujarati' data-ayah='4'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪. જેણે તેમને ભુખમરામાં ખવડાવ્યું, અને તેમને ભયથી બચાવી અમન અને શાંતિ આપી.</td></tr>
+<tr class='nepali' data-ayah='4'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४) अतः जसले उनीहरूलाई भोकमा खाना खुवायो र डर र भयबाट अमन चैन प्रदान गर्यो ।</td></tr>
 </tbody></table></div>
 <nav class='chapter-nav'><span><a href='105.html'>&laquo; Surah 105</a></span><span><a href='107.html'>Surah 107 &raquo;</a></span></nav>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal</footer>
 <script>
 (function(){
   var cfList=document.getElementById('cf-list');

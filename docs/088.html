@@ -34,6 +34,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .trans-yusuf td{background:#e8f5e9}
 .trans-sahih td{background:#e3f2fd}
 .trans-qarai td{background:#e0f2f1}
+.trans-hilali td{background:#f3e5f5}
+.trans-hilali-text{color:#4a148c}
 .hindi td{background:#f5f0ff}
 .hindi-suhail td{background:#fff3e0}
 .hindi-mokhtasar td{background:#e8f5e0}
@@ -47,6 +49,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .hindi-mokhtasar-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20}
 .gujarati td{background:#fce4ec}
 .gujarati-text{font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
+.nepali td{background:#e8f5f0}
+.nepali-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -95,11 +99,13 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .trans-yusuf td{background:#1a2a1a}
   .trans-sahih td{background:#132030}
   .trans-qarai td{background:#0d2520}
+  .trans-hilali td{background:#1e0a2a}
   .hindi td{background:#1e1530}
   .hindi-suhail td{background:#2a1f10}
   .hindi-mokhtasar td{background:#102010}
   .eng-abridged td{background:#102028}
   .gujarati td{background:#200010}
+  .nepali td{background:#0a1e18}
   .audio td{background:#0d2228}
   .arabic td{background:#2a2010}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
@@ -120,6 +126,8 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .hindi-suhail-text{color:#ffcc80}
   .hindi-mokhtasar-text{color:#a5d6a7}
   .gujarati-text{color:#f48fb1}
+  .trans-hilali-text{color:#ce93d8}
+  .nepali-text{color:#80cbc4}
 }
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
@@ -136,376 +144,428 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <main>
 <h1>Surah 88: Al-Ghashiyah (The Overwhelming Event)</h1>
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
-<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='26' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='26' value='26'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='eng-abridged'><label for='cf-8'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='hindi'><label for='cf-9'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi-suhail' checked><label for='cf-10'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-mokhtasar' checked><label for='cf-11'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='gujarati'><label for='cf-12'>ગુજરાતી (Rabila)</label></span></div></div></details>
-<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l &amp; Qarai) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry)</th></tr></thead><tbody>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='26' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='26' value='26'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail' checked><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar' checked><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith)</th></tr></thead><tbody>
 <tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'>Ayah 1</td></tr>
 <tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>هَل أَتاكَ حَديثُ الغاشِيَةِ</td></tr>
 <tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088001.mp3' title='Surah 88, Ayah 1 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Hal at<u>a</u>ka <u>h</u>adeethu algh<u>a</u>shiyat<b>i</b></td></tr>
 <tr class='translit-unicode' data-ayah='1'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Hal ataaka hadeesul ghaashiyah</td></tr>
 <tr class='trans' data-ayah='1'><td class='label'>English (Pickthall)</td><td lang='en'>Hath there come unto thee tidings of the Overwhelming?</td></tr>
-<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Has the story reached thee of the overwhelming (Event)?</td></tr>
+<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|1|Has the story reached thee of the overwhelming (Event)?</td></tr>
 <tr class='trans-sahih' data-ayah='1'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Has there reached you the report of the Overwhelming [event]?</td></tr>
 <tr class='trans-qarai' data-ayah='1'><td class='label'>English (Qarai)</td><td lang='en'>Did you receive the account of the Enveloper?</td></tr>
+<tr class='trans-hilali' data-ayah='1'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Has there come to you the narration of the overwhelming (i.e. the Day of Resurrection);</td></tr>
 <tr class='eng-abridged' data-ayah='1'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Has the news of the day of judgment that will overwhelm people with its horrors come to you, O Messenger?!</td></tr>
 <tr class='hindi' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>क्या तुम्हें उस छा जानेवाली की ख़बर पहुँची है?</td></tr>
 <tr class='hindi-suhail' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>भला तुमको ढाँप लेने वाली मुसीबत (क़यामत) का हाल मालुम हुआ है</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या (ऐ रसूल) आपके पास उस क़ियामत की ख़बर पहुँची, जिसकी भयावहता लोगों को घेर लेगी?!</td></tr>
 <tr class='gujarati' data-ayah='1'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧. શું તમારી પાસે છવાઈ જનારી (કયામત) ની વાત પહોંચી?</td></tr>
+<tr class='nepali' data-ayah='1'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१) के तिमीलाई पनि त्यस घेरीहाल्ने कियामतको समाचार पुगेको छ ?</td></tr>
 <tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'>Ayah 2</td></tr>
 <tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وُجوهٌ يَومَئِذٍ خاشِعَةٌ</td></tr>
 <tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088002.mp3' title='Surah 88, Ayah 2 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wujoohun yawmai<u>th</u>in kh<u>a</u>shiAAa<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='2'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wujoohuny yawma 'izin khaashi'ah</td></tr>
 <tr class='trans' data-ayah='2'><td class='label'>English (Pickthall)</td><td lang='en'>On that day (many) faces will be downcast,</td></tr>
-<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Some faces, that Day, will be humiliated,</td></tr>
+<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|2|Some faces, that Day, will be humiliated,</td></tr>
 <tr class='trans-sahih' data-ayah='2'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>[Some] faces, that Day, will be humbled,</td></tr>
 <tr class='trans-qarai' data-ayah='2'><td class='label'>English (Qarai)</td><td lang='en'>Some faces on that day will be humbled,</td></tr>
+<tr class='trans-hilali' data-ayah='2'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Some faces, that Day, will be humiliated (in the Hell-fire, i.e. the faces of all disbelievers, Jews and Christians, etc.).</td></tr>
 <tr class='eng-abridged' data-ayah='2'><td class='label'>English (Abridged Expl.)</td><td lang='en'>People on the day of judgment will either be wretched or fortunate. The faces of the wretched will be humiliated and downcast.</td></tr>
 <tr class='hindi' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>उस दिन कितने ही चेहरे गिरे हुए होंगे,</td></tr>
 <tr class='hindi-suhail' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>उस दिन बहुत से चेहरे ज़लील रूसवा होंगे</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क़ियामत के दिन लोग या तो दुर्भाग्यशाली होंगे और या तो सौभाग्यशाली। चुनाँचे दुर्भाग्यशाली लोगों के चेहरे अपमानित और झुके हुए होंगे।</td></tr>
 <tr class='gujarati' data-ayah='2'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨. તે દિવસે કેટલાક ચહેરા ભયભીત હશે.</td></tr>
+<tr class='nepali' data-ayah='2'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२) त्यस दिन धेरै अनुहारहरू अपमानित हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'>Ayah 3</td></tr>
 <tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>عامِلَةٌ ناصِبَةٌ</td></tr>
 <tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088003.mp3' title='Surah 88, Ayah 3 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>AA<u>a</u>milatun n<u>as</u>iba<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='3'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>'Aamilatun naasibah</td></tr>
 <tr class='trans' data-ayah='3'><td class='label'>English (Pickthall)</td><td lang='en'>Toiling, weary,</td></tr>
-<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Labouring (hard), weary,-</td></tr>
+<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|3|Labouring (hard), weary,-</td></tr>
 <tr class='trans-sahih' data-ayah='3'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Working [hard] and exhausted.</td></tr>
 <tr class='trans-qarai' data-ayah='3'><td class='label'>English (Qarai)</td><td lang='en'>wrought-up and weary:</td></tr>
+<tr class='trans-hilali' data-ayah='3'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Labouring (hard in the worldly life by worshipping others besides Allah), weary (in the Hereafter with humility and disgrace).</td></tr>
 <tr class='eng-abridged' data-ayah='3'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Tired and strained due to the chains that they will be dragged by and the shackles that they will be tied with.</td></tr>
 <tr class='hindi' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>कठिन परिश्रम में पड़े, थके-हारे</td></tr>
 <tr class='hindi-suhail' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>(तौक़ व जंज़ीर से) मयक्क़त करने वाले</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे जिन ज़ंजीरों में बाँधकर खींचे जाएँगे और जिन बेड़ियों में जकड़े हुए होंगे, उनके कारण थके-हारे होंगे।</td></tr>
 <tr class='gujarati' data-ayah='3'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩. (અને) પરિશ્રમ કરનારા થાકેલા હશે.</td></tr>
+<tr class='nepali' data-ayah='3'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३) कठिन परिश्रममा परेका, थाकिएका (थकित) हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'>Ayah 4</td></tr>
 <tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>تَصلىٰ نارًا حامِيَةً</td></tr>
 <tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088004.mp3' title='Surah 88, Ayah 4 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ta<u>s</u>l<u>a</u> n<u>a</u>ran <u>ha</u>miya<b>tan</b></td></tr>
 <tr class='translit-unicode' data-ayah='4'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Taslaa naaran haamiyah</td></tr>
 <tr class='trans' data-ayah='4'><td class='label'>English (Pickthall)</td><td lang='en'>Scorched by burning fire,</td></tr>
-<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td lang='en'>The while they enter the Blazing Fire,-</td></tr>
+<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|4|The while they enter the Blazing Fire,-</td></tr>
 <tr class='trans-sahih' data-ayah='4'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>They will [enter to] burn in an intensely hot Fire.</td></tr>
 <tr class='trans-qarai' data-ayah='4'><td class='label'>English (Qarai)</td><td lang='en'>they will enter a scorching fire</td></tr>
+<tr class='trans-hilali' data-ayah='4'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>They will enter in the hot blazing Fire,</td></tr>
 <tr class='eng-abridged' data-ayah='4'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Those faces will enter a hot fire to suffer from its heat.</td></tr>
 <tr class='hindi' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>दहकती आग में प्रवेश करेंगे</td></tr>
 <tr class='hindi-suhail' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>थके माँदे दहकती हुई आग में दाखिल होंगे</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे चेहरे एक गर्म आग में प्रवेश कर उसकी तपिश झेलेंगे।</td></tr>
 <tr class='gujarati' data-ayah='4'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪. તેઓ ભડકતી આગમાં જશે.</td></tr>
+<tr class='nepali' data-ayah='4'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४) उनी धपधपी बलेको आगोमा प्रवेश गर्नेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'>Ayah 5</td></tr>
 <tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>تُسقىٰ مِن عَينٍ آنِيَةٍ</td></tr>
 <tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088005.mp3' title='Surah 88, Ayah 5 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Tusq<u>a</u> min AAaynin <u>a</u>niya<b>tin</b></td></tr>
 <tr class='translit-unicode' data-ayah='5'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Tusqaa min 'aynin aaniyah</td></tr>
 <tr class='trans' data-ayah='5'><td class='label'>English (Pickthall)</td><td lang='en'>Drinking from a boiling spring,</td></tr>
-<tr class='trans-yusuf' data-ayah='5'><td class='label'>English (Yusuf Ali)</td><td lang='en'>The while they are given, to drink, of a boiling hot spring,</td></tr>
+<tr class='trans-yusuf' data-ayah='5'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|5|The while they are given, to drink, of a boiling hot spring,</td></tr>
 <tr class='trans-sahih' data-ayah='5'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>They will be given drink from a boiling spring.</td></tr>
 <tr class='trans-qarai' data-ayah='5'><td class='label'>English (Qarai)</td><td lang='en'>and made to drink from a boiling spring.</td></tr>
+<tr class='trans-hilali' data-ayah='5'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>They will be given to drink from a boiling spring,</td></tr>
 <tr class='eng-abridged' data-ayah='5'><td class='label'>English (Abridged Expl.)</td><td lang='en'>They will be given to drink from a spring with extremely hot water.</td></tr>
 <tr class='hindi' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>खौलते हुए स्रोत से पिएँगे,</td></tr>
 <tr class='hindi-suhail' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>उन्हें एक खौलते हुए चशमें का पानी पिलाया जाएगा</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उन्हें ऐसे चशमे का पानी पिलाया जाएगा, जिसका पानी सख़्त गर्म होगा।</td></tr>
 <tr class='gujarati' data-ayah='5'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૫. અતિશય ઉકળતા ઝરણાનું પાણી તેઓને પીવડાવવામાં આવશે.</td></tr>
+<tr class='nepali' data-ayah='5'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>५) उनीहरूलाई उम्लिराखेको स्रोतको तातो पानी पिलाइनेछ ।</td></tr>
 <tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'>Ayah 6</td></tr>
 <tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لَيسَ لَهُم طَعامٌ إِلّا مِن ضَريعٍ</td></tr>
 <tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088006.mp3' title='Surah 88, Ayah 6 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Laysa lahum <u>t</u>aAA<u>a</u>mun ill<u>a</u> min <u>d</u>areeAA<b>in</b></td></tr>
 <tr class='translit-unicode' data-ayah='6'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Laisa lahum ta'aamun illaa min daree'</td></tr>
 <tr class='trans' data-ayah='6'><td class='label'>English (Pickthall)</td><td lang='en'>No food for them save bitter thorn-fruit</td></tr>
-<tr class='trans-yusuf' data-ayah='6'><td class='label'>English (Yusuf Ali)</td><td lang='en'>No food will there be for them but a bitter Dhari'</td></tr>
+<tr class='trans-yusuf' data-ayah='6'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|6|No food will there be for them but a bitter Dhari'</td></tr>
 <tr class='trans-sahih' data-ayah='6'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>For them there will be no food except from a poisonous, thorny plant</td></tr>
 <tr class='trans-qarai' data-ayah='6'><td class='label'>English (Qarai)</td><td lang='en'>They will have no food except cactus,</td></tr>
+<tr class='trans-hilali' data-ayah='6'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>No food will there be for them but a poisonous thorny plant,</td></tr>
 <tr class='eng-abridged' data-ayah='6'><td class='label'>English (Abridged Expl.)</td><td lang='en'>They will not have any food to nourish them besides the worst and most rotten type of food from a plant that is called shibriq, which becomes poisonous when it becomes dry.</td></tr>
 <tr class='hindi' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>उनके लिए कोई खाना न होगा सिवाय एक प्रकार के ज़री के,</td></tr>
 <tr class='hindi-suhail' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>ख़ारदार झाड़ी के सिवा उनके लिए कोई खाना नहीं</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उनके लिए शिबरिक़ नामक पौधे के सबसे बुरे और बदबूदार खाने को छोड़कर भोजन करने के लिए कोई खाना नहीं होगा, जो सूखने के बाद ज़हरीला बन जाता है।</td></tr>
 <tr class='gujarati' data-ayah='6'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૬. તેમના માટે કાંટાવાળા સુકા ઘાસ સિવાય કંઇ ભોજન નહીં હોય.</td></tr>
+<tr class='nepali' data-ayah='6'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>६) उनीहरूको लागि काँडावाला रुख बाहेक अरु केही खानेकुरा हुनेछैन ।</td></tr>
 <tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'>Ayah 7</td></tr>
 <tr class='arabic' data-ayah='7'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لا يُسمِنُ وَلا يُغني مِن جوعٍ</td></tr>
 <tr class='audio' data-ayah='7'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088007.mp3' title='Surah 88, Ayah 7 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='7'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>L<u>a</u> yusminu wal<u>a</u> yughnee min jooAA<b>in</b></td></tr>
 <tr class='translit-unicode' data-ayah='7'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Laa yusminu wa laa yughnee min joo'</td></tr>
 <tr class='trans' data-ayah='7'><td class='label'>English (Pickthall)</td><td lang='en'>Which doth not nourish nor release from hunger.</td></tr>
-<tr class='trans-yusuf' data-ayah='7'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Which will neither nourish nor satisfy hunger.</td></tr>
+<tr class='trans-yusuf' data-ayah='7'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|7|Which will neither nourish nor satisfy hunger.</td></tr>
 <tr class='trans-sahih' data-ayah='7'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Which neither nourishes nor avails against hunger.</td></tr>
 <tr class='trans-qarai' data-ayah='7'><td class='label'>English (Qarai)</td><td lang='en'>neither nourishing, nor of avail against hunger.</td></tr>
+<tr class='trans-hilali' data-ayah='7'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Which will neither nourish nor avail against hunger.</td></tr>
 <tr class='eng-abridged' data-ayah='7'><td class='label'>English (Abridged Expl.)</td><td lang='en'>It does not nourish the one who eats it nor does it satiate his hunger.</td></tr>
 <tr class='hindi' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>जो न पुष्ट करे और न भूख मिटाए</td></tr>
 <tr class='hindi-suhail' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>जो मोटाई पैदा करे न भूख में कुछ काम आएगा</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वह न उसके खाने वाले को मोटा करेगा और न उसकी भूख मिटाएगा।</td></tr>
 <tr class='gujarati' data-ayah='7'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૭. જે ન હૃષ્ટપૃષ્ટ કરશે અને ન ભુખ દૂર કરશે.</td></tr>
+<tr class='nepali' data-ayah='7'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>७) जसले न मोटो गर्नेछ न भोक नै मेटाउनेछ ।</td></tr>
 <tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'>Ayah 8</td></tr>
 <tr class='arabic' data-ayah='8'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وُجوهٌ يَومَئِذٍ ناعِمَةٌ</td></tr>
 <tr class='audio' data-ayah='8'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088008.mp3' title='Surah 88, Ayah 8 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='8'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wujoohun yawmai<u>th</u>in n<u>a</u>AAima<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='8'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wujoohuny yawma 'izin naa'imah</td></tr>
 <tr class='trans' data-ayah='8'><td class='label'>English (Pickthall)</td><td lang='en'>In that day other faces will be calm,</td></tr>
-<tr class='trans-yusuf' data-ayah='8'><td class='label'>English (Yusuf Ali)</td><td lang='en'>(Other) faces that Day will be joyful,</td></tr>
+<tr class='trans-yusuf' data-ayah='8'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|8|(Other) faces that Day will be joyful,</td></tr>
 <tr class='trans-sahih' data-ayah='8'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>[Other] faces, that Day, will show pleasure.</td></tr>
 <tr class='trans-qarai' data-ayah='8'><td class='label'>English (Qarai)</td><td lang='en'>Some faces on that day will be joyous,</td></tr>
+<tr class='trans-hilali' data-ayah='8'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>(Other) faces, that Day, will be joyful,</td></tr>
 <tr class='eng-abridged' data-ayah='8'><td class='label'>English (Abridged Expl.)</td><td lang='en'>The faces of the fortunate on that day will display luxury, delight and happiness, because of the bliss they received.</td></tr>
 <tr class='hindi' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>उस दिन कितने ही चेहरे प्रफुल्लित और सौम्य होंगे,</td></tr>
 <tr class='hindi-suhail' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>(और) बहुत से चेहरे उस दिन तरो ताज़ा होंगे</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उस दिन सौभाग्यशाली लोगों के चेहरे, नेमतों के कारण, प्रफुल्लित और हर्षित होंगे।</td></tr>
 <tr class='gujarati' data-ayah='8'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૮. અને કેટલાક ચહેરા તે દિવસે તાજગીભર્યા અને (ખુશહાલ) હશે.</td></tr>
+<tr class='nepali' data-ayah='8'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>८) त्यसदिन कतिपय अनुहारहरू प्रफुल्लित र संतुष्ट हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='9' id='ayah-9'><td colspan='2'>Ayah 9</td></tr>
 <tr class='arabic' data-ayah='9'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لِسَعيِها راضِيَةٌ</td></tr>
 <tr class='audio' data-ayah='9'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088009.mp3' title='Surah 88, Ayah 9 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='9'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>LisaAAyih<u>a</u> r<u>ad</u>iya<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='9'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Lisa'yihaa raadiyah</td></tr>
 <tr class='trans' data-ayah='9'><td class='label'>English (Pickthall)</td><td lang='en'>Glad for their effort past,</td></tr>
-<tr class='trans-yusuf' data-ayah='9'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Pleased with their striving,-</td></tr>
+<tr class='trans-yusuf' data-ayah='9'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|9|Pleased with their striving,-</td></tr>
 <tr class='trans-sahih' data-ayah='9'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>With their effort [they are] satisfied</td></tr>
 <tr class='trans-qarai' data-ayah='9'><td class='label'>English (Qarai)</td><td lang='en'>pleased with their endeavour,</td></tr>
+<tr class='trans-hilali' data-ayah='9'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Glad with their endeavour (for their good deeds which they did in this world, along with the true Faith of Islamic Monotheism).</td></tr>
 <tr class='eng-abridged' data-ayah='9'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Pleased with the righteous actions they did in the world, as they had found the reward of their actions stored up and multiplied.</td></tr>
 <tr class='hindi' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>अपने प्रयास पर प्रसन्न,</td></tr>
 <tr class='hindi-suhail' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>अपनी कोशिश (के नतीजे) पर शादमान</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे दुनिया में अपने किए हुए नेक कार्य पर प्रसन्न होंगे। क्योंकि उन्हें अपने काम का सवाब कई गुना बढ़ाकर सहेजा हुआ मिलेगा।</td></tr>
 <tr class='gujarati' data-ayah='9'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૯. પોતાના પ્રયત્નોથી ખુશ હશે.</td></tr>
+<tr class='nepali' data-ayah='9'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>९) आफ्नो प्रयासमा प्रसन्न ।</td></tr>
 <tr class='ayah-sep' data-ayah='10' id='ayah-10'><td colspan='2'>Ayah 10</td></tr>
 <tr class='arabic' data-ayah='10'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>في جَنَّةٍ عالِيَةٍ</td></tr>
 <tr class='audio' data-ayah='10'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088010.mp3' title='Surah 88, Ayah 10 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='10'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fee jannatin AA<u>a</u>liya<b>tin</b></td></tr>
 <tr class='translit-unicode' data-ayah='10'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Fee jannatin 'aaliyah</td></tr>
 <tr class='trans' data-ayah='10'><td class='label'>English (Pickthall)</td><td lang='en'>In a high Garden</td></tr>
-<tr class='trans-yusuf' data-ayah='10'><td class='label'>English (Yusuf Ali)</td><td lang='en'>In a Garden on high,</td></tr>
+<tr class='trans-yusuf' data-ayah='10'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|10|In a Garden on high,</td></tr>
 <tr class='trans-sahih' data-ayah='10'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>In an elevated garden,</td></tr>
 <tr class='trans-qarai' data-ayah='10'><td class='label'>English (Qarai)</td><td lang='en'>in a lofty garden,</td></tr>
+<tr class='trans-hilali' data-ayah='10'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>In a lofty Paradise.</td></tr>
 <tr class='eng-abridged' data-ayah='10'><td class='label'>English (Abridged Expl.)</td><td lang='en'>In a Paradise elevated in position and rank.</td></tr>
 <tr class='hindi' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>उच्च जन्नत में,</td></tr>
 <tr class='hindi-suhail' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>एक आलीशान बाग़ में</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>ऊँचे स्थान एवं उच्च स्थिति वाली जन्नत में होंगे।</td></tr>
 <tr class='gujarati' data-ayah='10'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૦. ઉચ્ચશ્રેણી ની જન્નતમાં હશે.</td></tr>
+<tr class='nepali' data-ayah='10'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१०) उच्च र शानदार स्वर्गमा हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='11' id='ayah-11'><td colspan='2'>Ayah 11</td></tr>
 <tr class='arabic' data-ayah='11'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لا تَسمَعُ فيها لاغِيَةً</td></tr>
 <tr class='audio' data-ayah='11'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088011.mp3' title='Surah 88, Ayah 11 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='11'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>L<u>a</u> tasmaAAu feeh<u>a</u> l<u>a</u>ghiya<b>tan</b></td></tr>
 <tr class='translit-unicode' data-ayah='11'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Laa tasma'u feehaa laaghiyah</td></tr>
 <tr class='trans' data-ayah='11'><td class='label'>English (Pickthall)</td><td lang='en'>Where they hear no idle speech,</td></tr>
-<tr class='trans-yusuf' data-ayah='11'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Where they shall hear no (word) of vanity:</td></tr>
+<tr class='trans-yusuf' data-ayah='11'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|11|Where they shall hear no (word) of vanity:</td></tr>
 <tr class='trans-sahih' data-ayah='11'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Wherein they will hear no unsuitable speech.</td></tr>
 <tr class='trans-qarai' data-ayah='11'><td class='label'>English (Qarai)</td><td lang='en'>where they will not hear any vain talk.</td></tr>
+<tr class='trans-hilali' data-ayah='11'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Where they shall neither hear harmful speech nor falsehood,</td></tr>
 <tr class='eng-abridged' data-ayah='11'><td class='label'>English (Abridged Expl.)</td><td lang='en'>In Paradise they will not hear any word of falsehood and futility, let alone hearing any prohibited word.</td></tr>
 <tr class='hindi' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>जिसमें कोई व्यर्थ बात न सुनेंगे</td></tr>
 <tr class='hindi-suhail' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>वहाँ कोई लग़ो बात सुनेंगे ही नहीं</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जन्नत में कोई निषिद्ध बात सुनना तो दूर, कोई व्यर्थ और फालतू बात भी नहीं सुनेंगे।</td></tr>
 <tr class='gujarati' data-ayah='11'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૧. તેમાં કોઇ બકવાસ વાત નહી સાંભળે.</td></tr>
+<tr class='nepali' data-ayah='11'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>११) जसमा कुनै व्यर्थकुरा सुन्ने छैनन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='12' id='ayah-12'><td colspan='2'>Ayah 12</td></tr>
 <tr class='arabic' data-ayah='12'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فيها عَينٌ جارِيَةٌ</td></tr>
 <tr class='audio' data-ayah='12'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088012.mp3' title='Surah 88, Ayah 12 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='12'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Feeh<u>a</u> AAaynun j<u>a</u>riya<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='12'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Feehaa 'aynun jaariyah</td></tr>
 <tr class='trans' data-ayah='12'><td class='label'>English (Pickthall)</td><td lang='en'>Wherein is a gushing spring,</td></tr>
-<tr class='trans-yusuf' data-ayah='12'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Therein will be a bubbling spring:</td></tr>
+<tr class='trans-yusuf' data-ayah='12'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|12|Therein will be a bubbling spring:</td></tr>
 <tr class='trans-sahih' data-ayah='12'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Within it is a flowing spring.</td></tr>
 <tr class='trans-qarai' data-ayah='12'><td class='label'>English (Qarai)</td><td lang='en'>In it is a flowing spring</td></tr>
+<tr class='trans-hilali' data-ayah='12'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Therein will be a running spring,</td></tr>
 <tr class='eng-abridged' data-ayah='12'><td class='label'>English (Abridged Expl.)</td><td lang='en'>In this Paradise there are flowing springs that they will make flow and direct however they wish.</td></tr>
 <tr class='hindi' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>उसमें स्रोत प्रवाहित होगा,</td></tr>
 <tr class='hindi-suhail' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>उसमें चश्में जारी होंगें</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>इस जन्नत में बहने वाले चश्मे हैं, जिन्हें वे जैसे चाहेंगे बहा और फेर ले जाएँगे।</td></tr>
 <tr class='gujarati' data-ayah='12'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૨. તેમાં એક વહેતુ ઝરણું હશે.</td></tr>
+<tr class='nepali' data-ayah='12'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१२) त्यसमा झरनाहरू प्रवाहित हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='13' id='ayah-13'><td colspan='2'>Ayah 13</td></tr>
 <tr class='arabic' data-ayah='13'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فيها سُرُرٌ مَرفوعَةٌ</td></tr>
 <tr class='audio' data-ayah='13'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088013.mp3' title='Surah 88, Ayah 13 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='13'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Feeh<u>a</u> sururun marfooAAa<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='13'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Feehaa sururum marfoo'ah</td></tr>
 <tr class='trans' data-ayah='13'><td class='label'>English (Pickthall)</td><td lang='en'>Wherein are couches raised</td></tr>
-<tr class='trans-yusuf' data-ayah='13'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Therein will be Thrones (of dignity), raised on high,</td></tr>
+<tr class='trans-yusuf' data-ayah='13'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|13|Therein will be Thrones (of dignity), raised on high,</td></tr>
 <tr class='trans-sahih' data-ayah='13'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Within it are couches raised high</td></tr>
 <tr class='trans-qarai' data-ayah='13'><td class='label'>English (Qarai)</td><td lang='en'>and raised couches,</td></tr>
+<tr class='trans-hilali' data-ayah='13'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Therein will be thrones raised high,</td></tr>
 <tr class='eng-abridged' data-ayah='13'><td class='label'>English (Abridged Expl.)</td><td lang='en'>In it are high couches.</td></tr>
 <tr class='hindi' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>उसमें ऊँची-ऊँची मसनदें होगी,</td></tr>
 <tr class='hindi-suhail' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>उसमें ऊँचे ऊँचे तख्त बिछे होंगे</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उसमें ऊँचे-ऊँचे तख्त हैं।</td></tr>
 <tr class='gujarati' data-ayah='13'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૩. (અને) તેમાં ઊંચા-ઊંચા આસન હશે.</td></tr>
+<tr class='nepali' data-ayah='13'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१३) र अग्ला–अग्ला पलंगहरू हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='14' id='ayah-14'><td colspan='2'>Ayah 14</td></tr>
 <tr class='arabic' data-ayah='14'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَأَكوابٌ مَوضوعَةٌ</td></tr>
 <tr class='audio' data-ayah='14'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088014.mp3' title='Surah 88, Ayah 14 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='14'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Waakw<u>a</u>bun maw<u>d</u>ooAAa<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='14'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa akwaabum mawdoo 'ah</td></tr>
 <tr class='trans' data-ayah='14'><td class='label'>English (Pickthall)</td><td lang='en'>And goblets set at hand</td></tr>
-<tr class='trans-yusuf' data-ayah='14'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Goblets placed (ready),</td></tr>
+<tr class='trans-yusuf' data-ayah='14'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|14|Goblets placed (ready),</td></tr>
 <tr class='trans-sahih' data-ayah='14'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>And cups put in place</td></tr>
 <tr class='trans-qarai' data-ayah='14'><td class='label'>English (Qarai)</td><td lang='en'>with goblets set,</td></tr>
+<tr class='trans-hilali' data-ayah='14'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>And cups set at hand.</td></tr>
 <tr class='eng-abridged' data-ayah='14'><td class='label'>English (Abridged Expl.)</td><td lang='en'>And cups laid out and ready for drinking.</td></tr>
 <tr class='hindi' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>प्याले ढंग से रखे होंगे,</td></tr>
 <tr class='hindi-suhail' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और (उनके किनारे) गिलास रखे होंगे</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और पीने के लिए तैयार रखे हुए प्याले हैं।</td></tr>
 <tr class='gujarati' data-ayah='14'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૪. તેમાં સામે મુકેલા પ્યાલા (હશે).</td></tr>
+<tr class='nepali' data-ayah='14'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१४) प्यालाहरू राम्ररी सजाएर राखिएका हुनेछन्) ।</td></tr>
 <tr class='ayah-sep' data-ayah='15' id='ayah-15'><td colspan='2'>Ayah 15</td></tr>
 <tr class='arabic' data-ayah='15'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَنَمارِقُ مَصفوفَةٌ</td></tr>
 <tr class='audio' data-ayah='15'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088015.mp3' title='Surah 88, Ayah 15 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='15'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wanam<u>a</u>riqu ma<u>s</u>foofa<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='15'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa namaariqu masfoofah</td></tr>
 <tr class='trans' data-ayah='15'><td class='label'>English (Pickthall)</td><td lang='en'>And cushions ranged</td></tr>
-<tr class='trans-yusuf' data-ayah='15'><td class='label'>English (Yusuf Ali)</td><td lang='en'>And cushions set in rows,</td></tr>
+<tr class='trans-yusuf' data-ayah='15'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|15|And cushions set in rows,</td></tr>
 <tr class='trans-sahih' data-ayah='15'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>And cushions lined up</td></tr>
 <tr class='trans-qarai' data-ayah='15'><td class='label'>English (Qarai)</td><td lang='en'>and cushions laid out in an array,</td></tr>
+<tr class='trans-hilali' data-ayah='15'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>And cushions set in rows,</td></tr>
 <tr class='eng-abridged' data-ayah='15'><td class='label'>English (Abridged Expl.)</td><td lang='en'>In it are cushions packed closely to one another.</td></tr>
 <tr class='hindi' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>क्रम से गाव तकिए लगे होंगे,</td></tr>
 <tr class='hindi-suhail' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और गाँव तकिए क़तार की क़तार लगे होंगे</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और उसमें क्रम से रखे हुए तकिए हैं।</td></tr>
 <tr class='gujarati' data-ayah='15'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૫. અને એક કતારમાં મુકેલા તકીયા હશે.</td></tr>
+<tr class='nepali' data-ayah='15'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१५) र क्रमैसित मसनदहरू (सिरानीहरू) सजाइएका हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='16' id='ayah-16'><td colspan='2'>Ayah 16</td></tr>
 <tr class='arabic' data-ayah='16'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَزَرابِيُّ مَبثوثَةٌ</td></tr>
 <tr class='audio' data-ayah='16'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088016.mp3' title='Surah 88, Ayah 16 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='16'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wazar<u>a</u>biyyu mabthootha<b>tun</b></td></tr>
 <tr class='translit-unicode' data-ayah='16'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa zaraabiyyu mabsoosah</td></tr>
 <tr class='trans' data-ayah='16'><td class='label'>English (Pickthall)</td><td lang='en'>And silken carpets spread.</td></tr>
-<tr class='trans-yusuf' data-ayah='16'><td class='label'>English (Yusuf Ali)</td><td lang='en'>And rich carpets (all) spread out.</td></tr>
+<tr class='trans-yusuf' data-ayah='16'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|16|And rich carpets (all) spread out.</td></tr>
 <tr class='trans-sahih' data-ayah='16'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>And carpets spread around.</td></tr>
 <tr class='trans-qarai' data-ayah='16'><td class='label'>English (Qarai)</td><td lang='en'>and carpets spread out.</td></tr>
+<tr class='trans-hilali' data-ayah='16'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>And rich carpets (all) spread out.</td></tr>
 <tr class='eng-abridged' data-ayah='16'><td class='label'>English (Abridged Expl.)</td><td lang='en'>In it are carpets spread out here and there.</td></tr>
 <tr class='hindi' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>और हर ओर क़ालीने बिछी होंगी</td></tr>
 <tr class='hindi-suhail' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और नफ़ीस मसनदे बिछी हुई</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और उसमें जगह-जगह बिछे हुए बहुत-से क़ालीन हैं।</td></tr>
 <tr class='gujarati' data-ayah='16'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૬. અને મખમલી જાજમો ફેલાયેલી હશે.</td></tr>
+<tr class='nepali' data-ayah='16'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१६) र मखमली ओच्छ्यानहरू ओछ्याइएका हुनेछन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='17' id='ayah-17'><td colspan='2'>Ayah 17</td></tr>
 <tr class='arabic' data-ayah='17'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَفَلا يَنظُرونَ إِلَى الإِبِلِ كَيفَ خُلِقَت</td></tr>
 <tr class='audio' data-ayah='17'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088017.mp3' title='Surah 88, Ayah 17 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='17'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Afal<u>a</u> yan<i><u>th</u></i>uroona il<u>a</u> alibili kayfa khuliqat</td></tr>
 <tr class='translit-unicode' data-ayah='17'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Afalaa yanzuroona ilalibili kaifa khuliqat</td></tr>
 <tr class='trans' data-ayah='17'><td class='label'>English (Pickthall)</td><td lang='en'>Will they not regard the camels, how they are created?</td></tr>
-<tr class='trans-yusuf' data-ayah='17'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Do they not look at the Camels, how they are made?-</td></tr>
+<tr class='trans-yusuf' data-ayah='17'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|17|Do they not look at the Camels, how they are made?-</td></tr>
 <tr class='trans-sahih' data-ayah='17'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Then do they not look at the camels - how they are created?</td></tr>
 <tr class='trans-qarai' data-ayah='17'><td class='label'>English (Qarai)</td><td lang='en'>Do they not observe the camel, [to see] how it has been created?</td></tr>
+<tr class='trans-hilali' data-ayah='17'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Do they not look at the camels, how they are created?</td></tr>
 <tr class='eng-abridged' data-ayah='17'><td class='label'>English (Abridged Expl.)</td><td lang='en'>After Allah mentioned the disparity between the states of the wretched and the fortunate in the afterlife, He directed the sight of the disbelievers to what will show them the power of the Creator and the beauty of His creation, so that they can use this as evidence for faith in order to enter Paradise and become of the fortunate, by saying: Do they not look with reflection at the camels, how Allah created them and subjugated them to human beings?!</td></tr>
 <tr class='hindi' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>फिर क्या वे ऊँट की ओर नहीं देखते कि कैसा बनाया गया?</td></tr>
 <tr class='hindi-suhail' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>तो क्या ये लोग ऊँट की तरह ग़ौर नहीं करते कि कैसा अजीब पैदा किया गया है</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या वे ऊँट को ध्यान से नहीं देखते कि अल्लाह ने उसे कैसे पैदा बनाया और उसे आदम की संतान के लिए अधीन कर दिया?!</td></tr>
 <tr class='gujarati' data-ayah='17'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૭. શું તેઓ ઊંટ તરફ જોતા નથી કે તે કઇ રીતે પેદા કરવામાં આવ્યુ છે?</td></tr>
+<tr class='nepali' data-ayah='17'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१७) के उनीहरूले ऊँटतिर देख्दैनन् कि तिनीहरू कुन तरिकाले पैदा गरिएका छन् ।</td></tr>
 <tr class='ayah-sep' data-ayah='18' id='ayah-18'><td colspan='2'>Ayah 18</td></tr>
 <tr class='arabic' data-ayah='18'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِلَى السَّماءِ كَيفَ رُفِعَت</td></tr>
 <tr class='audio' data-ayah='18'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088018.mp3' title='Surah 88, Ayah 18 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='18'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wail<u>a</u> a<b>l</b>ssam<u>a</u>i kayfa rufiAAat</td></tr>
 <tr class='translit-unicode' data-ayah='18'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa ilas samaaa'i kaifa rufi'at</td></tr>
 <tr class='trans' data-ayah='18'><td class='label'>English (Pickthall)</td><td lang='en'>And the heaven, how it is raised?</td></tr>
-<tr class='trans-yusuf' data-ayah='18'><td class='label'>English (Yusuf Ali)</td><td lang='en'>And at the Sky, how it is raised high?-</td></tr>
+<tr class='trans-yusuf' data-ayah='18'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|18|And at the Sky, how it is raised high?-</td></tr>
 <tr class='trans-sahih' data-ayah='18'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>And at the sky - how it is raised?</td></tr>
 <tr class='trans-qarai' data-ayah='18'><td class='label'>English (Qarai)</td><td lang='en'>and the sky, how it has been raised?</td></tr>
+<tr class='trans-hilali' data-ayah='18'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>And at the heaven, how it is raised?</td></tr>
 <tr class='eng-abridged' data-ayah='18'><td class='label'>English (Abridged Expl.)</td><td lang='en'>And at the sky, how He raised it so that it became a protected ceiling above them, that does not fall on them?!</td></tr>
 <tr class='hindi' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>और आकाश की ओर कि कैसा ऊँचा किया गया?</td></tr>
 <tr class='hindi-suhail' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और आसमान की तरफ कि क्या बुलन्द बनाया गया है</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और आसमान को नहीं देखते कि उसे कैसे ऊँचा किया यहाँ तक कि वह उनके ऊपर एक सुरक्षित छत बन गया, जो उनपर गिरता नहीं है?!</td></tr>
 <tr class='gujarati' data-ayah='18'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૮. અને આકાશ તરફ, કે કઇ રીતે ઊંચુ કરવામાં આવ્યું છે?</td></tr>
+<tr class='nepali' data-ayah='18'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१८) र आकाशतिर के कस्तो उच्च गरिएको छ ?</td></tr>
 <tr class='ayah-sep' data-ayah='19' id='ayah-19'><td colspan='2'>Ayah 19</td></tr>
 <tr class='arabic' data-ayah='19'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِلَى الجِبالِ كَيفَ نُصِبَت</td></tr>
 <tr class='audio' data-ayah='19'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088019.mp3' title='Surah 88, Ayah 19 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='19'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wail<u>a</u> aljib<u>a</u>li kayfa nu<u>s</u>ibat</td></tr>
 <tr class='translit-unicode' data-ayah='19'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa ilal jibaali kaifa nusibat</td></tr>
 <tr class='trans' data-ayah='19'><td class='label'>English (Pickthall)</td><td lang='en'>And the hills, how they are set up?</td></tr>
-<tr class='trans-yusuf' data-ayah='19'><td class='label'>English (Yusuf Ali)</td><td lang='en'>And at the Mountains, how they are fixed firm?-</td></tr>
+<tr class='trans-yusuf' data-ayah='19'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|19|And at the Mountains, how they are fixed firm?-</td></tr>
 <tr class='trans-sahih' data-ayah='19'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>And at the mountains - how they are erected?</td></tr>
 <tr class='trans-qarai' data-ayah='19'><td class='label'>English (Qarai)</td><td lang='en'>and the mountains, how they have been set?</td></tr>
+<tr class='trans-hilali' data-ayah='19'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>And at the mountains, how they are rooted and fixed firm?</td></tr>
 <tr class='eng-abridged' data-ayah='19'><td class='label'>English (Abridged Expl.)</td><td lang='en'>And at the mountains, how He erected them and used them to make the earth stable so that it does not shake with the people?!</td></tr>
 <tr class='hindi' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>और पहाड़ो की ओर कि कैसे खड़े किए गए?</td></tr>
 <tr class='hindi-suhail' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और पहाड़ों की तरफ़ कि किस तरह खड़े किए गए हैं</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और पहाड़ों को नहीं देखते कि कैसे अल्लाह ने उन्हें गाड़ रखा है और उनके द्वारा धरती को मज़बूत बना रखा है, ताकि लोगों के साथ हिल-डुल न सके।</td></tr>
 <tr class='gujarati' data-ayah='19'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૯. અને પર્વતો તરફ, કે કઇ રીતે ઠોસી દેવામાં આવ્યા છે?</td></tr>
+<tr class='nepali' data-ayah='19'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१९) र पहाडतिर के कुन प्रकारले खडा गरिएको छ ?</td></tr>
 <tr class='ayah-sep' data-ayah='20' id='ayah-20'><td colspan='2'>Ayah 20</td></tr>
 <tr class='arabic' data-ayah='20'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِلَى الأَرضِ كَيفَ سُطِحَت</td></tr>
 <tr class='audio' data-ayah='20'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088020.mp3' title='Surah 88, Ayah 20 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='20'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wail<u>a</u> alar<u>d</u>i kayfa su<u>t</u>i<u>h</u>at</td></tr>
 <tr class='translit-unicode' data-ayah='20'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa ilal ardi kaifa sutihat</td></tr>
 <tr class='trans' data-ayah='20'><td class='label'>English (Pickthall)</td><td lang='en'>And the earth, how it is spread?</td></tr>
-<tr class='trans-yusuf' data-ayah='20'><td class='label'>English (Yusuf Ali)</td><td lang='en'>And at the Earth, how it is spread out?</td></tr>
+<tr class='trans-yusuf' data-ayah='20'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|20|And at the Earth, how it is spread out?</td></tr>
 <tr class='trans-sahih' data-ayah='20'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>And at the earth - how it is spread out?</td></tr>
 <tr class='trans-qarai' data-ayah='20'><td class='label'>English (Qarai)</td><td lang='en'>and the earth, how it has been surfaced?</td></tr>
+<tr class='trans-hilali' data-ayah='20'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>And at the earth, how it is spread out?</td></tr>
 <tr class='eng-abridged' data-ayah='20'><td class='label'>English (Abridged Expl.)</td><td lang='en'>And at the earth, how He spread it out, and made it suitable for people to settle on?!</td></tr>
 <tr class='hindi' data-ayah='20'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>और धरती की ओर कि कैसी बिछाई गई?</td></tr>
 <tr class='hindi-suhail' data-ayah='20'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और ज़मीन की तरफ कि किस तरह बिछायी गयी है</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='20'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और धरती को नहीं देखते कि अल्लाह ने उसे कैसे बिछाया और उसे लोगों के उसपर बसने के लिए तैयार किया?!</td></tr>
 <tr class='gujarati' data-ayah='20'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૦. અને ધરતી તરફ કે કઇ રીતે પાથરવામાં આવી છે?</td></tr>
+<tr class='nepali' data-ayah='20'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२०) र धरतीतिर कि कसरी बिछाइएको छ ?</td></tr>
 <tr class='ayah-sep' data-ayah='21' id='ayah-21'><td colspan='2'>Ayah 21</td></tr>
 <tr class='arabic' data-ayah='21'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَذَكِّر إِنَّما أَنتَ مُذَكِّرٌ</td></tr>
 <tr class='audio' data-ayah='21'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088021.mp3' title='Surah 88, Ayah 21 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='21'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<u>th</u>akkir innam<u>a</u> anta mu<u>th</u>akkir<b>un</b></td></tr>
 <tr class='translit-unicode' data-ayah='21'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Fazakkir innama anta Muzakkir</td></tr>
 <tr class='trans' data-ayah='21'><td class='label'>English (Pickthall)</td><td lang='en'>Remind them, for thou art but a remembrancer,</td></tr>
-<tr class='trans-yusuf' data-ayah='21'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Therefore do thou give admonition, for thou art one to admonish.</td></tr>
+<tr class='trans-yusuf' data-ayah='21'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|21|Therefore do thou give admonition, for thou art one to admonish.</td></tr>
 <tr class='trans-sahih' data-ayah='21'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>So remind, [O Muhammad]; you are only a reminder.</td></tr>
 <tr class='trans-qarai' data-ayah='21'><td class='label'>English (Qarai)</td><td lang='en'>So admonish—for you are only an admonisher,</td></tr>
+<tr class='trans-hilali' data-ayah='21'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>So remind them (O Muhammad (Peace be upon him)), you are only a one who reminds.</td></tr>
 <tr class='eng-abridged' data-ayah='21'><td class='label'>English (Abridged Expl.)</td><td lang='en'>After He directed them to look at those things that show His Power, He directed His messenger, saying: So counsel, O Messenger, these people and warn them of Allah’s punishment. You are but one who reminds. You are only required to remind them. Guiding them to faith is in Allah's hands alone.</td></tr>
 <tr class='hindi' data-ayah='21'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>अच्छा तो नसीहत करो! तुम तो बस एक नसीहत करनेवाले हो</td></tr>
 <tr class='hindi-suhail' data-ayah='21'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>तो तुम नसीहत करते रहो तुम तो बस नसीहत करने वाले हो</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='21'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>(ऐ रसूल) आप इन लोगों को नसीहत करें और इन्हें अल्लाह के अज़ाब से डराएँ, क्योंकि आप केवल नसीहत करने वाले हैं। आपको केवल उन्हें नसीहत करने के लिए कहा जाता है। जहाँ तक उन्हें ईमान की तौफ़ीक़ देने की बात है, तो वह केवल अल्लाह के हाथ में है।</td></tr>
 <tr class='gujarati' data-ayah='21'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૧. બસ તમે નસીહત કરતા રહો. (કારણકે) તમે તો ફક્ત નસીહત કરનાર છો.</td></tr>
+<tr class='nepali' data-ayah='21'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२१) तसर्थ तपाईले उपदेश दिने गर्नुस् किनकि तपाई मात्र उपदेश दिनेवाला हौ ।</td></tr>
 <tr class='ayah-sep' data-ayah='22' id='ayah-22'><td colspan='2'>Ayah 22</td></tr>
 <tr class='arabic' data-ayah='22'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لَستَ عَلَيهِم بِمُصَيطِرٍ</td></tr>
 <tr class='audio' data-ayah='22'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088022.mp3' title='Surah 88, Ayah 22 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='22'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lasta AAalayhim bimu<u>s</u>ay<u>t</u>ir<b>in</b></td></tr>
 <tr class='translit-unicode' data-ayah='22'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Lasta 'alaihim bimusaitir</td></tr>
 <tr class='trans' data-ayah='22'><td class='label'>English (Pickthall)</td><td lang='en'>Thou art not at all a warder over them.</td></tr>
-<tr class='trans-yusuf' data-ayah='22'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Thou art not one to manage (men's) affairs.</td></tr>
+<tr class='trans-yusuf' data-ayah='22'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|22|Thou art not one to manage (men's) affairs.</td></tr>
 <tr class='trans-sahih' data-ayah='22'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>You are not over them a controller.</td></tr>
 <tr class='trans-qarai' data-ayah='22'><td class='label'>English (Qarai)</td><td lang='en'>and not a taskmaster over them—</td></tr>
+<tr class='trans-hilali' data-ayah='22'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>You are not a dictator over them.</td></tr>
 <tr class='eng-abridged' data-ayah='22'><td class='label'>English (Abridged Expl.)</td><td lang='en'>You have not been given control over them so that you can compel them to have faith.</td></tr>
 <tr class='hindi' data-ayah='22'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>तुम उनपर कोई दरोग़ा नही हो</td></tr>
 <tr class='hindi-suhail' data-ayah='22'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>तुम कुछ उन पर दरोग़ा तो हो नहीं</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='22'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>आप उनपर नियुक्त नहीं हैं कि उन्हें ईमान लाने पर मजबूर करें।</td></tr>
 <tr class='gujarati' data-ayah='22'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૨. તમે તેમના ઉપર રખેવાળ નથી.</td></tr>
+<tr class='nepali' data-ayah='22'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२२) तपाई उनीहरूमाथि संरक्षक होइनौ ।</td></tr>
 <tr class='ayah-sep' data-ayah='23' id='ayah-23'><td colspan='2'>Ayah 23</td></tr>
 <tr class='arabic' data-ayah='23'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِلّا مَن تَوَلّىٰ وَكَفَرَ</td></tr>
 <tr class='audio' data-ayah='23'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088023.mp3' title='Surah 88, Ayah 23 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='23'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ill<u>a</u> man tawall<u>a</u> wakafar<b>a</b></td></tr>
 <tr class='translit-unicode' data-ayah='23'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Illaa man tawallaa wa kafar</td></tr>
 <tr class='trans' data-ayah='23'><td class='label'>English (Pickthall)</td><td lang='en'>But whoso is averse and disbelieveth,</td></tr>
-<tr class='trans-yusuf' data-ayah='23'><td class='label'>English (Yusuf Ali)</td><td lang='en'>But if any turn away and reject Allah,-</td></tr>
+<tr class='trans-yusuf' data-ayah='23'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|23|But if any turn away and reject Allah,-</td></tr>
 <tr class='trans-sahih' data-ayah='23'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>However, he who turns away and disbelieves -</td></tr>
 <tr class='trans-qarai' data-ayah='23'><td class='label'>English (Qarai)</td><td lang='en'>except him who turns back and disbelieves.</td></tr>
+<tr class='trans-hilali' data-ayah='23'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Save the one who turns away and disbelieves</td></tr>
 <tr class='eng-abridged' data-ayah='23'><td class='label'>English (Abridged Expl.)</td><td lang='en'>But, those of them who turn away from faith and reject Allah and His messenger.</td></tr>
 <tr class='hindi' data-ayah='23'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>किन्तु जिस किसी ने मुँह फेरा और इनकार किया,</td></tr>
 <tr class='hindi-suhail' data-ayah='23'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>हाँ जिसने मुँह फेर लिया</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='23'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>परंतु उनमें से जिसने ईमान से मुँह मोड़ लिया और अल्लाह तथा उसके रसूल का इनकार किया।</td></tr>
 <tr class='gujarati' data-ayah='23'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૩. હા! જે વ્યક્તિ મોઢું ફેરવશે અને કુફ્ર કરશે.</td></tr>
+<tr class='nepali' data-ayah='23'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२३) हो, जो विमुख हुन्छ र कुफ्र गर्छ ।</td></tr>
 <tr class='ayah-sep' data-ayah='24' id='ayah-24'><td colspan='2'>Ayah 24</td></tr>
 <tr class='arabic' data-ayah='24'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَيُعَذِّبُهُ اللَّهُ العَذابَ الأَكبَرَ</td></tr>
 <tr class='audio' data-ayah='24'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088024.mp3' title='Surah 88, Ayah 24 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='24'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>FayuAAa<u>thth</u>ibuhu All<u>a</u>hu alAAa<u>tha</u>ba alakbar<b>a</b></td></tr>
 <tr class='translit-unicode' data-ayah='24'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Fa yu'azzibuhul laahul 'azaabal akbar</td></tr>
 <tr class='trans' data-ayah='24'><td class='label'>English (Pickthall)</td><td lang='en'>Allah will punish him with direst punishment.</td></tr>
-<tr class='trans-yusuf' data-ayah='24'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Allah will punish him with a mighty Punishment,</td></tr>
+<tr class='trans-yusuf' data-ayah='24'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|24|Allah will punish him with a mighty Punishment,</td></tr>
 <tr class='trans-sahih' data-ayah='24'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Then Allah will punish him with the greatest punishment.</td></tr>
 <tr class='trans-qarai' data-ayah='24'><td class='label'>English (Qarai)</td><td lang='en'>Him Allah will punish with the greatest punishment.</td></tr>
+<tr class='trans-hilali' data-ayah='24'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Then Allah will punish him with the greatest punishment.</td></tr>
 <tr class='eng-abridged' data-ayah='24'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Allah will punish them on the Day of Judgement with the greatest punishment by entering them into Hell to remain there forever.</td></tr>
 <tr class='hindi' data-ayah='24'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>तो अल्लाह उसे बड़ी यातना देगा</td></tr>
 <tr class='hindi-suhail' data-ayah='24'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और न माना तो ख़ुदा उसको बहुत बड़े अज़ाब की सज़ा देगा</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='24'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>तो क़ियामत के दिन अल्लाह उसे सबसे बड़ी यातना देगा कि उसे जहन्नम में दाखिल करेगा, जहाँ वह हमेशा रहेगा।</td></tr>
 <tr class='gujarati' data-ayah='24'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૪. તેને અલ્લાહ તઆલા ભારે સજા આપશે.</td></tr>
+<tr class='nepali' data-ayah='24'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२४) त अल्लाहले त्यसलाई ठूलो सजाय दिनेछ,</td></tr>
 <tr class='ayah-sep' data-ayah='25' id='ayah-25'><td colspan='2'>Ayah 25</td></tr>
 <tr class='arabic' data-ayah='25'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنَّ إِلَينا إِيابَهُم</td></tr>
 <tr class='audio' data-ayah='25'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088025.mp3' title='Surah 88, Ayah 25 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='25'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna ilayn<u>a</u> iy<u>a</u>bahum</td></tr>
 <tr class='translit-unicode' data-ayah='25'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Innaa ilainaaa iyaabahum</td></tr>
 <tr class='trans' data-ayah='25'><td class='label'>English (Pickthall)</td><td lang='en'>Lo! unto Us is their return</td></tr>
-<tr class='trans-yusuf' data-ayah='25'><td class='label'>English (Yusuf Ali)</td><td lang='en'>For to Us will be their return;</td></tr>
+<tr class='trans-yusuf' data-ayah='25'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|25|For to Us will be their return;</td></tr>
 <tr class='trans-sahih' data-ayah='25'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Indeed, to Us is their return.</td></tr>
 <tr class='trans-qarai' data-ayah='25'><td class='label'>English (Qarai)</td><td lang='en'>Indeed to Us will be their return.</td></tr>
+<tr class='trans-hilali' data-ayah='25'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Verily, to Us will be their return;</td></tr>
 <tr class='eng-abridged' data-ayah='25'><td class='label'>English (Abridged Expl.)</td><td lang='en'>To Me alone is their return after their death.</td></tr>
 <tr class='hindi' data-ayah='25'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>निस्संदेह हमारी ओर ही है उनका लौटना,</td></tr>
 <tr class='hindi-suhail' data-ayah='25'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>बेशक उनको हमारी तरफ़ लौट कर आना है</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='25'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>निश्चय वे अपनी मृत्यु के बाद अकेले हमारी ही ओर वापस आएँगे।</td></tr>
 <tr class='gujarati' data-ayah='25'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૫. ખરેખર અમારા તરફ જ તેમને પાછા ફરવાનું છે.</td></tr>
+<tr class='nepali' data-ayah='25'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२५) निःसन्देह उनीहरूलाई हाम्रो पासमा फर्केर आउनुपर्नेछ ।</td></tr>
 <tr class='ayah-sep' data-ayah='26' id='ayah-26'><td colspan='2'>Ayah 26</td></tr>
 <tr class='arabic' data-ayah='26'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>ثُمَّ إِنَّ عَلَينا حِسابَهُم</td></tr>
 <tr class='audio' data-ayah='26'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088026.mp3' title='Surah 88, Ayah 26 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='26'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Thumma inna AAalayn<u>a</u> <u>h</u>is<u>a</u>bahum</td></tr>
 <tr class='translit-unicode' data-ayah='26'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Summa inna 'alainaa hisaabahum</td></tr>
 <tr class='trans' data-ayah='26'><td class='label'>English (Pickthall)</td><td lang='en'>And Ours their reckoning.</td></tr>
-<tr class='trans-yusuf' data-ayah='26'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Then it will be for Us to call them to account.</td></tr>
+<tr class='trans-yusuf' data-ayah='26'><td class='label'>English (Yusuf Ali)</td><td lang='en'>88|26|Then it will be for Us to call them to account.</td></tr>
 <tr class='trans-sahih' data-ayah='26'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Then indeed, upon Us is their account.</td></tr>
 <tr class='trans-qarai' data-ayah='26'><td class='label'>English (Qarai)</td><td lang='en'>Then, indeed, their reckoning will lie with Us.</td></tr>
+<tr class='trans-hilali' data-ayah='26'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Then verily, for Us will be their reckoning.</td></tr>
 <tr class='eng-abridged' data-ayah='26'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Then it is My duty alone to call them to account for their actions. This is not for you or anyone besides you.</td></tr>
 <tr class='hindi' data-ayah='26'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>फिर हमारे ही ज़िम्मे है उनका हिसाब लेना</td></tr>
 <tr class='hindi-suhail' data-ayah='26'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>फिर उनका हिसाब हमारे ज़िम्मे है</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='26'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>फिर अकेले हमारे ही ज़िम्मे उनके कार्यों पर उनका हिसाब लेना है। आपको या आपके सिवा किसी और को इसका अधिकार नहीं है।</td></tr>
 <tr class='gujarati' data-ayah='26'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૬. અને ખરેખર તેમનો હિસાબ અમારા શિરે છે.</td></tr>
+<tr class='nepali' data-ayah='26'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२६) अनि हामीले नै उनको हिसाब लिनेछौं ।</td></tr>
 </tbody></table></div>
 <nav class='chapter-nav'><span><a href='087.html'>&laquo; Surah 87</a></span><span><a href='089.html'>Surah 89 &raquo;</a></span></nav>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal</footer>
 <script>
 (function(){
   var cfList=document.getElementById('cf-list');

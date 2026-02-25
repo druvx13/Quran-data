@@ -34,6 +34,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .trans-yusuf td{background:#e8f5e9}
 .trans-sahih td{background:#e3f2fd}
 .trans-qarai td{background:#e0f2f1}
+.trans-hilali td{background:#f3e5f5}
+.trans-hilali-text{color:#4a148c}
 .hindi td{background:#f5f0ff}
 .hindi-suhail td{background:#fff3e0}
 .hindi-mokhtasar td{background:#e8f5e0}
@@ -47,6 +49,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .hindi-mokhtasar-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20}
 .gujarati td{background:#fce4ec}
 .gujarati-text{font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
+.nepali td{background:#e8f5f0}
+.nepali-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -95,11 +99,13 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .trans-yusuf td{background:#1a2a1a}
   .trans-sahih td{background:#132030}
   .trans-qarai td{background:#0d2520}
+  .trans-hilali td{background:#1e0a2a}
   .hindi td{background:#1e1530}
   .hindi-suhail td{background:#2a1f10}
   .hindi-mokhtasar td{background:#102010}
   .eng-abridged td{background:#102028}
   .gujarati td{background:#200010}
+  .nepali td{background:#0a1e18}
   .audio td{background:#0d2228}
   .arabic td{background:#2a2010}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
@@ -120,6 +126,8 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .hindi-suhail-text{color:#ffcc80}
   .hindi-mokhtasar-text{color:#a5d6a7}
   .gujarati-text{color:#f48fb1}
+  .trans-hilali-text{color:#ce93d8}
+  .nepali-text{color:#80cbc4}
 }
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
@@ -136,96 +144,108 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <main>
 <h1>Surah 109: Al-Kafirun (The Disbelievers)</h1>
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
-<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='6' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='6' value='6'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='eng-abridged'><label for='cf-8'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='hindi'><label for='cf-9'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi-suhail' checked><label for='cf-10'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-mokhtasar' checked><label for='cf-11'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='gujarati'><label for='cf-12'>ગુજરાતી (Rabila)</label></span></div></div></details>
-<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l &amp; Qarai) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry)</th></tr></thead><tbody>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='6' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='6' value='6'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail' checked><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar' checked><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith)</th></tr></thead><tbody>
 <tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'>Ayah 1</td></tr>
 <tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>قُل يا أَيُّهَا الكافِرونَ</td></tr>
 <tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/109001.mp3' title='Surah 109, Ayah 1 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Qul y<u>a</u> ayyuh<u>a</u> alk<u>a</u>firoon<b>a</b></td></tr>
 <tr class='translit-unicode' data-ayah='1'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Qul yaa-ai yuhal kaafiroon</td></tr>
 <tr class='trans' data-ayah='1'><td class='label'>English (Pickthall)</td><td lang='en'>Say: O disbelievers!</td></tr>
-<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Say: O ye that reject Faith!</td></tr>
+<tr class='trans-yusuf' data-ayah='1'><td class='label'>English (Yusuf Ali)</td><td lang='en'>109|1|Say: O ye that reject Faith!</td></tr>
 <tr class='trans-sahih' data-ayah='1'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Say, "O disbelievers,</td></tr>
 <tr class='trans-qarai' data-ayah='1'><td class='label'>English (Qarai)</td><td lang='en'>Say, ‘O faithless ones!</td></tr>
+<tr class='trans-hilali' data-ayah='1'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>Say (O Muhammad (Peace be upon him) to these Mushrikun and Kafirun): "O Al-Kafirun (disbelievers in Allah, in His Oneness, in His Angels, in His Books, in His Messengers, in the Day of Resurrection, and in Al-Qadar, etc.)!</td></tr>
 <tr class='eng-abridged' data-ayah='1'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Say, O Messenger: O those who disbelieve in Allah!</td></tr>
 <tr class='hindi' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>कह दो, "ऐ इनकार करनेवालो!"</td></tr>
 <tr class='hindi-suhail' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>(ऐ रसूल) तुम कह दो कि ऐ काफिरों</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>(ऐ रसूल) आप कह दें : ऐ अल्लाह का इनकार करने वालो!</td></tr>
 <tr class='gujarati' data-ayah='1'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧. તમે કહી દો કે હે કાફિરો!</td></tr>
+<tr class='nepali' data-ayah='1'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१) (हे मुहम्मद सल्लल्लाहो अलैहे वसल्लम !) भनिदिनुस् कि हे काफिरहरू !</td></tr>
 <tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'>Ayah 2</td></tr>
 <tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لا أَعبُدُ ما تَعبُدونَ</td></tr>
 <tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/109002.mp3' title='Surah 109, Ayah 2 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>L<u>a</u> aAAbudu m<u>a</u> taAAbudoon<b>a</b></td></tr>
 <tr class='translit-unicode' data-ayah='2'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Laa a'budu ma t'abudoon</td></tr>
 <tr class='trans' data-ayah='2'><td class='label'>English (Pickthall)</td><td lang='en'>I worship not that which ye worship;</td></tr>
-<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td lang='en'>I worship not that which ye worship,</td></tr>
+<tr class='trans-yusuf' data-ayah='2'><td class='label'>English (Yusuf Ali)</td><td lang='en'>109|2|I worship not that which ye worship,</td></tr>
 <tr class='trans-sahih' data-ayah='2'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>I do not worship what you worship.</td></tr>
 <tr class='trans-qarai' data-ayah='2'><td class='label'>English (Qarai)</td><td lang='en'>I do not worship what you worship,</td></tr>
+<tr class='trans-hilali' data-ayah='2'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>"I worship not that which you worship,</td></tr>
 <tr class='eng-abridged' data-ayah='2'><td class='label'>English (Abridged Expl.)</td><td lang='en'>I do not and will not worship the idols you worship.</td></tr>
 <tr class='hindi' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>मैं वैसी बन्दगी नहीं करूँगा जैसी बन्दगी तुम करते हो,</td></tr>
 <tr class='hindi-suhail' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>तुम जिन चीज़ों को पूजते हो, मैं उनको नहीं पूजता</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>मैं उन मूर्तियों की न वर्तमान में इबादत करता हूँ और न भविष्य में इबादत करूँगा, जिन्हें तुम पूजते हो।</td></tr>
 <tr class='gujarati' data-ayah='2'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨. જેની તમે ઈબાદત કરો છો હું તેમની ઈબાદત નથી કરી શકતો.</td></tr>
+<tr class='nepali' data-ayah='2'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२) जसनलाई तिमीले पूज्दछौ, उनीहरूको म पूजा गर्दिनं ।</td></tr>
 <tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'>Ayah 3</td></tr>
 <tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَلا أَنتُم عابِدونَ ما أَعبُدُ</td></tr>
 <tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/109003.mp3' title='Surah 109, Ayah 3 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wal<u>a</u> antum AA<u>a</u>bidoona m<u>a</u> aAAbud<b>u</b></td></tr>
 <tr class='translit-unicode' data-ayah='3'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa laa antum 'aabidoona maa a'bud</td></tr>
 <tr class='trans' data-ayah='3'><td class='label'>English (Pickthall)</td><td lang='en'>Nor worship ye that which I worship.</td></tr>
-<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Nor will ye worship that which I worship.</td></tr>
+<tr class='trans-yusuf' data-ayah='3'><td class='label'>English (Yusuf Ali)</td><td lang='en'>109|3|Nor will ye worship that which I worship.</td></tr>
 <tr class='trans-sahih' data-ayah='3'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Nor are you worshippers of what I worship.</td></tr>
 <tr class='trans-qarai' data-ayah='3'><td class='label'>English (Qarai)</td><td lang='en'>nor do you worship what I worship;</td></tr>
+<tr class='trans-hilali' data-ayah='3'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>"Nor will you worship that which I worship.</td></tr>
 <tr class='eng-abridged' data-ayah='3'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Nor are you going to worship what I worship, i.e. Allah alone.</td></tr>
 <tr class='hindi' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>और न तुम वैसी बन्दगी करनेवाले हो जैसी बन्दगी में करता हूँ</td></tr>
 <tr class='hindi-suhail' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और जिस (ख़ुदा) की मैं इबादत करता हूँ उसकी तुम इबादत नहीं करते</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और न तुम उसकी इबादत करने वाले हो, जिसकी मैं इबादत करता हूँ; और वह अकेला अल्लाह है।</td></tr>
 <tr class='gujarati' data-ayah='3'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩. અને ન તો તમે તેની ઈબાદત કરવાવાળા છો, જેની હું ઈબાદત કરી રહ્યો છું.</td></tr>
+<tr class='nepali' data-ayah='3'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३) र जसको उपासना म गर्दछु, उसको तिमीले उपासना गर्दैनौ ।</td></tr>
 <tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'>Ayah 4</td></tr>
 <tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَلا أَنا عابِدٌ ما عَبَدتُم</td></tr>
 <tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/109004.mp3' title='Surah 109, Ayah 4 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wal<u>a</u> an<u>a</u> AA<u>a</u>bidun m<u>a</u> AAabadtum</td></tr>
 <tr class='translit-unicode' data-ayah='4'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa laa ana 'abidum maa 'abattum</td></tr>
 <tr class='trans' data-ayah='4'><td class='label'>English (Pickthall)</td><td lang='en'>And I shall not worship that which ye worship.</td></tr>
-<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td lang='en'>And I will not worship that which ye have been wont to worship,</td></tr>
+<tr class='trans-yusuf' data-ayah='4'><td class='label'>English (Yusuf Ali)</td><td lang='en'>109|4|And I will not worship that which ye have been wont to worship,</td></tr>
 <tr class='trans-sahih' data-ayah='4'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Nor will I be a worshipper of what you worship.</td></tr>
 <tr class='trans-qarai' data-ayah='4'><td class='label'>English (Qarai)</td><td lang='en'>nor will I worship what you have worshipped,</td></tr>
+<tr class='trans-hilali' data-ayah='4'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>"And I shall not worship that which you are worshipping.</td></tr>
 <tr class='eng-abridged' data-ayah='4'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Nor am I going to worship the idols you worship.</td></tr>
 <tr class='hindi' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>और न मैं वैसी बन्दगी करनेवाला हूँ जैसी बन्दगी तुमने की है</td></tr>
 <tr class='hindi-suhail' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और जिन्हें तुम पूजते हो मैं उनका पूजने वाला नहीं</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और न मैं उन मूर्तियों की इबादत करने वाला हूँ, जिनकी तुमने पूजा की है।</td></tr>
 <tr class='gujarati' data-ayah='4'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪. અને ન હું તેમની ઈબાદત કરવાવાળો છું, જેમની તમે અને તમારા (પૂર્વજો) ઈબાદત કરે છે.</td></tr>
+<tr class='nepali' data-ayah='4'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४) र जसलाई तिमीले पूज्दछौ, तिनीहरुको म पूजा गर्नेवाला छैन।</td></tr>
 <tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'>Ayah 5</td></tr>
 <tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَلا أَنتُم عابِدونَ ما أَعبُدُ</td></tr>
 <tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/109005.mp3' title='Surah 109, Ayah 5 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wal<u>a</u> antum AA<u>a</u>bidoona m<u>a</u> aAAbud<b>u</b></td></tr>
 <tr class='translit-unicode' data-ayah='5'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Wa laa antum 'aabidoona ma a'bud</td></tr>
 <tr class='trans' data-ayah='5'><td class='label'>English (Pickthall)</td><td lang='en'>Nor will ye worship that which I worship.</td></tr>
-<tr class='trans-yusuf' data-ayah='5'><td class='label'>English (Yusuf Ali)</td><td lang='en'>Nor will ye worship that which I worship.</td></tr>
+<tr class='trans-yusuf' data-ayah='5'><td class='label'>English (Yusuf Ali)</td><td lang='en'>109|5|Nor will ye worship that which I worship.</td></tr>
 <tr class='trans-sahih' data-ayah='5'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>Nor will you be worshippers of what I worship.</td></tr>
 <tr class='trans-qarai' data-ayah='5'><td class='label'>English (Qarai)</td><td lang='en'>nor will you worship what I worship.</td></tr>
+<tr class='trans-hilali' data-ayah='5'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>"Nor will you worship that which I worship.</td></tr>
 <tr class='eng-abridged' data-ayah='5'><td class='label'>English (Abridged Expl.)</td><td lang='en'>Nor are you going to worship what I worship, i.e. Allah alone.</td></tr>
 <tr class='hindi' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>और न तुम वैसी बन्दगी करनेवाला हुए जैसी बन्दगी मैं करता हूँ</td></tr>
 <tr class='hindi-suhail' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>और जिसकी मैं इबादत करता हूँ उसकी तुम इबादत करने वाले नहीं</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और न तुम उसकी इबादत करने वाले हो, जिसकी मैं इबादत करता हूँ; और वह अकेला अल्लाह है।</td></tr>
 <tr class='gujarati' data-ayah='5'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૫. અને ન તો તમે ઈબાદત કરવાવાળા છો, જેની ઈબાદત હું કરી રહ્યો છું.</td></tr>
+<tr class='nepali' data-ayah='5'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>५) र न तिमी उसको उपासना गर्नेवाला छौ, जसको कि म उपासना गर्दछु ।</td></tr>
 <tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'>Ayah 6</td></tr>
 <tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لَكُم دينُكُم وَلِيَ دينِ</td></tr>
 <tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/109006.mp3' title='Surah 109, Ayah 6 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lakum deenukum waliya deen<b>i</b></td></tr>
 <tr class='translit-unicode' data-ayah='6'><td class='label'>Transliteration (Unicode)</td><td class='translit-unicode-text'>Lakum deenukum wa liya deen.</td></tr>
 <tr class='trans' data-ayah='6'><td class='label'>English (Pickthall)</td><td lang='en'>Unto you your religion, and unto me my religion.</td></tr>
-<tr class='trans-yusuf' data-ayah='6'><td class='label'>English (Yusuf Ali)</td><td lang='en'>To you be your Way, and to me mine.</td></tr>
+<tr class='trans-yusuf' data-ayah='6'><td class='label'>English (Yusuf Ali)</td><td lang='en'>109|6|To you be your Way, and to me mine.</td></tr>
 <tr class='trans-sahih' data-ayah='6'><td class='label'>English (Saheeh Int&#x2019;l)</td><td lang='en'>For you is your religion, and for me is my religion."</td></tr>
 <tr class='trans-qarai' data-ayah='6'><td class='label'>English (Qarai)</td><td lang='en'>To you your religion, and to me my religion.’</td></tr>
+<tr class='trans-hilali' data-ayah='6'><td class='label'>English (Hilali)</td><td class='trans-hilali-text' lang='en'>"To you be your religion, and to me my religion (Islamic Monotheism)."</td></tr>
 <tr class='eng-abridged' data-ayah='6'><td class='label'>English (Abridged Expl.)</td><td lang='en'>You have your religion you thought up for yourselves, and I have my religion that Allah revealed to me.</td></tr>
 <tr class='hindi' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td><td class='hindi-text' lang='hi'>तुम्हारे लिए तूम्हारा धर्म है और मेरे लिए मेरा धर्म!"</td></tr>
 <tr class='hindi-suhail' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td><td class='hindi-suhail-text' lang='hi'>तुम्हारे लिए तुम्हारा दीन मेरे लिए मेरा दीन</td></tr>
 <tr class='hindi-mokhtasar' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>तुम्हारे लिए तुम्हारा धर्म है, जिसे तुमने खुद के लिए ईजाद किया है और मेरे लिए मेरा धर्म है, जिसे अल्लाह ने मेरे ऊपर उतारा है।</td></tr>
 <tr class='gujarati' data-ayah='6'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૬. તમારા માટે તમારો દીન છે અને મારા માટે મારો દીન છે.</td></tr>
+<tr class='nepali' data-ayah='6'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>६) तिमीहरूको निम्ति तिम्रो धर्म छ र मेरो निम्ति मेरो धर्म ।</td></tr>
 </tbody></table></div>
 <nav class='chapter-nav'><span><a href='108.html'>&laquo; Surah 108</a></span><span><a href='110.html'>Surah 110 &raquo;</a></span></nav>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal</footer>
 <script>
 (function(){
   var cfList=document.getElementById('cf-list');
