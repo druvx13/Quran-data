@@ -18,7 +18,8 @@ help:
 ## Build all PDFs (requires generate-tex to have been run first).
 all: $(OUTPUT_DIR)/farooq.pdf $(OUTPUT_DIR)/suhail.pdf \
      $(OUTPUT_DIR)/sahih.pdf $(OUTPUT_DIR)/translit.pdf \
-     $(OUTPUT_DIR)/pickthall.pdf
+     $(OUTPUT_DIR)/pickthall.pdf $(OUTPUT_DIR)/hindi_mokhtasar.pdf \
+     $(OUTPUT_DIR)/hilali.pdf
 
 ## Step 1: generate intermediate LaTeX content files from source data.
 generate-tex:
@@ -37,6 +38,8 @@ $(OUTPUT_DIR)/suhail.pdf:   $(LATEX_DIR)/qup.tex
 $(OUTPUT_DIR)/sahih.pdf:    $(LATEX_DIR)/qus.tex
 $(OUTPUT_DIR)/translit.pdf: $(LATEX_DIR)/qut.tex
 $(OUTPUT_DIR)/pickthall.pdf: $(LATEX_DIR)/qupk.tex
+$(OUTPUT_DIR)/hindi_mokhtasar.pdf: $(LATEX_DIR)/qumokhtasar.tex
+$(OUTPUT_DIR)/hilali.pdf:   $(LATEX_DIR)/quhilali.tex
 
 ## Generate formatted plain-text output files.
 generate-txt:

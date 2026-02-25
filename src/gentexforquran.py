@@ -85,4 +85,52 @@ with open('latex/qupk.tex','w') as targetpk, open('data/en.pickthall.txt','r', e
             translation_line=transpk.readline()
             targetpk.write("\\flushleft{%s}\n" % translation_line.rstrip('\n'))
 
+import json, zipfile
+
+with zipfile.ZipFile('data/hindi-mokhtasar.json.zip', 'r') as zf:
+    json_name = next(n for n in zf.namelist() if n.endswith('.json'))
+    with zf.open(json_name) as jf:
+        mokhtasar_data = json.load(jf)
+
+with open('latex/qumokhtasar.tex', 'w', encoding='utf-8') as mokhtasar_out, \
+     open('data/translit_en.txt', 'r', encoding='utf-8') as translit_in:
+    for sura_idx in range(114):
+        mokhtasar_out.write("\\chapter{%s}\n" % (suraname[sura_idx]))
+        mokhtasar_out.write("\\begin{Arabic}\n\\Huge{\\centerline{\\basmalah}}\\end{Arabic}\n")
+        count = 0
+        while count < surasize[sura_idx]:
+            mokhtasar_out.write("\\flushright{\\begin{Arabic}\n")
+            mokhtasar_out.write("\\quranayah[%d][%d]\n" % (sura_idx + 1, count + 1))
+            mokhtasar_out.write("\\end{Arabic}}\n")
+            count += 1
+            raw_line = translit_in.readline().rstrip('\n')
+            translit_text = raw_line.split('|', 1)[1] if '|' in raw_line else raw_line
+            translit_text = translit_text.replace('_', '\\_')
+            mokhtasar_out.write("\\flushleft{\\textit{%s}}\n" % translit_text)
+            key = "%d:%d" % (sura_idx + 1, count)
+            entry = mokhtasar_data.get(key, {})
+            if isinstance(entry, str):
+                entry = mokhtasar_data.get(entry, {})
+            hindi_text = entry.get('text', '') if isinstance(entry, dict) else ''
+            hindi_text = hindi_text.replace('{', '\\{').replace('}', '\\}')
+            mokhtasar_out.write("\\flushleft{\\begin{hindi}\n")
+            mokhtasar_out.write(hindi_text + "\n")
+            mokhtasar_out.write("\\end{hindi}}\n")
+
+with open('latex/quhilali.tex', 'w', encoding='utf-8') as hilali_out, \
+     open('data/en.hilali.txt', 'r', encoding='utf-8') as hilali_in:
+    for sura_idx in range(114):
+        hilali_out.write("\\chapter{%s}\n" % (suraname[sura_idx]))
+        hilali_out.write("\\begin{Arabic}\n\\Huge{\\centerline{\\basmalah}}\\end{Arabic}\n")
+        count = 0
+        while count < surasize[sura_idx]:
+            hilali_out.write("\\flushright{\\begin{Arabic}\n")
+            hilali_out.write("\\quranayah[%d][%d]\n" % (sura_idx + 1, count + 1))
+            hilali_out.write("\\end{Arabic}}\n")
+            count += 1
+            raw_line = hilali_in.readline().rstrip('\n')
+            text = raw_line.split('|', 2)[2] if raw_line.count('|') >= 2 else raw_line
+            text = text.replace('$', '\\$').replace('%', '\\%').replace('&', '\\&').replace('#', '\\#').replace('^', '\\^{}').replace('~', '\\~{}')
+            hilali_out.write("\\flushleft{%s}\n" % text)
+
 
