@@ -61,6 +61,7 @@ Features:
 │   ├── translit.tex        # Main document – Tanzil.net transliteration
 │   ├── pickthall.tex       # Main document – Pickthall English
 │   ├── hindi_mokhtasar.tex # Main document – Hindi Tafsir (Al-Mokhtasar) with Arabic & transliteration
+│   ├── hilali.tex          # Main document – Hilali & Khan English translation with Arabic
 │   ├── quran.sty           # Custom LaTeX style (Arabic ayah macros)
 │   └── q*.tex              # Generated content files (written by gentexforquran.py)
 ├── output/                 # Generated output files
@@ -70,6 +71,7 @@ Features:
 │   ├── quran_english_translit.txt
 │   ├── quran_english_yusufali.txt
 │   ├── quran_english_abridged.txt
+│   ├── quran_english_hilali.txt
 │   ├── quran_hindi_farooq.txt
 │   ├── quran_hindi_suhail.txt
 │   ├── quran_hindi_mokhtasar.txt
@@ -77,7 +79,8 @@ Features:
 │   ├── quran_translit_unicode.txt
 │   ├── farooq.pdf          # Compiled PDF
 │   ├── suhail.pdf          # Compiled PDF
-│   └── hindi_mokhtasar.pdf # Compiled PDF (Arabic + transliteration + Hindi Tafsir)
+│   ├── hindi_mokhtasar.pdf # Compiled PDF (Arabic + transliteration + Hindi Tafsir)
+│   └── hilali.pdf          # Compiled PDF (Arabic + Hilali & Khan English translation)
 ├── trans/                  # Tanzil.net transliteration with HTML tags (used by gendocshtml.py)
 │   └── en.transliteration.txt
 ├── docs/                   # Generated static HTML – GitHub Pages
@@ -107,6 +110,7 @@ Features:
 | *(translit.pdf — build locally)* | Transliteration | Tanzil.net |
 | *(pickthall.pdf — build locally)* | English | Pickthall (1930, Public Domain) |
 | `output/hindi_mokhtasar.pdf` | Hindi Tafsir | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim |
+| `output/hilali.pdf` | English | Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan |
 
 ### HTML website content per ayah
 

@@ -117,4 +117,20 @@ with open('latex/qumokhtasar.tex', 'w', encoding='utf-8') as mokhtasar_out, \
             mokhtasar_out.write(hindi_text + "\n")
             mokhtasar_out.write("\\end{hindi}}\n")
 
+with open('latex/quhilali.tex', 'w', encoding='utf-8') as hilali_out, \
+     open('data/en.hilali.txt', 'r', encoding='utf-8') as hilali_in:
+    for sura_idx in range(114):
+        hilali_out.write("\\chapter{%s}\n" % (suraname[sura_idx]))
+        hilali_out.write("\\begin{Arabic}\n\\Huge{\\centerline{\\basmalah}}\\end{Arabic}\n")
+        count = 0
+        while count < surasize[sura_idx]:
+            hilali_out.write("\\flushright{\\begin{Arabic}\n")
+            hilali_out.write("\\quranayah[%d][%d]\n" % (sura_idx + 1, count + 1))
+            hilali_out.write("\\end{Arabic}}\n")
+            count += 1
+            raw_line = hilali_in.readline().rstrip('\n')
+            text = raw_line.split('|', 2)[2] if raw_line.count('|') >= 2 else raw_line
+            text = text.replace('$', '\\$').replace('%', '\\%').replace('&', '\\&').replace('#', '\\#').replace('^', '\\^{}').replace('~', '\\~{}')
+            hilali_out.write("\\flushleft{%s}\n" % text)
+
 
