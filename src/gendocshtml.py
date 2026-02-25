@@ -613,7 +613,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a href="phrases.html" style="color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em">&#128218; Phrases &amp; Du&#x02BE;&#257;s</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English, Hindi &amp; Gujarati Translation</h1>
 <details class="notice">
@@ -635,6 +635,7 @@ Texts are reproduced verbatim; no alterations have been made.
 </details>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
+<a href='phrases.html'><strong>&#128218;</strong> Phrases, Dhikr &amp; Du&#x02BE;&#257;s</a>
 """ % (CSS, make_surah_select(0)))
     for i, name in enumerate(SURA_NAME, 1):
         out.write("<a href='%03d.html'><strong>%d.</strong> %s</a>\n" % (i, i, name))
@@ -845,3 +846,354 @@ with open(search_html_path, 'w', encoding='utf-8') as f:
 print('Written: %s' % search_html_path)
 
 print('Done. %d surah files + index + search regenerated.' % 114)
+
+# ---------------------------------------------------------------------------
+# Generate phrases.html  (Common Phrases, Essential Ayah/Surahs, Duas, Salawat)
+# ---------------------------------------------------------------------------
+
+def _esc(s):
+    """Minimal HTML escaping for plain text."""
+    return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+
+
+def _phrase_rows(title, ar, tl_unicode, en_meaning,
+                 tl_tanzil='', ya='', sa='', qr='', ea='', hf='', hs='', hm='', gu='',
+                 source=''):
+    """Build table rows for one non-Quranic phrase / dua entry."""
+    title_cell = _esc(title)
+    if source:
+        title_cell += " &nbsp;<span style='font-weight:normal;font-size:.88em;opacity:.85'>(" + _esc(source) + ")</span>"
+    rows = ["<tr class='ayah-sep'><td colspan='2'>" + title_cell + "</td></tr>"]
+    if ar:
+        rows.append("<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td>"
+                    "<td class='arabic-text' lang='ar'>" + _esc(ar) + "</td></tr>")
+    if tl_tanzil:
+        rows.append("<tr class='translit'><td class='label'>Transliteration (Tanzil)</td>"
+                    "<td class='translit-text'>" + tl_tanzil + "</td></tr>")
+    if tl_unicode:
+        rows.append("<tr class='translit-unicode'><td class='label'>Transliteration</td>"
+                    "<td class='translit-unicode-text'>" + _esc(tl_unicode) + "</td></tr>")
+    if en_meaning:
+        rows.append("<tr class='trans'><td class='label'>English (Pickthall)</td>"
+                    "<td lang='en'>" + _esc(en_meaning) + "</td></tr>")
+    if ya:
+        rows.append("<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td>"
+                    "<td lang='en'>" + _esc(ya) + "</td></tr>")
+    if sa:
+        rows.append("<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td>"
+                    "<td lang='en'>" + _esc(sa) + "</td></tr>")
+    if qr:
+        rows.append("<tr class='trans-qarai'><td class='label'>English (Qarai)</td>"
+                    "<td lang='en'>" + _esc(qr) + "</td></tr>")
+    if ea:
+        rows.append("<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td>"
+                    "<td lang='en'>" + _esc(ea) + "</td></tr>")
+    if hf:
+        rows.append("<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td>"
+                    "<td class='hindi-text' lang='hi'>" + _esc(hf) + "</td></tr>")
+    if hs:
+        rows.append("<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td>"
+                    "<td class='hindi-suhail-text' lang='hi'>" + _esc(hs) + "</td></tr>")
+    if hm:
+        rows.append("<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td>"
+                    "<td class='hindi-mokhtasar-text' lang='hi'>" + _esc(hm) + "</td></tr>")
+    if gu:
+        rows.append("<tr class='gujarati'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td>"
+                    "<td class='gujarati-text' lang='gu'>" + _esc(gu) + "</td></tr>")
+    return '\n'.join(rows)
+
+
+def _ayah_rows(sura, ayah, title=''):
+    """Build table rows for one Quranic ayah (all translations)."""
+    key = (sura, ayah)
+    ref = '%d:%d' % (sura, ayah)
+    title_cell = title if title else ('Ayah ' + ref)
+    rows = ["<tr class='ayah-sep'><td colspan='2'>" + _esc(title_cell) + "</td></tr>"]
+    ar = arabic.get(key, '')
+    if ar:
+        rows.append("<tr class='arabic'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td>"
+                    "<td class='arabic-text' lang='ar'>" + _esc(ar) + "</td></tr>")
+    tl = translit.get(key, '')
+    if tl:
+        rows.append("<tr class='translit'><td class='label'>Transliteration (Tanzil)</td>"
+                    "<td class='translit-text'>" + tl + "</td></tr>")
+    tu = translit_unicode.get(key, '')
+    if tu:
+        rows.append("<tr class='translit-unicode'><td class='label'>Transliteration (Unicode)</td>"
+                    "<td class='translit-unicode-text'>" + _esc(tu) + "</td></tr>")
+    pk = pickthall.get(key, '')
+    if pk:
+        rows.append("<tr class='trans'><td class='label'>English (Pickthall)</td>"
+                    "<td lang='en'>" + _esc(pk) + "</td></tr>")
+    ya = yusufali.get(key, '')
+    if ya:
+        rows.append("<tr class='trans-yusuf'><td class='label'>English (Yusuf Ali)</td>"
+                    "<td lang='en'>" + _esc(ya) + "</td></tr>")
+    sa = sahih.get(key, '')
+    if sa:
+        rows.append("<tr class='trans-sahih'><td class='label'>English (Saheeh Int&#x2019;l)</td>"
+                    "<td lang='en'>" + _esc(sa) + "</td></tr>")
+    qr = qarai.get(key, '')
+    if qr:
+        rows.append("<tr class='trans-qarai'><td class='label'>English (Qarai)</td>"
+                    "<td lang='en'>" + _esc(qr) + "</td></tr>")
+    ea = eng_abridged.get(key, '')
+    if ea:
+        rows.append("<tr class='eng-abridged'><td class='label'>English (Abridged Expl.)</td>"
+                    "<td lang='en'>" + _esc(ea) + "</td></tr>")
+    hf = hindi.get(key, '')
+    if hf:
+        rows.append("<tr class='hindi'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq)</td>"
+                    "<td class='hindi-text' lang='hi'>" + _esc(hf) + "</td></tr>")
+    hs = hindi_suhail.get(key, '')
+    if hs:
+        rows.append("<tr class='hindi-suhail'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Suhail)</td>"
+                    "<td class='hindi-suhail-text' lang='hi'>" + _esc(hs) + "</td></tr>")
+    hm = hindi_mokhtasar.get(key, '')
+    if hm:
+        rows.append("<tr class='hindi-mokhtasar'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td>"
+                    "<td class='hindi-mokhtasar-text' lang='hi'>" + _esc(hm) + "</td></tr>")
+    gu = gujarati.get(key, '')
+    if gu:
+        rows.append("<tr class='gujarati'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td>"
+                    "<td class='gujarati-text' lang='gu'>" + _esc(gu) + "</td></tr>")
+    return '\n'.join(rows)
+
+
+def _section_table(h2_title, rows_html):
+    return (
+        "<h2>" + h2_title + "</h2>\n"
+        "<div class='table-wrap'><table><thead><tr>"
+        "<th colspan='2'>" + h2_title + " &nbsp;&mdash;&nbsp; "
+        "Arabic &nbsp;/&nbsp; Transliteration &nbsp;/&nbsp; "
+        "English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l &amp; Qarai) &nbsp;/&nbsp; "
+        "English Explanation (Abridged) &nbsp;/&nbsp; "
+        "&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Farooq &amp; Suhail) &nbsp;/&nbsp; "
+        "&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar) &nbsp;/&nbsp; "
+        "&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)"
+        "</th></tr></thead><tbody>\n"
+        + rows_html +
+        "\n</tbody></table></div>\n"
+    )
+
+
+phrases_path = os.path.join(docs_dir, 'phrases.html')
+with open(phrases_path, 'w', encoding='utf-8') as out:
+    out.write("""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Common Islamic phrases, dhikr, essential Qur\u2019anic verses &amp; surahs, common du\u02beas, and special salawat \u2014 Arabic, transliteration, and all translations.">
+<title>Phrases, Dhikr &amp; Du\u02beas \u2014 Qur\u2019an Reference</title>
+<style>
+%s
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>%s<a href="phrases.html" style="color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em">&#128218; Phrases &amp; Du&#x02BE;&#257;s</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>Common Phrases, Dhikr, Essential Verses &amp; Du&#x02BE;&#257;s</h1>
+<details class="notice">
+<summary><strong>Notes &amp; Source Attribution</strong></summary>
+Qur&#x2019;anic verses are reproduced verbatim from the same sources as the Surah pages.<br>
+<em>Translations for Qur&#x2019;anic verses:</em> Pickthall (Public Domain), Yusuf Ali (Public Domain), Saheeh International, Ali Quli Qarai, Abridged Explanation, Hindi (Farooq Khan), Hindi (Suhail), Hindi Tafsir (Al-Mokhtasar), Gujarati (Rabila Al-Umry).<br>
+<em>Non-Qur&#x2019;anic phrases and du&#x02BE;&#257;s</em> are from authenticated Hadith sources (Bukhari, Muslim, Abu Dawud, Tirmidhi); meanings are provided as general English translations.
+</details>
+""" % (CSS, make_surah_select(0)))
+
+    # ---- SECTION 1: COMMON PHRASES & DHIKR ----
+    rows = []
+    # Shahada
+    rows.append(_phrase_rows(
+        'Shahada \u2014 The Declaration of Faith',
+        '\u0644\u064e\u0627 \u0625\u0650\u0644\u064e\u0670\u0647\u064e \u0625\u0650\u0644\u064e\u0651\u0627 \u0627\u0644\u0644\u064e\u0651\u0647\u064f \u0645\u064f\u062d\u064e\u0645\u064e\u0651\u062f\u064c \u0631\u064e\u0651\u0633\u064f\u0648\u0644\u064f \u0627\u0644\u0644\u064e\u0651\u0647\u0650',
+        "Laa ilaaha illallaahu Muhammadur Rasoolullaah",
+        "There is no god worthy of worship except Allah, and Muhammad is the Messenger of Allah",
+    ))
+    # Basmala — pull from Quran 1:1
+    rows.append(_ayah_rows(1, 1, 'Basmala \u2014 In the Name of Allah (Qur\u2019an 1:1)'))
+    # Tasbih
+    rows.append(_phrase_rows(
+        'Tasbih / SubhanAllah \u2014 Glory be to Allah',
+        '\u0633\u064f\u0628\u0652\u062d\u064e\u0627\u0646\u064e \u0627\u0644\u0644\u064e\u0651\u0647\u0650',
+        "Subhaanallaah",
+        "Glory be to Allah",
+    ))
+    # Tahmid
+    rows.append(_phrase_rows(
+        'Tahmid / Alhamdulillah \u2014 All Praise is Due to Allah',
+        '\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650',
+        "Alhamdu lillaah",
+        "All praise is due to Allah",
+    ))
+    # Takbir
+    rows.append(_phrase_rows(
+        'Takbir / Allahu Akbar \u2014 Allah is the Greatest',
+        '\u0627\u0644\u0644\u064e\u0651\u0647\u064f \u0623\u064e\u0643\u0652\u0628\u064e\u0631\u064f',
+        "Allaahu Akbar",
+        "Allah is the Greatest",
+    ))
+    # Tahlil
+    rows.append(_phrase_rows(
+        'Tahlil \u2014 There is No God Except Allah',
+        '\u0644\u064e\u0627 \u0625\u0650\u0644\u064e\u0670\u0647\u064e \u0625\u0650\u0644\u064e\u0651\u0627 \u0627\u0644\u0644\u064e\u0651\u0647\u064f',
+        "Laa ilaaha illallaah",
+        "There is no god worthy of worship except Allah",
+    ))
+    # Hawqala
+    rows.append(_phrase_rows(
+        'Hawqala \u2014 There is No Power Except with Allah',
+        '\u0644\u064e\u0627 \u062d\u064e\u0648\u0652\u0644\u064e \u0648\u064e\u0644\u064e\u0627 \u0642\u064f\u0648\u064e\u0651\u0629\u064e \u0625\u0650\u0644\u064e\u0651\u0627 \u0628\u0650\u0627\u0644\u0644\u064e\u0651\u0647\u0650',
+        "Laa hawla wa laa quwwata illaa billaah",
+        "There is no power and no strength except with Allah",
+    ))
+    # Istighfar
+    rows.append(_phrase_rows(
+        'Istighfar \u2014 Seeking Forgiveness',
+        '\u0623\u064e\u0633\u0652\u062a\u064e\u063a\u0652\u0641\u0650\u0631\u064f \u0627\u0644\u0644\u064e\u0651\u0647\u064e',
+        "Astaghfirullaah",
+        "I seek forgiveness from Allah",
+    ))
+    # Insha'Allah
+    rows.append(_phrase_rows(
+        "Insha\u2019Allah \u2014 If Allah Wills",
+        '\u0625\u0650\u0646 \u0634\u064e\u0627\u0621\u064e \u0627\u0644\u0644\u064e\u0651\u0647\u064f',
+        "In shaa' Allaah",
+        "If Allah wills",
+    ))
+    # Masha'Allah
+    rows.append(_phrase_rows(
+        "Masha\u2019Allah \u2014 What Allah Has Willed",
+        '\u0645\u064e\u0627 \u0634\u064e\u0627\u0621\u064e \u0627\u0644\u0644\u064e\u0651\u0647\u064f',
+        "Maa shaa' Allaah",
+        "What Allah has willed (it is)",
+    ))
+    # Salawat
+    rows.append(_phrase_rows(
+        'Salawat \u2014 Sending Blessings on the Prophet',
+        '\u0627\u0644\u0644\u064e\u0651\u0647\u064f\u0645\u064e\u0651 \u0635\u064e\u0644\u0650\u0651 \u0639\u064e\u0644\u064e\u0649 \u0645\u064f\u062d\u064e\u0645\u064e\u0651\u062f\u064d',
+        "Allaahumma salli 'alaa Muhammad",
+        "O Allah, send blessings upon Muhammad",
+    ))
+    out.write(_section_table('Common Phrases &amp; Dhikr', '\n'.join(rows)))
+
+    # ---- SECTION 2: ESSENTIAL AYAH ----
+    rows = []
+    # Ayat al-Kursi
+    rows.append(_ayah_rows(2, 255, 'Ayat al-Kursi \u2014 The Throne Verse (2:255)'))
+    # Last Two Verses of Al-Baqarah
+    rows.append(_ayah_rows(2, 285, 'Amanar-Rasulu \u2014 Last Two Verses of Al-Baqarah (2:285)'))
+    rows.append(_ayah_rows(2, 286, 'Amanar-Rasulu \u2014 Last Two Verses of Al-Baqarah (2:286)'))
+    # Rabbana Atina
+    rows.append(_ayah_rows(2, 201, 'Rabbana Atina \u2014 Our Lord, Give Us Good (2:201)'))
+    out.write(_section_table('Essential Ayah (Verses)', '\n'.join(rows)))
+
+    # ---- SECTION 3: ESSENTIAL SURAHS ----
+    essential_surahs = [
+        (1,   'Surah Al-Fatihah \u2014 The Opening'),
+        (112, 'Surah Al-Ikhlas \u2014 Sincerity (Chapter 112)'),
+        (113, 'Surah Al-Falaq \u2014 The Daybreak (Chapter 113)'),
+        (114, 'Surah An-Nas \u2014 Mankind (Chapter 114)'),
+        (109, 'Surah Al-Kafirun \u2014 The Disbelievers (Chapter 109)'),
+        (103, 'Surah Al-\u02BFAsr \u2014 The Time (Chapter 103)'),
+    ]
+    rows = []
+    for sura_num, surah_title in essential_surahs:
+        size = SURA_SIZE[sura_num - 1]
+        for ayah in range(1, size + 1):
+            label = '%s, Ayah %d' % (surah_title, ayah) if ayah == 1 else 'Ayah %d:%d' % (sura_num, ayah)
+            rows.append(_ayah_rows(sura_num, ayah, label))
+    out.write(_section_table('Essential Surahs (Chapters)', '\n'.join(rows)))
+
+    # ---- SECTION 4: COMMON DUAS ----
+    rows = []
+    # Dua for Beginning Meals
+    rows.append(_phrase_rows(
+        'Dua for Beginning Meals',
+        '\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650',
+        "Bismillaah",
+        "In the name of Allah",
+        source='Bukhari, Muslim',
+    ))
+    # Dua after Eating
+    rows.append(_phrase_rows(
+        'Dua after Eating',
+        '\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u0637\u0652\u0639\u064e\u0645\u064e\u0646\u064e\u0627 \u0648\u064e\u0633\u064e\u0642\u064e\u0627\u0646\u064e\u0627 \u0648\u064e\u062c\u064e\u0639\u064e\u0644\u064e\u0646\u064e\u0627 \u0645\u0650\u0646\u064e \u0627\u0644\u0652\u0645\u064f\u0633\u0652\u0644\u0650\u0645\u0650\u064a\u0646\u064e',
+        "Alhamdu lillaahilladhee at'amanaa wa saqaanaa wa ja'alnaa minal muslimeen",
+        "All praise is for Allah Who gave us food and drink and made us Muslims",
+        source='Abu Dawud, Tirmidhi',
+    ))
+    # Dua upon Entering the Bathroom
+    rows.append(_phrase_rows(
+        'Dua upon Entering the Bathroom',
+        '\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650\u060c \u0627\u0644\u0644\u064e\u0651\u0647\u064f\u0645\u064e\u0651 \u0625\u0650\u0646\u0650\u0651\u064a \u0623\u064e\u0639\u064f\u0648\u0630\u064f \u0628\u0650\u0643\u064e \u0645\u0650\u0646\u064e \u0627\u0644\u0652\u062e\u064f\u0628\u064f\u062b\u0650 \u0648\u064e\u0627\u0644\u0652\u062e\u064e\u0628\u064e\u0627\u0626\u0650\u062b\u0650',
+        "Bismillaah, Allaahumma innee a'oodhu bika minal-khubuthi wal-khabaa'ith",
+        "In the name of Allah. O Allah, I seek Your protection from evil and evil-doers",
+        source='Bukhari, Muslim',
+    ))
+    # Dua upon Leaving the Bathroom
+    rows.append(_phrase_rows(
+        'Dua upon Leaving the Bathroom',
+        '\u063a\u064f\u0641\u0652\u0631\u064e\u0627\u0646\u064e\u0643\u064e',
+        "Ghufraanaka",
+        "I seek Your forgiveness",
+        source='Abu Dawud, Tirmidhi',
+    ))
+    # Dua for Distress/Anxiety — Quran 21:87
+    rows.append(_ayah_rows(21, 87, 'Dua for Distress / Anxiety \u2014 Dua of Prophet Yunus (21:87)'))
+    # Dua for Parents — Quran 17:24
+    rows.append(_ayah_rows(17, 24, 'Dua for Parents (17:24)'))
+    # Dua for the Deceased (Janazah)
+    rows.append(_phrase_rows(
+        'Dua for the Deceased (Janazah)',
+        '\u0627\u0644\u0644\u064e\u0651\u0647\u064f\u0645\u064e\u0651 \u0627\u063a\u0652\u0641\u0650\u0631\u0652 \u0644\u064e\u0647\u064f \u0648\u064e\u0627\u0631\u0652\u062d\u064e\u0645\u0652\u0647\u064f \u0648\u064e\u0639\u064e\u0627\u0641\u0650\u0647\u0650 \u0648\u064e\u0627\u0639\u0652\u0641\u064f \u0639\u064e\u0646\u0652\u0647\u064f \u0648\u064e\u0623\u064e\u0643\u0652\u0631\u0650\u0645\u0652 \u0646\u064f\u0632\u064f\u0644\u064e\u0647\u064f \u0648\u064e\u0648\u064e\u0633\u0650\u0651\u0639\u0652 \u0645\u064f\u062f\u0652\u062e\u064e\u0644\u064e\u0647\u064f \u0648\u064e\u0627\u063a\u0652\u0633\u0650\u0644\u0652\u0647\u064f \u0628\u0650\u0627\u0644\u0652\u0645\u064e\u0627\u0621\u0650 \u0648\u064e\u0627\u0644\u062b\u064e\u0651\u0644\u0652\u062c\u0650 \u0648\u064e\u0627\u0644\u0652\u0628\u064e\u0631\u064e\u062f\u0650',
+        "Allaahummaghfir lahu warhamhu wa 'aafihi wa'fu 'anhu wa akrim nuzulahu wa wassi' mudkhalahu waghsilhu bil-maa'i wath-thalji wal-barad",
+        "O Allah, forgive him, have mercy on him, grant him well-being, pardon him, honour his arrival, widen his entry-place, and wash him with water, snow and hail",
+        source='Muslim',
+    ))
+    # Traveler's Dua — Quran 43:13-14
+    rows.append(_ayah_rows(43, 13, "Traveler\u2019s Dua (43:13)"))
+    rows.append(_ayah_rows(43, 14, "Traveler\u2019s Dua (43:14)"))
+    out.write(_section_table('Common Du&#x02BE;&#257;s (Supplications)', '\n'.join(rows)))
+
+    # ---- SECTION 5: SPECIAL SALAWAT ----
+    rows = []
+    rows.append(_phrase_rows(
+        'Durood-e-Ibrahim (Salawat Ibrahimiyyah)',
+        (
+            '\u0627\u0644\u0644\u064e\u0651\u0647\u064f\u0645\u064e\u0651 \u0635\u064e\u0644\u0650\u0651 \u0639\u064e\u0644\u064e\u0649 \u0645\u064f\u062d\u064e\u0645\u064e\u0651\u062f\u064d \u0648\u064e\u0639\u064e\u0644\u064e\u0649 \u0622\u0644\u0650 \u0645\u064f\u062d\u064e\u0645\u064e\u0651\u062f\u064d '
+            '\u0643\u064e\u0645\u064e\u0627 \u0635\u064e\u0644\u064e\u0651\u064a\u0652\u062a\u064e \u0639\u064e\u0644\u064e\u0649 \u0625\u0650\u0628\u0652\u0631\u064e\u0627\u0647\u0650\u064a\u0645\u064e \u0648\u064e\u0639\u064e\u0644\u064e\u0649 \u0622\u0644\u0650 \u0625\u0650\u0628\u0652\u0631\u064e\u0627\u0647\u0650\u064a\u0645\u064e '
+            '\u0625\u0650\u0646\u064e\u0651\u0643\u064e \u062d\u064e\u0645\u0650\u064a\u062f\u064c \u0645\u064e\u062c\u0650\u064a\u062f\u064c\u060c '
+            '\u0627\u0644\u0644\u064e\u0651\u0647\u064f\u0645\u064e\u0651 \u0628\u064e\u0627\u0631\u0650\u0643\u0652 \u0639\u064e\u0644\u064e\u0649 \u0645\u064f\u062d\u064e\u0645\u064e\u0651\u062f\u064d \u0648\u064e\u0639\u064e\u0644\u064e\u0649 \u0622\u0644\u0650 \u0645\u064f\u062d\u064e\u0645\u064e\u0651\u062f\u064d '
+            '\u0643\u064e\u0645\u064e\u0627 \u0628\u064e\u0627\u0631\u064e\u0643\u0652\u062a\u064e \u0639\u064e\u0644\u064e\u0649 \u0625\u0650\u0628\u0652\u0631\u064e\u0627\u0647\u0650\u064a\u0645\u064e \u0648\u064e\u0639\u064e\u0644\u064e\u0649 \u0622\u0644\u0650 \u0625\u0650\u0628\u0652\u0631\u064e\u0627\u0647\u0650\u064a\u0645\u064e '
+            '\u0625\u0650\u0646\u064e\u0651\u0643\u064e \u062d\u064e\u0645\u0650\u064a\u062f\u064c \u0645\u064e\u062c\u0650\u064a\u062f\u064c'
+        ),
+        (
+            "Allaahumma salli 'alaa Muhammadin wa 'alaa aali Muhammadin "
+            "kamaa sallayta 'alaa Ibraaheema wa 'alaa aali Ibraaheema "
+            "innaka Hameedun Majeed. "
+            "Allaahumma baarik 'alaa Muhammadin wa 'alaa aali Muhammadin "
+            "kamaa baarakta 'alaa Ibraaheema wa 'alaa aali Ibraaheema "
+            "innaka Hameedun Majeed"
+        ),
+        (
+            "O Allah, send blessings upon Muhammad and upon the family of Muhammad, "
+            "as You sent blessings upon Ibrahim and upon the family of Ibrahim. "
+            "Verily, You are Praiseworthy, Glorious. "
+            "O Allah, bestow Your grace upon Muhammad and upon the family of Muhammad, "
+            "as You bestowed Your grace upon Ibrahim and upon the family of Ibrahim. "
+            "Verily, You are Praiseworthy, Glorious."
+        ),
+        source='Bukhari, Muslim',
+    ))
+    out.write(_section_table('Special Salawat', '\n'.join(rows)))
+
+    out.write("""\
+</main>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry</footer>
+</body>
+</html>""")
+
+print('Written: %s' % phrases_path)
