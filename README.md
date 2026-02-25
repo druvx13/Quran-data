@@ -106,7 +106,7 @@ Features:
 | *(sahih.pdf — build locally)* | English | Saheeh International |
 | *(translit.pdf — build locally)* | Transliteration | Tanzil.net |
 | *(pickthall.pdf — build locally)* | English | Pickthall (1930, Public Domain) |
-| *(hindi_mokhtasar.pdf — build locally)* | Hindi Tafsir | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim |
+| `output/hindi_mokhtasar.pdf` | Hindi Tafsir | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim |
 
 ### HTML website content per ayah
 
