@@ -67,6 +67,37 @@ translations = [
     # Roman Urdu
     ('data/ur.romanmaududi.txt', 'output/quran_roman_urdu_maududi.txt', 'Abul Ala Maududi', 'Roman-Urdu'),
     ('data/ur.romanjunagarhi.txt', 'output/quran_roman_urdu_junagarhi.txt', 'Muhammad Junagarhi', 'Roman-Urdu'),
+    # New English translations from fawazahmed0/quran-api
+    ('data/en.aishabewley.txt', 'output/quran_english_aishabewley.txt', 'Aisha Bewley', 'English'),
+    ('data/en.aliunal.txt', 'output/quran_english_aliunal.txt', 'Ali Unal', 'English'),
+    ('data/en.lalehbakhtiar.txt', 'output/quran_english_lalehbakhtiar.txt', 'Dr. Laleh Bakhtiar', 'English'),
+    ('data/en.edwardpalmer.txt', 'output/quran_english_edwardpalmer.txt', 'Edward Henry Palmer', 'English'),
+    ('data/en.farookmalik.txt', 'output/quran_english_farookmalik.txt', 'Farook Malik', 'English'),
+    ('data/en.georgesale.txt', 'output/quran_english_georgesale.txt', 'George Sale', 'English'),
+    ('data/en.hamidsaziz.txt', 'output/quran_english_hamidsaziz.txt', 'Hamid S. Aziz', 'English'),
+    ('data/en.johnrodwell.txt', 'output/quran_english_johnrodwell.txt', 'John Medows Rodwell', 'English'),
+    ('data/en.literal.txt', 'output/quran_english_literal.txt', 'Literal (Word for Word)', 'English'),
+    ('data/en.miraneesuddin.txt', 'output/quran_english_miraneesuddin.txt', 'Mir Aneesuddin', 'English'),
+    ('data/en.mohammadshafi.txt', 'output/quran_english_mohammadshafi.txt', 'Mohammad Shafi', 'English'),
+    ('data/en.muhammadghali.txt', 'output/quran_english_muhammadghali.txt', 'Muhammad Mahmoud Ghali', 'English'),
+    ('data/en.khattab.txt', 'output/quran_english_khattab.txt', 'Mustafa Khattab (The Clear Quran)', 'English'),
+    ('data/en.njdawood.txt', 'output/quran_english_njdawood.txt', 'N. J. Dawood', 'English'),
+    ('data/en.safikaskas.txt', 'output/quran_english_safikaskas.txt', 'Safi Kaskas', 'English'),
+    ('data/en.shabbirahmed.txt', 'output/quran_english_shabbirahmed.txt', 'Shabbir Ahmed', 'English'),
+    ('data/en.syedvickar.txt', 'output/quran_english_syedvickar.txt', 'Syed Vickar Ahamed', 'English'),
+    ('data/en.itaninew.txt', 'output/quran_english_itaninew.txt', 'Talal Itani (New Translation)', 'English'),
+    ('data/en.tbirving.txt', 'output/quran_english_tbirving.txt', 'T. B. Irving', 'English'),
+    ('data/en.monotheist.txt', 'output/quran_english_monotheist.txt', 'The Monotheist Group', 'English'),
+    ('data/en.ummmuhammad.txt', 'output/quran_english_ummmuhammad.txt', 'Umm Muhammad', 'English'),
+    # Romanized Hindi translations from fawazahmed0/quran-api
+    ('data/hi.roman.farooq.txt', 'output/quran_roman_hindi_farooq.txt', 'Muhammad Farooq Khan & Muhammad Ahmed', 'Roman-Hindi'),
+    ('data/hi.roman.suhail.txt', 'output/quran_roman_hindi_suhail.txt', 'Suhel Farooq Khan & Saifur Rahman Nadwi', 'Roman-Hindi'),
+    ('data/hi.roman.omari.txt', 'output/quran_roman_hindi_omari.txt', 'Maulana Azizul Haque Al-Umari', 'Roman-Hindi'),
+    # New Urdu translations from fawazahmed0/quran-api
+    ('data/ur.karamshah.txt', 'output/quran_urdu_karamshah.txt', 'Muhammad Karam Shah Al-Azhari', 'Urdu'),
+    ('data/ur.taqiusmani.txt', 'output/quran_urdu_taqiusmani.txt', 'Muhammad Taqi Usmani', 'Urdu'),
+    # Romanized Gujarati from fawazahmed0/quran-api
+    ('data/gu.roman.rabila.txt', 'output/quran_roman_gujarati_rabila.txt', 'Rabila Al-Omari', 'Roman-Gujarati'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -101,6 +132,12 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Roman-Urdu':
             out.write("Quran - Roman Urdu Tarjuma\n")
             out.write("Mutarjim: %s\n" % translator)
+        elif lang == 'Roman-Hindi':
+            out.write("Quran - Roman Hindi Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
+        elif lang == 'Roman-Gujarati':
+            out.write("Quran - Roman Gujarati Bhashantar\n")
+            out.write("Bhashantar: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
             with zipfile.ZipFile(src_file, 'r') as zf:
