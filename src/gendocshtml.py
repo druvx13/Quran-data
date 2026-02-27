@@ -93,6 +93,100 @@ SURA_NAME = [
 ]
 
 # ---------------------------------------------------------------------------
+# Revelation metadata: (revelation_order, 'M'=Meccan/'D'=Medinan) per surah
+# Standard Islamic scholarly consensus order
+# ---------------------------------------------------------------------------
+SURAH_REV = [
+    # 1-10
+    (5,'M'),(87,'D'),(89,'D'),(92,'D'),(112,'D'),
+    (55,'M'),(39,'M'),(88,'D'),(113,'D'),(51,'M'),
+    # 11-20
+    (52,'M'),(53,'M'),(96,'D'),(72,'M'),(54,'M'),
+    (70,'M'),(50,'M'),(69,'M'),(44,'M'),(45,'M'),
+    # 21-30
+    (73,'M'),(103,'D'),(74,'M'),(102,'D'),(42,'M'),
+    (47,'M'),(48,'M'),(49,'M'),(85,'M'),(84,'M'),
+    # 31-40
+    (57,'M'),(75,'M'),(90,'D'),(58,'M'),(43,'M'),
+    (41,'M'),(56,'M'),(38,'M'),(59,'M'),(60,'M'),
+    # 41-50
+    (61,'M'),(62,'M'),(63,'M'),(64,'M'),(65,'M'),
+    (66,'M'),(95,'D'),(111,'D'),(106,'D'),(34,'M'),
+    # 51-60
+    (67,'M'),(76,'M'),(23,'M'),(37,'M'),(97,'D'),
+    (46,'M'),(94,'D'),(105,'D'),(101,'D'),(91,'D'),
+    # 61-70
+    (109,'D'),(110,'D'),(104,'D'),(108,'D'),(99,'D'),
+    (107,'D'),(77,'M'),(2,'M'),(78,'M'),(79,'M'),
+    # 71-80
+    (71,'M'),(40,'M'),(3,'M'),(4,'M'),(31,'M'),
+    (98,'D'),(33,'M'),(80,'M'),(81,'M'),(24,'M'),
+    # 81-90
+    (7,'M'),(82,'M'),(86,'M'),(83,'M'),(27,'M'),
+    (36,'M'),(8,'M'),(68,'M'),(10,'M'),(35,'M'),
+    # 91-100
+    (26,'M'),(9,'M'),(11,'M'),(12,'M'),(28,'M'),
+    (1,'M'),(25,'M'),(100,'D'),(93,'D'),(14,'M'),
+    # 101-110
+    (30,'M'),(16,'M'),(13,'M'),(32,'M'),(19,'M'),
+    (29,'M'),(17,'M'),(15,'M'),(18,'M'),(114,'D'),
+    # 111-114
+    (6,'M'),(22,'M'),(20,'M'),(21,'M'),
+]
+
+# Juz (para) start positions: {(surah, ayah): juz_number}
+JUZ_STARTS = {
+    (1,1):1,  (2,142):2,  (2,253):3, (3,92):4,  (4,24):5,
+    (4,148):6,(5,82):7,   (6,111):8, (7,88):9,  (8,41):10,
+    (9,93):11,(11,6):12,  (12,53):13,(15,1):14, (17,1):15,
+    (18,75):16,(21,1):17, (23,1):18, (25,21):19,(27,56):20,
+    (29,46):21,(33,31):22,(36,28):23,(39,32):24,(41,47):25,
+    (46,1):26,(51,31):27, (58,1):28, (67,1):29, (78,1):30,
+}
+
+# Sajda (Sujood Al-Tilawa) verses — 14 obligatory prostration positions
+SAJDA_VERSES = {
+    (7,206),(13,15),(16,50),(17,109),(19,58),
+    (22,18),(25,60),(27,26),(32,15),(38,24),
+    (41,38),(53,62),(84,21),(96,19),
+}
+
+
+def surah_juz_span(sura_idx):
+    """Return a string describing the Juz span of a surah, e.g. '1', '1–2'."""
+    size = SURA_SIZE[sura_idx - 1]
+    juz_set = set()
+    # current_juz tracks which juz each ayah falls in
+    current = 1
+    for ayah in range(1, size + 1):
+        j = JUZ_STARTS.get((sura_idx, ayah))
+        if j:
+            current = j
+        juz_set.add(current)
+    juz_list = sorted(juz_set)
+    if len(juz_list) == 1:
+        return str(juz_list[0])
+    return '%d\u2013%d' % (juz_list[0], juz_list[-1])
+
+
+def make_surah_info_bar(sura_idx):
+    """Return the surah metadata info-bar HTML."""
+    rev_order, rev_type = SURAH_REV[sura_idx - 1]
+    type_label = 'Meccan' if rev_type == 'M' else 'Medinan'
+    type_class = 'meccan' if rev_type == 'M' else 'medinan'
+    juz = surah_juz_span(sura_idx)
+    size = SURA_SIZE[sura_idx - 1]
+    return (
+        "<div class='surah-info-bar'>"
+        "<span class='sib-type %s'>%s</span>"
+        "<span>&#128336;&nbsp;Revelation&nbsp;#%d</span>"
+        "<span>&#128220;&nbsp;%d Verses</span>"
+        "<span>&#128366;&nbsp;Juz&nbsp;%s</span>"
+        "</div>\n"
+    ) % (type_class, type_label, rev_order, size, juz)
+
+
+# ---------------------------------------------------------------------------
 # Load transliteration  data/en.transliteration.tanzil.txt
 # Format: sura|ayah|text_with_html_tags  (comment lines start with #)
 # ---------------------------------------------------------------------------
@@ -313,6 +407,7 @@ h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
 .surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
   border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
 .surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
 .notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
 .notice summary{cursor:pointer}
 .table-wrap{overflow-x:auto;width:100%}
@@ -432,6 +527,7 @@ footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top
   .roman-urdu-junagarhi td{background:#0a1a00}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
   .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
   .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
   .verse-chooser{background:#1e2a3a;border-color:#334}
   .verse-chooser summary{background:#162030}
@@ -467,6 +563,47 @@ footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top
   .arabic-text{font-size:1.3em}
   .ayah-sep td{background:#ddd!important;color:#000!important}
   tr[data-ayah]{display:table-row!important}
+}
+.surah-info-bar{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;
+  padding:8px 12px;background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;
+  margin-bottom:14px;font-size:.88em;color:#1a3a5c}
+.surah-info-bar span{white-space:nowrap}
+.sib-type{font-weight:700;padding:2px 8px;border-radius:10px;font-size:.95em}
+.sib-type.meccan{background:#fff8e1;color:#e65100;border:1px solid #ffcc80}
+.sib-type.medinan{background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7}
+.juz-marker td{background:#1a3a5c;color:#ffd54f;font-weight:700;font-size:.85em;
+  padding:5px 12px;letter-spacing:.04em;border-color:#1a3a5c;text-align:center}
+.sajda-badge{display:inline-flex;align-items:center;gap:4px;
+  background:#e8f5e9;color:#1b5e20;font-size:.78em;font-weight:600;
+  padding:1px 6px;border-radius:8px;border:1px solid #a5d6a7;margin-left:8px;
+  vertical-align:middle}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+@media(prefers-color-scheme:dark){
+  .surah-info-bar{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .sib-type.meccan{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
+  .sib-type.medinan{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .juz-marker td{background:#0d2136;border-color:#0d2136}
+  .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
 }"""
 
 HEADER_HTML = """\
@@ -485,7 +622,7 @@ HEADER_HTML = """\
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
-<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
+{surah_info}<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
 {verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
 """
 
@@ -549,6 +686,12 @@ def make_verse_chooser(size):
         "<summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span>"
         "<span class='vc-arrow'>&#x25BC;</span></summary>"
         "<div class='vc-body'>"
+        "<div class='vc-font-ctrl'>"
+        "<span>Font Size:</span>"
+        "<button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button>"
+        "<button onclick='fsReset()' title='Reset font size'>A</button>"
+        "<button onclick='fsIncrease()' title='Increase font size'>A+</button>"
+        "</div>"
         "<div class='vc-section-title'>Verse Range</div>"
         "<div class='vc-controls'>"
         "<button onclick='vcSelectAll()'>Show All</button>"
@@ -590,7 +733,7 @@ VC_JS = """\
     document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
       var ayah=+tr.dataset.ayah;
       var inRange=(ayah>=vcFrom&&ayah<=vcTo);
-      if(tr.classList.contains('ayah-sep')){
+      if(tr.classList.contains('ayah-sep')||tr.classList.contains('juz-marker')){
         tr.style.display=inRange?'':'none';
       }else{
         var typeEnabled=false;
@@ -638,6 +781,75 @@ VC_JS = """\
   };
   loadHash();
   applyAllRows();
+
+  /* ---- Font size control ---- */
+  var FS_KEY='qfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy verse ---- */
+  window.copyVerse=function(btn,sura,ayah){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+sura+':'+ayah+']'];
+    if(tbod){
+      tbod.querySelectorAll('tr[data-ayah="'+ayah+'"]').forEach(function(tr){
+        if(tr.classList.contains('ayah-sep'))return;
+        if(tr.classList.contains('audio'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\\u2714';
+      setTimeout(function(){btn.textContent='\\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Verse permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#'+a.dataset.ayah;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#'+a.dataset.ayah);
+    });
+  });
 })();
 </script>
 """
@@ -663,6 +875,7 @@ for sura_idx in range(1, 115):
             num=sura_idx, name=name, css=CSS,
             surah_select=make_surah_select(sura_idx),
             verse_chooser=make_verse_chooser(size),
+            surah_info=make_surah_info_bar(sura_idx),
         ))
         for ayah in range(1, size + 1):
             tl = translit.get((sura_idx, ayah), '')
@@ -682,8 +895,31 @@ for sura_idx in range(1, 115):
             ho = hindi_omari.get((sura_idx, ayah), '')
             ru = roman_urdu.get((sura_idx, ayah), '')
             rj = roman_urdu_junagarhi.get((sura_idx, ayah), '')
+
+            # Juz marker row
+            juz_num = JUZ_STARTS.get((sura_idx, ayah))
+            if juz_num:
+                out.write(
+                    "<tr class='juz-marker' data-ayah='%d'>"
+                    "<td colspan='2'>&#128366; Juz %d begins here</td></tr>\n"
+                    % (ayah, juz_num)
+                )
+
+            # Sajda badge
+            sajda_badge = ''
+            if (sura_idx, ayah) in SAJDA_VERSES:
+                sajda_badge = "<span class='sajda-badge'>&#9737; Sajda</span>"
+
+            # Copy button
+            copy_btn = (
+                "<button class='copy-btn' onclick='copyVerse(this,%d,%d)'"
+                " title='Copy this verse'>\u29c9 Copy</button>"
+            ) % (sura_idx, ayah)
+
             out.write(
-                "<tr class='ayah-sep' data-ayah='%d' id='ayah-%d'><td colspan='2'>Ayah %d</td></tr>\n"
+                "<tr class='ayah-sep' data-ayah='%d' id='ayah-%d'><td colspan='2'>"
+                "<a class='permalink' href='#%d' data-ayah='%d'>Ayah %d</a>"
+                "%s%s</td></tr>\n"
                 "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>%s</td></tr>\n"
                 "<tr class='audio' data-ayah='%d'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/%03d%03d.mp3' title='Surah %d, Ayah %d \u2014 Mishary Alafasy recitation'></audio></td></tr>\n"
                 "<tr class='translit' data-ayah='%d'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>%s</td></tr>\n"
@@ -702,7 +938,9 @@ for sura_idx in range(1, 115):
                 "<tr class='hindi-omari' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>%s</td></tr>\n"
                 "<tr class='roman-urdu' data-ayah='%d'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>%s</td></tr>\n"
                 "<tr class='roman-urdu-junagarhi' data-ayah='%d'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>%s</td></tr>\n"
-                % (ayah, ayah, ayah,
+                % (ayah, ayah,
+                   ayah, ayah, ayah,
+                   sajda_badge, copy_btn,
                    ayah, ar,
                    ayah, sura_idx, ayah, sura_idx, ayah,
                    ayah, tl,
@@ -772,7 +1010,19 @@ Texts are reproduced verbatim; no alterations have been made.
 <div class="surah-grid">
 """ % (CSS, make_surah_select(0)))
     for i, name in enumerate(SURA_NAME, 1):
-        out.write("<a href='%03d.html'><strong>%d.</strong> %s</a>\n" % (i, i, name))
+        rev_order, rev_type = SURAH_REV[i - 1]
+        type_label = 'Meccan' if rev_type == 'M' else 'Medinan'
+        type_class = 'meccan' if rev_type == 'M' else 'medinan'
+        juz = surah_juz_span(i)
+        out.write(
+            "<a href='%03d.html'>"
+            "<strong>%d.</strong> %s"
+            "<span class='sg-meta'>"
+            "<span class='sib-type %s'>%s</span>"
+            "<span>Juz %s</span>"
+            "</span></a>\n"
+            % (i, i, name, type_class, type_label, juz)
+        )
     out.write("""\
 </div>
 </main>
