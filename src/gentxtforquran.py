@@ -32,6 +32,20 @@ translations = [
     ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan', 'English-SuraAyah'),
     ('data/ahl-al-hadith-central-society-of-nepal-simple.json.zip', 'output/quran_nepali_ahl_al_hadith.txt', 'Ahl-al-Hadith Central Society of Nepal', 'Nepali-JSON'),
     ('data/hi.omari.txt', 'output/quran_hindi_omari.txt', 'Azizul Haq Al-Omari', 'Hindi'),
+    # Additional English translations from Tanzil.net
+    ('data/en.ahmedali.txt', 'output/quran_english_ahmedali.txt', 'Ahmed Ali', 'English-SuraAyah'),
+    ('data/en.ahmedraza.txt', 'output/quran_english_ahmedraza.txt', 'Ahmed Raza Khan', 'English-SuraAyah'),
+    ('data/en.arberry.txt', 'output/quran_english_arberry.txt', 'A. J. Arberry', 'English-SuraAyah'),
+    ('data/en.daryabadi.txt', 'output/quran_english_daryabadi.txt', 'Abdul Majid Daryabadi', 'English-SuraAyah'),
+    ('data/en.itani.txt', 'output/quran_english_itani.txt', 'Talal Itani', 'English-SuraAyah'),
+    ('data/en.maududi.txt', 'output/quran_english_maududi.txt', 'Abul Ala Maududi', 'English-SuraAyah'),
+    ('data/en.mubarakpuri.txt', 'output/quran_english_mubarakpuri.txt', 'Safi-ur-Rahman al-Mubarakpuri', 'English-SuraAyah'),
+    ('data/en.qaribullah.txt', 'output/quran_english_qaribullah.txt', 'Hasan al-Fatih Qaribullah & Ahmad Darwish', 'English-SuraAyah'),
+    ('data/en.sarwar.txt', 'output/quran_english_sarwar.txt', 'Muhammad Sarwar', 'English-SuraAyah'),
+    ('data/en.shakir.txt', 'output/quran_english_shakir.txt', 'Mohammad Habib Shakir', 'English-SuraAyah'),
+    ('data/en.wahiduddin.txt', 'output/quran_english_wahiduddin.txt', 'Wahiduddin Khan', 'English-SuraAyah'),
+    # English translation from quranenc.com
+    ('data/en.rwwad.txt', 'output/quran_english_rwwad.txt', 'Rowwad Translation Center', 'English'),
 ]
 
 for src_file, out_file, translator, lang in translations:

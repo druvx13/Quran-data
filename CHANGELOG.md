@@ -9,6 +9,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased] — 2026-02-27
 
 ### Added
+- **12 new English Quran translations** — data files and generated output txt files:
+
+  | Translator | Data file | Output file | Source |
+  |-----------|-----------|-------------|--------|
+  | Ahmed Ali | `data/en.ahmedali.txt` | `output/quran_english_ahmedali.txt` | tanzil.net |
+  | Ahmed Raza Khan | `data/en.ahmedraza.txt` | `output/quran_english_ahmedraza.txt` | tanzil.net |
+  | A. J. Arberry | `data/en.arberry.txt` | `output/quran_english_arberry.txt` | tanzil.net |
+  | Abdul Majid Daryabadi | `data/en.daryabadi.txt` | `output/quran_english_daryabadi.txt` | tanzil.net |
+  | Talal Itani | `data/en.itani.txt` | `output/quran_english_itani.txt` | tanzil.net |
+  | Abul Ala Maududi | `data/en.maududi.txt` | `output/quran_english_maududi.txt` | tanzil.net |
+  | Safi-ur-Rahman al-Mubarakpuri | `data/en.mubarakpuri.txt` | `output/quran_english_mubarakpuri.txt` | tanzil.net |
+  | Hasan al-Fatih Qaribullah & Ahmad Darwish | `data/en.qaribullah.txt` | `output/quran_english_qaribullah.txt` | tanzil.net |
+  | Muhammad Sarwar | `data/en.sarwar.txt` | `output/quran_english_sarwar.txt` | tanzil.net |
+  | Mohammad Habib Shakir | `data/en.shakir.txt` | `output/quran_english_shakir.txt` | tanzil.net |
+  | Wahiduddin Khan | `data/en.wahiduddin.txt` | `output/quran_english_wahiduddin.txt` | tanzil.net |
+  | Rowwad Translation Center | `data/en.rwwad.txt` | `output/quran_english_rwwad.txt` | quranenc.com |
+
+  All output files have exactly 6,236 ayahs in `[sura:ayah] text` format grouped by surah.
+  - Tanzil.net files are in `sura|ayah|text` format; embedded BOM stripped from `en.wahiduddin.txt`.
+  - Rowwad file fetched from `quranenc.com/api/v1/translation/sura/english_rwwad/`; footnote
+    markers `[N]` stripped, whitespace normalized.
+
 - **Hindi translation by Azizul Haq Al-Omari** (`data/hi.omari.txt`) — fetched from
   [quranenc.com](https://quranenc.com) API (`hindi_omari`); all 6 236 ayahs, one per
   line, footnote markers stripped, whitespace normalized.
@@ -22,13 +44,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     Azizul Haq Al-Omari and quranenc.com.
 
 ### Changed
-- `src/gentxtforquran.py` now generates twelve output files (previously eleven); the new
-  `quran_hindi_omari.txt` is appended to the `translations` list.
-- `src/gendocshtml.py` updated to load and render `output/quran_hindi_omari.txt`;
-  all 114 surah pages, `docs/index.html`, `docs/search-data.js`, and `docs/search.html`
-  regenerated.
-- `README.md` updated: data-sources table, directory layout, and output-file table
-  updated to include the new translation.
+- `src/gentxtforquran.py` now generates twenty-seven output files (previously twelve);
+  twelve new English translations appended to the `translations` list.
+- `README.md` updated: directory layout, data-sources table, output-file table, and
+  translations table updated to include all new files.
 
 ---
 
