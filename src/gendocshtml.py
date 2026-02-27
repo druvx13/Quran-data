@@ -6,7 +6,7 @@ Run from the repository root:
     python3 src/gendocshtml.py
 
 Sources used:
-  - trans/en.transliteration.txt       : sura|ayah|transliteration (with HTML tags)
+  - data/en.transliteration.tanzil.txt : sura|ayah|transliteration (with HTML tags)
   - output/quran_translit_unicode.txt  : [sura:ayah] Unicode transliteration (Quran Unicode Project)
   - output/quran_hindi_farooq.txt      : [sura:ayah] Hindi translation (Farooq Khan)
   - output/quran_hindi_suhail.txt      : [sura:ayah] Hindi translation (Suhail)
@@ -92,11 +92,11 @@ SURA_NAME = [
 ]
 
 # ---------------------------------------------------------------------------
-# Load transliteration  trans/en.transliteration.txt
+# Load transliteration  data/en.transliteration.tanzil.txt
 # Format: sura|ayah|text_with_html_tags  (comment lines start with #)
 # ---------------------------------------------------------------------------
 translit = {}
-with open('trans/en.transliteration.txt', 'r', encoding='utf-8') as f:
+with open('data/en.transliteration.tanzil.txt', 'r', encoding='utf-8') as f:
     for line in f:
         line = line.rstrip('\n')
         if not line or line.startswith('#'):
@@ -296,7 +296,7 @@ header a:hover{text-decoration:underline}
 main{padding:16px;max-width:900px;margin:0 auto}
 h1{font-size:1.4em;margin:0 0 12px}
 h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
-.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:16px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
 .surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
   border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
 .surah-grid a:hover{background:#dde8f2}
@@ -307,7 +307,7 @@ table{width:100%;border-collapse:collapse;margin-bottom:24px}
 th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
 td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
-.label{color:#888;font-size:.82em;white-space:nowrap;width:110px}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
 .translit td{background:#f0f4f8}
 .translit-unicode td{background:#e8eaf6}
 .trans td{background:#fff}
@@ -342,7 +342,7 @@ nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8p
 nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
-footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
 .surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
 .surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
 .verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
@@ -367,7 +367,27 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .cf-item label:hover{background:#dde8f2}
 .cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
 .cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
-@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  .audio-player{max-width:100%;height:40px}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
 .noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
 @media(prefers-color-scheme:dark){
   body{background:#121212;color:#e8e8e8}
@@ -416,9 +436,17 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .nepali-text{color:#80cbc4}
   .hindi-omari-text{color:#f48fb1}
 }
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
   body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
   td{border-color:#999;color:#000;background:#fff!important}
   .arabic-text{font-size:1.3em}
   .ayah-sep td{background:#ddd!important;color:#000!important}
@@ -766,14 +794,14 @@ print('Written: %s' % search_data_path)
 # ---------------------------------------------------------------------------
 SEARCH_CSS = CSS + """
 .search-box{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.search-box input[type=text]{flex:1;min-width:200px;padding:9px 12px;border:1px solid #ccd6e0;border-radius:4px;font-size:1em;color:#111}
+.search-box input[type=text]{flex:1;min-width:160px;padding:9px 12px;border:1px solid #ccd6e0;border-radius:4px;font-size:1em;color:#111}
 .search-box input[type=text]:focus{outline:2px solid #ffd54f;outline-offset:2px}
-.search-box button{padding:9px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:1em}
+.search-box button{padding:9px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:1em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
 #search-status{font-size:.92em;color:#555;margin-bottom:10px}
 .result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
-.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between}
-.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
 .result-header a:hover{text-decoration:underline}
 .result-arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;padding:8px 12px;background:#fff8e1}
 .result-translit{padding:6px 12px;background:#e8eaf6;font-weight:600;color:#283593;font-size:.95em}
@@ -781,7 +809,7 @@ SEARCH_CSS = CSS + """
 .result-highlight{background:#fff176;border-radius:2px}
 .result-hindi-mokhtasar{padding:6px 12px;background:#e8f5e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20;font-size:.95em}
 .pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
-.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
 .pagination button:hover:not(:disabled){background:#2a5a8c}
 .pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
 .pagination .pg-current{background:#ffd54f;color:#1a3a5c;font-weight:bold}

@@ -15,7 +15,7 @@ header a:hover{text-decoration:underline}
 main{padding:16px;max-width:900px;margin:0 auto}
 h1{font-size:1.4em;margin:0 0 12px}
 h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
-.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:16px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
 .surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
   border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
 .surah-grid a:hover{background:#dde8f2}
@@ -26,7 +26,7 @@ table{width:100%;border-collapse:collapse;margin-bottom:24px}
 th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
 td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
-.label{color:#888;font-size:.82em;white-space:nowrap;width:110px}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
 .translit td{background:#f0f4f8}
 .translit-unicode td{background:#e8eaf6}
 .trans td{background:#fff}
@@ -61,7 +61,7 @@ nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8p
 nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
-footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
 .surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
 .surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
 .verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
@@ -86,7 +86,27 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .cf-item label:hover{background:#dde8f2}
 .cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
 .cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
-@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  .audio-player{max-width:100%;height:40px}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
 .noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
 @media(prefers-color-scheme:dark){
   body{background:#121212;color:#e8e8e8}
@@ -135,9 +155,17 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .nepali-text{color:#80cbc4}
   .hindi-omari-text{color:#f48fb1}
 }
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
   body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
   td{border-color:#999;color:#000;background:#fff!important}
   .arabic-text{font-size:1.3em}
   .ayah-sep td{background:#ddd!important;color:#000!important}

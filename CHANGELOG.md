@@ -6,9 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased] — 2026-02-27
+## [Unreleased] — 2026-02-27 (repo reorganization + responsive HTML)
 
-### Added
+### Changed
+- **Repository reorganization** — consolidated the `trans/` directory into `data/` so all
+  source data files live in one place:
+  - `trans/en.transliteration.txt` → `data/en.transliteration.tanzil.txt`
+    (renamed to distinguish from the plain `data/en.transliteration.txt`;
+    this is the Tanzil.net format with HTML markup tags, used by `gendocshtml.py`)
+  - `trans/en.pickthall.txt` (Tanzil.net sura|ayah|text format) → `data/en.pickthall.tanzil.txt`
+  - `trans/en.sahih.trans.zip` → `data/en.sahih.trans.zip`
+  - `trans/` directory removed; `src/gendocshtml.py` updated to reference
+    `data/en.transliteration.tanzil.txt`
+- **HTML responsive redesign** — all 114 surah pages, `index.html`, and `search.html`
+  regenerated with improved mobile layout:
+  - **Responsive table** (`@media(max-width:600px)`): `<thead>` hidden; each `<td>` renders
+    as a block element so label and content stack vertically rather than side-by-side,
+    eliminating horizontal overflow on phones.
+  - Surah grid `minmax` reduced to `160px` (was `180px`) for better fit on mid-size phones.
+  - Extra breakpoint `@media(max-width:380px)` reduces grid cards to `130px` min width.
+  - Print stylesheet updated: restores full table layout (`display:table-cell!important`)
+    so printed output is unaffected by the mobile block-display rules.
+  - Search page result-card headers now `flex-wrap:wrap` so long surah names don't overflow.
+  - All interactive buttons (search, pagination) raised to `min-height:44px` for touch targets.
+  - Footer line-height and font-size improved for better readability.
+- **README.md** — repository structure tree updated to reflect the consolidated `data/`
+  directory (removed `trans/` subtree, added new `data/` entries).
+
+
 - **12 new English Quran translations** — data files and generated output txt files:
 
   | Translator | Data file | Output file | Source |
