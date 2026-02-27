@@ -87,6 +87,33 @@ Features:
 │   ├── ur.wahiduddin.txt                         # Urdu – Maulana Wahiduddin Khan (quran.com, one line per ayah)
 │   ├── ur.romanmaududi.txt                       # Roman Urdu – Abul Ala Maududi (quran.com, one line per ayah)
 │   ├── ur.romanjunagarhi.txt                     # Roman Urdu – Muhammad Junagarhi (fawazahmed0/quran-api, one line per ayah)
+│   ├── ur.karamshah.txt                          # Urdu – Muhammad Karam Shah Al-Azhari (fawazahmed0/quran-api, one line per ayah)
+│   ├── ur.taqiusmani.txt                         # Urdu – Muhammad Taqi Usmani (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.aishabewley.txt                        # English – Aisha Bewley (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.aliunal.txt                            # English – Ali Unal (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.lalehbakhtiar.txt                      # English – Dr. Laleh Bakhtiar (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.edwardpalmer.txt                       # English – Edward Henry Palmer (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.farookmalik.txt                        # English – Farook Malik (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.georgesale.txt                         # English – George Sale (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.hamidsaziz.txt                         # English – Hamid S. Aziz (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.johnrodwell.txt                        # English – John Medows Rodwell (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.literal.txt                            # English – Literal / Word for Word (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.miraneesuddin.txt                      # English – Mir Aneesuddin (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.mohammadshafi.txt                      # English – Mohammad Shafi (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.muhammadghali.txt                      # English – Muhammad Mahmoud Ghali (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.khattab.txt                            # English – Mustafa Khattab / The Clear Quran (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.njdawood.txt                           # English – N. J. Dawood (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.safikaskas.txt                         # English – Safi Kaskas (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.shabbirahmed.txt                       # English – Shabbir Ahmed (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.syedvickar.txt                         # English – Syed Vickar Ahamed (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.itaninew.txt                           # English – Talal Itani New Translation (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.tbirving.txt                           # English – T. B. Irving (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.monotheist.txt                         # English – The Monotheist Group (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.ummmuhammad.txt                        # English – Umm Muhammad (fawazahmed0/quran-api, one line per ayah)
+│   ├── hi.roman.farooq.txt                       # Romanized Hindi – Muhammad Farooq Khan & Muhammad Ahmed (fawazahmed0/quran-api)
+│   ├── hi.roman.suhail.txt                       # Romanized Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi (fawazahmed0/quran-api)
+│   ├── hi.roman.omari.txt                        # Romanized Hindi – Maulana Azizul Haque Al-Umari (fawazahmed0/quran-api)
+│   ├── gu.roman.rabila.txt                       # Romanized Gujarati – Rabila Al-Omari (fawazahmed0/quran-api)
 │   ├── suranamemal.txt                           # Surah names – Malayalam script
 │   └── surna.txt                                 # Surah name reference data
 ├── latex/                  # LaTeX document sources & generated content
@@ -142,6 +169,33 @@ Features:
 │   ├── quran_urdu_wahiduddin.txt
 │   ├── quran_roman_urdu_maududi.txt
 │   ├── quran_roman_urdu_junagarhi.txt
+│   ├── quran_urdu_karamshah.txt
+│   ├── quran_urdu_taqiusmani.txt
+│   ├── quran_english_aishabewley.txt
+│   ├── quran_english_aliunal.txt
+│   ├── quran_english_lalehbakhtiar.txt
+│   ├── quran_english_edwardpalmer.txt
+│   ├── quran_english_farookmalik.txt
+│   ├── quran_english_georgesale.txt
+│   ├── quran_english_hamidsaziz.txt
+│   ├── quran_english_johnrodwell.txt
+│   ├── quran_english_literal.txt
+│   ├── quran_english_miraneesuddin.txt
+│   ├── quran_english_mohammadshafi.txt
+│   ├── quran_english_muhammadghali.txt
+│   ├── quran_english_khattab.txt
+│   ├── quran_english_njdawood.txt
+│   ├── quran_english_safikaskas.txt
+│   ├── quran_english_shabbirahmed.txt
+│   ├── quran_english_syedvickar.txt
+│   ├── quran_english_itaninew.txt
+│   ├── quran_english_tbirving.txt
+│   ├── quran_english_monotheist.txt
+│   ├── quran_english_ummmuhammad.txt
+│   ├── quran_roman_hindi_farooq.txt
+│   ├── quran_roman_hindi_suhail.txt
+│   ├── quran_roman_hindi_omari.txt
+│   ├── quran_roman_gujarati_rabila.txt
 │   ├── farooq.pdf          # Compiled PDF
 │   └── suhail.pdf          # Compiled PDF
 ├── docs/                   # Generated static HTML – GitHub Pages

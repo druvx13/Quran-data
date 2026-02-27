@@ -6,7 +6,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased] — 2026-02-27 (repo reorganization + responsive HTML)
+## [Unreleased] — 2026-02-27 (new translations from fawazahmed0/quran-api)
+
+### Added
+- **27 new data files** (all 6,236 ayahs each) downloaded from fawazahmed0/quran-api and
+  converted to one-line-per-ayah plain text in `data/`:
+
+  **21 new English translations:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/en.aishabewley.txt` | Aisha Bewley | `output/quran_english_aishabewley.txt` |
+  | `data/en.aliunal.txt` | Ali Unal | `output/quran_english_aliunal.txt` |
+  | `data/en.lalehbakhtiar.txt` | Dr. Laleh Bakhtiar | `output/quran_english_lalehbakhtiar.txt` |
+  | `data/en.edwardpalmer.txt` | Edward Henry Palmer | `output/quran_english_edwardpalmer.txt` |
+  | `data/en.farookmalik.txt` | Farook Malik | `output/quran_english_farookmalik.txt` |
+  | `data/en.georgesale.txt` | George Sale | `output/quran_english_georgesale.txt` |
+  | `data/en.hamidsaziz.txt` | Hamid S. Aziz | `output/quran_english_hamidsaziz.txt` |
+  | `data/en.johnrodwell.txt` | John Medows Rodwell | `output/quran_english_johnrodwell.txt` |
+  | `data/en.literal.txt` | Literal / Word for Word | `output/quran_english_literal.txt` |
+  | `data/en.miraneesuddin.txt` | Mir Aneesuddin | `output/quran_english_miraneesuddin.txt` |
+  | `data/en.mohammadshafi.txt` | Mohammad Shafi | `output/quran_english_mohammadshafi.txt` |
+  | `data/en.muhammadghali.txt` | Muhammad Mahmoud Ghali | `output/quran_english_muhammadghali.txt` |
+  | `data/en.khattab.txt` | Mustafa Khattab (The Clear Quran) | `output/quran_english_khattab.txt` |
+  | `data/en.njdawood.txt` | N. J. Dawood | `output/quran_english_njdawood.txt` |
+  | `data/en.safikaskas.txt` | Safi Kaskas | `output/quran_english_safikaskas.txt` |
+  | `data/en.shabbirahmed.txt` | Shabbir Ahmed | `output/quran_english_shabbirahmed.txt` |
+  | `data/en.syedvickar.txt` | Syed Vickar Ahamed | `output/quran_english_syedvickar.txt` |
+  | `data/en.itaninew.txt` | Talal Itani (New Translation) | `output/quran_english_itaninew.txt` |
+  | `data/en.tbirving.txt` | T. B. Irving | `output/quran_english_tbirving.txt` |
+  | `data/en.monotheist.txt` | The Monotheist Group | `output/quran_english_monotheist.txt` |
+  | `data/en.ummmuhammad.txt` | Umm Muhammad | `output/quran_english_ummmuhammad.txt` |
+
+  **3 Romanized Hindi translations:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/hi.roman.farooq.txt` | Muhammad Farooq Khan & Muhammad Ahmed | `output/quran_roman_hindi_farooq.txt` |
+  | `data/hi.roman.suhail.txt` | Suhel Farooq Khan & Saifur Rahman Nadwi | `output/quran_roman_hindi_suhail.txt` |
+  | `data/hi.roman.omari.txt` | Maulana Azizul Haque Al-Umari | `output/quran_roman_hindi_omari.txt` |
+
+  **2 new Urdu translations:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/ur.karamshah.txt` | Muhammad Karam Shah Al-Azhari | `output/quran_urdu_karamshah.txt` |
+  | `data/ur.taqiusmani.txt` | Muhammad Taqi Usmani | `output/quran_urdu_taqiusmani.txt` |
+
+  **1 Romanized Gujarati translation:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/gu.roman.rabila.txt` | Rabila Al-Omari | `output/quran_roman_gujarati_rabila.txt` |
+
+- **`src/gentxtforquran.py`**: 27 new entries in the `translations` list; added `Roman-Hindi`
+  and `Roman-Gujarati` language type headers → generator now produces **71 output files**.
+- **README.md**: `data/` and `output/` directory trees updated with all new files.
+
+
 
 ### Changed
 - **Repository reorganization** — consolidated the `trans/` directory into `data/` so all
