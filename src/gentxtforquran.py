@@ -31,6 +31,7 @@ translations = [
     ('data/en.qarai.txt', 'output/quran_english_qarai.txt', 'Ali Quli Qarai', 'English-SuraAyah'),
     ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan', 'English-SuraAyah'),
     ('data/ahl-al-hadith-central-society-of-nepal-simple.json.zip', 'output/quran_nepali_ahl_al_hadith.txt', 'Ahl-al-Hadith Central Society of Nepal', 'Nepali-JSON'),
+    ('data/ur.jalandhry.txt', 'output/quran_urdu_jalandhry.txt', 'Fateh Muhammad Jalandhry', 'Urdu'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -59,6 +60,9 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Nepali-JSON':
             out.write("Quran - Nepali Anuvad\n")
             out.write("Anuvadak: %s\n" % translator)
+        elif lang == 'Urdu':
+            out.write("Quran - Urdu Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
             with zipfile.ZipFile(src_file, 'r') as zf:
