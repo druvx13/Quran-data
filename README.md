@@ -62,6 +62,9 @@ Features:
 │   ├── en.shakir.txt                        # English – Mohammad Habib Shakir (sura|ayah|text)
 │   ├── en.wahiduddin.txt                    # English – Wahiduddin Khan (sura|ayah|text)
 │   ├── en.rwwad.txt                         # English – Rowwad Translation Center (quranenc.com, one line per ayah)
+│   ├── en.asad.txt                          # English – Muhammad Asad (alquran.cloud, one line per ayah)
+│   ├── en.usmani.txt                        # English – Mufti Taqi Usmani (quran.com, one line per ayah)
+│   ├── en.abdelhaleem.txt                   # English – M.A.S. Abdel Haleem (quran.com, one line per ayah)
 │   ├── en.transliteration.txt               # Transliteration – Tanzil.net (one line per ayah)
 │   ├── translit_en.txt                      # Transliteration – Quran Unicode Project (num|text)
 │   ├── abridged-explanation-of-the-quran.json.zip  # English Explanation (JSON, "sura:ayah" keys)
@@ -98,6 +101,9 @@ Features:
 │   ├── quran_english_shakir.txt
 │   ├── quran_english_wahiduddin.txt
 │   ├── quran_english_rwwad.txt
+│   ├── quran_english_asad.txt
+│   ├── quran_english_usmani.txt
+│   ├── quran_english_abdelhaleem.txt
 │   ├── quran_hindi_farooq.txt
 │   ├── quran_hindi_suhail.txt
 │   ├── quran_hindi_mokhtasar.txt
@@ -161,6 +167,9 @@ Features:
 | English | Mohammad Habib Shakir | `data/en.shakir.txt` |
 | English | Wahiduddin Khan | `data/en.wahiduddin.txt` |
 | English | Rowwad Translation Center | `data/en.rwwad.txt` |
+| English | Muhammad Asad | `data/en.asad.txt` |
+| English | Mufti Taqi Usmani | `data/en.usmani.txt` |
+| English | M.A.S. Abdel Haleem | `data/en.abdelhaleem.txt` |
 | English Explanation | Abridged Explanation of the Quran | `data/abridged-explanation-of-the-quran.json.zip` |
 | Hindi (हिन्दी) | Muhammad Farooq Khan & Muhammad Ahmed | `data/hi.farooq.txt` |
 | Hindi (हिन्दी) | Suhel Farooq Khan & Saifur Rahman Nadwi | `data/hi.hindi.txt` |
@@ -227,7 +236,7 @@ cd latex && xelatex pickthall.tex # → output/pickthall.pdf
 python3 src/gentxtforquran.py
 ```
 
-Produces twenty-seven files in `output/`:
+Produces thirty files in `output/`:
 
 | Output file | Source |
 |-------------|--------|
@@ -251,6 +260,9 @@ Produces twenty-seven files in `output/`:
 | `quran_english_shakir.txt` | `data/en.shakir.txt` |
 | `quran_english_wahiduddin.txt` | `data/en.wahiduddin.txt` |
 | `quran_english_rwwad.txt` | `data/en.rwwad.txt` |
+| `quran_english_asad.txt` | `data/en.asad.txt` |
+| `quran_english_usmani.txt` | `data/en.usmani.txt` |
+| `quran_english_abdelhaleem.txt` | `data/en.abdelhaleem.txt` |
 | `quran_hindi_farooq.txt` | `data/hi.farooq.txt` |
 | `quran_hindi_suhail.txt` | `data/hi.hindi.txt` |
 | `quran_hindi_mokhtasar.txt` | `data/hindi-mokhtasar.json.zip` |
@@ -352,6 +364,8 @@ Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 | Hindi Tafsir (Al-Mokhtasar) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim (JSON) |
 | English translations (Pickthall, Yusuf Ali, Sahih, Hilali, Qarai, Ahmed Ali, Ahmed Raza Khan, Arberry, Daryabadi, Itani, Maududi, Mubarakpuri, Qaribullah, Sarwar, Shakir, Wahiduddin) | [tanzil.net](https://tanzil.net) |
 | English translation (Rowwad Translation Center) | [quranenc.com](https://quranenc.com) |
+| English translation (Muhammad Asad) | [alquran.cloud](https://alquran.cloud) |
+| English translations (Mufti Taqi Usmani, M.A.S. Abdel Haleem) | [quran.com](https://quran.com) |
 | English Explanation (Abridged) | Abridged Explanation of the Quran (JSON) |
 | Transliteration (Unicode) | Quran Unicode Project |
 | Audio recitation | Mishary Rashid Alafasy, 128 kbps — [versebyversequran.com](https://versebyversequran.com) / [HF Hub](https://huggingface.co/datasets/druvx13/quran-audio-alafasy) |

@@ -31,6 +31,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Rowwad file fetched from `quranenc.com/api/v1/translation/sura/english_rwwad/`; footnote
     markers `[N]` stripped, whitespace normalized.
 
+- **3 additional widely-circulated English translations** — fetched from public APIs:
+
+  | Translator | Data file | Output file | Source |
+  |-----------|-----------|-------------|--------|
+  | Muhammad Asad | `data/en.asad.txt` | `output/quran_english_asad.txt` | alquran.cloud |
+  | Mufti Taqi Usmani | `data/en.usmani.txt` | `output/quran_english_usmani.txt` | quran.com |
+  | M.A.S. Abdel Haleem | `data/en.abdelhaleem.txt` | `output/quran_english_abdelhaleem.txt` | quran.com |
+
+  All three fetched as one-line-per-ayah (plain text, HTML tags stripped); 6,236 ayahs each.
+  - `en.asad.txt`: full Quran via `api.alquran.cloud/v1/quran/en.asad` (single call).
+  - `en.usmani.txt`, `en.abdelhaleem.txt`: per-surah via `api.quran.com/api/v4/verses/by_chapter`
+    (translation IDs 84 and 85 respectively); HTML tags stripped.
+
 - **Hindi translation by Azizul Haq Al-Omari** (`data/hi.omari.txt`) — fetched from
   [quranenc.com](https://quranenc.com) API (`hindi_omari`); all 6 236 ayahs, one per
   line, footnote markers stripped, whitespace normalized.
@@ -44,8 +57,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     Azizul Haq Al-Omari and quranenc.com.
 
 ### Changed
-- `src/gentxtforquran.py` now generates twenty-seven output files (previously twelve);
-  twelve new English translations appended to the `translations` list.
+- `src/gentxtforquran.py` now generates thirty output files (previously twelve);
+  fifteen new English translations appended to the `translations` list.
 - `README.md` updated: directory layout, data-sources table, output-file table, and
   translations table updated to include all new files.
 

@@ -46,6 +46,10 @@ translations = [
     ('data/en.wahiduddin.txt', 'output/quran_english_wahiduddin.txt', 'Wahiduddin Khan', 'English-SuraAyah'),
     # English translation from quranenc.com
     ('data/en.rwwad.txt', 'output/quran_english_rwwad.txt', 'Rowwad Translation Center', 'English'),
+    # Additional widely-circulated English translations
+    ('data/en.asad.txt', 'output/quran_english_asad.txt', 'Muhammad Asad', 'English'),
+    ('data/en.usmani.txt', 'output/quran_english_usmani.txt', 'Mufti Taqi Usmani', 'English'),
+    ('data/en.abdelhaleem.txt', 'output/quran_english_abdelhaleem.txt', 'M.A.S. Abdel Haleem', 'English'),
 ]
 
 for src_file, out_file, translator, lang in translations:
