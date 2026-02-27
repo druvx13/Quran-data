@@ -44,6 +44,7 @@ Features:
 │   ├── ar.quran.txt                         # Arabic Uthmani script (one line per ayah)
 │   ├── hi.farooq.txt                        # Hindi – Muhammad Farooq Khan & Muhammad Ahmed
 │   ├── hi.hindi.txt                         # Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi
+│   ├── hi.omari.txt                         # Hindi – Azizul Haq Al-Omari (quranenc.com)
 │   ├── en.sahih.txt                         # English – Saheeh International (one line per ayah)
 │   ├── en.pickthall.txt                     # English – Pickthall (one line per ayah)
 │   ├── en.yusufali.txt                      # English – Yusuf Ali (sura|ayah|text format)
@@ -72,6 +73,7 @@ Features:
 │   ├── quran_hindi_farooq.txt
 │   ├── quran_hindi_suhail.txt
 │   ├── quran_hindi_mokhtasar.txt
+│   ├── quran_hindi_omari.txt
 │   ├── quran_gujarati_rabila.txt
 │   ├── quran_translit_unicode.txt
 │   ├── farooq.pdf          # Compiled PDF
@@ -119,6 +121,7 @@ Features:
 | English Explanation | Abridged Explanation of the Quran | `data/abridged-explanation-of-the-quran.json.zip` |
 | Hindi (हिन्दी) | Muhammad Farooq Khan & Muhammad Ahmed | `data/hi.farooq.txt` |
 | Hindi (हिन्दी) | Suhel Farooq Khan & Saifur Rahman Nadwi | `data/hi.hindi.txt` |
+| Hindi (हिन्दी) | Azizul Haq Al-Omari | `data/hi.omari.txt` |
 | Hindi Tafsir (हिन्दी तफ्सीर) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim | `data/hindi-mokhtasar.json.zip` |
 | Gujarati (ગુજરાતી) | Rabila Al-Umry | `data/rabila-al-umry-simple.json.zip` |
 
@@ -181,7 +184,7 @@ cd latex && xelatex pickthall.tex # → output/pickthall.pdf
 python3 src/gentxtforquran.py
 ```
 
-Produces eleven files in `output/`:
+Produces twelve files in `output/`:
 
 | Output file | Source |
 |-------------|--------|
@@ -194,6 +197,7 @@ Produces eleven files in `output/`:
 | `quran_hindi_farooq.txt` | `data/hi.farooq.txt` |
 | `quran_hindi_suhail.txt` | `data/hi.hindi.txt` |
 | `quran_hindi_mokhtasar.txt` | `data/hindi-mokhtasar.json.zip` |
+| `quran_hindi_omari.txt` | `data/hi.omari.txt` |
 | `quran_gujarati_rabila.txt` | `data/rabila-al-umry-simple.json.zip` |
 | `quran_translit_unicode.txt` | `data/translit_en.txt` |
 
@@ -285,7 +289,8 @@ Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 | Data | Source |
 |------|--------|
 | Arabic text (Uthmani script) | [tanzil.net](https://tanzil.net) |
-| Hindi translations | [zekr.org](http://zekr.org) |
+| Hindi translations | [zekr.org](http://zekr.org) (Farooq Khan, Suhel Khan) |
+| Hindi translation (Al-Omari) | [quranenc.com](https://quranenc.com) (Azizul Haq Al-Omari) |
 | Hindi Tafsir (Al-Mokhtasar) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim (JSON) |
 | English translations (Tanzil.net, Saheeh) | [tanzil.net](https://tanzil.net) |
 | English translation (Pickthall, 1930) | Public Domain |

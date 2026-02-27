@@ -31,6 +31,7 @@ translations = [
     ('data/en.qarai.txt', 'output/quran_english_qarai.txt', 'Ali Quli Qarai', 'English-SuraAyah'),
     ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan', 'English-SuraAyah'),
     ('data/ahl-al-hadith-central-society-of-nepal-simple.json.zip', 'output/quran_nepali_ahl_al_hadith.txt', 'Ahl-al-Hadith Central Society of Nepal', 'Nepali-JSON'),
+    ('data/hi.omari.txt', 'output/quran_hindi_omari.txt', 'Azizul Haq Al-Omari', 'Hindi'),
 ]
 
 for src_file, out_file, translator, lang in translations:
