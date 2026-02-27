@@ -9,7 +9,11 @@ Reads source data from data/ and writes output files to output/.
 """
 import json
 import os
+import sys
 import zipfile
+
+sys.path.insert(0, os.path.dirname(__file__))
+from urdu_to_devanagari import transliterate_file
 
 os.makedirs('output', exist_ok=True)
 
@@ -139,3 +143,9 @@ for src_file, out_file, translator, lang in translations:
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, line))
                     out.write("\n")
     print("Generated: %s" % out_file)
+
+# Generate Devanagari transliteration of the Urdu Jalandhry translation
+_urdu_src = os.path.join('output', 'quran_urdu_jalandhry.txt')
+_deva_dst = os.path.join('output', 'quran_urdu_devanagari_jalandhry.txt')
+transliterate_file(_urdu_src, _deva_dst)
+print("Generated: %s" % _deva_dst)
