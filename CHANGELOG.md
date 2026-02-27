@@ -57,8 +57,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     Azizul Haq Al-Omari and quranenc.com.
 
 ### Changed
-- `src/gentxtforquran.py` now generates forty-three output files (previously twelve);
-  added `Urdu-SuraAyah`, `Urdu`, and `Roman-Urdu` language types; thirteen new Urdu
+- `src/gentxtforquran.py` now generates forty-four output files (previously twelve);
+  added `Urdu-SuraAyah`, `Urdu`, and `Roman-Urdu` language types; fourteen new Urdu/Roman-Urdu
   translations appended to the `translations` list.
 - `src/gendocshtml.py` updated to include Roman Urdu (Maududi) on every surah page:
   loads `output/quran_roman_urdu_maududi.txt`; new `.roman-urdu` / `.roman-urdu-text`
@@ -101,6 +101,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   All 13 output files verified: exactly 6,236 ayahs each in `[sura:ayah] text` format.
   - Tanzil.net files use the new `Urdu-SuraAyah` parser (same as `English-SuraAyah`).
   - quran.com files use the new `Urdu` / `Roman-Urdu` parsers (one-line-per-ayah).
+
+- **1 additional Roman Urdu translation** — Muhammad Junagarhi, sourced from
+  [fawazahmed0/quran-api](https://github.com/fawazahmed0/quran-api) via jsdelivr CDN
+  (`urd-muhammadjunagar-la` edition):
+  - Data file: `data/ur.romanjunagarhi.txt` (one line per ayah, 6,236 ayahs).
+  - Output file: `output/quran_roman_urdu_junagarhi.txt`.
+  - Verified as the only additional Roman Urdu translation available after exhaustive
+    audit of tanzil.net, alquran.cloud, quran.com, quranenc.com, and fawazahmed0/quran-api.
 
 - **Roman Urdu added to HTML website** (`docs/`)  — every surah page now includes a
   Roman Urdu row (Abul Ala Maududi, quran.com ID 831):

@@ -83,6 +83,7 @@ Features:
 │   ├── ur.bayanulquran.txt                  # Urdu – Bayan-ul-Quran / Dr. Israr Ahmad (quran.com, one line per ayah)
 │   ├── ur.wahiduddin.txt                    # Urdu – Maulana Wahiduddin Khan (quran.com, one line per ayah)
 │   ├── ur.romanmaududi.txt                  # Roman Urdu – Abul Ala Maududi (quran.com, one line per ayah)
+│   ├── ur.romanjunagarhi.txt                # Roman Urdu – Muhammad Junagarhi (fawazahmed0/quran-api, one line per ayah)
 │   ├── suranamemal.txt                      # Surah names – Malayalam script
 │   └── surna.txt                            # Surah name reference data
 ├── latex/                  # LaTeX document sources & generated content
@@ -137,6 +138,7 @@ Features:
 │   ├── quran_urdu_bayanulquran.txt
 │   ├── quran_urdu_wahiduddin.txt
 │   ├── quran_roman_urdu_maududi.txt
+│   ├── quran_roman_urdu_junagarhi.txt
 │   ├── farooq.pdf          # Compiled PDF
 │   └── suhail.pdf          # Compiled PDF
 ├── trans/                  # Tanzil.net transliteration with HTML tags (used by gendocshtml.py)
@@ -215,6 +217,7 @@ Features:
 | Urdu (اردو) | Dr. Israr Ahmad (Bayan-ul-Quran) | `data/ur.bayanulquran.txt` |
 | Urdu (اردو) | Maulana Wahiduddin Khan | `data/ur.wahiduddin.txt` |
 | Roman Urdu | Abul Ala Maududi | `data/ur.romanmaududi.txt` |
+| Roman Urdu | Muhammad Junagarhi | `data/ur.romanjunagarhi.txt` |
 
 ---
 
@@ -275,7 +278,7 @@ cd latex && xelatex pickthall.tex # → output/pickthall.pdf
 python3 src/gentxtforquran.py
 ```
 
-Produces forty-three files in `output/`:
+Produces forty-four files in `output/`:
 
 | Output file | Source |
 |-------------|--------|
@@ -322,6 +325,7 @@ Produces forty-three files in `output/`:
 | `quran_urdu_bayanulquran.txt` | `data/ur.bayanulquran.txt` |
 | `quran_urdu_wahiduddin.txt` | `data/ur.wahiduddin.txt` |
 | `quran_roman_urdu_maududi.txt` | `data/ur.romanmaududi.txt` |
+| `quran_roman_urdu_junagarhi.txt` | `data/ur.romanjunagarhi.txt` |
 
 All output files use the `[sura:ayah] text` format, grouped by surah.
 
@@ -423,6 +427,7 @@ Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 | Urdu translations (Jalandhry, Ahmed Ali, Jawadi, Kanz ul Iman, Maududi, Qadri, Junagarhi, Najafi) | [tanzil.net](https://tanzil.net) |
 | Urdu translations (Mahmud al-Hasan, Fe Zilal al-Quran, Bayan-ul-Quran, Wahiduddin Khan) | [quran.com](https://quran.com) |
 | Roman Urdu translation (Abul Ala Maududi) | [quran.com](https://quran.com) |
+| Roman Urdu translation (Muhammad Junagarhi) | [fawazahmed0/quran-api](https://github.com/fawazahmed0/quran-api) (jsdelivr CDN) |
 | Audio recitation | Mishary Rashid Alafasy, 128 kbps — [versebyversequran.com](https://versebyversequran.com) / [HF Hub](https://huggingface.co/datasets/druvx13/quran-audio-alafasy) |
 
 ---

@@ -66,6 +66,7 @@ translations = [
     ('data/ur.wahiduddin.txt', 'output/quran_urdu_wahiduddin.txt', 'Maulana Wahiduddin Khan', 'Urdu'),
     # Roman Urdu
     ('data/ur.romanmaududi.txt', 'output/quran_roman_urdu_maududi.txt', 'Abul Ala Maududi', 'Roman-Urdu'),
+    ('data/ur.romanjunagarhi.txt', 'output/quran_roman_urdu_junagarhi.txt', 'Muhammad Junagarhi', 'Roman-Urdu'),
 ]
 
 for src_file, out_file, translator, lang in translations:
