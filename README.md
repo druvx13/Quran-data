@@ -70,6 +70,19 @@ Features:
 │   ├── abridged-explanation-of-the-quran.json.zip  # English Explanation (JSON, "sura:ayah" keys)
 │   ├── hindi-mokhtasar.json.zip             # Hindi Tafsir – Al-Mokhtasar (JSON, "sura:ayah" keys)
 │   ├── rabila-al-umry-simple.json.zip       # Gujarati – Rabila Al-Umry (JSON, "sura:ayah" keys, "t" field)
+│   ├── ur.jalandhry.txt                     # Urdu – Fateh Muhammad Jalandhry (sura|ayah|text)
+│   ├── ur.ahmedali.txt                      # Urdu – Ahmed Ali (sura|ayah|text)
+│   ├── ur.jawadi.txt                        # Urdu – Syed Zeeshan Haider Jawadi (sura|ayah|text)
+│   ├── ur.kanzuliman.txt                    # Urdu – Ahmed Raza Khan / Kanz ul Iman (sura|ayah|text)
+│   ├── ur.maududi.txt                       # Urdu – Abul Ala Maududi (sura|ayah|text)
+│   ├── ur.qadri.txt                         # Urdu – Tahir ul Qadri (sura|ayah|text)
+│   ├── ur.junagarhi.txt                     # Urdu – Muhammad Junagarhi (sura|ayah|text)
+│   ├── ur.najafi.txt                        # Urdu – Muhammad Husain Najafi (sura|ayah|text)
+│   ├── ur.mahmudalhasan.txt                 # Urdu – Shaykh al-Hind Mahmud al-Hasan (quran.com, one line per ayah)
+│   ├── ur.zilalquran.txt                    # Urdu – Fe Zilal al-Quran / Sayyid Qutb (quran.com, one line per ayah)
+│   ├── ur.bayanulquran.txt                  # Urdu – Bayan-ul-Quran / Dr. Israr Ahmad (quran.com, one line per ayah)
+│   ├── ur.wahiduddin.txt                    # Urdu – Maulana Wahiduddin Khan (quran.com, one line per ayah)
+│   ├── ur.romanmaududi.txt                  # Roman Urdu – Abul Ala Maududi (quran.com, one line per ayah)
 │   ├── suranamemal.txt                      # Surah names – Malayalam script
 │   └── surna.txt                            # Surah name reference data
 ├── latex/                  # LaTeX document sources & generated content
@@ -111,6 +124,19 @@ Features:
 │   ├── quran_gujarati_rabila.txt
 │   ├── quran_translit_unicode.txt
 │   ├── quran_nepali_ahl_al_hadith.txt
+│   ├── quran_urdu_jalandhry.txt
+│   ├── quran_urdu_ahmedali.txt
+│   ├── quran_urdu_jawadi.txt
+│   ├── quran_urdu_kanzuliman.txt
+│   ├── quran_urdu_maududi.txt
+│   ├── quran_urdu_qadri.txt
+│   ├── quran_urdu_junagarhi.txt
+│   ├── quran_urdu_najafi.txt
+│   ├── quran_urdu_mahmudalhasan.txt
+│   ├── quran_urdu_zilalquran.txt
+│   ├── quran_urdu_bayanulquran.txt
+│   ├── quran_urdu_wahiduddin.txt
+│   ├── quran_roman_urdu_maududi.txt
 │   ├── farooq.pdf          # Compiled PDF
 │   └── suhail.pdf          # Compiled PDF
 ├── trans/                  # Tanzil.net transliteration with HTML tags (used by gendocshtml.py)
@@ -176,6 +202,19 @@ Features:
 | Hindi (हिन्दी) | Azizul Haq Al-Omari | `data/hi.omari.txt` |
 | Hindi Tafsir (हिन्दी तफ्सीर) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim | `data/hindi-mokhtasar.json.zip` |
 | Gujarati (ગુજરાતી) | Rabila Al-Umry | `data/rabila-al-umry-simple.json.zip` |
+| Urdu (اردو) | Fateh Muhammad Jalandhry | `data/ur.jalandhry.txt` |
+| Urdu (اردو) | Ahmed Ali | `data/ur.ahmedali.txt` |
+| Urdu (اردو) | Syed Zeeshan Haider Jawadi | `data/ur.jawadi.txt` |
+| Urdu (اردو) | Ahmed Raza Khan (Kanz ul Iman) | `data/ur.kanzuliman.txt` |
+| Urdu (اردو) | Abul Ala Maududi | `data/ur.maududi.txt` |
+| Urdu (اردو) | Tahir ul Qadri | `data/ur.qadri.txt` |
+| Urdu (اردو) | Muhammad Junagarhi | `data/ur.junagarhi.txt` |
+| Urdu (اردو) | Muhammad Husain Najafi | `data/ur.najafi.txt` |
+| Urdu (اردو) | Shaykh al-Hind Mahmud al-Hasan | `data/ur.mahmudalhasan.txt` |
+| Urdu (اردو) | Sayyid Ibrahim Qutb (Fe Zilal al-Quran) | `data/ur.zilalquran.txt` |
+| Urdu (اردو) | Dr. Israr Ahmad (Bayan-ul-Quran) | `data/ur.bayanulquran.txt` |
+| Urdu (اردو) | Maulana Wahiduddin Khan | `data/ur.wahiduddin.txt` |
+| Roman Urdu | Abul Ala Maududi | `data/ur.romanmaududi.txt` |
 
 ---
 
@@ -236,7 +275,7 @@ cd latex && xelatex pickthall.tex # → output/pickthall.pdf
 python3 src/gentxtforquran.py
 ```
 
-Produces thirty files in `output/`:
+Produces forty-three files in `output/`:
 
 | Output file | Source |
 |-------------|--------|
@@ -270,6 +309,19 @@ Produces thirty files in `output/`:
 | `quran_gujarati_rabila.txt` | `data/rabila-al-umry-simple.json.zip` |
 | `quran_translit_unicode.txt` | `data/translit_en.txt` |
 | `quran_nepali_ahl_al_hadith.txt` | `data/ahl-al-hadith-central-society-of-nepal-simple.json.zip` |
+| `quran_urdu_jalandhry.txt` | `data/ur.jalandhry.txt` |
+| `quran_urdu_ahmedali.txt` | `data/ur.ahmedali.txt` |
+| `quran_urdu_jawadi.txt` | `data/ur.jawadi.txt` |
+| `quran_urdu_kanzuliman.txt` | `data/ur.kanzuliman.txt` |
+| `quran_urdu_maududi.txt` | `data/ur.maududi.txt` |
+| `quran_urdu_qadri.txt` | `data/ur.qadri.txt` |
+| `quran_urdu_junagarhi.txt` | `data/ur.junagarhi.txt` |
+| `quran_urdu_najafi.txt` | `data/ur.najafi.txt` |
+| `quran_urdu_mahmudalhasan.txt` | `data/ur.mahmudalhasan.txt` |
+| `quran_urdu_zilalquran.txt` | `data/ur.zilalquran.txt` |
+| `quran_urdu_bayanulquran.txt` | `data/ur.bayanulquran.txt` |
+| `quran_urdu_wahiduddin.txt` | `data/ur.wahiduddin.txt` |
+| `quran_roman_urdu_maududi.txt` | `data/ur.romanmaududi.txt` |
 
 All output files use the `[sura:ayah] text` format, grouped by surah.
 
@@ -368,6 +420,9 @@ Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 | English translations (Mufti Taqi Usmani, M.A.S. Abdel Haleem) | [quran.com](https://quran.com) |
 | English Explanation (Abridged) | Abridged Explanation of the Quran (JSON) |
 | Transliteration (Unicode) | Quran Unicode Project |
+| Urdu translations (Jalandhry, Ahmed Ali, Jawadi, Kanz ul Iman, Maududi, Qadri, Junagarhi, Najafi) | [tanzil.net](https://tanzil.net) |
+| Urdu translations (Mahmud al-Hasan, Fe Zilal al-Quran, Bayan-ul-Quran, Wahiduddin Khan) | [quran.com](https://quran.com) |
+| Roman Urdu translation (Abul Ala Maududi) | [quran.com](https://quran.com) |
 | Audio recitation | Mishary Rashid Alafasy, 128 kbps — [versebyversequran.com](https://versebyversequran.com) / [HF Hub](https://huggingface.co/datasets/druvx13/quran-audio-alafasy) |
 
 ---

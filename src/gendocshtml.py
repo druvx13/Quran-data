@@ -19,6 +19,7 @@ Sources used:
   - output/quran_arabic.txt            : [sura:ayah] Arabic text (Uthmani script)
   - output/quran_gujarati_rabila.txt   : [sura:ayah] Gujarati translation (Rabila Al-Umry)
   - output/quran_nepali_ahl_al_hadith.txt : [sura:ayah] Nepali translation (Ahl-al-Hadith Nepal)
+  - output/quran_roman_urdu_maududi.txt: [sura:ayah] Roman Urdu translation (Abul Ala Maududi)
 """
 
 import os
@@ -270,6 +271,18 @@ with open('output/quran_hindi_omari.txt', 'r', encoding='utf-8') as f:
             hindi_omari[(int(m.group(1)), int(m.group(2)))] = m.group(3)
 
 # ---------------------------------------------------------------------------
+# Load Roman Urdu (Maududi)  quran_roman_urdu_maududi.txt
+# Format: [sura:ayah] text
+# ---------------------------------------------------------------------------
+roman_urdu = {}
+with open('output/quran_roman_urdu_maududi.txt', 'r', encoding='utf-8') as f:
+    for line in f:
+        line = line.rstrip('\n')
+        m = re.match(r'^\[(\d+):(\d+)\]\s*(.*)', line)
+        if m:
+            roman_urdu[(int(m.group(1)), int(m.group(2)))] = m.group(3)
+
+# ---------------------------------------------------------------------------
 # HTML template helpers
 # ---------------------------------------------------------------------------
 CSS = """\
@@ -320,6 +333,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .nepali-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
 .hindi-omari td{background:#fff0f5}
 .hindi-omari-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
+.roman-urdu td{background:#f0f4c3}
+.roman-urdu-text{font-style:normal;font-weight:500;color:#33691e}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -378,6 +393,7 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .audio td{background:#0d2228}
   .arabic td{background:#2a2010}
   .hindi-omari td{background:#200010}
+  .roman-urdu td{background:#1a2000}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
   .surah-grid a:hover{background:#263650}
   .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
@@ -426,14 +442,14 @@ HEADER_HTML = """\
 <main>
 <h1>Surah {num}: {name}</h1>
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
-{verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith)</th></tr></thead><tbody>
+{verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi)</th></tr></thead><tbody>
 """
 
 FOOTER_HTML = """\
 </tbody></table></div>
 {nav}
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi: Azizul Haq Al-Omari &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi: Azizul Haq Al-Omari &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal &nbsp;|&nbsp; Roman Urdu: Abul Ala Maududi (quran.com)</footer>
 {script}</body>
 </html>"""
 
@@ -472,6 +488,7 @@ def make_verse_chooser(size):
         ('gujarati',         '\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 (Rabila)',                                  False),
         ('nepali',           'Nepali (Ahl-al-Hadith)',                                                                False),
         ('hindi-omari',      '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)',                                       False),
+        ('roman-urdu',       'Roman Urdu (Maududi)',                                                                  False),
     ]
     cf_html = []
     for idx, (cls, label, checked) in enumerate(CF_ITEMS):
@@ -618,6 +635,7 @@ for sura_idx in range(1, 115):
             gu = gujarati.get((sura_idx, ayah), '')
             np_ = nepali.get((sura_idx, ayah), '')
             ho = hindi_omari.get((sura_idx, ayah), '')
+            ru = roman_urdu.get((sura_idx, ayah), '')
             out.write(
                 "<tr class='ayah-sep' data-ayah='%d' id='ayah-%d'><td colspan='2'>Ayah %d</td></tr>\n"
                 "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>%s</td></tr>\n"
@@ -636,6 +654,7 @@ for sura_idx in range(1, 115):
                 "<tr class='gujarati' data-ayah='%d'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>%s</td></tr>\n"
                 "<tr class='nepali' data-ayah='%d'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>%s</td></tr>\n"
                 "<tr class='hindi-omari' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>%s</td></tr>\n"
+                "<tr class='roman-urdu' data-ayah='%d'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>%s</td></tr>\n"
                 % (ayah, ayah, ayah,
                    ayah, ar,
                    ayah, sura_idx, ayah, sura_idx, ayah,
@@ -652,7 +671,8 @@ for sura_idx in range(1, 115):
                    ayah, hm,
                    ayah, gu,
                    ayah, np_,
-                   ayah, ho)
+                   ayah, ho,
+                   ayah, ru)
             )
         out.write(FOOTER_HTML.format(nav=nav, script=VC_JS))
 
@@ -696,6 +716,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 <em>Hindi Tafsir (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352;):</em> Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim.<br>
 <em>Gujarati Translation (&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; &#2733;&#2750;&#2743;&#2750;&#2690;&#2724;&#2736;):</em> Rabila Al-Umry.<br>
 <em>Nepali Translation:</em> Ahl-al-Hadith Central Society of Nepal.<br>
+<em>Roman Urdu Translation:</em> Abul Ala Maududi &mdash; via <a href="https://quran.com" rel="noopener noreferrer">quran.com</a>.<br>
 Texts are reproduced verbatim; no alterations have been made.
 </details>
 <h2>Surahs (Chapters)</h2>
@@ -706,7 +727,7 @@ Texts are reproduced verbatim; no alterations have been made.
     out.write("""\
 </div>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi: Azizul Haq Al-Omari &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal</footer>
+<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi: Azizul Haq Al-Omari &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal &nbsp;|&nbsp; Roman Urdu: Abul Ala Maududi (quran.com)</footer>
 </body>
 </html>""")
 

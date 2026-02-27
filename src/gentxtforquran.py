@@ -50,6 +50,22 @@ translations = [
     ('data/en.asad.txt', 'output/quran_english_asad.txt', 'Muhammad Asad', 'English'),
     ('data/en.usmani.txt', 'output/quran_english_usmani.txt', 'Mufti Taqi Usmani', 'English'),
     ('data/en.abdelhaleem.txt', 'output/quran_english_abdelhaleem.txt', 'M.A.S. Abdel Haleem', 'English'),
+    # Urdu translations from Tanzil.net (sura|ayah|text format)
+    ('data/ur.jalandhry.txt', 'output/quran_urdu_jalandhry.txt', 'Fateh Muhammad Jalandhry', 'Urdu-SuraAyah'),
+    ('data/ur.ahmedali.txt', 'output/quran_urdu_ahmedali.txt', 'Ahmed Ali', 'Urdu-SuraAyah'),
+    ('data/ur.jawadi.txt', 'output/quran_urdu_jawadi.txt', 'Syed Zeeshan Haider Jawadi', 'Urdu-SuraAyah'),
+    ('data/ur.kanzuliman.txt', 'output/quran_urdu_kanzuliman.txt', 'Ahmed Raza Khan (Kanz ul Iman)', 'Urdu-SuraAyah'),
+    ('data/ur.maududi.txt', 'output/quran_urdu_maududi.txt', 'Abul Ala Maududi', 'Urdu-SuraAyah'),
+    ('data/ur.qadri.txt', 'output/quran_urdu_qadri.txt', 'Tahir ul Qadri', 'Urdu-SuraAyah'),
+    ('data/ur.junagarhi.txt', 'output/quran_urdu_junagarhi.txt', 'Muhammad Junagarhi', 'Urdu-SuraAyah'),
+    ('data/ur.najafi.txt', 'output/quran_urdu_najafi.txt', 'Muhammad Husain Najafi', 'Urdu-SuraAyah'),
+    # Urdu translations from quran.com (one line per ayah)
+    ('data/ur.mahmudalhasan.txt', 'output/quran_urdu_mahmudalhasan.txt', 'Shaykh al-Hind Mahmud al-Hasan', 'Urdu'),
+    ('data/ur.zilalquran.txt', 'output/quran_urdu_zilalquran.txt', 'Sayyid Ibrahim Qutb (Fe Zilal al-Quran)', 'Urdu'),
+    ('data/ur.bayanulquran.txt', 'output/quran_urdu_bayanulquran.txt', 'Dr. Israr Ahmad (Bayan-ul-Quran)', 'Urdu'),
+    ('data/ur.wahiduddin.txt', 'output/quran_urdu_wahiduddin.txt', 'Maulana Wahiduddin Khan', 'Urdu'),
+    # Roman Urdu
+    ('data/ur.romanmaududi.txt', 'output/quran_roman_urdu_maududi.txt', 'Abul Ala Maududi', 'Roman-Urdu'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -78,6 +94,12 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Nepali-JSON':
             out.write("Quran - Nepali Anuvad\n")
             out.write("Anuvadak: %s\n" % translator)
+        elif lang in ('Urdu', 'Urdu-SuraAyah'):
+            out.write("Quran - Urdu Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
+        elif lang == 'Roman-Urdu':
+            out.write("Quran - Roman Urdu Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
             with zipfile.ZipFile(src_file, 'r') as zf:
@@ -134,7 +156,7 @@ for src_file, out_file, translator, lang in translations:
                         text = raw_line.split('|', 1)[1] if '|' in raw_line else ''
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
-        elif lang in ('English-SuraAyah', 'English-Piped'):
+        elif lang in ('English-SuraAyah', 'English-Piped', 'Urdu-SuraAyah'):
             with open(src_file, 'r', encoding='utf-8') as src:
                 for sura_num in range(114):
                     out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
