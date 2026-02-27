@@ -9,7 +9,11 @@ Reads source data from data/ and writes output files to output/.
 """
 import json
 import os
+import sys
 import zipfile
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from urdu_to_devanagari import transliterate_urdu_to_devanagari
 
 os.makedirs('output', exist_ok=True)
 
@@ -32,6 +36,7 @@ translations = [
     ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan', 'English-SuraAyah'),
     ('data/ahl-al-hadith-central-society-of-nepal-simple.json.zip', 'output/quran_nepali_ahl_al_hadith.txt', 'Ahl-al-Hadith Central Society of Nepal', 'Nepali-JSON'),
     ('data/ur.jalandhry.txt', 'output/quran_urdu_jalandhry.txt', 'Fateh Muhammad Jalandhry', 'Urdu-SuraAyah'),
+    ('data/ur.jalandhry.txt', 'output/quran_urdu_devanagari_jalandhry.txt', 'Fateh Muhammad Jalandhry', 'Urdu-Devanagari-SuraAyah'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -60,8 +65,11 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Nepali-JSON':
             out.write("Quran - Nepali Anuvad\n")
             out.write("Anuvadak: %s\n" % translator)
-        elif lang == 'Urdu-SuraAyah':
-            out.write("Quran - Urdu Tarjuma\n")
+        elif lang in ('Urdu-SuraAyah', 'Urdu-Devanagari-SuraAyah'):
+            if lang == 'Urdu-Devanagari-SuraAyah':
+                out.write("Quran - Urdu Tarjuma (Devanagari)\n")
+            else:
+                out.write("Quran - Urdu Tarjuma\n")
             out.write("Mutarjim: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
@@ -127,6 +135,17 @@ for src_file, out_file, translator, lang in translations:
                     for ayah_num in range(1, surasize[sura_num] + 1):
                         raw_line = src.readline().rstrip('\n')
                         text = raw_line.split('|', 2)[2] if raw_line.count('|') >= 2 else raw_line
+                        out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
+                    out.write("\n")
+        elif lang == 'Urdu-Devanagari-SuraAyah':
+            with open(src_file, 'r', encoding='utf-8') as src:
+                for sura_num in range(114):
+                    out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
+                    out.write("-" * 40 + "\n")
+                    for ayah_num in range(1, surasize[sura_num] + 1):
+                        raw_line = src.readline().rstrip('\n')
+                        text = raw_line.split('|', 2)[2] if raw_line.count('|') >= 2 else raw_line
+                        text = transliterate_urdu_to_devanagari(text)
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
         else:
