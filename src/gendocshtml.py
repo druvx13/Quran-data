@@ -617,9 +617,10 @@ HEADER_HTML = """\
 <style>
 {css}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
 {surah_info}<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
@@ -650,36 +651,37 @@ def make_surah_select(current=0):
     )
 
 
+CF_ITEMS = [
+    ('arabic',           'Arabic',                           True),
+    ('audio',            'Audio',                            True),
+    ('translit',         'Translit. (Tanzil)',               False),
+    ('translit-unicode', 'Translit. (Unicode)',              True),
+    ('trans',            'English (Pickthall)',              False),
+    ('trans-yusuf',      'English (Yusuf Ali)',              True),
+    ('trans-sahih',      'English (Saheeh Int\u2019l)',      False),
+    ('trans-qarai',      'English (Qarai)',                  False),
+    ('trans-hilali',     'English (Hilali)',                 False),
+    ('eng-abridged',     'Abridged Expl.',                   False),
+    ('hindi',            '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)',              False),
+    ('hindi-suhail',     '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)',             True),
+    ('hindi-mokhtasar',  '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)', True),
+    ('gujarati',         '\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 (Rabila)',                                  False),
+    ('nepali',           'Nepali (Ahl-al-Hadith)',                                                                False),
+    ('hindi-omari',      '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)',                                       False),
+    ('roman-urdu',       'Roman Urdu (Maududi)',                                                                  False),
+    ('roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)',                                                              False),
+]
+
+
 def make_verse_chooser(size):
     """Build the verse chooser <details> HTML for a surah with `size` verses."""
-    CF_ITEMS = [
-        ('arabic',           'Arabic',                           True),
-        ('audio',            'Audio',                            True),
-        ('translit',         'Translit. (Tanzil)',               False),
-        ('translit-unicode', 'Translit. (Unicode)',              True),
-        ('trans',            'English (Pickthall)',              False),
-        ('trans-yusuf',      'English (Yusuf Ali)',              True),
-        ('trans-sahih',      'English (Saheeh Int\u2019l)',      False),
-        ('trans-qarai',      'English (Qarai)',                  False),
-        ('trans-hilali',     'English (Hilali)',                 False),
-        ('eng-abridged',     'Abridged Expl.',                   False),
-        ('hindi',            '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)',              False),
-        ('hindi-suhail',     '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)',             True),
-        ('hindi-mokhtasar',  '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)', True),
-        ('gujarati',         '\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 (Rabila)',                                  False),
-        ('nepali',           'Nepali (Ahl-al-Hadith)',                                                                False),
-        ('hindi-omari',      '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)',                                       False),
-        ('roman-urdu',       'Roman Urdu (Maududi)',                                                                  False),
-        ('roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)',                                                              False),
-    ]
     cf_html = []
-    for idx, (cls, label, checked) in enumerate(CF_ITEMS):
-        chk = ' checked' if checked else ''
+    for idx, (cls, label, _default) in enumerate(CF_ITEMS):
         cf_html.append(
             "<span class='cf-item'>"
-            "<input type='checkbox' id='cf-%d' data-rowclass='%s'%s>"
+            "<input type='checkbox' id='cf-%d' data-rowclass='%s'>"
             "<label for='cf-%d'>%s</label>"
-            "</span>" % (idx, cls, chk, idx, label)
+            "</span>" % (idx, cls, idx, label)
         )
     return (
         "<details class='verse-chooser'>"
@@ -718,16 +720,36 @@ VC_JS = """\
   var maxVerse=toInput?+toInput.max:0;
   var vcFrom=1,vcTo=maxVerse;
   var enabledTypes=new Set();
+
+  /* ---- Apply config defaults + user overrides to checkboxes ---- */
+  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
   if(cfList){
     cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
-      if(cb.checked)enabledTypes.add(cb.dataset.rowclass);
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=defaults.hasOwnProperty(key)?defaults[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
     });
     cfList.addEventListener('change',function(e){
       if(e.target.type!=='checkbox')return;
       if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
       else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
       applyAllRows();
     });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('quran-cf',JSON.stringify(prefs));}catch(e){}
   }
   function applyAllRows(){
     document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
@@ -981,7 +1003,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English, Hindi, Gujarati &amp; Nepali Translation</h1>
 <details class="notice">
@@ -1099,7 +1121,7 @@ SEARCH_HTML = """\
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, English translation (Yusuf Ali), or &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Hindi Tafsir). Results link directly to the verse.</p>
@@ -1229,4 +1251,133 @@ with open(search_html_path, 'w', encoding='utf-8') as f:
     ))
 print('Written: %s' % search_html_path)
 
-print('Done. %d surah files + index + search regenerated.' % 114)
+# ---------------------------------------------------------------------------
+# Generate config.js  (universal default translation visibility)
+# ---------------------------------------------------------------------------
+config_js_path = os.path.join(docs_dir, 'config.js')
+with open(config_js_path, 'w', encoding='utf-8') as f:
+    f.write('/* Quran reader default translation visibility.\n')
+    f.write('   Edit the true/false values below, or use the Settings page (config.html)\n')
+    f.write('   to save personal overrides in your browser. */\n')
+    f.write('var QURAN_CONFIG={\n')
+    for i, (cls, label, default) in enumerate(CF_ITEMS):
+        comma = ',' if i < len(CF_ITEMS) - 1 else ''
+        val = 'true' if default else 'false'
+        f.write('  "%s":%s%s\n' % (cls, val, comma))
+    f.write('};\n')
+print('Written: %s' % config_js_path)
+
+# ---------------------------------------------------------------------------
+# Generate config.html  (settings page for user preferences)
+# ---------------------------------------------------------------------------
+config_items_html = []
+for cls, label, default in CF_ITEMS:
+    config_items_html.append(
+        "<div class='cfg-row'>"
+        "<label class='cfg-switch'>"
+        "<input type='checkbox' data-key='%s'>"
+        "<span class='cfg-slider'></span>"
+        "</label>"
+        "<span class='cfg-label'>%s</span>"
+        "</div>" % (cls, label)
+    )
+
+CONFIG_CSS = CSS + """
+.cfg-card{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;padding:20px;max-width:600px;margin:0 auto}
+.cfg-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #e0e0e0}
+.cfg-row:last-child{border-bottom:none}
+.cfg-label{font-size:.95em;color:#1a3a5c}
+.cfg-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
+.cfg-switch input{opacity:0;width:0;height:0}
+.cfg-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:24px;transition:.25s}
+.cfg-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
+.cfg-switch input:checked+.cfg-slider{background:#1a3a5c}
+.cfg-switch input:checked+.cfg-slider::before{transform:translateX(20px)}
+.cfg-switch input:focus+.cfg-slider{outline:2px solid #ffd54f;outline-offset:2px}
+.cfg-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.cfg-actions button{padding:8px 18px;border:none;border-radius:4px;cursor:pointer;font-size:.92em;min-height:40px}
+.cfg-btn-reset{background:#e0e0e0;color:#333}
+.cfg-btn-reset:hover{background:#bdbdbd}
+.cfg-saved{color:#1b5e20;font-size:.88em;margin-left:8px;opacity:0;transition:opacity .3s}
+@media(prefers-color-scheme:dark){
+  .cfg-card{background:#1e2a3a;border-color:#334}
+  .cfg-row{border-bottom-color:#333}
+  .cfg-label{color:#90caf9}
+  .cfg-slider{background:#555}
+  .cfg-btn-reset{background:#333;color:#e8e8e8}
+  .cfg-btn-reset:hover{background:#444}
+  .cfg-saved{color:#a5d6a7}
+}"""
+
+config_html_path = os.path.join(docs_dir, 'config.html')
+with open(config_html_path, 'w', encoding='utf-8') as f:
+    f.write("""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings &ndash; Qur&rsquo;an Reader</title>
+<style>
+%s
+</style>
+<script src="config.js"></script>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>&#9881; Reader Settings</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Choose which translations appear by default when you open a Surah page. Your preferences are saved in your browser.</p>
+<div class="cfg-card">
+<h2 style="margin-top:0">Default Translation Visibility</h2>
+%s
+<div class="cfg-actions">
+<button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
+<span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+</div>
+</div>
+</main>
+<footer>Settings are stored locally in your browser via localStorage.</footer>
+<script>
+(function(){
+  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  var switches=document.querySelectorAll('.cfg-switch input[type=checkbox]');
+  switches.forEach(function(sw){
+    var key=sw.dataset.key;
+    var on;
+    if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+    else{on=defaults.hasOwnProperty(key)?defaults[key]:false;}
+    sw.checked=on;
+  });
+
+  function savePrefs(){
+    var prefs={};
+    switches.forEach(function(sw){prefs[sw.dataset.key]=sw.checked;});
+    try{localStorage.setItem('quran-cf',JSON.stringify(prefs));}catch(e){}
+    var badge=document.getElementById('cfg-saved');
+    if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
+  }
+
+  switches.forEach(function(sw){
+    sw.addEventListener('change',savePrefs);
+  });
+
+  window.cfgReset=function(){
+    try{localStorage.removeItem('quran-cf');}catch(e){}
+    switches.forEach(function(sw){
+      var key=sw.dataset.key;
+      sw.checked=defaults.hasOwnProperty(key)?defaults[key]:false;
+    });
+    var badge=document.getElementById('cfg-saved');
+    if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
+  };
+})();
+</script>
+</body>
+</html>""" % (CONFIG_CSS, make_surah_select(0), '\n'.join(config_items_html)))
+print('Written: %s' % config_html_path)
+
+print('Done. %d surah files + index + search + config regenerated.' % 114)
