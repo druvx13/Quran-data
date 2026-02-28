@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Settings &ndash; Qur&rsquo;an Reader</title>
+<title>Sources &amp; Attribution &ndash; Qur&rsquo;an Reader</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
@@ -220,103 +220,157 @@ footer a:hover{text-decoration:underline}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
 }
-.cfg-card{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;padding:20px;max-width:600px;margin:0 auto}
-.cfg-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #e0e0e0}
-.cfg-row:last-child{border-bottom:none}
-.cfg-label{font-size:.95em;color:#1a3a5c}
-.cfg-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
-.cfg-switch input{opacity:0;width:0;height:0}
-.cfg-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:24px;transition:.25s}
-.cfg-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
-.cfg-switch input:checked+.cfg-slider{background:#1a3a5c}
-.cfg-switch input:checked+.cfg-slider::before{transform:translateX(20px)}
-.cfg-switch input:focus+.cfg-slider{outline:2px solid #ffd54f;outline-offset:2px}
-.cfg-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.cfg-actions button{padding:8px 18px;border:none;border-radius:4px;cursor:pointer;font-size:.92em;min-height:40px}
-.cfg-btn-reset{background:#e0e0e0;color:#333}
-.cfg-btn-reset:hover{background:#bdbdbd}
-.cfg-saved{color:#1b5e20;font-size:.88em;margin-left:8px;opacity:0;transition:opacity .3s}
+.src-section{margin-bottom:28px}
+.src-section h2{color:#1a3a5c;margin:0 0 10px;font-size:1.15em;border-bottom:2px solid #ffd54f;padding-bottom:4px}
+.src-table{width:100%;border-collapse:collapse;margin-bottom:8px}
+.src-table th{background:#1a3a5c;color:#fff;padding:8px 12px;text-align:left;font-size:.88em}
+.src-table td{padding:8px 12px;border:1px solid #ccd6e0;font-size:.92em;vertical-align:top}
+.src-table tr:nth-child(even) td{background:#f7f9fb}
+.src-note{font-size:.88em;color:#555;margin-top:6px;line-height:1.6}
 @media(prefers-color-scheme:dark){
-  .cfg-card{background:#1e2a3a;border-color:#334}
-  .cfg-row{border-bottom-color:#333}
-  .cfg-label{color:#90caf9}
-  .cfg-slider{background:#555}
-  .cfg-btn-reset{background:#333;color:#e8e8e8}
-  .cfg-btn-reset:hover{background:#444}
-  .cfg-saved{color:#a5d6a7}
+  .src-section h2{color:#90caf9;border-bottom-color:#ffd54f}
+  .src-table td{border-color:#333;background:#121212}
+  .src-table tr:nth-child(even) td{background:#1a1a1a}
+  .src-note{color:#aaa}
+}
+@media(max-width:600px){
+  .src-table,.src-table thead,.src-table tbody,.src-table tr,.src-table th,.src-table td{display:block;width:100%%}
+  .src-table thead{display:none}
+  .src-table td{border:none;border-bottom:1px solid #e0e0e0;padding:4px 8px}
+  .src-table td::before{content:attr(data-label);font-weight:bold;display:block;font-size:.8em;color:#888;margin-bottom:2px}
 }
 </style>
-<script src="config.js"></script>
 </head>
 <body>
 <header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
-<h1>&#9881; Reader Settings</h1>
-<p style="font-size:.93em;color:#555;margin-bottom:14px">Choose which translations appear by default when you open a Surah page. Your preferences are saved in your browser.</p>
-<div class="cfg-card">
-<h2 style="margin-top:0">Default Translation Visibility</h2>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='arabic'><span class='cfg-slider'></span></label><span class='cfg-label'>Arabic</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='audio'><span class='cfg-slider'></span></label><span class='cfg-label'>Audio</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='translit'><span class='cfg-slider'></span></label><span class='cfg-label'>Translit. (Tanzil)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='translit-unicode'><span class='cfg-slider'></span></label><span class='cfg-label'>Translit. (Unicode)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Pickthall)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-yusuf'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Yusuf Ali)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-sahih'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Saheeh Int’l)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-qarai'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Qarai)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-hilali'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Hilali)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='eng-abridged'><span class='cfg-slider'></span></label><span class='cfg-label'>Abridged Expl.</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी (Farooq)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi-suhail'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी (Suhail)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi-mokhtasar'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी तफ्सीर (Mokhtasar)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='gujarati'><span class='cfg-slider'></span></label><span class='cfg-label'>ગુજરાતી (Rabila)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='nepali'><span class='cfg-slider'></span></label><span class='cfg-label'>Nepali (Ahl-al-Hadith)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi-omari'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी (Al-Omari)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='roman-urdu'><span class='cfg-slider'></span></label><span class='cfg-label'>Roman Urdu (Maududi)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='roman-urdu-junagarhi'><span class='cfg-slider'></span></label><span class='cfg-label'>Roman Urdu (Junagarhi)</span></div>
-<div class="cfg-actions">
-<button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
-<span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+<h1>&#128218; Sources &amp; Attribution</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:20px">All texts displayed on this website are reproduced verbatim from their original sources. No alterations have been made. Below is a comprehensive listing of every source used.</p>
+
+<div class="src-section">
+<h2>&#127770; Arabic Text</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Standard Uthmani Script</td><td data-label="Details">The Arabic text uses the standard Uthmani script of the Qur&#x2019;an, the universally recognized written form.</td></tr>
+</tbody>
+</table>
 </div>
+
+<div class="src-section">
+<h2>&#127911; Audio Recitation</h2>
+<table class="src-table">
+<thead><tr><th>Reciter</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td data-label="Reciter">Mishary Rashid Alafasy</td><td data-label="Source">Audio hosted via <a href="https://druvx13-quran-audio-alafasy.hf.space" rel="noopener noreferrer">Hugging Face Space</a>. Original audio sourced from <a href="https://versebyversequran.com" rel="noopener noreferrer">versebyversequran.com</a>.</td></tr>
+</tbody>
+</table>
 </div>
+
+<div class="src-section">
+<h2>&#128221; Transliteration</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Tanzil.net</td><td data-label="Details">English transliteration of the Qur&#x2019;an from <a href="https://tanzil.net" rel="noopener noreferrer">Tanzil.net</a>.</td></tr>
+<tr><td data-label="Source">Quran Unicode Project</td><td data-label="Details">Unicode-based transliteration (<code>translit_en.txt</code>) from the Quran Unicode Project.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127468;&#127463; English Translations</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Work / Notes</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Mohammed Marmaduke Pickthall</td><td data-label="Notes"><em>The Meaning of the Glorious Koran</em> (1930) &mdash; <strong>Public Domain</strong>. Source: Tanzil.net.</td></tr>
+<tr><td data-label="Translator">Abdullah Yusuf Ali</td><td data-label="Notes"><em>The Holy Quran: Text, Translation and Commentary</em> &mdash; <strong>Public Domain</strong>.</td></tr>
+<tr><td data-label="Translator">Saheeh International</td><td data-label="Notes">Widely used modern English translation.</td></tr>
+<tr><td data-label="Translator">Ali Quli Qarai</td><td data-label="Notes">Contemporary English translation.</td></tr>
+<tr><td data-label="Translator">Dr. Muhammad Taqi-ud-Din Al-Hilali &amp; Dr. Muhammad Muhsin Khan</td><td data-label="Notes">Translation with parenthetical commentary.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128214; English Explanation</h2>
+<table class="src-table">
+<thead><tr><th>Work</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Work">Abridged Explanation of the Quran</td><td data-label="Details">Concise English explanation of each verse.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127470;&#127475; Hindi Translations (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342;)</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Muhammad Farooq Khan &amp; Muhammad Ahmed</td><td data-label="Details">Hindi translation of the Qur&#x2019;an.</td></tr>
+<tr><td data-label="Translator">Suhel Farooq Khan &amp; Saifur Rahman Nadwi</td><td data-label="Details">Hindi translation of the Qur&#x2019;an.</td></tr>
+<tr><td data-label="Translator">Azizul Haq Al-Omari</td><td data-label="Details">Hindi translation via <a href="https://quranenc.com" rel="noopener noreferrer">quranenc.com</a>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128214; Hindi Tafsir (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352;)</h2>
+<table class="src-table">
+<thead><tr><th>Work</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Work">Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</td><td data-label="Details">Concise Hindi tafsir (exegesis) of the Qur&#x2019;an.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127470;&#127475; Gujarati Translation (&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;)</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Rabila Al-Umry</td><td data-label="Details">Gujarati translation of the Qur&#x2019;an.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127475;&#127477; Nepali Translation</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Ahl-al-Hadith Central Society of Nepal</td><td data-label="Details">Nepali translation of the Qur&#x2019;an.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128221; Roman Urdu Translations</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Abul Ala Maududi</td><td data-label="Source">Roman Urdu translation via <a href="https://quran.com" rel="noopener noreferrer">quran.com</a>.</td></tr>
+<tr><td data-label="Translator">Muhammad Junagarhi</td><td data-label="Source">Roman Urdu translation via <a href="https://github.com/fawazahmed0/quran-api" rel="noopener noreferrer">fawazahmed0/quran-api</a>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128279; API &amp; Data Sources</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>URL</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Tanzil.net</td><td data-label="URL"><a href="https://tanzil.net" rel="noopener noreferrer">tanzil.net</a> &mdash; Qur&#x2019;an transliteration and Pickthall translation.</td></tr>
+<tr><td data-label="Source">fawazahmed0/quran-api</td><td data-label="URL"><a href="https://github.com/fawazahmed0/quran-api" rel="noopener noreferrer">github.com/fawazahmed0/quran-api</a> &mdash; Additional translations (Roman Urdu, Romanized Hindi/Gujarati, Urdu).</td></tr>
+<tr><td data-label="Source">quran.com</td><td data-label="URL"><a href="https://quran.com" rel="noopener noreferrer">quran.com</a> &mdash; Roman Urdu (Maududi) translation.</td></tr>
+<tr><td data-label="Source">quranenc.com</td><td data-label="URL"><a href="https://quranenc.com" rel="noopener noreferrer">quranenc.com</a> &mdash; Hindi (Al-Omari) translation.</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="src-note"><strong>Note:</strong> All texts are reproduced verbatim from their respective sources. No alterations, abridgements, or editorial changes have been made. The Pickthall translation (1930) and Yusuf Ali translation are in the public domain. Other translations are reproduced under their original copyright and licence terms.</p>
+
 </main>
-<footer>Settings are stored locally in your browser via localStorage. &nbsp;|&nbsp; <a href="sources.html">Sources</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
-<script>
-(function(){
-  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
-  var userPrefs=null;
-  try{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
-
-  var switches=document.querySelectorAll('.cfg-switch input[type=checkbox]');
-  switches.forEach(function(sw){
-    var key=sw.dataset.key;
-    var on;
-    if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
-    else{on=defaults.hasOwnProperty(key)?defaults[key]:false;}
-    sw.checked=on;
-  });
-
-  function savePrefs(){
-    var prefs={};
-    switches.forEach(function(sw){prefs[sw.dataset.key]=sw.checked;});
-    try{localStorage.setItem('quran-cf',JSON.stringify(prefs));}catch(e){}
-    var badge=document.getElementById('cfg-saved');
-    if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
-  }
-
-  switches.forEach(function(sw){
-    sw.addEventListener('change',savePrefs);
-  });
-
-  window.cfgReset=function(){
-    try{localStorage.removeItem('quran-cf');}catch(e){}
-    switches.forEach(function(sw){
-      var key=sw.dataset.key;
-      sw.checked=defaults.hasOwnProperty(key)?defaults[key]:false;
-    });
-    var badge=document.getElementById('cfg-saved');
-    if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
-  };
-})();
-</script>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 </body>
 </html>

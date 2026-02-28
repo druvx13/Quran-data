@@ -453,6 +453,8 @@ nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
 footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
 .surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
 .surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
 .verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
@@ -538,6 +540,7 @@ footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top
   .cf-item label:hover{background:#263650}
   .cf-item input:checked+label{background:#1a3a5c;color:#fff}
   footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
   th{background:#0d2136}
   .translit-unicode-text{color:#9fa8da}
   .hindi-text{color:#b39ddb}
@@ -627,11 +630,13 @@ HEADER_HTML = """\
 {verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
 """
 
+COMPACT_FOOTER = '<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>'
+
 FOOTER_HTML = """\
 </tbody></table></div>
 {nav}
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi: Azizul Haq Al-Omari &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal &nbsp;|&nbsp; Roman Urdu: Abul Ala Maududi (quran.com) &nbsp;|&nbsp; Roman Urdu: Muhammad Junagarhi (fawazahmed0/quran-api)</footer>
+""" + COMPACT_FOOTER + """
 {script}</body>
 </html>"""
 
@@ -1048,9 +1053,9 @@ Texts are reproduced verbatim; no alterations have been made.
     out.write("""\
 </div>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi: Azizul Haq Al-Omari &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal &nbsp;|&nbsp; Roman Urdu: Abul Ala Maududi (quran.com) &nbsp;|&nbsp; Roman Urdu: Muhammad Junagarhi (fawazahmed0/quran-api)</footer>
+%s
 </body>
-</html>""")
+</html>""" % COMPACT_FOOTER)
 
 print('Written: %s' % index_path)
 
@@ -1133,7 +1138,7 @@ SEARCH_HTML = """\
 <div id="results"></div>
 <div id="pagination"></div>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain</footer>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script src="search-data.js"></script>
 <script>
 (function(){{
@@ -1337,7 +1342,7 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 </div>
 </div>
 </main>
-<footer>Settings are stored locally in your browser via localStorage.</footer>
+<footer>Settings are stored locally in your browser via localStorage. &nbsp;|&nbsp; <a href="sources.html">Sources</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
 (function(){
   var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
@@ -1380,4 +1385,240 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 </html>""" % (CONFIG_CSS, make_surah_select(0), '\n'.join(config_items_html)))
 print('Written: %s' % config_html_path)
 
-print('Done. %d surah files + index + search + config regenerated.' % 114)
+# ---------------------------------------------------------------------------
+# Generate sources.html  (comprehensive source attribution page)
+# ---------------------------------------------------------------------------
+SOURCES_CSS = CSS + """
+.src-section{margin-bottom:28px}
+.src-section h2{color:#1a3a5c;margin:0 0 10px;font-size:1.15em;border-bottom:2px solid #ffd54f;padding-bottom:4px}
+.src-table{width:100%;border-collapse:collapse;margin-bottom:8px}
+.src-table th{background:#1a3a5c;color:#fff;padding:8px 12px;text-align:left;font-size:.88em}
+.src-table td{padding:8px 12px;border:1px solid #ccd6e0;font-size:.92em;vertical-align:top}
+.src-table tr:nth-child(even) td{background:#f7f9fb}
+.src-note{font-size:.88em;color:#555;margin-top:6px;line-height:1.6}
+@media(prefers-color-scheme:dark){
+  .src-section h2{color:#90caf9;border-bottom-color:#ffd54f}
+  .src-table td{border-color:#333;background:#121212}
+  .src-table tr:nth-child(even) td{background:#1a1a1a}
+  .src-note{color:#aaa}
+}
+@media(max-width:600px){
+  .src-table,.src-table thead,.src-table tbody,.src-table tr,.src-table th,.src-table td{display:block;width:100%%}
+  .src-table thead{display:none}
+  .src-table td{border:none;border-bottom:1px solid #e0e0e0;padding:4px 8px}
+  .src-table td::before{content:attr(data-label);font-weight:bold;display:block;font-size:.8em;color:#888;margin-bottom:2px}
+}"""
+
+sources_html_path = os.path.join(docs_dir, 'sources.html')
+with open(sources_html_path, 'w', encoding='utf-8') as f:
+    f.write("""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sources &amp; Attribution &ndash; Qur&rsquo;an Reader</title>
+<style>
+%s
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>&#128218; Sources &amp; Attribution</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:20px">All texts displayed on this website are reproduced verbatim from their original sources. No alterations have been made. Below is a comprehensive listing of every source used.</p>
+
+<div class="src-section">
+<h2>&#127770; Arabic Text</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Standard Uthmani Script</td><td data-label="Details">The Arabic text uses the standard Uthmani script of the Qur&#x2019;an, the universally recognized written form.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127911; Audio Recitation</h2>
+<table class="src-table">
+<thead><tr><th>Reciter</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td data-label="Reciter">Mishary Rashid Alafasy</td><td data-label="Source">Audio hosted via <a href="https://druvx13-quran-audio-alafasy.hf.space" rel="noopener noreferrer">Hugging Face Space</a>. Original audio sourced from <a href="https://versebyversequran.com" rel="noopener noreferrer">versebyversequran.com</a>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128221; Transliteration</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Tanzil.net</td><td data-label="Details">English transliteration of the Qur&#x2019;an from <a href="https://tanzil.net" rel="noopener noreferrer">Tanzil.net</a>.</td></tr>
+<tr><td data-label="Source">Quran Unicode Project</td><td data-label="Details">Unicode-based transliteration (<code>translit_en.txt</code>) from the Quran Unicode Project.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127468;&#127463; English Translations</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Work / Notes</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Mohammed Marmaduke Pickthall</td><td data-label="Notes"><em>The Meaning of the Glorious Koran</em> (1930) &mdash; <strong>Public Domain</strong>. Source: Tanzil.net.</td></tr>
+<tr><td data-label="Translator">Abdullah Yusuf Ali</td><td data-label="Notes"><em>The Holy Quran: Text, Translation and Commentary</em> &mdash; <strong>Public Domain</strong>.</td></tr>
+<tr><td data-label="Translator">Saheeh International</td><td data-label="Notes">Widely used modern English translation.</td></tr>
+<tr><td data-label="Translator">Ali Quli Qarai</td><td data-label="Notes">Contemporary English translation.</td></tr>
+<tr><td data-label="Translator">Dr. Muhammad Taqi-ud-Din Al-Hilali &amp; Dr. Muhammad Muhsin Khan</td><td data-label="Notes">Translation with parenthetical commentary.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128214; English Explanation</h2>
+<table class="src-table">
+<thead><tr><th>Work</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Work">Abridged Explanation of the Quran</td><td data-label="Details">Concise English explanation of each verse.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127470;&#127475; Hindi Translations (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342;)</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Muhammad Farooq Khan &amp; Muhammad Ahmed</td><td data-label="Details">Hindi translation of the Qur&#x2019;an.</td></tr>
+<tr><td data-label="Translator">Suhel Farooq Khan &amp; Saifur Rahman Nadwi</td><td data-label="Details">Hindi translation of the Qur&#x2019;an.</td></tr>
+<tr><td data-label="Translator">Azizul Haq Al-Omari</td><td data-label="Details">Hindi translation via <a href="https://quranenc.com" rel="noopener noreferrer">quranenc.com</a>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128214; Hindi Tafsir (&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352;)</h2>
+<table class="src-table">
+<thead><tr><th>Work</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Work">Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim</td><td data-label="Details">Concise Hindi tafsir (exegesis) of the Qur&#x2019;an.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127470;&#127475; Gujarati Translation (&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;)</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Rabila Al-Umry</td><td data-label="Details">Gujarati translation of the Qur&#x2019;an.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#127475;&#127477; Nepali Translation</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Ahl-al-Hadith Central Society of Nepal</td><td data-label="Details">Nepali translation of the Qur&#x2019;an.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128221; Roman Urdu Translations</h2>
+<table class="src-table">
+<thead><tr><th>Translator</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td data-label="Translator">Abul Ala Maududi</td><td data-label="Source">Roman Urdu translation via <a href="https://quran.com" rel="noopener noreferrer">quran.com</a>.</td></tr>
+<tr><td data-label="Translator">Muhammad Junagarhi</td><td data-label="Source">Roman Urdu translation via <a href="https://github.com/fawazahmed0/quran-api" rel="noopener noreferrer">fawazahmed0/quran-api</a>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="src-section">
+<h2>&#128279; API &amp; Data Sources</h2>
+<table class="src-table">
+<thead><tr><th>Source</th><th>URL</th></tr></thead>
+<tbody>
+<tr><td data-label="Source">Tanzil.net</td><td data-label="URL"><a href="https://tanzil.net" rel="noopener noreferrer">tanzil.net</a> &mdash; Qur&#x2019;an transliteration and Pickthall translation.</td></tr>
+<tr><td data-label="Source">fawazahmed0/quran-api</td><td data-label="URL"><a href="https://github.com/fawazahmed0/quran-api" rel="noopener noreferrer">github.com/fawazahmed0/quran-api</a> &mdash; Additional translations (Roman Urdu, Romanized Hindi/Gujarati, Urdu).</td></tr>
+<tr><td data-label="Source">quran.com</td><td data-label="URL"><a href="https://quran.com" rel="noopener noreferrer">quran.com</a> &mdash; Roman Urdu (Maududi) translation.</td></tr>
+<tr><td data-label="Source">quranenc.com</td><td data-label="URL"><a href="https://quranenc.com" rel="noopener noreferrer">quranenc.com</a> &mdash; Hindi (Al-Omari) translation.</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="src-note"><strong>Note:</strong> All texts are reproduced verbatim from their respective sources. No alterations, abridgements, or editorial changes have been made. The Pickthall translation (1930) and Yusuf Ali translation are in the public domain. Other translations are reproduced under their original copyright and licence terms.</p>
+
+</main>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+</body>
+</html>""" % (SOURCES_CSS, make_surah_select(0)))
+print('Written: %s' % sources_html_path)
+
+# ---------------------------------------------------------------------------
+# Generate license.html  (project license page)
+# ---------------------------------------------------------------------------
+LICENSE_CSS = CSS + """
+.license-card{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;padding:20px 24px;max-width:800px;margin:0 auto}
+.license-card h2{color:#1a3a5c;margin:20px 0 8px;font-size:1.1em}
+.license-card h2:first-child{margin-top:0}
+.license-card p,.license-card li{font-size:.92em;line-height:1.7;color:#333}
+.license-card pre{background:#fff;border:1px solid #ddd;border-radius:4px;padding:12px;font-size:.82em;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;line-height:1.5}
+.license-note{background:#fff8e1;border-left:4px solid #ffd54f;padding:10px 14px;margin-top:16px;font-size:.9em;border-radius:0 4px 4px 0}
+@media(prefers-color-scheme:dark){
+  .license-card{background:#1e2a3a;border-color:#334}
+  .license-card p,.license-card li{color:#e0e0e0}
+  .license-card pre{background:#121212;border-color:#333;color:#e0e0e0}
+  .license-card h2{color:#90caf9}
+  .license-note{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+}"""
+
+# Read LICENSE file
+license_text = ''
+license_path_src = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'LICENSE')
+if os.path.exists(license_path_src):
+    with open(license_path_src, 'r', encoding='utf-8') as lf:
+        license_text = lf.read()
+else:
+    license_text = '(LICENSE file not found)'
+
+# Escape HTML in license text
+license_text_escaped = license_text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+
+license_html_path = os.path.join(docs_dir, 'license.html')
+with open(license_html_path, 'w', encoding='utf-8') as f:
+    f.write("""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>License &ndash; Qur&rsquo;an Reader</title>
+<style>
+%s
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>&#128220; License</h1>
+<div class="license-card">
+<h2>Unconditional Liberty Instrument (ULI) &mdash; Version 1.0</h2>
+<p>This project is licensed under the <strong>Unconditional Liberty Instrument (ULI)</strong>, Version 1.0. The full text of the license is reproduced below.</p>
+<pre>%s</pre>
+<div class="license-note">
+<strong>Note:</strong> This licence applies to the scripts and configuration files in this repository. The translation texts in <code>data/</code> and <code>output/</code> are reproduced verbatim from their respective sources and remain subject to their original copyright and licence terms. The Pickthall translation (1930) is in the public domain.
+</div>
+</div>
+<h2 style="margin-top:24px">&#128279; Repository</h2>
+<p>The source code and all data files for this project are available on GitHub:</p>
+<p style="font-size:1.05em"><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">github.com/druvx13/Quran-data</a></p>
+</main>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+</body>
+</html>""" % (LICENSE_CSS, make_surah_select(0), license_text_escaped))
+print('Written: %s' % license_html_path)
+
+print('Done. %d surah files + index + search + config + sources + license regenerated.' % 114)
