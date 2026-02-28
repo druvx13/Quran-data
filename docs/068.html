@@ -16,10 +16,11 @@ header a:hover{text-decoration:underline}
 main{padding:16px;max-width:900px;margin:0 auto}
 h1{font-size:1.4em;margin:0 0 12px}
 h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
-.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:16px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
 .surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
   border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
 .surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
 .notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
 .notice summary{cursor:pointer}
 .table-wrap{overflow-x:auto;width:100%}
@@ -27,7 +28,7 @@ table{width:100%;border-collapse:collapse;margin-bottom:24px}
 th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
 td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
-.label{color:#888;font-size:.82em;white-space:nowrap;width:110px}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
 .translit td{background:#f0f4f8}
 .translit-unicode td{background:#e8eaf6}
 .trans td{background:#fff}
@@ -51,6 +52,12 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .gujarati-text{font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
 .nepali td{background:#e8f5f0}
 .nepali-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
+.hindi-omari td{background:#fff0f5}
+.hindi-omari-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
+.roman-urdu td{background:#f0f4c3}
+.roman-urdu-text{font-style:normal;font-weight:500;color:#33691e}
+.roman-urdu-junagarhi td{background:#e8f5e9}
+.roman-urdu-junagarhi-text{font-style:normal;font-weight:500;color:#1b5e20}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -58,7 +65,9 @@ nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8p
 nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
-footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
 .surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
 .surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
 .verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
@@ -68,7 +77,7 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
 .vc-arrow{color:#1a3a5c;transition:transform .2s}
 .verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
-.vc-body{padding:10px 14px}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
 .vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
 .vc-controls button:hover{background:#2a5a8c}
@@ -83,7 +92,27 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .cf-item label:hover{background:#dde8f2}
 .cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
 .cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
-@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  .audio-player{max-width:100%;height:40px}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
 .noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
 @media(prefers-color-scheme:dark){
   body{background:#121212;color:#e8e8e8}
@@ -108,8 +137,12 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .nepali td{background:#0a1e18}
   .audio td{background:#0d2228}
   .arabic td{background:#2a2010}
+  .hindi-omari td{background:#200010}
+  .roman-urdu td{background:#1a2000}
+  .roman-urdu-junagarhi td{background:#0a1a00}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
   .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
   .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
   .verse-chooser{background:#1e2a3a;border-color:#334}
   .verse-chooser summary{background:#162030}
@@ -120,6 +153,7 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .cf-item label:hover{background:#263650}
   .cf-item input:checked+label{background:#1a3a5c;color:#fff}
   footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
   th{background:#0d2136}
   .translit-unicode-text{color:#9fa8da}
   .hindi-text{color:#b39ddb}
@@ -128,25 +162,77 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .gujarati-text{color:#f48fb1}
   .trans-hilali-text{color:#ce93d8}
   .nepali-text{color:#80cbc4}
+  .hindi-omari-text{color:#f48fb1}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
 }
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
   body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
   td{border-color:#999;color:#000;background:#fff!important}
   .arabic-text{font-size:1.3em}
   .ayah-sep td{background:#ddd!important;color:#000!important}
   tr[data-ayah]{display:table-row!important}
 }
+.surah-info-bar{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;
+  padding:8px 12px;background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;
+  margin-bottom:14px;font-size:.88em;color:#1a3a5c}
+.surah-info-bar span{white-space:nowrap}
+.sib-type{font-weight:700;padding:2px 8px;border-radius:10px;font-size:.95em}
+.sib-type.meccan{background:#fff8e1;color:#e65100;border:1px solid #ffcc80}
+.sib-type.medinan{background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7}
+.juz-marker td{background:#1a3a5c;color:#ffd54f;font-weight:700;font-size:.85em;
+  padding:5px 12px;letter-spacing:.04em;border-color:#1a3a5c;text-align:center}
+.sajda-badge{display:inline-flex;align-items:center;gap:4px;
+  background:#e8f5e9;color:#1b5e20;font-size:.78em;font-weight:600;
+  padding:1px 6px;border-radius:8px;border:1px solid #a5d6a7;margin-left:8px;
+  vertical-align:middle}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+@media(prefers-color-scheme:dark){
+  .surah-info-bar{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .sib-type.meccan{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
+  .sib-type.medinan{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .juz-marker td{background:#0d2136;border-color:#0d2136}
+  .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html' selected>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html' selected>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah 68: Al-Qalam (The Pen)</h1>
+<div class='surah-info-bar'><span class='sib-type meccan'>Meccan</span><span>&#128336;&nbsp;Revelation&nbsp;#2</span><span>&#128220;&nbsp;52 Verses</span><span>&#128366;&nbsp;Juz&nbsp;1</span></div>
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
-<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='52' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='52' value='52'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail' checked><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar' checked><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span></div></div></details>
-<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith)</th></tr></thead><tbody>
-<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'>Ayah 1</td></tr>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='52' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='52' value='52'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic'><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio'><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode'><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf'><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail'><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar'><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span><span class='cf-item'><input type='checkbox' id='cf-15' data-rowclass='hindi-omari'><label for='cf-15'>हिन्दी (Al-Omari)</label></span><span class='cf-item'><input type='checkbox' id='cf-16' data-rowclass='roman-urdu'><label for='cf-16'>Roman Urdu (Maududi)</label></span><span class='cf-item'><input type='checkbox' id='cf-17' data-rowclass='roman-urdu-junagarhi'><label for='cf-17'>Roman Urdu (Junagarhi)</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
+<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'><a class='permalink' href='#1' data-ayah='1'>Ayah 1</a><button class='copy-btn' onclick='copyVerse(this,68,1)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>ن ۚ وَالقَلَمِ وَما يَسطُرونَ</td></tr>
 <tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068001.mp3' title='Surah 68, Ayah 1 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Noon wa<b>a</b>lqalami wam<u>a</u> yas<u>t</u>uroon<b>a</b></td></tr>
@@ -162,7 +248,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>{नून} सूरतुल-बक़रा के आरंभ में इस प्रकार के अक्षरों के बारे में बात गुज़र चुकी है। अल्लाह ने क़लम की क़सम खाई है तथा उस चीज़ की क़सम खाई है, जो लोग अपनी क़लमों से लिखते हैं।</td></tr>
 <tr class='gujarati' data-ayah='1'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧. નૂન, કસમ છે કલમની અને તેની, જે કંઇ પણ તે (ફરિશ્તાઓ) લખે છે.</td></tr>
 <tr class='nepali' data-ayah='1'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१) नून, कसम छ कलमको र त्यसको जुन कुरो तिनीहरू (फरिश्ताहरू) लेख्दछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'>Ayah 2</td></tr>
+<tr class='hindi-omari' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>नून। क़सम है क़लम की तथा उसकी जो वे लिखते हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='1'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Noon, Kasam hai qalam ki aur us cheez ki jisey likhne waley likh rahey hain</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='1'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Noon qasam hai qalam ki aur uss ki jo kuch kay who (farishtay) likhtay hain</td></tr>
+<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'><a class='permalink' href='#2' data-ayah='2'>Ayah 2</a><button class='copy-btn' onclick='copyVerse(this,68,2)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>ما أَنتَ بِنِعمَةِ رَبِّكَ بِمَجنونٍ</td></tr>
 <tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068002.mp3' title='Surah 68, Ayah 2 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>M<u>a</u> anta biniAAmati rabbika bimajnoon<b>in</b></td></tr>
@@ -178,7 +267,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>(ऐ रसूल) आप, अल्लाह के इस अनुग्रह से कि उसने आपको नबी बनाया, दीवाने हरगिज़ नहीं हैं। बल्कि, आप उस पागलपन से बरी हैं, जिससे मुश्रिकों ने आपको आरोपित किया है।</td></tr>
 <tr class='gujarati' data-ayah='2'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨. તમે પોતાના પાલનહારની કૃપાથી પાગલ નથી.</td></tr>
 <tr class='nepali' data-ayah='2'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२) कि (हे मुहम्मद सल्लल्लाहो अलैहे वसल्लम) तपाई आफ्नो पालनकर्ताको अनुकम्पाबाट बउलाहा होइनौ ।</td></tr>
-<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'>Ayah 3</td></tr>
+<tr class='hindi-omari' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>आप, अपने रब के अनुग्रह से हरगिज़ दीवाना नहीं हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='2'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Tum apne Rubb ke fazl se majnoon (deewane) nahin ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='2'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Tu apany rab kay fazal say deewana nhai hai</td></tr>
+<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'><a class='permalink' href='#3' data-ayah='3'>Ayah 3</a><button class='copy-btn' onclick='copyVerse(this,68,3)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِنَّ لَكَ لَأَجرًا غَيرَ مَمنونٍ</td></tr>
 <tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068003.mp3' title='Surah 68, Ayah 3 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wainna laka laajran ghayra mamnoon<b>in</b></td></tr>
@@ -194,7 +286,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>निःसंदेह आप लोगों तक अल्लाह का संदेश पहुँचाने से जो कष्ट सहते हैं, उसपर आपके लिए निश्चय कभी बाधित न होने वाला बदला है, और इसमें किसी का आप पर कोई एहसान नहीं है।</td></tr>
 <tr class='gujarati' data-ayah='3'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩. અને નિ:શંક તમારા માટે અનંત બદલો છે.</td></tr>
 <tr class='nepali' data-ayah='3'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३) र निःसन्देह तपाईको लागि अन्त नहुनेवाला बडो अनुकम्पा छ ।</td></tr>
-<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'>Ayah 4</td></tr>
+<tr class='hindi-omari' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तथा निःसंदेह आपके लिए निश्चय ऐसा प्रतिफल है जो निर्बाध है।</td></tr>
+<tr class='roman-urdu' data-ayah='3'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur yaqeenan tumhare liye aisa ajar (reward) hai jiska silsila kabhi khatm honay wala nahin</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='3'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur be-shak teray liye bey inteha ajar hai</td></tr>
+<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'><a class='permalink' href='#4' data-ayah='4'>Ayah 4</a><button class='copy-btn' onclick='copyVerse(this,68,4)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِنَّكَ لَعَلىٰ خُلُقٍ عَظيمٍ</td></tr>
 <tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068004.mp3' title='Surah 68, Ayah 4 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wainnaka laAAal<u>a</u> khuluqin AAa<i><u>th</u></i>eem<b>in</b></td></tr>
@@ -210,7 +305,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और निःसंदेह आप निश्चित रूप से क़ुरआन के लाए हुए महान चरित्र पर विराजमान हैं। अतः जो कुछ क़ुरआन में है वह पूर्णता आपका स्वभाव बन गया है।</td></tr>
 <tr class='gujarati' data-ayah='4'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪. અને નિ:શંક તમે ખૂબ જ શ્રેષ્ઠ (ઉત્તમ) ચરિત્રવાળા છો.</td></tr>
 <tr class='nepali' data-ayah='4'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४) निःसन्देह तपाई उच्च आचरणवाला हुनुहुन्छ ।</td></tr>
-<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'>Ayah 5</td></tr>
+<tr class='hindi-omari' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तथा निःसंदेह निश्चय आप एक महान चरित्र पर हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='4'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur beshak tum akhlaaq ke bade martabe par ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='4'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur be-shak tu both baray (umda) ikhlaq per hai</td></tr>
+<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'><a class='permalink' href='#5' data-ayah='5'>Ayah 5</a><button class='copy-btn' onclick='copyVerse(this,68,5)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَسَتُبصِرُ وَيُبصِرونَ</td></tr>
 <tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068005.mp3' title='Surah 68, Ayah 5 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fasatub<u>s</u>iru wayub<u>s</u>iroon<b>a</b></td></tr>
@@ -226,7 +324,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>अतः बहुत जल्द आप देख लेंगे और ये झुठलाने वाले लोग भी देख लेंगे।</td></tr>
 <tr class='gujarati' data-ayah='5'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૫. બસ! હવે તમે પણ જોઇ લેશો અને તેઓ પણ જોઇ લેશે.</td></tr>
 <tr class='nepali' data-ayah='5'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>५) अब तिमीले देख्नेछौ र यिनीहरूले पनि देख्नेछन्,</td></tr>
-<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'>Ayah 6</td></tr>
+<tr class='hindi-omari' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अतः शीघ्र ही आप देख लेंगे तथा वे भी देख लेंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='5'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Anqareeb tum bhi dekh logey aur woh bhi dekh lenge</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='5'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Pus abb tub hi dekhlega aur yeh bhi dekh len gay</td></tr>
+<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'><a class='permalink' href='#6' data-ayah='6'>Ayah 6</a><button class='copy-btn' onclick='copyVerse(this,68,6)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>بِأَييِكُمُ المَفتونُ</td></tr>
 <tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068006.mp3' title='Surah 68, Ayah 6 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Biayyikumu almaftoon<b>u</b></td></tr>
@@ -242,7 +343,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जब सच्चाई सामने आ जाएगी, तो स्पष्ट हो जाएगा कि तुममें से कौन पागलपन से ग्रसित है।?!</td></tr>
 <tr class='gujarati' data-ayah='6'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૬. કે તમારામાં થી કોણ પાગલપણામાં સપડાયેલો છે.</td></tr>
 <tr class='nepali' data-ayah='6'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>६) कि तिमीमध्येबाट को भ्रमित भएको छ ।</td></tr>
-<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'>Ayah 7</td></tr>
+<tr class='hindi-omari' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>कि तुममें से कौन पागलपन से ग्रसित है।</td></tr>
+<tr class='roman-urdu' data-ayah='6'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ke tum mein se kaun junoon (madness) mein mubtala hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='6'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kay tum main say kon fitnay mein pera hua hai</td></tr>
+<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'><a class='permalink' href='#7' data-ayah='7'>Ayah 7</a><button class='copy-btn' onclick='copyVerse(this,68,7)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='7'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنَّ رَبَّكَ هُوَ أَعلَمُ بِمَن ضَلَّ عَن سَبيلِهِ وَهُوَ أَعلَمُ بِالمُهتَدينَ</td></tr>
 <tr class='audio' data-ayah='7'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068007.mp3' title='Surah 68, Ayah 7 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='7'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna rabbaka huwa aAAlamu biman <u>d</u>alla AAan sabeelihi wahuwa aAAlamu bi<b>a</b>lmuhtadeen<b>a</b></td></tr>
@@ -258,7 +362,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>(ऐ रसूल) निश्चय आपका रब उसे बेहतर जानता है जो उसके रास्ते से भटक गया है और वही सीधे मार्ग पर चलने वालों को भी बेहतर जानने वाला है। चुनाँचे उसे पता है कि यही लोग हैं जो उससे भटके हुए हैं और आप ही हैं जो उसपर चल रहे हैं।</td></tr>
 <tr class='gujarati' data-ayah='7'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૭. નિ:શંક તમારો પાલનહાર ખૂબ જાણે છે કે કોણ તેના માર્ગથી ભટકેલા છે અને કોણ સત્ય માર્ગ પર છે.</td></tr>
 <tr class='nepali' data-ayah='7'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>७) निःसंदेह तिम्रो पालनकर्ताले उसलाई राम्ररी जान्दछ, जो आफ्नो बाटोबाट विचलित भएका छन् र उनीहरूलाई पनि राम्ररी जान्दछ, जो सोझो मार्गमा हिडीराखेका छन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'>Ayah 8</td></tr>
+<tr class='hindi-omari' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>निःसंदेह आपका पालनहार ही उसे अधिक जानता है, जो उसकी राह से भटक गया तथा वही अधिक जानता है उन्हें, जो सीधे मार्ग पर हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='7'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Tumhara Rubb un logon ko bhi khoob jaanta hai jo uski raah se bhatkey huey hain , aur wahi unko bhi acchi tarah jaanta hai jo raah-e-raast par hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='7'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Be-shak tera rab apni raah say behaknay walon ko khoob jaanta hai aur wohraah yafta logon ko tu bakhoobi jaanta hai</td></tr>
+<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'><a class='permalink' href='#8' data-ayah='8'>Ayah 8</a><button class='copy-btn' onclick='copyVerse(this,68,8)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='8'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَلا تُطِعِ المُكَذِّبينَ</td></tr>
 <tr class='audio' data-ayah='8'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068008.mp3' title='Surah 68, Ayah 8 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='8'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fal<u>a</u> tu<u>t</u>iAAi almuka<u>thth</u>ibeen<b>a</b></td></tr>
@@ -274,7 +381,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>अतः (ऐ रसूल) आप उन लोगों की बात न मानें, जो आपके लाए हुए संदेश को झुठलाने वाले हैं।</td></tr>
 <tr class='gujarati' data-ayah='8'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૮. બસ! તમે જુઠલાવનારાઓની (વાત) ન માનો.</td></tr>
 <tr class='nepali' data-ayah='8'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>८) तसर्थ तिमीले असत्य ठहराउनेहरूको भनाई नमान्नु ।</td></tr>
-<tr class='ayah-sep' data-ayah='9' id='ayah-9'><td colspan='2'>Ayah 9</td></tr>
+<tr class='hindi-omari' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अतः आप झुठलाने वालों की बात न मानें।</td></tr>
+<tr class='roman-urdu' data-ayah='8'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Lihaza tum in jhutlane walon ke dabao mein hargiz na aao</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='8'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Pus to jhutlanay walon kin a maan</td></tr>
+<tr class='ayah-sep' data-ayah='9' id='ayah-9'><td colspan='2'><a class='permalink' href='#9' data-ayah='9'>Ayah 9</a><button class='copy-btn' onclick='copyVerse(this,68,9)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='9'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَدّوا لَو تُدهِنُ فَيُدهِنونَ</td></tr>
 <tr class='audio' data-ayah='9'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068009.mp3' title='Surah 68, Ayah 9 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='9'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Waddoo law tudhinu fayudhinoon<b>a</b></td></tr>
@@ -290,7 +400,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे चाहते हैं कि आप दीन की क़ीमत पर उनके साथ नरमी करें, तो वे भी आपके साथ नरमी करने लगें।</td></tr>
 <tr class='gujarati' data-ayah='9'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૯. તેઓ તો ઇચ્છે છે કે તમે થોડાક નરમ પડો તો તેઓ પણ નરમ પડી જાય.</td></tr>
 <tr class='nepali' data-ayah='9'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>९) तिनीहरूले चाहन्छन् कि तिमी अली नरम भइहाल । अनि यिनीहरू नरम भइहाल्नेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='10' id='ayah-10'><td colspan='2'>Ayah 10</td></tr>
+<tr class='hindi-omari' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>वे चाहते हैं काश! आप नरमी करें, तो वे भी नरमी करें।</td></tr>
+<tr class='roman-urdu' data-ayah='9'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>yeh to chahte hain ke kuch tum mudahnat (narmi) karo to yeh bhi mudahnat (narmi) karein</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='9'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>who to chahtay hain kay tu zara dheela ho to yeh bhi dheelay par jayen</td></tr>
+<tr class='ayah-sep' data-ayah='10' id='ayah-10'><td colspan='2'><a class='permalink' href='#10' data-ayah='10'>Ayah 10</a><button class='copy-btn' onclick='copyVerse(this,68,10)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='10'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَلا تُطِع كُلَّ حَلّافٍ مَهينٍ</td></tr>
 <tr class='audio' data-ayah='10'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068010.mp3' title='Surah 68, Ayah 10 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='10'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wal<u>a</u> tu<u>t</u>iAA kulla <u>h</u>all<u>a</u>fin maheen<b>in</b></td></tr>
@@ -306,7 +419,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और आप हर ऐसे व्यक्ति की बात न मानें, जो बहुत ज़्यादा झूठी क़समें खाने वाला और तुच्छ है।</td></tr>
 <tr class='gujarati' data-ayah='10'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૦. અને તમે કોઇ એવા વ્યક્તિનું પણ કહેવું ન માનશો જે વધારે કસમો ખાઈ છે.</td></tr>
 <tr class='nepali' data-ayah='10'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१०) र तिमीले कुनै यस्तो व्यक्तिको भनाई नमान्नु जसले धेरै कसम खाइरहन्छ ।</td></tr>
-<tr class='ayah-sep' data-ayah='11' id='ayah-11'><td colspan='2'>Ayah 11</td></tr>
+<tr class='hindi-omari' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और आप किसी बहुत क़समें खाने वाले, हीन व्यक्ति की बात न मानें।</td></tr>
+<tr class='roman-urdu' data-ayah='10'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Hargiz na dabo kisi aisey shaks se jo bahut kasmein khane wala be-waqaat (worthless) aadmi hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='10'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur tu kissi aisay shaks ka bhi kaha na manna jo ziyada qasmen khanay wala</td></tr>
+<tr class='ayah-sep' data-ayah='11' id='ayah-11'><td colspan='2'><a class='permalink' href='#11' data-ayah='11'>Ayah 11</a><button class='copy-btn' onclick='copyVerse(this,68,11)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='11'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>هَمّازٍ مَشّاءٍ بِنَميمٍ</td></tr>
 <tr class='audio' data-ayah='11'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068011.mp3' title='Surah 68, Ayah 11 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='11'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Hamm<u>a</u>zin mashsh<u>a</u>in binameem<b>in</b></td></tr>
@@ -322,7 +438,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>लोगों की बहुत ज़्यादा ग़ीबत करने वाला और उनके बीच चुग़ली के साथ बहुत चलने-फिरने वाला है, ताकि उनके बीच फूट डाले।</td></tr>
 <tr class='gujarati' data-ayah='11'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૧. જે નીચ, મહેણાંટોણા મારનાર અને ચાડી ખાનાર છે.</td></tr>
 <tr class='nepali' data-ayah='11'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>११) बदनाम अर्काको दुर्गण वर्णन गर्नेवाला र चुक्ली गर्दै हिड्दछ ।</td></tr>
-<tr class='ayah-sep' data-ayah='12' id='ayah-12'><td colspan='2'>Ayah 12</td></tr>
+<tr class='hindi-omari' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>जो बहुत ग़ीबत करने वाला, चुग़ली में बहुत दौड़-धूप करने वाला है।</td></tr>
+<tr class='roman-urdu' data-ayah='11'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Taaney deta hai , chugliyan khata phirta hai (slanderer, gossip-monger)</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='11'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Beywaqar’ qammena aibgo chughalkhor</td></tr>
+<tr class='ayah-sep' data-ayah='12' id='ayah-12'><td colspan='2'><a class='permalink' href='#12' data-ayah='12'>Ayah 12</a><button class='copy-btn' onclick='copyVerse(this,68,12)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='12'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>مَنّاعٍ لِلخَيرِ مُعتَدٍ أَثيمٍ</td></tr>
 <tr class='audio' data-ayah='12'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068012.mp3' title='Surah 68, Ayah 12 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='12'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Mann<u>a</u>AAin lilkhayri muAAtadin atheem<b>in</b></td></tr>
@@ -338,7 +457,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>भलाई से बहुत ज़्यादा रोकने वाला, लोगों की धन-संपत्ति, सतीत्व और जान पर अतिक्रमण करने वाला तथा अत्यधिक गुनाह और पाप करने वाला है।</td></tr>
 <tr class='gujarati' data-ayah='12'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૨. ભલાઇથી રોકવાવાળો, અતિરેક કરનાર, પાપી છે.</td></tr>
 <tr class='nepali' data-ayah='12'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१२) (र जो) राम्रो कुराबाट रोक्नेवाला, सीमाको उल्लंघन गर्नेवाला, ठूलो अपराधी, (हो) ।</td></tr>
-<tr class='ayah-sep' data-ayah='13' id='ayah-13'><td colspan='2'>Ayah 13</td></tr>
+<tr class='hindi-omari' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>भलाई को बहुत रोकने वाला, हद से बढ़ने वाला, घोर पापी है।</td></tr>
+<tr class='roman-urdu' data-ayah='12'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Bhalayi se rokta hai , zulm-o-zyadti mein hadd se guzar janey wala hai, sakht badh-amal hai , jafa-kaar hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='12'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Bhalaee say roknay wala had say barh janay wala gunehgaar</td></tr>
+<tr class='ayah-sep' data-ayah='13' id='ayah-13'><td colspan='2'><a class='permalink' href='#13' data-ayah='13'>Ayah 13</a><button class='copy-btn' onclick='copyVerse(this,68,13)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='13'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>عُتُلٍّ بَعدَ ذٰلِكَ زَنيمٍ</td></tr>
 <tr class='audio' data-ayah='13'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068013.mp3' title='Surah 68, Ayah 13 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='13'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>AAutullin baAAda <u>tha</u>lika zaneem<b>in</b></td></tr>
@@ -354,7 +476,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जो कठोर एवं दुष्ट स्वभाव, अपने पिता के अलावा किसी और की तरफ़ मनसूब (यानी नाजायज औलाद) है।</td></tr>
 <tr class='gujarati' data-ayah='13'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૩. અતડા સ્વભાવનો, સાથે સાથે બદનામ પણ છે.</td></tr>
 <tr class='nepali' data-ayah='13'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१३) घमण्डी र त्यो पनि जारज ।</td></tr>
-<tr class='ayah-sep' data-ayah='14' id='ayah-14'><td colspan='2'>Ayah 14</td></tr>
+<tr class='hindi-omari' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>क्रूर है, इसके उपरांत हरामज़ादा (वर्णसंकर) है।</td></tr>
+<tr class='roman-urdu' data-ayah='13'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur in sab uyub (aib) ke saath badh-asl (illegitimate child) hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='13'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Gardan kash phir sath hi beynasab ho</td></tr>
+<tr class='ayah-sep' data-ayah='14' id='ayah-14'><td colspan='2'><a class='permalink' href='#14' data-ayah='14'>Ayah 14</a><button class='copy-btn' onclick='copyVerse(this,68,14)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='14'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَن كانَ ذا مالٍ وَبَنينَ</td></tr>
 <tr class='audio' data-ayah='14'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068014.mp3' title='Surah 68, Ayah 14 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='14'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>An k<u>a</u>na <u>tha</u> m<u>a</u>lin wabaneen<b>a</b></td></tr>
@@ -370,7 +495,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्योंकि वह पैसे और बच्चों वाला है, इसलिए अल्लाह और उसके रसूल पर ईमान लाने से अहंकार करता है।</td></tr>
 <tr class='gujarati' data-ayah='14'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૪. તેનો વિદ્રોહ ફકત એટલા માટે છે કે તે ધન-સંપત્તિ વાળો અને સંતાનોવાળો છે.</td></tr>
 <tr class='nepali' data-ayah='14'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१४) उसको अटेरीपना मात्र यसकारण छ कि त्यो धनवान र छोराहरूवाला छ,</td></tr>
-<tr class='ayah-sep' data-ayah='15' id='ayah-15'><td colspan='2'>Ayah 15</td></tr>
+<tr class='hindi-omari' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>इस कारण कि वह धन और बेटों वाला है।</td></tr>
+<tr class='roman-urdu' data-ayah='14'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Is bina par ke woh bahut maal-o-aulad rakhta hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='14'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Us ski sirkashi sirf iss liye hai kay who maal wala aur beton wala hai</td></tr>
+<tr class='ayah-sep' data-ayah='15' id='ayah-15'><td colspan='2'><a class='permalink' href='#15' data-ayah='15'>Ayah 15</a><button class='copy-btn' onclick='copyVerse(this,68,15)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='15'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِذا تُتلىٰ عَلَيهِ آياتُنا قالَ أَساطيرُ الأَوَّلينَ</td></tr>
 <tr class='audio' data-ayah='15'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068015.mp3' title='Surah 68, Ayah 15 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='15'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>I<u>tha</u> tutl<u>a</u> AAalayhi <u>a</u>y<u>a</u>tun<u>a</u> q<u>a</u>la as<u>at</u>eeru alawwaleen<b>a</b></td></tr>
@@ -386,7 +514,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जब उसके सामने हमारी आयतें पढ़ी जाती हैं, तो कहता है : यह तो पहले लोगों की दंतकथाओं से लिखी गई बातें हैं।</td></tr>
 <tr class='gujarati' data-ayah='15'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૫. જ્યારે તેની સામે અમારી આયતો પઢવામાં આવે છે તો કહી દે છે કે આ તો પહેલાના લોકોની કથા છે.</td></tr>
 <tr class='nepali' data-ayah='15'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१५) जब उसका सामु हाम्रा आयतहरू पढेर सुनाइन्छन्, तब भन्छ कि यी त पहिलाका मानिसहरूका कथा हुन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='16' id='ayah-16'><td colspan='2'>Ayah 16</td></tr>
+<tr class='hindi-omari' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>जब उसके सामने हमारी आयतें पढ़ी जाती हैं, तो कहता है : यह पहले लोगों की (कल्पित) कहानियाँ हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='15'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Jab hamari aayat usko sunayi jati hai to kehta hai yeh to agle waqton ke afsane hain</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='15'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Jab uss kay samnay humari aayaten parhi jaati hain to keh deta hai kay yeh to aglon kay qissay hain</td></tr>
+<tr class='ayah-sep' data-ayah='16' id='ayah-16'><td colspan='2'><a class='permalink' href='#16' data-ayah='16'>Ayah 16</a><button class='copy-btn' onclick='copyVerse(this,68,16)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='16'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>سَنَسِمُهُ عَلَى الخُرطومِ</td></tr>
 <tr class='audio' data-ayah='16'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068016.mp3' title='Surah 68, Ayah 16 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='16'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Sanasimuhu AAal<u>a</u> alkhur<u>t</u>oom<b>i</b></td></tr>
@@ -402,7 +533,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>हम शीघ्र ही उसकी नाक पर निशान लगा देंगे, जो उसके चेहरे को बिगाड़ देगी और कभी उससे अलग नहीं होगी।</td></tr>
 <tr class='gujarati' data-ayah='16'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૬. અમે પણ તેની સૂંઢ (નાક) પર ડામ આપીશું.</td></tr>
 <tr class='nepali' data-ayah='16'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१६) हामीले पनि (शीघ्र नै) उसको नाकमा दाग लगाउनेछौं ।</td></tr>
-<tr class='ayah-sep' data-ayah='17' id='ayah-17'><td colspan='2'>Ayah 17</td></tr>
+<tr class='hindi-omari' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>शीघ्र ही हम उसकी थूथन पर दाग़ लगाएँगे।</td></tr>
+<tr class='roman-urdu' data-ayah='16'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ankareeb hum iski sund (snout) par daag lagayenge</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='16'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Hum bhi us ski soond (naak) per daagh dengay</td></tr>
+<tr class='ayah-sep' data-ayah='17' id='ayah-17'><td colspan='2'><a class='permalink' href='#17' data-ayah='17'>Ayah 17</a><button class='copy-btn' onclick='copyVerse(this,68,17)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='17'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنّا بَلَوناهُم كَما بَلَونا أَصحابَ الجَنَّةِ إِذ أَقسَموا لَيَصرِمُنَّها مُصبِحينَ</td></tr>
 <tr class='audio' data-ayah='17'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068017.mp3' title='Surah 68, Ayah 17 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='17'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inn<u>a</u> balawn<u>a</u>hum kam<u>a</u> balawn<u>a</u> a<u>s</u><u>ha</u>ba aljannati i<u>th</u> aqsamoo laya<u>s</u>rimunnah<u>a</u> mu<u>s</u>bi<u>h</u>een<b>a</b></td></tr>
@@ -418,7 +552,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>हमने इन मुश्रिकों का अकाल एवं भूख के साथ परीक्षण किया, जिस तरह हमने बाग़ वालों का परीक्षण किया, जब उन्होंने सुबह के समय उसके फलों को जल्दी से तोड़ लेने की क़सम खाई थी, ताकि किसी गरीब व्यक्ति को उनसे खाना न मिले।</td></tr>
 <tr class='gujarati' data-ayah='17'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૭. નિ:શંક અમે તેમની એવી જ રીતે કસોટી કરી જેવી રીતે કે અમે બગીચાવાળાઓની કસોટી કરી હતી. જ્યારે કે તેમણે કસમ ખાધી કે વહેલી પરોઢ થતા જ આ બગીચાના ફળ તોડી લઇશું.</td></tr>
 <tr class='nepali' data-ayah='17'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१७) निःसंदेह हामीले उनीहरूको यस्तै प्रकारले परीक्षा लिएकाछौं जुन प्रकारले बागवालाहरूको परीक्षा लिएका थियौं, जबकि उनीहरूले कसम खाए कि प्रातःकाल हुनासाथ अवश्य त्यस बगैचाका फल टिप्नेछौं ।</td></tr>
-<tr class='ayah-sep' data-ayah='18' id='ayah-18'><td colspan='2'>Ayah 18</td></tr>
+<tr class='hindi-omari' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>निःसंदेह हमने उन्हें परीक्षा में डाला है, जिस प्रकार बाग़ वालों को परीक्षा में डाला था, जब उन्होंने क़सम खाई कि भोर होते ही उसके फल अवश्य तोड़ लेंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='17'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Humne in (ehle makkah) ko usi taraah aazmaish mein dala hai jis tarah ek baagh (garden) ke maalikon ko aazmaish mein dala tha, jab unhon ne kasam khayi ke subah sawerey zaroor apne baagh ke phal todenge</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='17'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Be-shak hum ney unhen issi tarah aazmaliya jiss tarah hum ney baagh walon ko aazmaya tha job unho ney qasman khayen kay subha hotay hi iss baagh kay phal utar lengay</td></tr>
+<tr class='ayah-sep' data-ayah='18' id='ayah-18'><td colspan='2'><a class='permalink' href='#18' data-ayah='18'>Ayah 18</a><button class='copy-btn' onclick='copyVerse(this,68,18)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='18'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَلا يَستَثنونَ</td></tr>
 <tr class='audio' data-ayah='18'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068018.mp3' title='Surah 68, Ayah 18 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='18'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wal<u>a</u> yastathnoon<b>a</b></td></tr>
@@ -434,7 +571,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और उन्होंने 'इन शा अल्लाह' (अगर अल्लाह ने चाहा) कहकर अपनी क़्सम में कोई अपवाद नहीं किया।</td></tr>
 <tr class='gujarati' data-ayah='18'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૮. અને કોઈ (ફળ) બાકી નહીં રાખીએ.</td></tr>
 <tr class='nepali' data-ayah='18'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१८) र ‘‘इन्शाअल्लाह’’(यदि अल्लहले चाह्यो) भनेनन्,</td></tr>
-<tr class='ayah-sep' data-ayah='19' id='ayah-19'><td colspan='2'>Ayah 19</td></tr>
+<tr class='hindi-omari' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और वे 'इन शा अल्लाह' नहीं कह रहे थे।</td></tr>
+<tr class='roman-urdu' data-ayah='18'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur woh koi istasna (exception) nahin kar rahey thay</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='18'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur inshaAllah na kaha</td></tr>
+<tr class='ayah-sep' data-ayah='19' id='ayah-19'><td colspan='2'><a class='permalink' href='#19' data-ayah='19'>Ayah 19</a><button class='copy-btn' onclick='copyVerse(this,68,19)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='19'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَطافَ عَلَيها طائِفٌ مِن رَبِّكَ وَهُم نائِمونَ</td></tr>
 <tr class='audio' data-ayah='19'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068019.mp3' title='Surah 68, Ayah 19 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='19'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<u>ta</u>fa AAalayh<u>a</u> <u>ta</u>ifun min rabbika wahum n<u>a</u>imoon<b>a</b></td></tr>
@@ -450,7 +590,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>तो अल्लाह ने उस (बाग़) की ओर एक आग भेज दी, जो उसे खा गई, जबकि बाग़ के मालिक सो रहे थे, वे उससे आग को रोकने में सक्षम नहीं थे।</td></tr>
 <tr class='gujarati' data-ayah='19'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૯. પછી તમારા પાલનહાર તરફથી એક આફત તે બગીચા પર આવી ગઈ જ્યારે કે હજુ તે લોકો સૂઈ રહ્યા હતા.</td></tr>
 <tr class='nepali' data-ayah='19'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१९) तसर्थ उनीहरूमाथि उनीहरू सुतिराखेकै बेलामा तिम्रो पालनकर्ताको तर्फबाट एउटा विपदाले चक्कर लगाइहाल्यो ।</td></tr>
-<tr class='ayah-sep' data-ayah='20' id='ayah-20'><td colspan='2'>Ayah 20</td></tr>
+<tr class='hindi-omari' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तो आपके पालनहार की ओर से उस (बाग़) पर एक यातना फिर गई, जबकि वे सोए हुए थे।</td></tr>
+<tr class='roman-urdu' data-ayah='19'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Raat ko woh soye padey thay ke tumhare Rubb ki taraf se ek balaa is baagh par phir gayi</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='19'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Pus iss per teray rab ki janib say aik bala chaaron taraf ghoom gaee aur yeh so hi rahey thay</td></tr>
+<tr class='ayah-sep' data-ayah='20' id='ayah-20'><td colspan='2'><a class='permalink' href='#20' data-ayah='20'>Ayah 20</a><button class='copy-btn' onclick='copyVerse(this,68,20)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='20'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَأَصبَحَت كَالصَّريمِ</td></tr>
 <tr class='audio' data-ayah='20'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068020.mp3' title='Surah 68, Ayah 20 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='20'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Faa<u>s</u>ba<u>h</u>at ka<b>al</b><u>ss</u>areem<b>i</b></td></tr>
@@ -466,7 +609,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='20'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>तो वह बाग़ अंधेरी रात की तरह काला हो गया।</td></tr>
 <tr class='gujarati' data-ayah='20'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૦. બસ! તે બગીચો એવો થઇ ગયો જેવી કે કપાયેલી ખેતી.</td></tr>
 <tr class='nepali' data-ayah='20'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२०) तब त्यो बगैचा यस्तो भइहाल्यो जस्तो कि काटिएको खेती,</td></tr>
-<tr class='ayah-sep' data-ayah='21' id='ayah-21'><td colspan='2'>Ayah 21</td></tr>
+<tr class='hindi-omari' data-ayah='20'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तो वह अंधेरी रात जैसा (काला) हो गया।</td></tr>
+<tr class='roman-urdu' data-ayah='20'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur uska haal aisa ho gaya jaise kati hui fasal ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='20'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Pus who baagh aisa hogaya jesay kati hui kheti</td></tr>
+<tr class='ayah-sep' data-ayah='21' id='ayah-21'><td colspan='2'><a class='permalink' href='#21' data-ayah='21'>Ayah 21</a><button class='copy-btn' onclick='copyVerse(this,68,21)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='21'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَتَنادَوا مُصبِحينَ</td></tr>
 <tr class='audio' data-ayah='21'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068021.mp3' title='Surah 68, Ayah 21 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='21'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fatan<u>a</u>daw mu<u>s</u>bi<u>h</u>een<b>a</b></td></tr>
@@ -482,7 +628,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='21'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>फिर सुबह के समय उन्होंने एक-दूसरे को पुकारा।</td></tr>
 <tr class='gujarati' data-ayah='21'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૧. હવે સવાર થતા જ તેઓ એકબીજાને પોકારવા લાગ્યા.</td></tr>
 <tr class='nepali' data-ayah='21'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२१) जब बिहान भयो तब उनीहरूले एक अर्कालाई पुकार्न थाले,</td></tr>
-<tr class='ayah-sep' data-ayah='22' id='ayah-22'><td colspan='2'>Ayah 22</td></tr>
+<tr class='hindi-omari' data-ayah='21'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>फिर उन्होंने भोर होते ही एक-दूसरे को पुकारा :</td></tr>
+<tr class='roman-urdu' data-ayah='21'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Subah un logon ne ek dusre ko pukara</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='21'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Abb subha hotay hi unho ney aik doosray ko aawazen dea</td></tr>
+<tr class='ayah-sep' data-ayah='22' id='ayah-22'><td colspan='2'><a class='permalink' href='#22' data-ayah='22'>Ayah 22</a><button class='copy-btn' onclick='copyVerse(this,68,22)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='22'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَنِ اغدوا عَلىٰ حَرثِكُم إِن كُنتُم صارِمينَ</td></tr>
 <tr class='audio' data-ayah='22'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068022.mp3' title='Surah 68, Ayah 22 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='22'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ani ighdoo AAal<u>a</u> <u>h</u>arthikum in kuntum <u>sa</u>rimeen<b>a</b></td></tr>
@@ -498,7 +647,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='22'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>कहने लगे : गरीबों के आगमन से पहले सुबह-सवेरे ही अपने खेत की ओर निकल चलो, यदि तुम उसके फलों को तोड़ना चाहते हो।</td></tr>
 <tr class='gujarati' data-ayah='22'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૨. કે અગર તમારે ફળ તોડવા હોય તો વહેલી પરોઢમાં પોતાની ખેતી તરફ ચાલી નીકળો.</td></tr>
 <tr class='nepali' data-ayah='22'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२२) कि यदि तिमीले फल टिप्नु छ भने आफ्नो खेतीमा बिहानै आइपुग ।</td></tr>
-<tr class='ayah-sep' data-ayah='23' id='ayah-23'><td colspan='2'>Ayah 23</td></tr>
+<tr class='hindi-omari' data-ayah='22'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>कि अपने खेत पर सवेरे ही जा पहुँचो, यदि तुम फल तोड़ने वाले हो।</td></tr>
+<tr class='roman-urdu' data-ayah='22'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Kaha agar phal todne hai ho to sawerey sawerey apni kheti ki taraf nikal chalo</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='22'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kay agar tumhen phal utarnay hain to apni kheti per saweray hi saweray chal paro</td></tr>
+<tr class='ayah-sep' data-ayah='23' id='ayah-23'><td colspan='2'><a class='permalink' href='#23' data-ayah='23'>Ayah 23</a><button class='copy-btn' onclick='copyVerse(this,68,23)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='23'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَانطَلَقوا وَهُم يَتَخافَتونَ</td></tr>
 <tr class='audio' data-ayah='23'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068023.mp3' title='Surah 68, Ayah 23 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='23'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<b>i</b>n<u>t</u>alaqoo wahum yatakh<u>a</u>fatoon<b>a</b></td></tr>
@@ -514,7 +666,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='23'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>चुनाँचे वे आपस में चुपके-चुपके बातें करते हुए तेज़ क़दमों से अपने खेत की ओर चल पड़े।</td></tr>
 <tr class='gujarati' data-ayah='23'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૩. ફરી તે લોકો ધીરે-ધીરે વાતો કરતા નીકળ્યા.</td></tr>
 <tr class='nepali' data-ayah='23'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२३) फेरि तिनीहरू विस्तारै–विस्तारै यो कुरा गर्दै हिंडे ।</td></tr>
-<tr class='ayah-sep' data-ayah='24' id='ayah-24'><td colspan='2'>Ayah 24</td></tr>
+<tr class='hindi-omari' data-ayah='23'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>चुनाँचे वे आपस में चुपके-चुपके बातें करते हुए चल दिए।</td></tr>
+<tr class='roman-urdu' data-ayah='23'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Chunanchey woh chal padey aur aapas mein chupke chupke kehte jatay thay</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='23'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>phir yeh sab chupkay chupkay yeh baten kertay huye chalay</td></tr>
+<tr class='ayah-sep' data-ayah='24' id='ayah-24'><td colspan='2'><a class='permalink' href='#24' data-ayah='24'>Ayah 24</a><button class='copy-btn' onclick='copyVerse(this,68,24)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='24'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَن لا يَدخُلَنَّهَا اليَومَ عَلَيكُم مِسكينٌ</td></tr>
 <tr class='audio' data-ayah='24'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068024.mp3' title='Surah 68, Ayah 24 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='24'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>An l<u>a</u> yadkhulannah<u>a</u> alyawma AAalaykum miskeen<b>un</b></td></tr>
@@ -530,7 +685,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='24'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे आपस में कह रहे थे : आज बाग़ में तुम्हारे पास कोई ग़रीब हरगिज़ न पहुँचने पाए।</td></tr>
 <tr class='gujarati' data-ayah='24'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૪. કે આજના દિવસે કોઇ લાચાર તમારી પાસે ન આવી શકે.</td></tr>
 <tr class='nepali' data-ayah='24'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२४) कि आज यहाँ तिम्रो पासमा कोही गरिब आउन नपाओस्,</td></tr>
-<tr class='ayah-sep' data-ayah='25' id='ayah-25'><td colspan='2'>Ayah 25</td></tr>
+<tr class='hindi-omari' data-ayah='24'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>कि आज उस (बाग़) में तुम्हारे पास कोई निर्धन हरगिज़ न आने पाए।</td></tr>
+<tr class='roman-urdu' data-ayah='24'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ke aaj koi miskeen tumhare paas baag mein na aane paye</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='24'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kay aaj kay din koi miskeen tumharay pass na aanay paye</td></tr>
+<tr class='ayah-sep' data-ayah='25' id='ayah-25'><td colspan='2'><a class='permalink' href='#25' data-ayah='25'>Ayah 25</a><button class='copy-btn' onclick='copyVerse(this,68,25)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='25'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَغَدَوا عَلىٰ حَردٍ قادِرينَ</td></tr>
 <tr class='audio' data-ayah='25'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068025.mp3' title='Surah 68, Ayah 25 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='25'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Waghadaw AAal<u>a</u> <u>h</u>ardin q<u>a</u>direen<b>a</b></td></tr>
@@ -546,7 +704,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='25'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और वे सुबह-सवेरे इस हाल में चल पड़े कि वे अपने फलों को (गरीबों से) रोकने का पक्का इरादा किए हुए थे।</td></tr>
 <tr class='gujarati' data-ayah='25'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૫. અને લપકતા સવાર સવારમાં નીકળ્યા (સમજી રહ્યા હતા) કે અમે (ફળ તોડવા માટે) સમર્થ છીએ.</td></tr>
 <tr class='nepali' data-ayah='25'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२५) र उनीहरू लम्कदै बिहानै पुगे, कि हामी सामर्थ्यवान हुनेछौं ।</td></tr>
-<tr class='ayah-sep' data-ayah='26' id='ayah-26'><td colspan='2'>Ayah 26</td></tr>
+<tr class='hindi-omari' data-ayah='25'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और वे सुबह-सुबह (यह सोचकर) निकले कि वे (निर्धनों को) रोकने में सक्षम हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='25'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Woh kuch na dene ka faisla kiye huye subah sawerey jaldi jaldi is tarah wahan gaye jaise ke woh (phal todne par) qadir hain</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='25'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur lapkay huye subha subha gaye (Samajh rahey thay) kay hum qaaboo paagaye</td></tr>
+<tr class='ayah-sep' data-ayah='26' id='ayah-26'><td colspan='2'><a class='permalink' href='#26' data-ayah='26'>Ayah 26</a><button class='copy-btn' onclick='copyVerse(this,68,26)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='26'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَلَمّا رَأَوها قالوا إِنّا لَضالّونَ</td></tr>
 <tr class='audio' data-ayah='26'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068026.mp3' title='Surah 68, Ayah 26 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='26'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Falamm<u>a</u> raawh<u>a</u> q<u>a</u>loo inn<u>a</u> la<u>da</u>lloon<b>a</b></td></tr>
@@ -562,7 +723,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='26'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जब उन्होंने उसे जला हुआ देखा, तो उन्होंने एक-दूसरे से कहा : निश्चय हम उस (बाग़) का रास्ता भूल गए हैं।</td></tr>
 <tr class='gujarati' data-ayah='26'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૬. જ્યારે તેમણે બગીચો જોયો તો કહેવા લાગ્યા, નિ:શંક અમે રસ્તો ભુલી ગયા છે.</td></tr>
 <tr class='nepali' data-ayah='26'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२६) जब उनीहरूले बगैचालाई देखे त भन्नथाले कि हामी निश्चयनै बाटो बिर्सिसकेका छौं,</td></tr>
-<tr class='ayah-sep' data-ayah='27' id='ayah-27'><td colspan='2'>Ayah 27</td></tr>
+<tr class='hindi-omari' data-ayah='26'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>फिर जब उन्होंने उसे देखा, तो कहा : निःसंदेह हम निश्चय रास्ता भूल गए हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='26'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Magar jab baagh ko dekha to kehne lagey “hum raasta bhool gaye hain</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='26'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>job unho ney boogh dekha to kehnay logay yaqeenan hum raasta photo gaee</td></tr>
+<tr class='ayah-sep' data-ayah='27' id='ayah-27'><td colspan='2'><a class='permalink' href='#27' data-ayah='27'>Ayah 27</a><button class='copy-btn' onclick='copyVerse(this,68,27)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='27'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>بَل نَحنُ مَحرومونَ</td></tr>
 <tr class='audio' data-ayah='27'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068027.mp3' title='Surah 68, Ayah 27 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='27'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Bal na<u>h</u>nu ma<u>h</u>roomoon<b>a</b></td></tr>
@@ -578,7 +742,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='27'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>बल्कि हम बाग़ के फलों को तोड़ने से रोक दिए गए हैं, क्योंकि हमने गरीबों को इससे रोकने का दृढ़ संकल्प कर लिया था।</td></tr>
 <tr class='gujarati' data-ayah='27'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૭. ના ના, પરંતુ આપણું ભાગ્ય ફુટી ગયુ.</td></tr>
 <tr class='nepali' data-ayah='27'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२७) होइन, होइन बरु हाम्रो भाग्य नै फेरीसक्यो ।</td></tr>
-<tr class='ayah-sep' data-ayah='28' id='ayah-28'><td colspan='2'>Ayah 28</td></tr>
+<tr class='hindi-omari' data-ayah='27'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>बल्कि हम वंचित कर दिए गए हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='27'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Nahin balke hum mehroom reh gaye”</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='27'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Nahi nahi bulkay humari qismat phoot gaee</td></tr>
+<tr class='ayah-sep' data-ayah='28' id='ayah-28'><td colspan='2'><a class='permalink' href='#28' data-ayah='28'>Ayah 28</a><button class='copy-btn' onclick='copyVerse(this,68,28)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='28'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>قالَ أَوسَطُهُم أَلَم أَقُل لَكُم لَولا تُسَبِّحونَ</td></tr>
 <tr class='audio' data-ayah='28'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068028.mp3' title='Surah 68, Ayah 28 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='28'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Q<u>a</u>la awsa<u>t</u>uhum alam aqul lakum lawl<u>a</u> tusabbi<u>h</u>oon<b>a</b></td></tr>
@@ -594,7 +761,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='28'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उनमें से सर्वश्रेष्ठ ने कहा : क्या मैंने तुमसे उस समय नहीं कहा था, जब तुमने ग़रीबों को इससे वंचित करने का संकल्प किया था : तुम अल्लाह की पवित्रता क्यों नहीं बयान करते और उसके सामने तौबा क्यों नहीं करते?!</td></tr>
 <tr class='gujarati' data-ayah='28'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૮. તે લોકોમાં, જે વચલો હતો તેણે કહ્યુ કે હું તમને નહતો કહેતો કે તમે અલ્લાહની પવિત્રતાનું વર્ણન કેમ નથી કરતા?</td></tr>
 <tr class='nepali' data-ayah='28'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२८) एउटा जुन उनीहरूमध्ये बुद्धिमान थियो उसले भन्यो, के मैले तिमीसित भनेको थिएन कि तिमीले अल्लाहको पवित्रताको वर्णन किन गर्दैनौ ?</td></tr>
-<tr class='ayah-sep' data-ayah='29' id='ayah-29'><td colspan='2'>Ayah 29</td></tr>
+<tr class='hindi-omari' data-ayah='28'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उनमें से बेहतर ने कहा : क्या मैंने तुमसे नहीं कहा था कि तुम (अल्लाह की) पवित्रता का वर्णन क्यों नहीं करते?</td></tr>
+<tr class='roman-urdu' data-ayah='28'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Un mein jo sab se behtar aadmi tha usne kaha “maine tumse kaha na tha ke tum tasbeeh kyun nahin karte?”</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='28'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Inn sab main jo behtar tha uss nay kaha kay mein tumsay na kehta tha kay tum Allah ki pakeezgi q iyon nahi biyan kertay</td></tr>
+<tr class='ayah-sep' data-ayah='29' id='ayah-29'><td colspan='2'><a class='permalink' href='#29' data-ayah='29'>Ayah 29</a><button class='copy-btn' onclick='copyVerse(this,68,29)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='29'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>قالوا سُبحانَ رَبِّنا إِنّا كُنّا ظالِمينَ</td></tr>
 <tr class='audio' data-ayah='29'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068029.mp3' title='Surah 68, Ayah 29 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='29'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Q<u>a</u>loo sub<u>ha</u>na rabbin<u>a</u> inn<u>a</u> kunn<u>a</u> <i><u>th</u></i><u>a</u>limeen<b>a</b></td></tr>
@@ -610,7 +780,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='29'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उन्होंने कहा : हमारा रब पवित्र है। निःसंदेह हम ही अपने ऊपर अत्याचार करने वाले थे जब हमने ग़रीबों को अपने बाग़ के फलों से रोकने का संकल्प किया था।</td></tr>
 <tr class='gujarati' data-ayah='29'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૯. તેઓ કહેવા લાગ્યા, આપણો પાલનહાર પવિત્ર છે, નિ:શંક આપણે જ જાલિમ હતા.</td></tr>
 <tr class='nepali' data-ayah='29'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२९) तब उनीहरू सबैले भन्नथाले कि हाम्रो पालनकर्ता पवित्र छ, निश्चय नै हामी नै अत्याचारी थियौं,</td></tr>
-<tr class='ayah-sep' data-ayah='30' id='ayah-30'><td colspan='2'>Ayah 30</td></tr>
+<tr class='hindi-omari' data-ayah='29'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उन्होंने कहा : हमारा रब पवित्र है। निःसंदेह हम ही अत्याचारी थे।</td></tr>
+<tr class='roman-urdu' data-ayah='29'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Woh pukar utthey paak hai hamara Rubb, waqayi hum gunahgaar thay</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='29'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>To sab kehnay lagay humara rab pak hai be-shak hum hi zaalim thay</td></tr>
+<tr class='ayah-sep' data-ayah='30' id='ayah-30'><td colspan='2'><a class='permalink' href='#30' data-ayah='30'>Ayah 30</a><button class='copy-btn' onclick='copyVerse(this,68,30)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='30'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَأَقبَلَ بَعضُهُم عَلىٰ بَعضٍ يَتَلاوَمونَ</td></tr>
 <tr class='audio' data-ayah='30'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068030.mp3' title='Surah 68, Ayah 30 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='30'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Faaqbala baAA<u>d</u>uhum AAal<u>a</u> baAA<u>d</u>in yatal<u>a</u>wamoon<b>a</b></td></tr>
@@ -626,7 +799,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='30'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>फिर वे एक-दूसरे के सम्मुख होकर परस्पर एक-दूसरे को दोषी ठहराने लगे।</td></tr>
 <tr class='gujarati' data-ayah='30'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૦. ફરી તેઓ એક-બીજા તરફ ફરીને એક-બીજાને ઠપકો આપવા લાગ્યા.</td></tr>
 <tr class='nepali' data-ayah='30'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३०) अनि उनीहरू एक अर्कातिर मुख फर्काइ परस्पर धिक्कार्न थाले,</td></tr>
-<tr class='ayah-sep' data-ayah='31' id='ayah-31'><td colspan='2'>Ayah 31</td></tr>
+<tr class='hindi-omari' data-ayah='30'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>फिर वे आपस में एक दूसरे को दोष देने लगे।</td></tr>
+<tr class='roman-urdu' data-ayah='30'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Phir unmein se har ek dusre ko malamat karne laga</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='30'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Phir who aik doosray ki taraf rukh kerkay aapas mein malamat kernay lagay</td></tr>
+<tr class='ayah-sep' data-ayah='31' id='ayah-31'><td colspan='2'><a class='permalink' href='#31' data-ayah='31'>Ayah 31</a><button class='copy-btn' onclick='copyVerse(this,68,31)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='31'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>قالوا يا وَيلَنا إِنّا كُنّا طاغينَ</td></tr>
 <tr class='audio' data-ayah='31'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068031.mp3' title='Surah 68, Ayah 31 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='31'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Q<u>a</u>loo y<u>a</u> waylan<u>a</u> inn<u>a</u> kunn<u>a</u> <u>ta</u>gheen<b>a</b></td></tr>
@@ -642,7 +818,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='31'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उन्होंने पछतावे से कहा : हाय हमारी क्षति! निश्चय हम ही ग़रीबों के हक़ को रोकने की योजना बनाकर हद से बढ़ गए थे।</td></tr>
 <tr class='gujarati' data-ayah='31'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૧. કહેવા લાગ્યા ખૂબ અફસોસ! ખરેખર અમે જ વિદ્રોહી હતા.</td></tr>
 <tr class='nepali' data-ayah='31'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३१) भन्न थाले, हाय अफशोच हामी नै हदभन्दा अगाडि गइसकेका थियौं ।</td></tr>
-<tr class='ayah-sep' data-ayah='32' id='ayah-32'><td colspan='2'>Ayah 32</td></tr>
+<tr class='hindi-omari' data-ayah='31'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उन्होंने कहा : हाय हमारा विनाश! निश्चय हम ही सीमा का उल्लंघन करने वाले थे।</td></tr>
+<tr class='roman-urdu' data-ayah='31'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Akhir ko unhon ne kaha “afsos hamare haal par, beshak hum sarkash ho gaye thay</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='31'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>kehnay lagay haaye afsos! Yaqeenan hum sirkash thay</td></tr>
+<tr class='ayah-sep' data-ayah='32' id='ayah-32'><td colspan='2'><a class='permalink' href='#32' data-ayah='32'>Ayah 32</a><button class='copy-btn' onclick='copyVerse(this,68,32)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='32'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>عَسىٰ رَبُّنا أَن يُبدِلَنا خَيرًا مِنها إِنّا إِلىٰ رَبِّنا راغِبونَ</td></tr>
 <tr class='audio' data-ayah='32'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068032.mp3' title='Surah 68, Ayah 32 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='32'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>AAas<u>a</u> rabbun<u>a</u> an yubdilan<u>a</u> khayran minh<u>a</u> inn<u>a</u> il<u>a</u> rabbin<u>a</u> r<u>a</u>ghiboon<b>a</b></td></tr>
@@ -658,7 +837,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='32'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>आशा है कि हमारा पालनहार हमें बाग़ से बेहतर बदला प्रदान करेगा। निश्चय हम अकेले अल्लाह ही की ओर इच्छा रखने वाले हैं। उसी से क्षमा की आशा रखते हैं और उसी से भलाई माँगते हैं।</td></tr>
 <tr class='gujarati' data-ayah='32'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૨. આશા છે કે અમારો પાલનહાર અમને આનાથી સારો બદલો આપશે, અમે તો હવે પોતાના પાલનહારથી જ અપેક્ષા કરીએ છીએ.</td></tr>
 <tr class='nepali' data-ayah='32'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३२) आशा छ कि हाम्रो पालनकर्ताले यसको सट्टा हामीहरूलाई यसभन्दा राम्रो बदला प्रदान गरोस्, हामी त अब आफ्नो पालनकर्ताबाटै आशन्वित हुन्छौं ।</td></tr>
-<tr class='ayah-sep' data-ayah='33' id='ayah-33'><td colspan='2'>Ayah 33</td></tr>
+<tr class='hindi-omari' data-ayah='32'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>आशा है कि हमारा पालनहार हमें बदले में इस (बाग़) से बेहतर प्रदान करेगा। निश्चय हम अपने पालनहार ही की ओर इच्छा रखने वाले हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='32'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Baeed (door) nahin ke hamara Rubb humein badle mein issey behtar baagh ata farmaye, hum apne Rubb ki taraf rujoo karte hain</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='32'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kiya ajab hai kay humara rab humen iss say behtar badla dey dey hum to abb apnay rab say hi aarzoo rakhtay hain</td></tr>
+<tr class='ayah-sep' data-ayah='33' id='ayah-33'><td colspan='2'><a class='permalink' href='#33' data-ayah='33'>Ayah 33</a><button class='copy-btn' onclick='copyVerse(this,68,33)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='33'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>كَذٰلِكَ العَذابُ ۖ وَلَعَذابُ الآخِرَةِ أَكبَرُ ۚ لَو كانوا يَعلَمونَ</td></tr>
 <tr class='audio' data-ayah='33'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068033.mp3' title='Surah 68, Ayah 33 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='33'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ka<u>tha</u>lika alAAa<u>tha</u>bu walaAAa<u>tha</u>bu al<u>a</u>khirati akbaru law k<u>a</u>noo yaAAlamoon<b>a</b></td></tr>
@@ -674,7 +856,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='33'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>आजीविका से वंचित करके इस यातना की तरह हम उन लोगों को यातना देते हैं जो हमारी अवज्ञा करते हैं, और आख़िरत की यातना तो इससे भी बड़ी है। काश वे उसकी गंभीरता और निरंतरता को जानते!</td></tr>
 <tr class='gujarati' data-ayah='33'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૩. આવી જ રીતે મુસીબત આવે છે. અને આખિરતનનો અઝાબ તો આના કરતા મોટો હશે, કાશ તે લોકો જાણતા હોત.</td></tr>
 <tr class='nepali' data-ayah='33'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३३) (हेर) विपदा यस्तै आउँछ र परलोकको विपदा धेरै ठूलो छ, यदि यो कुरा उनीहरूले बुझ्नसक्ने भए ।</td></tr>
-<tr class='ayah-sep' data-ayah='34' id='ayah-34'><td colspan='2'>Ayah 34</td></tr>
+<tr class='hindi-omari' data-ayah='33'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>इसी तरह होती है यातना, और आख़िरत की यातना तो इससे भी बड़ी है। काश वे जानते होते!</td></tr>
+<tr class='roman-urdu' data-ayah='33'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aisa hota hai azaab aur aakhirat ka azaab issey bhi bada hai, kaash yeh log isko jaante</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='33'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Yun hi aafat aati hai aur aakhirat ki aafat both bari hai kaash! Unhen samajh hoti</td></tr>
+<tr class='ayah-sep' data-ayah='34' id='ayah-34'><td colspan='2'><a class='permalink' href='#34' data-ayah='34'>Ayah 34</a><button class='copy-btn' onclick='copyVerse(this,68,34)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='34'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنَّ لِلمُتَّقينَ عِندَ رَبِّهِم جَنّاتِ النَّعيمِ</td></tr>
 <tr class='audio' data-ayah='34'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068034.mp3' title='Surah 68, Ayah 34 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='34'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna lilmuttaqeena AAinda rabbihim jann<u>a</u>ti a<b>l</b>nnaAAeem<b>i</b></td></tr>
@@ -690,7 +875,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='34'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>निश्चय अल्लाह से, उसके आदेशों का पालन करके और उसके निषेधों से बचकर, डरने वाले लोगों के लिए उनके पालनहार के पास नेमतों वाले बाग़ हैं। जिनमें वे नेमतों का आनंद लेंगे। उनकी नेमत कभी बाधित नहीं होगी।</td></tr>
 <tr class='gujarati' data-ayah='34'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૪. ડરનારાઓ માટે તેમના પાલનહાર પાસે નેઅમતોવાળી જન્નતો છે.</td></tr>
 <tr class='nepali' data-ayah='34'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३४) निश्चय नै संयमीहरूको निम्ति उनीहरूको पालनकर्ताकहाँ उपहारवाला स्वर्गहरू छन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='35' id='ayah-35'><td colspan='2'>Ayah 35</td></tr>
+<tr class='hindi-omari' data-ayah='34'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>निःसंदेह डरने वालों के लिए उनके पालनहार के पास नेमत के बाग़ हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='34'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Yaqeenan khuda-tars logon ke liye unke Rubb ke yahan niyamat bhari jannatein hain</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='34'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Perhezgaaron kay liye unkay rab kay pass nematon waali jannaten hain</td></tr>
+<tr class='ayah-sep' data-ayah='35' id='ayah-35'><td colspan='2'><a class='permalink' href='#35' data-ayah='35'>Ayah 35</a><button class='copy-btn' onclick='copyVerse(this,68,35)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='35'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَفَنَجعَلُ المُسلِمينَ كَالمُجرِمينَ</td></tr>
 <tr class='audio' data-ayah='35'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068035.mp3' title='Surah 68, Ayah 35 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='35'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>AfanajAAalu almuslimeena ka<b>a</b>lmujrimeen<b>a</b></td></tr>
@@ -706,7 +894,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='35'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या हम मुसलमानों को प्रतिफल में काफ़िरों की तरह बना देंगे, जैसा कि मक्का के मुश्रिक लोग दावा करते हैं?!</td></tr>
 <tr class='gujarati' data-ayah='35'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૫. શું અમે મુસલમાનો પાપીઓ જેવા કરી દઇશું .</td></tr>
 <tr class='nepali' data-ayah='35'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३५) के हामी आज्ञाकारीहरूलाई अपराधीहरू जस्तो गरिदिनेछौं ?</td></tr>
-<tr class='ayah-sep' data-ayah='36' id='ayah-36'><td colspan='2'>Ayah 36</td></tr>
+<tr class='hindi-omari' data-ayah='35'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तो क्या हम आज्ञाकारियों को अपराध करने वालों की तरह कर देंगे?</td></tr>
+<tr class='roman-urdu' data-ayah='35'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Kya hum farma-bardaaron ka haal mujreemon sa kardein</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='35'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kiya hum musalmanon ko misil gunehgaaron kay kerdengay</td></tr>
+<tr class='ayah-sep' data-ayah='36' id='ayah-36'><td colspan='2'><a class='permalink' href='#36' data-ayah='36'>Ayah 36</a><button class='copy-btn' onclick='copyVerse(this,68,36)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='36'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>ما لَكُم كَيفَ تَحكُمونَ</td></tr>
 <tr class='audio' data-ayah='36'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068036.mp3' title='Surah 68, Ayah 36 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='36'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>M<u>a</u> lakum kayfa ta<u>h</u>kumoon<b>a</b></td></tr>
@@ -722,7 +913,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='36'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>तुम्हें (ऐ मुश्रिको) क्या हो गया है कि तुम यह अनुचित और कुटिल निर्णय देते हो?!</td></tr>
 <tr class='gujarati' data-ayah='36'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૬. તમને શું થઇ ગયુ છે, કેવા નિર્ણયો કરો છો?</td></tr>
 <tr class='nepali' data-ayah='36'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३६) तिमीलाई के भएको छ, कस्तो निर्णय गर्दैछौ ?</td></tr>
-<tr class='ayah-sep' data-ayah='37' id='ayah-37'><td colspan='2'>Ayah 37</td></tr>
+<tr class='hindi-omari' data-ayah='36'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तुम्हें क्या हुआ, तुम कैसे फ़ैसले करते हो?</td></tr>
+<tr class='roman-urdu' data-ayah='36'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Tum logon ko kya ho gaya hai, tum kaise hukum lagate ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='36'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Tumhen kiya hogaya kaisay foislay ker rahey ho</td></tr>
+<tr class='ayah-sep' data-ayah='37' id='ayah-37'><td colspan='2'><a class='permalink' href='#37' data-ayah='37'>Ayah 37</a><button class='copy-btn' onclick='copyVerse(this,68,37)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='37'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَم لَكُم كِتابٌ فيهِ تَدرُسونَ</td></tr>
 <tr class='audio' data-ayah='37'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068037.mp3' title='Surah 68, Ayah 37 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='37'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Am lakum kit<u>a</u>bun feehi tadrusoon<b>a</b></td></tr>
@@ -738,7 +932,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='37'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या तुम्हारे पास कोई किताब है, जिसमें तुम पढ़ते हो कि आज्ञाकारी और अवज्ञाकारी के बीच समानता है?!</td></tr>
 <tr class='gujarati' data-ayah='37'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૭. શું તમારી પાસે કોઇ કિતાબ છે, જે તમે પઢતા હોય?</td></tr>
 <tr class='nepali' data-ayah='37'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३७) के तिम्रो पासमा कुनै किताब छ जसबाट तिमी (यो) पढ्छौ ?</td></tr>
-<tr class='ayah-sep' data-ayah='38' id='ayah-38'><td colspan='2'>Ayah 38</td></tr>
+<tr class='hindi-omari' data-ayah='37'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>क्या तुम्हारे पास कोई पुस्तक है, जिसमें तुम पढ़ते हो?</td></tr>
+<tr class='roman-urdu' data-ayah='37'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Kya tumhare paas koi kitaab hai jismein tum yeh padhte ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='37'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kiya tumharay pass koi kitab hai jiss mein tum parhtay ho</td></tr>
+<tr class='ayah-sep' data-ayah='38' id='ayah-38'><td colspan='2'><a class='permalink' href='#38' data-ayah='38'>Ayah 38</a><button class='copy-btn' onclick='copyVerse(this,68,38)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='38'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنَّ لَكُم فيهِ لَما تَخَيَّرونَ</td></tr>
 <tr class='audio' data-ayah='38'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068038.mp3' title='Surah 68, Ayah 38 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='38'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna lakum feehi lam<u>a</u> takhayyaroon<b>a</b></td></tr>
@@ -754,7 +951,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='38'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जिस पुस्तक में है कि तुम्हारे लिए आख़िरत में वही होगा, जो तुम अपने लिए पसंद करोगे।</td></tr>
 <tr class='gujarati' data-ayah='38'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૮. કે તેમાં તમારી મનચાહી વાતો હોય?</td></tr>
 <tr class='nepali' data-ayah='38'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३८) कि तिमीले रुचाउने कुराहरू त्यसमा होउन् ?</td></tr>
-<tr class='ayah-sep' data-ayah='39' id='ayah-39'><td colspan='2'>Ayah 39</td></tr>
+<tr class='hindi-omari' data-ayah='38'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>(कि) निश्चय तुम्हारे लिए आख़िरत में वही होगा, जो तुम पसंद करोगे?</td></tr>
+<tr class='roman-urdu' data-ayah='38'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ke tumhare liye zaroor wahan wahi kuch hai jo tum apne liye pasand karte ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='38'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kay iss mein tumhari manmaani baten hon</td></tr>
+<tr class='ayah-sep' data-ayah='39' id='ayah-39'><td colspan='2'><a class='permalink' href='#39' data-ayah='39'>Ayah 39</a><button class='copy-btn' onclick='copyVerse(this,68,39)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='39'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَم لَكُم أَيمانٌ عَلَينا بالِغَةٌ إِلىٰ يَومِ القِيامَةِ ۙ إِنَّ لَكُم لَما تَحكُمونَ</td></tr>
 <tr class='audio' data-ayah='39'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068039.mp3' title='Surah 68, Ayah 39 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='39'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Am lakum aym<u>a</u>nun AAalayn<u>a</u> b<u>a</u>lighatun il<u>a</u> yawmi alqiy<u>a</u>mati inna lakum lam<u>a</u> ta<u>h</u>kumoon<b>a</b></td></tr>
@@ -770,7 +970,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='39'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या तुम्हारे लिए हमारे ज़िम्मे क़समों द्वारा पुष्टि की गई प्रतिज्ञाएं हैं, जिनकी अपेक्षा के अनुसार तुम्हें वही कुछ मिलेगा, जिसका तुम अपने लिए निर्णय करोगे?</td></tr>
 <tr class='gujarati' data-ayah='39'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩૯. અથવા તો અમારા શિરે તમારી કેટલીક કસમો છે? જે કયામત સૂધી બાકી રહે, કે તમારા માટે તે બધુ જ છે, જે તમે પોતાની તરફથી નક્કી કરી લો.</td></tr>
 <tr class='nepali' data-ayah='39'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३९) वा तिमीहरूले हामीसित कुनै शपथ लिएकाछौ ? जुन कियामतको दिनसम्म बाँकी रहनेछ, कि तिम्रो निम्ति त्यो सबै छ जुन तिमीले आफ्नो तर्फबाट फैसला गर्दछौ ।</td></tr>
-<tr class='ayah-sep' data-ayah='40' id='ayah-40'><td colspan='2'>Ayah 40</td></tr>
+<tr class='hindi-omari' data-ayah='39'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>या तुम्हारे लिए हमारे ऊपर क़समें हैं, जो क़ियामत के दिन तक बाक़ी रहने वाली हैं कि तुम्हारे लिए निश्चय वही होगा, जो तुम निर्णय करोगे?</td></tr>
+<tr class='roman-urdu' data-ayah='39'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ya phir kya tumhare liye roz-e-qayamat tak humpar kuch ahad-o-paiman (covenant) sabit hai ke tumhein wahi kuch milega jiska tum hukum lagao</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='39'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Yea tum nay hum say kuch qasman li hain ?jo qzayamat tak baaqi rahen kay tumharay liye who sab hai jot um apni taraf say muqarrar kerlo</td></tr>
+<tr class='ayah-sep' data-ayah='40' id='ayah-40'><td colspan='2'><a class='permalink' href='#40' data-ayah='40'>Ayah 40</a><button class='copy-btn' onclick='copyVerse(this,68,40)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='40'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>سَلهُم أَيُّهُم بِذٰلِكَ زَعيمٌ</td></tr>
 <tr class='audio' data-ayah='40'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068040.mp3' title='Surah 68, Ayah 40 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='40'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Salhum ayyuhum bi<u>tha</u>lika zaAAeem<b>un</b></td></tr>
@@ -786,7 +989,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='40'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>(ऐ रसूल) आप इस बात के कहने वालों से पूछें : उनमें से कौन इसकी ज़मानत लेता है?!</td></tr>
 <tr class='gujarati' data-ayah='40'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૦. (હે પયગંબર) તમે તેમને પુછો કે તેમના માંથી કોણ આ વાતનો જવાબદાર (દાવેદાર) છે?</td></tr>
 <tr class='nepali' data-ayah='40'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४०) उनीहरूसित सोध कि उनीहरूमध्ये यसको जिम्मावाला को हो ?</td></tr>
-<tr class='ayah-sep' data-ayah='41' id='ayah-41'><td colspan='2'>Ayah 41</td></tr>
+<tr class='hindi-omari' data-ayah='40'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>आप उनसे पूछिए कि उनमें से कौन इसकी ज़मानत लेता है?</td></tr>
+<tr class='roman-urdu' data-ayah='40'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Inse pucho tum mein se kaun iska zaamin (gurantee/responsible) hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='40'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Inn say poochao to kay inn mein say kon iss baat ka zimeydaar (aur daaweydaar) hai</td></tr>
+<tr class='ayah-sep' data-ayah='41' id='ayah-41'><td colspan='2'><a class='permalink' href='#41' data-ayah='41'>Ayah 41</a><button class='copy-btn' onclick='copyVerse(this,68,41)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='41'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَم لَهُم شُرَكاءُ فَليَأتوا بِشُرَكائِهِم إِن كانوا صادِقينَ</td></tr>
 <tr class='audio' data-ayah='41'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068041.mp3' title='Surah 68, Ayah 41 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='41'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Am lahum shurak<u>a</u>o falyatoo bishurak<u>a</u>ihim in k<u>a</u>noo <u>sa</u>diqeen<b>a</b></td></tr>
@@ -802,7 +1008,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='41'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या उनके अल्लाह के सिवा कोई साझी हैं, जो उन्हें प्रतिफल में मोमिनों के बराबर ठहराते हैं?! तो उन्हें चाहिए कि अपने उन साझियों को ले आएँ, यदि वे अपने इस दावे में सच्चे हैं कि उन्होंने इन लोगों को प्रतिफल में मोमिनों के बराबर ठहराया है।</td></tr>
 <tr class='gujarati' data-ayah='41'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૧. શું તેમના કોઇ ભાગીદાર છે? જો તે સાચા હોય તો પોત પોતાના ભાગીદારો લઇને આવે.</td></tr>
 <tr class='nepali' data-ayah='41'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४१) के (यस भनाईमा) उनका अरु पनि साझेदार छन् ? यदि उनी साँचो छन् भने आफ्नो साझेदारहरूलाई ल्याई अगाडि उभ्याउन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='42' id='ayah-42'><td colspan='2'>Ayah 42</td></tr>
+<tr class='hindi-omari' data-ayah='41'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>क्या उनके कोई साझी हैं? फिर तो वे अपने साझियों को ले आएँ, यदि वे सच्चे हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='41'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ya phir inke thehraye huye kuch sahreek hain (jinhon ne iska zimma liya ho)?yeh baat hai to layein apne shareekon ko agar yeh sacchey hain</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='41'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kiya inn kay koi shareek hain? To chahiye kay apnay apnay shareekor ko ley aayen agar yeh sachey hain</td></tr>
+<tr class='ayah-sep' data-ayah='42' id='ayah-42'><td colspan='2'><a class='permalink' href='#42' data-ayah='42'>Ayah 42</a><button class='copy-btn' onclick='copyVerse(this,68,42)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='42'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>يَومَ يُكشَفُ عَن ساقٍ وَيُدعَونَ إِلَى السُّجودِ فَلا يَستَطيعونَ</td></tr>
 <tr class='audio' data-ayah='42'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068042.mp3' title='Surah 68, Ayah 42 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='42'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Yawma yukshafu AAan s<u>a</u>qin wayudAAawna il<u>a</u> a<b>l</b>ssujoodi fal<u>a</u> yasta<u>t</u>eeAAoon<b>a</b></td></tr>
@@ -818,7 +1027,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='42'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क़ियामत का दिन बहुत भयावह होगा और हमारा पालनहार अपनी पिंडली खोल देगा और लोगों को सजदा करने के लिए कहा जाएगा। तो ईमान वाले सजदे में चले जाएँगे और काफ़िर तथा मुनाफ़िक़ लोग सजदा करने में असमर्थ रहेंगे।</td></tr>
 <tr class='gujarati' data-ayah='42'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૨. જે દિવસે પિંડલી (ઢીચણ નો નીચલો ભાગ) ખોલી નાખવામાં આવશે અને સિજદો કરવા માટે બોલવવામાં આવશે. તો (સિજદો) નહી કરી શકે.</td></tr>
 <tr class='nepali' data-ayah='42'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४२) जुन दिन घुँडा खोलिदिइनेछ र उनीहरू सजदाको (ढोगको) निम्ति बोलाइने छन्, तब तिनीहरूले सिज्दा गर्नसक्ने छैनन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='43' id='ayah-43'><td colspan='2'>Ayah 43</td></tr>
+<tr class='hindi-omari' data-ayah='42'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>जिस दिन पिंडली खोल दी जाएगी और वे सजदा करने के लिए बुलाए जाएँगे, तो वे सजदा नहीं कर सकेंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='42'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Jis roz sakht waqt aa padega aur logon ko sajda karne ke liye bulaya jayega to yeh log sajda na kar sakenge</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='42'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Jiss din pindali khol di jayegi aur sajday kay liye bulaye jayengay to (sajdah) na ker saken gay</td></tr>
+<tr class='ayah-sep' data-ayah='43' id='ayah-43'><td colspan='2'><a class='permalink' href='#43' data-ayah='43'>Ayah 43</a><button class='copy-btn' onclick='copyVerse(this,68,43)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='43'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>خاشِعَةً أَبصارُهُم تَرهَقُهُم ذِلَّةٌ ۖ وَقَد كانوا يُدعَونَ إِلَى السُّجودِ وَهُم سالِمونَ</td></tr>
 <tr class='audio' data-ayah='43'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068043.mp3' title='Surah 68, Ayah 43 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='43'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Kh<u>a</u>shiAAatan ab<u>sa</u>ruhum tarhaquhum <u>th</u>illatun waqad k<u>a</u>noo yudAAawna il<u>a</u> a<b>l</b>ssujoodi wahum s<u>a</u>limoon<b>a</b></td></tr>
@@ -834,7 +1046,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='43'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उनकी निगाहें झुकी होंगी, उनपर अपमान और अफसोस छाया होगा। हालाँकि उन्हें दुनिया में अल्लाह के आगे सजदा करने के लिए कहा जाता था, जबकि वे, आज जिस स्थिति में हैं, उससे भले-चंगे थे।</td></tr>
 <tr class='gujarati' data-ayah='43'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૩. નજરો નીચી હશે અને તેમના પર અપમાન છવાઇ રહ્યુ હશે. તેઓ (દુનિયામાં) સિજદા કરવા માટે બોલાવવામાં આવતા હતા જ્યારે કે તંદુરસ્ત હતા.</td></tr>
 <tr class='nepali' data-ayah='43'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४३) आँखाहरू तल झुकेका हुनेछन्, र उनीमाथि अपमान छाइराखेको हुनेछ । उनीहरूलाई त्यस बेला पनि ढोगको निम्ति बोलाइन्थ्यो जबकि उनीहरू ठीकठाक थिए ।</td></tr>
-<tr class='ayah-sep' data-ayah='44' id='ayah-44'><td colspan='2'>Ayah 44</td></tr>
+<tr class='hindi-omari' data-ayah='43'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उनकी आँखें झुकी होंगी, उनपर अपमान छाया होगा। हालाँकि उन्हें (संसार में) सजदे की ओर बुलाया जाता था, जबकि वे भले-चंगे थे।</td></tr>
+<tr class='roman-urdu' data-ayah='43'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Inki nigaahein nichey hongi, zillat inpar chaa rahi hogi. Yeh jab sahi-o-saalim thay us waqt inhein sajde ke liye (bulaya jata tha) aur yeh inkar karte thay</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='43'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Nigahen neechi hongi aur unn per zillat-o-khhuaari cha rahi hogi halankay yeh sajday kay liye (uss waqt bhi) bulaye jaatay thay jabkay sahih saalim thay</td></tr>
+<tr class='ayah-sep' data-ayah='44' id='ayah-44'><td colspan='2'><a class='permalink' href='#44' data-ayah='44'>Ayah 44</a><button class='copy-btn' onclick='copyVerse(this,68,44)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='44'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَذَرني وَمَن يُكَذِّبُ بِهٰذَا الحَديثِ ۖ سَنَستَدرِجُهُم مِن حَيثُ لا يَعلَمونَ</td></tr>
 <tr class='audio' data-ayah='44'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068044.mp3' title='Surah 68, Ayah 44 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='44'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<u>th</u>arnee waman yuka<u>thth</u>ibu bih<u>atha</u> al<u>h</u>adeethi sanastadrijuhum min <u>h</u>aythu l<u>a</u> yaAAlamoon<b>a</b></td></tr>
@@ -850,7 +1065,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='44'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>तो (ऐ रसूल) आप मुझे तथा उसे छोड़ दें, जो आपपर उतरने वाले इस क़ुरआन को झुठलाता है। हम उन्हें धीरे-धीरे इस तरह यातना की ओर लेजाएँगे कि उन्हें पता नहीं चलेगा कि यह उनके साथ चाल चली जा रही है और उन्हें ढील दी जा रही है।</td></tr>
 <tr class='gujarati' data-ayah='44'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૪. બસ! મને અને આ કલામને જુઠલાવનારાઓને છોડી દો, અમે તેમને આમ ધીરે ધીરે ખેંચીશું કે તેમને ખબર પણ નહીં પડે.</td></tr>
 <tr class='nepali' data-ayah='44'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४४) अतः तिमीले मलाई र मेरा वाणीलाई झूठा भन्नेहरूलाई छाडिदेऊ । हामीले उनीहरूलाई विस्तारै यस्तो तरीकाले समात्ने छौं कि उनलाई थाहा पनि हुनेछैन ।</td></tr>
-<tr class='ayah-sep' data-ayah='45' id='ayah-45'><td colspan='2'>Ayah 45</td></tr>
+<tr class='hindi-omari' data-ayah='44'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अतः आप मुझे तथा उसको छोड़ दें, जो इस वाणी (क़ुरआन) को झुठलाता है। हम उन्हें धीरे-धीरे (यातना की ओर) इस प्रकार ले जाएँगे कि वे जान भी न सकेंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='44'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Pas aey Nabi, tum is kalam ke jhutlane walon ka maamla mujhpar chodh do hum aise tarike se inko batadreej tabahi ki taraf le jayenge ke inko khabar bhi na hogi</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='44'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Pus mujhay aur iss kalaam ko jhutlanay walay ko chor dey hum unhen iss tarah aahista aahista bhi na hoga</td></tr>
+<tr class='ayah-sep' data-ayah='45' id='ayah-45'><td colspan='2'><a class='permalink' href='#45' data-ayah='45'>Ayah 45</a><button class='copy-btn' onclick='copyVerse(this,68,45)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='45'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَأُملي لَهُم ۚ إِنَّ كَيدي مَتينٌ</td></tr>
 <tr class='audio' data-ayah='45'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068045.mp3' title='Surah 68, Ayah 45 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='45'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Waomlee lahum inna kaydee mateen<b>un</b></td></tr>
@@ -866,7 +1084,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='45'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और मैं उन्हें कुछ सयम के लिए मोहलत दे दूँगा, ताकि वे अपने पाप में चरम पर पहुँच जाएँ। निश्चय इनकार करने और झुठलाने वालों के साथ मेरी चाल बहुत मज़बूत है। इसलिए वे मेरी पकड़ से छूट नहीं सकते और मेरी सज़ा से नहीं बच सकते।</td></tr>
 <tr class='gujarati' data-ayah='45'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૫. અને હું તેમને ઢીલ આપીશ, નિ:શંક મારી યોજના સખત સચોટ છે.</td></tr>
 <tr class='nepali' data-ayah='45'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४५) मैले उनीलाई मोहलत दिइराख्नेछु, निःसंदेह मेरो योजना धेरै बलियो छ ।</td></tr>
-<tr class='ayah-sep' data-ayah='46' id='ayah-46'><td colspan='2'>Ayah 46</td></tr>
+<tr class='hindi-omari' data-ayah='45'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और मैं उन्हें मोहलत (अवकाश) दूँगा। निश्चय मेरा उपाय बड़ा मज़बूत है।</td></tr>
+<tr class='roman-urdu' data-ayah='45'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Main inki rassi daraaz kar raha hoon, meri chaal badi zabardast hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='45'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur mein unhen dheel doonga be-shak meri tadbeer bari mazboot hai</td></tr>
+<tr class='ayah-sep' data-ayah='46' id='ayah-46'><td colspan='2'><a class='permalink' href='#46' data-ayah='46'>Ayah 46</a><button class='copy-btn' onclick='copyVerse(this,68,46)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='46'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَم تَسأَلُهُم أَجرًا فَهُم مِن مَغرَمٍ مُثقَلونَ</td></tr>
 <tr class='audio' data-ayah='46'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068046.mp3' title='Surah 68, Ayah 46 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='46'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Am tasaluhum ajran fahum min maghramin muthqaloon<b>a</b></td></tr>
@@ -882,7 +1103,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='46'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या (ऐ रसूल!) आप उनसे, उन्हें सत्य की ओर बुलाने का कोई मुआवज़ा माँग रहे हैं, जिसके कारण वे एक भारी बोझ सहन करते हैं, तो यही कारण है कि वे आपसे दूर हो गए हैं?! हालाँकि सच्चाई इसके विपरीत है। क्योंकि आप उनसे कोई मुआवज़ा नहीं माँगते हैं। फिर उन्हें आपका अनुसरण करने से क्या रोकता है?!</td></tr>
 <tr class='gujarati' data-ayah='46'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૬. શું તમે તેમનાથી કોઇ વળતર ઇચ્છો છો, જેના દંડના બોજ હેઠળ દબાઇ રહ્યા હોય.</td></tr>
 <tr class='nepali' data-ayah='46'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४६) के तिमी उनीहरूसित केही बदला माँगिराखेका छौ कि उनीहरू त्यसको बोझबाट थिचिंदै गइराखेका छन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='47' id='ayah-47'><td colspan='2'>Ayah 47</td></tr>
+<tr class='hindi-omari' data-ayah='46'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>क्या आप उनसे कोई पारिश्रमिक माँगते हैं कि वे तावान के बोझ से दबे जा रहे हैं?</td></tr>
+<tr class='roman-urdu' data-ayah='46'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Kya tum insey koi ajar (compensation) talab kar rahey ho ke yeh is chatti ke bojh (feel burdened with debt) taley dabey ja rahe hoon</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='46'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kiya tu inn say koi ujrat chahta hai jiss kay tawaan say yeh dabay jatay hon</td></tr>
+<tr class='ayah-sep' data-ayah='47' id='ayah-47'><td colspan='2'><a class='permalink' href='#47' data-ayah='47'>Ayah 47</a><button class='copy-btn' onclick='copyVerse(this,68,47)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='47'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَم عِندَهُمُ الغَيبُ فَهُم يَكتُبونَ</td></tr>
 <tr class='audio' data-ayah='47'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068047.mp3' title='Surah 68, Ayah 47 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='47'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Am AAindahumu alghaybu fahum yaktuboon<b>a</b></td></tr>
@@ -898,7 +1122,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='47'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>या उनके पास ग़ैब (परोक्ष) का ज्ञान है कि वे जो भी तर्क पसंद करते हैं, लिख लेते हैं, जिनके द्वारा वे आपसे बहस करते हैं?!</td></tr>
 <tr class='gujarati' data-ayah='47'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૭. અથવા તો તેમની પાસે ગૈબનું ઇલ્મ છે, જેને તેઓ લખી રહ્યા હોય.</td></tr>
 <tr class='nepali' data-ayah='47'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४७) वा के उनीहरूको पासमा परोक्षको ज्ञान छ जसलाई उनी लेख्दै गएका छन्,</td></tr>
-<tr class='ayah-sep' data-ayah='48' id='ayah-48'><td colspan='2'>Ayah 48</td></tr>
+<tr class='hindi-omari' data-ayah='47'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अथवा उनके पास परोक्ष (का ज्ञान) है, तो वे लिख रहे हैं?</td></tr>
+<tr class='roman-urdu' data-ayah='47'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Kya inke paas gaib ka ilam hai jisey yeh likh rahey hon</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='47'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Ya kiya inn kay pass ilm-e-ghaib hai jissay who likhtay hon</td></tr>
+<tr class='ayah-sep' data-ayah='48' id='ayah-48'><td colspan='2'><a class='permalink' href='#48' data-ayah='48'>Ayah 48</a><button class='copy-btn' onclick='copyVerse(this,68,48)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='48'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَاصبِر لِحُكمِ رَبِّكَ وَلا تَكُن كَصاحِبِ الحوتِ إِذ نادىٰ وَهُوَ مَكظومٌ</td></tr>
 <tr class='audio' data-ayah='48'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068048.mp3' title='Surah 68, Ayah 48 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='48'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<b>i</b><u>s</u>bir li<u>h</u>ukmi rabbika wal<u>a</u> takun ka<u>sah</u>ibi al<u>h</u>ooti i<u>th</u> n<u>a</u>d<u>a</u> wahuwa mak<i><u>th</u></i>oom<b>un</b></td></tr>
@@ -914,7 +1141,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='48'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>अतः (ऐ रसूल) आपके पालनहार ने उन्हें मोहलत देकर ढील देने का जो निर्णय किया है, उसके लिए धैर्य से काम लें और अपने समुदाय से ऊबने में मछली वाले नबी यूनुस अलैहिस्सलाम की तरह न हो जाएँ; जब उन्होंने अपने पालनहार को इस दशा में पुकार कि वह समुद्र के अंधेरे और मछली के पेट के अंधेरे में व्यथित थे।</td></tr>
 <tr class='gujarati' data-ayah='48'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૮. બસ! તમે પોતાના પાલનહારનો આદેશ આવતા સુધી ધીરજ રાખો અને માછલીવાળા (યૂનુસ) જેવા ન થઇ જાવ, જ્યારે તેમણે અમને દુઃખના સમયે પોકાર્યા.</td></tr>
 <tr class='nepali' data-ayah='48'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४८) अतः आफ्नो पालनकर्ताको आदेशलाई तपाईले धैर्यसित प्रतीक्षा गर्नुस् र माछावाला जस्तै नहुनु, कि उनले गहिरो दुःखको अवस्थामा प्रार्थना गरेका थिए ।</td></tr>
-<tr class='ayah-sep' data-ayah='49' id='ayah-49'><td colspan='2'>Ayah 49</td></tr>
+<tr class='hindi-omari' data-ayah='48'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अतः अपने पालनहार के निर्णय तक धैर्य रखें और मछली वाले के समान न हो जाएँ, जब उसने (अल्लाह को) पुकारा, इस हाल में कि वह शोक से भरा हुआ था।</td></tr>
+<tr class='roman-urdu' data-ayah='48'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Pas apne Rubb ka faisla saadir honay tak sabr karo aur machli wale (younis) ki tarah na ho jao, jab usne pukara tha aur woh gham se bhara hua tha</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='48'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Pus tu apnay rab kay hokum ka sabar say (intezar ker) aur machli walay ki tarah na ho jo jab kay uss nay ghum ki holat main dua ki</td></tr>
+<tr class='ayah-sep' data-ayah='49' id='ayah-49'><td colspan='2'><a class='permalink' href='#49' data-ayah='49'>Ayah 49</a><button class='copy-btn' onclick='copyVerse(this,68,49)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='49'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لَولا أَن تَدارَكَهُ نِعمَةٌ مِن رَبِّهِ لَنُبِذَ بِالعَراءِ وَهُوَ مَذمومٌ</td></tr>
 <tr class='audio' data-ayah='49'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068049.mp3' title='Surah 68, Ayah 49 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='49'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lawl<u>a</u> an tad<u>a</u>rakahu niAAmatun min rabbihi lanubi<u>th</u>a bi<b>a</b>lAAar<u>a</u>i wahuwa ma<u>th</u>moom<b>un</b></td></tr>
@@ -930,7 +1160,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='49'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>अगर अल्लाह की दया उनके साथ न होती, तो मछली उन्हें एक निर्जन भूमि पर इस दशा में फेंक देती कि वह निंदित होते।</td></tr>
 <tr class='gujarati' data-ayah='49'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪૯. અગર તેમના પાલનહારની મદદ ન આવી હોત તો નિ:શંક તે તેઓ ખરાબ પરિસ્થિતિમાં સપાટ મેદાન પર નાખી દેવામાં આવતા.</td></tr>
 <tr class='nepali' data-ayah='49'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४९) यदि उनको साथमा उनको पालनकर्ताको अनुकम्पा नभएको भए उनी खुल्ला मैदानमा फ्याँकिने थिए, र उनको अवस्था नराम्रो हुने थियो ।</td></tr>
-<tr class='ayah-sep' data-ayah='50' id='ayah-50'><td colspan='2'>Ayah 50</td></tr>
+<tr class='hindi-omari' data-ayah='49'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और यदि उसके पालनहार की अनुकंपा ने उसे संभाल न लिया होता, तो निश्चय वह चटियल मैदान में इस दशा में फेंक दिया जाता कि वह निंदित होता।</td></tr>
+<tr class='roman-urdu' data-ayah='49'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Agar uske Rubb ki meharbani uske shamil-e-haal na ho jati to woh mazmoom (disgrace) hokar chatyal maidan mein phenk diya jata</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='49'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Agar uss kay rab ki nemat na paaleti to yaqeenan who buray haalon main chatiyal medaan mein daal diya jata</td></tr>
+<tr class='ayah-sep' data-ayah='50' id='ayah-50'><td colspan='2'><a class='permalink' href='#50' data-ayah='50'>Ayah 50</a><button class='copy-btn' onclick='copyVerse(this,68,50)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='50'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَاجتَباهُ رَبُّهُ فَجَعَلَهُ مِنَ الصّالِحينَ</td></tr>
 <tr class='audio' data-ayah='50'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068050.mp3' title='Surah 68, Ayah 50 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='50'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<b>i</b>jtab<u>a</u>hu rabbuhu fajaAAalahu mina a<b>l</b><u>ssa</u>li<u>h</u>een<b>a</b></td></tr>
@@ -946,7 +1179,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='50'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>फिर उनके पालनहार ने उन्हें चुन लिया और अपने सदाचारी बंदों में शामिल कर दिया।</td></tr>
 <tr class='gujarati' data-ayah='50'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૫૦. તેમના પાલનહારે ફરી પસંદ કરી લીધા અને તેમને સદાચારી લોકોમાં કરી દીધા.</td></tr>
 <tr class='nepali' data-ayah='50'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>५०) अन्ततः उनको पालनकर्ताले फेरि उनलाई रोजिहाल्यो र उनलाई राम्रा मानिसहरूमा शम्मिलित गरिदियो ।</td></tr>
-<tr class='ayah-sep' data-ayah='51' id='ayah-51'><td colspan='2'>Ayah 51</td></tr>
+<tr class='hindi-omari' data-ayah='50'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>फिर उसके पालनहार ने उसे चुन लिया और उसे सदाचारियों में से बना दिया।</td></tr>
+<tr class='roman-urdu' data-ayah='50'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aakhir-e-kaar uske Rubb ne usey barguzida (exalted) farma liya aur usey saleh bandon mein shamil kardiya</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='50'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>ussay uss kay rab nay phir nawaza aur ussay nak-kaaron main kerdiya</td></tr>
+<tr class='ayah-sep' data-ayah='51' id='ayah-51'><td colspan='2'><a class='permalink' href='#51' data-ayah='51'>Ayah 51</a><button class='copy-btn' onclick='copyVerse(this,68,51)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='51'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِن يَكادُ الَّذينَ كَفَروا لَيُزلِقونَكَ بِأَبصارِهِم لَمّا سَمِعُوا الذِّكرَ وَيَقولونَ إِنَّهُ لَمَجنونٌ</td></tr>
 <tr class='audio' data-ayah='51'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068051.mp3' title='Surah 68, Ayah 51 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='51'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wain yak<u>a</u>du alla<u>th</u>eena kafaroo layuzliqoonaka biab<u>sa</u>rihim lamm<u>a</u> samiAAoo a<b>l</b><u>thth</u>ikra wayaqooloona innahu lamajnoon<b>un</b></td></tr>
@@ -962,7 +1198,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='51'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और अल्लाह का इनकार करने वाले तथा उसके रसूल को झुठलाने वाले, जब आपपर उतरने वाले इस क़ुरआन को सुनते हैं, तो आपको ऐसे घूरते हैं कि लगता है कि वे आपको अपनी आँखों से अवश्य ही पछाड़ देंगे। तथा वे (अपनी इच्छाओं का पालन करते हुए और सत्य से उपेक्षा करते हुए) कहते हैं : निश्चय इस क़ुरआन को लाने वाला रसूल अवश्य ही दीवाना है।</td></tr>
 <tr class='gujarati' data-ayah='51'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૫૧. અને કાફિરો જ્યારે કુરઆન સાભળે છે તો તમારી સામે એવે રીતે જુવે છે કે તેઓ તમને ડગમગાવી દેશે, અને કહે છે કે આ તો એક પાગલ છે.</td></tr>
 <tr class='nepali' data-ayah='51'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>५१) र नजिक छ कि काफिरहरूले आफ्नो तीव्र दृष्टिबाट तपाईलाई चिप्ल्याई दिनेछन्, जब उनी ‘‘कुरआन’’ सुन्दछन् र भनिदिन्छन् कि यिनी त अवश्य दिवाना छन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='52' id='ayah-52'><td colspan='2'>Ayah 52</td></tr>
+<tr class='hindi-omari' data-ayah='51'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और वे लोग जिन्होंने इनकार किया, निश्चय क़रीब हैं कि वे अपनी निगाहों से (घूर घूरकर) आपको अवश्य ही फिसला देंगे, जब वे क़ुरआन को सुनते हैं और कहते हैं कि यह अवश्य ही दीवाना है।</td></tr>
+<tr class='roman-urdu' data-ayah='51'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Jab yeh kafir log kalam-e-nasihat (Quran) sunte hain to tumhein aisi nazaron se dekhte hain ke goya tumhare qadam ukhaad denge, Aur kehte hain ke yeh zaroor deewana hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='51'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur qareeb hai kay kafir apni tez nigahon say aap ko phusla den jab kabhi quran suntay hain aur keh detay hain yeh to zaroor deewana hai</td></tr>
+<tr class='ayah-sep' data-ayah='52' id='ayah-52'><td colspan='2'><a class='permalink' href='#52' data-ayah='52'>Ayah 52</a><button class='copy-btn' onclick='copyVerse(this,68,52)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='52'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَما هُوَ إِلّا ذِكرٌ لِلعالَمينَ</td></tr>
 <tr class='audio' data-ayah='52'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/068052.mp3' title='Surah 68, Ayah 52 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='52'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wam<u>a</u> huwa ill<u>a</u> <u>th</u>ikrun lilAA<u>a</u>lameen<b>a</b></td></tr>
@@ -978,10 +1217,13 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='52'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>हालाँकि आप पर उतरने वाला क़ुरआन मनुष्य और जिन्न के लिए मात्र एक उपदेश और अनुस्मारक है।</td></tr>
 <tr class='gujarati' data-ayah='52'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૫૨. ખરેખર આ (કુરઆન) તો સમગ્ર માનવજાતિ માટે શિખામણ છે.</td></tr>
 <tr class='nepali' data-ayah='52'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>५२) वास्तवमा यो (कुरआन) त सबै संसारवालाहरूको निम्ति पूरै उपदेश हो ।</td></tr>
+<tr class='hindi-omari' data-ayah='52'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>हालाँकि वह सर्व संसार के लिए मात्र एक उपदेश है।</td></tr>
+<tr class='roman-urdu' data-ayah='52'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Halaanke yeh to sarey jahaan walon ke liye ek naseehat hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='52'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Darhaqeeqat yeh (quran) to tamam jahan walon kay liye sarasir naseehat hi hai</td></tr>
 </tbody></table></div>
 <nav class='chapter-nav'><span><a href='067.html'>&laquo; Surah 67</a></span><span><a href='069.html'>Surah 69 &raquo;</a></span></nav>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal</footer>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
 (function(){
   var cfList=document.getElementById('cf-list');
@@ -990,22 +1232,42 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   var maxVerse=toInput?+toInput.max:0;
   var vcFrom=1,vcTo=maxVerse;
   var enabledTypes=new Set();
+
+  /* ---- Apply config defaults + user overrides to checkboxes ---- */
+  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
   if(cfList){
     cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
-      if(cb.checked)enabledTypes.add(cb.dataset.rowclass);
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=defaults.hasOwnProperty(key)?defaults[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
     });
     cfList.addEventListener('change',function(e){
       if(e.target.type!=='checkbox')return;
       if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
       else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
       applyAllRows();
     });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('quran-cf',JSON.stringify(prefs));}catch(e){}
   }
   function applyAllRows(){
     document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
       var ayah=+tr.dataset.ayah;
       var inRange=(ayah>=vcFrom&&ayah<=vcTo);
-      if(tr.classList.contains('ayah-sep')){
+      if(tr.classList.contains('ayah-sep')||tr.classList.contains('juz-marker')){
         tr.style.display=inRange?'':'none';
       }else{
         var typeEnabled=false;
@@ -1053,6 +1315,75 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   };
   loadHash();
   applyAllRows();
+
+  /* ---- Font size control ---- */
+  var FS_KEY='qfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy verse ---- */
+  window.copyVerse=function(btn,sura,ayah){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+sura+':'+ayah+']'];
+    if(tbod){
+      tbod.querySelectorAll('tr[data-ayah="'+ayah+'"]').forEach(function(tr){
+        if(tr.classList.contains('ayah-sep'))return;
+        if(tr.classList.contains('audio'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Verse permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#'+a.dataset.ayah;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#'+a.dataset.ayah);
+    });
+  });
 })();
 </script>
 </body>

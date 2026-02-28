@@ -6,6 +6,199 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] — 2026-02-27 (new translations from fawazahmed0/quran-api)
+
+### Added
+- **27 new data files** (all 6,236 ayahs each) downloaded from fawazahmed0/quran-api and
+  converted to one-line-per-ayah plain text in `data/`:
+
+  **21 new English translations:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/en.aishabewley.txt` | Aisha Bewley | `output/quran_english_aishabewley.txt` |
+  | `data/en.aliunal.txt` | Ali Unal | `output/quran_english_aliunal.txt` |
+  | `data/en.lalehbakhtiar.txt` | Dr. Laleh Bakhtiar | `output/quran_english_lalehbakhtiar.txt` |
+  | `data/en.edwardpalmer.txt` | Edward Henry Palmer | `output/quran_english_edwardpalmer.txt` |
+  | `data/en.farookmalik.txt` | Farook Malik | `output/quran_english_farookmalik.txt` |
+  | `data/en.georgesale.txt` | George Sale | `output/quran_english_georgesale.txt` |
+  | `data/en.hamidsaziz.txt` | Hamid S. Aziz | `output/quran_english_hamidsaziz.txt` |
+  | `data/en.johnrodwell.txt` | John Medows Rodwell | `output/quran_english_johnrodwell.txt` |
+  | `data/en.literal.txt` | Literal / Word for Word | `output/quran_english_literal.txt` |
+  | `data/en.miraneesuddin.txt` | Mir Aneesuddin | `output/quran_english_miraneesuddin.txt` |
+  | `data/en.mohammadshafi.txt` | Mohammad Shafi | `output/quran_english_mohammadshafi.txt` |
+  | `data/en.muhammadghali.txt` | Muhammad Mahmoud Ghali | `output/quran_english_muhammadghali.txt` |
+  | `data/en.khattab.txt` | Mustafa Khattab (The Clear Quran) | `output/quran_english_khattab.txt` |
+  | `data/en.njdawood.txt` | N. J. Dawood | `output/quran_english_njdawood.txt` |
+  | `data/en.safikaskas.txt` | Safi Kaskas | `output/quran_english_safikaskas.txt` |
+  | `data/en.shabbirahmed.txt` | Shabbir Ahmed | `output/quran_english_shabbirahmed.txt` |
+  | `data/en.syedvickar.txt` | Syed Vickar Ahamed | `output/quran_english_syedvickar.txt` |
+  | `data/en.itaninew.txt` | Talal Itani (New Translation) | `output/quran_english_itaninew.txt` |
+  | `data/en.tbirving.txt` | T. B. Irving | `output/quran_english_tbirving.txt` |
+  | `data/en.monotheist.txt` | The Monotheist Group | `output/quran_english_monotheist.txt` |
+  | `data/en.ummmuhammad.txt` | Umm Muhammad | `output/quran_english_ummmuhammad.txt` |
+
+  **3 Romanized Hindi translations:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/hi.roman.farooq.txt` | Muhammad Farooq Khan & Muhammad Ahmed | `output/quran_roman_hindi_farooq.txt` |
+  | `data/hi.roman.suhail.txt` | Suhel Farooq Khan & Saifur Rahman Nadwi | `output/quran_roman_hindi_suhail.txt` |
+  | `data/hi.roman.omari.txt` | Maulana Azizul Haque Al-Umari | `output/quran_roman_hindi_omari.txt` |
+
+  **2 new Urdu translations:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/ur.karamshah.txt` | Muhammad Karam Shah Al-Azhari | `output/quran_urdu_karamshah.txt` |
+  | `data/ur.taqiusmani.txt` | Muhammad Taqi Usmani | `output/quran_urdu_taqiusmani.txt` |
+
+  **1 Romanized Gujarati translation:**
+  | Data file | Translator | Output file |
+  |---|---|---|
+  | `data/gu.roman.rabila.txt` | Rabila Al-Omari | `output/quran_roman_gujarati_rabila.txt` |
+
+- **`src/gentxtforquran.py`**: 27 new entries in the `translations` list; added `Roman-Hindi`
+  and `Roman-Gujarati` language type headers → generator now produces **71 output files**.
+- **README.md**: `data/` and `output/` directory trees updated with all new files.
+
+
+
+### Changed
+- **Repository reorganization** — consolidated the `trans/` directory into `data/` so all
+  source data files live in one place:
+  - `trans/en.transliteration.txt` → `data/en.transliteration.tanzil.txt`
+    (renamed to distinguish from the plain `data/en.transliteration.txt`;
+    this is the Tanzil.net format with HTML markup tags, used by `gendocshtml.py`)
+  - `trans/en.pickthall.txt` (Tanzil.net sura|ayah|text format) → `data/en.pickthall.tanzil.txt`
+  - `trans/en.sahih.trans.zip` → `data/en.sahih.trans.zip`
+  - `trans/` directory removed; `src/gendocshtml.py` updated to reference
+    `data/en.transliteration.tanzil.txt`
+- **HTML responsive redesign** — all 114 surah pages, `index.html`, and `search.html`
+  regenerated with improved mobile layout:
+  - **Responsive table** (`@media(max-width:600px)`): `<thead>` hidden; each `<td>` renders
+    as a block element so label and content stack vertically rather than side-by-side,
+    eliminating horizontal overflow on phones.
+  - Surah grid `minmax` reduced to `160px` (was `180px`) for better fit on mid-size phones.
+  - Extra breakpoint `@media(max-width:380px)` reduces grid cards to `130px` min width.
+  - Print stylesheet updated: restores full table layout (`display:table-cell!important`)
+    so printed output is unaffected by the mobile block-display rules.
+  - Search page result-card headers now `flex-wrap:wrap` so long surah names don't overflow.
+  - All interactive buttons (search, pagination) raised to `min-height:44px` for touch targets.
+  - Footer line-height and font-size improved for better readability.
+- **README.md** — repository structure tree updated to reflect the consolidated `data/`
+  directory (removed `trans/` subtree, added new `data/` entries).
+
+
+- **12 new English Quran translations** — data files and generated output txt files:
+
+  | Translator | Data file | Output file | Source |
+  |-----------|-----------|-------------|--------|
+  | Ahmed Ali | `data/en.ahmedali.txt` | `output/quran_english_ahmedali.txt` | tanzil.net |
+  | Ahmed Raza Khan | `data/en.ahmedraza.txt` | `output/quran_english_ahmedraza.txt` | tanzil.net |
+  | A. J. Arberry | `data/en.arberry.txt` | `output/quran_english_arberry.txt` | tanzil.net |
+  | Abdul Majid Daryabadi | `data/en.daryabadi.txt` | `output/quran_english_daryabadi.txt` | tanzil.net |
+  | Talal Itani | `data/en.itani.txt` | `output/quran_english_itani.txt` | tanzil.net |
+  | Abul Ala Maududi | `data/en.maududi.txt` | `output/quran_english_maududi.txt` | tanzil.net |
+  | Safi-ur-Rahman al-Mubarakpuri | `data/en.mubarakpuri.txt` | `output/quran_english_mubarakpuri.txt` | tanzil.net |
+  | Hasan al-Fatih Qaribullah & Ahmad Darwish | `data/en.qaribullah.txt` | `output/quran_english_qaribullah.txt` | tanzil.net |
+  | Muhammad Sarwar | `data/en.sarwar.txt` | `output/quran_english_sarwar.txt` | tanzil.net |
+  | Mohammad Habib Shakir | `data/en.shakir.txt` | `output/quran_english_shakir.txt` | tanzil.net |
+  | Wahiduddin Khan | `data/en.wahiduddin.txt` | `output/quran_english_wahiduddin.txt` | tanzil.net |
+  | Rowwad Translation Center | `data/en.rwwad.txt` | `output/quran_english_rwwad.txt` | quranenc.com |
+
+  All output files have exactly 6,236 ayahs in `[sura:ayah] text` format grouped by surah.
+  - Tanzil.net files are in `sura|ayah|text` format; embedded BOM stripped from `en.wahiduddin.txt`.
+  - Rowwad file fetched from `quranenc.com/api/v1/translation/sura/english_rwwad/`; footnote
+    markers `[N]` stripped, whitespace normalized.
+
+- **3 additional widely-circulated English translations** — fetched from public APIs:
+
+  | Translator | Data file | Output file | Source |
+  |-----------|-----------|-------------|--------|
+  | Muhammad Asad | `data/en.asad.txt` | `output/quran_english_asad.txt` | alquran.cloud |
+  | Mufti Taqi Usmani | `data/en.usmani.txt` | `output/quran_english_usmani.txt` | quran.com |
+  | M.A.S. Abdel Haleem | `data/en.abdelhaleem.txt` | `output/quran_english_abdelhaleem.txt` | quran.com |
+
+  All three fetched as one-line-per-ayah (plain text, HTML tags stripped); 6,236 ayahs each.
+  - `en.asad.txt`: full Quran via `api.alquran.cloud/v1/quran/en.asad` (single call).
+  - `en.usmani.txt`, `en.abdelhaleem.txt`: per-surah via `api.quran.com/api/v4/verses/by_chapter`
+    (translation IDs 84 and 85 respectively); HTML tags stripped.
+
+- **Hindi translation by Azizul Haq Al-Omari** (`data/hi.omari.txt`) — fetched from
+  [quranenc.com](https://quranenc.com) API (`hindi_omari`); all 6 236 ayahs, one per
+  line, footnote markers stripped, whitespace normalized.
+  - Output file: `output/quran_hindi_omari.txt` (generated by `src/gentxtforquran.py`).
+  - Displayed as a new row per ayah (`हिन्दी (Al-Omari)`) on every surah page in `docs/`.
+  - New CSS classes `.hindi-omari` (row background `#fff0f5`, dark mode `#200010`) and
+    `.hindi-omari-text` (Noto Sans Devanagari font, `lang="hi"` attribute, color `#880e30`).
+  - Checkbox added to the Verse & Content Filter widget on every surah page
+    (`हिन्दी (Al-Omari)`, unchecked by default).
+  - Footer and source-attribution block on `docs/index.html` updated to credit
+    Azizul Haq Al-Omari and quranenc.com.
+
+### Changed
+- `src/gentxtforquran.py` now generates forty-four output files (previously twelve);
+  added `Urdu-SuraAyah`, `Urdu`, and `Roman-Urdu` language types; fourteen new Urdu/Roman-Urdu
+  translations appended to the `translations` list.
+- `src/gendocshtml.py` updated to include Roman Urdu (Maududi) on every surah page:
+  loads `output/quran_roman_urdu_maududi.txt`; new `.roman-urdu` / `.roman-urdu-text`
+  CSS classes (light yellow-green `#f0f4c3`, dark mode `#1a2000`); new Content Filter
+  checkbox (`Roman Urdu (Maududi)`, unchecked by default); footer and index.html
+  attribution updated; all 114 surah HTML files and index/search pages regenerated.
+- `README.md` updated: directory layout, data-sources table, output-file table, and
+  translations table updated to include all new Urdu files.
+
+---
+
+## [Unreleased] — 2026-02-27 (Urdu translations)
+
+### Added
+- **13 Urdu Quran translations** — data files and generated output txt files:
+
+  **From Tanzil.net** (`sura|ayah|text` format):
+
+  | Translator | Data file | Output file |
+  |-----------|-----------|-------------|
+  | Fateh Muhammad Jalandhry | `data/ur.jalandhry.txt` | `output/quran_urdu_jalandhry.txt` |
+  | Ahmed Ali | `data/ur.ahmedali.txt` | `output/quran_urdu_ahmedali.txt` |
+  | Syed Zeeshan Haider Jawadi | `data/ur.jawadi.txt` | `output/quran_urdu_jawadi.txt` |
+  | Ahmed Raza Khan (Kanz ul Iman) | `data/ur.kanzuliman.txt` | `output/quran_urdu_kanzuliman.txt` |
+  | Abul Ala Maududi | `data/ur.maududi.txt` | `output/quran_urdu_maududi.txt` |
+  | Tahir ul Qadri | `data/ur.qadri.txt` | `output/quran_urdu_qadri.txt` |
+  | Muhammad Junagarhi | `data/ur.junagarhi.txt` | `output/quran_urdu_junagarhi.txt` |
+  | Muhammad Husain Najafi | `data/ur.najafi.txt` | `output/quran_urdu_najafi.txt` |
+
+  **From quran.com API** (one-line-per-ayah, HTML tags stripped):
+
+  | Translator | Data file | Output file | quran.com ID |
+  |-----------|-----------|-------------|-------------|
+  | Shaykh al-Hind Mahmud al-Hasan | `data/ur.mahmudalhasan.txt` | `output/quran_urdu_mahmudalhasan.txt` | 151 |
+  | Sayyid Ibrahim Qutb (Fe Zilal al-Quran) | `data/ur.zilalquran.txt` | `output/quran_urdu_zilalquran.txt` | 156 |
+  | Dr. Israr Ahmad (Bayan-ul-Quran) | `data/ur.bayanulquran.txt` | `output/quran_urdu_bayanulquran.txt` | 158 |
+  | Maulana Wahiduddin Khan | `data/ur.wahiduddin.txt` | `output/quran_urdu_wahiduddin.txt` | 819 |
+  | Abul Ala Maududi (Roman Urdu) | `data/ur.romanmaududi.txt` | `output/quran_roman_urdu_maududi.txt` | 831 |
+
+  All 13 output files verified: exactly 6,236 ayahs each in `[sura:ayah] text` format.
+  - Tanzil.net files use the new `Urdu-SuraAyah` parser (same as `English-SuraAyah`).
+  - quran.com files use the new `Urdu` / `Roman-Urdu` parsers (one-line-per-ayah).
+
+- **1 additional Roman Urdu translation** — Muhammad Junagarhi, sourced from
+  [fawazahmed0/quran-api](https://github.com/fawazahmed0/quran-api) via jsdelivr CDN
+  (`urd-muhammadjunagar-la` edition):
+  - Data file: `data/ur.romanjunagarhi.txt` (one line per ayah, 6,236 ayahs).
+  - Output file: `output/quran_roman_urdu_junagarhi.txt`.
+  - Verified as the only additional Roman Urdu translation available after exhaustive
+    audit of tanzil.net, alquran.cloud, quran.com, quranenc.com, and fawazahmed0/quran-api.
+
+- **Roman Urdu added to HTML website** (`docs/`)  — every surah page now includes a
+  Roman Urdu row (Abul Ala Maududi, quran.com ID 831):
+  - Loaded from `output/quran_roman_urdu_maududi.txt`.
+  - New CSS classes `.roman-urdu` (row background `#f0f4c3`, dark mode `#1a2000`) and
+    `.roman-urdu-text` (`lang="ur-Latn"`, color `#33691e`, font-weight 500).
+  - Content Filter checkbox `Roman Urdu (Maududi)` added (unchecked by default).
+  - Table header, footer, and `docs/index.html` attribution updated.
+  - All 114 surah HTML files regenerated.
+
+---
+
 ## [Unreleased] — 2026-02-24
 
 ### Changed

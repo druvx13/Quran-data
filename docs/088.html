@@ -16,10 +16,11 @@ header a:hover{text-decoration:underline}
 main{padding:16px;max-width:900px;margin:0 auto}
 h1{font-size:1.4em;margin:0 0 12px}
 h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
-.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:16px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
 .surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
   border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
 .surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
 .notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
 .notice summary{cursor:pointer}
 .table-wrap{overflow-x:auto;width:100%}
@@ -27,7 +28,7 @@ table{width:100%;border-collapse:collapse;margin-bottom:24px}
 th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
 td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
-.label{color:#888;font-size:.82em;white-space:nowrap;width:110px}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
 .translit td{background:#f0f4f8}
 .translit-unicode td{background:#e8eaf6}
 .trans td{background:#fff}
@@ -51,6 +52,12 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .gujarati-text{font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
 .nepali td{background:#e8f5f0}
 .nepali-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
+.hindi-omari td{background:#fff0f5}
+.hindi-omari-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
+.roman-urdu td{background:#f0f4c3}
+.roman-urdu-text{font-style:normal;font-weight:500;color:#33691e}
+.roman-urdu-junagarhi td{background:#e8f5e9}
+.roman-urdu-junagarhi-text{font-style:normal;font-weight:500;color:#1b5e20}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -58,7 +65,9 @@ nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8p
 nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
   border-radius:4px;text-decoration:none;font-size:.95em}
 nav.chapter-nav a:hover{background:#2a5a8c}
-footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
 .surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
 .surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
 .verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
@@ -68,7 +77,7 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
 .vc-arrow{color:#1a3a5c;transition:transform .2s}
 .verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
-.vc-body{padding:10px 14px}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
 .vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
 .vc-controls button:hover{background:#2a5a8c}
@@ -83,7 +92,27 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 .cf-item label:hover{background:#dde8f2}
 .cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
 .cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
-@media(max-width:600px){.vc-controls button{min-height:44px}.cf-item label{min-height:44px;padding:8px 10px}}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  .audio-player{max-width:100%;height:40px}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
 .noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
 @media(prefers-color-scheme:dark){
   body{background:#121212;color:#e8e8e8}
@@ -108,8 +137,12 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .nepali td{background:#0a1e18}
   .audio td{background:#0d2228}
   .arabic td{background:#2a2010}
+  .hindi-omari td{background:#200010}
+  .roman-urdu td{background:#1a2000}
+  .roman-urdu-junagarhi td{background:#0a1a00}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
   .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
   .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
   .verse-chooser{background:#1e2a3a;border-color:#334}
   .verse-chooser summary{background:#162030}
@@ -120,6 +153,7 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .cf-item label:hover{background:#263650}
   .cf-item input:checked+label{background:#1a3a5c;color:#fff}
   footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
   th{background:#0d2136}
   .translit-unicode-text{color:#9fa8da}
   .hindi-text{color:#b39ddb}
@@ -128,25 +162,77 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   .gujarati-text{color:#f48fb1}
   .trans-hilali-text{color:#ce93d8}
   .nepali-text{color:#80cbc4}
+  .hindi-omari-text{color:#f48fb1}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
 }
 @media print{
   header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
   body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
   td{border-color:#999;color:#000;background:#fff!important}
   .arabic-text{font-size:1.3em}
   .ayah-sep td{background:#ddd!important;color:#000!important}
   tr[data-ayah]{display:table-row!important}
 }
+.surah-info-bar{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;
+  padding:8px 12px;background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;
+  margin-bottom:14px;font-size:.88em;color:#1a3a5c}
+.surah-info-bar span{white-space:nowrap}
+.sib-type{font-weight:700;padding:2px 8px;border-radius:10px;font-size:.95em}
+.sib-type.meccan{background:#fff8e1;color:#e65100;border:1px solid #ffcc80}
+.sib-type.medinan{background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7}
+.juz-marker td{background:#1a3a5c;color:#ffd54f;font-weight:700;font-size:.85em;
+  padding:5px 12px;letter-spacing:.04em;border-color:#1a3a5c;text-align:center}
+.sajda-badge{display:inline-flex;align-items:center;gap:4px;
+  background:#e8f5e9;color:#1b5e20;font-size:.78em;font-weight:600;
+  padding:1px 6px;border-radius:8px;border:1px solid #a5d6a7;margin-left:8px;
+  vertical-align:middle}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+@media(prefers-color-scheme:dark){
+  .surah-info-bar{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .sib-type.meccan{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
+  .sib-type.medinan{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .juz-marker td{background:#0d2136;border-color:#0d2136}
+  .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html' selected>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html' selected>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah 88: Al-Ghashiyah (The Overwhelming Event)</h1>
+<div class='surah-info-bar'><span class='sib-type meccan'>Meccan</span><span>&#128336;&nbsp;Revelation&nbsp;#68</span><span>&#128220;&nbsp;26 Verses</span><span>&#128366;&nbsp;Juz&nbsp;1</span></div>
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
-<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='26' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='26' value='26'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic' checked><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio' checked><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode' checked><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf' checked><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail' checked><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar' checked><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span></div></div></details>
-<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan &amp; Suhail) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith)</th></tr></thead><tbody>
-<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'>Ayah 1</td></tr>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='26' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='26' value='26'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic'><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio'><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode'><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf'><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail'><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar'><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span><span class='cf-item'><input type='checkbox' id='cf-15' data-rowclass='hindi-omari'><label for='cf-15'>हिन्दी (Al-Omari)</label></span><span class='cf-item'><input type='checkbox' id='cf-16' data-rowclass='roman-urdu'><label for='cf-16'>Roman Urdu (Maududi)</label></span><span class='cf-item'><input type='checkbox' id='cf-17' data-rowclass='roman-urdu-junagarhi'><label for='cf-17'>Roman Urdu (Junagarhi)</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
+<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'><a class='permalink' href='#1' data-ayah='1'>Ayah 1</a><button class='copy-btn' onclick='copyVerse(this,88,1)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>هَل أَتاكَ حَديثُ الغاشِيَةِ</td></tr>
 <tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088001.mp3' title='Surah 88, Ayah 1 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Hal at<u>a</u>ka <u>h</u>adeethu algh<u>a</u>shiyat<b>i</b></td></tr>
@@ -162,7 +248,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या (ऐ रसूल) आपके पास उस क़ियामत की ख़बर पहुँची, जिसकी भयावहता लोगों को घेर लेगी?!</td></tr>
 <tr class='gujarati' data-ayah='1'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧. શું તમારી પાસે છવાઈ જનારી (કયામત) ની વાત પહોંચી?</td></tr>
 <tr class='nepali' data-ayah='1'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१) के तिमीलाई पनि त्यस घेरीहाल्ने कियामतको समाचार पुगेको छ ?</td></tr>
-<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'>Ayah 2</td></tr>
+<tr class='hindi-omari' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>क्या तेरे पास ढाँपने लेने वाली (क़ियामत) की ख़बर पहुँची?</td></tr>
+<tr class='roman-urdu' data-ayah='1'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Kya tumhein us chaa janey wali aafat ki khabar pahunchi hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='1'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kiya tujhy bhi chopa lyney wali(qiyamat) ki khabar phunchi hay</td></tr>
+<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'><a class='permalink' href='#2' data-ayah='2'>Ayah 2</a><button class='copy-btn' onclick='copyVerse(this,88,2)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وُجوهٌ يَومَئِذٍ خاشِعَةٌ</td></tr>
 <tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088002.mp3' title='Surah 88, Ayah 2 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wujoohun yawmai<u>th</u>in kh<u>a</u>shiAAa<b>tun</b></td></tr>
@@ -178,7 +267,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क़ियामत के दिन लोग या तो दुर्भाग्यशाली होंगे और या तो सौभाग्यशाली। चुनाँचे दुर्भाग्यशाली लोगों के चेहरे अपमानित और झुके हुए होंगे।</td></tr>
 <tr class='gujarati' data-ayah='2'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨. તે દિવસે કેટલાક ચહેરા ભયભીત હશે.</td></tr>
 <tr class='nepali' data-ayah='2'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२) त्यस दिन धेरै अनुहारहरू अपमानित हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'>Ayah 3</td></tr>
+<tr class='hindi-omari' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उस दिन कई चेहरे अपमानित होंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='2'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Kuch chehrey us roz khauff zada hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='2'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Us din bohat say chehry zalil hongy</td></tr>
+<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'><a class='permalink' href='#3' data-ayah='3'>Ayah 3</a><button class='copy-btn' onclick='copyVerse(this,88,3)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>عامِلَةٌ ناصِبَةٌ</td></tr>
 <tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088003.mp3' title='Surah 88, Ayah 3 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>AA<u>a</u>milatun n<u>as</u>iba<b>tun</b></td></tr>
@@ -194,7 +286,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे जिन ज़ंजीरों में बाँधकर खींचे जाएँगे और जिन बेड़ियों में जकड़े हुए होंगे, उनके कारण थके-हारे होंगे।</td></tr>
 <tr class='gujarati' data-ayah='3'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૩. (અને) પરિશ્રમ કરનારા થાકેલા હશે.</td></tr>
 <tr class='nepali' data-ayah='3'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>३) कठिन परिश्रममा परेका, थाकिएका (थकित) हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'>Ayah 4</td></tr>
+<tr class='hindi-omari' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>कठिन परिश्रम करने वाले, थक जाने वाले।</td></tr>
+<tr class='roman-urdu' data-ayah='3'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Sakht mashakkat kar rahe hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='3'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>(aur) mehnat kerney walay thakay huye hongay</td></tr>
+<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'><a class='permalink' href='#4' data-ayah='4'>Ayah 4</a><button class='copy-btn' onclick='copyVerse(this,88,4)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>تَصلىٰ نارًا حامِيَةً</td></tr>
 <tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088004.mp3' title='Surah 88, Ayah 4 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ta<u>s</u>l<u>a</u> n<u>a</u>ran <u>ha</u>miya<b>tan</b></td></tr>
@@ -210,7 +305,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे चेहरे एक गर्म आग में प्रवेश कर उसकी तपिश झेलेंगे।</td></tr>
 <tr class='gujarati' data-ayah='4'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૪. તેઓ ભડકતી આગમાં જશે.</td></tr>
 <tr class='nepali' data-ayah='4'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>४) उनी धपधपी बलेको आगोमा प्रवेश गर्नेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'>Ayah 5</td></tr>
+<tr class='hindi-omari' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>वे गर्म धधकती आग में प्रवेश करेंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='4'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Thakey jatey hongey, shadeed aag mei jhulas rahe hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='4'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Woh dehakti hoi aag mein jaein gy</td></tr>
+<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'><a class='permalink' href='#5' data-ayah='5'>Ayah 5</a><button class='copy-btn' onclick='copyVerse(this,88,5)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>تُسقىٰ مِن عَينٍ آنِيَةٍ</td></tr>
 <tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088005.mp3' title='Surah 88, Ayah 5 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Tusq<u>a</u> min AAaynin <u>a</u>niya<b>tin</b></td></tr>
@@ -226,7 +324,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उन्हें ऐसे चशमे का पानी पिलाया जाएगा, जिसका पानी सख़्त गर्म होगा।</td></tr>
 <tr class='gujarati' data-ayah='5'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૫. અતિશય ઉકળતા ઝરણાનું પાણી તેઓને પીવડાવવામાં આવશે.</td></tr>
 <tr class='nepali' data-ayah='5'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>५) उनीहरूलाई उम्लिराखेको स्रोतको तातो पानी पिलाइनेछ ।</td></tr>
-<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'>Ayah 6</td></tr>
+<tr class='hindi-omari' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उन्हें खौलते सोते का जल पिलाया जाएगा।</td></tr>
+<tr class='roman-urdu' data-ayah='5'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>khaultey(boiling) huey chashmey(spring) ka paani unhei peene ko diya jaeyga</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='5'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur nihayat garm chasmy ka pani unko pilaya jaey ga</td></tr>
+<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'><a class='permalink' href='#6' data-ayah='6'>Ayah 6</a><button class='copy-btn' onclick='copyVerse(this,88,6)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لَيسَ لَهُم طَعامٌ إِلّا مِن ضَريعٍ</td></tr>
 <tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088006.mp3' title='Surah 88, Ayah 6 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Laysa lahum <u>t</u>aAA<u>a</u>mun ill<u>a</u> min <u>d</u>areeAA<b>in</b></td></tr>
@@ -242,7 +343,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उनके लिए शिबरिक़ नामक पौधे के सबसे बुरे और बदबूदार खाने को छोड़कर भोजन करने के लिए कोई खाना नहीं होगा, जो सूखने के बाद ज़हरीला बन जाता है।</td></tr>
 <tr class='gujarati' data-ayah='6'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૬. તેમના માટે કાંટાવાળા સુકા ઘાસ સિવાય કંઇ ભોજન નહીં હોય.</td></tr>
 <tr class='nepali' data-ayah='6'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>६) उनीहरूको लागि काँडावाला रुख बाहेक अरु केही खानेकुरा हुनेछैन ।</td></tr>
-<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'>Ayah 7</td></tr>
+<tr class='hindi-omari' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उनके लिए कांटेदार झाड़ के सिवा कोई खाना नहीं होगा।</td></tr>
+<tr class='roman-urdu' data-ayah='6'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>khar-dar(kaante-daar) sukhi ghaans ke siwa koi khana unke liye na hoga</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='6'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>in kay liey siway-e-kanty dar darkhton kay aur kuch khana na hoga</td></tr>
+<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'><a class='permalink' href='#7' data-ayah='7'>Ayah 7</a><button class='copy-btn' onclick='copyVerse(this,88,7)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='7'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لا يُسمِنُ وَلا يُغني مِن جوعٍ</td></tr>
 <tr class='audio' data-ayah='7'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088007.mp3' title='Surah 88, Ayah 7 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='7'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>L<u>a</u> yusminu wal<u>a</u> yughnee min jooAA<b>in</b></td></tr>
@@ -258,7 +362,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वह न उसके खाने वाले को मोटा करेगा और न उसकी भूख मिटाएगा।</td></tr>
 <tr class='gujarati' data-ayah='7'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૭. જે ન હૃષ્ટપૃષ્ટ કરશે અને ન ભુખ દૂર કરશે.</td></tr>
 <tr class='nepali' data-ayah='7'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>७) जसले न मोटो गर्नेछ न भोक नै मेटाउनेछ ।</td></tr>
-<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'>Ayah 8</td></tr>
+<tr class='hindi-omari' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>जो न मोटा करेगा और न भूख मिटाएगा।</td></tr>
+<tr class='roman-urdu' data-ayah='7'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Jo na mota karey na bhook mitaye</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='7'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Jo na mota karey ga na bhook mitaey ga</td></tr>
+<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'><a class='permalink' href='#8' data-ayah='8'>Ayah 8</a><button class='copy-btn' onclick='copyVerse(this,88,8)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='8'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وُجوهٌ يَومَئِذٍ ناعِمَةٌ</td></tr>
 <tr class='audio' data-ayah='8'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088008.mp3' title='Surah 88, Ayah 8 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='8'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wujoohun yawmai<u>th</u>in n<u>a</u>AAima<b>tun</b></td></tr>
@@ -274,7 +381,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उस दिन सौभाग्यशाली लोगों के चेहरे, नेमतों के कारण, प्रफुल्लित और हर्षित होंगे।</td></tr>
 <tr class='gujarati' data-ayah='8'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૮. અને કેટલાક ચહેરા તે દિવસે તાજગીભર્યા અને (ખુશહાલ) હશે.</td></tr>
 <tr class='nepali' data-ayah='8'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>८) त्यसदिन कतिपय अनुहारहरू प्रफुल्लित र संतुष्ट हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='9' id='ayah-9'><td colspan='2'>Ayah 9</td></tr>
+<tr class='hindi-omari' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उस दिन कई चेहरे प्रफुल्लित होंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='8'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>kuch chehrey us roz ba-raunak hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='8'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Buhat say chehry usdin tar o taza aur(asoda hall) hongy</td></tr>
+<tr class='ayah-sep' data-ayah='9' id='ayah-9'><td colspan='2'><a class='permalink' href='#9' data-ayah='9'>Ayah 9</a><button class='copy-btn' onclick='copyVerse(this,88,9)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='9'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لِسَعيِها راضِيَةٌ</td></tr>
 <tr class='audio' data-ayah='9'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088009.mp3' title='Surah 88, Ayah 9 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='9'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>LisaAAyih<u>a</u> r<u>ad</u>iya<b>tun</b></td></tr>
@@ -290,7 +400,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>वे दुनिया में अपने किए हुए नेक कार्य पर प्रसन्न होंगे। क्योंकि उन्हें अपने काम का सवाब कई गुना बढ़ाकर सहेजा हुआ मिलेगा।</td></tr>
 <tr class='gujarati' data-ayah='9'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૯. પોતાના પ્રયત્નોથી ખુશ હશે.</td></tr>
 <tr class='nepali' data-ayah='9'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>९) आफ्नो प्रयासमा प्रसन्न ।</td></tr>
-<tr class='ayah-sep' data-ayah='10' id='ayah-10'><td colspan='2'>Ayah 10</td></tr>
+<tr class='hindi-omari' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अपने प्रयास पर प्रसन्न होंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='9'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Apne kar-guzari par khush hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='9'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Apni koshish per khush hongy</td></tr>
+<tr class='ayah-sep' data-ayah='10' id='ayah-10'><td colspan='2'><a class='permalink' href='#10' data-ayah='10'>Ayah 10</a><button class='copy-btn' onclick='copyVerse(this,88,10)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='10'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>في جَنَّةٍ عالِيَةٍ</td></tr>
 <tr class='audio' data-ayah='10'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088010.mp3' title='Surah 88, Ayah 10 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='10'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fee jannatin AA<u>a</u>liya<b>tin</b></td></tr>
@@ -306,7 +419,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>ऊँचे स्थान एवं उच्च स्थिति वाली जन्नत में होंगे।</td></tr>
 <tr class='gujarati' data-ayah='10'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૦. ઉચ્ચશ્રેણી ની જન્નતમાં હશે.</td></tr>
 <tr class='nepali' data-ayah='10'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१०) उच्च र शानदार स्वर्गमा हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='11' id='ayah-11'><td colspan='2'>Ayah 11</td></tr>
+<tr class='hindi-omari' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>ऊँची जन्नत में होंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='10'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aali muqaam jannat mein hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='10'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Buland o bala janaton mein hongay</td></tr>
+<tr class='ayah-sep' data-ayah='11' id='ayah-11'><td colspan='2'><a class='permalink' href='#11' data-ayah='11'>Ayah 11</a><button class='copy-btn' onclick='copyVerse(this,88,11)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='11'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لا تَسمَعُ فيها لاغِيَةً</td></tr>
 <tr class='audio' data-ayah='11'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088011.mp3' title='Surah 88, Ayah 11 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='11'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>L<u>a</u> tasmaAAu feeh<u>a</u> l<u>a</u>ghiya<b>tan</b></td></tr>
@@ -322,7 +438,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>जन्नत में कोई निषिद्ध बात सुनना तो दूर, कोई व्यर्थ और फालतू बात भी नहीं सुनेंगे।</td></tr>
 <tr class='gujarati' data-ayah='11'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૧. તેમાં કોઇ બકવાસ વાત નહી સાંભળે.</td></tr>
 <tr class='nepali' data-ayah='11'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>११) जसमा कुनै व्यर्थकुरा सुन्ने छैनन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='12' id='ayah-12'><td colspan='2'>Ayah 12</td></tr>
+<tr class='hindi-omari' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उसमें कोई बेकार (अशिष्ट) बात नहीं सुनेंगे।</td></tr>
+<tr class='roman-urdu' data-ayah='11'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>koi behuda baat wahan na sunengey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='11'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Jahan koi byhoda bat nahi sunein gaein</td></tr>
+<tr class='ayah-sep' data-ayah='12' id='ayah-12'><td colspan='2'><a class='permalink' href='#12' data-ayah='12'>Ayah 12</a><button class='copy-btn' onclick='copyVerse(this,88,12)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='12'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فيها عَينٌ جارِيَةٌ</td></tr>
 <tr class='audio' data-ayah='12'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088012.mp3' title='Surah 88, Ayah 12 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='12'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Feeh<u>a</u> AAaynun j<u>a</u>riya<b>tun</b></td></tr>
@@ -338,7 +457,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>इस जन्नत में बहने वाले चश्मे हैं, जिन्हें वे जैसे चाहेंगे बहा और फेर ले जाएँगे।</td></tr>
 <tr class='gujarati' data-ayah='12'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૨. તેમાં એક વહેતુ ઝરણું હશે.</td></tr>
 <tr class='nepali' data-ayah='12'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१२) त्यसमा झरनाहरू प्रवाहित हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='13' id='ayah-13'><td colspan='2'>Ayah 13</td></tr>
+<tr class='hindi-omari' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उसमें बहने वाले स्रोत (चश्मे) हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='12'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Usmein chasmey rawan hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='12'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Jahan bhyta hoa chashma hoga</td></tr>
+<tr class='ayah-sep' data-ayah='13' id='ayah-13'><td colspan='2'><a class='permalink' href='#13' data-ayah='13'>Ayah 13</a><button class='copy-btn' onclick='copyVerse(this,88,13)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='13'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فيها سُرُرٌ مَرفوعَةٌ</td></tr>
 <tr class='audio' data-ayah='13'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088013.mp3' title='Surah 88, Ayah 13 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='13'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Feeh<u>a</u> sururun marfooAAa<b>tun</b></td></tr>
@@ -354,7 +476,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>उसमें ऊँचे-ऊँचे तख्त हैं।</td></tr>
 <tr class='gujarati' data-ayah='13'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૩. (અને) તેમાં ઊંચા-ઊંચા આસન હશે.</td></tr>
 <tr class='nepali' data-ayah='13'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१३) र अग्ला–अग्ला पलंगहरू हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='14' id='ayah-14'><td colspan='2'>Ayah 14</td></tr>
+<tr class='hindi-omari' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>उसमें ऊँचे-ऊँचे तख्त हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='13'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Uske andar unchi masnadein hongi</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='13'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>(Aur) us mein onchy onchy takht hongy</td></tr>
+<tr class='ayah-sep' data-ayah='14' id='ayah-14'><td colspan='2'><a class='permalink' href='#14' data-ayah='14'>Ayah 14</a><button class='copy-btn' onclick='copyVerse(this,88,14)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='14'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَأَكوابٌ مَوضوعَةٌ</td></tr>
 <tr class='audio' data-ayah='14'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088014.mp3' title='Surah 88, Ayah 14 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='14'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Waakw<u>a</u>bun maw<u>d</u>ooAAa<b>tun</b></td></tr>
@@ -370,7 +495,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और पीने के लिए तैयार रखे हुए प्याले हैं।</td></tr>
 <tr class='gujarati' data-ayah='14'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૪. તેમાં સામે મુકેલા પ્યાલા (હશે).</td></tr>
 <tr class='nepali' data-ayah='14'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१४) प्यालाहरू राम्ररी सजाएर राखिएका हुनेछन्) ।</td></tr>
-<tr class='ayah-sep' data-ayah='15' id='ayah-15'><td colspan='2'>Ayah 15</td></tr>
+<tr class='hindi-omari' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और (पीने वालों के लिए तैयार) रखे हुए प्याले हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='14'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Sagar rakhey huey hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='14'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur aabkhory rakhy hoy(hongy)</td></tr>
+<tr class='ayah-sep' data-ayah='15' id='ayah-15'><td colspan='2'><a class='permalink' href='#15' data-ayah='15'>Ayah 15</a><button class='copy-btn' onclick='copyVerse(this,88,15)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='15'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَنَمارِقُ مَصفوفَةٌ</td></tr>
 <tr class='audio' data-ayah='15'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088015.mp3' title='Surah 88, Ayah 15 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='15'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wanam<u>a</u>riqu ma<u>s</u>foofa<b>tun</b></td></tr>
@@ -386,7 +514,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और उसमें क्रम से रखे हुए तकिए हैं।</td></tr>
 <tr class='gujarati' data-ayah='15'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૫. અને એક કતારમાં મુકેલા તકીયા હશે.</td></tr>
 <tr class='nepali' data-ayah='15'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१५) र क्रमैसित मसनदहरू (सिरानीहरू) सजाइएका हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='16' id='ayah-16'><td colspan='2'>Ayah 16</td></tr>
+<tr class='hindi-omari' data-ayah='15'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और क्रम में लगे हुए गाव-तकिए हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='15'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>gaon takiyon(cushions arrayed) ke qatarein lagi hongi</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='15'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur ik qatar mein lagy hoy takiey hongy</td></tr>
+<tr class='ayah-sep' data-ayah='16' id='ayah-16'><td colspan='2'><a class='permalink' href='#16' data-ayah='16'>Ayah 16</a><button class='copy-btn' onclick='copyVerse(this,88,16)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='16'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَزَرابِيُّ مَبثوثَةٌ</td></tr>
 <tr class='audio' data-ayah='16'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088016.mp3' title='Surah 88, Ayah 16 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='16'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wazar<u>a</u>biyyu mabthootha<b>tun</b></td></tr>
@@ -402,7 +533,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और उसमें जगह-जगह बिछे हुए बहुत-से क़ालीन हैं।</td></tr>
 <tr class='gujarati' data-ayah='16'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૬. અને મખમલી જાજમો ફેલાયેલી હશે.</td></tr>
 <tr class='nepali' data-ayah='16'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१६) र मखमली ओच्छ्यानहरू ओछ्याइएका हुनेछन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='17' id='ayah-17'><td colspan='2'>Ayah 17</td></tr>
+<tr class='hindi-omari' data-ayah='16'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और बिछाए हुए क़ालीन हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='16'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur nafees farsh bichey huey hongey</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='16'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur makhmali masnadein pheli pari hongi</td></tr>
+<tr class='ayah-sep' data-ayah='17' id='ayah-17'><td colspan='2'><a class='permalink' href='#17' data-ayah='17'>Ayah 17</a><button class='copy-btn' onclick='copyVerse(this,88,17)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='17'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>أَفَلا يَنظُرونَ إِلَى الإِبِلِ كَيفَ خُلِقَت</td></tr>
 <tr class='audio' data-ayah='17'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088017.mp3' title='Surah 88, Ayah 17 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='17'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Afal<u>a</u> yan<i><u>th</u></i>uroona il<u>a</u> alibili kayfa khuliqat</td></tr>
@@ -418,7 +552,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>क्या वे ऊँट को ध्यान से नहीं देखते कि अल्लाह ने उसे कैसे पैदा बनाया और उसे आदम की संतान के लिए अधीन कर दिया?!</td></tr>
 <tr class='gujarati' data-ayah='17'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૭. શું તેઓ ઊંટ તરફ જોતા નથી કે તે કઇ રીતે પેદા કરવામાં આવ્યુ છે?</td></tr>
 <tr class='nepali' data-ayah='17'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१७) के उनीहरूले ऊँटतिर देख्दैनन् कि तिनीहरू कुन तरिकाले पैदा गरिएका छन् ।</td></tr>
-<tr class='ayah-sep' data-ayah='18' id='ayah-18'><td colspan='2'>Ayah 18</td></tr>
+<tr class='hindi-omari' data-ayah='17'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>क्या वे ऊँटों को नहीं देखते कि वे कैसे पैदा किए गए हैं?</td></tr>
+<tr class='roman-urdu' data-ayah='17'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>(yeh log nahin mantey) to kya yeh unton ko nahin dekhtey ke kaisey banaye gaye</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='17'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Kiya yeh onton ko nahi dekhty kay wok is tarah paida kiey gay hein</td></tr>
+<tr class='ayah-sep' data-ayah='18' id='ayah-18'><td colspan='2'><a class='permalink' href='#18' data-ayah='18'>Ayah 18</a><button class='copy-btn' onclick='copyVerse(this,88,18)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='18'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِلَى السَّماءِ كَيفَ رُفِعَت</td></tr>
 <tr class='audio' data-ayah='18'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088018.mp3' title='Surah 88, Ayah 18 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='18'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wail<u>a</u> a<b>l</b>ssam<u>a</u>i kayfa rufiAAat</td></tr>
@@ -434,7 +571,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और आसमान को नहीं देखते कि उसे कैसे ऊँचा किया यहाँ तक कि वह उनके ऊपर एक सुरक्षित छत बन गया, जो उनपर गिरता नहीं है?!</td></tr>
 <tr class='gujarati' data-ayah='18'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૮. અને આકાશ તરફ, કે કઇ રીતે ઊંચુ કરવામાં આવ્યું છે?</td></tr>
 <tr class='nepali' data-ayah='18'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१८) र आकाशतिर के कस्तो उच्च गरिएको छ ?</td></tr>
-<tr class='ayah-sep' data-ayah='19' id='ayah-19'><td colspan='2'>Ayah 19</td></tr>
+<tr class='hindi-omari' data-ayah='18'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और आकाश को (नहीं देखते) कि उसे कैसे ऊँचा किया गया?</td></tr>
+<tr class='roman-urdu' data-ayah='18'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Asman ko nahin dekhte ke kaise uthaya gaya</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='18'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur asmano ko kay kis tarah oncha kiya gaya hay</td></tr>
+<tr class='ayah-sep' data-ayah='19' id='ayah-19'><td colspan='2'><a class='permalink' href='#19' data-ayah='19'>Ayah 19</a><button class='copy-btn' onclick='copyVerse(this,88,19)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='19'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِلَى الجِبالِ كَيفَ نُصِبَت</td></tr>
 <tr class='audio' data-ayah='19'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088019.mp3' title='Surah 88, Ayah 19 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='19'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wail<u>a</u> aljib<u>a</u>li kayfa nu<u>s</u>ibat</td></tr>
@@ -450,7 +590,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और पहाड़ों को नहीं देखते कि कैसे अल्लाह ने उन्हें गाड़ रखा है और उनके द्वारा धरती को मज़बूत बना रखा है, ताकि लोगों के साथ हिल-डुल न सके।</td></tr>
 <tr class='gujarati' data-ayah='19'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૧૯. અને પર્વતો તરફ, કે કઇ રીતે ઠોસી દેવામાં આવ્યા છે?</td></tr>
 <tr class='nepali' data-ayah='19'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>१९) र पहाडतिर के कुन प्रकारले खडा गरिएको छ ?</td></tr>
-<tr class='ayah-sep' data-ayah='20' id='ayah-20'><td colspan='2'>Ayah 20</td></tr>
+<tr class='hindi-omari' data-ayah='19'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और पर्वतों को (नहीं देखते) कि कैसे गाड़े गए हैं?</td></tr>
+<tr class='roman-urdu' data-ayah='19'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Pahadon ko nahin dekhtey ke kaisey jamaye gaye</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='19'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur paharon ki tarf kay kis tarah gar dey gay hein</td></tr>
+<tr class='ayah-sep' data-ayah='20' id='ayah-20'><td colspan='2'><a class='permalink' href='#20' data-ayah='20'>Ayah 20</a><button class='copy-btn' onclick='copyVerse(this,88,20)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='20'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَإِلَى الأَرضِ كَيفَ سُطِحَت</td></tr>
 <tr class='audio' data-ayah='20'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088020.mp3' title='Surah 88, Ayah 20 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='20'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wail<u>a</u> alar<u>d</u>i kayfa su<u>t</u>i<u>h</u>at</td></tr>
@@ -466,7 +609,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='20'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>और धरती को नहीं देखते कि अल्लाह ने उसे कैसे बिछाया और उसे लोगों के उसपर बसने के लिए तैयार किया?!</td></tr>
 <tr class='gujarati' data-ayah='20'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૦. અને ધરતી તરફ કે કઇ રીતે પાથરવામાં આવી છે?</td></tr>
 <tr class='nepali' data-ayah='20'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२०) र धरतीतिर कि कसरी बिछाइएको छ ?</td></tr>
-<tr class='ayah-sep' data-ayah='21' id='ayah-21'><td colspan='2'>Ayah 21</td></tr>
+<tr class='hindi-omari' data-ayah='20'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तथा धरती को (नहीं देखते) कि कैसे बिछाई गई है?</td></tr>
+<tr class='roman-urdu' data-ayah='20'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur zameen ko nahin dekhtey ke kaisey bichayi gayi</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='20'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur zameen ki tarf kay kis tarah bechaei gai hay</td></tr>
+<tr class='ayah-sep' data-ayah='21' id='ayah-21'><td colspan='2'><a class='permalink' href='#21' data-ayah='21'>Ayah 21</a><button class='copy-btn' onclick='copyVerse(this,88,21)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='21'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَذَكِّر إِنَّما أَنتَ مُذَكِّرٌ</td></tr>
 <tr class='audio' data-ayah='21'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088021.mp3' title='Surah 88, Ayah 21 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='21'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Fa<u>th</u>akkir innam<u>a</u> anta mu<u>th</u>akkir<b>un</b></td></tr>
@@ -482,7 +628,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='21'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>(ऐ रसूल) आप इन लोगों को नसीहत करें और इन्हें अल्लाह के अज़ाब से डराएँ, क्योंकि आप केवल नसीहत करने वाले हैं। आपको केवल उन्हें नसीहत करने के लिए कहा जाता है। जहाँ तक उन्हें ईमान की तौफ़ीक़ देने की बात है, तो वह केवल अल्लाह के हाथ में है।</td></tr>
 <tr class='gujarati' data-ayah='21'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૧. બસ તમે નસીહત કરતા રહો. (કારણકે) તમે તો ફક્ત નસીહત કરનાર છો.</td></tr>
 <tr class='nepali' data-ayah='21'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२१) तसर्थ तपाईले उपदेश दिने गर्नुस् किनकि तपाई मात्र उपदेश दिनेवाला हौ ।</td></tr>
-<tr class='ayah-sep' data-ayah='22' id='ayah-22'><td colspan='2'>Ayah 22</td></tr>
+<tr class='hindi-omari' data-ayah='21'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अतः आप नसीहत करें, आप केवल नसीहत करने वाले हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='21'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Acha to ( aey nabi) nasihat kiye jao, tum bas nasihat hi karne wale ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='21'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Pus ap nasehat ker dia kerein (qk)ap sirf nasehat kerney waly hein</td></tr>
+<tr class='ayah-sep' data-ayah='22' id='ayah-22'><td colspan='2'><a class='permalink' href='#22' data-ayah='22'>Ayah 22</a><button class='copy-btn' onclick='copyVerse(this,88,22)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='22'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لَستَ عَلَيهِم بِمُصَيطِرٍ</td></tr>
 <tr class='audio' data-ayah='22'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088022.mp3' title='Surah 88, Ayah 22 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='22'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lasta AAalayhim bimu<u>s</u>ay<u>t</u>ir<b>in</b></td></tr>
@@ -498,7 +647,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='22'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>आप उनपर नियुक्त नहीं हैं कि उन्हें ईमान लाने पर मजबूर करें।</td></tr>
 <tr class='gujarati' data-ayah='22'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૨. તમે તેમના ઉપર રખેવાળ નથી.</td></tr>
 <tr class='nepali' data-ayah='22'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२२) तपाई उनीहरूमाथि संरक्षक होइनौ ।</td></tr>
-<tr class='ayah-sep' data-ayah='23' id='ayah-23'><td colspan='2'>Ayah 23</td></tr>
+<tr class='hindi-omari' data-ayah='22'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>आप उनपर कोई दरोग़ा (नियंत्रक) नहीं हैं।</td></tr>
+<tr class='roman-urdu' data-ayah='22'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>kuch inpar jabr karne wale nahin ho</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='22'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Ap kuch in per darogha nahi hein</td></tr>
+<tr class='ayah-sep' data-ayah='23' id='ayah-23'><td colspan='2'><a class='permalink' href='#23' data-ayah='23'>Ayah 23</a><button class='copy-btn' onclick='copyVerse(this,88,23)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='23'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِلّا مَن تَوَلّىٰ وَكَفَرَ</td></tr>
 <tr class='audio' data-ayah='23'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088023.mp3' title='Surah 88, Ayah 23 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='23'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ill<u>a</u> man tawall<u>a</u> wakafar<b>a</b></td></tr>
@@ -514,7 +666,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='23'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>परंतु उनमें से जिसने ईमान से मुँह मोड़ लिया और अल्लाह तथा उसके रसूल का इनकार किया।</td></tr>
 <tr class='gujarati' data-ayah='23'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૩. હા! જે વ્યક્તિ મોઢું ફેરવશે અને કુફ્ર કરશે.</td></tr>
 <tr class='nepali' data-ayah='23'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२३) हो, जो विमुख हुन्छ र कुफ्र गर्छ ।</td></tr>
-<tr class='ayah-sep' data-ayah='24' id='ayah-24'><td colspan='2'>Ayah 24</td></tr>
+<tr class='hindi-omari' data-ayah='23'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>परंतु जिसने मुँह फेरा और कुफ़्र किया।</td></tr>
+<tr class='roman-urdu' data-ayah='23'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Albatta jo shaks mooh modega aur inkar karega</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='23'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Han jo shakhs rogardani kerty aur kufur kery</td></tr>
+<tr class='ayah-sep' data-ayah='24' id='ayah-24'><td colspan='2'><a class='permalink' href='#24' data-ayah='24'>Ayah 24</a><button class='copy-btn' onclick='copyVerse(this,88,24)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='24'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَيُعَذِّبُهُ اللَّهُ العَذابَ الأَكبَرَ</td></tr>
 <tr class='audio' data-ayah='24'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088024.mp3' title='Surah 88, Ayah 24 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='24'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>FayuAAa<u>thth</u>ibuhu All<u>a</u>hu alAAa<u>tha</u>ba alakbar<b>a</b></td></tr>
@@ -530,7 +685,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='24'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>तो क़ियामत के दिन अल्लाह उसे सबसे बड़ी यातना देगा कि उसे जहन्नम में दाखिल करेगा, जहाँ वह हमेशा रहेगा।</td></tr>
 <tr class='gujarati' data-ayah='24'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૪. તેને અલ્લાહ તઆલા ભારે સજા આપશે.</td></tr>
 <tr class='nepali' data-ayah='24'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२४) त अल्लाहले त्यसलाई ठूलो सजाय दिनेछ,</td></tr>
-<tr class='ayah-sep' data-ayah='25' id='ayah-25'><td colspan='2'>Ayah 25</td></tr>
+<tr class='hindi-omari' data-ayah='24'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तो अल्लाह उसे सबसे बड़ी यातना देगा।</td></tr>
+<tr class='roman-urdu' data-ayah='24'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>To Allah usko bhaari saza dega</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='24'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>usy Allah Taalaa buhat bara azab dyga</td></tr>
+<tr class='ayah-sep' data-ayah='25' id='ayah-25'><td colspan='2'><a class='permalink' href='#25' data-ayah='25'>Ayah 25</a><button class='copy-btn' onclick='copyVerse(this,88,25)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='25'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنَّ إِلَينا إِيابَهُم</td></tr>
 <tr class='audio' data-ayah='25'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088025.mp3' title='Surah 88, Ayah 25 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='25'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna ilayn<u>a</u> iy<u>a</u>bahum</td></tr>
@@ -546,7 +704,10 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='25'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>निश्चय वे अपनी मृत्यु के बाद अकेले हमारी ही ओर वापस आएँगे।</td></tr>
 <tr class='gujarati' data-ayah='25'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૫. ખરેખર અમારા તરફ જ તેમને પાછા ફરવાનું છે.</td></tr>
 <tr class='nepali' data-ayah='25'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२५) निःसन्देह उनीहरूलाई हाम्रो पासमा फर्केर आउनुपर्नेछ ।</td></tr>
-<tr class='ayah-sep' data-ayah='26' id='ayah-26'><td colspan='2'>Ayah 26</td></tr>
+<tr class='hindi-omari' data-ayah='25'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>निःसंदेह हमारी ही ओर उनका लौटकर आना है।</td></tr>
+<tr class='roman-urdu' data-ayah='25'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>In logon ko palatna hamari taraf hi hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='25'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>be-shak hamari taraf inko lotna hay</td></tr>
+<tr class='ayah-sep' data-ayah='26' id='ayah-26'><td colspan='2'><a class='permalink' href='#26' data-ayah='26'>Ayah 26</a><button class='copy-btn' onclick='copyVerse(this,88,26)' title='Copy this verse'>⧉ Copy</button></td></tr>
 <tr class='arabic' data-ayah='26'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>ثُمَّ إِنَّ عَلَينا حِسابَهُم</td></tr>
 <tr class='audio' data-ayah='26'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/088026.mp3' title='Surah 88, Ayah 26 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='26'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Thumma inna AAalayn<u>a</u> <u>h</u>is<u>a</u>bahum</td></tr>
@@ -562,10 +723,13 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
 <tr class='hindi-mokhtasar' data-ayah='26'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Mokhtasar)</td><td class='hindi-mokhtasar-text' lang='hi'>फिर अकेले हमारे ही ज़िम्मे उनके कार्यों पर उनका हिसाब लेना है। आपको या आपके सिवा किसी और को इसका अधिकार नहीं है।</td></tr>
 <tr class='gujarati' data-ayah='26'><td class='label'>&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila)</td><td class='gujarati-text' lang='gu'>૨૬. અને ખરેખર તેમનો હિસાબ અમારા શિરે છે.</td></tr>
 <tr class='nepali' data-ayah='26'><td class='label'>Nepali (Ahl-al-Hadith)</td><td class='nepali-text' lang='ne'>२६) अनि हामीले नै उनको हिसाब लिनेछौं ।</td></tr>
+<tr class='hindi-omari' data-ayah='26'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>फिर बेशक हमारे ही ज़िम्मे उनका ह़िसाब लेना है।</td></tr>
+<tr class='roman-urdu' data-ayah='26'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Phir inka hisab lena hamare hi zimmey hai</td></tr>
+<tr class='roman-urdu-junagarhi' data-ayah='26'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Phir be-shak hamaray zimmay hay inn say hisab lena</td></tr>
 </tbody></table></div>
 <nav class='chapter-nav'><span><a href='087.html'>&laquo; Surah 87</a></span><span><a href='089.html'>Surah 89 &raquo;</a></span></nav>
 </main>
-<footer>Arabic Text: Standard Arabic Uthmani Script &nbsp;|&nbsp; Audio: Mishary Rashid Alafasy (versebyversequran.com) &nbsp;|&nbsp; Tanzil.net Transliteration &amp; Pickthall Translation &mdash; Public Domain &nbsp;|&nbsp; Quran Unicode Project Transliteration &nbsp;|&nbsp; Yusuf Ali Translation &mdash; Public Domain &nbsp;|&nbsp; Saheeh International Translation &nbsp;|&nbsp; Ali Quli Qarai Translation &nbsp;|&nbsp; Hilali &amp; Khan Translation &nbsp;|&nbsp; English Explanation: Abridged Explanation of the Quran &nbsp;|&nbsp; Hindi: Farooq Khan &amp; Muhammad Ahmed &nbsp;|&nbsp; Hindi: Suhel Farooq Khan &amp; Saifur Rahman Nadwi &nbsp;|&nbsp; Hindi Tafsir: Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim &nbsp;|&nbsp; Gujarati: Rabila Al-Umry &nbsp;|&nbsp; Nepali: Ahl-al-Hadith Central Society of Nepal</footer>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
 (function(){
   var cfList=document.getElementById('cf-list');
@@ -574,22 +738,42 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   var maxVerse=toInput?+toInput.max:0;
   var vcFrom=1,vcTo=maxVerse;
   var enabledTypes=new Set();
+
+  /* ---- Apply config defaults + user overrides to checkboxes ---- */
+  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
   if(cfList){
     cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
-      if(cb.checked)enabledTypes.add(cb.dataset.rowclass);
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=defaults.hasOwnProperty(key)?defaults[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
     });
     cfList.addEventListener('change',function(e){
       if(e.target.type!=='checkbox')return;
       if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
       else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
       applyAllRows();
     });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('quran-cf',JSON.stringify(prefs));}catch(e){}
   }
   function applyAllRows(){
     document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
       var ayah=+tr.dataset.ayah;
       var inRange=(ayah>=vcFrom&&ayah<=vcTo);
-      if(tr.classList.contains('ayah-sep')){
+      if(tr.classList.contains('ayah-sep')||tr.classList.contains('juz-marker')){
         tr.style.display=inRange?'':'none';
       }else{
         var typeEnabled=false;
@@ -637,6 +821,75 @@ footer{text-align:center;padding:20px;font-size:.85em;color:#666;border-top:1px 
   };
   loadHash();
   applyAllRows();
+
+  /* ---- Font size control ---- */
+  var FS_KEY='qfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy verse ---- */
+  window.copyVerse=function(btn,sura,ayah){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+sura+':'+ayah+']'];
+    if(tbod){
+      tbod.querySelectorAll('tr[data-ayah="'+ayah+'"]').forEach(function(tr){
+        if(tr.classList.contains('ayah-sep'))return;
+        if(tr.classList.contains('audio'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Verse permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#'+a.dataset.ayah;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#'+a.dataset.ayah);
+    });
+  });
 })();
 </script>
 </body>

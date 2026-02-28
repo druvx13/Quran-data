@@ -31,6 +31,73 @@ translations = [
     ('data/en.qarai.txt', 'output/quran_english_qarai.txt', 'Ali Quli Qarai', 'English-SuraAyah'),
     ('data/en.hilali.txt', 'output/quran_english_hilali.txt', 'Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan', 'English-SuraAyah'),
     ('data/ahl-al-hadith-central-society-of-nepal-simple.json.zip', 'output/quran_nepali_ahl_al_hadith.txt', 'Ahl-al-Hadith Central Society of Nepal', 'Nepali-JSON'),
+    ('data/hi.omari.txt', 'output/quran_hindi_omari.txt', 'Azizul Haq Al-Omari', 'Hindi'),
+    # Additional English translations from Tanzil.net
+    ('data/en.ahmedali.txt', 'output/quran_english_ahmedali.txt', 'Ahmed Ali', 'English-SuraAyah'),
+    ('data/en.ahmedraza.txt', 'output/quran_english_ahmedraza.txt', 'Ahmed Raza Khan', 'English-SuraAyah'),
+    ('data/en.arberry.txt', 'output/quran_english_arberry.txt', 'A. J. Arberry', 'English-SuraAyah'),
+    ('data/en.daryabadi.txt', 'output/quran_english_daryabadi.txt', 'Abdul Majid Daryabadi', 'English-SuraAyah'),
+    ('data/en.itani.txt', 'output/quran_english_itani.txt', 'Talal Itani', 'English-SuraAyah'),
+    ('data/en.maududi.txt', 'output/quran_english_maududi.txt', 'Abul Ala Maududi', 'English-SuraAyah'),
+    ('data/en.mubarakpuri.txt', 'output/quran_english_mubarakpuri.txt', 'Safi-ur-Rahman al-Mubarakpuri', 'English-SuraAyah'),
+    ('data/en.qaribullah.txt', 'output/quran_english_qaribullah.txt', 'Hasan al-Fatih Qaribullah & Ahmad Darwish', 'English-SuraAyah'),
+    ('data/en.sarwar.txt', 'output/quran_english_sarwar.txt', 'Muhammad Sarwar', 'English-SuraAyah'),
+    ('data/en.shakir.txt', 'output/quran_english_shakir.txt', 'Mohammad Habib Shakir', 'English-SuraAyah'),
+    ('data/en.wahiduddin.txt', 'output/quran_english_wahiduddin.txt', 'Wahiduddin Khan', 'English-SuraAyah'),
+    # English translation from quranenc.com
+    ('data/en.rwwad.txt', 'output/quran_english_rwwad.txt', 'Rowwad Translation Center', 'English'),
+    # Additional widely-circulated English translations
+    ('data/en.asad.txt', 'output/quran_english_asad.txt', 'Muhammad Asad', 'English'),
+    ('data/en.usmani.txt', 'output/quran_english_usmani.txt', 'Mufti Taqi Usmani', 'English'),
+    ('data/en.abdelhaleem.txt', 'output/quran_english_abdelhaleem.txt', 'M.A.S. Abdel Haleem', 'English'),
+    # Urdu translations from Tanzil.net (sura|ayah|text format)
+    ('data/ur.jalandhry.txt', 'output/quran_urdu_jalandhry.txt', 'Fateh Muhammad Jalandhry', 'Urdu-SuraAyah'),
+    ('data/ur.ahmedali.txt', 'output/quran_urdu_ahmedali.txt', 'Ahmed Ali', 'Urdu-SuraAyah'),
+    ('data/ur.jawadi.txt', 'output/quran_urdu_jawadi.txt', 'Syed Zeeshan Haider Jawadi', 'Urdu-SuraAyah'),
+    ('data/ur.kanzuliman.txt', 'output/quran_urdu_kanzuliman.txt', 'Ahmed Raza Khan (Kanz ul Iman)', 'Urdu-SuraAyah'),
+    ('data/ur.maududi.txt', 'output/quran_urdu_maududi.txt', 'Abul Ala Maududi', 'Urdu-SuraAyah'),
+    ('data/ur.qadri.txt', 'output/quran_urdu_qadri.txt', 'Tahir ul Qadri', 'Urdu-SuraAyah'),
+    ('data/ur.junagarhi.txt', 'output/quran_urdu_junagarhi.txt', 'Muhammad Junagarhi', 'Urdu-SuraAyah'),
+    ('data/ur.najafi.txt', 'output/quran_urdu_najafi.txt', 'Muhammad Husain Najafi', 'Urdu-SuraAyah'),
+    # Urdu translations from quran.com (one line per ayah)
+    ('data/ur.mahmudalhasan.txt', 'output/quran_urdu_mahmudalhasan.txt', 'Shaykh al-Hind Mahmud al-Hasan', 'Urdu'),
+    ('data/ur.zilalquran.txt', 'output/quran_urdu_zilalquran.txt', 'Sayyid Ibrahim Qutb (Fe Zilal al-Quran)', 'Urdu'),
+    ('data/ur.bayanulquran.txt', 'output/quran_urdu_bayanulquran.txt', 'Dr. Israr Ahmad (Bayan-ul-Quran)', 'Urdu'),
+    ('data/ur.wahiduddin.txt', 'output/quran_urdu_wahiduddin.txt', 'Maulana Wahiduddin Khan', 'Urdu'),
+    # Roman Urdu
+    ('data/ur.romanmaududi.txt', 'output/quran_roman_urdu_maududi.txt', 'Abul Ala Maududi', 'Roman-Urdu'),
+    ('data/ur.romanjunagarhi.txt', 'output/quran_roman_urdu_junagarhi.txt', 'Muhammad Junagarhi', 'Roman-Urdu'),
+    # New English translations from fawazahmed0/quran-api
+    ('data/en.aishabewley.txt', 'output/quran_english_aishabewley.txt', 'Aisha Bewley', 'English'),
+    ('data/en.aliunal.txt', 'output/quran_english_aliunal.txt', 'Ali Unal', 'English'),
+    ('data/en.lalehbakhtiar.txt', 'output/quran_english_lalehbakhtiar.txt', 'Dr. Laleh Bakhtiar', 'English'),
+    ('data/en.edwardpalmer.txt', 'output/quran_english_edwardpalmer.txt', 'Edward Henry Palmer', 'English'),
+    ('data/en.farookmalik.txt', 'output/quran_english_farookmalik.txt', 'Farook Malik', 'English'),
+    ('data/en.georgesale.txt', 'output/quran_english_georgesale.txt', 'George Sale', 'English'),
+    ('data/en.hamidsaziz.txt', 'output/quran_english_hamidsaziz.txt', 'Hamid S. Aziz', 'English'),
+    ('data/en.johnrodwell.txt', 'output/quran_english_johnrodwell.txt', 'John Medows Rodwell', 'English'),
+    ('data/en.literal.txt', 'output/quran_english_literal.txt', 'Literal (Word for Word)', 'English'),
+    ('data/en.miraneesuddin.txt', 'output/quran_english_miraneesuddin.txt', 'Mir Aneesuddin', 'English'),
+    ('data/en.mohammadshafi.txt', 'output/quran_english_mohammadshafi.txt', 'Mohammad Shafi', 'English'),
+    ('data/en.muhammadghali.txt', 'output/quran_english_muhammadghali.txt', 'Muhammad Mahmoud Ghali', 'English'),
+    ('data/en.khattab.txt', 'output/quran_english_khattab.txt', 'Mustafa Khattab (The Clear Quran)', 'English'),
+    ('data/en.njdawood.txt', 'output/quran_english_njdawood.txt', 'N. J. Dawood', 'English'),
+    ('data/en.safikaskas.txt', 'output/quran_english_safikaskas.txt', 'Safi Kaskas', 'English'),
+    ('data/en.shabbirahmed.txt', 'output/quran_english_shabbirahmed.txt', 'Shabbir Ahmed', 'English'),
+    ('data/en.syedvickar.txt', 'output/quran_english_syedvickar.txt', 'Syed Vickar Ahamed', 'English'),
+    ('data/en.itaninew.txt', 'output/quran_english_itaninew.txt', 'Talal Itani (New Translation)', 'English'),
+    ('data/en.tbirving.txt', 'output/quran_english_tbirving.txt', 'T. B. Irving', 'English'),
+    ('data/en.monotheist.txt', 'output/quran_english_monotheist.txt', 'The Monotheist Group', 'English'),
+    ('data/en.ummmuhammad.txt', 'output/quran_english_ummmuhammad.txt', 'Umm Muhammad', 'English'),
+    # Romanized Hindi translations from fawazahmed0/quran-api
+    ('data/hi.roman.farooq.txt', 'output/quran_roman_hindi_farooq.txt', 'Muhammad Farooq Khan & Muhammad Ahmed', 'Roman-Hindi'),
+    ('data/hi.roman.suhail.txt', 'output/quran_roman_hindi_suhail.txt', 'Suhel Farooq Khan & Saifur Rahman Nadwi', 'Roman-Hindi'),
+    ('data/hi.roman.omari.txt', 'output/quran_roman_hindi_omari.txt', 'Maulana Azizul Haque Al-Umari', 'Roman-Hindi'),
+    # New Urdu translations from fawazahmed0/quran-api
+    ('data/ur.karamshah.txt', 'output/quran_urdu_karamshah.txt', 'Muhammad Karam Shah Al-Azhari', 'Urdu'),
+    ('data/ur.taqiusmani.txt', 'output/quran_urdu_taqiusmani.txt', 'Muhammad Taqi Usmani', 'Urdu'),
+    # Romanized Gujarati from fawazahmed0/quran-api
+    ('data/gu.roman.rabila.txt', 'output/quran_roman_gujarati_rabila.txt', 'Rabila Al-Omari', 'Roman-Gujarati'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -59,6 +126,18 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Nepali-JSON':
             out.write("Quran - Nepali Anuvad\n")
             out.write("Anuvadak: %s\n" % translator)
+        elif lang in ('Urdu', 'Urdu-SuraAyah'):
+            out.write("Quran - Urdu Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
+        elif lang == 'Roman-Urdu':
+            out.write("Quran - Roman Urdu Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
+        elif lang == 'Roman-Hindi':
+            out.write("Quran - Roman Hindi Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
+        elif lang == 'Roman-Gujarati':
+            out.write("Quran - Roman Gujarati Bhashantar\n")
+            out.write("Bhashantar: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
             with zipfile.ZipFile(src_file, 'r') as zf:
@@ -115,7 +194,7 @@ for src_file, out_file, translator, lang in translations:
                         text = raw_line.split('|', 1)[1] if '|' in raw_line else ''
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
-        elif lang in ('English-SuraAyah', 'English-Piped'):
+        elif lang in ('English-SuraAyah', 'English-Piped', 'Urdu-SuraAyah'):
             with open(src_file, 'r', encoding='utf-8') as src:
                 for sura_num in range(114):
                     out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))

@@ -40,20 +40,82 @@ Features:
 │   ├── gentexforquran.py   # Generate intermediate LaTeX content files
 │   ├── gentxtforquran.py   # Generate formatted plain-text output files
 │   └── gendocshtml.py      # Generate static HTML docs (docs/) + search-data.js
-├── data/                   # Source translation data (input — do not modify)
-│   ├── ar.quran.txt                         # Arabic Uthmani script (one line per ayah)
-│   ├── hi.farooq.txt                        # Hindi – Muhammad Farooq Khan & Muhammad Ahmed
-│   ├── hi.hindi.txt                         # Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi
-│   ├── en.sahih.txt                         # English – Saheeh International (one line per ayah)
-│   ├── en.pickthall.txt                     # English – Pickthall (one line per ayah)
-│   ├── en.yusufali.txt                      # English – Yusuf Ali (sura|ayah|text format)
-│   ├── en.transliteration.txt               # Transliteration – Tanzil.net (one line per ayah)
-│   ├── translit_en.txt                      # Transliteration – Quran Unicode Project (num|text)
+├── data/                   # All source translation data (input — do not modify)
+│   ├── ar.quran.txt                              # Arabic Uthmani script (one line per ayah)
+│   ├── en.pickthall.txt                          # English – Pickthall (one line per ayah)
+│   ├── en.pickthall.tanzil.txt                   # English – Pickthall – Tanzil.net format (sura|ayah|text)
+│   ├── en.sahih.txt                              # English – Saheeh International (one line per ayah)
+│   ├── en.sahih.trans.zip                        # English – Saheeh archived zip (reference)
+│   ├── en.yusufali.txt                           # English – Yusuf Ali (sura|ayah|text format)
+│   ├── en.qarai.txt                              # English – Ali Quli Qarai (sura|ayah|text)
+│   ├── en.hilali.txt                             # English – Al-Hilali & Khan (sura|ayah|text)
+│   ├── en.ahmedali.txt                           # English – Ahmed Ali (sura|ayah|text)
+│   ├── en.ahmedraza.txt                          # English – Ahmed Raza Khan (sura|ayah|text)
+│   ├── en.arberry.txt                            # English – A. J. Arberry (sura|ayah|text)
+│   ├── en.daryabadi.txt                          # English – Abdul Majid Daryabadi (sura|ayah|text)
+│   ├── en.itani.txt                              # English – Talal Itani (sura|ayah|text)
+│   ├── en.maududi.txt                            # English – Abul Ala Maududi (sura|ayah|text)
+│   ├── en.mubarakpuri.txt                        # English – Safi-ur-Rahman al-Mubarakpuri (sura|ayah|text)
+│   ├── en.qaribullah.txt                         # English – Hasan al-Fatih Qaribullah & Ahmad Darwish (sura|ayah|text)
+│   ├── en.sarwar.txt                             # English – Muhammad Sarwar (sura|ayah|text)
+│   ├── en.shakir.txt                             # English – Mohammad Habib Shakir (sura|ayah|text)
+│   ├── en.wahiduddin.txt                         # English – Wahiduddin Khan (sura|ayah|text)
+│   ├── en.rwwad.txt                              # English – Rowwad Translation Center (quranenc.com, one line per ayah)
+│   ├── en.asad.txt                               # English – Muhammad Asad (alquran.cloud, one line per ayah)
+│   ├── en.usmani.txt                             # English – Mufti Taqi Usmani (quran.com, one line per ayah)
+│   ├── en.abdelhaleem.txt                        # English – M.A.S. Abdel Haleem (quran.com, one line per ayah)
+│   ├── en.transliteration.txt                    # Transliteration – Tanzil.net plain text (one line per ayah)
+│   ├── en.transliteration.tanzil.txt             # Transliteration – Tanzil.net with HTML markup (sura|ayah|html-text); used by gendocshtml.py
+│   ├── translit_en.txt                           # Transliteration – Quran Unicode Project (num|text)
+│   ├── hi.farooq.txt                             # Hindi – Muhammad Farooq Khan & Muhammad Ahmed
+│   ├── hi.hindi.txt                              # Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi
+│   ├── hi.omari.txt                              # Hindi – Azizul Haq Al-Omari (quranenc.com)
 │   ├── abridged-explanation-of-the-quran.json.zip  # English Explanation (JSON, "sura:ayah" keys)
-│   ├── hindi-mokhtasar.json.zip             # Hindi Tafsir – Al-Mokhtasar (JSON, "sura:ayah" keys)
-│   ├── rabila-al-umry-simple.json.zip       # Gujarati – Rabila Al-Umry (JSON, "sura:ayah" keys, "t" field)
-│   ├── suranamemal.txt                      # Surah names – Malayalam script
-│   └── surna.txt                            # Surah name reference data
+│   ├── hindi-mokhtasar.json.zip                  # Hindi Tafsir – Al-Mokhtasar (JSON, "sura:ayah" keys)
+│   ├── rabila-al-umry-simple.json.zip            # Gujarati – Rabila Al-Umry (JSON, "sura:ayah" keys, "t" field)
+│   ├── ur.jalandhry.txt                          # Urdu – Fateh Muhammad Jalandhry (sura|ayah|text)
+│   ├── ur.ahmedali.txt                           # Urdu – Ahmed Ali (sura|ayah|text)
+│   ├── ur.jawadi.txt                             # Urdu – Syed Zeeshan Haider Jawadi (sura|ayah|text)
+│   ├── ur.kanzuliman.txt                         # Urdu – Ahmed Raza Khan / Kanz ul Iman (sura|ayah|text)
+│   ├── ur.maududi.txt                            # Urdu – Abul Ala Maududi (sura|ayah|text)
+│   ├── ur.qadri.txt                              # Urdu – Tahir ul Qadri (sura|ayah|text)
+│   ├── ur.junagarhi.txt                          # Urdu – Muhammad Junagarhi (sura|ayah|text)
+│   ├── ur.najafi.txt                             # Urdu – Muhammad Husain Najafi (sura|ayah|text)
+│   ├── ur.mahmudalhasan.txt                      # Urdu – Shaykh al-Hind Mahmud al-Hasan (quran.com, one line per ayah)
+│   ├── ur.zilalquran.txt                         # Urdu – Fe Zilal al-Quran / Sayyid Qutb (quran.com, one line per ayah)
+│   ├── ur.bayanulquran.txt                       # Urdu – Bayan-ul-Quran / Dr. Israr Ahmad (quran.com, one line per ayah)
+│   ├── ur.wahiduddin.txt                         # Urdu – Maulana Wahiduddin Khan (quran.com, one line per ayah)
+│   ├── ur.romanmaududi.txt                       # Roman Urdu – Abul Ala Maududi (quran.com, one line per ayah)
+│   ├── ur.romanjunagarhi.txt                     # Roman Urdu – Muhammad Junagarhi (fawazahmed0/quran-api, one line per ayah)
+│   ├── ur.karamshah.txt                          # Urdu – Muhammad Karam Shah Al-Azhari (fawazahmed0/quran-api, one line per ayah)
+│   ├── ur.taqiusmani.txt                         # Urdu – Muhammad Taqi Usmani (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.aishabewley.txt                        # English – Aisha Bewley (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.aliunal.txt                            # English – Ali Unal (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.lalehbakhtiar.txt                      # English – Dr. Laleh Bakhtiar (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.edwardpalmer.txt                       # English – Edward Henry Palmer (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.farookmalik.txt                        # English – Farook Malik (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.georgesale.txt                         # English – George Sale (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.hamidsaziz.txt                         # English – Hamid S. Aziz (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.johnrodwell.txt                        # English – John Medows Rodwell (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.literal.txt                            # English – Literal / Word for Word (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.miraneesuddin.txt                      # English – Mir Aneesuddin (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.mohammadshafi.txt                      # English – Mohammad Shafi (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.muhammadghali.txt                      # English – Muhammad Mahmoud Ghali (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.khattab.txt                            # English – Mustafa Khattab / The Clear Quran (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.njdawood.txt                           # English – N. J. Dawood (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.safikaskas.txt                         # English – Safi Kaskas (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.shabbirahmed.txt                       # English – Shabbir Ahmed (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.syedvickar.txt                         # English – Syed Vickar Ahamed (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.itaninew.txt                           # English – Talal Itani New Translation (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.tbirving.txt                           # English – T. B. Irving (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.monotheist.txt                         # English – The Monotheist Group (fawazahmed0/quran-api, one line per ayah)
+│   ├── en.ummmuhammad.txt                        # English – Umm Muhammad (fawazahmed0/quran-api, one line per ayah)
+│   ├── hi.roman.farooq.txt                       # Romanized Hindi – Muhammad Farooq Khan & Muhammad Ahmed (fawazahmed0/quran-api)
+│   ├── hi.roman.suhail.txt                       # Romanized Hindi – Suhel Farooq Khan & Saifur Rahman Nadwi (fawazahmed0/quran-api)
+│   ├── hi.roman.omari.txt                        # Romanized Hindi – Maulana Azizul Haque Al-Umari (fawazahmed0/quran-api)
+│   ├── gu.roman.rabila.txt                       # Romanized Gujarati – Rabila Al-Omari (fawazahmed0/quran-api)
+│   ├── suranamemal.txt                           # Surah names – Malayalam script
+│   └── surna.txt                                 # Surah name reference data
 ├── latex/                  # LaTeX document sources & generated content
 │   ├── farooq.tex          # Main document – Farooq Khan Hindi translation
 │   ├── suhail.tex          # Main document – Suhel Farooq Khan Hindi translation
@@ -62,22 +124,80 @@ Features:
 │   ├── pickthall.tex       # Main document – Pickthall English
 │   ├── quran.sty           # Custom LaTeX style (Arabic ayah macros)
 │   └── q*.tex              # Generated content files (written by gentexforquran.py)
-├── output/                 # Generated output files
+├── output/                 # Generated output files (written by gentxtforquran.py)
 │   ├── quran_arabic.txt
 │   ├── quran_english_pickthall.txt
 │   ├── quran_english_sahih.txt
 │   ├── quran_english_translit.txt
 │   ├── quran_english_yusufali.txt
 │   ├── quran_english_abridged.txt
+│   ├── quran_english_qarai.txt
+│   ├── quran_english_hilali.txt
+│   ├── quran_english_ahmedali.txt
+│   ├── quran_english_ahmedraza.txt
+│   ├── quran_english_arberry.txt
+│   ├── quran_english_daryabadi.txt
+│   ├── quran_english_itani.txt
+│   ├── quran_english_maududi.txt
+│   ├── quran_english_mubarakpuri.txt
+│   ├── quran_english_qaribullah.txt
+│   ├── quran_english_sarwar.txt
+│   ├── quran_english_shakir.txt
+│   ├── quran_english_wahiduddin.txt
+│   ├── quran_english_rwwad.txt
+│   ├── quran_english_asad.txt
+│   ├── quran_english_usmani.txt
+│   ├── quran_english_abdelhaleem.txt
 │   ├── quran_hindi_farooq.txt
 │   ├── quran_hindi_suhail.txt
 │   ├── quran_hindi_mokhtasar.txt
+│   ├── quran_hindi_omari.txt
 │   ├── quran_gujarati_rabila.txt
 │   ├── quran_translit_unicode.txt
+│   ├── quran_nepali_ahl_al_hadith.txt
+│   ├── quran_urdu_jalandhry.txt
+│   ├── quran_urdu_ahmedali.txt
+│   ├── quran_urdu_jawadi.txt
+│   ├── quran_urdu_kanzuliman.txt
+│   ├── quran_urdu_maududi.txt
+│   ├── quran_urdu_qadri.txt
+│   ├── quran_urdu_junagarhi.txt
+│   ├── quran_urdu_najafi.txt
+│   ├── quran_urdu_mahmudalhasan.txt
+│   ├── quran_urdu_zilalquran.txt
+│   ├── quran_urdu_bayanulquran.txt
+│   ├── quran_urdu_wahiduddin.txt
+│   ├── quran_roman_urdu_maududi.txt
+│   ├── quran_roman_urdu_junagarhi.txt
+│   ├── quran_urdu_karamshah.txt
+│   ├── quran_urdu_taqiusmani.txt
+│   ├── quran_english_aishabewley.txt
+│   ├── quran_english_aliunal.txt
+│   ├── quran_english_lalehbakhtiar.txt
+│   ├── quran_english_edwardpalmer.txt
+│   ├── quran_english_farookmalik.txt
+│   ├── quran_english_georgesale.txt
+│   ├── quran_english_hamidsaziz.txt
+│   ├── quran_english_johnrodwell.txt
+│   ├── quran_english_literal.txt
+│   ├── quran_english_miraneesuddin.txt
+│   ├── quran_english_mohammadshafi.txt
+│   ├── quran_english_muhammadghali.txt
+│   ├── quran_english_khattab.txt
+│   ├── quran_english_njdawood.txt
+│   ├── quran_english_safikaskas.txt
+│   ├── quran_english_shabbirahmed.txt
+│   ├── quran_english_syedvickar.txt
+│   ├── quran_english_itaninew.txt
+│   ├── quran_english_tbirving.txt
+│   ├── quran_english_monotheist.txt
+│   ├── quran_english_ummmuhammad.txt
+│   ├── quran_roman_hindi_farooq.txt
+│   ├── quran_roman_hindi_suhail.txt
+│   ├── quran_roman_hindi_omari.txt
+│   ├── quran_roman_gujarati_rabila.txt
 │   ├── farooq.pdf          # Compiled PDF
 │   └── suhail.pdf          # Compiled PDF
-├── trans/                  # Tanzil.net transliteration with HTML tags (used by gendocshtml.py)
-│   └── en.transliteration.txt
 ├── docs/                   # Generated static HTML – GitHub Pages
 │   ├── index.html          # Surah index (with surah navigator + search link)
 │   ├── search.html         # Client-side full-text search page
@@ -111,16 +231,48 @@ Features:
 |-----|---------|--------|
 | Arabic | Arabic text (Uthmani script) | [tanzil.net](https://tanzil.net) |
 | Audio | Recitation player | Mishary Rashid Alafasy (128 kbps) — [HF Space](https://druvx13-quran-audio-alafasy.hf.space) |
-| Transliteration | Tanzil.net | `trans/en.transliteration.txt` (HTML-tagged) |
+| Transliteration | Tanzil.net | `data/en.transliteration.tanzil.txt` (HTML-tagged) |
 | Transliteration | Quran Unicode Project | `data/translit_en.txt` |
 | English | Pickthall (1930, Public Domain) | `data/en.pickthall.txt` |
 | English | Yusuf Ali (Public Domain) | `data/en.yusufali.txt` |
 | English | Saheeh International | `data/en.sahih.txt` |
+| English | Ali Quli Qarai | `data/en.qarai.txt` |
+| English | Al-Hilali & Khan | `data/en.hilali.txt` |
+| English | Ahmed Ali | `data/en.ahmedali.txt` |
+| English | Ahmed Raza Khan | `data/en.ahmedraza.txt` |
+| English | A. J. Arberry | `data/en.arberry.txt` |
+| English | Abdul Majid Daryabadi | `data/en.daryabadi.txt` |
+| English | Talal Itani | `data/en.itani.txt` |
+| English | Abul Ala Maududi | `data/en.maududi.txt` |
+| English | Safi-ur-Rahman al-Mubarakpuri | `data/en.mubarakpuri.txt` |
+| English | Hasan al-Fatih Qaribullah & Ahmad Darwish | `data/en.qaribullah.txt` |
+| English | Muhammad Sarwar | `data/en.sarwar.txt` |
+| English | Mohammad Habib Shakir | `data/en.shakir.txt` |
+| English | Wahiduddin Khan | `data/en.wahiduddin.txt` |
+| English | Rowwad Translation Center | `data/en.rwwad.txt` |
+| English | Muhammad Asad | `data/en.asad.txt` |
+| English | Mufti Taqi Usmani | `data/en.usmani.txt` |
+| English | M.A.S. Abdel Haleem | `data/en.abdelhaleem.txt` |
 | English Explanation | Abridged Explanation of the Quran | `data/abridged-explanation-of-the-quran.json.zip` |
 | Hindi (हिन्दी) | Muhammad Farooq Khan & Muhammad Ahmed | `data/hi.farooq.txt` |
 | Hindi (हिन्दी) | Suhel Farooq Khan & Saifur Rahman Nadwi | `data/hi.hindi.txt` |
+| Hindi (हिन्दी) | Azizul Haq Al-Omari | `data/hi.omari.txt` |
 | Hindi Tafsir (हिन्दी तफ्सीर) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim | `data/hindi-mokhtasar.json.zip` |
 | Gujarati (ગુજરાતી) | Rabila Al-Umry | `data/rabila-al-umry-simple.json.zip` |
+| Urdu (اردو) | Fateh Muhammad Jalandhry | `data/ur.jalandhry.txt` |
+| Urdu (اردو) | Ahmed Ali | `data/ur.ahmedali.txt` |
+| Urdu (اردو) | Syed Zeeshan Haider Jawadi | `data/ur.jawadi.txt` |
+| Urdu (اردو) | Ahmed Raza Khan (Kanz ul Iman) | `data/ur.kanzuliman.txt` |
+| Urdu (اردو) | Abul Ala Maududi | `data/ur.maududi.txt` |
+| Urdu (اردو) | Tahir ul Qadri | `data/ur.qadri.txt` |
+| Urdu (اردو) | Muhammad Junagarhi | `data/ur.junagarhi.txt` |
+| Urdu (اردو) | Muhammad Husain Najafi | `data/ur.najafi.txt` |
+| Urdu (اردو) | Shaykh al-Hind Mahmud al-Hasan | `data/ur.mahmudalhasan.txt` |
+| Urdu (اردو) | Sayyid Ibrahim Qutb (Fe Zilal al-Quran) | `data/ur.zilalquran.txt` |
+| Urdu (اردو) | Dr. Israr Ahmad (Bayan-ul-Quran) | `data/ur.bayanulquran.txt` |
+| Urdu (اردو) | Maulana Wahiduddin Khan | `data/ur.wahiduddin.txt` |
+| Roman Urdu | Abul Ala Maududi | `data/ur.romanmaududi.txt` |
+| Roman Urdu | Muhammad Junagarhi | `data/ur.romanjunagarhi.txt` |
 
 ---
 
@@ -181,7 +333,7 @@ cd latex && xelatex pickthall.tex # → output/pickthall.pdf
 python3 src/gentxtforquran.py
 ```
 
-Produces eleven files in `output/`:
+Produces forty-four files in `output/`:
 
 | Output file | Source |
 |-------------|--------|
@@ -191,11 +343,44 @@ Produces eleven files in `output/`:
 | `quran_english_translit.txt` | `data/en.transliteration.txt` |
 | `quran_english_yusufali.txt` | `data/en.yusufali.txt` |
 | `quran_english_abridged.txt` | `data/abridged-explanation-of-the-quran.json.zip` |
+| `quran_english_qarai.txt` | `data/en.qarai.txt` |
+| `quran_english_hilali.txt` | `data/en.hilali.txt` |
+| `quran_english_ahmedali.txt` | `data/en.ahmedali.txt` |
+| `quran_english_ahmedraza.txt` | `data/en.ahmedraza.txt` |
+| `quran_english_arberry.txt` | `data/en.arberry.txt` |
+| `quran_english_daryabadi.txt` | `data/en.daryabadi.txt` |
+| `quran_english_itani.txt` | `data/en.itani.txt` |
+| `quran_english_maududi.txt` | `data/en.maududi.txt` |
+| `quran_english_mubarakpuri.txt` | `data/en.mubarakpuri.txt` |
+| `quran_english_qaribullah.txt` | `data/en.qaribullah.txt` |
+| `quran_english_sarwar.txt` | `data/en.sarwar.txt` |
+| `quran_english_shakir.txt` | `data/en.shakir.txt` |
+| `quran_english_wahiduddin.txt` | `data/en.wahiduddin.txt` |
+| `quran_english_rwwad.txt` | `data/en.rwwad.txt` |
+| `quran_english_asad.txt` | `data/en.asad.txt` |
+| `quran_english_usmani.txt` | `data/en.usmani.txt` |
+| `quran_english_abdelhaleem.txt` | `data/en.abdelhaleem.txt` |
 | `quran_hindi_farooq.txt` | `data/hi.farooq.txt` |
 | `quran_hindi_suhail.txt` | `data/hi.hindi.txt` |
 | `quran_hindi_mokhtasar.txt` | `data/hindi-mokhtasar.json.zip` |
+| `quran_hindi_omari.txt` | `data/hi.omari.txt` |
 | `quran_gujarati_rabila.txt` | `data/rabila-al-umry-simple.json.zip` |
 | `quran_translit_unicode.txt` | `data/translit_en.txt` |
+| `quran_nepali_ahl_al_hadith.txt` | `data/ahl-al-hadith-central-society-of-nepal-simple.json.zip` |
+| `quran_urdu_jalandhry.txt` | `data/ur.jalandhry.txt` |
+| `quran_urdu_ahmedali.txt` | `data/ur.ahmedali.txt` |
+| `quran_urdu_jawadi.txt` | `data/ur.jawadi.txt` |
+| `quran_urdu_kanzuliman.txt` | `data/ur.kanzuliman.txt` |
+| `quran_urdu_maududi.txt` | `data/ur.maududi.txt` |
+| `quran_urdu_qadri.txt` | `data/ur.qadri.txt` |
+| `quran_urdu_junagarhi.txt` | `data/ur.junagarhi.txt` |
+| `quran_urdu_najafi.txt` | `data/ur.najafi.txt` |
+| `quran_urdu_mahmudalhasan.txt` | `data/ur.mahmudalhasan.txt` |
+| `quran_urdu_zilalquran.txt` | `data/ur.zilalquran.txt` |
+| `quran_urdu_bayanulquran.txt` | `data/ur.bayanulquran.txt` |
+| `quran_urdu_wahiduddin.txt` | `data/ur.wahiduddin.txt` |
+| `quran_roman_urdu_maududi.txt` | `data/ur.romanmaududi.txt` |
+| `quran_roman_urdu_junagarhi.txt` | `data/ur.romanjunagarhi.txt` |
 
 All output files use the `[sura:ayah] text` format, grouped by surah.
 
@@ -285,13 +470,19 @@ Once running, update the audio `src` URLs in `src/gendocshtml.py` (look for
 | Data | Source |
 |------|--------|
 | Arabic text (Uthmani script) | [tanzil.net](https://tanzil.net) |
-| Hindi translations | [zekr.org](http://zekr.org) |
+| Hindi translations | [zekr.org](http://zekr.org) (Farooq Khan, Suhel Khan) |
+| Hindi translation (Al-Omari) | [quranenc.com](https://quranenc.com) (Azizul Haq Al-Omari) |
 | Hindi Tafsir (Al-Mokhtasar) | Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim (JSON) |
-| English translations (Tanzil.net, Saheeh) | [tanzil.net](https://tanzil.net) |
-| English translation (Pickthall, 1930) | Public Domain |
-| English translation (Yusuf Ali) | Public Domain |
+| English translations (Pickthall, Yusuf Ali, Sahih, Hilali, Qarai, Ahmed Ali, Ahmed Raza Khan, Arberry, Daryabadi, Itani, Maududi, Mubarakpuri, Qaribullah, Sarwar, Shakir, Wahiduddin) | [tanzil.net](https://tanzil.net) |
+| English translation (Rowwad Translation Center) | [quranenc.com](https://quranenc.com) |
+| English translation (Muhammad Asad) | [alquran.cloud](https://alquran.cloud) |
+| English translations (Mufti Taqi Usmani, M.A.S. Abdel Haleem) | [quran.com](https://quran.com) |
 | English Explanation (Abridged) | Abridged Explanation of the Quran (JSON) |
 | Transliteration (Unicode) | Quran Unicode Project |
+| Urdu translations (Jalandhry, Ahmed Ali, Jawadi, Kanz ul Iman, Maududi, Qadri, Junagarhi, Najafi) | [tanzil.net](https://tanzil.net) |
+| Urdu translations (Mahmud al-Hasan, Fe Zilal al-Quran, Bayan-ul-Quran, Wahiduddin Khan) | [quran.com](https://quran.com) |
+| Roman Urdu translation (Abul Ala Maududi) | [quran.com](https://quran.com) |
+| Roman Urdu translation (Muhammad Junagarhi) | [fawazahmed0/quran-api](https://github.com/fawazahmed0/quran-api) (jsdelivr CDN) |
 | Audio recitation | Mishary Rashid Alafasy, 128 kbps — [versebyversequran.com](https://versebyversequran.com) / [HF Hub](https://huggingface.co/datasets/druvx13/quran-audio-alafasy) |
 
 ---
