@@ -371,7 +371,41 @@ async function generateZip(){
     status.textContent='Processing '+done+' of '+total+' files ('+pct+'%)\u2026';
   }
 
-  /* Helper: strip deselected translations from HTML */
+  /* Helper: clean up a parsed doc — remove links to excluded pages from footer/header */
+  function cleanPageLinks(doc){
+    /* Remove header links to excluded pages */
+    if(extras.indexOf('config')<0){
+      doc.querySelectorAll('a[href="config.html"]').forEach(function(a){a.remove();});
+    }
+    if(extras.indexOf('search')<0){
+      doc.querySelectorAll('a[href="search.html"]').forEach(function(a){a.remove();});
+    }
+    /* Remove index link from header if not included */
+    if(extras.indexOf('index')<0){
+      doc.querySelectorAll('header a[href="index.html"]').forEach(function(a){a.remove();});
+    }
+    /* Remove surah select options outside the chosen range */
+    doc.querySelectorAll('.surah-nav-select option').forEach(function(opt){
+      var m=opt.value.match(/^(\d{3})\.html$/);
+      if(m){var n=parseInt(m[1],10);if(n<fromS||n>toS)opt.remove();}
+    });
+    /* Clean footer links */
+    var footer=doc.querySelector('footer');
+    if(footer){
+      var links=footer.querySelectorAll('a');
+      links.forEach(function(a){
+        var href=a.getAttribute('href')||'';
+        if(href==='sources.html'&&extras.indexOf('sources')<0){a.remove();}
+        if(href==='license.html'&&extras.indexOf('license')<0){a.remove();}
+        if(href==='download.html'&&extras.indexOf('download')<0){a.remove();}
+        if(href==='index.html'&&extras.indexOf('index')<0){a.remove();}
+      });
+      /* Clean up orphan separators */
+      footer.innerHTML=footer.innerHTML.replace(/(<\/a>)\s*&nbsp;\|&nbsp;\s*(&nbsp;|$)/g,'$1 ').replace(/^\s*&nbsp;\|&nbsp;\s*/,'').replace(/\s*&nbsp;\|&nbsp;\s*$/,'');
+    }
+  }
+
+  /* Helper: strip deselected translations from surah HTML */
   function stripTranslations(html){
     var parser=new DOMParser();
     var doc=parser.parseFromString(html,'text/html');
@@ -379,10 +413,67 @@ async function generateZip(){
     allClasses.forEach(function(cls){
       if(selectedTrans.indexOf(cls)<0){
         doc.querySelectorAll('tr.'+cls).forEach(function(r){r.remove();});
+        /* Also remove Content Filter checkboxes for this translation */
+        doc.querySelectorAll('.cf-item input[data-rowclass="'+cls+'"]').forEach(function(inp){
+          var span=inp.closest('.cf-item');
+          if(span)span.remove();
+        });
       }
     });
     /* Remove config.js script tag since we'll inline the selected config */
     doc.querySelectorAll('script[src="config.js"]').forEach(function(s){s.remove();});
+    cleanPageLinks(doc);
+    return '<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
+  }
+
+  /* Helper: strip deselected translations from config.html */
+  function stripConfigPage(html){
+    var parser=new DOMParser();
+    var doc=parser.parseFromString(html,'text/html');
+    allClasses.forEach(function(cls){
+      if(selectedTrans.indexOf(cls)<0){
+        doc.querySelectorAll('.cfg-row .cfg-switch input[data-key="'+cls+'"]').forEach(function(inp){
+          var row=inp.closest('.cfg-row');
+          if(row)row.remove();
+        });
+      }
+    });
+    doc.querySelectorAll('script[src="config.js"]').forEach(function(s){s.remove();});
+    cleanPageLinks(doc);
+    return '<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
+  }
+
+  /* Helper: strip deselected items from download.html */
+  function stripDownloadPage(html){
+    var parser=new DOMParser();
+    var doc=parser.parseFromString(html,'text/html');
+    /* Remove translation labels not selected */
+    var dlTrans=doc.getElementById('dl-translations');
+    if(dlTrans){
+      allClasses.forEach(function(cls){
+        if(selectedTrans.indexOf(cls)<0){
+          dlTrans.querySelectorAll('input[value="'+cls+'"]').forEach(function(inp){
+            var lbl=inp.closest('label');
+            if(lbl)lbl.remove();
+          });
+        }
+      });
+    }
+    /* Remove additional page labels not selected */
+    var dlExtras=doc.getElementById('dl-extras');
+    if(dlExtras){
+      var extraKeys=['index','search','config','sources','license','download'];
+      extraKeys.forEach(function(key){
+        if(extras.indexOf(key)<0){
+          dlExtras.querySelectorAll('input[value="'+key+'"]').forEach(function(inp){
+            var lbl=inp.closest('label');
+            if(lbl)lbl.remove();
+          });
+        }
+      });
+    }
+    doc.querySelectorAll('script[src="config.js"]').forEach(function(s){s.remove();});
+    cleanPageLinks(doc);
     return '<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
   }
 
@@ -394,9 +485,18 @@ async function generateZip(){
       var resp=await fetch(fname);
       if(!resp.ok){updateProgress();continue;}
       var html=await resp.text();
-      /* Only strip translations from surah pages (NNN.html) */
       if(/^\d{3}\.html$/.test(fname)){
         html=stripTranslations(html);
+      }else if(fname==='config.html'){
+        html=stripConfigPage(html);
+      }else if(fname==='download.html'){
+        html=stripDownloadPage(html);
+      }else{
+        /* For index, search, sources, license — just clean page links */
+        var parser=new DOMParser();
+        var doc=parser.parseFromString(html,'text/html');
+        cleanPageLinks(doc);
+        html='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
       }
       zip.file(fname,html);
     }catch(e){
