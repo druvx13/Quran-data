@@ -630,7 +630,7 @@ HEADER_HTML = """\
 {verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
 """
 
-COMPACT_FOOTER = '<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>'
+COMPACT_FOOTER = '<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>'
 
 FOOTER_HTML = """\
 </tbody></table></div>
@@ -1138,7 +1138,7 @@ SEARCH_HTML = """\
 <div id="results"></div>
 <div id="pagination"></div>
 </main>
-<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script src="search-data.js"></script>
 <script>
 (function(){{
@@ -1342,7 +1342,7 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 </div>
 </div>
 </main>
-<footer>Settings are stored locally in your browser via localStorage. &nbsp;|&nbsp; <a href="sources.html">Sources</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<footer>Settings are stored locally in your browser via localStorage. &nbsp;|&nbsp; <a href="sources.html">Sources</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
 (function(){
   var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
@@ -1552,7 +1552,7 @@ with open(sources_html_path, 'w', encoding='utf-8') as f:
 <p class="src-note"><strong>Note:</strong> All texts are reproduced verbatim from their respective sources. No alterations, abridgements, or editorial changes have been made. The Pickthall translation (1930) and Yusuf Ali translation are in the public domain. Other translations are reproduced under their original copyright and licence terms.</p>
 
 </main>
-<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 </body>
 </html>""" % (SOURCES_CSS, make_surah_select(0)))
 print('Written: %s' % sources_html_path)
@@ -1616,9 +1616,242 @@ with open(license_html_path, 'w', encoding='utf-8') as f:
 <p>The source code and all data files for this project are available on GitHub:</p>
 <p style="font-size:1.05em"><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">github.com/druvx13/Quran-data</a></p>
 </main>
-<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 </body>
 </html>""" % (LICENSE_CSS, make_surah_select(0), license_text_escaped))
 print('Written: %s' % license_html_path)
 
-print('Done. %d surah files + index + search + config + sources + license regenerated.' % 114)
+# ---------------------------------------------------------------------------
+# Generate download.html  (client-side zip download page)
+# ---------------------------------------------------------------------------
+DOWNLOAD_CSS = CSS + """
+.dl-section{margin-bottom:24px}
+.dl-section h2{color:#1a3a5c;margin:0 0 10px;font-size:1.1em;border-bottom:2px solid #ffd54f;padding-bottom:4px}
+.dl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;margin:10px 0}
+.dl-grid label{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#f7f9fb;border:1px solid #dde3ea;border-radius:4px;font-size:.9em;cursor:pointer;transition:background .15s}
+.dl-grid label:hover{background:#e8eef4}
+.dl-grid input[type=checkbox]{width:18px;height:18px;accent-color:#1a3a5c}
+.dl-range{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0}
+.dl-range label{font-size:.92em;font-weight:600;color:#333}
+.dl-range input[type=number]{width:60px;padding:4px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em}
+.dl-btn{display:inline-block;padding:12px 28px;background:#1a3a5c;color:#fff;border:none;border-radius:6px;
+  font-size:1em;font-weight:bold;cursor:pointer;margin-top:12px;transition:background .15s}
+.dl-btn:hover{background:#2a5a8c}
+.dl-btn:disabled{background:#999;cursor:not-allowed}
+.dl-progress{margin-top:12px;display:none}
+.dl-progress .dl-bar-wrap{background:#dde3ea;border-radius:4px;height:22px;overflow:hidden;margin:8px 0}
+.dl-progress .dl-bar{background:#1a3a5c;height:100%%;width:0;border-radius:4px;transition:width .2s}
+.dl-progress .dl-status{font-size:.88em;color:#555}
+.dl-note{font-size:.85em;color:#666;margin-top:8px;line-height:1.6}
+@media(prefers-color-scheme:dark){
+  .dl-section h2{color:#90caf9;border-bottom-color:#ffd54f}
+  .dl-grid label{background:#1e2a3a;border-color:#334;color:#e0e0e0}
+  .dl-grid label:hover{background:#253a52}
+  .dl-range label{color:#ccc}
+  .dl-range input{background:#1e2a3a;color:#e0e0e0;border-color:#444}
+  .dl-progress .dl-bar-wrap{background:#333}
+  .dl-progress .dl-status{color:#aaa}
+  .dl-note{color:#999}
+}"""
+
+download_items_html = []
+for cls, label, default in CF_ITEMS:
+    chk = ' checked' if default else ''
+    download_items_html.append(
+        "<label><input type='checkbox' value='%s'%s> %s</label>" % (cls, chk, label)
+    )
+
+download_html_path = os.path.join(docs_dir, 'download.html')
+with open(download_html_path, 'w', encoding='utf-8') as f:
+    f.write(("""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Download &ndash; Qur&rsquo;an Reader</title>
+<style>
+%s
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>&#128229; Download for Offline Use</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:16px">Generate a ZIP file of the entire Qur&rsquo;an website customised to your preferences. The ZIP can be opened directly in any browser for offline reading or hosted on any web server.</p>
+
+<div class="dl-section">
+<h2>&#9989; Select Translations</h2>
+<p style="font-size:.88em;color:#666;margin:0 0 8px">Choose which content types to include. Deselected translations will be removed from the downloaded pages.</p>
+<div class="dl-grid" id="dl-translations">
+%s
+</div>
+<div style="margin-top:6px">
+<button onclick="dlSelectAll()" style="padding:4px 12px;font-size:.85em;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;background:#f0f4f8">Select All</button>
+<button onclick="dlDeselectAll()" style="padding:4px 12px;font-size:.85em;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;background:#f0f4f8;margin-left:4px">Deselect All</button>
+</div>
+</div>
+
+<div class="dl-section">
+<h2>&#128214; Surah Range</h2>
+<div class="dl-range">
+<label>From:</label><input type="number" id="dl-from" min="1" max="114" value="1">
+<label>To:</label><input type="number" id="dl-to" min="1" max="114" value="114">
+<span style="font-size:.85em;color:#888">(1&ndash;114)</span>
+</div>
+</div>
+
+<div class="dl-section">
+<h2>&#128230; Additional Pages</h2>
+<div class="dl-grid" id="dl-extras">
+<label><input type="checkbox" value="index" checked> Index Page</label>
+<label><input type="checkbox" value="search" checked> Search Page</label>
+<label><input type="checkbox" value="config" checked> Settings Page</label>
+<label><input type="checkbox" value="sources" checked> Sources Page</label>
+<label><input type="checkbox" value="license" checked> License Page</label>
+<label><input type="checkbox" value="download" checked> Download Page</label>
+</div>
+</div>
+
+<button class="dl-btn" id="dl-generate" onclick="generateZip()">&#128229; Generate &amp; Download ZIP</button>
+
+<div class="dl-progress" id="dl-progress">
+<div class="dl-bar-wrap"><div class="dl-bar" id="dl-bar"></div></div>
+<div class="dl-status" id="dl-status">Preparing&hellip;</div>
+</div>
+
+<p class="dl-note"><strong>How it works:</strong> Your browser fetches each page, removes deselected translations, and packages everything into a ZIP file using <a href="https://stuk.github.io/jszip/" rel="noopener noreferrer">JSZip</a>. No data is sent to any server &mdash; everything happens locally in your browser. The resulting ZIP includes all HTML, CSS, and JavaScript needed for a fully self-contained offline Qur&rsquo;an reader.</p>
+<p class="dl-note"><strong>License:</strong> The downloaded content is provided under the <a href="license.html">Unconditional Liberty Instrument (ULI)</a>. Translation texts remain subject to their original copyright terms.</p>
+
+</main>
+""" + COMPACT_FOOTER + """
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+function dlSelectAll(){document.querySelectorAll('#dl-translations input').forEach(function(c){c.checked=true});}
+function dlDeselectAll(){document.querySelectorAll('#dl-translations input').forEach(function(c){c.checked=false});}
+
+async function generateZip(){
+  var btn=document.getElementById('dl-generate');
+  var prog=document.getElementById('dl-progress');
+  var bar=document.getElementById('dl-bar');
+  var status=document.getElementById('dl-status');
+  btn.disabled=true;
+  prog.style.display='block';
+  bar.style.width='0%%';
+  status.textContent='Preparing\\u2026';
+
+  /* Gather selected translations */
+  var selectedTrans=[];
+  document.querySelectorAll('#dl-translations input:checked').forEach(function(c){selectedTrans.push(c.value);});
+
+  /* Gather surah range */
+  var fromS=Math.max(1,Math.min(114,parseInt(document.getElementById('dl-from').value)||1));
+  var toS=Math.max(fromS,Math.min(114,parseInt(document.getElementById('dl-to').value)||114));
+
+  /* Gather extra pages */
+  var extras=[];
+  document.querySelectorAll('#dl-extras input:checked').forEach(function(c){extras.push(c.value);});
+
+  var zip=new JSZip();
+  var allClasses=%s;
+
+  /* Build list of files to fetch */
+  var files=[];
+  for(var i=fromS;i<=toS;i++){
+    var fn=('00'+i).slice(-3)+'.html';
+    files.push(fn);
+  }
+  var extraMap={'index':'index.html','search':'search.html','config':'config.html','sources':'sources.html','license':'license.html','download':'download.html'};
+  extras.forEach(function(e){if(extraMap[e])files.push(extraMap[e]);});
+
+  /* Also include config.js and search-data.js if search is included */
+  var needConfigJS=extras.indexOf('config')>=0||files.length>0;
+  var needSearchJS=extras.indexOf('search')>=0;
+
+  var total=files.length+(needConfigJS?1:0)+(needSearchJS?1:0);
+  var done=0;
+
+  function updateProgress(){
+    done++;
+    var pct=Math.round(done*100/total);
+    bar.style.width=pct+'%%';
+    status.textContent='Processing '+done+' of '+total+' files ('+pct+'%%)\\u2026';
+  }
+
+  /* Helper: strip deselected translations from HTML */
+  function stripTranslations(html){
+    var parser=new DOMParser();
+    var doc=parser.parseFromString(html,'text/html');
+    /* Remove table rows for deselected translation classes */
+    allClasses.forEach(function(cls){
+      if(selectedTrans.indexOf(cls)<0){
+        doc.querySelectorAll('tr.'+cls).forEach(function(r){r.remove();});
+      }
+    });
+    /* Remove config.js script tag since we'll inline the selected config */
+    doc.querySelectorAll('script[src="config.js"]').forEach(function(s){s.remove();});
+    return '<!DOCTYPE html>\\n'+doc.documentElement.outerHTML;
+  }
+
+  /* Fetch and process each file */
+  for(var fi=0;fi<files.length;fi++){
+    var fname=files[fi];
+    try{
+      status.textContent='Fetching '+fname+'\\u2026';
+      var resp=await fetch(fname);
+      if(!resp.ok){updateProgress();continue;}
+      var html=await resp.text();
+      /* Only strip translations from surah pages (NNN.html) */
+      if(/^\\d{3}\\.html$/.test(fname)){
+        html=stripTranslations(html);
+      }
+      zip.file(fname,html);
+    }catch(e){
+      console.warn('Failed to fetch '+fname,e);
+    }
+    updateProgress();
+  }
+
+  /* Add config.js with selected translations */
+  if(needConfigJS){
+    var cfgObj={};
+    allClasses.forEach(function(cls){cfgObj[cls]=selectedTrans.indexOf(cls)>=0;});
+    var cfgJS='var QURAN_CONFIG='+JSON.stringify(cfgObj,null,2)+';\\n';
+    zip.file('config.js',cfgJS);
+    updateProgress();
+  }
+
+  /* Add search-data.js if needed */
+  if(needSearchJS){
+    try{
+      var sdResp=await fetch('search-data.js');
+      if(sdResp.ok){zip.file('search-data.js',await sdResp.text());}
+    }catch(e){}
+    updateProgress();
+  }
+
+  /* Generate and trigger download */
+  status.textContent='Compressing ZIP\\u2026';
+  bar.style.width='95%%';
+  var blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+  bar.style.width='100%%';
+  status.textContent='Download ready!';
+
+  /* Trigger download */
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='quran-reader-offline.zip';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+
+  btn.disabled=false;
+}
+</script>
+</body>
+</html>""") % (DOWNLOAD_CSS, make_surah_select(0), '\n'.join(download_items_html),
+              str([cls for cls, _, _ in CF_ITEMS])))
+print('Written: %s' % download_html_path)
+
+print('Done. %d surah files + index + search + config + sources + license + download regenerated.' % 114)
