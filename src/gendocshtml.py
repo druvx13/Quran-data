@@ -1919,8 +1919,8 @@ async function generateZip(){
      (user can toggle the rest via Content Filter / Settings). */
   if(needConfigJS){
     var cfgObj={};
-    var SMART_THRESHOLD=6;
-    if(selectedTrans.length<=SMART_THRESHOLD){
+    var smartThreshold=6;
+    if(selectedTrans.length<=smartThreshold){
       allClasses.forEach(function(cls){cfgObj[cls]=selectedTrans.indexOf(cls)>=0;});
     }else{
       allClasses.forEach(function(cls){
@@ -1964,7 +1964,7 @@ async function generateZip(){
 </body>
 </html>""") % (DOWNLOAD_CSS, make_surah_select(0), '\n'.join(download_items_html),
               str([cls for cls, _, _ in CF_ITEMS]),
-              '{' + ','.join('"%s":%s' % (cls, 'true' if dflt else 'false') for cls, _, dflt in CF_ITEMS) + '}'))
+              json.dumps({cls: dflt for cls, _, dflt in CF_ITEMS})))
 print('Written: %s' % download_html_path)
 
 print('Done. %d surah files + index + search + config + sources + license + download regenerated.' % 114)

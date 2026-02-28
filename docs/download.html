@@ -347,7 +347,7 @@ async function generateZip(){
 
   var zip=new JSZip();
   var allClasses=['arabic', 'audio', 'translit', 'translit-unicode', 'trans', 'trans-yusuf', 'trans-sahih', 'trans-qarai', 'trans-hilali', 'eng-abridged', 'hindi', 'hindi-suhail', 'hindi-mokhtasar', 'gujarati', 'nepali', 'hindi-omari', 'roman-urdu', 'roman-urdu-junagarhi'];
-  var hardcodedDefaults={"arabic":true,"audio":true,"translit":false,"translit-unicode":true,"trans":false,"trans-yusuf":true,"trans-sahih":false,"trans-qarai":false,"trans-hilali":false,"eng-abridged":false,"hindi":false,"hindi-suhail":true,"hindi-mokhtasar":true,"gujarati":false,"nepali":false,"hindi-omari":false,"roman-urdu":false,"roman-urdu-junagarhi":false};
+  var hardcodedDefaults={"arabic": true, "audio": true, "translit": false, "translit-unicode": true, "trans": false, "trans-yusuf": true, "trans-sahih": false, "trans-qarai": false, "trans-hilali": false, "eng-abridged": false, "hindi": false, "hindi-suhail": true, "hindi-mokhtasar": true, "gujarati": false, "nepali": false, "hindi-omari": false, "roman-urdu": false, "roman-urdu-junagarhi": false};
 
   /* Build list of files to fetch */
   var files=[];
@@ -512,8 +512,8 @@ async function generateZip(){
      (user can toggle the rest via Content Filter / Settings). */
   if(needConfigJS){
     var cfgObj={};
-    var SMART_THRESHOLD=6;
-    if(selectedTrans.length<=SMART_THRESHOLD){
+    var smartThreshold=6;
+    if(selectedTrans.length<=smartThreshold){
       allClasses.forEach(function(cls){cfgObj[cls]=selectedTrans.indexOf(cls)>=0;});
     }else{
       allClasses.forEach(function(cls){
