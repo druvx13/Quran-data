@@ -1754,6 +1754,7 @@ async function generateZip(){
 
   var zip=new JSZip();
   var allClasses=%s;
+  var hardcodedDefaults=%s;
 
   /* Build list of files to fetch */
   var files=[];
@@ -1912,10 +1913,21 @@ async function generateZip(){
     updateProgress();
   }
 
-  /* Add config.js with selected translations */
+  /* Add config.js with smart defaults.
+     If user selected <= 6 translations: all selected get true (small selection — show everything).
+     If user selected > 6: use the curated hardcoded defaults so the page isn't overloaded
+     (user can toggle the rest via Content Filter / Settings). */
   if(needConfigJS){
     var cfgObj={};
-    allClasses.forEach(function(cls){cfgObj[cls]=selectedTrans.indexOf(cls)>=0;});
+    var SMART_THRESHOLD=6;
+    if(selectedTrans.length<=SMART_THRESHOLD){
+      allClasses.forEach(function(cls){cfgObj[cls]=selectedTrans.indexOf(cls)>=0;});
+    }else{
+      allClasses.forEach(function(cls){
+        if(selectedTrans.indexOf(cls)<0){cfgObj[cls]=false;}
+        else{cfgObj[cls]=!!hardcodedDefaults[cls];}
+      });
+    }
     var cfgJS='var QURAN_CONFIG='+JSON.stringify(cfgObj,null,2)+';\\n';
     zip.file('config.js',cfgJS);
     updateProgress();
@@ -1951,7 +1963,8 @@ async function generateZip(){
 </script>
 </body>
 </html>""") % (DOWNLOAD_CSS, make_surah_select(0), '\n'.join(download_items_html),
-              str([cls for cls, _, _ in CF_ITEMS])))
+              str([cls for cls, _, _ in CF_ITEMS]),
+              '{' + ','.join('"%s":%s' % (cls, 'true' if dflt else 'false') for cls, _, dflt in CF_ITEMS) + '}'))
 print('Written: %s' % download_html_path)
 
 print('Done. %d surah files + index + search + config + sources + license + download regenerated.' % 114)
