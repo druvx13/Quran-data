@@ -607,160 +607,7 @@ footer a:hover{text-decoration:underline}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
-}
-.reading-progress{position:fixed;top:0;left:0;height:3px;background:#ffd54f;z-index:999;width:0;transition:width .1s linear;pointer-events:none}
-.theme-toggle{background:none;border:1px solid #ffd54f;color:#ffd54f;border-radius:4px;padding:2px 8px;cursor:pointer;font-size:1.1em;line-height:1}
-.theme-toggle:hover{background:rgba(255,213,79,.15)}
-.continue-reading{display:none;align-items:center;gap:10px;padding:10px 16px;background:#fff8e1;border-left:4px solid #ffd54f;margin-bottom:16px;border-radius:0 6px 6px 0;font-size:.95em}
-.continue-reading a{color:#1a3a5c;font-weight:bold;text-decoration:none}
-.continue-reading a:hover{text-decoration:underline}
-.cr-dismiss{background:none;border:none;font-size:1.3em;cursor:pointer;color:#888;margin-left:auto;padding:0 4px}
-.cr-dismiss:hover{color:#333}
-.kbd-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
-.kbd-overlay.active{display:flex}
-.kbd-card{background:#fff;border-radius:10px;padding:24px 28px;max-width:340px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
-.kbd-card h3{margin:0 0 16px;font-size:1.1em;color:#1a3a5c}
-.kbd-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #eee}
-.kbd-row:last-of-type{border-bottom:none}
-.kbd-key{background:#f0f0f0;border:1px solid #ccc;border-radius:4px;padding:2px 10px;font-size:.9em;font-family:monospace}
-.kbd-close{display:inline-block;margin-top:14px;cursor:pointer;color:#1a3a5c;font-weight:600;font-size:.92em}
-.kbd-close:hover{text-decoration:underline}
-html.force-dark body{background:#121212;color:#e8e8e8}
-html.force-dark header{background:#0d2136}
-html.force-dark main{color:#e8e8e8}
-html.force-dark h2{color:#90caf9}
-html.force-dark td{border-color:#333;color:#e8e8e8}
-html.force-dark .ayah-sep td{background:#0d2136;border-color:#0d2136}
-html.force-dark .label{color:#aaa}
-html.force-dark .translit td{background:#1e2a3a}
-html.force-dark .translit-unicode td{background:#1a1f3a}
-html.force-dark .trans td{background:#1a1a1a}
-html.force-dark .trans-yusuf td{background:#1a2a1a}
-html.force-dark .trans-sahih td{background:#132030}
-html.force-dark .trans-qarai td{background:#0d2520}
-html.force-dark .trans-hilali td{background:#1e0a2a}
-html.force-dark .hindi td{background:#1e1530}
-html.force-dark .hindi-suhail td{background:#2a1f10}
-html.force-dark .hindi-mokhtasar td{background:#102010}
-html.force-dark .eng-abridged td{background:#102028}
-html.force-dark .gujarati td{background:#200010}
-html.force-dark .nepali td{background:#0a1e18}
-html.force-dark .audio td{background:#0d2228}
-html.force-dark .arabic td{background:#2a2010}
-html.force-dark .hindi-omari td{background:#200010}
-html.force-dark .roman-urdu td{background:#1a2000}
-html.force-dark .roman-urdu-junagarhi td{background:#0a1a00}
-html.force-dark .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
-html.force-dark .surah-grid a:hover{background:#263650}
-html.force-dark .sg-meta{color:#aaa}
-html.force-dark .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
-html.force-dark .verse-chooser{background:#1e2a3a;border-color:#334}
-html.force-dark .verse-chooser summary{background:#162030}
-html.force-dark .vc-title{color:#90caf9}
-html.force-dark .vc-arrow{color:#90caf9}
-html.force-dark .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
-html.force-dark .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
-html.force-dark .cf-item label:hover{background:#263650}
-html.force-dark .cf-item input:checked+label{background:#1a3a5c;color:#fff}
-html.force-dark footer{color:#aaa;border-top-color:#333}
-html.force-dark footer a{color:#90caf9}
-html.force-dark th{background:#0d2136}
-html.force-dark .translit-unicode-text{color:#9fa8da}
-html.force-dark .hindi-text{color:#b39ddb}
-html.force-dark .hindi-suhail-text{color:#ffcc80}
-html.force-dark .hindi-mokhtasar-text{color:#a5d6a7}
-html.force-dark .gujarati-text{color:#f48fb1}
-html.force-dark .trans-hilali-text{color:#ce93d8}
-html.force-dark .nepali-text{color:#80cbc4}
-html.force-dark .hindi-omari-text{color:#f48fb1}
-@media(max-width:600px){html.force-dark .table-wrap .label{border-top-color:rgba(255,255,255,.08)}}
-html.force-dark .surah-info-bar{background:#1e2a3a;border-color:#334;color:#90caf9}
-html.force-dark .sib-type.meccan{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
-html.force-dark .sib-type.medinan{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
-html.force-dark .juz-marker td{background:#0d2136;border-color:#0d2136}
-html.force-dark .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
-html.force-dark .copy-btn{border-color:#334;color:#90caf9}
-html.force-dark .copy-btn:hover{background:#263650}
-html.force-dark .vc-font-ctrl span{color:#aaa}
-html.force-dark .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
-html.force-dark .vc-font-ctrl button:hover{background:#263650}
-html.force-dark .noscript-warn{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
-html.force-dark .continue-reading{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
-html.force-dark .continue-reading a{color:#90caf9}
-html.force-dark .cr-dismiss{color:#aaa}
-html.force-dark .cr-dismiss:hover{color:#e8e8e8}
-html.force-dark .kbd-card{background:#1e2a3a;color:#e8e8e8}
-html.force-dark .kbd-card h3{color:#90caf9}
-html.force-dark .kbd-row{border-bottom-color:#333}
-html.force-dark .kbd-key{background:#121212;border-color:#334;color:#e8e8e8}
-html.force-dark .kbd-close{color:#90caf9}
-html.force-light body{background:#fff;color:#111}
-html.force-light header{background:#1a3a5c}
-html.force-light main{color:inherit}
-html.force-light h2{color:#1a3a5c}
-html.force-light td{border-color:#ccd6e0;color:inherit}
-html.force-light .ayah-sep td{background:#1a3a5c;border-color:#1a3a5c}
-html.force-light .label{color:#888}
-html.force-light .translit td{background:#f0f4f8}
-html.force-light .translit-unicode td{background:#e8eaf6}
-html.force-light .trans td{background:#fff}
-html.force-light .trans-yusuf td{background:#e8f5e9}
-html.force-light .trans-sahih td{background:#e3f2fd}
-html.force-light .trans-qarai td{background:#e0f2f1}
-html.force-light .trans-hilali td{background:#f3e5f5}
-html.force-light .hindi td{background:#f5f0ff}
-html.force-light .hindi-suhail td{background:#fff3e0}
-html.force-light .hindi-mokhtasar td{background:#e8f5e0}
-html.force-light .eng-abridged td{background:#e8f4fd}
-html.force-light .gujarati td{background:#fce4ec}
-html.force-light .nepali td{background:#e8f5f0}
-html.force-light .audio td{background:#e0f7fa}
-html.force-light .arabic td{background:#fff8e1}
-html.force-light .hindi-omari td{background:#fff0f5}
-html.force-light .roman-urdu td{background:#f0f4c3}
-html.force-light .roman-urdu-junagarhi td{background:#e8f5e9}
-html.force-light .surah-grid a{background:#f0f4f8;border-color:#ccd6e0;color:#1a3a5c}
-html.force-light .surah-grid a:hover{background:#dde8f2}
-html.force-light .sg-meta{color:#555}
-html.force-light .notice{background:#fff8e1;border-left-color:#ffd54f;color:inherit}
-html.force-light .verse-chooser{background:#f0f4f8;border-color:#ccd6e0}
-html.force-light .verse-chooser summary{background:#e8eef4}
-html.force-light .vc-title{color:#1a3a5c}
-html.force-light .vc-arrow{color:#1a3a5c}
-html.force-light .vc-range input[type=number]{background:#fff;border-color:#ccd6e0;color:#111}
-html.force-light .cf-item label{background:#fff;border-color:#ccd6e0;color:#1a3a5c}
-html.force-light .cf-item label:hover{background:#dde8f2}
-html.force-light .cf-item input:checked+label{background:#1a3a5c;color:#fff}
-html.force-light footer{color:#666;border-top-color:#e0e0e0}
-html.force-light footer a{color:#1a3a5c}
-html.force-light th{background:#1a3a5c}
-html.force-light .translit-unicode-text{color:#283593}
-html.force-light .hindi-text{color:#3a2a6c}
-html.force-light .hindi-suhail-text{color:#5d4037}
-html.force-light .hindi-mokhtasar-text{color:#1b5e20}
-html.force-light .gujarati-text{color:#880e4f}
-html.force-light .trans-hilali-text{color:#4a148c}
-html.force-light .nepali-text{color:#1a5276}
-html.force-light .hindi-omari-text{color:#880e30}
-@media(max-width:600px){html.force-light .table-wrap .label{border-top-color:rgba(0,0,0,.07)}}
-html.force-light .surah-info-bar{background:#f0f4f8;border-color:#ccd6e0;color:#1a3a5c}
-html.force-light .sib-type.meccan{background:#fff8e1;color:#e65100;border-color:#ffcc80}
-html.force-light .sib-type.medinan{background:#e8f5e9;color:#1b5e20;border-color:#a5d6a7}
-html.force-light .juz-marker td{background:#1a3a5c;border-color:#1a3a5c}
-html.force-light .sajda-badge{background:#e8f5e9;color:#1b5e20;border-color:#a5d6a7}
-html.force-light .copy-btn{border-color:#ccd6e0;color:#888}
-html.force-light .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
-html.force-light .vc-font-ctrl span{color:#555}
-html.force-light .vc-font-ctrl button{background:#fff;border-color:#ccd6e0;color:#1a3a5c}
-html.force-light .vc-font-ctrl button:hover{background:#dde8f2}
-html.force-light .noscript-warn{background:#fff3cd;border-left-color:#ffc107;color:#856404}
-html.force-light .continue-reading{background:#fff8e1;border-left-color:#ffd54f;color:inherit}
-html.force-light .continue-reading a{color:#1a3a5c}
-html.force-light .kbd-card{background:#fff;color:inherit}
-html.force-light .kbd-card h3{color:#1a3a5c}
-html.force-light .kbd-row{border-bottom-color:#eee}
-html.force-light .kbd-key{background:#f0f0f0;border-color:#ccc;color:inherit}
-html.force-light .kbd-close{color:#1a3a5c}"""
+}"""
 
 HEADER_HTML = """\
 <!DOCTYPE html>
@@ -774,11 +621,9 @@ HEADER_HTML = """\
 {css}
 </style>
 <script src="config.js"></script>
-<script>(function(){{var t=localStorage.getItem('qtheme');if(t==='dark')document.documentElement.classList.add('force-dark');else if(t==='light')document.documentElement.classList.add('force-light');}})()</script>
 </head>
 <body>
-<div class="reading-progress" id="reading-progress"></div>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#127769;</button><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
 {surah_info}<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
@@ -1032,77 +877,6 @@ VC_JS = """\
       history.replaceState(null,'','#'+a.dataset.ayah);
     });
   });
-
-  /* ---- Theme toggle ---- */
-  window.toggleTheme=function(){
-    var html=document.documentElement;
-    var cur=localStorage.getItem('qtheme');
-    var isDark=html.classList.contains('force-dark')||
-      (!cur&&window.matchMedia('(prefers-color-scheme:dark)').matches);
-    if(isDark){
-      html.classList.remove('force-dark');
-      html.classList.add('force-light');
-      localStorage.setItem('qtheme','light');
-      var btn=document.querySelector('.theme-toggle');
-      if(btn)btn.innerHTML='\\u263e';
-    }else{
-      html.classList.remove('force-light');
-      html.classList.add('force-dark');
-      localStorage.setItem('qtheme','dark');
-      var btn=document.querySelector('.theme-toggle');
-      if(btn)btn.innerHTML='\\u2600';
-    }
-  };
-  (function(){
-    var t=localStorage.getItem('qtheme');
-    var isDark=(t==='dark')||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);
-    var btn=document.querySelector('.theme-toggle');
-    if(btn)btn.innerHTML=isDark?'\\u2600':'\\u263e';
-  })();
-
-  /* ---- Reading progress bar ---- */
-  var rpBar=document.getElementById('reading-progress');
-  if(rpBar){
-    window.addEventListener('scroll',function(){
-      var h=document.documentElement.scrollHeight-window.innerHeight;
-      rpBar.style.width=h>0?Math.min(100,window.scrollY/h*100)+'%':'0';
-    },{passive:true});
-  }
-
-  /* ---- Save last-read surah ---- */
-  (function(){
-    var m=document.title.match(/Surah (\\d+):/);
-    if(m){
-      try{localStorage.setItem('qlast',JSON.stringify({surah:+m[1],name:document.title.replace(/^Surah \\d+:\\s*/,'')}));}catch(e){}
-    }
-  })();
-
-  /* ---- Keyboard shortcuts ---- */
-  (function(){
-    var prev=null,next=null;
-    document.querySelectorAll('nav.chapter-nav a').forEach(function(a){
-      if(a.textContent.indexOf('\\u00AB')>=0)prev=a;
-      if(a.textContent.indexOf('\\u00BB')>=0)next=a;
-    });
-    var overlay=document.createElement('div');
-    overlay.className='kbd-overlay';
-    overlay.innerHTML='<div class="kbd-card"><h3>\\u2328 Keyboard Shortcuts</h3>'
-      +'<div class="kbd-row"><span>Previous Surah</span><span class="kbd-key">\\u2190</span></div>'
-      +'<div class="kbd-row"><span>Next Surah</span><span class="kbd-key">\\u2192</span></div>'
-      +'<div class="kbd-row"><span>Show/Hide Shortcuts</span><span class="kbd-key">?</span></div>'
-      +'<div class="kbd-row"><span>Close</span><span class="kbd-key">Esc</span></div>'
-      +'<span class="kbd-close">Close</span></div>';
-    document.body.appendChild(overlay);
-    overlay.querySelector('.kbd-close').onclick=function(){overlay.classList.remove('active');};
-    overlay.addEventListener('click',function(e){if(e.target===overlay)overlay.classList.remove('active');});
-    document.addEventListener('keydown',function(e){
-      if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT')return;
-      if(e.key==='ArrowLeft'&&prev){prev.click();e.preventDefault();}
-      else if(e.key==='ArrowRight'&&next){next.click();e.preventDefault();}
-      else if(e.key==='?'){overlay.classList.toggle('active');e.preventDefault();}
-      else if(e.key==='Escape'&&overlay.classList.contains('active')){overlay.classList.remove('active');e.preventDefault();}
-    });
-  })();
 })();
 </script>
 """
@@ -1232,10 +1006,9 @@ with open(index_path, 'w', encoding='utf-8') as out:
 <style>
 %s
 </style>
-<script>(function(){var t=localStorage.getItem('qtheme');if(t==='dark')document.documentElement.classList.add('force-dark');else if(t==='light')document.documentElement.classList.add('force-light');})()</script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#127769;</button><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English, Hindi, Gujarati &amp; Nepali Translation</h1>
 <details class="notice">
@@ -1280,18 +1053,6 @@ Texts are reproduced verbatim; no alterations have been made.
     out.write("""\
 </div>
 </main>
-<div class="continue-reading" id="continue-reading">
-<span>&#128214;</span>
-<span>Continue reading: <a id="cr-link" href="#">...</a></span>
-<button class="cr-dismiss" onclick="this.parentNode.style.display='none'" title="Dismiss">&times;</button>
-</div>
-<script>
-(function(){
-  window.toggleTheme=function(){var h=document.documentElement,c=localStorage.getItem('qtheme'),d=h.classList.contains('force-dark')||(!c&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(d){h.classList.remove('force-dark');h.classList.add('force-light');localStorage.setItem('qtheme','light');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u263e';}else{h.classList.remove('force-light');h.classList.add('force-dark');localStorage.setItem('qtheme','dark');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u2600';}};
-  (function(){var t=localStorage.getItem('qtheme');var d=(t==='dark')||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);var b=document.querySelector('.theme-toggle');if(b)b.innerHTML=d?'\u2600':'\u263e';})();
-  try{var raw=localStorage.getItem('qlast');if(raw){var data=JSON.parse(raw);var el=document.getElementById('continue-reading');var link=document.getElementById('cr-link');if(el&&link&&data.surah){link.href=String(data.surah).padStart(3,'0')+'.html';link.textContent='Surah '+data.surah+': '+data.name;el.style.display='flex';}}}catch(e){}
-})();
-</script>
 %s
 </body>
 </html>""" % COMPACT_FOOTER)
@@ -1363,10 +1124,9 @@ SEARCH_HTML = """\
 <style>
 {css}
 </style>
-<script>(function(){{var t=localStorage.getItem('qtheme');if(t==='dark')document.documentElement.classList.add('force-dark');else if(t==='light')document.documentElement.classList.add('force-light');}})()</script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#127769;</button><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, English translation (Yusuf Ali), or &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Hindi Tafsir). Results link directly to the verse.</p>
@@ -1485,10 +1245,6 @@ SEARCH_HTML = """\
   if(qs){{ input.value=qs; doSearch(); }}
 }})();
 </script>
-<script>
-window.toggleTheme=function(){{var h=document.documentElement,c=localStorage.getItem('qtheme'),d=h.classList.contains('force-dark')||(!c&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(d){{h.classList.remove('force-dark');h.classList.add('force-light');localStorage.setItem('qtheme','light');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u263e';}}else{{h.classList.remove('force-light');h.classList.add('force-dark');localStorage.setItem('qtheme','dark');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u2600';}}}};
-(function(){{var t=localStorage.getItem('qtheme');var d=(t==='dark')||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);var b=document.querySelector('.theme-toggle');if(b)b.innerHTML=d?'\u2600':'\u263e';}})();
-</script>
 </body>
 </html>"""
 
@@ -1556,21 +1312,7 @@ CONFIG_CSS = CSS + """
   .cfg-btn-reset{background:#333;color:#e8e8e8}
   .cfg-btn-reset:hover{background:#444}
   .cfg-saved{color:#a5d6a7}
-}
-html.force-dark .cfg-card{background:#1e2a3a;border-color:#334}
-html.force-dark .cfg-row{border-bottom-color:#333}
-html.force-dark .cfg-label{color:#90caf9}
-html.force-dark .cfg-slider{background:#555}
-html.force-dark .cfg-btn-reset{background:#333;color:#e8e8e8}
-html.force-dark .cfg-btn-reset:hover{background:#444}
-html.force-dark .cfg-saved{color:#a5d6a7}
-html.force-light .cfg-card{background:#f0f4f8;border-color:#ccd6e0}
-html.force-light .cfg-row{border-bottom-color:#e0e0e0}
-html.force-light .cfg-label{color:#1a3a5c}
-html.force-light .cfg-slider{background:#ccc}
-html.force-light .cfg-btn-reset{background:#e0e0e0;color:#333}
-html.force-light .cfg-btn-reset:hover{background:#bdbdbd}
-html.force-light .cfg-saved{color:#1b5e20}"""
+}"""
 
 config_html_path = os.path.join(docs_dir, 'config.html')
 with open(config_html_path, 'w', encoding='utf-8') as f:
@@ -1585,10 +1327,9 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 %s
 </style>
 <script src="config.js"></script>
-<script>(function(){var t=localStorage.getItem('qtheme');if(t==='dark')document.documentElement.classList.add('force-dark');else if(t==='light')document.documentElement.classList.add('force-light');})()</script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#127769;</button><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#9881; Reader Settings</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Choose which translations appear by default when you open a Surah page. Your preferences are saved in your browser.</p>
@@ -1640,10 +1381,6 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
   };
 })();
 </script>
-<script>
-window.toggleTheme=function(){var h=document.documentElement,c=localStorage.getItem('qtheme'),d=h.classList.contains('force-dark')||(!c&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(d){h.classList.remove('force-dark');h.classList.add('force-light');localStorage.setItem('qtheme','light');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u263e';}else{h.classList.remove('force-light');h.classList.add('force-dark');localStorage.setItem('qtheme','dark');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u2600';}};
-(function(){var t=localStorage.getItem('qtheme');var d=(t==='dark')||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);var b=document.querySelector('.theme-toggle');if(b)b.innerHTML=d?'\u2600':'\u263e';})();
-</script>
 </body>
 </html>""" % (CONFIG_CSS, make_surah_select(0), '\n'.join(config_items_html)))
 print('Written: %s' % config_html_path)
@@ -1665,14 +1402,6 @@ SOURCES_CSS = CSS + """
   .src-table tr:nth-child(even) td{background:#1a1a1a}
   .src-note{color:#aaa}
 }
-html.force-dark .src-section h2{color:#90caf9;border-bottom-color:#ffd54f}
-html.force-dark .src-table td{border-color:#333;background:#121212}
-html.force-dark .src-table tr:nth-child(even) td{background:#1a1a1a}
-html.force-dark .src-note{color:#aaa}
-html.force-light .src-section h2{color:#1a3a5c;border-bottom-color:#ffd54f}
-html.force-light .src-table td{border-color:#ccd6e0;background:inherit}
-html.force-light .src-table tr:nth-child(even) td{background:#f7f9fb}
-html.force-light .src-note{color:#555}
 @media(max-width:600px){
   .src-table,.src-table thead,.src-table tbody,.src-table tr,.src-table th,.src-table td{display:block;width:100%%}
   .src-table thead{display:none}
@@ -1692,10 +1421,9 @@ with open(sources_html_path, 'w', encoding='utf-8') as f:
 <style>
 %s
 </style>
-<script>(function(){var t=localStorage.getItem('qtheme');if(t==='dark')document.documentElement.classList.add('force-dark');else if(t==='light')document.documentElement.classList.add('force-light');})()</script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#127769;</button><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128218; Sources &amp; Attribution</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:20px">All texts displayed on this website are reproduced verbatim from their original sources. No alterations have been made. Below is a comprehensive listing of every source used.</p>
@@ -1825,10 +1553,6 @@ with open(sources_html_path, 'w', encoding='utf-8') as f:
 
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
-<script>
-window.toggleTheme=function(){var h=document.documentElement,c=localStorage.getItem('qtheme'),d=h.classList.contains('force-dark')||(!c&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(d){h.classList.remove('force-dark');h.classList.add('force-light');localStorage.setItem('qtheme','light');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u263e';}else{h.classList.remove('force-light');h.classList.add('force-dark');localStorage.setItem('qtheme','dark');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u2600';}};
-(function(){var t=localStorage.getItem('qtheme');var d=(t==='dark')||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);var b=document.querySelector('.theme-toggle');if(b)b.innerHTML=d?'\u2600':'\u263e';})();
-</script>
 </body>
 </html>""" % (SOURCES_CSS, make_surah_select(0)))
 print('Written: %s' % sources_html_path)
@@ -1849,17 +1573,7 @@ LICENSE_CSS = CSS + """
   .license-card pre{background:#121212;border-color:#333;color:#e0e0e0}
   .license-card h2{color:#90caf9}
   .license-note{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
-}
-html.force-dark .license-card{background:#1e2a3a;border-color:#334}
-html.force-dark .license-card p,html.force-dark .license-card li{color:#e0e0e0}
-html.force-dark .license-card pre{background:#121212;border-color:#333;color:#e0e0e0}
-html.force-dark .license-card h2{color:#90caf9}
-html.force-dark .license-note{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
-html.force-light .license-card{background:#f0f4f8;border-color:#ccd6e0}
-html.force-light .license-card p,html.force-light .license-card li{color:#333}
-html.force-light .license-card pre{background:#fff;border-color:#ddd;color:inherit}
-html.force-light .license-card h2{color:#1a3a5c}
-html.force-light .license-note{background:#fff8e1;border-left-color:#ffd54f;color:inherit}"""
+}"""
 
 # Read LICENSE file
 license_text = ''
@@ -1885,10 +1599,9 @@ with open(license_html_path, 'w', encoding='utf-8') as f:
 <style>
 %s
 </style>
-<script>(function(){var t=localStorage.getItem('qtheme');if(t==='dark')document.documentElement.classList.add('force-dark');else if(t==='light')document.documentElement.classList.add('force-light');})()</script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#127769;</button><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128220; License</h1>
 <div class="license-card">
@@ -1904,10 +1617,6 @@ with open(license_html_path, 'w', encoding='utf-8') as f:
 <p style="font-size:1.05em"><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">github.com/druvx13/Quran-data</a></p>
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
-<script>
-window.toggleTheme=function(){var h=document.documentElement,c=localStorage.getItem('qtheme'),d=h.classList.contains('force-dark')||(!c&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(d){h.classList.remove('force-dark');h.classList.add('force-light');localStorage.setItem('qtheme','light');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u263e';}else{h.classList.remove('force-light');h.classList.add('force-dark');localStorage.setItem('qtheme','dark');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u2600';}};
-(function(){var t=localStorage.getItem('qtheme');var d=(t==='dark')||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);var b=document.querySelector('.theme-toggle');if(b)b.innerHTML=d?'\u2600':'\u263e';})();
-</script>
 </body>
 </html>""" % (LICENSE_CSS, make_surah_select(0), license_text_escaped))
 print('Written: %s' % license_html_path)
@@ -1943,23 +1652,7 @@ DOWNLOAD_CSS = CSS + """
   .dl-progress .dl-bar-wrap{background:#333}
   .dl-progress .dl-status{color:#aaa}
   .dl-note{color:#999}
-}
-html.force-dark .dl-section h2{color:#90caf9;border-bottom-color:#ffd54f}
-html.force-dark .dl-grid label{background:#1e2a3a;border-color:#334;color:#e0e0e0}
-html.force-dark .dl-grid label:hover{background:#253a52}
-html.force-dark .dl-range label{color:#ccc}
-html.force-dark .dl-range input{background:#1e2a3a;color:#e0e0e0;border-color:#444}
-html.force-dark .dl-progress .dl-bar-wrap{background:#333}
-html.force-dark .dl-progress .dl-status{color:#aaa}
-html.force-dark .dl-note{color:#999}
-html.force-light .dl-section h2{color:#1a3a5c;border-bottom-color:#ffd54f}
-html.force-light .dl-grid label{background:#f7f9fb;border-color:#dde3ea;color:inherit}
-html.force-light .dl-grid label:hover{background:#e8eef4}
-html.force-light .dl-range label{color:#333}
-html.force-light .dl-range input{background:#fff;color:inherit;border-color:#ccd6e0}
-html.force-light .dl-progress .dl-bar-wrap{background:#dde3ea}
-html.force-light .dl-progress .dl-status{color:#555}
-html.force-light .dl-note{color:#666}"""
+}"""
 
 download_items_html = []
 for cls, label, default in CF_ITEMS:
@@ -1980,10 +1673,9 @@ with open(download_html_path, 'w', encoding='utf-8') as f:
 <style>
 %s
 </style>
-<script>(function(){var t=localStorage.getItem('qtheme');if(t==='dark')document.documentElement.classList.add('force-dark');else if(t==='light')document.documentElement.classList.add('force-light');})()</script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#127769;</button><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128229; Download for Offline Use</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:16px">Generate a ZIP file of the entire Qur&rsquo;an website customised to your preferences. The ZIP can be opened directly in any browser for offline reading or hosted on any web server.</p>
@@ -2268,10 +1960,6 @@ async function generateZip(){
 
   btn.disabled=false;
 }
-</script>
-<script>
-window.toggleTheme=function(){var h=document.documentElement,c=localStorage.getItem('qtheme'),d=h.classList.contains('force-dark')||(!c&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(d){h.classList.remove('force-dark');h.classList.add('force-light');localStorage.setItem('qtheme','light');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u263e';}else{h.classList.remove('force-light');h.classList.add('force-dark');localStorage.setItem('qtheme','dark');var b=document.querySelector('.theme-toggle');if(b)b.innerHTML='\u2600';}};
-(function(){var t=localStorage.getItem('qtheme');var d=(t==='dark')||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);var b=document.querySelector('.theme-toggle');if(b)b.innerHTML=d?'\u2600':'\u263e';})();
 </script>
 </body>
 </html>""") % (DOWNLOAD_CSS, make_surah_select(0), '\n'.join(download_items_html),
