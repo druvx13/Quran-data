@@ -589,6 +589,8 @@ footer a:hover{text-decoration:underline}
   vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
 .bm-btn:hover{background:#fff8e1;color:#e65100}
 .bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
+@keyframes ayah-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.ayah-anchor-highlight td{animation:ayah-pulse .8s ease-in-out 3}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -826,7 +828,11 @@ VC_JS = """\
   }
   function updateHash(){
     if(vcFrom===1&&vcTo===maxVerse){
-      history.replaceState(null,'',location.pathname+location.search);
+      /* Only clear hash if it's a numeric range hash — preserve #ayah-N anchors */
+      var curHash=location.hash;
+      if(!curHash||/^#\\d+(-\\d+)?$/.test(curHash)){
+        history.replaceState(null,'',location.pathname+location.search);
+      }
     }else{
       history.replaceState(null,'','#'+vcFrom+(vcTo!==vcFrom?'-'+vcTo:''));
     }
@@ -862,6 +868,20 @@ VC_JS = """\
   };
   loadHash();
   applyAllRows();
+  /* Scroll to #ayah-N anchor after config layout is applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#ayah-\\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('ayah-anchor-highlight');
+          setTimeout(function(){el.classList.remove('ayah-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
 
   /* ---- Font size control ---- */
   var FS_KEY='qfs';
@@ -1196,50 +1216,56 @@ Texts are reproduced verbatim; no alterations have been made.
 print('Written: %s' % index_path)
 
 # ---------------------------------------------------------------------------
-# Generate search-data.js  (compact JSON array for client-side search)
-# Each entry: [surahNum, ayahNum, surahName,
-#   arabic(3), translit_tanzil(4), translit_unicode(5), pickthall(6),
-#   yusufali(7), sahih(8), qarai(9), hilali(10), eng_abridged(11),
-#   hindi_farooq(12), hindi_suhail(13), hindi_mokhtasar(14),
-#   gujarati(15), nepali(16), hindi_omari(17),
-#   roman_urdu(18), roman_urdu_junagarhi(19)]
+# Generate docs/sd/ — per-field JSON files for lazy-loaded search
+# sd/meta.json  : [[surahNum, ayahNum, "name"], ...]  — always loaded (~200 KB)
+# sd/{key}.json : ["text", "text", ...]  — one file per translation field
+#                 indexed in the same order as meta.json
 # ---------------------------------------------------------------------------
-import json
+import json, os as _os
 
-search_data = []
+sd_dir = _os.path.join(docs_dir, 'sd')
+_os.makedirs(sd_dir, exist_ok=True)
+
+# Build ordered list of (sura, ayah) pairs — 6236 entries
+_ayah_order = []
 for sura_idx in range(1, 115):
     size = SURA_SIZE[sura_idx - 1]
     name = SURA_NAME[sura_idx - 1]
     for ayah in range(1, size + 1):
-        search_data.append([
-            sura_idx,
-            ayah,
-            name,
-            arabic.get((sura_idx, ayah), ''),
-            translit.get((sura_idx, ayah), ''),
-            translit_unicode.get((sura_idx, ayah), ''),
-            pickthall.get((sura_idx, ayah), ''),
-            yusufali.get((sura_idx, ayah), ''),
-            sahih.get((sura_idx, ayah), ''),
-            qarai.get((sura_idx, ayah), ''),
-            hilali.get((sura_idx, ayah), ''),
-            eng_abridged.get((sura_idx, ayah), ''),
-            hindi.get((sura_idx, ayah), ''),
-            hindi_suhail.get((sura_idx, ayah), ''),
-            hindi_mokhtasar.get((sura_idx, ayah), ''),
-            gujarati.get((sura_idx, ayah), ''),
-            nepali.get((sura_idx, ayah), ''),
-            hindi_omari.get((sura_idx, ayah), ''),
-            roman_urdu.get((sura_idx, ayah), ''),
-            roman_urdu_junagarhi.get((sura_idx, ayah), ''),
-        ])
+        _ayah_order.append((sura_idx, ayah, name))
 
-search_data_path = os.path.join(docs_dir, 'search-data.js')
-with open(search_data_path, 'w', encoding='utf-8') as f:
-    f.write('var QURAN_DATA=')
-    json.dump(search_data, f, ensure_ascii=False, separators=(',', ':'))
-    f.write(';')
-print('Written: %s' % search_data_path)
+# meta.json
+meta = [[s, a, n] for s, a, n in _ayah_order]
+with open(_os.path.join(sd_dir, 'meta.json'), 'w', encoding='utf-8') as f:
+    json.dump(meta, f, ensure_ascii=False, separators=(',', ':'))
+print('Written: %s' % _os.path.join(sd_dir, 'meta.json'))
+
+# Per-field arrays: each is a flat list of strings, same order as meta.json
+_FIELD_SOURCES = [
+    ('arabic',               arabic),
+    ('translit',             translit),
+    ('translit-unicode',     translit_unicode),
+    ('trans',                pickthall),
+    ('trans-yusuf',          yusufali),
+    ('trans-sahih',          sahih),
+    ('trans-qarai',          qarai),
+    ('trans-hilali',         hilali),
+    ('eng-abridged',         eng_abridged),
+    ('hindi',                hindi),
+    ('hindi-suhail',         hindi_suhail),
+    ('hindi-mokhtasar',      hindi_mokhtasar),
+    ('gujarati',             gujarati),
+    ('nepali',               nepali),
+    ('hindi-omari',          hindi_omari),
+    ('roman-urdu',           roman_urdu),
+    ('roman-urdu-junagarhi', roman_urdu_junagarhi),
+]
+for field_key, field_dict in _FIELD_SOURCES:
+    arr = [field_dict.get((s, a), '') for s, a, _ in _ayah_order]
+    out_path = _os.path.join(sd_dir, field_key + '.json')
+    with open(out_path, 'w', encoding='utf-8') as f:
+        json.dump(arr, f, ensure_ascii=False, separators=(',', ':'))
+    print('Written: %s' % out_path)
 
 # ---------------------------------------------------------------------------
 # Generate search.html
@@ -1309,7 +1335,6 @@ SEARCH_HTML = """\
 <div id="pagination"></div>
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
-<script src="search-data.js"></script>
 <script>
 (function(){{
   var PAGE_SIZE = 20;
@@ -1322,7 +1347,7 @@ SEARCH_HTML = """\
   var resultsEl = document.getElementById('results');
   var paginEl = document.getElementById('pagination');
 
-  /* ---- Resolve user config (defaults merged with localStorage overrides) ---- */
+  /* ---- Resolve user config ---- */
   var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{{}};
   var userPrefs=null;
   try{{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}}catch(_){{}}
@@ -1331,46 +1356,68 @@ SEARCH_HTML = """\
     return defaults.hasOwnProperty(key)?defaults[key]:false;
   }}
 
-  /* ---- Search field map: config key -> QURAN_DATA field index & label ---- */
-  /* Indices in QURAN_DATA: 0=surahNum,1=ayahNum,2=name,3=arabic,
-     4=translit_tanzil,5=translit_unicode,6=pickthall,7=yusufali,
-     8=sahih,9=qarai,10=hilali,11=eng_abridged,12=hindi_farooq,
-     13=hindi_suhail,14=hindi_mokhtasar,15=gujarati,16=nepali,
-     17=hindi_omari,18=roman_urdu,19=roman_urdu_junagarhi */
+  /* ---- Field map: config-key -> label (sd/<key>.json holds text array) ---- */
   var FIELD_MAP=[
-    ['arabic',               3,  'Arabic'],
-    ['translit',             4,  'Translit. (Tanzil)'],
-    ['translit-unicode',     5,  'Translit. (Unicode)'],
-    ['trans',                6,  'English (Pickthall)'],
-    ['trans-yusuf',          7,  'English (Yusuf Ali)'],
-    ['trans-sahih',          8,  'English (Saheeh Int\u2019l)'],
-    ['trans-qarai',          9,  'English (Qarai)'],
-    ['trans-hilali',         10, 'English (Hilali)'],
-    ['eng-abridged',         11, 'Abridged Expl.'],
-    ['hindi',                12, '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)'],
-    ['hindi-suhail',         13, '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)'],
-    ['hindi-mokhtasar',      14, '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)'],
-    ['gujarati',             15, '\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 (Rabila)'],
-    ['nepali',               16, 'Nepali (Ahl-al-Hadith)'],
-    ['hindi-omari',          17, '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)'],
-    ['roman-urdu',           18, 'Roman Urdu (Maududi)'],
-    ['roman-urdu-junagarhi', 19, 'Roman Urdu (Junagarhi)']
+    ['arabic',               'Arabic'],
+    ['translit',             'Translit. (Tanzil)'],
+    ['translit-unicode',     'Translit. (Unicode)'],
+    ['trans',                'English (Pickthall)'],
+    ['trans-yusuf',          'English (Yusuf Ali)'],
+    ['trans-sahih',          'English (Saheeh Int\u2019l)'],
+    ['trans-qarai',          'English (Qarai)'],
+    ['trans-hilali',         'English (Hilali)'],
+    ['eng-abridged',         'Abridged Expl.'],
+    ['hindi',                '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)'],
+    ['hindi-suhail',         '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)'],
+    ['hindi-mokhtasar',      '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)'],
+    ['gujarati',             '\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 (Rabila)'],
+    ['nepali',               'Nepali (Ahl-al-Hadith)'],
+    ['hindi-omari',          '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)'],
+    ['roman-urdu',           'Roman Urdu (Maududi)'],
+    ['roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)']
   ];
 
   function getActiveFields(){{
     var active=[];
     FIELD_MAP.forEach(function(f){{if(cfEnabled(f[0]))active.push(f);}});
-    // Always include surah name (virtual field)
     return active;
   }}
 
   function updateScopeNote(){{
     var active=getActiveFields();
-    var labels=active.map(function(f){{return f[2];}});
+    var labels=active.map(function(f){{return f[1];}});
     labels.push('Surah name');
     if(scopeEl)scopeEl.textContent='Searching in: '+labels.join(', ')+'. Change in \u2699 Settings.';
   }}
   updateScopeNote();
+
+  /* ---- Lazy JSON loader: fetch each sd/*.json file once, cache in memory ---- */
+  var metaData=null;
+  var fieldCache={{}};
+  var _pending={{}};
+
+  function fetchJson(url){{
+    if(!_pending[url]){{
+      _pending[url]=fetch(url).then(function(r){{
+        if(!r.ok)throw new Error('HTTP '+r.status+' ('+url+')');
+        return r.json();
+      }});
+    }}
+    return _pending[url];
+  }}
+
+  function loadMeta(){{
+    if(metaData)return Promise.resolve(metaData);
+    return fetchJson('sd/meta.json').then(function(d){{metaData=d;return d;}});
+  }}
+
+  function loadField(key){{
+    if(fieldCache[key])return Promise.resolve(fieldCache[key]);
+    return fetchJson('sd/'+key+'.json').then(function(d){{fieldCache[key]=d;return d;}});
+  }}
+
+  /* Prefetch meta immediately so first search is fast */
+  loadMeta();
 
   function escHtml(s){{
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -1398,14 +1445,14 @@ SEARCH_HTML = """\
     var html = '';
     var activeFields=getActiveFields();
     for(var i=start;i<end;i++){{
-      var row=allMatches[i];
-      var sura=row[0],ayah=row[1],name=row[2];
-      var href=String(sura).padStart(3,'0')+'.html#'+ayah;
+      var m=allMatches[i];
+      var href=String(m.s).padStart(3,'0')+'.html#ayah-'+m.a;
       html+='<div class="result-card">'
-        +'<div class="result-header"><span>Surah '+sura+':'+ayah+' &mdash; '+escHtml(name)+'</span>'
+        +'<div class="result-header"><span>Surah '+m.s+':'+m.a+' &mdash; '+escHtml(m.n)+'</span>'
         +'<a href="'+href+'">View verse &rarr;</a></div>';
       activeFields.forEach(function(f){{
-        var val=row[f[1]]||'';
+        var arr=fieldCache[f[0]]||[];
+        var val=arr[m.i]||'';
         if(!val)return;
         html+='<div class="result-field '+f[0]+'">'+highlight(val,currentTerms)+'</div>';
       }});
@@ -1444,23 +1491,36 @@ SEARCH_HTML = """\
     var q = input.value.trim();
     if(!q){{ resultsEl.innerHTML=''; statusEl.textContent=''; paginEl.innerHTML=''; allMatches=[]; return; }}
     currentTerms = q.toLowerCase().split(/\\s+/).filter(Boolean);
-    var activeFields=getActiveFields();
-    allMatches = [];
-    for(var i=0;i<QURAN_DATA.length;i++){{
-      var row=QURAN_DATA[i];
-      var name=row[2];
-      var parts=[name];
-      activeFields.forEach(function(f){{parts.push(row[f[1]]||'');}});
-      var haystack=parts.join(' ').toLowerCase();
-      if(currentTerms.every(function(t){{ return haystack.indexOf(t)!==-1; }})) allMatches.push(row);
-    }}
-    if(allMatches.length===0){{
-      statusEl.textContent='No results found.';
-      resultsEl.innerHTML='';
-      paginEl.innerHTML='';
-      return;
-    }}
-    renderPage(1);
+    var activeFields = getActiveFields();
+    statusEl.textContent = 'Loading\u2026';
+    resultsEl.innerHTML='';
+    paginEl.innerHTML='';
+    var fieldPromises = activeFields.map(function(f){{return loadField(f[0]);}});
+    Promise.all([loadMeta()].concat(fieldPromises)).then(function(){{
+      allMatches = [];
+      for(var i=0;i<metaData.length;i++){{
+        var row=metaData[i];
+        var parts=[row[2]];
+        activeFields.forEach(function(f){{
+          var arr=fieldCache[f[0]]||[];
+          parts.push(arr[i]||'');
+        }});
+        var haystack=parts.join(' ').toLowerCase();
+        if(currentTerms.every(function(t){{return haystack.indexOf(t)!==-1;}})){{
+          allMatches.push({{i:i,s:row[0],a:row[1],n:row[2]}});
+        }}
+      }}
+      if(allMatches.length===0){{
+        statusEl.textContent='No results found.';
+        resultsEl.innerHTML='';
+        paginEl.innerHTML='';
+        return;
+      }}
+      renderPage(1);
+    }}).catch(function(err){{
+      statusEl.textContent='Error loading search data. Please try again.';
+      console.error(err);
+    }});
   }};
 
   input.addEventListener('keydown',function(e){{ if(e.key==='Enter') doSearch(); }});

@@ -202,6 +202,8 @@ footer a:hover{text-decoration:underline}
   vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
 .bm-btn:hover{background:#fff8e1;color:#e65100}
 .bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
+@keyframes ayah-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.ayah-anchor-highlight td{animation:ayah-pulse .8s ease-in-out 3}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -1162,7 +1164,11 @@ footer a:hover{text-decoration:underline}
   }
   function updateHash(){
     if(vcFrom===1&&vcTo===maxVerse){
-      history.replaceState(null,'',location.pathname+location.search);
+      /* Only clear hash if it's a numeric range hash — preserve #ayah-N anchors */
+      var curHash=location.hash;
+      if(!curHash||/^#\d+(-\d+)?$/.test(curHash)){
+        history.replaceState(null,'',location.pathname+location.search);
+      }
     }else{
       history.replaceState(null,'','#'+vcFrom+(vcTo!==vcFrom?'-'+vcTo:''));
     }
@@ -1198,6 +1204,20 @@ footer a:hover{text-decoration:underline}
   };
   loadHash();
   applyAllRows();
+  /* Scroll to #ayah-N anchor after config layout is applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#ayah-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('ayah-anchor-highlight');
+          setTimeout(function(){el.classList.remove('ayah-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
 
   /* ---- Font size control ---- */
   var FS_KEY='qfs';
