@@ -584,6 +584,13 @@ footer a:hover{text-decoration:underline}
   padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
   vertical-align:middle;line-height:1.4}
 .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.bm-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
+@keyframes ayah-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.ayah-anchor-highlight td{animation:ayah-pulse .8s ease-in-out 3}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -604,6 +611,9 @@ footer a:hover{text-decoration:underline}
   .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
   .copy-btn{border-color:#334;color:#90caf9}
   .copy-btn:hover{background:#263650}
+  .bm-btn{border-color:#334;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
@@ -622,7 +632,7 @@ HEADER_HTML = """\
 </style>
 <script src="config.js"></script>
 </head>
-<body>
+<body data-sura="{num}">
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
@@ -718,6 +728,47 @@ def make_verse_chooser(size):
 
 VC_JS = """\
 <script>
+/* ---- Last Read tracking — stores only the single most-recently-read surah ---- */
+(function(){
+  try{
+    var _suraNum=+document.body.dataset.sura;
+    if(!_suraNum)return;
+    var _h1=document.querySelector('h1');
+    var _suraLabel=_h1?_h1.textContent.trim():'Surah '+_suraNum;
+    localStorage.setItem('quran-history',JSON.stringify({s:_suraNum,n:_suraLabel,t:Date.now()}));
+  }catch(_){}
+})();
+/* ---- Bookmarks (array, newest-first) ---- */
+(function(){
+  var BM_KEY='quran-bookmark';
+  var bms=[];
+  try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+  if(!Array.isArray(bms))bms=[];
+  var curSura=+document.body.dataset.sura;
+  /* Highlight all active bookmark buttons for this surah */
+  bms.forEach(function(b){
+    if(b.s===curSura){var btn=document.getElementById('bm-'+b.a);if(btn)btn.classList.add('active');}
+  });
+  window.toggleBookmark=function(sura,ayah){
+    var btn=document.getElementById('bm-'+ayah);
+    var list=[];
+    try{list=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+    if(!Array.isArray(list))list=[];
+    var idx=list.findIndex(function(b){return b.s===sura&&b.a===ayah;});
+    if(idx!==-1){
+      /* Remove bookmark */
+      list.splice(idx,1);
+      if(btn)btn.classList.remove('active');
+    } else {
+      /* Add bookmark to front */
+      var h1=document.querySelector('h1');
+      var label=h1?h1.textContent.trim():'Surah '+sura;
+      list.unshift({s:sura,a:ayah,n:label,t:Date.now()});
+      if(btn)btn.classList.add('active');
+    }
+    try{localStorage.setItem(BM_KEY,JSON.stringify(list));}catch(_){}
+  };
+})();
 (function(){
   var cfList=document.getElementById('cf-list');
   var fromInput=document.getElementById('vc-from');
@@ -772,7 +823,11 @@ VC_JS = """\
   }
   function updateHash(){
     if(vcFrom===1&&vcTo===maxVerse){
-      history.replaceState(null,'',location.pathname+location.search);
+      /* Only clear hash if it's a numeric range hash — preserve #ayah-N anchors */
+      var curHash=location.hash;
+      if(!curHash||/^#\\d+(-\\d+)?$/.test(curHash)){
+        history.replaceState(null,'',location.pathname+location.search);
+      }
     }else{
       history.replaceState(null,'','#'+vcFrom+(vcTo!==vcFrom?'-'+vcTo:''));
     }
@@ -808,6 +863,20 @@ VC_JS = """\
   };
   loadHash();
   applyAllRows();
+  /* Scroll to #ayah-N anchor after config layout is applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#ayah-\\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('ayah-anchor-highlight');
+          setTimeout(function(){el.classList.remove('ayah-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
 
   /* ---- Font size control ---- */
   var FS_KEY='qfs';
@@ -943,10 +1012,16 @@ for sura_idx in range(1, 115):
                 " title='Copy this verse'>\u29c9 Copy</button>"
             ) % (sura_idx, ayah)
 
+            # Bookmark button
+            bm_btn = (
+                "<button class='bm-btn' id='bm-%d' onclick='toggleBookmark(%d,%d)'"
+                " title='Bookmark this verse'>&#128278;</button>"
+            ) % (ayah, sura_idx, ayah)
+
             out.write(
                 "<tr class='ayah-sep' data-ayah='%d' id='ayah-%d'><td colspan='2'>"
                 "<a class='permalink' href='#%d' data-ayah='%d'>Ayah %d</a>"
-                "%s%s</td></tr>\n"
+                "%s%s%s</td></tr>\n"
                 "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>%s</td></tr>\n"
                 "<tr class='audio' data-ayah='%d'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/%03d%03d.mp3' title='Surah %d, Ayah %d \u2014 Mishary Alafasy recitation'></audio></td></tr>\n"
                 "<tr class='translit' data-ayah='%d'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>%s</td></tr>\n"
@@ -967,7 +1042,7 @@ for sura_idx in range(1, 115):
                 "<tr class='roman-urdu-junagarhi' data-ayah='%d'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>%s</td></tr>\n"
                 % (ayah, ayah,
                    ayah, ayah, ayah,
-                   sajda_badge, copy_btn,
+                   sajda_badge, copy_btn, bm_btn,
                    ayah, ar,
                    ayah, sura_idx, ayah, sura_idx, ayah,
                    ayah, tl,
@@ -1033,9 +1108,35 @@ with open(index_path, 'w', encoding='utf-8') as out:
 <em>Roman Urdu Translation:</em> Muhammad Junagarhi &mdash; via <a href="https://github.com/fawazahmed0/quran-api" rel="noopener noreferrer">fawazahmed0/quran-api</a>.<br>
 Texts are reproduced verbatim; no alterations have been made.
 </details>
+<section id="recent-section" style="display:none;margin-bottom:18px">
+<h2 style="margin-bottom:8px">&#128214; Continue Reading</h2>
+<div id="recent-list" class="recent-list"></div>
+</section>
+<section id="bookmark-section" style="display:none;margin-bottom:18px">
+<h2 style="margin-bottom:8px">&#128278; Last Saved Bookmark</h2>
+<a id="bookmark-link" href="#" class="recent-card bm-card" style="display:inline-flex;flex-direction:column;text-decoration:none;margin-bottom:6px">
+  <span id="bookmark-label" class="recent-label"></span>
+  <span id="bookmark-meta" class="recent-ago"></span>
+</a>
+<a id="bookmark-all-link" href="bookmarks.html" class="recent-card bm-card" style="display:none;font-size:.85em;padding:7px 12px;margin-top:4px;text-decoration:none"></a>
+</section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
-""" % (CSS, make_surah_select(0)))
+""" % (CSS + """
+.recent-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.recent-card{display:flex;flex-direction:column;padding:10px 14px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em;min-width:160px}
+.recent-card:hover{background:#c8e6c9}
+.bm-card{background:#fff8e1;border-color:#ffcc80;color:#e65100}
+.bm-card:hover{background:#fff3cd}
+.recent-label{font-weight:600;font-size:.9em}
+.recent-ago{font-size:.78em;color:#555;margin-top:2px}
+@media(prefers-color-scheme:dark){
+  .recent-card{background:#0a1e10;border-color:#2e7d32;color:#a5d6a7}
+  .recent-card:hover{background:#122a18}
+  .bm-card{background:#2a1f00;border-color:#8b6914;color:#ffcc80}
+  .bm-card:hover{background:#332600}
+  .recent-ago{color:#90a4ae}
+}""", make_surah_select(0)))
     for i, name in enumerate(SURA_NAME, 1):
         rev_order, rev_type = SURAH_REV[i - 1]
         type_label = 'Meccan' if rev_type == 'M' else 'Medinan'
@@ -1054,38 +1155,110 @@ Texts are reproduced verbatim; no alterations have been made.
 </div>
 </main>
 %s
+<script>
+/* ---- Continue Reading — last read surah (single entry) ---- */
+(function(){
+  var HIST_KEY='quran-history';
+  var section=document.getElementById('recent-section');
+  var list=document.getElementById('recent-list');
+  if(!section||!list)return;
+  var h=null;
+  try{h=JSON.parse(localStorage.getItem(HIST_KEY)||'null');}catch(_){return;}
+  if(!h||!h.s)return;
+  var href=String(h.s).padStart(3,'0')+'.html';
+  var ago='';
+  var diff=Math.round((Date.now()-h.t)/60000);
+  if(diff<1)ago='just now';
+  else if(diff<60)ago=diff+'m ago';
+  else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+  else ago=Math.round(diff/1440)+'d ago';
+  list.innerHTML='<a href="'+href+'" class="recent-card"><span class="recent-label">'+h.n+'</span><span class="recent-ago">'+ago+'</span></a>';
+  section.style.display='';
+})();
+/* ---- Last saved bookmark (single card, links to bookmarks.html for full list) ---- */
+(function(){
+  var BM_KEY='quran-bookmark';
+  var section=document.getElementById('bookmark-section');
+  if(!section)return;
+  var bms=[];
+  try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+  if(!Array.isArray(bms)||!bms.length)return;
+  var bm=bms[0];
+  var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
+  var ago='';
+  var diff=Math.round((Date.now()-bm.t)/60000);
+  if(diff<1)ago='just now';
+  else if(diff<60)ago=diff+'m ago';
+  else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+  else ago=Math.round(diff/1440)+'d ago';
+  var linkEl=document.getElementById('bookmark-link');
+  var labelEl=document.getElementById('bookmark-label');
+  var metaEl=document.getElementById('bookmark-meta');
+  var allEl=document.getElementById('bookmark-all-link');
+  if(linkEl)linkEl.href=href;
+  var suraName=bm.n||('Surah '+bm.s);
+  if(labelEl)labelEl.textContent='\U0001F4D6 '+suraName+', Ayah '+bm.a;
+  if(metaEl)metaEl.textContent='Bookmarked '+ago+(bms.length>1?' (+'+(bms.length-1)+' more)':'');
+  if(allEl){allEl.style.display='';allEl.textContent='\U0001F4DA View all '+bms.length+' bookmark'+(bms.length===1?'':'s');}
+  section.style.display='';
+})();
+</script>
 </body>
 </html>""" % COMPACT_FOOTER)
 
 print('Written: %s' % index_path)
 
 # ---------------------------------------------------------------------------
-# Generate search-data.js  (compact JSON array for client-side search)
-# Each entry: [surahNum, ayahNum, surahName, arabic, translit_unicode, yusuf_ali, hindi_mokhtasar]
+# Generate docs/sd/ — per-field JSON files for lazy-loaded search
+# sd/meta.json  : [[surahNum, ayahNum, "name"], ...]  — always loaded (~200 KB)
+# sd/{key}.json : ["text", "text", ...]  — one file per translation field
+#                 indexed in the same order as meta.json
 # ---------------------------------------------------------------------------
-import json
+import json, os as _os
 
-search_data = []
+sd_dir = _os.path.join(docs_dir, 'sd')
+_os.makedirs(sd_dir, exist_ok=True)
+
+# Build ordered list of (sura, ayah) pairs — 6236 entries
+_ayah_order = []
 for sura_idx in range(1, 115):
     size = SURA_SIZE[sura_idx - 1]
     name = SURA_NAME[sura_idx - 1]
     for ayah in range(1, size + 1):
-        search_data.append([
-            sura_idx,
-            ayah,
-            name,
-            arabic.get((sura_idx, ayah), ''),
-            translit_unicode.get((sura_idx, ayah), ''),
-            yusufali.get((sura_idx, ayah), ''),
-            hindi_mokhtasar.get((sura_idx, ayah), ''),
-        ])
+        _ayah_order.append((sura_idx, ayah, name))
 
-search_data_path = os.path.join(docs_dir, 'search-data.js')
-with open(search_data_path, 'w', encoding='utf-8') as f:
-    f.write('var QURAN_DATA=')
-    json.dump(search_data, f, ensure_ascii=False, separators=(',', ':'))
-    f.write(';')
-print('Written: %s' % search_data_path)
+# meta.json
+meta = [[s, a, n] for s, a, n in _ayah_order]
+with open(_os.path.join(sd_dir, 'meta.json'), 'w', encoding='utf-8') as f:
+    json.dump(meta, f, ensure_ascii=False, separators=(',', ':'))
+print('Written: %s' % _os.path.join(sd_dir, 'meta.json'))
+
+# Per-field arrays: each is a flat list of strings, same order as meta.json
+_FIELD_SOURCES = [
+    ('arabic',               arabic),
+    ('translit',             translit),
+    ('translit-unicode',     translit_unicode),
+    ('trans',                pickthall),
+    ('trans-yusuf',          yusufali),
+    ('trans-sahih',          sahih),
+    ('trans-qarai',          qarai),
+    ('trans-hilali',         hilali),
+    ('eng-abridged',         eng_abridged),
+    ('hindi',                hindi),
+    ('hindi-suhail',         hindi_suhail),
+    ('hindi-mokhtasar',      hindi_mokhtasar),
+    ('gujarati',             gujarati),
+    ('nepali',               nepali),
+    ('hindi-omari',          hindi_omari),
+    ('roman-urdu',           roman_urdu),
+    ('roman-urdu-junagarhi', roman_urdu_junagarhi),
+]
+for field_key, field_dict in _FIELD_SOURCES:
+    arr = [field_dict.get((s, a), '') for s, a, _ in _ayah_order]
+    out_path = _os.path.join(sd_dir, field_key + '.json')
+    with open(out_path, 'w', encoding='utf-8') as f:
+        json.dump(arr, f, ensure_ascii=False, separators=(',', ':'))
+    print('Written: %s' % out_path)
 
 # ---------------------------------------------------------------------------
 # Generate search.html
@@ -1101,11 +1274,25 @@ SEARCH_CSS = CSS + """
 .result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
 .result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
 .result-header a:hover{text-decoration:underline}
-.result-arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;padding:8px 12px;background:#fff8e1}
-.result-translit{padding:6px 12px;background:#e8eaf6;font-weight:600;color:#283593;font-size:.95em}
-.result-trans{padding:6px 12px;background:#e8f5e9;font-size:.95em}
+.result-field{padding:6px 12px;font-size:.95em}
+.result-field.arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;background:#fff8e1}
+.result-field.translit{background:#f0f4f8;font-weight:600}
+.result-field.translit-unicode{background:#e8eaf6;font-weight:600;color:#283593}
+.result-field.trans{background:#fff}
+.result-field.trans-yusuf{background:#e8f5e9}
+.result-field.trans-sahih{background:#e3f2fd}
+.result-field.trans-qarai{background:#e0f2f1}
+.result-field.trans-hilali{background:#f3e5f5;color:#4a148c}
+.result-field.eng-abridged{background:#e8f4fd}
+.result-field.hindi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+.result-field.hindi-suhail{background:#fff3e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#5d4037}
+.result-field.hindi-mokhtasar{background:#e8f5e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20}
+.result-field.gujarati{background:#fce4ec;font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
+.result-field.nepali{background:#e8f5f0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
+.result-field.hindi-omari{background:#fff0f5;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
+.result-field.roman-urdu{background:#f0f4c3;font-weight:500;color:#33691e}
+.result-field.roman-urdu-junagarhi{background:#e8f5e9;font-weight:500;color:#1b5e20}
 .result-highlight{background:#fff176;border-radius:2px}
-.result-hindi-mokhtasar{padding:6px 12px;background:#e8f5e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20;font-size:.95em}
 .pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
 .pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
 .pagination button:hover:not(:disabled){background:#2a5a8c}
@@ -1124,22 +1311,23 @@ SEARCH_HTML = """\
 <style>
 {css}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
-<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, English translation (Yusuf Ali), or &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Hindi Tafsir). Results link directly to the verse.</p>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Searches the content types you have enabled in <a href="config.html">Settings</a>. Results link directly to the verse.</p>
 <div class="search-box">
   <input type="text" id="q" placeholder="e.g. mercy, rahman, bismillah&hellip;" autofocus autocomplete="off" spellcheck="false">
   <button onclick="doSearch()">Search</button>
 </div>
+<div id="search-scope" style="font-size:.82em;color:#888;margin-bottom:10px"></div>
 <div id="search-status"></div>
 <div id="results"></div>
 <div id="pagination"></div>
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
-<script src="search-data.js"></script>
 <script>
 (function(){{
   var PAGE_SIZE = 20;
@@ -1148,8 +1336,81 @@ SEARCH_HTML = """\
   var currentTerms = [];
   var input = document.getElementById('q');
   var statusEl = document.getElementById('search-status');
+  var scopeEl = document.getElementById('search-scope');
   var resultsEl = document.getElementById('results');
   var paginEl = document.getElementById('pagination');
+
+  /* ---- Resolve user config ---- */
+  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{{}};
+  var userPrefs=null;
+  try{{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}}catch(_){{}}
+  function cfEnabled(key){{
+    if(userPrefs&&userPrefs.hasOwnProperty(key))return userPrefs[key];
+    return defaults.hasOwnProperty(key)?defaults[key]:false;
+  }}
+
+  /* ---- Field map: config-key -> label (sd/<key>.json holds text array) ---- */
+  var FIELD_MAP=[
+    ['arabic',               'Arabic'],
+    ['translit',             'Translit. (Tanzil)'],
+    ['translit-unicode',     'Translit. (Unicode)'],
+    ['trans',                'English (Pickthall)'],
+    ['trans-yusuf',          'English (Yusuf Ali)'],
+    ['trans-sahih',          'English (Saheeh Int\u2019l)'],
+    ['trans-qarai',          'English (Qarai)'],
+    ['trans-hilali',         'English (Hilali)'],
+    ['eng-abridged',         'Abridged Expl.'],
+    ['hindi',                '\u0939\u093f\u0928\u094d\u0926\u0940 (Farooq)'],
+    ['hindi-suhail',         '\u0939\u093f\u0928\u094d\u0926\u0940 (Suhail)'],
+    ['hindi-mokhtasar',      '\u0939\u093f\u0928\u094d\u0926\u0940 \u0924\u092b\u094d\u0938\u0940\u0930 (Mokhtasar)'],
+    ['gujarati',             '\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 (Rabila)'],
+    ['nepali',               'Nepali (Ahl-al-Hadith)'],
+    ['hindi-omari',          '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)'],
+    ['roman-urdu',           'Roman Urdu (Maududi)'],
+    ['roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)']
+  ];
+
+  function getActiveFields(){{
+    var active=[];
+    FIELD_MAP.forEach(function(f){{if(cfEnabled(f[0]))active.push(f);}});
+    return active;
+  }}
+
+  function updateScopeNote(){{
+    var active=getActiveFields();
+    var labels=active.map(function(f){{return f[1];}});
+    labels.push('Surah name');
+    if(scopeEl)scopeEl.textContent='Searching in: '+labels.join(', ')+'. Change in \u2699 Settings.';
+  }}
+  updateScopeNote();
+
+  /* ---- Lazy JSON loader: fetch each sd/*.json file once, cache in memory ---- */
+  var metaData=null;
+  var fieldCache={{}};
+  var _pending={{}};
+
+  function fetchJson(url){{
+    if(!_pending[url]){{
+      _pending[url]=fetch(url).then(function(r){{
+        if(!r.ok)throw new Error('HTTP '+r.status+' ('+url+')');
+        return r.json();
+      }});
+    }}
+    return _pending[url];
+  }}
+
+  function loadMeta(){{
+    if(metaData)return Promise.resolve(metaData);
+    return fetchJson('sd/meta.json').then(function(d){{metaData=d;return d;}});
+  }}
+
+  function loadField(key){{
+    if(fieldCache[key])return Promise.resolve(fieldCache[key]);
+    return fetchJson('sd/'+key+'.json').then(function(d){{fieldCache[key]=d;return d;}});
+  }}
+
+  /* Prefetch meta immediately so first search is fast */
+  loadMeta();
 
   function escHtml(s){{
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -1175,18 +1436,20 @@ SEARCH_HTML = """\
     var end = Math.min(start + PAGE_SIZE, total);
     statusEl.textContent = 'Showing ' + (start+1) + '\u2013' + end + ' of ' + total + ' result(s) for \u201c' + input.value.trim() + '\u201d';
     var html = '';
+    var activeFields=getActiveFields();
     for(var i=start;i<end;i++){{
-      var row=allMatches[i];
-      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
-      var href=String(sura).padStart(3,'0')+'.html#'+ayah;
+      var m=allMatches[i];
+      var href=String(m.s).padStart(3,'0')+'.html#ayah-'+m.a;
       html+='<div class="result-card">'
-        +'<div class="result-header"><span>Surah '+sura+':'+ayah+' &mdash; '+escHtml(name)+'</span>'
-        +'<a href="'+href+'">View verse &rarr;</a></div>'
-        +'<div class="result-arabic">'+highlight(ar,currentTerms)+'</div>'
-        +(tu?'<div class="result-translit">'+highlight(tu,currentTerms)+'</div>':'')
-        +(ya?'<div class="result-trans">'+highlight(ya,currentTerms)+'</div>':'')
-        +(hm?'<div class="result-hindi-mokhtasar">'+highlight(hm,currentTerms)+'</div>':'')
-        +'</div>';
+        +'<div class="result-header"><span>Surah '+m.s+':'+m.a+' &mdash; '+escHtml(m.n)+'</span>'
+        +'<a href="'+href+'">View verse &rarr;</a></div>';
+      activeFields.forEach(function(f){{
+        var arr=fieldCache[f[0]]||[];
+        var val=arr[m.i]||'';
+        if(!val)return;
+        html+='<div class="result-field '+f[0]+'">'+highlight(val,currentTerms)+'</div>';
+      }});
+      html+='</div>';
     }}
     resultsEl.innerHTML = html;
     var pgHtml = '';
@@ -1221,20 +1484,36 @@ SEARCH_HTML = """\
     var q = input.value.trim();
     if(!q){{ resultsEl.innerHTML=''; statusEl.textContent=''; paginEl.innerHTML=''; allMatches=[]; return; }}
     currentTerms = q.toLowerCase().split(/\\s+/).filter(Boolean);
-    allMatches = [];
-    for(var i=0;i<QURAN_DATA.length;i++){{
-      var row=QURAN_DATA[i];
-      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
-      var haystack=(ar+' '+tu+' '+ya+' '+hm+' '+name).toLowerCase();
-      if(currentTerms.every(function(t){{ return haystack.indexOf(t)!==-1; }})) allMatches.push(row);
-    }}
-    if(allMatches.length===0){{
-      statusEl.textContent='No results found.';
-      resultsEl.innerHTML='';
-      paginEl.innerHTML='';
-      return;
-    }}
-    renderPage(1);
+    var activeFields = getActiveFields();
+    statusEl.textContent = 'Loading\u2026';
+    resultsEl.innerHTML='';
+    paginEl.innerHTML='';
+    var fieldPromises = activeFields.map(function(f){{return loadField(f[0]);}});
+    Promise.all([loadMeta()].concat(fieldPromises)).then(function(){{
+      allMatches = [];
+      for(var i=0;i<metaData.length;i++){{
+        var row=metaData[i];
+        var parts=[row[2]];
+        activeFields.forEach(function(f){{
+          var arr=fieldCache[f[0]]||[];
+          parts.push(arr[i]||'');
+        }});
+        var haystack=parts.join(' ').toLowerCase();
+        if(currentTerms.every(function(t){{return haystack.indexOf(t)!==-1;}})){{
+          allMatches.push({{i:i,s:row[0],a:row[1],n:row[2]}});
+        }}
+      }}
+      if(allMatches.length===0){{
+        statusEl.textContent='No results found.';
+        resultsEl.innerHTML='';
+        paginEl.innerHTML='';
+        return;
+      }}
+      renderPage(1);
+    }}).catch(function(err){{
+      statusEl.textContent='Error loading search data. Please try again.';
+      console.error(err);
+    }});
   }};
 
   input.addEventListener('keydown',function(e){{ if(e.key==='Enter') doSearch(); }});
@@ -1304,6 +1583,10 @@ CONFIG_CSS = CSS + """
 .cfg-btn-reset{background:#e0e0e0;color:#333}
 .cfg-btn-reset:hover{background:#bdbdbd}
 .cfg-saved{color:#1b5e20;font-size:.88em;margin-left:8px;opacity:0;transition:opacity .3s}
+.hist-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;margin-bottom:6px;font-size:.9em}
+.hist-card a{color:#1a3a5c;text-decoration:none;font-weight:600;flex:1}
+.hist-card a:hover{text-decoration:underline}
+.hist-ago{font-size:.8em;color:#555;white-space:nowrap}
 @media(prefers-color-scheme:dark){
   .cfg-card{background:#1e2a3a;border-color:#334}
   .cfg-row{border-bottom-color:#333}
@@ -1312,6 +1595,9 @@ CONFIG_CSS = CSS + """
   .cfg-btn-reset{background:#333;color:#e8e8e8}
   .cfg-btn-reset:hover{background:#444}
   .cfg-saved{color:#a5d6a7}
+  .hist-card{background:#0a1e10;border-color:#2e7d32}
+  .hist-card a{color:#a5d6a7}
+  .hist-ago{color:#90a4ae}
 }"""
 
 config_html_path = os.path.join(docs_dir, 'config.html')
@@ -1339,6 +1625,21 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 <div class="cfg-actions">
 <button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
 <span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+</div>
+</div>
+<div class="cfg-card" style="margin-top:20px">
+<h2 style="margin-top:0">&#128278; Saved Bookmarks</h2>
+<div id="bm-display"><p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the &#128278; button on any verse to bookmark it.</p></div>
+<div class="cfg-actions">
+<a href="bookmarks.html" class="cfg-btn-reset" style="text-decoration:none;display:inline-block">&#128218; Manage All Bookmarks &rarr;</a>
+<button class="cfg-btn-reset" id="bm-clear-btn" onclick="clearBookmarks()" style="display:none">Clear All Bookmarks</button>
+</div>
+</div>
+<div class="cfg-card" style="margin-top:20px">
+<h2 style="margin-top:0">&#128214; Last Read</h2>
+<div id="hist-list"><p style="font-size:.9em;color:#888">No history yet.</p></div>
+<div class="cfg-actions">
+<button class="cfg-btn-reset" onclick="clearHistory()">Clear</button>
 </div>
 </div>
 </main>
@@ -1379,11 +1680,238 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
     var badge=document.getElementById('cfg-saved');
     if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
   };
+
+  /* ---- Last Read (single entry) ---- */
+  var HIST_KEY='quran-history';
+  function loadHistory(){
+    var listEl=document.getElementById('hist-list');
+    if(!listEl)return;
+    var h=null;
+    try{h=JSON.parse(localStorage.getItem(HIST_KEY)||'null');}catch(_){}
+    if(!h||!h.s){listEl.innerHTML='<p style="font-size:.9em;color:#888">No history yet.</p>';return;}
+    var href=String(h.s).padStart(3,'0')+'.html';
+    var ago='';
+    var diff=Math.round((Date.now()-h.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    listEl.innerHTML='<div class="hist-card"><a href="'+href+'">'+h.n+'</a><span class="hist-ago">'+ago+'</span></div>';
+  }
+  window.clearHistory=function(){
+    try{localStorage.removeItem(HIST_KEY);}catch(_){}
+    loadHistory();
+  };
+  loadHistory();
+
+  /* ---- Bookmarks (shows last saved, links to bookmarks.html) ---- */
+  var BM_KEY='quran-bookmark';
+  function loadBookmarks(){
+    var dispEl=document.getElementById('bm-display');
+    var clearBtn=document.getElementById('bm-clear-btn');
+    if(!dispEl)return;
+    var bms=[];
+    try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+    if(!Array.isArray(bms)||!bms.length){
+      dispEl.innerHTML='<p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the \U0001F516 button on any verse to bookmark it.</p>';
+      if(clearBtn)clearBtn.style.display='none';
+      return;
+    }
+    var bm=bms[0];
+    var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
+    var ago='';
+    var diff=Math.round((Date.now()-bm.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    var suraName=bm.n||('Surah '+bm.s);
+    dispEl.innerHTML='<div class="hist-card"><a href="'+href+'">\U0001F4D6 '+suraName+', Ayah '+bm.a+'</a><span class="hist-ago">'+ago+(bms.length>1?' &mdash; '+(bms.length-1)+' more bookmark'+(bms.length===2?'':'s')+' saved':'')+'</span></div>';
+    if(clearBtn)clearBtn.style.display='';
+  }
+  window.clearBookmarks=function(){
+    try{localStorage.removeItem(BM_KEY);}catch(_){}
+    loadBookmarks();
+  };
+  loadBookmarks();
 })();
 </script>
 </body>
 </html>""" % (CONFIG_CSS, make_surah_select(0), '\n'.join(config_items_html)))
 print('Written: %s' % config_html_path)
+
+# ---------------------------------------------------------------------------
+# Generate bookmarks.html  (full bookmark manager: list, export, import)
+# ---------------------------------------------------------------------------
+BOOKMARKS_CSS = CSS + """
+.bm-list{list-style:none;padding:0;margin:0}
+.bm-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid #dce8f0;font-size:.95em}
+.bm-item:last-child{border-bottom:none}
+.bm-item-info{flex:1}
+.bm-item-info a{color:#1a3a5c;text-decoration:none;font-weight:600}
+.bm-item-info a:hover{text-decoration:underline}
+.bm-item-meta{font-size:.78em;color:#666;margin-top:2px}
+.bm-item-del{flex-shrink:0;background:none;border:1px solid #e57373;color:#c62828;border-radius:4px;padding:3px 9px;cursor:pointer;font-size:.83em}
+.bm-item-del:hover{background:#fdecea}
+.bm-empty{color:#888;font-size:.9em;padding:12px 0}
+.bm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.bm-actions button,.bm-actions label{padding:8px 16px;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.9em;background:#fff;color:#1a3a5c}
+.bm-actions button:hover,.bm-actions label:hover{background:#f0f4f8}
+.bm-count{font-size:.85em;color:#555;margin-bottom:10px}
+@media(prefers-color-scheme:dark){
+  .bm-item{border-color:#1e3a4c}
+  .bm-item-info a{color:#90caf9}
+  .bm-item-meta{color:#90a4ae}
+  .bm-item-del{border-color:#8b3a3a;color:#ef9a9a}
+  .bm-item-del:hover{background:#2a1010}
+  .bm-actions button,.bm-actions label{background:#0d1f2d;border-color:#1e3a4c;color:#90caf9}
+  .bm-actions button:hover,.bm-actions label:hover{background:#162d40}
+  .bm-count{color:#90a4ae}
+}
+"""
+
+BOOKMARKS_HTML = """\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookmarks &ndash; Qur&rsquo;an</title>
+<style>
+{css}
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>&#128278; My Bookmarks</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Bookmarks are stored in your browser. Use Export to save a backup and Import to restore them on another device.</p>
+<div class="bm-actions">
+  <button onclick="exportBm()">&#11015; Export JSON</button>
+  <label>&#11014; Import JSON<input type="file" id="bm-import" accept=".json,application/json" style="display:none" onchange="importBm(this)"></label>
+  <button onclick="clearAllBm()" style="border-color:#e57373;color:#c62828">&#128465; Clear All</button>
+</div>
+<div class="bm-count" id="bm-count"></div>
+<ul class="bm-list" id="bm-list"></ul>
+</main>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<script>
+(function(){{
+  var BM_KEY='quran-bookmark';
+
+  function load(){{
+    var bms=[];
+    try{{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}}catch(_){{}}
+    if(!Array.isArray(bms))bms=[];
+    return bms;
+  }}
+
+  function save(bms){{
+    try{{localStorage.setItem(BM_KEY,JSON.stringify(bms));}}catch(_){{}}
+  }}
+
+  function relTime(ts){{
+    var diff=Math.round((Date.now()-ts)/60000);
+    if(diff<1)return 'just now';
+    if(diff<60)return diff+'m ago';
+    if(diff<1440)return Math.round(diff/60)+'h ago';
+    return Math.round(diff/1440)+'d ago';
+  }}
+
+  function escHtml(s){{
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }}
+
+  function render(){{
+    var bms=load();
+    var listEl=document.getElementById('bm-list');
+    var countEl=document.getElementById('bm-count');
+    if(!listEl)return;
+    if(!bms.length){{
+      listEl.innerHTML='<li class="bm-empty">No bookmarks saved yet. Use the &#128278; button on any verse to add one.</li>';
+      if(countEl)countEl.textContent='';
+      return;
+    }}
+    if(countEl)countEl.textContent=bms.length+' bookmark'+(bms.length===1?'':'s')+' saved';
+    var html='';
+    for(var i=0;i<bms.length;i++){{
+      var b=bms[i];
+      var href=String(b.s).padStart(3,'0')+'.html#ayah-'+b.a;
+      var suraName=escHtml(b.n||('Surah '+b.s));
+      html+='<li class="bm-item">'
+        +'<div class="bm-item-info">'
+        +'<a href="'+href+'">\U0001F4D6 '+suraName+', Ayah '+b.a+'</a>'
+        +'<div class="bm-item-meta">Bookmarked '+relTime(b.t)+'</div>'
+        +'</div>'
+        +'<button class="bm-item-del" onclick="deleteBm('+i+')" title="Delete this bookmark">&times; Remove</button>'
+        +'</li>';
+    }}
+    listEl.innerHTML=html;
+  }}
+
+  window.deleteBm=function(idx){{
+    var bms=load();
+    bms.splice(idx,1);
+    save(bms);
+    render();
+  }};
+
+  window.clearAllBm=function(){{
+    if(!confirm('Remove all '+load().length+' bookmark(s)?'))return;
+    save([]);
+    render();
+  }};
+
+  window.exportBm=function(){{
+    var bms=load();
+    var blob=new Blob([JSON.stringify(bms,null,2)],{{type:'application/json'}});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='quran-bookmarks.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){{URL.revokeObjectURL(url);document.body.removeChild(a);}},100);
+  }};
+
+  window.importBm=function(input){{
+    var file=input.files[0];
+    if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(e){{
+      try{{
+        var data=JSON.parse(e.target.result);
+        if(!Array.isArray(data))throw new Error('Not an array');
+        /* Merge: deduplicate by surah+ayah (imported entries win on conflict) */
+        var existing=load();
+        var map={{}};
+        existing.forEach(function(b){{map[b.s+':'+b.a]=b;}});
+        data.forEach(function(b){{if(b.s&&b.a)map[b.s+':'+b.a]=b;}});
+        var merged=Object.values(map).sort(function(a,b){{return b.t-a.t;}});
+        save(merged);
+        render();
+        alert('Imported '+data.length+' bookmark(s). Total: '+merged.length+'.');
+      }}catch(err){{
+        alert('Import failed: '+err.message);
+      }}
+      input.value='';
+    }};
+    reader.readAsText(file);
+  }};
+
+  render();
+}})();
+</script>
+</body>
+</html>"""
+
+bookmarks_html_path = os.path.join(docs_dir, 'bookmarks.html')
+with open(bookmarks_html_path, 'w', encoding='utf-8') as f:
+    f.write(BOOKMARKS_HTML.format(
+        css=BOOKMARKS_CSS,
+        surah_select=make_surah_select(0),
+    ))
+print('Written: %s' % bookmarks_html_path)
 
 # ---------------------------------------------------------------------------
 # Generate sources.html  (comprehensive source attribution page)
@@ -1967,4 +2495,4 @@ async function generateZip(){
               json.dumps({cls: dflt for cls, _, dflt in CF_ITEMS})))
 print('Written: %s' % download_html_path)
 
-print('Done. %d surah files + index + search + config + sources + license + download regenerated.' % 114)
+print('Done. %d surah files + index + search + config + bookmarks + sources + license + download regenerated.' % 114)

@@ -7,6 +7,30 @@ A static HTML website (GitHub Pages) for side-by-side study of the Qur'an — Ar
 
 ---
 
+## 📖 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) | **Start here** — master index and navigation guide for all docs |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | System design, data flow diagrams, component descriptions |
+| [API_REFERENCE.md](API_REFERENCE.md) | Python script interfaces, data contracts, format specifications |
+| [CODE_WALKTHROUGH.md](CODE_WALKTHROUGH.md) | File-by-file annotated guide to every source file |
+| [DEVELOPER_ONBOARDING.md](DEVELOPER_ONBOARDING.md) | Setup instructions and first-contribution walkthrough |
+| [DEPLOYMENT_RUNBOOK.md](DEPLOYMENT_RUNBOOK.md) | GitHub Pages deploy, audio server setup, rollback procedures |
+| [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | Common errors and fixes for all pipeline stages |
+| [GLOSSARY.md](GLOSSARY.md) | Domain terms, project-specific jargon, acronyms |
+| [CHANGELOG_ANALYSIS.md](CHANGELOG_ANALYSIS.md) | Project history, milestones, growth metrics |
+| [SECURITY_AUDIT_NOTES.md](SECURITY_AUDIT_NOTES.md) | Vulnerability assessment and security recommendations |
+| [PERFORMANCE_BENCHMARKS.md](PERFORMANCE_BENCHMARKS.md) | Build times, data volumes, optimization notes |
+| [INTEGRATION_PLAYBOOK.md](INTEGRATION_PLAYBOOK.md) | Embed data, audio, or the website in other applications |
+| [CONTRIBUTION_GUIDE.md](CONTRIBUTION_GUIDE.md) | Detailed PR process, coding standards, data standards |
+| [FAQ_DEEP_DIVE.md](FAQ_DEEP_DIVE.md) | Comprehensive answers to anticipated questions |
+| [APPENDIX_RAW_ANALYSIS.md](APPENDIX_RAW_ANALYSIS.md) | Raw metrics, code analysis, edge cases |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Quick contributor guide |
+| [CHANGELOG.md](CHANGELOG.md) | Version history |
+
+---
+
 ## Live Website
 
 [**https://druvx13.github.io/Quran-data/**](https://druvx13.github.io/Quran-data/)
@@ -39,7 +63,7 @@ Features:
 ├── src/                    # Python generator scripts
 │   ├── gentexforquran.py   # Generate intermediate LaTeX content files
 │   ├── gentxtforquran.py   # Generate formatted plain-text output files
-│   └── gendocshtml.py      # Generate static HTML docs (docs/) + search-data.js
+│   └── gendocshtml.py      # Generate static HTML docs (docs/) + lazy search data (docs/sd/)
 ├── data/                   # All source translation data (input — do not modify)
 │   ├── ar.quran.txt                              # Arabic Uthmani script (one line per ayah)
 │   ├── en.pickthall.txt                          # English – Pickthall (one line per ayah)
@@ -199,10 +223,12 @@ Features:
 │   ├── farooq.pdf          # Compiled PDF
 │   └── suhail.pdf          # Compiled PDF
 ├── docs/                   # Generated static HTML – GitHub Pages
-│   ├── index.html          # Surah index (with surah navigator + search link)
-│   ├── search.html         # Client-side full-text search page
-│   ├── search-data.js      # Search index (compact JSON, all 6236 verses)
-│   └── 001.html … 114.html # Per-surah pages
+│   ├── index.html          # Surah index (last-read card, last bookmark card, surah grid)
+│   ├── search.html         # Config-aware full-text search (lazy-loads docs/sd/)
+│   ├── bookmarks.html      # Multi-bookmark manager (export/import JSON)
+│   ├── config.html         # Settings / preferences
+│   ├── sd/                 # Lazy-loaded per-field search data (18 JSON files)
+│   └── 001.html … 114.html # Per-surah pages (verse bookmarking, audio, translations)
 ├── archive/                # Legacy files (Readme.txt, original makefile)
 ├── Makefile
 ├── README.md
@@ -391,8 +417,8 @@ All output files use the `[sura:ayah] text` format, grouped by surah.
 python3 src/gendocshtml.py
 ```
 
-Regenerates all 114 surah pages, `docs/index.html`, `docs/search.html`, and
-`docs/search-data.js`.
+Regenerates all 114 surah pages, `docs/index.html`, `docs/search.html`,
+`docs/bookmarks.html`, and the `docs/sd/` per-field search JSON files.
 
 **Audio note:** Audio players stream MP3 files from
 `https://druvx13-quran-audio-alafasy.hf.space/<sura><ayah>.mp3`.

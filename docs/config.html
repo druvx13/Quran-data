@@ -196,6 +196,13 @@ footer a:hover{text-decoration:underline}
   padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
   vertical-align:middle;line-height:1.4}
 .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.bm-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
+@keyframes ayah-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.ayah-anchor-highlight td{animation:ayah-pulse .8s ease-in-out 3}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -216,6 +223,9 @@ footer a:hover{text-decoration:underline}
   .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
   .copy-btn{border-color:#334;color:#90caf9}
   .copy-btn:hover{background:#263650}
+  .bm-btn{border-color:#334;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
@@ -236,6 +246,10 @@ footer a:hover{text-decoration:underline}
 .cfg-btn-reset{background:#e0e0e0;color:#333}
 .cfg-btn-reset:hover{background:#bdbdbd}
 .cfg-saved{color:#1b5e20;font-size:.88em;margin-left:8px;opacity:0;transition:opacity .3s}
+.hist-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;margin-bottom:6px;font-size:.9em}
+.hist-card a{color:#1a3a5c;text-decoration:none;font-weight:600;flex:1}
+.hist-card a:hover{text-decoration:underline}
+.hist-ago{font-size:.8em;color:#555;white-space:nowrap}
 @media(prefers-color-scheme:dark){
   .cfg-card{background:#1e2a3a;border-color:#334}
   .cfg-row{border-bottom-color:#333}
@@ -244,6 +258,9 @@ footer a:hover{text-decoration:underline}
   .cfg-btn-reset{background:#333;color:#e8e8e8}
   .cfg-btn-reset:hover{background:#444}
   .cfg-saved{color:#a5d6a7}
+  .hist-card{background:#0a1e10;border-color:#2e7d32}
+  .hist-card a{color:#a5d6a7}
+  .hist-ago{color:#90a4ae}
 }
 </style>
 <script src="config.js"></script>
@@ -276,6 +293,21 @@ footer a:hover{text-decoration:underline}
 <div class="cfg-actions">
 <button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
 <span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+</div>
+</div>
+<div class="cfg-card" style="margin-top:20px">
+<h2 style="margin-top:0">&#128278; Saved Bookmarks</h2>
+<div id="bm-display"><p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the &#128278; button on any verse to bookmark it.</p></div>
+<div class="cfg-actions">
+<a href="bookmarks.html" class="cfg-btn-reset" style="text-decoration:none;display:inline-block">&#128218; Manage All Bookmarks &rarr;</a>
+<button class="cfg-btn-reset" id="bm-clear-btn" onclick="clearBookmarks()" style="display:none">Clear All Bookmarks</button>
+</div>
+</div>
+<div class="cfg-card" style="margin-top:20px">
+<h2 style="margin-top:0">&#128214; Last Read</h2>
+<div id="hist-list"><p style="font-size:.9em;color:#888">No history yet.</p></div>
+<div class="cfg-actions">
+<button class="cfg-btn-reset" onclick="clearHistory()">Clear</button>
 </div>
 </div>
 </main>
@@ -316,6 +348,60 @@ footer a:hover{text-decoration:underline}
     var badge=document.getElementById('cfg-saved');
     if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
   };
+
+  /* ---- Last Read (single entry) ---- */
+  var HIST_KEY='quran-history';
+  function loadHistory(){
+    var listEl=document.getElementById('hist-list');
+    if(!listEl)return;
+    var h=null;
+    try{h=JSON.parse(localStorage.getItem(HIST_KEY)||'null');}catch(_){}
+    if(!h||!h.s){listEl.innerHTML='<p style="font-size:.9em;color:#888">No history yet.</p>';return;}
+    var href=String(h.s).padStart(3,'0')+'.html';
+    var ago='';
+    var diff=Math.round((Date.now()-h.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    listEl.innerHTML='<div class="hist-card"><a href="'+href+'">'+h.n+'</a><span class="hist-ago">'+ago+'</span></div>';
+  }
+  window.clearHistory=function(){
+    try{localStorage.removeItem(HIST_KEY);}catch(_){}
+    loadHistory();
+  };
+  loadHistory();
+
+  /* ---- Bookmarks (shows last saved, links to bookmarks.html) ---- */
+  var BM_KEY='quran-bookmark';
+  function loadBookmarks(){
+    var dispEl=document.getElementById('bm-display');
+    var clearBtn=document.getElementById('bm-clear-btn');
+    if(!dispEl)return;
+    var bms=[];
+    try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+    if(!Array.isArray(bms)||!bms.length){
+      dispEl.innerHTML='<p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the 🔖 button on any verse to bookmark it.</p>';
+      if(clearBtn)clearBtn.style.display='none';
+      return;
+    }
+    var bm=bms[0];
+    var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
+    var ago='';
+    var diff=Math.round((Date.now()-bm.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    var suraName=bm.n||('Surah '+bm.s);
+    dispEl.innerHTML='<div class="hist-card"><a href="'+href+'">📖 '+suraName+', Ayah '+bm.a+'</a><span class="hist-ago">'+ago+(bms.length>1?' &mdash; '+(bms.length-1)+' more bookmark'+(bms.length===2?'':'s')+' saved':'')+'</span></div>';
+    if(clearBtn)clearBtn.style.display='';
+  }
+  window.clearBookmarks=function(){
+    try{localStorage.removeItem(BM_KEY);}catch(_){}
+    loadBookmarks();
+  };
+  loadBookmarks();
 })();
 </script>
 </body>

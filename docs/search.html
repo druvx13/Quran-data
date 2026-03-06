@@ -196,6 +196,13 @@ footer a:hover{text-decoration:underline}
   padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
   vertical-align:middle;line-height:1.4}
 .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.bm-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
+@keyframes ayah-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.ayah-anchor-highlight td{animation:ayah-pulse .8s ease-in-out 3}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -216,6 +223,9 @@ footer a:hover{text-decoration:underline}
   .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
   .copy-btn{border-color:#334;color:#90caf9}
   .copy-btn:hover{background:#263650}
+  .bm-btn{border-color:#334;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
@@ -230,11 +240,25 @@ footer a:hover{text-decoration:underline}
 .result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
 .result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
 .result-header a:hover{text-decoration:underline}
-.result-arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;padding:8px 12px;background:#fff8e1}
-.result-translit{padding:6px 12px;background:#e8eaf6;font-weight:600;color:#283593;font-size:.95em}
-.result-trans{padding:6px 12px;background:#e8f5e9;font-size:.95em}
+.result-field{padding:6px 12px;font-size:.95em}
+.result-field.arabic{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.4em;direction:rtl;text-align:right;line-height:2;background:#fff8e1}
+.result-field.translit{background:#f0f4f8;font-weight:600}
+.result-field.translit-unicode{background:#e8eaf6;font-weight:600;color:#283593}
+.result-field.trans{background:#fff}
+.result-field.trans-yusuf{background:#e8f5e9}
+.result-field.trans-sahih{background:#e3f2fd}
+.result-field.trans-qarai{background:#e0f2f1}
+.result-field.trans-hilali{background:#f3e5f5;color:#4a148c}
+.result-field.eng-abridged{background:#e8f4fd}
+.result-field.hindi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+.result-field.hindi-suhail{background:#fff3e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#5d4037}
+.result-field.hindi-mokhtasar{background:#e8f5e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20}
+.result-field.gujarati{background:#fce4ec;font-family:'Noto Sans Gujarati',Arial,sans-serif;color:#880e4f}
+.result-field.nepali{background:#e8f5f0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1a5276}
+.result-field.hindi-omari{background:#fff0f5;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
+.result-field.roman-urdu{background:#f0f4c3;font-weight:500;color:#33691e}
+.result-field.roman-urdu-junagarhi{background:#e8f5e9;font-weight:500;color:#1b5e20}
 .result-highlight{background:#fff176;border-radius:2px}
-.result-hindi-mokhtasar{padding:6px 12px;background:#e8f5e0;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20;font-size:.95em}
 .pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
 .pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
 .pagination button:hover:not(:disabled){background:#2a5a8c}
@@ -243,22 +267,23 @@ footer a:hover{text-decoration:underline}
 .pagination .pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
 
 </style>
+<script src="config.js"></script>
 </head>
 <body>
 <header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
-<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, English translation (Yusuf Ali), or &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Hindi Tafsir). Results link directly to the verse.</p>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Searches the content types you have enabled in <a href="config.html">Settings</a>. Results link directly to the verse.</p>
 <div class="search-box">
   <input type="text" id="q" placeholder="e.g. mercy, rahman, bismillah&hellip;" autofocus autocomplete="off" spellcheck="false">
   <button onclick="doSearch()">Search</button>
 </div>
+<div id="search-scope" style="font-size:.82em;color:#888;margin-bottom:10px"></div>
 <div id="search-status"></div>
 <div id="results"></div>
 <div id="pagination"></div>
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
-<script src="search-data.js"></script>
 <script>
 (function(){
   var PAGE_SIZE = 20;
@@ -267,8 +292,81 @@ footer a:hover{text-decoration:underline}
   var currentTerms = [];
   var input = document.getElementById('q');
   var statusEl = document.getElementById('search-status');
+  var scopeEl = document.getElementById('search-scope');
   var resultsEl = document.getElementById('results');
   var paginEl = document.getElementById('pagination');
+
+  /* ---- Resolve user config ---- */
+  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}catch(_){}
+  function cfEnabled(key){
+    if(userPrefs&&userPrefs.hasOwnProperty(key))return userPrefs[key];
+    return defaults.hasOwnProperty(key)?defaults[key]:false;
+  }
+
+  /* ---- Field map: config-key -> label (sd/<key>.json holds text array) ---- */
+  var FIELD_MAP=[
+    ['arabic',               'Arabic'],
+    ['translit',             'Translit. (Tanzil)'],
+    ['translit-unicode',     'Translit. (Unicode)'],
+    ['trans',                'English (Pickthall)'],
+    ['trans-yusuf',          'English (Yusuf Ali)'],
+    ['trans-sahih',          'English (Saheeh Int’l)'],
+    ['trans-qarai',          'English (Qarai)'],
+    ['trans-hilali',         'English (Hilali)'],
+    ['eng-abridged',         'Abridged Expl.'],
+    ['hindi',                'हिन्दी (Farooq)'],
+    ['hindi-suhail',         'हिन्दी (Suhail)'],
+    ['hindi-mokhtasar',      'हिन्दी तफ्सीर (Mokhtasar)'],
+    ['gujarati',             'ગુજરાતી (Rabila)'],
+    ['nepali',               'Nepali (Ahl-al-Hadith)'],
+    ['hindi-omari',          'हिन्दी (Al-Omari)'],
+    ['roman-urdu',           'Roman Urdu (Maududi)'],
+    ['roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)']
+  ];
+
+  function getActiveFields(){
+    var active=[];
+    FIELD_MAP.forEach(function(f){if(cfEnabled(f[0]))active.push(f);});
+    return active;
+  }
+
+  function updateScopeNote(){
+    var active=getActiveFields();
+    var labels=active.map(function(f){return f[1];});
+    labels.push('Surah name');
+    if(scopeEl)scopeEl.textContent='Searching in: '+labels.join(', ')+'. Change in ⚙ Settings.';
+  }
+  updateScopeNote();
+
+  /* ---- Lazy JSON loader: fetch each sd/*.json file once, cache in memory ---- */
+  var metaData=null;
+  var fieldCache={};
+  var _pending={};
+
+  function fetchJson(url){
+    if(!_pending[url]){
+      _pending[url]=fetch(url).then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status+' ('+url+')');
+        return r.json();
+      });
+    }
+    return _pending[url];
+  }
+
+  function loadMeta(){
+    if(metaData)return Promise.resolve(metaData);
+    return fetchJson('sd/meta.json').then(function(d){metaData=d;return d;});
+  }
+
+  function loadField(key){
+    if(fieldCache[key])return Promise.resolve(fieldCache[key]);
+    return fetchJson('sd/'+key+'.json').then(function(d){fieldCache[key]=d;return d;});
+  }
+
+  /* Prefetch meta immediately so first search is fast */
+  loadMeta();
 
   function escHtml(s){
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -294,18 +392,20 @@ footer a:hover{text-decoration:underline}
     var end = Math.min(start + PAGE_SIZE, total);
     statusEl.textContent = 'Showing ' + (start+1) + '–' + end + ' of ' + total + ' result(s) for “' + input.value.trim() + '”';
     var html = '';
+    var activeFields=getActiveFields();
     for(var i=start;i<end;i++){
-      var row=allMatches[i];
-      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
-      var href=String(sura).padStart(3,'0')+'.html#'+ayah;
+      var m=allMatches[i];
+      var href=String(m.s).padStart(3,'0')+'.html#ayah-'+m.a;
       html+='<div class="result-card">'
-        +'<div class="result-header"><span>Surah '+sura+':'+ayah+' &mdash; '+escHtml(name)+'</span>'
-        +'<a href="'+href+'">View verse &rarr;</a></div>'
-        +'<div class="result-arabic">'+highlight(ar,currentTerms)+'</div>'
-        +(tu?'<div class="result-translit">'+highlight(tu,currentTerms)+'</div>':'')
-        +(ya?'<div class="result-trans">'+highlight(ya,currentTerms)+'</div>':'')
-        +(hm?'<div class="result-hindi-mokhtasar">'+highlight(hm,currentTerms)+'</div>':'')
-        +'</div>';
+        +'<div class="result-header"><span>Surah '+m.s+':'+m.a+' &mdash; '+escHtml(m.n)+'</span>'
+        +'<a href="'+href+'">View verse &rarr;</a></div>';
+      activeFields.forEach(function(f){
+        var arr=fieldCache[f[0]]||[];
+        var val=arr[m.i]||'';
+        if(!val)return;
+        html+='<div class="result-field '+f[0]+'">'+highlight(val,currentTerms)+'</div>';
+      });
+      html+='</div>';
     }
     resultsEl.innerHTML = html;
     var pgHtml = '';
@@ -340,20 +440,36 @@ footer a:hover{text-decoration:underline}
     var q = input.value.trim();
     if(!q){ resultsEl.innerHTML=''; statusEl.textContent=''; paginEl.innerHTML=''; allMatches=[]; return; }
     currentTerms = q.toLowerCase().split(/\s+/).filter(Boolean);
-    allMatches = [];
-    for(var i=0;i<QURAN_DATA.length;i++){
-      var row=QURAN_DATA[i];
-      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
-      var haystack=(ar+' '+tu+' '+ya+' '+hm+' '+name).toLowerCase();
-      if(currentTerms.every(function(t){ return haystack.indexOf(t)!==-1; })) allMatches.push(row);
-    }
-    if(allMatches.length===0){
-      statusEl.textContent='No results found.';
-      resultsEl.innerHTML='';
-      paginEl.innerHTML='';
-      return;
-    }
-    renderPage(1);
+    var activeFields = getActiveFields();
+    statusEl.textContent = 'Loading…';
+    resultsEl.innerHTML='';
+    paginEl.innerHTML='';
+    var fieldPromises = activeFields.map(function(f){return loadField(f[0]);});
+    Promise.all([loadMeta()].concat(fieldPromises)).then(function(){
+      allMatches = [];
+      for(var i=0;i<metaData.length;i++){
+        var row=metaData[i];
+        var parts=[row[2]];
+        activeFields.forEach(function(f){
+          var arr=fieldCache[f[0]]||[];
+          parts.push(arr[i]||'');
+        });
+        var haystack=parts.join(' ').toLowerCase();
+        if(currentTerms.every(function(t){return haystack.indexOf(t)!==-1;})){
+          allMatches.push({i:i,s:row[0],a:row[1],n:row[2]});
+        }
+      }
+      if(allMatches.length===0){
+        statusEl.textContent='No results found.';
+        resultsEl.innerHTML='';
+        paginEl.innerHTML='';
+        return;
+      }
+      renderPage(1);
+    }).catch(function(err){
+      statusEl.textContent='Error loading search data. Please try again.';
+      console.error(err);
+    });
   };
 
   input.addEventListener('keydown',function(e){ if(e.key==='Enter') doSearch(); });
