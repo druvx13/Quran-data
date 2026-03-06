@@ -220,6 +220,16 @@ footer a:hover{text-decoration:underline}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
 }
+.recent-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.recent-card{display:flex;flex-direction:column;padding:10px 14px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em;min-width:160px}
+.recent-card:hover{background:#c8e6c9}
+.recent-label{font-weight:600;font-size:.9em}
+.recent-ago{font-size:.78em;color:#555;margin-top:2px}
+@media(prefers-color-scheme:dark){
+  .recent-card{background:#0a1e10;border-color:#2e7d32;color:#a5d6a7}
+  .recent-card:hover{background:#122a18}
+  .recent-ago{color:#90a4ae}
+}
 </style>
 </head>
 <body>
@@ -248,6 +258,10 @@ footer a:hover{text-decoration:underline}
 <em>Roman Urdu Translation:</em> Muhammad Junagarhi &mdash; via <a href="https://github.com/fawazahmed0/quran-api" rel="noopener noreferrer">fawazahmed0/quran-api</a>.<br>
 Texts are reproduced verbatim; no alterations have been made.
 </details>
+<section id="recent-section" style="display:none;margin-bottom:18px">
+<h2 style="margin-bottom:8px">&#128214; Continue Reading</h2>
+<div id="recent-list" class="recent-list"></div>
+</section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
 <a href='001.html'><strong>1.</strong> Al-Fatihah (The Opening)<span class='sg-meta'><span class='sib-type meccan'>Meccan</span><span>Juz 1</span></span></a>
@@ -367,5 +381,32 @@ Texts are reproduced verbatim; no alterations have been made.
 </div>
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<script>
+/* ---- Continue Reading / History ---- */
+(function(){
+  var HIST_KEY='quran-history';
+  var section=document.getElementById('recent-section');
+  var list=document.getElementById('recent-list');
+  if(!section||!list)return;
+  var hist=[];
+  try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){return;}
+  if(!hist.length)return;
+  var html='';
+  var show=hist.slice(0,5);
+  for(var i=0;i<show.length;i++){
+    var h=show[i];
+    var href=String(h.s).padStart(3,'0')+'.html';
+    var ago='';
+    var diff=Math.round((Date.now()-h.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    html+='<a href="'+href+'" class="recent-card"><span class="recent-label">'+h.n+'</span><span class="recent-ago">'+ago+'</span></a>';
+  }
+  list.innerHTML=html;
+  section.style.display='';
+})();
+</script>
 </body>
 </html>

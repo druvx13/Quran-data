@@ -622,7 +622,7 @@ HEADER_HTML = """\
 </style>
 <script src="config.js"></script>
 </head>
-<body>
+<body data-sura="{num}">
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
@@ -718,6 +718,22 @@ def make_verse_chooser(size):
 
 VC_JS = """\
 <script>
+/* ---- Last Read / History tracking ---- */
+(function(){
+  try{
+    var _suraNum=+document.body.dataset.sura;
+    if(!_suraNum)return;
+    var _h1=document.querySelector('h1');
+    var _suraLabel=_h1?_h1.textContent.trim():'Surah '+_suraNum;
+    var HIST_KEY='quran-history';
+    var hist=[];
+    try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){}
+    hist=hist.filter(function(h){return h.s!==_suraNum;});
+    hist.unshift({s:_suraNum,n:_suraLabel,t:Date.now()});
+    if(hist.length>10)hist=hist.slice(0,10);
+    localStorage.setItem(HIST_KEY,JSON.stringify(hist));
+  }catch(_){}
+})();
 (function(){
   var cfList=document.getElementById('cf-list');
   var fromInput=document.getElementById('vc-from');
@@ -1033,9 +1049,23 @@ with open(index_path, 'w', encoding='utf-8') as out:
 <em>Roman Urdu Translation:</em> Muhammad Junagarhi &mdash; via <a href="https://github.com/fawazahmed0/quran-api" rel="noopener noreferrer">fawazahmed0/quran-api</a>.<br>
 Texts are reproduced verbatim; no alterations have been made.
 </details>
+<section id="recent-section" style="display:none;margin-bottom:18px">
+<h2 style="margin-bottom:8px">&#128214; Continue Reading</h2>
+<div id="recent-list" class="recent-list"></div>
+</section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
-""" % (CSS, make_surah_select(0)))
+""" % (CSS + """
+.recent-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.recent-card{display:flex;flex-direction:column;padding:10px 14px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em;min-width:160px}
+.recent-card:hover{background:#c8e6c9}
+.recent-label{font-weight:600;font-size:.9em}
+.recent-ago{font-size:.78em;color:#555;margin-top:2px}
+@media(prefers-color-scheme:dark){
+  .recent-card{background:#0a1e10;border-color:#2e7d32;color:#a5d6a7}
+  .recent-card:hover{background:#122a18}
+  .recent-ago{color:#90a4ae}
+}""", make_surah_select(0)))
     for i, name in enumerate(SURA_NAME, 1):
         rev_order, rev_type = SURAH_REV[i - 1]
         type_label = 'Meccan' if rev_type == 'M' else 'Medinan'
@@ -1054,6 +1084,33 @@ Texts are reproduced verbatim; no alterations have been made.
 </div>
 </main>
 %s
+<script>
+/* ---- Continue Reading / History ---- */
+(function(){
+  var HIST_KEY='quran-history';
+  var section=document.getElementById('recent-section');
+  var list=document.getElementById('recent-list');
+  if(!section||!list)return;
+  var hist=[];
+  try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){return;}
+  if(!hist.length)return;
+  var html='';
+  var show=hist.slice(0,5);
+  for(var i=0;i<show.length;i++){
+    var h=show[i];
+    var href=String(h.s).padStart(3,'0')+'.html';
+    var ago='';
+    var diff=Math.round((Date.now()-h.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    html+='<a href="'+href+'" class="recent-card"><span class="recent-label">'+h.n+'</span><span class="recent-ago">'+ago+'</span></a>';
+  }
+  list.innerHTML=html;
+  section.style.display='';
+})();
+</script>
 </body>
 </html>""" % COMPACT_FOOTER)
 
@@ -1124,16 +1181,18 @@ SEARCH_HTML = """\
 <style>
 {css}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
-<p style="font-size:.93em;color:#555;margin-bottom:14px">Search Arabic text, transliteration, English translation (Yusuf Ali), or &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Hindi Tafsir). Results link directly to the verse.</p>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Searches the content types you have enabled in <a href="config.html">Settings</a>. Results link directly to the verse.</p>
 <div class="search-box">
   <input type="text" id="q" placeholder="e.g. mercy, rahman, bismillah&hellip;" autofocus autocomplete="off" spellcheck="false">
   <button onclick="doSearch()">Search</button>
 </div>
+<div id="search-scope" style="font-size:.82em;color:#888;margin-bottom:10px"></div>
 <div id="search-status"></div>
 <div id="results"></div>
 <div id="pagination"></div>
@@ -1148,8 +1207,41 @@ SEARCH_HTML = """\
   var currentTerms = [];
   var input = document.getElementById('q');
   var statusEl = document.getElementById('search-status');
+  var scopeEl = document.getElementById('search-scope');
   var resultsEl = document.getElementById('results');
   var paginEl = document.getElementById('pagination');
+
+  /* ---- Resolve user config (defaults merged with localStorage overrides) ---- */
+  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{{}};
+  var userPrefs=null;
+  try{{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}}catch(_){{}}
+  function cfEnabled(key){{
+    if(userPrefs&&userPrefs.hasOwnProperty(key))return userPrefs[key];
+    return defaults.hasOwnProperty(key)?defaults[key]:false;
+  }}
+
+  /* ---- Search field map: config key -> QURAN_DATA field index & label ---- */
+  var FIELD_MAP=[
+    ['arabic',      3, 'Arabic'],
+    ['translit-unicode', 4, 'Transliteration'],
+    ['trans-yusuf', 5, 'Yusuf Ali (EN)'],
+    ['hindi-mokhtasar', 6, 'Hindi Tafsir']
+  ];
+
+  function getActiveFields(){{
+    var active=[];
+    FIELD_MAP.forEach(function(f){{if(cfEnabled(f[0]))active.push(f);}});
+    // Always include surah name (virtual field)
+    return active;
+  }}
+
+  function updateScopeNote(){{
+    var active=getActiveFields();
+    var labels=active.map(function(f){{return f[2];}});
+    labels.push('Surah name');
+    if(scopeEl)scopeEl.textContent='Searching in: '+labels.join(', ')+'. Change in \u2699 Settings.';
+  }}
+  updateScopeNote();
 
   function escHtml(s){{
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -1175,18 +1267,21 @@ SEARCH_HTML = """\
     var end = Math.min(start + PAGE_SIZE, total);
     statusEl.textContent = 'Showing ' + (start+1) + '\u2013' + end + ' of ' + total + ' result(s) for \u201c' + input.value.trim() + '\u201d';
     var html = '';
+    var activeFields=getActiveFields();
     for(var i=start;i<end;i++){{
       var row=allMatches[i];
       var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
       var href=String(sura).padStart(3,'0')+'.html#'+ayah;
       html+='<div class="result-card">'
         +'<div class="result-header"><span>Surah '+sura+':'+ayah+' &mdash; '+escHtml(name)+'</span>'
-        +'<a href="'+href+'">View verse &rarr;</a></div>'
-        +'<div class="result-arabic">'+highlight(ar,currentTerms)+'</div>'
-        +(tu?'<div class="result-translit">'+highlight(tu,currentTerms)+'</div>':'')
-        +(ya?'<div class="result-trans">'+highlight(ya,currentTerms)+'</div>':'')
-        +(hm?'<div class="result-hindi-mokhtasar">'+highlight(hm,currentTerms)+'</div>':'')
-        +'</div>';
+        +'<a href="'+href+'">View verse &rarr;</a></div>';
+      activeFields.forEach(function(f){{
+        var val=row[f[1]]||'';
+        if(!val)return;
+        var cls=f[0]==='arabic'?'result-arabic':f[0]==='translit-unicode'?'result-translit':f[0]==='trans-yusuf'?'result-trans':'result-hindi-mokhtasar';
+        html+='<div class="'+cls+'">'+highlight(val,currentTerms)+'</div>';
+      }});
+      html+='</div>';
     }}
     resultsEl.innerHTML = html;
     var pgHtml = '';
@@ -1221,11 +1316,14 @@ SEARCH_HTML = """\
     var q = input.value.trim();
     if(!q){{ resultsEl.innerHTML=''; statusEl.textContent=''; paginEl.innerHTML=''; allMatches=[]; return; }}
     currentTerms = q.toLowerCase().split(/\\s+/).filter(Boolean);
+    var activeFields=getActiveFields();
     allMatches = [];
     for(var i=0;i<QURAN_DATA.length;i++){{
       var row=QURAN_DATA[i];
-      var sura=row[0],ayah=row[1],name=row[2],ar=row[3],tu=row[4],ya=row[5],hm=row[6]||'';
-      var haystack=(ar+' '+tu+' '+ya+' '+hm+' '+name).toLowerCase();
+      var name=row[2];
+      var parts=[name];
+      activeFields.forEach(function(f){{parts.push(row[f[1]]||'');}});
+      var haystack=parts.join(' ').toLowerCase();
       if(currentTerms.every(function(t){{ return haystack.indexOf(t)!==-1; }})) allMatches.push(row);
     }}
     if(allMatches.length===0){{
@@ -1304,6 +1402,10 @@ CONFIG_CSS = CSS + """
 .cfg-btn-reset{background:#e0e0e0;color:#333}
 .cfg-btn-reset:hover{background:#bdbdbd}
 .cfg-saved{color:#1b5e20;font-size:.88em;margin-left:8px;opacity:0;transition:opacity .3s}
+.hist-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;margin-bottom:6px;font-size:.9em}
+.hist-card a{color:#1a3a5c;text-decoration:none;font-weight:600;flex:1}
+.hist-card a:hover{text-decoration:underline}
+.hist-ago{font-size:.8em;color:#555;white-space:nowrap}
 @media(prefers-color-scheme:dark){
   .cfg-card{background:#1e2a3a;border-color:#334}
   .cfg-row{border-bottom-color:#333}
@@ -1312,6 +1414,9 @@ CONFIG_CSS = CSS + """
   .cfg-btn-reset{background:#333;color:#e8e8e8}
   .cfg-btn-reset:hover{background:#444}
   .cfg-saved{color:#a5d6a7}
+  .hist-card{background:#0a1e10;border-color:#2e7d32}
+  .hist-card a{color:#a5d6a7}
+  .hist-ago{color:#90a4ae}
 }"""
 
 config_html_path = os.path.join(docs_dir, 'config.html')
@@ -1339,6 +1444,13 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 <div class="cfg-actions">
 <button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
 <span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+</div>
+</div>
+<div class="cfg-card" style="margin-top:20px">
+<h2 style="margin-top:0">&#128214; Reading History</h2>
+<div id="hist-list"><p style="font-size:.9em;color:#888">No history yet.</p></div>
+<div class="cfg-actions">
+<button class="cfg-btn-reset" onclick="clearHistory()">Clear History</button>
 </div>
 </div>
 </main>
@@ -1379,6 +1491,34 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
     var badge=document.getElementById('cfg-saved');
     if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
   };
+
+  /* ---- History ---- */
+  var HIST_KEY='quran-history';
+  function loadHistory(){
+    var listEl=document.getElementById('hist-list');
+    if(!listEl)return;
+    var hist=[];
+    try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){}
+    if(!hist.length){listEl.innerHTML='<p style="font-size:.9em;color:#888">No history yet.</p>';return;}
+    var html='';
+    for(var i=0;i<hist.length;i++){
+      var h=hist[i];
+      var href=String(h.s).padStart(3,'0')+'.html';
+      var ago='';
+      var diff=Math.round((Date.now()-h.t)/60000);
+      if(diff<1)ago='just now';
+      else if(diff<60)ago=diff+'m ago';
+      else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+      else ago=Math.round(diff/1440)+'d ago';
+      html+='<div class="hist-card"><a href="'+href+'">'+h.n+'</a><span class="hist-ago">'+ago+'</span></div>';
+    }
+    listEl.innerHTML=html;
+  }
+  window.clearHistory=function(){
+    try{localStorage.removeItem(HIST_KEY);}catch(_){}
+    loadHistory();
+  };
+  loadHistory();
 })();
 </script>
 </body>

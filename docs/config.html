@@ -236,6 +236,10 @@ footer a:hover{text-decoration:underline}
 .cfg-btn-reset{background:#e0e0e0;color:#333}
 .cfg-btn-reset:hover{background:#bdbdbd}
 .cfg-saved{color:#1b5e20;font-size:.88em;margin-left:8px;opacity:0;transition:opacity .3s}
+.hist-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;margin-bottom:6px;font-size:.9em}
+.hist-card a{color:#1a3a5c;text-decoration:none;font-weight:600;flex:1}
+.hist-card a:hover{text-decoration:underline}
+.hist-ago{font-size:.8em;color:#555;white-space:nowrap}
 @media(prefers-color-scheme:dark){
   .cfg-card{background:#1e2a3a;border-color:#334}
   .cfg-row{border-bottom-color:#333}
@@ -244,6 +248,9 @@ footer a:hover{text-decoration:underline}
   .cfg-btn-reset{background:#333;color:#e8e8e8}
   .cfg-btn-reset:hover{background:#444}
   .cfg-saved{color:#a5d6a7}
+  .hist-card{background:#0a1e10;border-color:#2e7d32}
+  .hist-card a{color:#a5d6a7}
+  .hist-ago{color:#90a4ae}
 }
 </style>
 <script src="config.js"></script>
@@ -276,6 +283,13 @@ footer a:hover{text-decoration:underline}
 <div class="cfg-actions">
 <button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
 <span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+</div>
+</div>
+<div class="cfg-card" style="margin-top:20px">
+<h2 style="margin-top:0">&#128214; Reading History</h2>
+<div id="hist-list"><p style="font-size:.9em;color:#888">No history yet.</p></div>
+<div class="cfg-actions">
+<button class="cfg-btn-reset" onclick="clearHistory()">Clear History</button>
 </div>
 </div>
 </main>
@@ -316,6 +330,34 @@ footer a:hover{text-decoration:underline}
     var badge=document.getElementById('cfg-saved');
     if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
   };
+
+  /* ---- History ---- */
+  var HIST_KEY='quran-history';
+  function loadHistory(){
+    var listEl=document.getElementById('hist-list');
+    if(!listEl)return;
+    var hist=[];
+    try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){}
+    if(!hist.length){listEl.innerHTML='<p style="font-size:.9em;color:#888">No history yet.</p>';return;}
+    var html='';
+    for(var i=0;i<hist.length;i++){
+      var h=hist[i];
+      var href=String(h.s).padStart(3,'0')+'.html';
+      var ago='';
+      var diff=Math.round((Date.now()-h.t)/60000);
+      if(diff<1)ago='just now';
+      else if(diff<60)ago=diff+'m ago';
+      else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+      else ago=Math.round(diff/1440)+'d ago';
+      html+='<div class="hist-card"><a href="'+href+'">'+h.n+'</a><span class="hist-ago">'+ago+'</span></div>';
+    }
+    listEl.innerHTML=html;
+  }
+  window.clearHistory=function(){
+    try{localStorage.removeItem(HIST_KEY);}catch(_){}
+    loadHistory();
+  };
+  loadHistory();
 })();
 </script>
 </body>
