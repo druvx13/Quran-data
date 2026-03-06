@@ -728,50 +728,45 @@ def make_verse_chooser(size):
 
 VC_JS = """\
 <script>
-/* ---- Last Read / History tracking ---- */
+/* ---- Last Read tracking — stores only the single most-recently-read surah ---- */
 (function(){
   try{
     var _suraNum=+document.body.dataset.sura;
     if(!_suraNum)return;
     var _h1=document.querySelector('h1');
     var _suraLabel=_h1?_h1.textContent.trim():'Surah '+_suraNum;
-    var HIST_KEY='quran-history';
-    var hist=[];
-    try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){}
-    hist=hist.filter(function(h){return h.s!==_suraNum;});
-    hist.unshift({s:_suraNum,n:_suraLabel,t:Date.now()});
-    if(hist.length>10)hist=hist.slice(0,10);
-    localStorage.setItem(HIST_KEY,JSON.stringify(hist));
+    localStorage.setItem('quran-history',JSON.stringify({s:_suraNum,n:_suraLabel,t:Date.now()}));
   }catch(_){}
 })();
-/* ---- Bookmark (saved ayah) ---- */
+/* ---- Bookmarks (array, newest-first) ---- */
 (function(){
   var BM_KEY='quran-bookmark';
-  var bm=null;
-  try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+  var bms=[];
+  try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+  if(!Array.isArray(bms))bms=[];
   var curSura=+document.body.dataset.sura;
-  /* Highlight active bookmark button on load */
-  if(bm&&bm.s===curSura){
-    var btn=document.getElementById('bm-'+bm.a);
-    if(btn)btn.classList.add('active');
-  }
+  /* Highlight all active bookmark buttons for this surah */
+  bms.forEach(function(b){
+    if(b.s===curSura){var btn=document.getElementById('bm-'+b.a);if(btn)btn.classList.add('active');}
+  });
   window.toggleBookmark=function(sura,ayah){
     var btn=document.getElementById('bm-'+ayah);
-    /* Remove old active state from any button on this page */
-    document.querySelectorAll('.bm-btn.active').forEach(function(b){b.classList.remove('active');});
-    var existing=null;
-    try{existing=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
-    if(existing&&existing.s===sura&&existing.a===ayah){
-      /* Toggle off — remove bookmark */
-      try{localStorage.removeItem(BM_KEY);}catch(_){}
+    var list=[];
+    try{list=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+    if(!Array.isArray(list))list=[];
+    var idx=list.findIndex(function(b){return b.s===sura&&b.a===ayah;});
+    if(idx!==-1){
+      /* Remove bookmark */
+      list.splice(idx,1);
+      if(btn)btn.classList.remove('active');
     } else {
-      /* Set new bookmark */
+      /* Add bookmark to front */
       var h1=document.querySelector('h1');
       var label=h1?h1.textContent.trim():'Surah '+sura;
-      var entry={s:sura,a:ayah,n:label,t:Date.now()};
-      try{localStorage.setItem(BM_KEY,JSON.stringify(entry));}catch(_){}
+      list.unshift({s:sura,a:ayah,n:label,t:Date.now()});
       if(btn)btn.classList.add('active');
     }
+    try{localStorage.setItem(BM_KEY,JSON.stringify(list));}catch(_){}
   };
 })();
 (function(){
@@ -1118,11 +1113,12 @@ Texts are reproduced verbatim; no alterations have been made.
 <div id="recent-list" class="recent-list"></div>
 </section>
 <section id="bookmark-section" style="display:none;margin-bottom:18px">
-<h2 style="margin-bottom:8px">&#128278; Bookmarked Verse</h2>
-<a id="bookmark-link" href="#" class="recent-card bm-card" style="display:inline-flex;flex-direction:column;text-decoration:none">
+<h2 style="margin-bottom:8px">&#128278; Last Saved Bookmark</h2>
+<a id="bookmark-link" href="#" class="recent-card bm-card" style="display:inline-flex;flex-direction:column;text-decoration:none;margin-bottom:6px">
   <span id="bookmark-label" class="recent-label"></span>
   <span id="bookmark-meta" class="recent-ago"></span>
 </a>
+<a id="bookmark-all-link" href="bookmarks.html" class="recent-card bm-card" style="display:none;font-size:.85em;padding:7px 12px;margin-top:4px;text-decoration:none"></a>
 </section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
@@ -1160,14 +1156,34 @@ Texts are reproduced verbatim; no alterations have been made.
 </main>
 %s
 <script>
-/* ---- Bookmark (saved ayah) section ---- */
+/* ---- Continue Reading — last read surah (single entry) ---- */
+(function(){
+  var HIST_KEY='quran-history';
+  var section=document.getElementById('recent-section');
+  var list=document.getElementById('recent-list');
+  if(!section||!list)return;
+  var h=null;
+  try{h=JSON.parse(localStorage.getItem(HIST_KEY)||'null');}catch(_){return;}
+  if(!h||!h.s)return;
+  var href=String(h.s).padStart(3,'0')+'.html';
+  var ago='';
+  var diff=Math.round((Date.now()-h.t)/60000);
+  if(diff<1)ago='just now';
+  else if(diff<60)ago=diff+'m ago';
+  else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+  else ago=Math.round(diff/1440)+'d ago';
+  list.innerHTML='<a href="'+href+'" class="recent-card"><span class="recent-label">'+h.n+'</span><span class="recent-ago">'+ago+'</span></a>';
+  section.style.display='';
+})();
+/* ---- Last saved bookmark (single card, links to bookmarks.html for full list) ---- */
 (function(){
   var BM_KEY='quran-bookmark';
   var section=document.getElementById('bookmark-section');
   if(!section)return;
-  var bm=null;
-  try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
-  if(!bm)return;
+  var bms=[];
+  try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+  if(!Array.isArray(bms)||!bms.length)return;
+  var bm=bms[0];
   var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
   var ago='';
   var diff=Math.round((Date.now()-bm.t)/60000);
@@ -1178,35 +1194,12 @@ Texts are reproduced verbatim; no alterations have been made.
   var linkEl=document.getElementById('bookmark-link');
   var labelEl=document.getElementById('bookmark-label');
   var metaEl=document.getElementById('bookmark-meta');
+  var allEl=document.getElementById('bookmark-all-link');
   if(linkEl)linkEl.href=href;
   var suraName=bm.n||('Surah '+bm.s);
   if(labelEl)labelEl.textContent='\U0001F4D6 '+suraName+', Ayah '+bm.a;
-  if(metaEl)metaEl.textContent='Bookmarked '+ago;
-  section.style.display='';
-})();
-/* ---- Continue Reading / History ---- */
-(function(){
-  var HIST_KEY='quran-history';
-  var section=document.getElementById('recent-section');
-  var list=document.getElementById('recent-list');
-  if(!section||!list)return;
-  var hist=[];
-  try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){return;}
-  if(!hist.length)return;
-  var html='';
-  var show=hist.slice(0,5);
-  for(var i=0;i<show.length;i++){
-    var h=show[i];
-    var href=String(h.s).padStart(3,'0')+'.html';
-    var ago='';
-    var diff=Math.round((Date.now()-h.t)/60000);
-    if(diff<1)ago='just now';
-    else if(diff<60)ago=diff+'m ago';
-    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
-    else ago=Math.round(diff/1440)+'d ago';
-    html+='<a href="'+href+'" class="recent-card"><span class="recent-label">'+h.n+'</span><span class="recent-ago">'+ago+'</span></a>';
-  }
-  list.innerHTML=html;
+  if(metaEl)metaEl.textContent='Bookmarked '+ago+(bms.length>1?' (+'+(bms.length-1)+' more)':'');
+  if(allEl){allEl.style.display='';allEl.textContent='\U0001F4DA View all '+bms.length+' bookmark'+(bms.length===1?'':'s');}
   section.style.display='';
 })();
 </script>
@@ -1635,17 +1628,18 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 </div>
 </div>
 <div class="cfg-card" style="margin-top:20px">
-<h2 style="margin-top:0">&#128278; Saved Bookmark</h2>
-<div id="bm-display"><p style="font-size:.9em;color:#888">No bookmark saved yet. Use the &#128278; button on any verse to bookmark it.</p></div>
+<h2 style="margin-top:0">&#128278; Saved Bookmarks</h2>
+<div id="bm-display"><p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the &#128278; button on any verse to bookmark it.</p></div>
 <div class="cfg-actions">
-<button class="cfg-btn-reset" id="bm-clear-btn" onclick="clearBookmark()" style="display:none">Clear Bookmark</button>
+<a href="bookmarks.html" class="cfg-btn-reset" style="text-decoration:none;display:inline-block">&#128218; Manage All Bookmarks &rarr;</a>
+<button class="cfg-btn-reset" id="bm-clear-btn" onclick="clearBookmarks()" style="display:none">Clear All Bookmarks</button>
 </div>
 </div>
 <div class="cfg-card" style="margin-top:20px">
-<h2 style="margin-top:0">&#128214; Reading History</h2>
+<h2 style="margin-top:0">&#128214; Last Read</h2>
 <div id="hist-list"><p style="font-size:.9em;color:#888">No history yet.</p></div>
 <div class="cfg-actions">
-<button class="cfg-btn-reset" onclick="clearHistory()">Clear History</button>
+<button class="cfg-btn-reset" onclick="clearHistory()">Clear</button>
 </div>
 </div>
 </main>
@@ -1687,27 +1681,22 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
     if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
   };
 
-  /* ---- History ---- */
+  /* ---- Last Read (single entry) ---- */
   var HIST_KEY='quran-history';
   function loadHistory(){
     var listEl=document.getElementById('hist-list');
     if(!listEl)return;
-    var hist=[];
-    try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){}
-    if(!hist.length){listEl.innerHTML='<p style="font-size:.9em;color:#888">No history yet.</p>';return;}
-    var html='';
-    for(var i=0;i<hist.length;i++){
-      var h=hist[i];
-      var href=String(h.s).padStart(3,'0')+'.html';
-      var ago='';
-      var diff=Math.round((Date.now()-h.t)/60000);
-      if(diff<1)ago='just now';
-      else if(diff<60)ago=diff+'m ago';
-      else if(diff<1440)ago=Math.round(diff/60)+'h ago';
-      else ago=Math.round(diff/1440)+'d ago';
-      html+='<div class="hist-card"><a href="'+href+'">'+h.n+'</a><span class="hist-ago">'+ago+'</span></div>';
-    }
-    listEl.innerHTML=html;
+    var h=null;
+    try{h=JSON.parse(localStorage.getItem(HIST_KEY)||'null');}catch(_){}
+    if(!h||!h.s){listEl.innerHTML='<p style="font-size:.9em;color:#888">No history yet.</p>';return;}
+    var href=String(h.s).padStart(3,'0')+'.html';
+    var ago='';
+    var diff=Math.round((Date.now()-h.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    listEl.innerHTML='<div class="hist-card"><a href="'+href+'">'+h.n+'</a><span class="hist-ago">'+ago+'</span></div>';
   }
   window.clearHistory=function(){
     try{localStorage.removeItem(HIST_KEY);}catch(_){}
@@ -1715,19 +1704,20 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
   };
   loadHistory();
 
-  /* ---- Bookmark ---- */
+  /* ---- Bookmarks (shows last saved, links to bookmarks.html) ---- */
   var BM_KEY='quran-bookmark';
-  function loadBookmark(){
+  function loadBookmarks(){
     var dispEl=document.getElementById('bm-display');
     var clearBtn=document.getElementById('bm-clear-btn');
     if(!dispEl)return;
-    var bm=null;
-    try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
-    if(!bm){
-      dispEl.innerHTML='<p style="font-size:.9em;color:#888">No bookmark saved yet. Use the \U0001F516 button on any verse to bookmark it.</p>';
+    var bms=[];
+    try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+    if(!Array.isArray(bms)||!bms.length){
+      dispEl.innerHTML='<p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the \U0001F516 button on any verse to bookmark it.</p>';
       if(clearBtn)clearBtn.style.display='none';
       return;
     }
+    var bm=bms[0];
     var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
     var ago='';
     var diff=Math.round((Date.now()-bm.t)/60000);
@@ -1736,19 +1726,192 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
     else if(diff<1440)ago=Math.round(diff/60)+'h ago';
     else ago=Math.round(diff/1440)+'d ago';
     var suraName=bm.n||('Surah '+bm.s);
-    dispEl.innerHTML='<div class="hist-card"><a href="'+href+'">\U0001F4D6 '+suraName+', Ayah '+bm.a+'</a><span class="hist-ago">'+ago+'</span></div>';
+    dispEl.innerHTML='<div class="hist-card"><a href="'+href+'">\U0001F4D6 '+suraName+', Ayah '+bm.a+'</a><span class="hist-ago">'+ago+(bms.length>1?' &mdash; '+(bms.length-1)+' more bookmark'+(bms.length===2?'':'s')+' saved':'')+'</span></div>';
     if(clearBtn)clearBtn.style.display='';
   }
-  window.clearBookmark=function(){
+  window.clearBookmarks=function(){
     try{localStorage.removeItem(BM_KEY);}catch(_){}
-    loadBookmark();
+    loadBookmarks();
   };
-  loadBookmark();
+  loadBookmarks();
 })();
 </script>
 </body>
 </html>""" % (CONFIG_CSS, make_surah_select(0), '\n'.join(config_items_html)))
 print('Written: %s' % config_html_path)
+
+# ---------------------------------------------------------------------------
+# Generate bookmarks.html  (full bookmark manager: list, export, import)
+# ---------------------------------------------------------------------------
+BOOKMARKS_CSS = CSS + """
+.bm-list{list-style:none;padding:0;margin:0}
+.bm-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid #dce8f0;font-size:.95em}
+.bm-item:last-child{border-bottom:none}
+.bm-item-info{flex:1}
+.bm-item-info a{color:#1a3a5c;text-decoration:none;font-weight:600}
+.bm-item-info a:hover{text-decoration:underline}
+.bm-item-meta{font-size:.78em;color:#666;margin-top:2px}
+.bm-item-del{flex-shrink:0;background:none;border:1px solid #e57373;color:#c62828;border-radius:4px;padding:3px 9px;cursor:pointer;font-size:.83em}
+.bm-item-del:hover{background:#fdecea}
+.bm-empty{color:#888;font-size:.9em;padding:12px 0}
+.bm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.bm-actions button,.bm-actions label{padding:8px 16px;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.9em;background:#fff;color:#1a3a5c}
+.bm-actions button:hover,.bm-actions label:hover{background:#f0f4f8}
+.bm-count{font-size:.85em;color:#555;margin-bottom:10px}
+@media(prefers-color-scheme:dark){
+  .bm-item{border-color:#1e3a4c}
+  .bm-item-info a{color:#90caf9}
+  .bm-item-meta{color:#90a4ae}
+  .bm-item-del{border-color:#8b3a3a;color:#ef9a9a}
+  .bm-item-del:hover{background:#2a1010}
+  .bm-actions button,.bm-actions label{background:#0d1f2d;border-color:#1e3a4c;color:#90caf9}
+  .bm-actions button:hover,.bm-actions label:hover{background:#162d40}
+  .bm-count{color:#90a4ae}
+}
+"""
+
+BOOKMARKS_HTML = """\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookmarks &ndash; Qur&rsquo;an</title>
+<style>
+{css}
+</style>
+</head>
+<body>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<main>
+<h1>&#128278; My Bookmarks</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Bookmarks are stored in your browser. Use Export to save a backup and Import to restore them on another device.</p>
+<div class="bm-actions">
+  <button onclick="exportBm()">&#11015; Export JSON</button>
+  <label>&#11014; Import JSON<input type="file" id="bm-import" accept=".json,application/json" style="display:none" onchange="importBm(this)"></label>
+  <button onclick="clearAllBm()" style="border-color:#e57373;color:#c62828">&#128465; Clear All</button>
+</div>
+<div class="bm-count" id="bm-count"></div>
+<ul class="bm-list" id="bm-list"></ul>
+</main>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<script>
+(function(){{
+  var BM_KEY='quran-bookmark';
+
+  function load(){{
+    var bms=[];
+    try{{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}}catch(_){{}}
+    if(!Array.isArray(bms))bms=[];
+    return bms;
+  }}
+
+  function save(bms){{
+    try{{localStorage.setItem(BM_KEY,JSON.stringify(bms));}}catch(_){{}}
+  }}
+
+  function relTime(ts){{
+    var diff=Math.round((Date.now()-ts)/60000);
+    if(diff<1)return 'just now';
+    if(diff<60)return diff+'m ago';
+    if(diff<1440)return Math.round(diff/60)+'h ago';
+    return Math.round(diff/1440)+'d ago';
+  }}
+
+  function escHtml(s){{
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }}
+
+  function render(){{
+    var bms=load();
+    var listEl=document.getElementById('bm-list');
+    var countEl=document.getElementById('bm-count');
+    if(!listEl)return;
+    if(!bms.length){{
+      listEl.innerHTML='<li class="bm-empty">No bookmarks saved yet. Use the &#128278; button on any verse to add one.</li>';
+      if(countEl)countEl.textContent='';
+      return;
+    }}
+    if(countEl)countEl.textContent=bms.length+' bookmark'+(bms.length===1?'':'s')+' saved';
+    var html='';
+    for(var i=0;i<bms.length;i++){{
+      var b=bms[i];
+      var href=String(b.s).padStart(3,'0')+'.html#ayah-'+b.a;
+      var suraName=escHtml(b.n||('Surah '+b.s));
+      html+='<li class="bm-item">'
+        +'<div class="bm-item-info">'
+        +'<a href="'+href+'">\U0001F4D6 '+suraName+', Ayah '+b.a+'</a>'
+        +'<div class="bm-item-meta">Bookmarked '+relTime(b.t)+'</div>'
+        +'</div>'
+        +'<button class="bm-item-del" onclick="deleteBm('+i+')" title="Delete this bookmark">&times; Remove</button>'
+        +'</li>';
+    }}
+    listEl.innerHTML=html;
+  }}
+
+  window.deleteBm=function(idx){{
+    var bms=load();
+    bms.splice(idx,1);
+    save(bms);
+    render();
+  }};
+
+  window.clearAllBm=function(){{
+    if(!confirm('Remove all '+load().length+' bookmark(s)?'))return;
+    save([]);
+    render();
+  }};
+
+  window.exportBm=function(){{
+    var bms=load();
+    var blob=new Blob([JSON.stringify(bms,null,2)],{{type:'application/json'}});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='quran-bookmarks.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){{URL.revokeObjectURL(url);document.body.removeChild(a);}},100);
+  }};
+
+  window.importBm=function(input){{
+    var file=input.files[0];
+    if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(e){{
+      try{{
+        var data=JSON.parse(e.target.result);
+        if(!Array.isArray(data))throw new Error('Not an array');
+        /* Merge: deduplicate by surah+ayah (imported entries win on conflict) */
+        var existing=load();
+        var map={{}};
+        existing.forEach(function(b){{map[b.s+':'+b.a]=b;}});
+        data.forEach(function(b){{if(b.s&&b.a)map[b.s+':'+b.a]=b;}});
+        var merged=Object.values(map).sort(function(a,b){{return b.t-a.t;}});
+        save(merged);
+        render();
+        alert('Imported '+data.length+' bookmark(s). Total: '+merged.length+'.');
+      }}catch(err){{
+        alert('Import failed: '+err.message);
+      }}
+      input.value='';
+    }};
+    reader.readAsText(file);
+  }};
+
+  render();
+}})();
+</script>
+</body>
+</html>"""
+
+bookmarks_html_path = os.path.join(docs_dir, 'bookmarks.html')
+with open(bookmarks_html_path, 'w', encoding='utf-8') as f:
+    f.write(BOOKMARKS_HTML.format(
+        css=BOOKMARKS_CSS,
+        surah_select=make_surah_select(0),
+    ))
+print('Written: %s' % bookmarks_html_path)
 
 # ---------------------------------------------------------------------------
 # Generate sources.html  (comprehensive source attribution page)
@@ -2332,4 +2495,4 @@ async function generateZip(){
               json.dumps({cls: dflt for cls, _, dflt in CF_ITEMS})))
 print('Written: %s' % download_html_path)
 
-print('Done. %d surah files + index + search + config + sources + license + download regenerated.' % 114)
+print('Done. %d surah files + index + search + config + bookmarks + sources + license + download regenerated.' % 114)

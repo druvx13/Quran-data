@@ -277,11 +277,12 @@ Texts are reproduced verbatim; no alterations have been made.
 <div id="recent-list" class="recent-list"></div>
 </section>
 <section id="bookmark-section" style="display:none;margin-bottom:18px">
-<h2 style="margin-bottom:8px">&#128278; Bookmarked Verse</h2>
-<a id="bookmark-link" href="#" class="recent-card bm-card" style="display:inline-flex;flex-direction:column;text-decoration:none">
+<h2 style="margin-bottom:8px">&#128278; Last Saved Bookmark</h2>
+<a id="bookmark-link" href="#" class="recent-card bm-card" style="display:inline-flex;flex-direction:column;text-decoration:none;margin-bottom:6px">
   <span id="bookmark-label" class="recent-label"></span>
   <span id="bookmark-meta" class="recent-ago"></span>
 </a>
+<a id="bookmark-all-link" href="bookmarks.html" class="recent-card bm-card" style="display:none;font-size:.85em;padding:7px 12px;margin-top:4px;text-decoration:none"></a>
 </section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
@@ -403,14 +404,34 @@ Texts are reproduced verbatim; no alterations have been made.
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
-/* ---- Bookmark (saved ayah) section ---- */
+/* ---- Continue Reading — last read surah (single entry) ---- */
+(function(){
+  var HIST_KEY='quran-history';
+  var section=document.getElementById('recent-section');
+  var list=document.getElementById('recent-list');
+  if(!section||!list)return;
+  var h=null;
+  try{h=JSON.parse(localStorage.getItem(HIST_KEY)||'null');}catch(_){return;}
+  if(!h||!h.s)return;
+  var href=String(h.s).padStart(3,'0')+'.html';
+  var ago='';
+  var diff=Math.round((Date.now()-h.t)/60000);
+  if(diff<1)ago='just now';
+  else if(diff<60)ago=diff+'m ago';
+  else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+  else ago=Math.round(diff/1440)+'d ago';
+  list.innerHTML='<a href="'+href+'" class="recent-card"><span class="recent-label">'+h.n+'</span><span class="recent-ago">'+ago+'</span></a>';
+  section.style.display='';
+})();
+/* ---- Last saved bookmark (single card, links to bookmarks.html for full list) ---- */
 (function(){
   var BM_KEY='quran-bookmark';
   var section=document.getElementById('bookmark-section');
   if(!section)return;
-  var bm=null;
-  try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
-  if(!bm)return;
+  var bms=[];
+  try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+  if(!Array.isArray(bms)||!bms.length)return;
+  var bm=bms[0];
   var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
   var ago='';
   var diff=Math.round((Date.now()-bm.t)/60000);
@@ -421,35 +442,12 @@ Texts are reproduced verbatim; no alterations have been made.
   var linkEl=document.getElementById('bookmark-link');
   var labelEl=document.getElementById('bookmark-label');
   var metaEl=document.getElementById('bookmark-meta');
+  var allEl=document.getElementById('bookmark-all-link');
   if(linkEl)linkEl.href=href;
   var suraName=bm.n||('Surah '+bm.s);
   if(labelEl)labelEl.textContent='📖 '+suraName+', Ayah '+bm.a;
-  if(metaEl)metaEl.textContent='Bookmarked '+ago;
-  section.style.display='';
-})();
-/* ---- Continue Reading / History ---- */
-(function(){
-  var HIST_KEY='quran-history';
-  var section=document.getElementById('recent-section');
-  var list=document.getElementById('recent-list');
-  if(!section||!list)return;
-  var hist=[];
-  try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){return;}
-  if(!hist.length)return;
-  var html='';
-  var show=hist.slice(0,5);
-  for(var i=0;i<show.length;i++){
-    var h=show[i];
-    var href=String(h.s).padStart(3,'0')+'.html';
-    var ago='';
-    var diff=Math.round((Date.now()-h.t)/60000);
-    if(diff<1)ago='just now';
-    else if(diff<60)ago=diff+'m ago';
-    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
-    else ago=Math.round(diff/1440)+'d ago';
-    html+='<a href="'+href+'" class="recent-card"><span class="recent-label">'+h.n+'</span><span class="recent-ago">'+ago+'</span></a>';
-  }
-  list.innerHTML=html;
+  if(metaEl)metaEl.textContent='Bookmarked '+ago+(bms.length>1?' (+'+(bms.length-1)+' more)':'');
+  if(allEl){allEl.style.display='';allEl.textContent='📚 View all '+bms.length+' bookmark'+(bms.length===1?'':'s');}
   section.style.display='';
 })();
 </script>

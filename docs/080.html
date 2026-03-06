@@ -1045,50 +1045,45 @@ footer a:hover{text-decoration:underline}
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
-/* ---- Last Read / History tracking ---- */
+/* ---- Last Read tracking — stores only the single most-recently-read surah ---- */
 (function(){
   try{
     var _suraNum=+document.body.dataset.sura;
     if(!_suraNum)return;
     var _h1=document.querySelector('h1');
     var _suraLabel=_h1?_h1.textContent.trim():'Surah '+_suraNum;
-    var HIST_KEY='quran-history';
-    var hist=[];
-    try{hist=JSON.parse(localStorage.getItem(HIST_KEY)||'[]');}catch(_){}
-    hist=hist.filter(function(h){return h.s!==_suraNum;});
-    hist.unshift({s:_suraNum,n:_suraLabel,t:Date.now()});
-    if(hist.length>10)hist=hist.slice(0,10);
-    localStorage.setItem(HIST_KEY,JSON.stringify(hist));
+    localStorage.setItem('quran-history',JSON.stringify({s:_suraNum,n:_suraLabel,t:Date.now()}));
   }catch(_){}
 })();
-/* ---- Bookmark (saved ayah) ---- */
+/* ---- Bookmarks (array, newest-first) ---- */
 (function(){
   var BM_KEY='quran-bookmark';
-  var bm=null;
-  try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+  var bms=[];
+  try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+  if(!Array.isArray(bms))bms=[];
   var curSura=+document.body.dataset.sura;
-  /* Highlight active bookmark button on load */
-  if(bm&&bm.s===curSura){
-    var btn=document.getElementById('bm-'+bm.a);
-    if(btn)btn.classList.add('active');
-  }
+  /* Highlight all active bookmark buttons for this surah */
+  bms.forEach(function(b){
+    if(b.s===curSura){var btn=document.getElementById('bm-'+b.a);if(btn)btn.classList.add('active');}
+  });
   window.toggleBookmark=function(sura,ayah){
     var btn=document.getElementById('bm-'+ayah);
-    /* Remove old active state from any button on this page */
-    document.querySelectorAll('.bm-btn.active').forEach(function(b){b.classList.remove('active');});
-    var existing=null;
-    try{existing=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
-    if(existing&&existing.s===sura&&existing.a===ayah){
-      /* Toggle off — remove bookmark */
-      try{localStorage.removeItem(BM_KEY);}catch(_){}
+    var list=[];
+    try{list=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+    if(!Array.isArray(list))list=[];
+    var idx=list.findIndex(function(b){return b.s===sura&&b.a===ayah;});
+    if(idx!==-1){
+      /* Remove bookmark */
+      list.splice(idx,1);
+      if(btn)btn.classList.remove('active');
     } else {
-      /* Set new bookmark */
+      /* Add bookmark to front */
       var h1=document.querySelector('h1');
       var label=h1?h1.textContent.trim():'Surah '+sura;
-      var entry={s:sura,a:ayah,n:label,t:Date.now()};
-      try{localStorage.setItem(BM_KEY,JSON.stringify(entry));}catch(_){}
+      list.unshift({s:sura,a:ayah,n:label,t:Date.now()});
       if(btn)btn.classList.add('active');
     }
+    try{localStorage.setItem(BM_KEY,JSON.stringify(list));}catch(_){}
   };
 })();
 (function(){

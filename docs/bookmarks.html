@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Settings &ndash; Qur&rsquo;an Reader</title>
+<title>Bookmarks &ndash; Qur&rsquo;an</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
@@ -230,178 +230,152 @@ footer a:hover{text-decoration:underline}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
 }
-.cfg-card{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;padding:20px;max-width:600px;margin:0 auto}
-.cfg-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #e0e0e0}
-.cfg-row:last-child{border-bottom:none}
-.cfg-label{font-size:.95em;color:#1a3a5c}
-.cfg-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
-.cfg-switch input{opacity:0;width:0;height:0}
-.cfg-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:24px;transition:.25s}
-.cfg-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
-.cfg-switch input:checked+.cfg-slider{background:#1a3a5c}
-.cfg-switch input:checked+.cfg-slider::before{transform:translateX(20px)}
-.cfg-switch input:focus+.cfg-slider{outline:2px solid #ffd54f;outline-offset:2px}
-.cfg-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.cfg-actions button{padding:8px 18px;border:none;border-radius:4px;cursor:pointer;font-size:.92em;min-height:40px}
-.cfg-btn-reset{background:#e0e0e0;color:#333}
-.cfg-btn-reset:hover{background:#bdbdbd}
-.cfg-saved{color:#1b5e20;font-size:.88em;margin-left:8px;opacity:0;transition:opacity .3s}
-.hist-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;margin-bottom:6px;font-size:.9em}
-.hist-card a{color:#1a3a5c;text-decoration:none;font-weight:600;flex:1}
-.hist-card a:hover{text-decoration:underline}
-.hist-ago{font-size:.8em;color:#555;white-space:nowrap}
+.bm-list{list-style:none;padding:0;margin:0}
+.bm-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid #dce8f0;font-size:.95em}
+.bm-item:last-child{border-bottom:none}
+.bm-item-info{flex:1}
+.bm-item-info a{color:#1a3a5c;text-decoration:none;font-weight:600}
+.bm-item-info a:hover{text-decoration:underline}
+.bm-item-meta{font-size:.78em;color:#666;margin-top:2px}
+.bm-item-del{flex-shrink:0;background:none;border:1px solid #e57373;color:#c62828;border-radius:4px;padding:3px 9px;cursor:pointer;font-size:.83em}
+.bm-item-del:hover{background:#fdecea}
+.bm-empty{color:#888;font-size:.9em;padding:12px 0}
+.bm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.bm-actions button,.bm-actions label{padding:8px 16px;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.9em;background:#fff;color:#1a3a5c}
+.bm-actions button:hover,.bm-actions label:hover{background:#f0f4f8}
+.bm-count{font-size:.85em;color:#555;margin-bottom:10px}
 @media(prefers-color-scheme:dark){
-  .cfg-card{background:#1e2a3a;border-color:#334}
-  .cfg-row{border-bottom-color:#333}
-  .cfg-label{color:#90caf9}
-  .cfg-slider{background:#555}
-  .cfg-btn-reset{background:#333;color:#e8e8e8}
-  .cfg-btn-reset:hover{background:#444}
-  .cfg-saved{color:#a5d6a7}
-  .hist-card{background:#0a1e10;border-color:#2e7d32}
-  .hist-card a{color:#a5d6a7}
-  .hist-ago{color:#90a4ae}
+  .bm-item{border-color:#1e3a4c}
+  .bm-item-info a{color:#90caf9}
+  .bm-item-meta{color:#90a4ae}
+  .bm-item-del{border-color:#8b3a3a;color:#ef9a9a}
+  .bm-item-del:hover{background:#2a1010}
+  .bm-actions button,.bm-actions label{background:#0d1f2d;border-color:#1e3a4c;color:#90caf9}
+  .bm-actions button:hover,.bm-actions label:hover{background:#162d40}
+  .bm-count{color:#90a4ae}
 }
+
 </style>
-<script src="config.js"></script>
 </head>
 <body>
 <header><a href="index.html">&#8962; Index</a><select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Surah'><option value="">Jump to Surah…</option><option value='001.html'>1. Al-Fatihah (The Opening)</option><option value='002.html'>2. Al-Baqarah (The Cow)</option><option value='003.html'>3. Al-'Imran (The Family of Amran)</option><option value='004.html'>4. An-Nisa' (The Women)</option><option value='005.html'>5. Al-Ma'idah (The Food)</option><option value='006.html'>6. Al-An'am (The Cattle)</option><option value='007.html'>7. Al-A'raf (The Elevated Places)</option><option value='008.html'>8. Al-Anfal (Voluntary Gifts)</option><option value='009.html'>9. Al-Bara'at / At-Taubah(The Immunity)</option><option value='010.html'>10. Yunus (Jonah)</option><option value='011.html'>11. Hud (Hud)</option><option value='012.html'>12. Yusuf (Joseph)</option><option value='013.html'>13. Ar-Ra'd (The Thunder)</option><option value='014.html'>14. Ibrahim (Abraham)</option><option value='015.html'>15. Al-Hijr (The Rock)</option><option value='016.html'>16. An-Nahl (The Bee)</option><option value='017.html'>17. Bani Isra'il (The Israelites)</option><option value='018.html'>18. Al-Kahf (The Cave)</option><option value='019.html'>19. Maryam (Mary)</option><option value='020.html'>20. Ta Ha (Ta Ha)</option><option value='021.html'>21. Al-Anbiya' (The Prophets)</option><option value='022.html'>22. Al-Hajj (The Pilgrimage)</option><option value='023.html'>23. Al-Mu'minun (The Believers)</option><option value='024.html'>24. An-Nur (The Light)</option><option value='025.html'>25. Al-Furqan (The Discrimination)</option><option value='026.html'>26. Ash-Shu'ara' (The Poets)</option><option value='027.html'>27. An-Naml (The Naml)</option><option value='028.html'>28. Al-Qasas (The Narrative)</option><option value='029.html'>29. Al-'Ankabut (The Spider)</option><option value='030.html'>30. Ar-Rum (The Romans)</option><option value='031.html'>31. Luqman (Luqman)</option><option value='032.html'>32. As-Sajdah (The Adoration)</option><option value='033.html'>33. Al-Ahzab (The Allies)</option><option value='034.html'>34. Al-Saba' (The Saba')</option><option value='035.html'>35. Al-Fatir (The Originator)</option><option value='036.html'>36. Ya Sin (Ya Sin)</option><option value='037.html'>37. As-Saffat (Those Ranging in Ranks)</option><option value='038.html'>38. Sad (Sad)</option><option value='039.html'>39. Az-Zumar (The Companies)</option><option value='040.html'>40. Al-Mu'min (The Believer)</option><option value='041.html'>41. Ha Mim (Ha Mim)</option><option value='042.html'>42. Ash-Shura (Counsel)</option><option value='043.html'>43. Az-Zukhruf (Gold)</option><option value='044.html'>44. Ad-Dukhan (The Drought)</option><option value='045.html'>45. Al-Jathiyah (The Kneeling)</option><option value='046.html'>46. Al-Ahqaf (The Sandhills)</option><option value='047.html'>47. Muhammad (Muhammad)</option><option value='048.html'>48. Al-Fath (The Victory)</option><option value='049.html'>49. Al-Hujurat (The Apartments)</option><option value='050.html'>50. Qaf (Qaf)</option><option value='051.html'>51. Ad-Dhariyat (The Scatterers)</option><option value='052.html'>52. At-Tur (The Mountain)</option><option value='053.html'>53. An-Najm (The Star)</option><option value='054.html'>54. Al-Qamar (The Moon)</option><option value='055.html'>55. Ar-Rahman (The Beneficent)</option><option value='056.html'>56. Al-Waqi'ah (The Event)</option><option value='057.html'>57. Al-Hadid (Iron)</option><option value='058.html'>58. Al-Mujadilah (The Pleading Woman)</option><option value='059.html'>59. Al-Hashr (The Banishment)</option><option value='060.html'>60. Al-Mumtahanah (The Woman who is Examined)</option><option value='061.html'>61. As-Saff (The Ranks)</option><option value='062.html'>62. Al-Jumu'ah (The Congregation)</option><option value='063.html'>63. Al-Munafiqun (The Hypocrites)</option><option value='064.html'>64. At-Taghabun (The Manifestation of Losses)</option><option value='065.html'>65. At-Talaq (Divorce)</option><option value='066.html'>66. At-Tahrim (The Prohibition)</option><option value='067.html'>67. Al-Mulk (The Kingdom)</option><option value='068.html'>68. Al-Qalam (The Pen)</option><option value='069.html'>69. Al-Haqqah (The Sure Truth)</option><option value='070.html'>70. Al-Ma'arij (The Ways of Ascent)</option><option value='071.html'>71. Nuh (Noah)</option><option value='072.html'>72. Al-Jinn (The Jinn)</option><option value='073.html'>73. Al-Muzzammil (The One Covering Himself)</option><option value='074.html'>74. Al-Muddaththir (The One Wrapping Himself Up)</option><option value='075.html'>75. Al-Qiyamah (The Resurrection)</option><option value='076.html'>76. Al-Insan (The Man)</option><option value='077.html'>77. Al-Mursalat (Those Sent Forth)</option><option value='078.html'>78. An-Naba' (The Announcement)</option><option value='079.html'>79. An-Nazi'at (Those Who Yearn)</option><option value='080.html'>80. 'Abasa (He Frowned)</option><option value='081.html'>81. At-Takwir (The Folding Up)</option><option value='082.html'>82. Al-Infitar (The Cleaving)</option><option value='083.html'>83. At-Tatfif (Default in Duty)</option><option value='084.html'>84. Al-Inshiqaq (The Bursting Asunder)</option><option value='085.html'>85. Al-Buruj (The Stars)</option><option value='086.html'>86. At-Tariq (The Comer by Night)</option><option value='087.html'>87. Al-A'la (The Most High)</option><option value='088.html'>88. Al-Ghashiyah (The Overwhelming Event)</option><option value='089.html'>89. Al-Fajr (The Daybreak)</option><option value='090.html'>90. Al-Balad (The City)</option><option value='091.html'>91. Ash-Shams (The Sun)</option><option value='092.html'>92. Al-Lail (The Night)</option><option value='093.html'>93. Ad-Duha (The Brightness of the Day)</option><option value='094.html'>94. Al-Inshirah (The Expansion)</option><option value='095.html'>95. At-Tin (The Fig)</option><option value='096.html'>96. Al-'Alaq (The Clot)</option><option value='097.html'>97. Al-Qadr (The Majesty)</option><option value='098.html'>98. Al-Bayyinah (The Clear Evidence)</option><option value='099.html'>99. Al-Zilzal (The Shaking)</option><option value='100.html'>100. Al-'Adiyat (The Assaulters)</option><option value='101.html'>101. Al-Qari'ah (The Calamity)</option><option value='102.html'>102. At-Takathur (The Abundance of Wealth)</option><option value='103.html'>103. Al-'Asr (The Time)</option><option value='104.html'>104. Al-Humazah (The Slanderer)</option><option value='105.html'>105. Al-Fil (The Elephant)</option><option value='106.html'>106. Al-Quraish (The Quraish)</option><option value='107.html'>107. Al-Ma'un (Acts of Kindness)</option><option value='108.html'>108. Al-Kauthar (The Abundance of Good)</option><option value='109.html'>109. Al-Kafirun (The Disbelievers)</option><option value='110.html'>110. An-Nasr (The Help)</option><option value='111.html'>111. Al-Lahab (The Flame)</option><option value='112.html'>112. Al-Ikhlas (The Unity)</option><option value='113.html'>113. Al-Falaq (The Dawn)</option><option value='114.html'>114. An-Nas (The Men)</option></select><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
-<h1>&#9881; Reader Settings</h1>
-<p style="font-size:.93em;color:#555;margin-bottom:14px">Choose which translations appear by default when you open a Surah page. Your preferences are saved in your browser.</p>
-<div class="cfg-card">
-<h2 style="margin-top:0">Default Translation Visibility</h2>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='arabic'><span class='cfg-slider'></span></label><span class='cfg-label'>Arabic</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='audio'><span class='cfg-slider'></span></label><span class='cfg-label'>Audio</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='translit'><span class='cfg-slider'></span></label><span class='cfg-label'>Translit. (Tanzil)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='translit-unicode'><span class='cfg-slider'></span></label><span class='cfg-label'>Translit. (Unicode)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Pickthall)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-yusuf'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Yusuf Ali)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-sahih'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Saheeh Int’l)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-qarai'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Qarai)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='trans-hilali'><span class='cfg-slider'></span></label><span class='cfg-label'>English (Hilali)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='eng-abridged'><span class='cfg-slider'></span></label><span class='cfg-label'>Abridged Expl.</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी (Farooq)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi-suhail'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी (Suhail)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi-mokhtasar'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी तफ्सीर (Mokhtasar)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='gujarati'><span class='cfg-slider'></span></label><span class='cfg-label'>ગુજરાતી (Rabila)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='nepali'><span class='cfg-slider'></span></label><span class='cfg-label'>Nepali (Ahl-al-Hadith)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='hindi-omari'><span class='cfg-slider'></span></label><span class='cfg-label'>हिन्दी (Al-Omari)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='roman-urdu'><span class='cfg-slider'></span></label><span class='cfg-label'>Roman Urdu (Maududi)</span></div>
-<div class='cfg-row'><label class='cfg-switch'><input type='checkbox' data-key='roman-urdu-junagarhi'><span class='cfg-slider'></span></label><span class='cfg-label'>Roman Urdu (Junagarhi)</span></div>
-<div class="cfg-actions">
-<button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
-<span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+<h1>&#128278; My Bookmarks</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">Bookmarks are stored in your browser. Use Export to save a backup and Import to restore them on another device.</p>
+<div class="bm-actions">
+  <button onclick="exportBm()">&#11015; Export JSON</button>
+  <label>&#11014; Import JSON<input type="file" id="bm-import" accept=".json,application/json" style="display:none" onchange="importBm(this)"></label>
+  <button onclick="clearAllBm()" style="border-color:#e57373;color:#c62828">&#128465; Clear All</button>
 </div>
-</div>
-<div class="cfg-card" style="margin-top:20px">
-<h2 style="margin-top:0">&#128278; Saved Bookmarks</h2>
-<div id="bm-display"><p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the &#128278; button on any verse to bookmark it.</p></div>
-<div class="cfg-actions">
-<a href="bookmarks.html" class="cfg-btn-reset" style="text-decoration:none;display:inline-block">&#128218; Manage All Bookmarks &rarr;</a>
-<button class="cfg-btn-reset" id="bm-clear-btn" onclick="clearBookmarks()" style="display:none">Clear All Bookmarks</button>
-</div>
-</div>
-<div class="cfg-card" style="margin-top:20px">
-<h2 style="margin-top:0">&#128214; Last Read</h2>
-<div id="hist-list"><p style="font-size:.9em;color:#888">No history yet.</p></div>
-<div class="cfg-actions">
-<button class="cfg-btn-reset" onclick="clearHistory()">Clear</button>
-</div>
-</div>
+<div class="bm-count" id="bm-count"></div>
+<ul class="bm-list" id="bm-list"></ul>
 </main>
-<footer>Settings are stored locally in your browser via localStorage. &nbsp;|&nbsp; <a href="sources.html">Sources</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
+<footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
 (function(){
-  var defaults=(typeof QURAN_CONFIG!=='undefined')?QURAN_CONFIG:{};
-  var userPrefs=null;
-  try{var raw=localStorage.getItem('quran-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
-
-  var switches=document.querySelectorAll('.cfg-switch input[type=checkbox]');
-  switches.forEach(function(sw){
-    var key=sw.dataset.key;
-    var on;
-    if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
-    else{on=defaults.hasOwnProperty(key)?defaults[key]:false;}
-    sw.checked=on;
-  });
-
-  function savePrefs(){
-    var prefs={};
-    switches.forEach(function(sw){prefs[sw.dataset.key]=sw.checked;});
-    try{localStorage.setItem('quran-cf',JSON.stringify(prefs));}catch(e){}
-    var badge=document.getElementById('cfg-saved');
-    if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
-  }
-
-  switches.forEach(function(sw){
-    sw.addEventListener('change',savePrefs);
-  });
-
-  window.cfgReset=function(){
-    try{localStorage.removeItem('quran-cf');}catch(e){}
-    switches.forEach(function(sw){
-      var key=sw.dataset.key;
-      sw.checked=defaults.hasOwnProperty(key)?defaults[key]:false;
-    });
-    var badge=document.getElementById('cfg-saved');
-    if(badge){badge.style.opacity='1';setTimeout(function(){badge.style.opacity='0';},1500);}
-  };
-
-  /* ---- Last Read (single entry) ---- */
-  var HIST_KEY='quran-history';
-  function loadHistory(){
-    var listEl=document.getElementById('hist-list');
-    if(!listEl)return;
-    var h=null;
-    try{h=JSON.parse(localStorage.getItem(HIST_KEY)||'null');}catch(_){}
-    if(!h||!h.s){listEl.innerHTML='<p style="font-size:.9em;color:#888">No history yet.</p>';return;}
-    var href=String(h.s).padStart(3,'0')+'.html';
-    var ago='';
-    var diff=Math.round((Date.now()-h.t)/60000);
-    if(diff<1)ago='just now';
-    else if(diff<60)ago=diff+'m ago';
-    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
-    else ago=Math.round(diff/1440)+'d ago';
-    listEl.innerHTML='<div class="hist-card"><a href="'+href+'">'+h.n+'</a><span class="hist-ago">'+ago+'</span></div>';
-  }
-  window.clearHistory=function(){
-    try{localStorage.removeItem(HIST_KEY);}catch(_){}
-    loadHistory();
-  };
-  loadHistory();
-
-  /* ---- Bookmarks (shows last saved, links to bookmarks.html) ---- */
   var BM_KEY='quran-bookmark';
-  function loadBookmarks(){
-    var dispEl=document.getElementById('bm-display');
-    var clearBtn=document.getElementById('bm-clear-btn');
-    if(!dispEl)return;
+
+  function load(){
     var bms=[];
     try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
-    if(!Array.isArray(bms)||!bms.length){
-      dispEl.innerHTML='<p style="font-size:.9em;color:#888">No bookmarks saved yet. Use the 🔖 button on any verse to bookmark it.</p>';
-      if(clearBtn)clearBtn.style.display='none';
+    if(!Array.isArray(bms))bms=[];
+    return bms;
+  }
+
+  function save(bms){
+    try{localStorage.setItem(BM_KEY,JSON.stringify(bms));}catch(_){}
+  }
+
+  function relTime(ts){
+    var diff=Math.round((Date.now()-ts)/60000);
+    if(diff<1)return 'just now';
+    if(diff<60)return diff+'m ago';
+    if(diff<1440)return Math.round(diff/60)+'h ago';
+    return Math.round(diff/1440)+'d ago';
+  }
+
+  function escHtml(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function render(){
+    var bms=load();
+    var listEl=document.getElementById('bm-list');
+    var countEl=document.getElementById('bm-count');
+    if(!listEl)return;
+    if(!bms.length){
+      listEl.innerHTML='<li class="bm-empty">No bookmarks saved yet. Use the &#128278; button on any verse to add one.</li>';
+      if(countEl)countEl.textContent='';
       return;
     }
-    var bm=bms[0];
-    var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
-    var ago='';
-    var diff=Math.round((Date.now()-bm.t)/60000);
-    if(diff<1)ago='just now';
-    else if(diff<60)ago=diff+'m ago';
-    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
-    else ago=Math.round(diff/1440)+'d ago';
-    var suraName=bm.n||('Surah '+bm.s);
-    dispEl.innerHTML='<div class="hist-card"><a href="'+href+'">📖 '+suraName+', Ayah '+bm.a+'</a><span class="hist-ago">'+ago+(bms.length>1?' &mdash; '+(bms.length-1)+' more bookmark'+(bms.length===2?'':'s')+' saved':'')+'</span></div>';
-    if(clearBtn)clearBtn.style.display='';
+    if(countEl)countEl.textContent=bms.length+' bookmark'+(bms.length===1?'':'s')+' saved';
+    var html='';
+    for(var i=0;i<bms.length;i++){
+      var b=bms[i];
+      var href=String(b.s).padStart(3,'0')+'.html#ayah-'+b.a;
+      var suraName=escHtml(b.n||('Surah '+b.s));
+      html+='<li class="bm-item">'
+        +'<div class="bm-item-info">'
+        +'<a href="'+href+'">📖 '+suraName+', Ayah '+b.a+'</a>'
+        +'<div class="bm-item-meta">Bookmarked '+relTime(b.t)+'</div>'
+        +'</div>'
+        +'<button class="bm-item-del" onclick="deleteBm('+i+')" title="Delete this bookmark">&times; Remove</button>'
+        +'</li>';
+    }
+    listEl.innerHTML=html;
   }
-  window.clearBookmarks=function(){
-    try{localStorage.removeItem(BM_KEY);}catch(_){}
-    loadBookmarks();
+
+  window.deleteBm=function(idx){
+    var bms=load();
+    bms.splice(idx,1);
+    save(bms);
+    render();
   };
-  loadBookmarks();
+
+  window.clearAllBm=function(){
+    if(!confirm('Remove all '+load().length+' bookmark(s)?'))return;
+    save([]);
+    render();
+  };
+
+  window.exportBm=function(){
+    var bms=load();
+    var blob=new Blob([JSON.stringify(bms,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='quran-bookmarks.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){URL.revokeObjectURL(url);document.body.removeChild(a);},100);
+  };
+
+  window.importBm=function(input){
+    var file=input.files[0];
+    if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(e){
+      try{
+        var data=JSON.parse(e.target.result);
+        if(!Array.isArray(data))throw new Error('Not an array');
+        /* Merge: deduplicate by surah+ayah (imported entries win on conflict) */
+        var existing=load();
+        var map={};
+        existing.forEach(function(b){map[b.s+':'+b.a]=b;});
+        data.forEach(function(b){if(b.s&&b.a)map[b.s+':'+b.a]=b;});
+        var merged=Object.values(map).sort(function(a,b){return b.t-a.t;});
+        save(merged);
+        render();
+        alert('Imported '+data.length+' bookmark(s). Total: '+merged.length+'.');
+      }catch(err){
+        alert('Import failed: '+err.message);
+      }
+      input.value='';
+    };
+    reader.readAsText(file);
+  };
+
+  render();
 })();
 </script>
 </body>
