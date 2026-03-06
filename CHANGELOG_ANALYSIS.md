@@ -57,7 +57,7 @@ The original 5 translations:
 - Per-surah HTML pages (`docs/001.html` … `docs/114.html`)
 - `docs/index.html` with surah grid
 - `docs/search.html` with full-text search
-- `docs/search-data.js` pre-built search index
+- `docs/search-data.js` pre-built search index (later replaced by `docs/sd/` lazy-loaded files in §2.9)
 - Audio players streaming from Hugging Face Space
 - Content Filter widget (per-ayah translation toggles)
 - Dark/light mode support
@@ -120,6 +120,16 @@ Roman Urdu Junagarhi added from fawazahmed0/quran-api.
 
 **Impact:** `gentxtforquran.py` grew to 71 output files. The `translations` list now spans ~100 lines of code.
 
+### 2.9 Reader Features: Lazy Search, Bookmarks, Last-Read (Mar 2026)
+
+**What changed:** Three new client-side reader features added to the website via `gendocshtml.py`:
+
+- **Config-aware lazy search:** Replaced the monolithic `search-data.js` (~27 MB) with 18 small files in `docs/sd/` loaded on demand via `fetch()`. `sd/meta.json` (~200 KB) is prefetched; per-field JSONs are fetched lazily only for fields the user has enabled in Settings. A default-settings user now downloads ~3 MB instead of 27 MB.
+- **Multi-bookmark system:** Each verse has a 🔖 button. `localStorage['quran-bookmark']` is now a newest-first array of `{s, a, n, t}` objects. A dedicated `bookmarks.html` page provides a full manager with per-entry Remove, Export JSON, and Import JSON capabilities.
+- **Single last-read entry:** `localStorage['quran-history']` stores a single `{s, n, t}` object — only the most recently visited surah. Homepage shows one "Continue Reading" card.
+
+**New generated files:** `docs/sd/meta.json`, `docs/sd/*.json` (17 files), `docs/bookmarks.html`
+
 ---
 
 ## 3. Growth Metrics
@@ -130,10 +140,10 @@ Roman Urdu Junagarhi added from fawazahmed0/quran-api.
 | Languages covered | 3 (Arabic, English, Hindi) | 8+ (Arabic, English, Hindi, Urdu, Roman Urdu, Roman Hindi, Gujarati, Roman Gujarati, Nepali, Transliteration) |
 | Output plain-text files | 5 | 71 |
 | PDFs | 5 | 5 (unchanged) |
-| Website pages | 0 (no website) | 120+ (114 surah pages + index, search, download, config, license) |
+| Website pages | 0 (no website) | 122+ (114 surah + index, search, bookmarks, config, sources, license, download) |
 | Source data files | ~6 | 80+ |
 | Data sources | 2 (tanzil.net, zekr.org) | 7+ (tanzil.net, quranenc.com, alquran.cloud, quran.com, fawazahmed0/quran-api, JSON ZIPs, Quran Unicode Project) |
-| Lines of Python | ~50 | ~2,200+ |
+| Lines of Python | ~50 | ~2,500+ |
 
 ---
 

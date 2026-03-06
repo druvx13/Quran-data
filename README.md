@@ -63,7 +63,7 @@ Features:
 ├── src/                    # Python generator scripts
 │   ├── gentexforquran.py   # Generate intermediate LaTeX content files
 │   ├── gentxtforquran.py   # Generate formatted plain-text output files
-│   └── gendocshtml.py      # Generate static HTML docs (docs/) + search-data.js
+│   └── gendocshtml.py      # Generate static HTML docs (docs/) + lazy search data (docs/sd/)
 ├── data/                   # All source translation data (input — do not modify)
 │   ├── ar.quran.txt                              # Arabic Uthmani script (one line per ayah)
 │   ├── en.pickthall.txt                          # English – Pickthall (one line per ayah)
@@ -223,10 +223,12 @@ Features:
 │   ├── farooq.pdf          # Compiled PDF
 │   └── suhail.pdf          # Compiled PDF
 ├── docs/                   # Generated static HTML – GitHub Pages
-│   ├── index.html          # Surah index (with surah navigator + search link)
-│   ├── search.html         # Client-side full-text search page
-│   ├── search-data.js      # Search index (compact JSON, all 6236 verses)
-│   └── 001.html … 114.html # Per-surah pages
+│   ├── index.html          # Surah index (last-read card, last bookmark card, surah grid)
+│   ├── search.html         # Config-aware full-text search (lazy-loads docs/sd/)
+│   ├── bookmarks.html      # Multi-bookmark manager (export/import JSON)
+│   ├── config.html         # Settings / preferences
+│   ├── sd/                 # Lazy-loaded per-field search data (18 JSON files)
+│   └── 001.html … 114.html # Per-surah pages (verse bookmarking, audio, translations)
 ├── archive/                # Legacy files (Readme.txt, original makefile)
 ├── Makefile
 ├── README.md
@@ -415,8 +417,8 @@ All output files use the `[sura:ayah] text` format, grouped by surah.
 python3 src/gendocshtml.py
 ```
 
-Regenerates all 114 surah pages, `docs/index.html`, `docs/search.html`, and
-`docs/search-data.js`.
+Regenerates all 114 surah pages, `docs/index.html`, `docs/search.html`,
+`docs/bookmarks.html`, and the `docs/sd/` per-field search JSON files.
 
 **Audio note:** Audio players stream MP3 files from
 `https://druvx13-quran-audio-alafasy.hf.space/<sura><ayah>.mp3`.

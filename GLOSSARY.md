@@ -193,8 +193,8 @@ A section of the Qur'an that ends at a point suitable for bowing in prayer. Used
 **Sajdah** (plural: **Sajdāt**)
 Prostration. There are 15 places in the Qur'an where it is recommended or obligatory to perform a prostration upon recitation. Referenced in metadata arrays in `gendocshtml.py`.
 
-**search-data.js**
-A generated JavaScript file in `docs/` that contains a pre-built search index for the full-text search functionality. Updated every time `gendocshtml.py` is run.
+**`docs/sd/`**
+The directory of lazy-loaded per-field search data. Contains `meta.json` (~200 KB, surah/ayah index always prefetched) and 17 per-translation-field JSON files (each a flat array of 6,236 strings). Replaces the former monolithic `search-data.js`. `search.html` fetches only the files corresponding to the user's enabled settings.
 
 **sura** / **surah** (plural: **suwar**)
 A chapter of the Qur'an. The Qur'an has exactly 114 surahs. In code, surahs are numbered 1–114 (1-indexed).

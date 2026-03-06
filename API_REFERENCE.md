@@ -252,9 +252,11 @@ python3 src/gendocshtml.py
 | Output | Description |
 |--------|-------------|
 | `docs/001.html` … `docs/114.html` | Individual surah pages (zero-padded, 3 digits) |
-| `docs/index.html` | Homepage with 114-surah grid |
-| `docs/search.html` | Full-text search UI |
-| `docs/search-data.js` | Pre-built JSON search index |
+| `docs/index.html` | Homepage with 114-surah grid, last-read card, last bookmark card |
+| `docs/search.html` | Config-aware full-text search UI (lazy-loads per-field JSON files) |
+| `docs/bookmarks.html` | Bookmark manager: list all bookmarks, export/import JSON, delete individual |
+| `docs/sd/meta.json` | Surah/ayah index (~200 KB); always prefetched by search page |
+| `docs/sd/{fieldkey}.json` | One flat text array per translation field (17 files); lazy-fetched per user settings |
 | `docs/download.html` | Download links for output files |
 | `docs/config.html` | User preferences / settings page |
 | `docs/license.html` | License information page |

@@ -39,6 +39,9 @@ Master index of all documentation files in this repository.
 ### "I want to browse the website"
 → [README.md](README.md) → Live website link
 
+### "I want to bookmark a verse or see my saved bookmarks"
+→ [bookmarks.html](https://druvx13.github.io/Quran-data/bookmarks.html) (live) — or use the 🔖 button on any verse page
+
 ### "I want to use the translation data files"
 → [INTEGRATION_PLAYBOOK.md §1](INTEGRATION_PLAYBOOK.md#1-using-the-plain-text-output-files) → [API_REFERENCE.md §5](API_REFERENCE.md#5-data-file-contracts)
 
@@ -93,7 +96,7 @@ See [ARCHITECTURE.md §3](ARCHITECTURE.md#3-system-diagram) for the full Mermaid
 | Languages | 8+ |
 | Ayahs | 6,236 |
 | Surahs | 114 |
-| Website pages | 120+ |
+| Website pages | 122+ (114 surah + index, search, bookmarks, config, sources, license, download) |
 | Python scripts | 3 |
 | Python LOC | ~2,276 |
 | External dependencies | 0 (Python stdlib only) |

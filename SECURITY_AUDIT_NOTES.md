@@ -191,10 +191,13 @@ The audio files are served cross-origin (website is on `github.io`, audio is on 
 ### 4.5 User Data in localStorage
 
 The website uses `localStorage` for:
-- Dark mode preference
-- Content Filter checkbox states
+- **`quran-cf`** — translation visibility preferences (which content rows are shown)
+- **`quran-history`** — single `{s, n, t}` object recording the most recently visited surah
+- **`quran-bookmark`** — array of bookmark entries `[{s, a, n, t}, …]` (surah, ayah, name, timestamp)
 
-No personally identifiable information (PII) is stored. No data is transmitted to any server. This is privacy-safe.
+No personally identifiable information (PII) is stored. No data is transmitted to any server. All data stays entirely within the user's browser. The bookmark export feature writes a JSON file to the user's local filesystem on demand — no server upload occurs.
+
+This is privacy-safe.
 
 ---
 

@@ -60,10 +60,11 @@ Unfiltered findings, raw metrics, and edge cases discovered during the analysis 
 | Category | Count | Total size |
 |----------|-------|-----------|
 | Surah pages (001-114) | 114 | ~15–20 MB |
-| Special pages | 5 | ~0.5 MB |
-| search-data.js | 1 | varies |
-| config.js | 1 | small |
-| **Total** | **~121** | **~20 MB** |
+| Special pages (index, search, bookmarks, config, license, sources, download) | 7 | ~0.7 MB |
+| `docs/sd/meta.json` | 1 | ~200 KB |
+| `docs/sd/{fieldkey}.json` (17 translation-field files) | 17 | ~30–60 MB |
+| `config.js` | 1 | small |
+| **Total** | **~140** | **~50–80 MB** |
 
 ---
 
@@ -155,7 +156,7 @@ The header-writing `if/elif` chain (lines 104–141) could be refactored into a 
 | Basmalah for Surah 9 | Minor | `gentexforquran.py`, all 5 blocks | Emits Basmalah for Surah 9 (At-Tawbah), which traditionally does not begin with Basmalah |
 | No header-skip for commented files | Low | `gentxtforquran.py`, `English-Piped` branch | Comment lines in `en.yusufali.txt` may cause misalignment if positioned before data |
 | Translation text with LaTeX special characters | Low | `gentexforquran.py` | Backslashes or braces in translation text would corrupt generated .tex files |
-| `search-data.js` size not bounded | Low | `gendocshtml.py` | On slower devices, a very large search-data.js may cause browser tab crashes |
+| Unbounded `docs/sd/` total size | Low | `gendocshtml.py` | If many more fields are added the aggregate sd/ download could grow; per-field lazy loading already mitigates worst-case |
 | Audio URL hardcoded, not configurable | Low | `gendocshtml.py` | Changing the audio server requires grep+replace in the source code |
 | Alias chain length limit in JSON parsing | Very Low | `gentxtforquran.py`, JSON branches | Only 1-level alias lookup; deeper chains produce empty text |
 
@@ -284,12 +285,13 @@ The longest section. Iterates surahs 0–113 and for each:
 5. Builds the footer
 6. Writes to `docs/{sura+1:03d}.html`
 
-### Special pages (~400 lines)
-- `index.html`: surah grid with all 114 cards
-- `search.html`: search UI with input box, pagination
-- `search-data.js`: JSON index for all searchable content
+### Special pages (~600 lines)
+- `index.html`: surah grid with all 114 cards; last-read card; last bookmark card
+- `search.html`: config-aware search UI; lazy-fetches `sd/meta.json` + per-field JSONs
+- `bookmarks.html`: multi-bookmark manager with per-entry Remove, Export JSON, Import JSON
+- `docs/sd/meta.json` + `docs/sd/{fieldkey}.json`: 18 lazy-loaded search data files
 - `download.html`: links to output files
-- `config.html`: settings/preferences
+- `config.html`: settings/preferences; last-read display; bookmark summary; link to bookmarks.html
 - `license.html`: license information
 
 ---

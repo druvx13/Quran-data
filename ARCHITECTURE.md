@@ -83,12 +83,17 @@ Quran-data/
 │
 ├── docs/                        # GitHub Pages website (all auto-generated)
 │   ├── index.html               # Homepage / surah grid
-│   ├── search.html              # Full-text search page
+│   ├── search.html              # Full-text search page (lazy-loaded, config-aware)
+│   ├── bookmarks.html           # Bookmark manager (list, export, import)
 │   ├── download.html            # Download links page
 │   ├── config.html              # User settings / preferences
 │   ├── license.html             # License information page
-│   ├── search-data.js           # Pre-built search index (JSON)
-│   ├── config.js                # Persistent user preferences (JS)
+│   ├── config.js                # Persistent user preferences (JS object)
+│   ├── sd/                      # Lazy-loaded per-field search data
+│   │   ├── meta.json            # Surah/ayah index (~200 KB; always fetched)
+│   │   ├── arabic.json          # Arabic text array (one string per ayah)
+│   │   ├── translit-tanzil.json # Tanzil transliteration array
+│   │   └── … (17 field files)  # One JSON file per translation/field
 │   └── 001.html … 114.html      # Individual surah pages
 │
 ├── archive/                     # Legacy reference files (not used by build)
@@ -299,8 +304,9 @@ Both `gentxtforquran.py` and `gentexforquran.py` embed the same two arrays:
 - Builds per-ayah data structures for each of the 114 surahs
 - Writes `docs/NNN.html` for each surah (1-indexed, zero-padded to 3 digits)
 - Writes `docs/index.html` (surah grid homepage)
-- Writes `docs/search.html` (full-text search page)
-- Writes `docs/search-data.js` (pre-built JSON search index)
+- Writes `docs/search.html` (config-aware full-text search page)
+- Writes `docs/sd/meta.json` and `docs/sd/{fieldkey}.json` (lazy-loaded per-field search data)
+- Writes `docs/bookmarks.html` (bookmark manager page)
 
 **Data loaded into memory:**
 - Arabic text (6,236 lines)
@@ -359,7 +365,9 @@ Key features:
 - **No JavaScript framework** — plain HTML/CSS/JS
 - **Responsive design** — mobile breakpoints at 600px and 380px
 - **Dark mode** — CSS `prefers-color-scheme` + JS toggle
-- **Full-text search** — client-side using pre-built `search-data.js` index
+- **Full-text search** — config-aware, client-side; `search.html` lazy-loads only the translation fields enabled in Settings via `fetch()` from `docs/sd/` (18 small JSON files), replacing the old monolithic `search-data.js`
+- **Per-ayah bookmarks** — multiple bookmarks stored newest-first in `localStorage['quran-bookmark']` (array); `bookmarks.html` provides a full manager with export/import
+- **Last-read tracking** — single last-visited surah stored as `{s,n,t}` in `localStorage['quran-history']`; shown as one "Continue Reading" card on the homepage
 - **Audio playback** — `<audio>` elements streaming from Hugging Face Space
 - **Persistent settings** — `localStorage` via `config.js`
 
@@ -413,6 +421,6 @@ To self-host audio, replace the base URL in `gendocshtml.py` (search for `hf.spa
 | All data as plain text | Maximum portability; editable with any text editor; no database dependency |
 | JSON-in-ZIP for large tafsirs | Keeps Git repository size manageable while preserving structured data |
 | `docs/` as GitHub Pages root | Zero-configuration Pages deployment using the `docs/` folder convention |
-| Pre-built search index (`search-data.js`) | Enables fast client-side full-text search without a server |
+| Lazy per-field search data (`docs/sd/`) | Replaces the former monolithic `search-data.js` (~27 MB). `meta.json` (~200 KB) is always loaded; each of the 17 translation field JSONs is fetched only if the user has that field enabled in Settings. Reduces first-load cost from 27 MB to ~3 MB for a default configuration. |
 | `output/` not gitignored (text files) | Plain-text output files are small enough to track; enables direct download without rebuilding |
 | Audio on Hugging Face (external) | MP3 files (~600 MB total) are too large for GitHub; external hosting keeps the repo lean |

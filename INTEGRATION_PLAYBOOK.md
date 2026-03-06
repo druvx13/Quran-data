@@ -217,39 +217,34 @@ playAyah(1, 1);
 
 ---
 
-## 4. Using the Search Index
+## 4. Using the Search Data
 
-The `docs/search-data.js` file contains a pre-built JavaScript search index. You can use it in a custom search interface:
+The search data is split into small per-field JSON files under `docs/sd/` rather than a single large file. You can fetch the data you need in your own application:
 
-```html
-<script src="https://druvx13.github.io/Quran-data/search-data.js"></script>
-<script>
-// searchData is now available as a global variable
-// Structure: { "1": { name: "Al-Fatihah", ayahs: [{ref, ar, translit, ya, hi}, ...] }, ... }
+```javascript
+// Step 1: always fetch the surah/ayah index
+const meta = await fetch('https://druvx13.github.io/Quran-data/sd/meta.json')
+                       .then(r => r.json());
+// meta is an array of [surahNum, ayahNum, "surahName"] triples for all 6,236 ayahs
 
-function search(query) {
+// Step 2: fetch the field(s) you want (one flat array per field, indexed 0–6235)
+const [yusuf, arabic] = await Promise.all([
+    fetch('https://druvx13.github.io/Quran-data/sd/trans-yusuf.json').then(r => r.json()),
+    fetch('https://druvx13.github.io/Quran-data/sd/arabic.json').then(r => r.json()),
+]);
+
+// Step 3: search
+function search(query, fieldData) {
     const q = query.toLowerCase();
-    const results = [];
-    for (const [suraNum, suraData] of Object.entries(searchData)) {
-        for (const ayah of suraData.ayahs) {
-            if (ayah.ya?.toLowerCase().includes(q) || 
-                ayah.translit?.toLowerCase().includes(q) ||
-                ayah.ar?.includes(query)) {
-                results.push({
-                    sura: parseInt(suraNum),
-                    suraName: suraData.name,
-                    ref: ayah.ref,
-                    text: ayah.ya || ayah.translit
-                });
-            }
-        }
-    }
-    return results;
+    return meta.map((m, i) => ({ s: m[0], a: m[1], name: m[2], text: fieldData[i] }))
+               .filter(row => row.text?.toLowerCase().includes(q));
 }
 
-console.log(search('mercy'));
-</script>
+console.log(search('mercy', yusuf));
 ```
+
+**Available field keys** (file names under `sd/`):
+`arabic`, `translit-tanzil`, `translit-unicode`, `trans-pickthall`, `trans-yusuf`, `trans-sahih`, `trans-hilali`, `trans-qarai`, `eng-abridged`, `hindi-farooq`, `hindi-suhail`, `hindi-omari`, `hindi-mokhtasar`, `gujarati`, `nepali`, `roman-urdu-maududi`, `roman-urdu-junagarhi`.
 
 ---
 

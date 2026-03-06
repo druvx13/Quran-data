@@ -75,8 +75,9 @@ time python3 src/gentexforquran.py
 **Breakdown:**
 - **16+ input files** read into memory at startup
 - **114 surah HTML files** written (each 50–200 KB of HTML)
-- **search-data.js** written (large JSON index, ~5–20 MB)
-- Total HTML output: ~10–25 MB across 114+ files
+- **`docs/sd/` search data directory** written (18 JSON files: `meta.json` ~200 KB + 17 field files ~1–4 MB each)
+- **`docs/bookmarks.html`** written
+- Total HTML output: ~10–25 MB across 116+ files
 
 **Dominant cost:** The combination of memory-resident data manipulation for 6,236 × 16+ data points, and writing ~120 files to disk.
 
@@ -113,9 +114,9 @@ XeLaTeX is significantly slower than plain LaTeX because it loads OpenType fonts
 | Source data size (total) | ~75 MB |
 | Generated plain-text files | 71 |
 | Generated plain-text size (total) | ~80 MB |
-| Generated HTML files | 120+ |
+| Generated HTML files | 116+ |
 | Generated HTML size (total) | ~15–25 MB |
-| search-data.js | ~5–20 MB |
+| `docs/sd/` search data (18 JSON files) | ~30–60 MB total |
 | PDF files | 5 |
 | PDF size (total) | ~15–20 MB |
 | Audio files (external) | 6,236 MP3 files |
@@ -129,7 +130,7 @@ XeLaTeX is significantly slower than plain LaTeX because it loads OpenType fonts
 
 Each surah page (`docs/NNN.html`) is a self-contained static HTML file with inline CSS. Initial load time depends primarily on:
 - Font loading from Google Fonts (first visit; cached on subsequent visits)
-- `search-data.js` is only loaded by `search.html`, not individual surah pages
+- Per-field search data (`docs/sd/`) is only fetched when the user performs a search on `search.html`, not on surah pages
 
 **Typical first-load time:** 1–3 seconds on a broadband connection.
 **Typical cached load time:** <0.5 seconds.
@@ -138,15 +139,15 @@ Large surahs (e.g., Al-Baqarah `002.html` with 286 ayahs × 16+ content rows) pr
 
 ### 3.2 Search Performance
 
-The full-text search on `search.html` is entirely client-side, using a pre-built JavaScript index in `search-data.js`.
+The full-text search on `search.html` is entirely client-side, using lazy-loaded per-field JSON files from `docs/sd/`.
 
-**Index size:** `search-data.js` contains all searchable content (Arabic, transliteration, Yusuf Ali translation, Hindi Tafsir) for all 6,236 ayahs. Expected file size: 5–20 MB.
+**Index structure:** `sd/meta.json` (~200 KB) is prefetched as soon as the search page opens. Each of the 17 translation-field files (`sd/{fieldkey}.json`) is fetched on-demand only if the user has that field enabled in Settings. Fetched files are cached in memory.
 
-**Initial search page load:** May be slow on first visit due to `search-data.js` download. Subsequent searches are instant (file cached by browser).
+**Download cost per search session:** A user with the default fields enabled fetches approximately **3 MB** total (compared to the former 27 MB monolithic `search-data.js`). A user with all 17 fields enabled would fetch at most ~60 MB across multiple searches.
 
-**Search query time:** Typically <100 ms for any query (JavaScript `String.includes()` or similar over in-memory data).
+**Search query time:** Typically <100 ms for any query (JavaScript `String.includes()` over in-memory data after all required field files have been loaded).
 
-> ⚠️ **Performance note:** On mobile devices with limited RAM, loading a large `search-data.js` may be slow or cause the tab to reload. Consider lazy-loading the search index only when the user interacts with the search box, rather than at page load.
+> 💡 **Performance note:** On slow connections, the first search may pause briefly while the required field files are fetched. Subsequent searches for the same field set are instant (data cached in memory for the session).
 
 ### 3.3 Audio Playback Latency
 
@@ -186,8 +187,6 @@ Audio is streamed from the Hugging Face Space. Latency depends on:
 - **Parallel generation of surah pages:** `gendocshtml.py` generates pages sequentially. A `multiprocessing.Pool` could parallelize HTML generation across CPU cores. Expected speedup: 2–4× on a quad-core machine.
 
 - **Avoid redundant file reads:** `gentxtforquran.py` and `gendocshtml.py` both read `surasize` and `suraname` from inline constants. Moving these to a shared module would eliminate duplication (code quality, not a performance issue).
-
-- **Cache search-data.js generation:** If only a few translations change, regenerating the full search index is wasteful. A diff-based approach could regenerate only the changed entries.
 
 ### 5.3 What Does Not Need Optimizing
 

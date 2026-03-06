@@ -140,15 +140,19 @@ make generate-txt
 python3 src/gendocshtml.py
 ```
 
-Expected output: ~120 lines like:
+Expected output: ~130 lines like:
 ```
 Generated: docs/001.html
 Generated: docs/002.html
 ...
-Generated: docs/search-data.js
+Written: docs/bookmarks.html
+Written: docs/sd/meta.json
+Written: docs/sd/arabic.json
+...
+Done. 114 surah files + index + search + config + bookmarks + sources + license + download regenerated.
 ```
 
-**Time:** ~30–60 seconds (generates 120+ HTML files).
+**Time:** ~30–60 seconds (generates 116+ HTML files and 18 JSON data files).
 
 Using Make:
 ```bash
@@ -246,7 +250,7 @@ Common modification areas in `gendocshtml.py`:
 - **Dark mode colours:** Look for `prefers-color-scheme: dark` or dark mode class variables
 - **Content Filter checkboxes:** The `details`/`summary` section in each surah page template
 - **Audio URL:** Search for `hf.space` to find and update the audio base URL
-- **Search index:** The `search-data.js` generation is near the end of the script
+- **Search data:** The `docs/sd/` generation (18 JSON files: `meta.json` + 17 field files) is near the end of the script
 
 ### 5.3 Modifying LaTeX Output
 
