@@ -7,6 +7,30 @@ A static HTML website (GitHub Pages) for side-by-side study of the Qur'an — Ar
 
 ---
 
+## 📖 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) | **Start here** — master index and navigation guide for all docs |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | System design, data flow diagrams, component descriptions |
+| [API_REFERENCE.md](API_REFERENCE.md) | Python script interfaces, data contracts, format specifications |
+| [CODE_WALKTHROUGH.md](CODE_WALKTHROUGH.md) | File-by-file annotated guide to every source file |
+| [DEVELOPER_ONBOARDING.md](DEVELOPER_ONBOARDING.md) | Setup instructions and first-contribution walkthrough |
+| [DEPLOYMENT_RUNBOOK.md](DEPLOYMENT_RUNBOOK.md) | GitHub Pages deploy, audio server setup, rollback procedures |
+| [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | Common errors and fixes for all pipeline stages |
+| [GLOSSARY.md](GLOSSARY.md) | Domain terms, project-specific jargon, acronyms |
+| [CHANGELOG_ANALYSIS.md](CHANGELOG_ANALYSIS.md) | Project history, milestones, growth metrics |
+| [SECURITY_AUDIT_NOTES.md](SECURITY_AUDIT_NOTES.md) | Vulnerability assessment and security recommendations |
+| [PERFORMANCE_BENCHMARKS.md](PERFORMANCE_BENCHMARKS.md) | Build times, data volumes, optimization notes |
+| [INTEGRATION_PLAYBOOK.md](INTEGRATION_PLAYBOOK.md) | Embed data, audio, or the website in other applications |
+| [CONTRIBUTION_GUIDE.md](CONTRIBUTION_GUIDE.md) | Detailed PR process, coding standards, data standards |
+| [FAQ_DEEP_DIVE.md](FAQ_DEEP_DIVE.md) | Comprehensive answers to anticipated questions |
+| [APPENDIX_RAW_ANALYSIS.md](APPENDIX_RAW_ANALYSIS.md) | Raw metrics, code analysis, edge cases |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Quick contributor guide |
+| [CHANGELOG.md](CHANGELOG.md) | Version history |
+
+---
+
 ## Live Website
 
 [**https://druvx13.github.io/Quran-data/**](https://druvx13.github.io/Quran-data/)
