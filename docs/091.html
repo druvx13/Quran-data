@@ -197,6 +197,11 @@ footer a:hover{text-decoration:underline}
   padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
   vertical-align:middle;line-height:1.4}
 .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.bm-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -217,6 +222,9 @@ footer a:hover{text-decoration:underline}
   .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
   .copy-btn{border-color:#334;color:#90caf9}
   .copy-btn:hover{background:#263650}
+  .bm-btn{border-color:#334;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
@@ -232,7 +240,7 @@ footer a:hover{text-decoration:underline}
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
 <details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='15' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='15' value='15'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic'><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio'><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode'><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf'><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail'><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar'><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span><span class='cf-item'><input type='checkbox' id='cf-15' data-rowclass='hindi-omari'><label for='cf-15'>हिन्दी (Al-Omari)</label></span><span class='cf-item'><input type='checkbox' id='cf-16' data-rowclass='roman-urdu'><label for='cf-16'>Roman Urdu (Maududi)</label></span><span class='cf-item'><input type='checkbox' id='cf-17' data-rowclass='roman-urdu-junagarhi'><label for='cf-17'>Roman Urdu (Junagarhi)</label></span></div></div></details>
 <div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
-<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'><a class='permalink' href='#1' data-ayah='1'>Ayah 1</a><button class='copy-btn' onclick='copyVerse(this,91,1)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'><a class='permalink' href='#1' data-ayah='1'>Ayah 1</a><button class='copy-btn' onclick='copyVerse(this,91,1)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-1' onclick='toggleBookmark(91,1)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَالشَّمسِ وَضُحاها</td></tr>
 <tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091001.mp3' title='Surah 91, Ayah 1 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>al</b>shshamsi wa<u>d</u>u<u>ha</u>h<u>a</u></td></tr>
@@ -251,7 +259,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>सूरज की क़सम! तथा उसके ऊपर चढ़ने के समय की क़सम!</td></tr>
 <tr class='roman-urdu' data-ayah='1'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Suraj aur uski dhoop ki kasam</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='1'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Qasam hai sooraj ki aur uski dhoop ki</td></tr>
-<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'><a class='permalink' href='#2' data-ayah='2'>Ayah 2</a><button class='copy-btn' onclick='copyVerse(this,91,2)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'><a class='permalink' href='#2' data-ayah='2'>Ayah 2</a><button class='copy-btn' onclick='copyVerse(this,91,2)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-2' onclick='toggleBookmark(91,2)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَالقَمَرِ إِذا تَلاها</td></tr>
 <tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091002.mp3' title='Surah 91, Ayah 2 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>lqamari i<u>tha</u> tal<u>a</u>h<u>a</u></td></tr>
@@ -270,7 +278,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तथा चाँद की (क़सम), जब वह सूरज के पीछे आए।</td></tr>
 <tr class='roman-urdu' data-ayah='2'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur Chand ki kasam jabke wo uske pichey aata hai</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='2'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Qasam hai chand ki jab uskay peechay ay</td></tr>
-<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'><a class='permalink' href='#3' data-ayah='3'>Ayah 3</a><button class='copy-btn' onclick='copyVerse(this,91,3)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'><a class='permalink' href='#3' data-ayah='3'>Ayah 3</a><button class='copy-btn' onclick='copyVerse(this,91,3)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-3' onclick='toggleBookmark(91,3)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَالنَّهارِ إِذا جَلّاها</td></tr>
 <tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091003.mp3' title='Surah 91, Ayah 3 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>al</b>nnah<u>a</u>ri i<u>tha</u> jall<u>a</u>h<u>a</u></td></tr>
@@ -289,7 +297,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और दिन की (क़सम), जब वह उस (सूरज) को प्रकट कर दे!</td></tr>
 <tr class='roman-urdu' data-ayah='3'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur din ki kasam jabke woh (Suraj ko) numaya kar deta hai</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='3'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Qasam hai din ki jab soraj ko numaya keray</td></tr>
-<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'><a class='permalink' href='#4' data-ayah='4'>Ayah 4</a><button class='copy-btn' onclick='copyVerse(this,91,4)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'><a class='permalink' href='#4' data-ayah='4'>Ayah 4</a><button class='copy-btn' onclick='copyVerse(this,91,4)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-4' onclick='toggleBookmark(91,4)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَاللَّيلِ إِذا يَغشاها</td></tr>
 <tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091004.mp3' title='Surah 91, Ayah 4 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>llayli i<u>tha</u> yaghsh<u>a</u>h<u>a</u></td></tr>
@@ -308,7 +316,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और रात की (क़सम), जब वह उस (सूरज) को ढाँप ले।</td></tr>
 <tr class='roman-urdu' data-ayah='4'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur raat ki kasam jabke woh (suraj ko) dhank leti hai</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='4'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Qasam hai raat ki jab ussay dhanp lay</td></tr>
-<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'><a class='permalink' href='#5' data-ayah='5'>Ayah 5</a><button class='copy-btn' onclick='copyVerse(this,91,5)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'><a class='permalink' href='#5' data-ayah='5'>Ayah 5</a><button class='copy-btn' onclick='copyVerse(this,91,5)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-5' onclick='toggleBookmark(91,5)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَالسَّماءِ وَما بَناها</td></tr>
 <tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091005.mp3' title='Surah 91, Ayah 5 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>al</b>ssam<u>a</u>i wam<u>a</u> ban<u>a</u>h<u>a</u></td></tr>
@@ -327,7 +335,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और आकाश की तथा उसके निर्माण की (क़सम)।</td></tr>
 <tr class='roman-urdu' data-ayah='5'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur aasman ki aur us zaat ki kasam jisne usey qayam kiya</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='5'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Qasam hai aasman ki aur uskay bananey ki</td></tr>
-<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'><a class='permalink' href='#6' data-ayah='6'>Ayah 6</a><button class='copy-btn' onclick='copyVerse(this,91,6)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'><a class='permalink' href='#6' data-ayah='6'>Ayah 6</a><button class='copy-btn' onclick='copyVerse(this,91,6)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-6' onclick='toggleBookmark(91,6)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَالأَرضِ وَما طَحاها</td></tr>
 <tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091006.mp3' title='Surah 91, Ayah 6 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wa<b>a</b>lar<u>d</u>i wam<u>a</u> <u>t</u>a<u>ha</u>h<u>a</u></td></tr>
@@ -346,7 +354,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और धरती की तथा उसे बिछाने की (क़सम!)</td></tr>
 <tr class='roman-urdu' data-ayah='6'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur zameen ki aur us zaat ki kasam jisne usey bichaya</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='6'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Qasam hai zamen ki or ussy hamwar kernay ki</td></tr>
-<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'><a class='permalink' href='#7' data-ayah='7'>Ayah 7</a><button class='copy-btn' onclick='copyVerse(this,91,7)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'><a class='permalink' href='#7' data-ayah='7'>Ayah 7</a><button class='copy-btn' onclick='copyVerse(this,91,7)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-7' onclick='toggleBookmark(91,7)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='7'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَنَفسٍ وَما سَوّاها</td></tr>
 <tr class='audio' data-ayah='7'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091007.mp3' title='Surah 91, Ayah 7 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='7'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wanafsin wam<u>a</u> saww<u>a</u>h<u>a</u></td></tr>
@@ -365,7 +373,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और आत्मा की तथा उसके ठीक-ठाक बनाने की (क़सम)।</td></tr>
 <tr class='roman-urdu' data-ayah='7'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur nafs-e-Insani ki aur us zaat ki kasam jisne usey hamwar kiya</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='7'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Qasam hai nafs ki or ussy durust bananey ki</td></tr>
-<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'><a class='permalink' href='#8' data-ayah='8'>Ayah 8</a><button class='copy-btn' onclick='copyVerse(this,91,8)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'><a class='permalink' href='#8' data-ayah='8'>Ayah 8</a><button class='copy-btn' onclick='copyVerse(this,91,8)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-8' onclick='toggleBookmark(91,8)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='8'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَأَلهَمَها فُجورَها وَتَقواها</td></tr>
 <tr class='audio' data-ayah='8'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091008.mp3' title='Surah 91, Ayah 8 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='8'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Faalhamah<u>a</u> fujoorah<u>a</u> wataqw<u>a</u>h<u>a</u></td></tr>
@@ -384,7 +392,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='8'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>फिर उसके दिल में उसकी बुराई और उसकी परहेज़गारी (की समझ) डाल दी।</td></tr>
 <tr class='roman-urdu' data-ayah='8'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Phir uski badi aur uski parhezgari uss par ilham kar di</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='8'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>phir samjh di usko badkari ki aur bach ker chalnay ki</td></tr>
-<tr class='ayah-sep' data-ayah='9' id='ayah-9'><td colspan='2'><a class='permalink' href='#9' data-ayah='9'>Ayah 9</a><button class='copy-btn' onclick='copyVerse(this,91,9)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='9' id='ayah-9'><td colspan='2'><a class='permalink' href='#9' data-ayah='9'>Ayah 9</a><button class='copy-btn' onclick='copyVerse(this,91,9)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-9' onclick='toggleBookmark(91,9)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='9'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>قَد أَفلَحَ مَن زَكّاها</td></tr>
 <tr class='audio' data-ayah='9'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091009.mp3' title='Surah 91, Ayah 9 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='9'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Qad afla<u>h</u>a man zakk<u>a</u>h<u>a</u></td></tr>
@@ -403,7 +411,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='9'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>निश्चय वह सफल हो गया, जिसने उसे पवित्र कर लिया।</td></tr>
 <tr class='roman-urdu' data-ayah='9'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Yaqeenan falah pa gaya woh jisne nafs ka tazkiya kiya</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='9'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Jiss nay ussay pak kiya wo kamyab hua</td></tr>
-<tr class='ayah-sep' data-ayah='10' id='ayah-10'><td colspan='2'><a class='permalink' href='#10' data-ayah='10'>Ayah 10</a><button class='copy-btn' onclick='copyVerse(this,91,10)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='10' id='ayah-10'><td colspan='2'><a class='permalink' href='#10' data-ayah='10'>Ayah 10</a><button class='copy-btn' onclick='copyVerse(this,91,10)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-10' onclick='toggleBookmark(91,10)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='10'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَقَد خابَ مَن دَسّاها</td></tr>
 <tr class='audio' data-ayah='10'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091010.mp3' title='Surah 91, Ayah 10 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='10'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Waqad kh<u>a</u>ba man dass<u>a</u>h<u>a</u></td></tr>
@@ -422,7 +430,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='10'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तथा निश्चय वह विफल हो गया, जिसने उसे (पापों में) दबा दिया।</td></tr>
 <tr class='roman-urdu' data-ayah='10'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur na-murad hua woh jisne usko daba diya</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='10'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Aur jiss nay ussay khak mein mila diya wo nakam hoa</td></tr>
-<tr class='ayah-sep' data-ayah='11' id='ayah-11'><td colspan='2'><a class='permalink' href='#11' data-ayah='11'>Ayah 11</a><button class='copy-btn' onclick='copyVerse(this,91,11)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='11' id='ayah-11'><td colspan='2'><a class='permalink' href='#11' data-ayah='11'>Ayah 11</a><button class='copy-btn' onclick='copyVerse(this,91,11)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-11' onclick='toggleBookmark(91,11)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='11'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>كَذَّبَت ثَمودُ بِطَغواها</td></tr>
 <tr class='audio' data-ayah='11'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091011.mp3' title='Surah 91, Ayah 11 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='11'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Ka<u>thth</u>abat thamoodu bi<u>t</u>aghw<u>a</u>h<u>a</u></td></tr>
@@ -441,7 +449,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='11'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>समूद (की जाति) ने अपनी सरकशी के कारण झुठलाया।</td></tr>
 <tr class='roman-urdu' data-ayah='11'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Samood ne apni sarkashi ki bina par jhutlaya</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='11'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>(Qom)samood nay apni sarkashi kay baees jhutlaya</td></tr>
-<tr class='ayah-sep' data-ayah='12' id='ayah-12'><td colspan='2'><a class='permalink' href='#12' data-ayah='12'>Ayah 12</a><button class='copy-btn' onclick='copyVerse(this,91,12)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='12' id='ayah-12'><td colspan='2'><a class='permalink' href='#12' data-ayah='12'>Ayah 12</a><button class='copy-btn' onclick='copyVerse(this,91,12)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-12' onclick='toggleBookmark(91,12)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='12'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِذِ انبَعَثَ أَشقاها</td></tr>
 <tr class='audio' data-ayah='12'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091012.mp3' title='Surah 91, Ayah 12 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='12'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>I<u>th</u>i inbaAAatha ashq<u>a</u>h<u>a</u></td></tr>
@@ -460,7 +468,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='12'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>जब उसका सबसे दुष्ट व्यक्ति उठ खड़ा हुआ।</td></tr>
 <tr class='roman-urdu' data-ayah='12'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Jab us qaum ka sab se zyada shaqi (Badnaseeb) aadmi biphar kar utha</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='12'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Jab unka bara badbakht uth khara hoa</td></tr>
-<tr class='ayah-sep' data-ayah='13' id='ayah-13'><td colspan='2'><a class='permalink' href='#13' data-ayah='13'>Ayah 13</a><button class='copy-btn' onclick='copyVerse(this,91,13)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='13' id='ayah-13'><td colspan='2'><a class='permalink' href='#13' data-ayah='13'>Ayah 13</a><button class='copy-btn' onclick='copyVerse(this,91,13)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-13' onclick='toggleBookmark(91,13)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='13'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَقالَ لَهُم رَسولُ اللَّهِ ناقَةَ اللَّهِ وَسُقياها</td></tr>
 <tr class='audio' data-ayah='13'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091013.mp3' title='Surah 91, Ayah 13 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='13'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Faq<u>a</u>la lahum rasoolu All<u>a</u>hi n<u>a</u>qata All<u>a</u>hi wasuqy<u>a</u>h<u>a</u></td></tr>
@@ -479,7 +487,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='13'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>तो अल्लाह के रसूल ने उनसे कहा : अल्लाह की ऊँटनी और उसके पीने की बारी का ध्यान रखो।</td></tr>
 <tr class='roman-urdu' data-ayah='13'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>To Allah ke Rasool ne un logon se kaha ke khabardar Allah ki ountni (she-camel) ko (haath na lagana) aur uske paani peene (mein maane na hona)</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='13'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Unhein Allah kay rassol nay farmadiya tha kay Allah Taalaa ki ontni aur uss kay peeenay ki bari ki (hifazat karo)</td></tr>
-<tr class='ayah-sep' data-ayah='14' id='ayah-14'><td colspan='2'><a class='permalink' href='#14' data-ayah='14'>Ayah 14</a><button class='copy-btn' onclick='copyVerse(this,91,14)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='14' id='ayah-14'><td colspan='2'><a class='permalink' href='#14' data-ayah='14'>Ayah 14</a><button class='copy-btn' onclick='copyVerse(this,91,14)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-14' onclick='toggleBookmark(91,14)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='14'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فَكَذَّبوهُ فَعَقَروها فَدَمدَمَ عَلَيهِم رَبُّهُم بِذَنبِهِم فَسَوّاها</td></tr>
 <tr class='audio' data-ayah='14'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091014.mp3' title='Surah 91, Ayah 14 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='14'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Faka<u>thth</u>aboohu faAAaqarooh<u>a</u> fadamdama AAalayhim rabbuhum bi<u>th</u>anbihim fasaww<u>a</u>h<u>a</u></td></tr>
@@ -498,7 +506,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='14'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>परंतु उन्होंने उसे झुठलाया और उस (ऊँटनी) की कूँचें काट दीं, तो उनके पालनहार ने उनके गुनाह के कारण उन्हें पीस कर विनष्ट कर दिया और उन्हें मटियामेट कर दिया।</td></tr>
 <tr class='roman-urdu' data-ayah='14'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Magar unhon ne uski baat ko jhuta qarar diya aur ountni ko maar dala. Aakhir-e-kaar unke gunah ke padash mein unke Rubb ne unpar aisi aafat toodi ke ek saath sab ko paywand-e-khaaq kar diya</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='14'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Un logon nay apnay pyghamber ko jhota samjh ker uss ontni ki kochein kaat dein pus unkay rab nay unkay gunahon kay baees un per halakat dali aur phir halakat ko aam kerdiya aur uss basti ko barabar ker diya</td></tr>
-<tr class='ayah-sep' data-ayah='15' id='ayah-15'><td colspan='2'><a class='permalink' href='#15' data-ayah='15'>Ayah 15</a><button class='copy-btn' onclick='copyVerse(this,91,15)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='15' id='ayah-15'><td colspan='2'><a class='permalink' href='#15' data-ayah='15'>Ayah 15</a><button class='copy-btn' onclick='copyVerse(this,91,15)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-15' onclick='toggleBookmark(91,15)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='15'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَلا يَخافُ عُقباها</td></tr>
 <tr class='audio' data-ayah='15'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/091015.mp3' title='Surah 91, Ayah 15 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='15'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wal<u>a</u> yakh<u>a</u>fu AAuqb<u>a</u>h<u>a</u></td></tr>
@@ -537,6 +545,36 @@ footer a:hover{text-decoration:underline}
     if(hist.length>10)hist=hist.slice(0,10);
     localStorage.setItem(HIST_KEY,JSON.stringify(hist));
   }catch(_){}
+})();
+/* ---- Bookmark (saved ayah) ---- */
+(function(){
+  var BM_KEY='quran-bookmark';
+  var bm=null;
+  try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+  var curSura=+document.body.dataset.sura;
+  /* Highlight active bookmark button on load */
+  if(bm&&bm.s===curSura){
+    var btn=document.getElementById('bm-'+bm.a);
+    if(btn)btn.classList.add('active');
+  }
+  window.toggleBookmark=function(sura,ayah){
+    var btn=document.getElementById('bm-'+ayah);
+    /* Remove old active state from any button on this page */
+    document.querySelectorAll('.bm-btn.active').forEach(function(b){b.classList.remove('active');});
+    var existing=null;
+    try{existing=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+    if(existing&&existing.s===sura&&existing.a===ayah){
+      /* Toggle off — remove bookmark */
+      try{localStorage.removeItem(BM_KEY);}catch(_){}
+    } else {
+      /* Set new bookmark */
+      var h1=document.querySelector('h1');
+      var label=h1?h1.textContent.trim():'Surah '+sura;
+      var entry={s:sura,a:ayah,n:label,t:Date.now()};
+      try{localStorage.setItem(BM_KEY,JSON.stringify(entry));}catch(_){}
+      if(btn)btn.classList.add('active');
+    }
+  };
 })();
 (function(){
   var cfList=document.getElementById('cf-list');

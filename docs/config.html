@@ -196,6 +196,11 @@ footer a:hover{text-decoration:underline}
   padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
   vertical-align:middle;line-height:1.4}
 .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.bm-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -216,6 +221,9 @@ footer a:hover{text-decoration:underline}
   .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
   .copy-btn{border-color:#334;color:#90caf9}
   .copy-btn:hover{background:#263650}
+  .bm-btn{border-color:#334;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
@@ -283,6 +291,13 @@ footer a:hover{text-decoration:underline}
 <div class="cfg-actions">
 <button class="cfg-btn-reset" onclick="cfgReset()">Reset to Defaults</button>
 <span class="cfg-saved" id="cfg-saved">&#10003; Saved</span>
+</div>
+</div>
+<div class="cfg-card" style="margin-top:20px">
+<h2 style="margin-top:0">&#128278; Saved Bookmark</h2>
+<div id="bm-display"><p style="font-size:.9em;color:#888">No bookmark saved yet. Use the &#128278; button on any verse to bookmark it.</p></div>
+<div class="cfg-actions">
+<button class="cfg-btn-reset" id="bm-clear-btn" onclick="clearBookmark()" style="display:none">Clear Bookmark</button>
 </div>
 </div>
 <div class="cfg-card" style="margin-top:20px">
@@ -358,6 +373,36 @@ footer a:hover{text-decoration:underline}
     loadHistory();
   };
   loadHistory();
+
+  /* ---- Bookmark ---- */
+  var BM_KEY='quran-bookmark';
+  function loadBookmark(){
+    var dispEl=document.getElementById('bm-display');
+    var clearBtn=document.getElementById('bm-clear-btn');
+    if(!dispEl)return;
+    var bm=null;
+    try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+    if(!bm){
+      dispEl.innerHTML='<p style="font-size:.9em;color:#888">No bookmark saved yet. Use the 🔖 button on any verse to bookmark it.</p>';
+      if(clearBtn)clearBtn.style.display='none';
+      return;
+    }
+    var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
+    var ago='';
+    var diff=Math.round((Date.now()-bm.t)/60000);
+    if(diff<1)ago='just now';
+    else if(diff<60)ago=diff+'m ago';
+    else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+    else ago=Math.round(diff/1440)+'d ago';
+    var suraName=bm.n||('Surah '+bm.s);
+    dispEl.innerHTML='<div class="hist-card"><a href="'+href+'">📖 '+suraName+', Ayah '+bm.a+'</a><span class="hist-ago">'+ago+'</span></div>';
+    if(clearBtn)clearBtn.style.display='';
+  }
+  window.clearBookmark=function(){
+    try{localStorage.removeItem(BM_KEY);}catch(_){}
+    loadBookmark();
+  };
+  loadBookmark();
 })();
 </script>
 </body>

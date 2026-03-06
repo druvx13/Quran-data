@@ -196,6 +196,11 @@ footer a:hover{text-decoration:underline}
   padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
   vertical-align:middle;line-height:1.4}
 .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.bm-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -216,6 +221,9 @@ footer a:hover{text-decoration:underline}
   .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
   .copy-btn{border-color:#334;color:#90caf9}
   .copy-btn:hover{background:#263650}
+  .bm-btn{border-color:#334;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
@@ -223,11 +231,15 @@ footer a:hover{text-decoration:underline}
 .recent-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
 .recent-card{display:flex;flex-direction:column;padding:10px 14px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em;min-width:160px}
 .recent-card:hover{background:#c8e6c9}
+.bm-card{background:#fff8e1;border-color:#ffcc80;color:#e65100}
+.bm-card:hover{background:#fff3cd}
 .recent-label{font-weight:600;font-size:.9em}
 .recent-ago{font-size:.78em;color:#555;margin-top:2px}
 @media(prefers-color-scheme:dark){
   .recent-card{background:#0a1e10;border-color:#2e7d32;color:#a5d6a7}
   .recent-card:hover{background:#122a18}
+  .bm-card{background:#2a1f00;border-color:#8b6914;color:#ffcc80}
+  .bm-card:hover{background:#332600}
   .recent-ago{color:#90a4ae}
 }
 </style>
@@ -261,6 +273,13 @@ Texts are reproduced verbatim; no alterations have been made.
 <section id="recent-section" style="display:none;margin-bottom:18px">
 <h2 style="margin-bottom:8px">&#128214; Continue Reading</h2>
 <div id="recent-list" class="recent-list"></div>
+</section>
+<section id="bookmark-section" style="display:none;margin-bottom:18px">
+<h2 style="margin-bottom:8px">&#128278; Bookmarked Verse</h2>
+<a id="bookmark-link" href="#" class="recent-card bm-card" style="display:inline-flex;flex-direction:column;text-decoration:none">
+  <span id="bookmark-label" class="recent-label"></span>
+  <span id="bookmark-meta" class="recent-ago"></span>
+</a>
 </section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
@@ -382,6 +401,30 @@ Texts are reproduced verbatim; no alterations have been made.
 </main>
 <footer><a href="sources.html">Sources &amp; Attribution</a> &nbsp;|&nbsp; <a href="license.html">License</a> &nbsp;|&nbsp; <a href="download.html">Download</a> &nbsp;|&nbsp; <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></footer>
 <script>
+/* ---- Bookmark (saved ayah) section ---- */
+(function(){
+  var BM_KEY='quran-bookmark';
+  var section=document.getElementById('bookmark-section');
+  if(!section)return;
+  var bm=null;
+  try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+  if(!bm)return;
+  var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
+  var ago='';
+  var diff=Math.round((Date.now()-bm.t)/60000);
+  if(diff<1)ago='just now';
+  else if(diff<60)ago=diff+'m ago';
+  else if(diff<1440)ago=Math.round(diff/60)+'h ago';
+  else ago=Math.round(diff/1440)+'d ago';
+  var linkEl=document.getElementById('bookmark-link');
+  var labelEl=document.getElementById('bookmark-label');
+  var metaEl=document.getElementById('bookmark-meta');
+  if(linkEl)linkEl.href=href;
+  var suraName=bm.n||('Surah '+bm.s);
+  if(labelEl)labelEl.textContent='📖 '+suraName+', Ayah '+bm.a;
+  if(metaEl)metaEl.textContent='Bookmarked '+ago;
+  section.style.display='';
+})();
 /* ---- Continue Reading / History ---- */
 (function(){
   var HIST_KEY='quran-history';

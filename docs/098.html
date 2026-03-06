@@ -197,6 +197,11 @@ footer a:hover{text-decoration:underline}
   padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
   vertical-align:middle;line-height:1.4}
 .copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.bm-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
 .permalink{color:inherit;text-decoration:none;font-weight:bold}
 .permalink:hover{text-decoration:underline}
 .scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
@@ -217,6 +222,9 @@ footer a:hover{text-decoration:underline}
   .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
   .copy-btn{border-color:#334;color:#90caf9}
   .copy-btn:hover{background:#263650}
+  .bm-btn{border-color:#334;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
@@ -232,7 +240,7 @@ footer a:hover{text-decoration:underline}
 <noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
 <details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Verse &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Verse Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='8' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='8' value='8'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='arabic'><label for='cf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='audio'><label for='cf-1'>Audio</label></span><span class='cf-item'><input type='checkbox' id='cf-2' data-rowclass='translit'><label for='cf-2'>Translit. (Tanzil)</label></span><span class='cf-item'><input type='checkbox' id='cf-3' data-rowclass='translit-unicode'><label for='cf-3'>Translit. (Unicode)</label></span><span class='cf-item'><input type='checkbox' id='cf-4' data-rowclass='trans'><label for='cf-4'>English (Pickthall)</label></span><span class='cf-item'><input type='checkbox' id='cf-5' data-rowclass='trans-yusuf'><label for='cf-5'>English (Yusuf Ali)</label></span><span class='cf-item'><input type='checkbox' id='cf-6' data-rowclass='trans-sahih'><label for='cf-6'>English (Saheeh Int’l)</label></span><span class='cf-item'><input type='checkbox' id='cf-7' data-rowclass='trans-qarai'><label for='cf-7'>English (Qarai)</label></span><span class='cf-item'><input type='checkbox' id='cf-8' data-rowclass='trans-hilali'><label for='cf-8'>English (Hilali)</label></span><span class='cf-item'><input type='checkbox' id='cf-9' data-rowclass='eng-abridged'><label for='cf-9'>Abridged Expl.</label></span><span class='cf-item'><input type='checkbox' id='cf-10' data-rowclass='hindi'><label for='cf-10'>हिन्दी (Farooq)</label></span><span class='cf-item'><input type='checkbox' id='cf-11' data-rowclass='hindi-suhail'><label for='cf-11'>हिन्दी (Suhail)</label></span><span class='cf-item'><input type='checkbox' id='cf-12' data-rowclass='hindi-mokhtasar'><label for='cf-12'>हिन्दी तफ्सीर (Mokhtasar)</label></span><span class='cf-item'><input type='checkbox' id='cf-13' data-rowclass='gujarati'><label for='cf-13'>ગુજરાતી (Rabila)</label></span><span class='cf-item'><input type='checkbox' id='cf-14' data-rowclass='nepali'><label for='cf-14'>Nepali (Ahl-al-Hadith)</label></span><span class='cf-item'><input type='checkbox' id='cf-15' data-rowclass='hindi-omari'><label for='cf-15'>हिन्दी (Al-Omari)</label></span><span class='cf-item'><input type='checkbox' id='cf-16' data-rowclass='roman-urdu'><label for='cf-16'>Roman Urdu (Maududi)</label></span><span class='cf-item'><input type='checkbox' id='cf-17' data-rowclass='roman-urdu-junagarhi'><label for='cf-17'>Roman Urdu (Junagarhi)</label></span></div></div></details>
 <div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
-<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'><a class='permalink' href='#1' data-ayah='1'>Ayah 1</a><button class='copy-btn' onclick='copyVerse(this,98,1)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='1' id='ayah-1'><td colspan='2'><a class='permalink' href='#1' data-ayah='1'>Ayah 1</a><button class='copy-btn' onclick='copyVerse(this,98,1)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-1' onclick='toggleBookmark(98,1)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='1'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>لَم يَكُنِ الَّذينَ كَفَروا مِن أَهلِ الكِتابِ وَالمُشرِكينَ مُنفَكّينَ حَتّىٰ تَأتِيَهُمُ البَيِّنَةُ</td></tr>
 <tr class='audio' data-ayah='1'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098001.mp3' title='Surah 98, Ayah 1 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='1'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Lam yakuni alla<u>th</u>eena kafaroo min ahli alkit<u>a</u>bi wa<b>a</b>lmushrikeena munfakkeena <u>h</u>att<u>a</u> tatiyahumu albayyina<b>tu</b></td></tr>
@@ -251,7 +259,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='1'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>किताब वालों और मुश्रिकों में से जिन लोगों ने कुफ़्र किया, वे (कुफ़्र से) बाज़ आने वाले नहीं थे, यहाँ तक कि उनके पास खुला प्रमाण आ जाए।</td></tr>
 <tr class='roman-urdu' data-ayah='1'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ehle kitab aur Mushrikin mein se jo log kafir thay (woh apne kufr se) baaz aane walay na thay jab tak ke unke paas dalil e roshan na aa jaye</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='1'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Ehl-e-kitab kay kafir aur mushrik log jabb tak kay unkay pass zahir daleel na ajaye baz rehnay waly na thay(who daleel yeh thi kay)</td></tr>
-<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'><a class='permalink' href='#2' data-ayah='2'>Ayah 2</a><button class='copy-btn' onclick='copyVerse(this,98,2)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='2' id='ayah-2'><td colspan='2'><a class='permalink' href='#2' data-ayah='2'>Ayah 2</a><button class='copy-btn' onclick='copyVerse(this,98,2)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-2' onclick='toggleBookmark(98,2)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='2'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>رَسولٌ مِنَ اللَّهِ يَتلو صُحُفًا مُطَهَّرَةً</td></tr>
 <tr class='audio' data-ayah='2'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098002.mp3' title='Surah 98, Ayah 2 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='2'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Rasoolun mina All<u>a</u>hi yatloo <u>s</u>u<u>h</u>ufan mu<u>t</u>ahhara<b>tan</b></td></tr>
@@ -270,7 +278,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='2'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>अल्लाह की ओर से एक रसूल, जो पवित्र ग्रंथ पढ़कर सुनाता है।</td></tr>
 <tr class='roman-urdu' data-ayah='2'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>(Yani) Allah ke taraf se ek Rasool jo paak sahife padh kar sunaye</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='2'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Allah Taalaa ka aik rasol jo pak saheefay parhay</td></tr>
-<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'><a class='permalink' href='#3' data-ayah='3'>Ayah 3</a><button class='copy-btn' onclick='copyVerse(this,98,3)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='3' id='ayah-3'><td colspan='2'><a class='permalink' href='#3' data-ayah='3'>Ayah 3</a><button class='copy-btn' onclick='copyVerse(this,98,3)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-3' onclick='toggleBookmark(98,3)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='3'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>فيها كُتُبٌ قَيِّمَةٌ</td></tr>
 <tr class='audio' data-ayah='3'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098003.mp3' title='Surah 98, Ayah 3 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='3'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Feeh<u>a</u> kutubun qayyima<b>tun</b></td></tr>
@@ -289,7 +297,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='3'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>जिनमें सच्ची ख़बरें और ठीक आदेश अंकित हैं।</td></tr>
 <tr class='roman-urdu' data-ayah='3'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Jin mein bilkul raast aur durust tehrirein likhi hui ho</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='3'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>jin mein sahi aur durust ehkam hon</td></tr>
-<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'><a class='permalink' href='#4' data-ayah='4'>Ayah 4</a><button class='copy-btn' onclick='copyVerse(this,98,4)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='4' id='ayah-4'><td colspan='2'><a class='permalink' href='#4' data-ayah='4'>Ayah 4</a><button class='copy-btn' onclick='copyVerse(this,98,4)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-4' onclick='toggleBookmark(98,4)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='4'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَما تَفَرَّقَ الَّذينَ أوتُوا الكِتابَ إِلّا مِن بَعدِ ما جاءَتهُمُ البَيِّنَةُ</td></tr>
 <tr class='audio' data-ayah='4'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098004.mp3' title='Surah 98, Ayah 4 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='4'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wam<u>a</u> tafarraqa alla<u>th</u>eena ootoo alkit<u>a</u>ba ill<u>a</u> min baAAdi m<u>a</u> j<u>a</u>athumu albayyina<b>tu</b></td></tr>
@@ -308,7 +316,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='4'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>और जिन्हें किताब दी गई थी, वे अपने पास स्पष्ट प्रमाण आ जाने के बाद ही अलग-अलग हुए।</td></tr>
 <tr class='roman-urdu' data-ayah='4'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Pehle jin logon ko kitab di gayi thi unmei tafarqa barpa(split/divide) nahin hua magar is ke baad ke un ke paas (raahe rast ka) bayan e wazeh aa chuka tha</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='4'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Ehl-e-kitab apnay pass zahir daleel ajanay kay baad hi (ikhtilaaf mein par ker) mutafarriq hogaey</td></tr>
-<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'><a class='permalink' href='#5' data-ayah='5'>Ayah 5</a><button class='copy-btn' onclick='copyVerse(this,98,5)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='5' id='ayah-5'><td colspan='2'><a class='permalink' href='#5' data-ayah='5'>Ayah 5</a><button class='copy-btn' onclick='copyVerse(this,98,5)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-5' onclick='toggleBookmark(98,5)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='5'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>وَما أُمِروا إِلّا لِيَعبُدُوا اللَّهَ مُخلِصينَ لَهُ الدّينَ حُنَفاءَ وَيُقيمُوا الصَّلاةَ وَيُؤتُوا الزَّكاةَ ۚ وَذٰلِكَ دينُ القَيِّمَةِ</td></tr>
 <tr class='audio' data-ayah='5'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098005.mp3' title='Surah 98, Ayah 5 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='5'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Wam<u>a</u> omiroo ill<u>a</u> liyaAAbudoo All<u>a</u>ha mukhli<u>s</u>eena lahu a<b>l</b>ddeena <u>h</u>unaf<u>a</u>a wayuqeemoo a<b>l</b><u>ss</u>al<u>a</u>ta wayutoo a<b>l</b>zzak<u>a</u>ta wa<u>tha</u>lika deenu alqayyima<b>ti</b></td></tr>
@@ -327,7 +335,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='5'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>हालाँकि उन्हें केवल यही आदेश दिया गया था कि वे अल्लाह के लिए धर्म को विशुद्ध करते हुए, एकाग्र होकर, उसकी उपासना करें, तथा नमाज़ अदा करें और ज़कात दें और यही सीधा धर्म है।</td></tr>
 <tr class='roman-urdu' data-ayah='5'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Aur unko iske siwa koi hukum nahin diya gaya tha ke Allah ke bandagi karein apne deen ko uske liye khalis karke. Bilkul yaksu ho kar, Aur namaz qayam karein aur zakat de yahi nihayat sahih-o-durust deen hai</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='5'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Unhein isskay siwa koi hokum nahi diya gaya kay sirf Allah ki ibadat kerein ussi kay liey deen ko khalis rakhein.ibraheem hanif kay deen per aur salat ko qaem rakhein aur zakat dety rahen yehi hai deen sedhi millat ka</td></tr>
-<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'><a class='permalink' href='#6' data-ayah='6'>Ayah 6</a><button class='copy-btn' onclick='copyVerse(this,98,6)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='6' id='ayah-6'><td colspan='2'><a class='permalink' href='#6' data-ayah='6'>Ayah 6</a><button class='copy-btn' onclick='copyVerse(this,98,6)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-6' onclick='toggleBookmark(98,6)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='6'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنَّ الَّذينَ كَفَروا مِن أَهلِ الكِتابِ وَالمُشرِكينَ في نارِ جَهَنَّمَ خالِدينَ فيها ۚ أُولٰئِكَ هُم شَرُّ البَرِيَّةِ</td></tr>
 <tr class='audio' data-ayah='6'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098006.mp3' title='Surah 98, Ayah 6 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='6'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna alla<u>th</u>eena kafaroo min ahli alkit<u>a</u>bi wa<b>a</b>lmushrikeena fee n<u>a</u>ri jahannama kh<u>a</u>lideena feeh<u>a</u> ol<u>a</u>ika hum sharru albariyya<b>ti</b></td></tr>
@@ -346,7 +354,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='6'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>निःसंदेह किताब वालों और मुश्रिकों में से जो लोग काफ़िर हो गए, वे सदा जहन्नम की आग में रहने वाले हैं, वही लोग सबसे बुरे प्राणी हैं।</td></tr>
 <tr class='roman-urdu' data-ayah='6'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Ehle kitaab aur mushrikin mein se jin logon ne kufr kiya hai woh yaqeenan jahannam ki aag mein jayenge aur hamesha us mein rahenge, yeh log badh-tareen e khalayek(creation) hain</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='6'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Be-shak jo log ehl-e-kitab mein say kafir huye aur mushrikeen sab dozakh ki aag mein(jaeigy)jahan who hamesha(hamesha)reheingy.yeh log bad tareen khalaeeq hain</td></tr>
-<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'><a class='permalink' href='#7' data-ayah='7'>Ayah 7</a><button class='copy-btn' onclick='copyVerse(this,98,7)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='7' id='ayah-7'><td colspan='2'><a class='permalink' href='#7' data-ayah='7'>Ayah 7</a><button class='copy-btn' onclick='copyVerse(this,98,7)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-7' onclick='toggleBookmark(98,7)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='7'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>إِنَّ الَّذينَ آمَنوا وَعَمِلُوا الصّالِحاتِ أُولٰئِكَ هُم خَيرُ البَرِيَّةِ</td></tr>
 <tr class='audio' data-ayah='7'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098007.mp3' title='Surah 98, Ayah 7 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='7'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Inna alla<u>th</u>eena <u>a</u>manoo waAAamiloo a<b>l</b><u>ssa</u>li<u>ha</u>ti ol<u>a</u>ika hum khayru albariyya<b>ti</b></td></tr>
@@ -365,7 +373,7 @@ footer a:hover{text-decoration:underline}
 <tr class='hindi-omari' data-ayah='7'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>निःसंदेह जो लोग ईमान लाए और उन्होंने सत्कर्म किए, वही लोग सबसे अच्छे प्राणी हैं।</td></tr>
 <tr class='roman-urdu' data-ayah='7'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>Jo log iman le aaye aur jinhon nay neik amal kiye woh yaqeenan behtareen-e-khalayeq hai</td></tr>
 <tr class='roman-urdu-junagarhi' data-ayah='7'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>Be-shak jo log eman laey aur nek amal kiey yeh log behtreen khalaeeq hain</td></tr>
-<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'><a class='permalink' href='#8' data-ayah='8'>Ayah 8</a><button class='copy-btn' onclick='copyVerse(this,98,8)' title='Copy this verse'>⧉ Copy</button></td></tr>
+<tr class='ayah-sep' data-ayah='8' id='ayah-8'><td colspan='2'><a class='permalink' href='#8' data-ayah='8'>Ayah 8</a><button class='copy-btn' onclick='copyVerse(this,98,8)' title='Copy this verse'>⧉ Copy</button><button class='bm-btn' id='bm-8' onclick='toggleBookmark(98,8)' title='Bookmark this verse'>&#128278;</button></td></tr>
 <tr class='arabic' data-ayah='8'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>جَزاؤُهُم عِندَ رَبِّهِم جَنّاتُ عَدنٍ تَجري مِن تَحتِهَا الأَنهارُ خالِدينَ فيها أَبَدًا ۖ رَضِيَ اللَّهُ عَنهُم وَرَضوا عَنهُ ۚ ذٰلِكَ لِمَن خَشِيَ رَبَّهُ</td></tr>
 <tr class='audio' data-ayah='8'><td class='label'>Audio (Alafasy)</td><td><audio class='audio-player' controls preload='none' src='https://druvx13-quran-audio-alafasy.hf.space/098008.mp3' title='Surah 98, Ayah 8 — Mishary Alafasy recitation'></audio></td></tr>
 <tr class='translit' data-ayah='8'><td class='label'>Transliteration (Tanzil)</td><td class='translit-text'>Jaz<u>a</u>ohum AAinda rabbihim jann<u>a</u>tu AAadnin tajree min ta<u>h</u>tih<u>a</u> alanh<u>a</u>ru kh<u>a</u>lideena feeh<u>a</u> abadan ra<u>d</u>iya All<u>a</u>hu AAanhum wara<u>d</u>oo AAanhu <u>tha</u>lika liman khashiya rabbah<b>u</b></td></tr>
@@ -404,6 +412,36 @@ footer a:hover{text-decoration:underline}
     if(hist.length>10)hist=hist.slice(0,10);
     localStorage.setItem(HIST_KEY,JSON.stringify(hist));
   }catch(_){}
+})();
+/* ---- Bookmark (saved ayah) ---- */
+(function(){
+  var BM_KEY='quran-bookmark';
+  var bm=null;
+  try{bm=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+  var curSura=+document.body.dataset.sura;
+  /* Highlight active bookmark button on load */
+  if(bm&&bm.s===curSura){
+    var btn=document.getElementById('bm-'+bm.a);
+    if(btn)btn.classList.add('active');
+  }
+  window.toggleBookmark=function(sura,ayah){
+    var btn=document.getElementById('bm-'+ayah);
+    /* Remove old active state from any button on this page */
+    document.querySelectorAll('.bm-btn.active').forEach(function(b){b.classList.remove('active');});
+    var existing=null;
+    try{existing=JSON.parse(localStorage.getItem(BM_KEY)||'null');}catch(_){}
+    if(existing&&existing.s===sura&&existing.a===ayah){
+      /* Toggle off — remove bookmark */
+      try{localStorage.removeItem(BM_KEY);}catch(_){}
+    } else {
+      /* Set new bookmark */
+      var h1=document.querySelector('h1');
+      var label=h1?h1.textContent.trim():'Surah '+sura;
+      var entry={s:sura,a:ayah,n:label,t:Date.now()};
+      try{localStorage.setItem(BM_KEY,JSON.stringify(entry));}catch(_){}
+      if(btn)btn.classList.add('active');
+    }
+  };
 })();
 (function(){
   var cfList=document.getElementById('cf-list');
