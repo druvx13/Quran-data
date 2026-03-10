@@ -230,6 +230,51 @@ footer a:hover{text-decoration:underline}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
 }
+/* H1 controls wrapper */
+.h1-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px}
+.h1-controls h1{margin:0}
+/* Chapter play button */
+.chapter-play-btn{display:inline-flex;align-items:center;gap:4px;background:#1a3a5c;
+  color:#ffd54f;border:none;border-radius:4px;padding:4px 12px;cursor:pointer;
+  font-size:.88em;line-height:1.4;white-space:nowrap}
+.chapter-play-btn:hover{background:#2a5a8c}
+.chapter-play-btn.playing{background:#b71c1c;color:#fff}
+/* Reading mode button */
+.reading-mode-btn{display:inline-flex;align-items:center;gap:4px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;padding:4px 12px;cursor:pointer;
+  font-size:.88em;color:#1a3a5c;line-height:1.4;white-space:nowrap}
+.reading-mode-btn:hover{background:#dde8f2}
+.reading-mode-btn.active{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+/* Surah all-read checkbox label */
+.surah-read-label{display:inline-flex;align-items:center;gap:5px;font-size:.88em;
+  cursor:pointer;color:#1a3a5c;padding:4px 8px;background:#f0f4f8;
+  border:1px solid #ccd6e0;border-radius:4px;white-space:nowrap}
+.surah-read-label:hover{background:#dde8f2}
+.surah-read-label input{width:15px;height:15px;accent-color:#2e7d32;cursor:pointer;flex-shrink:0}
+/* Per-verse progress checkbox */
+.ayah-prog-cb{width:15px;height:15px;cursor:pointer;accent-color:#2e7d32;
+  margin-right:5px;vertical-align:middle;flex-shrink:0}
+/* Read verse separator styling */
+.ayah-sep.ayah-read td{background:#1b5e20!important;color:#fff!important;border-color:#1b5e20!important}
+/* Reading mode active state */
+body.rm-active tr[data-ayah]{opacity:0.25;transition:opacity .25s}
+body.rm-active tr.rm-current[data-ayah]{opacity:1}
+body.rm-active tr.rm-passed[data-ayah]{opacity:0.5}
+body.rm-active tr.rm-current.ayah-sep td{border-left:4px solid #ffd54f}
+body.rm-active tr.rm-passed.ayah-sep td{background:#1b5e20!important;color:#fff!important;border-color:#1b5e20!important}
+@media(max-width:600px){
+  .chapter-play-btn,.reading-mode-btn,.surah-read-label{min-height:40px;padding:6px 10px}
+}
+@media(prefers-color-scheme:dark){
+  .chapter-play-btn{background:#0d2136}
+  .chapter-play-btn:hover{background:#1a3a5c}
+  .chapter-play-btn.playing{background:#7f0000;color:#fff}
+  .reading-mode-btn{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .reading-mode-btn:hover{background:#263650}
+  .reading-mode-btn.active{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+  .surah-read-label{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-read-label:hover{background:#263650}
+}
 .dl-section{margin-bottom:24px}
 .dl-section h2{color:#1a3a5c;margin:0 0 10px;font-size:1.1em;border-bottom:2px solid #ffd54f;padding-bottom:4px}
 .dl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;margin:10px 0}

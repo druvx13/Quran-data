@@ -617,6 +617,51 @@ footer a:hover{text-decoration:underline}
   .vc-font-ctrl span{color:#aaa}
   .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
   .vc-font-ctrl button:hover{background:#263650}
+}
+/* H1 controls wrapper */
+.h1-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px}
+.h1-controls h1{margin:0}
+/* Chapter play button */
+.chapter-play-btn{display:inline-flex;align-items:center;gap:4px;background:#1a3a5c;
+  color:#ffd54f;border:none;border-radius:4px;padding:4px 12px;cursor:pointer;
+  font-size:.88em;line-height:1.4;white-space:nowrap}
+.chapter-play-btn:hover{background:#2a5a8c}
+.chapter-play-btn.playing{background:#b71c1c;color:#fff}
+/* Reading mode button */
+.reading-mode-btn{display:inline-flex;align-items:center;gap:4px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;padding:4px 12px;cursor:pointer;
+  font-size:.88em;color:#1a3a5c;line-height:1.4;white-space:nowrap}
+.reading-mode-btn:hover{background:#dde8f2}
+.reading-mode-btn.active{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+/* Surah all-read checkbox label */
+.surah-read-label{display:inline-flex;align-items:center;gap:5px;font-size:.88em;
+  cursor:pointer;color:#1a3a5c;padding:4px 8px;background:#f0f4f8;
+  border:1px solid #ccd6e0;border-radius:4px;white-space:nowrap}
+.surah-read-label:hover{background:#dde8f2}
+.surah-read-label input{width:15px;height:15px;accent-color:#2e7d32;cursor:pointer;flex-shrink:0}
+/* Per-verse progress checkbox */
+.ayah-prog-cb{width:15px;height:15px;cursor:pointer;accent-color:#2e7d32;
+  margin-right:5px;vertical-align:middle;flex-shrink:0}
+/* Read verse separator styling */
+.ayah-sep.ayah-read td{background:#1b5e20!important;color:#fff!important;border-color:#1b5e20!important}
+/* Reading mode active state */
+body.rm-active tr[data-ayah]{opacity:0.25;transition:opacity .25s}
+body.rm-active tr.rm-current[data-ayah]{opacity:1}
+body.rm-active tr.rm-passed[data-ayah]{opacity:0.5}
+body.rm-active tr.rm-current.ayah-sep td{border-left:4px solid #ffd54f}
+body.rm-active tr.rm-passed.ayah-sep td{background:#1b5e20!important;color:#fff!important;border-color:#1b5e20!important}
+@media(max-width:600px){
+  .chapter-play-btn,.reading-mode-btn,.surah-read-label{min-height:40px;padding:6px 10px}
+}
+@media(prefers-color-scheme:dark){
+  .chapter-play-btn{background:#0d2136}
+  .chapter-play-btn:hover{background:#1a3a5c}
+  .chapter-play-btn.playing{background:#7f0000;color:#fff}
+  .reading-mode-btn{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .reading-mode-btn:hover{background:#263650}
+  .reading-mode-btn.active{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+  .surah-read-label{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-read-label:hover{background:#263650}
 }"""
 
 HEADER_HTML = """\
@@ -635,7 +680,7 @@ HEADER_HTML = """\
 <body data-sura="{num}">
 <header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
-<h1>Surah {num}: {name}</h1>
+<div class='h1-controls'><h1>Surah {num}: {name}</h1><button class='chapter-play-btn' id='chapter-play-btn' onclick='toggleChapterPlay()' title='Play full chapter recitation (Mishary Alafasy)'>&#9654; Play Chapter</button><button class='reading-mode-btn' id='rm-btn' onclick='toggleReadingMode()' title='Reading Mode: highlights current verse as you scroll'>&#128218; Reading Mode</button><label class='surah-read-label' title='Mark all verses of this chapter as read'><input type='checkbox' id='surah-read-cb' onchange='toggleSurahRead(this.checked)'> All Read</label></div>
 {surah_info}<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
 {verse_chooser}<div class='table-wrap'><table><thead><tr><th colspan='2'>Ayah &nbsp;&mdash;&nbsp; Arabic (Uthmani) &nbsp;/&nbsp; Audio (Mishary Alafasy) &nbsp;/&nbsp; Transliteration (Tanzil.net &amp; Unicode Project) &nbsp;/&nbsp; English (Pickthall, Yusuf Ali, Saheeh Int&#x2019;l, Qarai &amp; Hilali) &nbsp;/&nbsp; English Explanation (Abridged) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2309;&#2344;&#2369;&#2357;&#2366;&#2342; (Farooq Khan, Suhail &amp; Al-Omari) &nbsp;/&nbsp; &#2361;&#2367;&#2344;&#2381;&#2342;&#2368; &#2340;&#2347;&#2381;&#2360;&#2368;&#2352; (Al-Mokhtasar) &nbsp;/&nbsp; &#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752; (Rabila Al-Umry) &nbsp;/&nbsp; Nepali (Ahl-al-Hadith) &nbsp;/&nbsp; Roman Urdu (Maududi &amp; Junagarhi)</th></tr></thead><tbody>
 """
@@ -947,6 +992,140 @@ VC_JS = """\
     });
   });
 })();
+/* ---- Verse Read Progress ---- */
+(function(){
+  var sura=+document.body.dataset.sura;
+  var PROG_KEY='quran-prog-'+sura;
+  var readSet=new Set();
+  try{var raw=localStorage.getItem(PROG_KEY);if(raw){var arr=JSON.parse(raw);if(Array.isArray(arr))arr.forEach(function(n){readSet.add(+n);});}}catch(_){}
+  function applyRead(a,on){
+    var row=document.getElementById('ayah-'+a);
+    if(row)row.classList.toggle('ayah-read',on);
+  }
+  function save(){try{localStorage.setItem(PROG_KEY,JSON.stringify(Array.from(readSet)));}catch(_){}}
+  function updateSurahCb(){
+    var seps=document.querySelectorAll('tr.ayah-sep');
+    var total=seps.length,read=0;
+    seps.forEach(function(s){if(readSet.has(+s.dataset.ayah))read++;});
+    var scb=document.getElementById('surah-read-cb');
+    if(scb)scb.checked=(total>0&&read===total);
+  }
+  /* Apply stored state on load */
+  readSet.forEach(function(a){applyRead(a,true);});
+  document.querySelectorAll('.ayah-prog-cb').forEach(function(cb){
+    var a=+cb.id.replace('ap-','');
+    if(readSet.has(a))cb.checked=true;
+  });
+  updateSurahCb();
+  window.toggleAyahRead=function(ayah,checked){
+    if(checked)readSet.add(ayah);else readSet.delete(ayah);
+    applyRead(ayah,checked);
+    save();
+    updateSurahCb();
+  };
+  window.toggleSurahRead=function(checked){
+    var seps=document.querySelectorAll('tr.ayah-sep');
+    seps.forEach(function(sep){
+      var a=+sep.dataset.ayah;
+      if(checked)readSet.add(a);else readSet.delete(a);
+      applyRead(a,checked);
+      var cb=document.getElementById('ap-'+a);
+      if(cb)cb.checked=checked;
+    });
+    save();
+  };
+  window.markAyahReadAuto=function(ayah){
+    if(readSet.has(ayah))return;
+    readSet.add(ayah);
+    applyRead(ayah,true);
+    var cb=document.getElementById('ap-'+ayah);
+    if(cb)cb.checked=true;
+    save();
+    updateSurahCb();
+  };
+})();
+/* ---- Chapter Play (sequential verse audio) ---- */
+(function(){
+  var sura=+document.body.dataset.sura;
+  var toEl=document.getElementById('vc-to');
+  var maxAyah=toEl?+toEl.max:document.querySelectorAll('tr.ayah-sep').length;
+  var playing=false,curAudio=null,curAyah=0;
+  var btn=document.getElementById('chapter-play-btn');
+  function pad(x,n){return String(x).padStart(n,'0');}
+  function playAyah(n){
+    if(!playing||n>maxAyah){stopAll();return;}
+    if(curAudio){curAudio.pause();curAudio=null;}
+    curAyah=n;
+    var src='https://druvx13-quran-audio-alafasy.hf.space/'+pad(sura,3)+pad(n,3)+'.mp3';
+    curAudio=new Audio(src);
+    curAudio.addEventListener('ended',function(){
+      if(window.markAyahReadAuto)window.markAyahReadAuto(n);
+      playAyah(n+1);
+    });
+    curAudio.addEventListener('error',function(){playAyah(n+1);});
+    curAudio.play().catch(function(){});
+    var row=document.getElementById('ayah-'+n);
+    if(row)row.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function stopAll(){
+    playing=false;
+    if(curAudio){curAudio.pause();curAudio=null;}
+    if(btn){btn.innerHTML='&#9654; Play Chapter';btn.classList.remove('playing');}
+  }
+  window.toggleChapterPlay=function(){
+    if(playing){stopAll();}
+    else{
+      playing=true;
+      if(btn){btn.innerHTML='&#9646;&#9646; Stop';btn.classList.add('playing');}
+      playAyah(1);
+    }
+  };
+})();
+/* ---- Reading Mode ---- */
+(function(){
+  var rmBtn=document.getElementById('rm-btn');
+  var rmActive=false,scrollTimer=null,prevAyah=0;
+  function getCurrentAyah(){
+    var mid=window.scrollY+window.innerHeight*0.38;
+    var cur=0;
+    document.querySelectorAll('tr.ayah-sep').forEach(function(sep){
+      if(sep.style.display==='none')return;
+      var top=sep.getBoundingClientRect().top+window.scrollY;
+      if(top<=mid)cur=+sep.dataset.ayah;
+    });
+    return cur;
+  }
+  function updateRM(){
+    if(!rmActive)return;
+    var cur=getCurrentAyah();
+    if(cur===prevAyah)return;
+    prevAyah=cur;
+    document.querySelectorAll('tr[data-ayah]').forEach(function(tr){
+      var a=+tr.dataset.ayah;
+      tr.classList.remove('rm-current','rm-passed');
+      if(a===cur)tr.classList.add('rm-current');
+      else if(cur>0&&a<cur)tr.classList.add('rm-passed');
+    });
+  }
+  function onScroll(){clearTimeout(scrollTimer);scrollTimer=setTimeout(updateRM,60);}
+  function setRmActive(on){
+    rmActive=on;
+    document.body.classList.toggle('rm-active',on);
+    if(rmBtn){
+      rmBtn.classList.toggle('active',on);
+      rmBtn.innerHTML=on?'&#128218; Exit Reading':'&#128218; Reading Mode';
+    }
+    if(on){window.addEventListener('scroll',onScroll,{passive:true});updateRM();}
+    else{
+      window.removeEventListener('scroll',onScroll);
+      document.querySelectorAll('tr.rm-current,tr.rm-passed').forEach(function(tr){tr.classList.remove('rm-current','rm-passed');});
+      prevAyah=0;
+    }
+    try{localStorage.setItem('quran-rm',on?'1':'0');}catch(_){}
+  }
+  window.toggleReadingMode=function(){setRmActive(!rmActive);};
+  try{if(localStorage.getItem('quran-rm')==='1')setRmActive(true);}catch(_){}
+})();
 </script>
 """
 
@@ -1018,8 +1197,15 @@ for sura_idx in range(1, 115):
                 " title='Bookmark this verse'>&#128278;</button>"
             ) % (ayah, sura_idx, ayah)
 
+            # Verse read progress checkbox
+            prog_cb = (
+                "<input type='checkbox' class='ayah-prog-cb' id='ap-%d'"
+                " onchange='toggleAyahRead(%d,this.checked)' title='Mark verse %d as read'>"
+            ) % (ayah, ayah, ayah)
+
             out.write(
                 "<tr class='ayah-sep' data-ayah='%d' id='ayah-%d'><td colspan='2'>"
+                "%s"
                 "<a class='permalink' href='#%d' data-ayah='%d'>Ayah %d</a>"
                 "%s%s%s</td></tr>\n"
                 "<tr class='arabic' data-ayah='%d'><td class='label'>&#1593;&#1614;&#1585;&#1614;&#1576;&#1616;&#1610;</td><td class='arabic-text' lang='ar'>%s</td></tr>\n"
@@ -1041,6 +1227,7 @@ for sura_idx in range(1, 115):
                 "<tr class='roman-urdu' data-ayah='%d'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>%s</td></tr>\n"
                 "<tr class='roman-urdu-junagarhi' data-ayah='%d'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>%s</td></tr>\n"
                 % (ayah, ayah,
+                   prog_cb,
                    ayah, ayah, ayah,
                    sajda_badge, copy_btn, bm_btn,
                    ayah, ar,
