@@ -4,7 +4,7 @@ LATEX    = xelatex
 LATEX_DIR = latex
 OUTPUT_DIR = output
 
-.PHONY: all generate-tex generate-txt generate-docs clean help
+.PHONY: all generate-tex generate-txt generate-docs generate-hindi-web clean help
 
 ## Show available targets.
 help:
@@ -13,6 +13,7 @@ help:
 	@echo "  make all            Compile all PDFs (requires generate-tex first)"
 	@echo "  make generate-txt   Generate formatted plain-text output files"
 	@echo "  make generate-docs  Regenerate the docs/ HTML pages (requires generate-txt first)"
+	@echo "  make generate-hindi-web Generate Hindi-only website into hindi-web/ (uses existing output files)"
 	@echo "  make clean          Remove LaTeX build artefacts"
 
 ## Build all PDFs (requires generate-tex to have been run first).
@@ -46,6 +47,11 @@ generate-txt:
 ## Requires generate-txt to have been run first.
 generate-docs:
 	$(PYTHON) src/gendocshtml.py
+
+## Generate the Hindi-only website (hindi-web/).
+## Requires output files to be present (run generate-txt first).
+generate-hindi-web:
+	$(PYTHON) src/gen_hindi_web.py
 
 ## Remove XeLaTeX build artefacts.
 clean:
