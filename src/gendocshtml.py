@@ -21,6 +21,7 @@ Sources used:
   - output/quran_nepali_ahl_al_hadith.txt : [sura:ayah] Nepali translation (Ahl-al-Hadith Nepal)
   - output/quran_roman_urdu_maududi.txt: [sura:ayah] Roman Urdu translation (Abul Ala Maududi)
   - output/quran_roman_urdu_junagarhi.txt: [sura:ayah] Roman Urdu translation (Muhammad Junagarhi)
+  - output/quran_devnagri_urdu_maududi.txt: [sura:ayah] Devanagari-script Urdu translation (Abul Ala Maududi)
 """
 
 import os
@@ -390,6 +391,18 @@ with open('output/quran_roman_urdu_junagarhi.txt', 'r', encoding='utf-8') as f:
             roman_urdu_junagarhi[(int(m.group(1)), int(m.group(2)))] = m.group(3)
 
 # ---------------------------------------------------------------------------
+# Load Devanagari Urdu (Maududi)  quran_devnagri_urdu_maududi.txt
+# Format: [sura:ayah] text
+# ---------------------------------------------------------------------------
+devnagri_urdu = {}
+with open('output/quran_devnagri_urdu_maududi.txt', 'r', encoding='utf-8') as f:
+    for line in f:
+        line = line.rstrip('\n')
+        m = re.match(r'^\[(\d+):(\d+)\]\s*(.*)', line)
+        if m:
+            devnagri_urdu[(int(m.group(1)), int(m.group(2)))] = m.group(3)
+
+# ---------------------------------------------------------------------------
 # HTML template helpers
 # ---------------------------------------------------------------------------
 CSS = """\
@@ -445,6 +458,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .roman-urdu-text{font-style:normal;font-weight:500;color:#33691e}
 .roman-urdu-junagarhi td{background:#e8f5e9}
 .roman-urdu-junagarhi-text{font-style:normal;font-weight:500;color:#1b5e20}
+.devnagri-urdu td{background:#e8eaf0}
+.devnagri-urdu-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;font-style:normal;font-weight:500;color:#1a237e}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -527,6 +542,7 @@ footer a:hover{text-decoration:underline}
   .hindi-omari td{background:#200010}
   .roman-urdu td{background:#1a2000}
   .roman-urdu-junagarhi td{background:#0a1a00}
+  .devnagri-urdu td{background:#0d0f2a}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
   .surah-grid a:hover{background:#263650}
   .sg-meta{color:#aaa}
@@ -550,6 +566,7 @@ footer a:hover{text-decoration:underline}
   .trans-hilali-text{color:#ce93d8}
   .nepali-text{color:#80cbc4}
   .hindi-omari-text{color:#f48fb1}
+  .devnagri-urdu-text{color:#9fa8da}
 }
 @media(max-width:600px) and (prefers-color-scheme:dark){
   .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
@@ -685,6 +702,7 @@ CF_ITEMS = [
     ('hindi-omari',      '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)',                                       False),
     ('roman-urdu',       'Roman Urdu (Maududi)',                                                                  False),
     ('roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)',                                                              False),
+    ('devnagri-urdu',    'Devnagri Urdu (Maududi)',                                                                 False),
 ]
 
 
@@ -995,6 +1013,7 @@ for sura_idx in range(1, 115):
             ho = hindi_omari.get((sura_idx, ayah), '')
             ru = roman_urdu.get((sura_idx, ayah), '')
             rj = roman_urdu_junagarhi.get((sura_idx, ayah), '')
+            du = devnagri_urdu.get((sura_idx, ayah), '')
 
             # Juz marker row
             juz_num = JUZ_STARTS.get((sura_idx, ayah))
@@ -1044,6 +1063,7 @@ for sura_idx in range(1, 115):
                 "<tr class='hindi-omari' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>%s</td></tr>\n"
                 "<tr class='roman-urdu' data-ayah='%d'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>%s</td></tr>\n"
                 "<tr class='roman-urdu-junagarhi' data-ayah='%d'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>%s</td></tr>\n"
+                "<tr class='devnagri-urdu' data-ayah='%d'><td class='label'>Devnagri Urdu (Maududi)</td><td class='devnagri-urdu-text' lang='hi'>%s</td></tr>\n"
                 % (ayah, ayah,
                    ayah, ayah, ayah,
                    sajda_badge, copy_btn, bm_btn,
@@ -1064,7 +1084,8 @@ for sura_idx in range(1, 115):
                    ayah, np_,
                    ayah, ho,
                    ayah, ru,
-                   ayah, rj)
+                   ayah, rj,
+                   ayah, du)
             )
         out.write(FOOTER_HTML.format(nav=nav, script=VC_JS))
 
@@ -1256,6 +1277,7 @@ _FIELD_SOURCES = [
     ('hindi-omari',          hindi_omari),
     ('roman-urdu',           roman_urdu),
     ('roman-urdu-junagarhi', roman_urdu_junagarhi),
+    ('devnagri-urdu',        devnagri_urdu),
 ]
 for field_key, field_dict in _FIELD_SOURCES:
     arr = [field_dict.get((s, a), '') for s, a, _ in _ayah_order]
@@ -1296,6 +1318,7 @@ SEARCH_CSS = CSS + """
 .result-field.hindi-omari{background:#fff0f5;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
 .result-field.roman-urdu{background:#f0f4c3;font-weight:500;color:#33691e}
 .result-field.roman-urdu-junagarhi{background:#e8f5e9;font-weight:500;color:#1b5e20}
+.result-field.devnagri-urdu{background:#e8eaf0;font-family:'Noto Sans Devanagari',Arial,sans-serif;font-weight:500;color:#1a237e}
 .result-highlight{background:#fff176;border-radius:2px}
 .pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
 .pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
@@ -1371,7 +1394,8 @@ SEARCH_HTML = """\
     ['nepali',               'Nepali (Ahl-al-Hadith)'],
     ['hindi-omari',          '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)'],
     ['roman-urdu',           'Roman Urdu (Maududi)'],
-    ['roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)']
+    ['roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)'],
+    ['devnagri-urdu',        'Devnagri Urdu (Maududi)']
   ];
 
   function getActiveFields(){{

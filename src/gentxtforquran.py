@@ -9,6 +9,7 @@ Reads source data from data/ and writes output files to output/.
 """
 import json
 import os
+import re
 import zipfile
 
 os.makedirs('output', exist_ok=True)
@@ -98,6 +99,8 @@ translations = [
     ('data/ur.taqiusmani.txt', 'output/quran_urdu_taqiusmani.txt', 'Muhammad Taqi Usmani', 'Urdu'),
     # Romanized Gujarati from fawazahmed0/quran-api
     ('data/gu.roman.rabila.txt', 'output/quran_roman_gujarati_rabila.txt', 'Rabila Al-Omari', 'Roman-Gujarati'),
+    # Devanagari-script Urdu translation
+    ('data/quran_devnagri_urdu_maududi.html', 'output/quran_devnagri_urdu_maududi.txt', 'Abul Ala Maududi', 'Devnagri-Urdu-HTML'),
 ]
 
 for src_file, out_file, translator, lang in translations:
@@ -138,6 +141,9 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Roman-Gujarati':
             out.write("Quran - Roman Gujarati Bhashantar\n")
             out.write("Bhashantar: %s\n" % translator)
+        elif lang == 'Devnagri-Urdu-HTML':
+            out.write("Quran - Devnagri Urdu Tarjuma\n")
+            out.write("Mutarjim: %s\n" % translator)
         out.write("=" * 60 + "\n\n")
         if lang in ('Hindi-Tafsir-JSON', 'English-Tafsir-JSON'):
             with zipfile.ZipFile(src_file, 'r') as zf:
@@ -204,6 +210,24 @@ for src_file, out_file, translator, lang in translations:
                         text = raw_line.split('|', 2)[2] if raw_line.count('|') >= 2 else raw_line
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
+        elif lang == 'Devnagri-Urdu-HTML':
+            # Source is an HTML file; strip tags and collect [S:A] text lines.
+            # Some verse markers are split across HTML tag boundaries as "[ \nS:A]";
+            # normalize those back to "[S:A]" before extraction.
+            with open(src_file, 'r', encoding='utf-8') as src:
+                raw = src.read()
+            clean = re.sub(r'<[^>]+>', '', raw)
+            clean = re.sub(r'\[\s*\n\s*(\d+):(\d+)\]', r'\n[\1:\2]', clean)
+            verse_map = {}
+            for m in re.finditer(r'\[(\d+):(\d+)\]\s*(.*)', clean):
+                verse_map[(int(m.group(1)), int(m.group(2)))] = m.group(3).strip()
+            for sura_num in range(114):
+                out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
+                out.write("-" * 40 + "\n")
+                for ayah_num in range(1, surasize[sura_num] + 1):
+                    text = verse_map.get((sura_num + 1, ayah_num), '')
+                    out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
+                out.write("\n")
         else:
             with open(src_file, 'r', encoding='utf-8') as src:
                 for sura_num in range(114):

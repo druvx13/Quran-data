@@ -19,5 +19,6 @@ var QURAN_CONFIG={
   "nepali":false,
   "hindi-omari":false,
   "roman-urdu":false,
-  "roman-urdu-junagarhi":false
+  "roman-urdu-junagarhi":false,
+  "devnagri-urdu":false
 };
