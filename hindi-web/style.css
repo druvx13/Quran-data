@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap');
+:root{
+  --bg:#f9fafc;
+  --card:#ffffff;
+  --ink:#1b2a3a;
+  --muted:#4f5d73;
+  --border:#e2e8f0;
+  --accent:#0f6cbf;
+  --accent-2:#f4b400;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Noto Sans Devanagari','Noto Sans',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{
+  position:sticky;top:0;z-index:10;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+header .title{font-weight:700;font-size:1.1rem;color:var(--ink)}
+header select{
+  padding:6px 10px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  font-size:.95rem;
+  background:#fff;
+}
+.page{max-width:1080px;margin:0 auto;padding:20px 16px 32px;}
+.hero{
+  background:linear-gradient(135deg,#e8f1fc,#f7f3ff);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.03);
+}
+.hero h1{margin:0 0 8px;font-size:1.6rem;}
+.hero p{margin:4px 0;color:var(--muted);}
+.surah-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+.s-card{
+  display:block;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.02);
+  transition:transform .1s ease, box-shadow .1s ease;
+}
+.s-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,0.06);}
+.s-card .num{font-weight:700;color:var(--accent);}
+.s-card .name{margin:6px 0;font-weight:600;}
+.s-card .meta{color:var(--muted);font-size:.9rem;}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;}
+.pill{
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:.9rem;
+  background:#edf2ff;
+  color:#1f3c7a;
+  border:1px solid #d6e0ff;
+}
+.pill.meccan{background:#fff4e5;color:#8a4b00;border-color:#ffd8a8;}
+.pill.medinan{background:#e9f7ef;color:#0f5132;border-color:#c7eed8;}
+.pill.juz{background:#e3f2fd;color:#0d47a1;border-color:#bbdefb;}
+.pill.count{background:#f0f4f8;color:#374151;border-color:#e2e8f0;}
+.ayah{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  margin:0 0 14px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.02);
+}
+.ayah-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.ayah-num{
+  background:var(--accent);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:8px;
+  font-weight:700;
+}
+audio{width:260px;max-width:100%;}
+.line{margin:6px 0;}
+.line .label{font-weight:600;color:var(--muted);margin-right:6px;}
+.arabic{
+  font-family:'Noto Naskh Arabic','Scheherazade New','Amiri',serif;
+  font-size:1.15rem;
+  direction:rtl;
+  text-align:right;
+}
+.translit{color:#1f2937;font-weight:600;}
+.t-hi{color:#0f5132;}
+.t-hi.alt{color:#7c2d12;}
+.t-hi.tafseer{color:#0f3d3e;}
+.t-hi.omari{color:#5b21b6;}
+.footer{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:.95rem;
+  text-align:center;
+}
+.sources{
+  background:#f8fafc;
+  border:1px dashed var(--border);
+  padding:10px 12px;
+  border-radius:8px;
+  margin-top:10px;
+  font-size:.92rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0f172a;--card:#111827;--ink:#e5e7eb;--muted:#9ca3af;--border:#1f2937;}
+  header{background:rgba(17,24,39,0.9);}
+  .hero{background:linear-gradient(135deg,#111827,#0f172a);border-color:var(--border);}
+  .s-card{border-color:var(--border);}
+  .pill{border-color:var(--border);}
+  .sources{background:#0b1224;}
+}
