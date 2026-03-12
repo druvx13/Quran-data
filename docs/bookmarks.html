@@ -57,6 +57,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .roman-urdu-text{font-style:normal;font-weight:500;color:#33691e}
 .roman-urdu-junagarhi td{background:#e8f5e9}
 .roman-urdu-junagarhi-text{font-style:normal;font-weight:500;color:#1b5e20}
+.devnagri-urdu td{background:#e8eaf0}
+.devnagri-urdu-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;font-style:normal;font-weight:500;color:#1a237e}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -139,6 +141,7 @@ footer a:hover{text-decoration:underline}
   .hindi-omari td{background:#200010}
   .roman-urdu td{background:#1a2000}
   .roman-urdu-junagarhi td{background:#0a1a00}
+  .devnagri-urdu td{background:#0d0f2a}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
   .surah-grid a:hover{background:#263650}
   .sg-meta{color:#aaa}
@@ -162,6 +165,7 @@ footer a:hover{text-decoration:underline}
   .trans-hilali-text{color:#ce93d8}
   .nepali-text{color:#80cbc4}
   .hindi-omari-text{color:#f48fb1}
+  .devnagri-urdu-text{color:#9fa8da}
 }
 @media(max-width:600px) and (prefers-color-scheme:dark){
   .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
@@ -319,18 +323,26 @@ footer a:hover{text-decoration:underline}
         +'<a href="'+href+'">📖 '+suraName+', Ayah '+b.a+'</a>'
         +'<div class="bm-item-meta">Bookmarked '+relTime(b.t)+'</div>'
         +'</div>'
-        +'<button class="bm-item-del" onclick="deleteBm('+i+')" title="Delete this bookmark">&times; Remove</button>'
+        +'<button class="bm-item-del" data-key="'+b.s+':'+b.a+'" title="Delete this bookmark">&times; Remove</button>'
         +'</li>';
     }
     listEl.innerHTML=html;
   }
 
-  window.deleteBm=function(idx){
-    var bms=load();
-    bms.splice(idx,1);
-    save(bms);
-    render();
-  };
+  /* Event delegation for bookmark deletion — avoids per-item onclick with stale indices */
+  (function(){
+    var listEl=document.getElementById('bm-list');
+    if(listEl){
+      listEl.addEventListener('click',function(e){
+        var btn=e.target.closest('.bm-item-del');
+        if(!btn)return;
+        var key=btn.dataset.key;
+        var bms=load();
+        var idx=bms.findIndex(function(b){return b.s+':'+b.a===key;});
+        if(idx>=0){bms.splice(idx,1);save(bms);render();}
+      });
+    }
+  })();
 
   window.clearAllBm=function(){
     if(!confirm('Remove all '+load().length+' bookmark(s)?'))return;

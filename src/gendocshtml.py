@@ -21,6 +21,7 @@ Sources used:
   - output/quran_nepali_ahl_al_hadith.txt : [sura:ayah] Nepali translation (Ahl-al-Hadith Nepal)
   - output/quran_roman_urdu_maududi.txt: [sura:ayah] Roman Urdu translation (Abul Ala Maududi)
   - output/quran_roman_urdu_junagarhi.txt: [sura:ayah] Roman Urdu translation (Muhammad Junagarhi)
+  - output/quran_devnagri_urdu_maududi.txt: [sura:ayah] Devanagari-script Urdu translation (Abul Ala Maududi)
 """
 
 import os
@@ -390,6 +391,18 @@ with open('output/quran_roman_urdu_junagarhi.txt', 'r', encoding='utf-8') as f:
             roman_urdu_junagarhi[(int(m.group(1)), int(m.group(2)))] = m.group(3)
 
 # ---------------------------------------------------------------------------
+# Load Devanagari Urdu (Maududi)  quran_devnagri_urdu_maududi.txt
+# Format: [sura:ayah] text
+# ---------------------------------------------------------------------------
+devnagri_urdu = {}
+with open('output/quran_devnagri_urdu_maududi.txt', 'r', encoding='utf-8') as f:
+    for line in f:
+        line = line.rstrip('\n')
+        m = re.match(r'^\[(\d+):(\d+)\]\s*(.*)', line)
+        if m:
+            devnagri_urdu[(int(m.group(1)), int(m.group(2)))] = m.group(3)
+
+# ---------------------------------------------------------------------------
 # HTML template helpers
 # ---------------------------------------------------------------------------
 CSS = """\
@@ -445,6 +458,8 @@ td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
 .roman-urdu-text{font-style:normal;font-weight:500;color:#33691e}
 .roman-urdu-junagarhi td{background:#e8f5e9}
 .roman-urdu-junagarhi-text{font-style:normal;font-weight:500;color:#1b5e20}
+.devnagri-urdu td{background:#e8eaf0}
+.devnagri-urdu-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;font-style:normal;font-weight:500;color:#1a237e}
 .arabic td{background:#fff8e1}
 .arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
 nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -527,6 +542,7 @@ footer a:hover{text-decoration:underline}
   .hindi-omari td{background:#200010}
   .roman-urdu td{background:#1a2000}
   .roman-urdu-junagarhi td{background:#0a1a00}
+  .devnagri-urdu td{background:#0d0f2a}
   .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
   .surah-grid a:hover{background:#263650}
   .sg-meta{color:#aaa}
@@ -550,6 +566,7 @@ footer a:hover{text-decoration:underline}
   .trans-hilali-text{color:#ce93d8}
   .nepali-text{color:#80cbc4}
   .hindi-omari-text{color:#f48fb1}
+  .devnagri-urdu-text{color:#9fa8da}
 }
 @media(max-width:600px) and (prefers-color-scheme:dark){
   .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
@@ -685,6 +702,7 @@ CF_ITEMS = [
     ('hindi-omari',      '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)',                                       False),
     ('roman-urdu',       'Roman Urdu (Maududi)',                                                                  False),
     ('roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)',                                                              False),
+    ('devnagri-urdu',    'Devnagri Urdu (Maududi)',                                                                 False),
 ]
 
 
@@ -814,8 +832,7 @@ VC_JS = """\
       if(tr.classList.contains('ayah-sep')||tr.classList.contains('juz-marker')){
         tr.style.display=inRange?'':'none';
       }else{
-        var typeEnabled=false;
-        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        var typeEnabled=Array.prototype.some.call(tr.classList,function(c){return enabledTypes.has(c);});
         tr.style.display=(inRange&&typeEnabled)?'':'none';
       }
     });
@@ -889,11 +906,9 @@ VC_JS = """\
   }
   function applyFs(){
     var scale=fsSteps[fsIdx];
-    document.querySelectorAll('.arabic-text').forEach(function(el){
-      el.style.fontSize=(1.5*scale)+'em';
-    });
-    document.querySelectorAll('td:not(.label)').forEach(function(el){
-      el.style.fontSize=(scale)+'em';
+    document.querySelectorAll('td').forEach(function(el){
+      if(el.classList.contains('label'))return;
+      el.style.fontSize=(el.classList.contains('arabic-text')?1.5*scale:scale)+'em';
     });
     localStorage.setItem(FS_KEY,fsIdx);
   }
@@ -910,8 +925,15 @@ VC_JS = """\
   stb.innerHTML='&#8679;';
   stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
   document.body.appendChild(stb);
+  var _scrollTicking=false;
   window.addEventListener('scroll',function(){
-    stb.style.display=window.scrollY>400?'flex':'none';
+    if(!_scrollTicking){
+      _scrollTicking=true;
+      requestAnimationFrame(function(){
+        stb.style.display=window.scrollY>400?'flex':'none';
+        _scrollTicking=false;
+      });
+    }
   },{passive:true});
 
   /* ---- Copy verse ---- */
@@ -925,7 +947,7 @@ VC_JS = """\
         if(tr.classList.contains('ayah-sep'))return;
         if(tr.classList.contains('audio'))return;
         if(tr.style.display==='none')return;
-        var lbl=tr.querySelector('.label');
+        var lbl=tr.cells[0];
         var val=tr.cells[1];
         if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
       });
@@ -938,13 +960,13 @@ VC_JS = """\
   };
 
   /* ---- Verse permalink click ---- */
-  document.querySelectorAll('a.permalink').forEach(function(a){
-    a.addEventListener('click',function(e){
-      e.preventDefault();
-      var url=location.origin+location.pathname+'#'+a.dataset.ayah;
-      navigator.clipboard&&navigator.clipboard.writeText(url);
-      history.replaceState(null,'','#'+a.dataset.ayah);
-    });
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a.permalink');
+    if(!a)return;
+    e.preventDefault();
+    var url=location.origin+location.pathname+'#'+a.dataset.ayah;
+    navigator.clipboard&&navigator.clipboard.writeText(url);
+    history.replaceState(null,'','#'+a.dataset.ayah);
   });
 })();
 </script>
@@ -991,6 +1013,7 @@ for sura_idx in range(1, 115):
             ho = hindi_omari.get((sura_idx, ayah), '')
             ru = roman_urdu.get((sura_idx, ayah), '')
             rj = roman_urdu_junagarhi.get((sura_idx, ayah), '')
+            du = devnagri_urdu.get((sura_idx, ayah), '')
 
             # Juz marker row
             juz_num = JUZ_STARTS.get((sura_idx, ayah))
@@ -1040,6 +1063,7 @@ for sura_idx in range(1, 115):
                 "<tr class='hindi-omari' data-ayah='%d'><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368; (Al-Omari)</td><td class='hindi-omari-text' lang='hi'>%s</td></tr>\n"
                 "<tr class='roman-urdu' data-ayah='%d'><td class='label'>Roman Urdu (Maududi)</td><td class='roman-urdu-text' lang='ur-Latn'>%s</td></tr>\n"
                 "<tr class='roman-urdu-junagarhi' data-ayah='%d'><td class='label'>Roman Urdu (Junagarhi)</td><td class='roman-urdu-junagarhi-text' lang='ur-Latn'>%s</td></tr>\n"
+                "<tr class='devnagri-urdu' data-ayah='%d'><td class='label'>Devnagri Urdu (Maududi)</td><td class='devnagri-urdu-text' lang='hi'>%s</td></tr>\n"
                 % (ayah, ayah,
                    ayah, ayah, ayah,
                    sajda_badge, copy_btn, bm_btn,
@@ -1060,7 +1084,8 @@ for sura_idx in range(1, 115):
                    ayah, np_,
                    ayah, ho,
                    ayah, ru,
-                   ayah, rj)
+                   ayah, rj,
+                   ayah, du)
             )
         out.write(FOOTER_HTML.format(nav=nav, script=VC_JS))
 
@@ -1252,6 +1277,7 @@ _FIELD_SOURCES = [
     ('hindi-omari',          hindi_omari),
     ('roman-urdu',           roman_urdu),
     ('roman-urdu-junagarhi', roman_urdu_junagarhi),
+    ('devnagri-urdu',        devnagri_urdu),
 ]
 for field_key, field_dict in _FIELD_SOURCES:
     arr = [field_dict.get((s, a), '') for s, a, _ in _ayah_order]
@@ -1292,6 +1318,7 @@ SEARCH_CSS = CSS + """
 .result-field.hindi-omari{background:#fff0f5;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
 .result-field.roman-urdu{background:#f0f4c3;font-weight:500;color:#33691e}
 .result-field.roman-urdu-junagarhi{background:#e8f5e9;font-weight:500;color:#1b5e20}
+.result-field.devnagri-urdu{background:#e8eaf0;font-family:'Noto Sans Devanagari',Arial,sans-serif;font-weight:500;color:#1a237e}
 .result-highlight{background:#fff176;border-radius:2px}
 .pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
 .pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
@@ -1367,7 +1394,8 @@ SEARCH_HTML = """\
     ['nepali',               'Nepali (Ahl-al-Hadith)'],
     ['hindi-omari',          '\u0939\u093f\u0928\u094d\u0926\u0940 (Al-Omari)'],
     ['roman-urdu',           'Roman Urdu (Maududi)'],
-    ['roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)']
+    ['roman-urdu-junagarhi', 'Roman Urdu (Junagarhi)'],
+    ['devnagri-urdu',        'Devnagri Urdu (Maududi)']
   ];
 
   function getActiveFields(){{
@@ -1412,16 +1440,23 @@ SEARCH_HTML = """\
   /* Prefetch meta immediately so first search is fast */
   loadMeta();
 
+  /* Pre-compiled highlight regexes — rebuilt once per search, reused across all results */
+  var _hlRegexes=[];
+  function buildHighlightRegexes(terms){{
+    _hlRegexes=terms.filter(Boolean).map(function(term){{
+      return new RegExp('('+term.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&')+')', 'gi');
+    }});
+  }}
+
   function escHtml(s){{
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }}
 
-  function highlight(text, terms){{
-    var escaped = escHtml(text);
-    terms.forEach(function(term){{
-      if(!term) return;
-      var re = new RegExp('(' + term.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&') + ')', 'gi');
-      escaped = escaped.replace(re, '<mark class="result-highlight">$1</mark>');
+  function highlight(text){{
+    var escaped=escHtml(text);
+    _hlRegexes.forEach(function(re){{
+      re.lastIndex=0;
+      escaped=escaped.replace(re,'<mark class="result-highlight">$1</mark>');
     }});
     return escaped;
   }}
@@ -1437,17 +1472,18 @@ SEARCH_HTML = """\
     statusEl.textContent = 'Showing ' + (start+1) + '\u2013' + end + ' of ' + total + ' result(s) for \u201c' + input.value.trim() + '\u201d';
     var html = '';
     var activeFields=getActiveFields();
+    /* Pre-fetch field arrays once before the render loop */
+    var renderFieldArrays=activeFields.map(function(f){{return [f[0],fieldCache[f[0]]||[]];}});
     for(var i=start;i<end;i++){{
       var m=allMatches[i];
       var href=String(m.s).padStart(3,'0')+'.html#ayah-'+m.a;
       html+='<div class="result-card">'
         +'<div class="result-header"><span>Surah '+m.s+':'+m.a+' &mdash; '+escHtml(m.n)+'</span>'
         +'<a href="'+href+'">View verse &rarr;</a></div>';
-      activeFields.forEach(function(f){{
-        var arr=fieldCache[f[0]]||[];
-        var val=arr[m.i]||'';
+      renderFieldArrays.forEach(function(fa){{
+        var val=fa[1][m.i]||'';
         if(!val)return;
-        html+='<div class="result-field '+f[0]+'">'+highlight(val,currentTerms)+'</div>';
+        html+='<div class="result-field '+fa[0]+'">'+highlight(val)+'</div>';
       }});
       html+='</div>';
     }}
@@ -1490,16 +1526,15 @@ SEARCH_HTML = """\
     paginEl.innerHTML='';
     var fieldPromises = activeFields.map(function(f){{return loadField(f[0]);}});
     Promise.all([loadMeta()].concat(fieldPromises)).then(function(){{
+      /* Pre-cache field arrays once before the 6000+ row search loop */
+      var fieldArrays=activeFields.map(function(f){{return fieldCache[f[0]]||[];}});
       allMatches = [];
       for(var i=0;i<metaData.length;i++){{
         var row=metaData[i];
         var parts=[row[2]];
-        activeFields.forEach(function(f){{
-          var arr=fieldCache[f[0]]||[];
-          parts.push(arr[i]||'');
-        }});
+        fieldArrays.forEach(function(arr){{parts.push(arr[i]||'');}});
         var haystack=parts.join(' ').toLowerCase();
-        if(currentTerms.every(function(t){{return haystack.indexOf(t)!==-1;}})){{
+        if(currentTerms.every(function(t){{return haystack.includes(t);}})){{
           allMatches.push({{i:i,s:row[0],a:row[1],n:row[2]}});
         }}
       }}
@@ -1509,6 +1544,7 @@ SEARCH_HTML = """\
         paginEl.innerHTML='';
         return;
       }}
+      buildHighlightRegexes(currentTerms);
       renderPage(1);
     }}).catch(function(err){{
       statusEl.textContent='Error loading search data. Please try again.';
@@ -1843,18 +1879,26 @@ BOOKMARKS_HTML = """\
         +'<a href="'+href+'">\U0001F4D6 '+suraName+', Ayah '+b.a+'</a>'
         +'<div class="bm-item-meta">Bookmarked '+relTime(b.t)+'</div>'
         +'</div>'
-        +'<button class="bm-item-del" onclick="deleteBm('+i+')" title="Delete this bookmark">&times; Remove</button>'
+        +'<button class="bm-item-del" data-key="'+b.s+':'+b.a+'" title="Delete this bookmark">&times; Remove</button>'
         +'</li>';
     }}
     listEl.innerHTML=html;
   }}
 
-  window.deleteBm=function(idx){{
-    var bms=load();
-    bms.splice(idx,1);
-    save(bms);
-    render();
-  }};
+  /* Event delegation for bookmark deletion — avoids per-item onclick with stale indices */
+  (function(){{
+    var listEl=document.getElementById('bm-list');
+    if(listEl){{
+      listEl.addEventListener('click',function(e){{
+        var btn=e.target.closest('.bm-item-del');
+        if(!btn)return;
+        var key=btn.dataset.key;
+        var bms=load();
+        var idx=bms.findIndex(function(b){{return b.s+':'+b.a===key;}});
+        if(idx>=0){{bms.splice(idx,1);save(bms);render();}}
+      }});
+    }}
+  }})();
 
   window.clearAllBm=function(){{
     if(!confirm('Remove all '+load().length+' bookmark(s)?'))return;
