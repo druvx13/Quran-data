@@ -319,18 +319,26 @@ footer a:hover{text-decoration:underline}
         +'<a href="'+href+'">📖 '+suraName+', Ayah '+b.a+'</a>'
         +'<div class="bm-item-meta">Bookmarked '+relTime(b.t)+'</div>'
         +'</div>'
-        +'<button class="bm-item-del" onclick="deleteBm('+i+')" title="Delete this bookmark">&times; Remove</button>'
+        +'<button class="bm-item-del" data-key="'+b.s+':'+b.a+'" title="Delete this bookmark">&times; Remove</button>'
         +'</li>';
     }
     listEl.innerHTML=html;
   }
 
-  window.deleteBm=function(idx){
-    var bms=load();
-    bms.splice(idx,1);
-    save(bms);
-    render();
-  };
+  /* Event delegation for bookmark deletion — avoids per-item onclick with stale indices */
+  (function(){
+    var listEl=document.getElementById('bm-list');
+    if(listEl){
+      listEl.addEventListener('click',function(e){
+        var btn=e.target.closest('.bm-item-del');
+        if(!btn)return;
+        var key=btn.dataset.key;
+        var bms=load();
+        var idx=bms.findIndex(function(b){return b.s+':'+b.a===key;});
+        if(idx>=0){bms.splice(idx,1);save(bms);render();}
+      });
+    }
+  })();
 
   window.clearAllBm=function(){
     if(!confirm('Remove all '+load().length+' bookmark(s)?'))return;

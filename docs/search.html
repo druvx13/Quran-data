@@ -368,16 +368,23 @@ footer a:hover{text-decoration:underline}
   /* Prefetch meta immediately so first search is fast */
   loadMeta();
 
+  /* Pre-compiled highlight regexes — rebuilt once per search, reused across all results */
+  var _hlRegexes=[];
+  function buildHighlightRegexes(terms){
+    _hlRegexes=terms.filter(Boolean).map(function(term){
+      return new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')', 'gi');
+    });
+  }
+
   function escHtml(s){
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
-  function highlight(text, terms){
-    var escaped = escHtml(text);
-    terms.forEach(function(term){
-      if(!term) return;
-      var re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
-      escaped = escaped.replace(re, '<mark class="result-highlight">$1</mark>');
+  function highlight(text){
+    var escaped=escHtml(text);
+    _hlRegexes.forEach(function(re){
+      re.lastIndex=0;
+      escaped=escaped.replace(re,'<mark class="result-highlight">$1</mark>');
     });
     return escaped;
   }
@@ -393,17 +400,18 @@ footer a:hover{text-decoration:underline}
     statusEl.textContent = 'Showing ' + (start+1) + '–' + end + ' of ' + total + ' result(s) for “' + input.value.trim() + '”';
     var html = '';
     var activeFields=getActiveFields();
+    /* Pre-fetch field arrays once before the render loop */
+    var renderFieldArrays=activeFields.map(function(f){return [f[0],fieldCache[f[0]]||[]];});
     for(var i=start;i<end;i++){
       var m=allMatches[i];
       var href=String(m.s).padStart(3,'0')+'.html#ayah-'+m.a;
       html+='<div class="result-card">'
         +'<div class="result-header"><span>Surah '+m.s+':'+m.a+' &mdash; '+escHtml(m.n)+'</span>'
         +'<a href="'+href+'">View verse &rarr;</a></div>';
-      activeFields.forEach(function(f){
-        var arr=fieldCache[f[0]]||[];
-        var val=arr[m.i]||'';
+      renderFieldArrays.forEach(function(fa){
+        var val=fa[1][m.i]||'';
         if(!val)return;
-        html+='<div class="result-field '+f[0]+'">'+highlight(val,currentTerms)+'</div>';
+        html+='<div class="result-field '+fa[0]+'">'+highlight(val)+'</div>';
       });
       html+='</div>';
     }
@@ -446,16 +454,15 @@ footer a:hover{text-decoration:underline}
     paginEl.innerHTML='';
     var fieldPromises = activeFields.map(function(f){return loadField(f[0]);});
     Promise.all([loadMeta()].concat(fieldPromises)).then(function(){
+      /* Pre-cache field arrays once before the 6000+ row search loop */
+      var fieldArrays=activeFields.map(function(f){return fieldCache[f[0]]||[];});
       allMatches = [];
       for(var i=0;i<metaData.length;i++){
         var row=metaData[i];
         var parts=[row[2]];
-        activeFields.forEach(function(f){
-          var arr=fieldCache[f[0]]||[];
-          parts.push(arr[i]||'');
-        });
+        fieldArrays.forEach(function(arr){parts.push(arr[i]||'');});
         var haystack=parts.join(' ').toLowerCase();
-        if(currentTerms.every(function(t){return haystack.indexOf(t)!==-1;})){
+        if(currentTerms.every(function(t){return haystack.includes(t);})){
           allMatches.push({i:i,s:row[0],a:row[1],n:row[2]});
         }
       }
@@ -465,6 +472,7 @@ footer a:hover{text-decoration:underline}
         paginEl.innerHTML='';
         return;
       }
+      buildHighlightRegexes(currentTerms);
       renderPage(1);
     }).catch(function(err){
       statusEl.textContent='Error loading search data. Please try again.';

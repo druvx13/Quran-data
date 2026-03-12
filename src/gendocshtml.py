@@ -814,8 +814,7 @@ VC_JS = """\
       if(tr.classList.contains('ayah-sep')||tr.classList.contains('juz-marker')){
         tr.style.display=inRange?'':'none';
       }else{
-        var typeEnabled=false;
-        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        var typeEnabled=Array.prototype.some.call(tr.classList,function(c){return enabledTypes.has(c);});
         tr.style.display=(inRange&&typeEnabled)?'':'none';
       }
     });
@@ -889,11 +888,9 @@ VC_JS = """\
   }
   function applyFs(){
     var scale=fsSteps[fsIdx];
-    document.querySelectorAll('.arabic-text').forEach(function(el){
-      el.style.fontSize=(1.5*scale)+'em';
-    });
-    document.querySelectorAll('td:not(.label)').forEach(function(el){
-      el.style.fontSize=(scale)+'em';
+    document.querySelectorAll('td').forEach(function(el){
+      if(el.classList.contains('label'))return;
+      el.style.fontSize=(el.classList.contains('arabic-text')?1.5*scale:scale)+'em';
     });
     localStorage.setItem(FS_KEY,fsIdx);
   }
@@ -910,8 +907,15 @@ VC_JS = """\
   stb.innerHTML='&#8679;';
   stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
   document.body.appendChild(stb);
+  var _scrollTicking=false;
   window.addEventListener('scroll',function(){
-    stb.style.display=window.scrollY>400?'flex':'none';
+    if(!_scrollTicking){
+      _scrollTicking=true;
+      requestAnimationFrame(function(){
+        stb.style.display=window.scrollY>400?'flex':'none';
+        _scrollTicking=false;
+      });
+    }
   },{passive:true});
 
   /* ---- Copy verse ---- */
@@ -925,7 +929,7 @@ VC_JS = """\
         if(tr.classList.contains('ayah-sep'))return;
         if(tr.classList.contains('audio'))return;
         if(tr.style.display==='none')return;
-        var lbl=tr.querySelector('.label');
+        var lbl=tr.cells[0];
         var val=tr.cells[1];
         if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
       });
@@ -938,13 +942,13 @@ VC_JS = """\
   };
 
   /* ---- Verse permalink click ---- */
-  document.querySelectorAll('a.permalink').forEach(function(a){
-    a.addEventListener('click',function(e){
-      e.preventDefault();
-      var url=location.origin+location.pathname+'#'+a.dataset.ayah;
-      navigator.clipboard&&navigator.clipboard.writeText(url);
-      history.replaceState(null,'','#'+a.dataset.ayah);
-    });
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a.permalink');
+    if(!a)return;
+    e.preventDefault();
+    var url=location.origin+location.pathname+'#'+a.dataset.ayah;
+    navigator.clipboard&&navigator.clipboard.writeText(url);
+    history.replaceState(null,'','#'+a.dataset.ayah);
   });
 })();
 </script>
@@ -1412,16 +1416,23 @@ SEARCH_HTML = """\
   /* Prefetch meta immediately so first search is fast */
   loadMeta();
 
+  /* Pre-compiled highlight regexes — rebuilt once per search, reused across all results */
+  var _hlRegexes=[];
+  function buildHighlightRegexes(terms){{
+    _hlRegexes=terms.filter(Boolean).map(function(term){{
+      return new RegExp('('+term.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&')+')', 'gi');
+    }});
+  }}
+
   function escHtml(s){{
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }}
 
-  function highlight(text, terms){{
-    var escaped = escHtml(text);
-    terms.forEach(function(term){{
-      if(!term) return;
-      var re = new RegExp('(' + term.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&') + ')', 'gi');
-      escaped = escaped.replace(re, '<mark class="result-highlight">$1</mark>');
+  function highlight(text){{
+    var escaped=escHtml(text);
+    _hlRegexes.forEach(function(re){{
+      re.lastIndex=0;
+      escaped=escaped.replace(re,'<mark class="result-highlight">$1</mark>');
     }});
     return escaped;
   }}
@@ -1437,17 +1448,18 @@ SEARCH_HTML = """\
     statusEl.textContent = 'Showing ' + (start+1) + '\u2013' + end + ' of ' + total + ' result(s) for \u201c' + input.value.trim() + '\u201d';
     var html = '';
     var activeFields=getActiveFields();
+    /* Pre-fetch field arrays once before the render loop */
+    var renderFieldArrays=activeFields.map(function(f){{return [f[0],fieldCache[f[0]]||[]];}});
     for(var i=start;i<end;i++){{
       var m=allMatches[i];
       var href=String(m.s).padStart(3,'0')+'.html#ayah-'+m.a;
       html+='<div class="result-card">'
         +'<div class="result-header"><span>Surah '+m.s+':'+m.a+' &mdash; '+escHtml(m.n)+'</span>'
         +'<a href="'+href+'">View verse &rarr;</a></div>';
-      activeFields.forEach(function(f){{
-        var arr=fieldCache[f[0]]||[];
-        var val=arr[m.i]||'';
+      renderFieldArrays.forEach(function(fa){{
+        var val=fa[1][m.i]||'';
         if(!val)return;
-        html+='<div class="result-field '+f[0]+'">'+highlight(val,currentTerms)+'</div>';
+        html+='<div class="result-field '+fa[0]+'">'+highlight(val)+'</div>';
       }});
       html+='</div>';
     }}
@@ -1490,16 +1502,15 @@ SEARCH_HTML = """\
     paginEl.innerHTML='';
     var fieldPromises = activeFields.map(function(f){{return loadField(f[0]);}});
     Promise.all([loadMeta()].concat(fieldPromises)).then(function(){{
+      /* Pre-cache field arrays once before the 6000+ row search loop */
+      var fieldArrays=activeFields.map(function(f){{return fieldCache[f[0]]||[];}});
       allMatches = [];
       for(var i=0;i<metaData.length;i++){{
         var row=metaData[i];
         var parts=[row[2]];
-        activeFields.forEach(function(f){{
-          var arr=fieldCache[f[0]]||[];
-          parts.push(arr[i]||'');
-        }});
+        fieldArrays.forEach(function(arr){{parts.push(arr[i]||'');}});
         var haystack=parts.join(' ').toLowerCase();
-        if(currentTerms.every(function(t){{return haystack.indexOf(t)!==-1;}})){{
+        if(currentTerms.every(function(t){{return haystack.includes(t);}})){{
           allMatches.push({{i:i,s:row[0],a:row[1],n:row[2]}});
         }}
       }}
@@ -1509,6 +1520,7 @@ SEARCH_HTML = """\
         paginEl.innerHTML='';
         return;
       }}
+      buildHighlightRegexes(currentTerms);
       renderPage(1);
     }}).catch(function(err){{
       statusEl.textContent='Error loading search data. Please try again.';
@@ -1843,18 +1855,26 @@ BOOKMARKS_HTML = """\
         +'<a href="'+href+'">\U0001F4D6 '+suraName+', Ayah '+b.a+'</a>'
         +'<div class="bm-item-meta">Bookmarked '+relTime(b.t)+'</div>'
         +'</div>'
-        +'<button class="bm-item-del" onclick="deleteBm('+i+')" title="Delete this bookmark">&times; Remove</button>'
+        +'<button class="bm-item-del" data-key="'+b.s+':'+b.a+'" title="Delete this bookmark">&times; Remove</button>'
         +'</li>';
     }}
     listEl.innerHTML=html;
   }}
 
-  window.deleteBm=function(idx){{
-    var bms=load();
-    bms.splice(idx,1);
-    save(bms);
-    render();
-  }};
+  /* Event delegation for bookmark deletion — avoids per-item onclick with stale indices */
+  (function(){{
+    var listEl=document.getElementById('bm-list');
+    if(listEl){{
+      listEl.addEventListener('click',function(e){{
+        var btn=e.target.closest('.bm-item-del');
+        if(!btn)return;
+        var key=btn.dataset.key;
+        var bms=load();
+        var idx=bms.findIndex(function(b){{return b.s+':'+b.a===key;}});
+        if(idx>=0){{bms.splice(idx,1);save(bms);render();}}
+      }});
+    }}
+  }})();
 
   window.clearAllBm=function(){{
     if(!confirm('Remove all '+load().length+' bookmark(s)?'))return;
