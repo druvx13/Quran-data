@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>बुकमार्क &ndash; क़ुरआन हिंदी</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:'Noto Sans Devanagari',system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#145a32;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#f9e79f;text-decoration:none;font-weight:bold;font-size:1.05em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#145a32;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f7f4;border:1px solid #a9cfc0;
+  border-radius:6px;text-decoration:none;color:#145a32;font-size:.93em;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.surah-grid a:hover{background:#d5ede5}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fefbd8;border-left:4px solid #f9e79f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#145a32;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #c8ddd6}
+.ayah-sep td{background:#145a32;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#145a32}
+.label{color:#666;font-size:.82em;white-space:nowrap;width:120px;vertical-align:top;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.audio td{background:#e0f7fa}
+.audio-player{width:100%;max-width:420px;height:36px;vertical-align:middle}
+.translit-unicode td{background:#e8eaf6}
+.translit-unicode-text{font-style:normal;font-weight:600;color:#283593}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+.hindi-suhail td{background:#fff3e0}
+.hindi-suhail-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#5d4037}
+.hindi-mokhtasar td{background:#e8f5e0}
+.hindi-mokhtasar-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#1b5e20}
+.hindi-omari td{background:#fff0f5}
+.hindi-omari-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#880e30}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #c8ddd6}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#145a32;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#1e8449}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#145a32;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #f9e79f;background:#145a32;color:#f9e79f;font-size:.9em;cursor:pointer;max-width:260px;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.surah-nav-select:focus{outline:2px solid #f9e79f;outline-offset:2px}
+.verse-chooser{background:#f0f7f4;border:1px solid #a9cfc0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#d5ede5;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#145a32}
+.vc-arrow{color:#145a32;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#145a32;color:#fff;min-height:36px;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.vc-controls button:hover{background:#1e8449}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#145a32;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #a9cfc0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #f9e79f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #a9cfc0;border-radius:4px;cursor:pointer;font-size:.85em;color:#145a32;user-select:none;white-space:nowrap;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.cf-item label:hover{background:#d5ede5}
+.cf-item input:checked+label{background:#145a32;color:#fff;border-color:#145a32}
+.cf-item input:focus+label{outline:2px solid #f9e79f;outline-offset:2px}
+.surah-info-bar{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;
+  padding:8px 12px;background:#f0f7f4;border:1px solid #a9cfc0;border-radius:6px;
+  margin-bottom:14px;font-size:.88em;color:#145a32}
+.surah-info-bar span{white-space:nowrap}
+.sib-type{font-weight:700;padding:2px 8px;border-radius:10px;font-size:.95em}
+.sib-type.meccan{background:#fff8e1;color:#e65100;border:1px solid #ffcc80}
+.sib-type.medinan{background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7}
+.juz-marker td{background:#145a32;color:#f9e79f;font-weight:700;font-size:.85em;
+  padding:5px 12px;letter-spacing:.04em;border-color:#145a32;text-align:center}
+.sajda-badge{display:inline-flex;align-items:center;gap:4px;
+  background:#e8f5e9;color:#1b5e20;font-size:.78em;font-weight:600;
+  padding:1px 6px;border-radius:8px;border:1px solid #a5d6a7;margin-left:8px;vertical-align:middle}
+.copy-btn{background:none;border:1px solid #a9cfc0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#666;margin-left:8px;vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#d5ede5;color:#145a32}
+.bm-btn{background:none;border:1px solid #a9cfc0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#666;margin-left:4px;
+  vertical-align:middle;line-height:1.4;transition:background .15s,color .15s}
+.bm-btn:hover{background:#fff8e1;color:#e65100}
+.bm-btn.active{background:#fff8e1;color:#e65100;border-color:#ffa726}
+@keyframes ayah-pulse{0%{background:#145a32}40%{background:#f9e79f}100%{background:#145a32}}
+.ayah-anchor-highlight td{animation:ayah-pulse .8s ease-in-out 3}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#145a32;color:#f9e79f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#1e8449}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #a9cfc0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#145a32;min-height:30px}
+.vc-font-ctrl button:hover{background:#d5ede5}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:170px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  .audio-player{max-width:100%;height:40px}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#0d1f17;color:#e8e8e8}
+  header{background:#0a3d22}
+  main{color:#e8e8e8}
+  h2{color:#82e0aa}
+  td{border-color:#2a4d3a;color:#e8e8e8}
+  .ayah-sep td{background:#0a3d22;border-color:#0a3d22}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .audio td{background:#0d2228}
+  .translit-unicode td{background:#1a1f3a}
+  .hindi td{background:#1e1530}
+  .hindi-suhail td{background:#2a1f10}
+  .hindi-mokhtasar td{background:#102010}
+  .hindi-omari td{background:#200010}
+  .surah-grid a{background:#122a1f;border-color:#2a4d3a;color:#82e0aa}
+  .surah-grid a:hover{background:#1a3d2c}
+  .sg-meta{color:#aaa}
+  .notice{background:#1a2a10;border-left-color:#f9e79f;color:#e8e8e8}
+  .verse-chooser{background:#122a1f;border-color:#2a4d3a}
+  .verse-chooser summary{background:#0d2118}
+  .vc-title{color:#82e0aa}
+  .vc-arrow{color:#82e0aa}
+  .vc-range input[type=number]{background:#0d1f17;border-color:#2a4d3a;color:#e8e8e8}
+  .cf-item label{background:#0d1f17;border-color:#2a4d3a;color:#82e0aa}
+  .cf-item label:hover{background:#1a3d2c}
+  .cf-item input:checked+label{background:#145a32;color:#fff}
+  footer{color:#aaa;border-top-color:#2a4d3a}
+  footer a{color:#82e0aa}
+  th{background:#0a3d22}
+  .translit-unicode-text{color:#9fa8da}
+  .hindi-text{color:#b39ddb}
+  .hindi-suhail-text{color:#ffcc80}
+  .hindi-mokhtasar-text{color:#a5d6a7}
+  .hindi-omari-text{color:#f48fb1}
+  .surah-info-bar{background:#122a1f;border-color:#2a4d3a;color:#82e0aa}
+  .sib-type.meccan{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
+  .sib-type.medinan{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .juz-marker td{background:#0a3d22;border-color:#0a3d22}
+  .sajda-badge{background:#0a1e10;color:#a5d6a7;border-color:#2e7d32}
+  .copy-btn{border-color:#2a4d3a;color:#82e0aa}
+  .copy-btn:hover{background:#1a3d2c}
+  .bm-btn{border-color:#2a4d3a;color:#aaa}
+  .bm-btn:hover{background:#2a1f00;color:#ffcc80}
+  .bm-btn.active{background:#2a1f00;color:#ffcc80;border-color:#8b6914}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#0d1f17;border-color:#2a4d3a;color:#82e0aa}
+  .vc-font-ctrl button:hover{background:#1a3d2c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:120px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .ayah-sep td{background:#ddd!important;color:#000!important}
+  tr[data-ayah]{display:table-row!important}
+}
+.bm-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.bm-item{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  background:#f0f7f4;border:1px solid #a9cfc0;border-radius:6px}
+.bm-item:hover{background:#d5ede5}
+.bm-info{flex:1;min-width:0}
+.bm-title{font-weight:600;font-size:.95em;color:#145a32;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.bm-meta{font-size:.78em;color:#666;margin-top:2px}
+.bm-go{padding:6px 14px;background:#145a32;color:#fff;border:none;border-radius:4px;
+  cursor:pointer;font-size:.9em;text-decoration:none;white-space:nowrap;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.bm-go:hover{background:#1e8449}
+.bm-del{padding:6px 10px;background:#fff;color:#c0392b;border:1px solid #e88;
+  border-radius:4px;cursor:pointer;font-size:.9em}
+.bm-del:hover{background:#ffeaea}
+.bm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.bm-actions button{padding:7px 16px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.9em;background:#145a32;color:#fff;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.bm-actions button:hover{background:#1e8449}
+.bm-empty{color:#888;font-size:.95em;margin-top:16px;
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+@media(prefers-color-scheme:dark){
+  .bm-item{background:#122a1f;border-color:#2a4d3a}
+  .bm-item:hover{background:#1a3d2c}
+  .bm-title{color:#82e0aa}
+  .bm-meta{color:#aaa}
+  .bm-del{background:#1a0a0a;color:#f1948a;border-color:#7b241c}
+  .bm-del:hover{background:#2a1010}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html">&#8962; मुख्य पृष्ठ</a>
+  <a class="header-search" href="bookmarks.html">&#128278; बुकमार्क</a>
+</header>
+<main>
+<h1>&#128278; मेरे बुकमार्क</h1>
+<div class="bm-actions">
+  <button onclick="exportBM()">&#128229; निर्यात करें (JSON)</button>
+  <button onclick="document.getElementById('bm-import').click()">&#128228; आयात करें</button>
+  <button onclick="clearAllBM()" style="background:#c0392b">&#128465; सभी हटाएँ</button>
+</div>
+<input type="file" id="bm-import" accept=".json" style="display:none" onchange="importBM(event)">
+<div id="bm-list" class="bm-list"></div>
+<p id="bm-empty" class="bm-empty" style="display:none">कोई बुकमार्क नहीं है। किसी आयत पर &#128278; बटन दबाएँ।</p>
+</main>
+<footer><a href='https://github.com/druvx13/Quran-data' rel='noopener noreferrer'>GitHub</a> &nbsp;|&nbsp; <a href='https://quran.com' rel='noopener noreferrer'>Quran.com</a> &nbsp;|&nbsp; <span>ऑडियो: मिशारी रशीद अलफ़ासी</span></footer>
+<script>
+var BM_KEY='hindi-quran-bookmark';
+function loadBMs(){
+  var bms=[];
+  try{bms=JSON.parse(localStorage.getItem(BM_KEY)||'[]');}catch(_){}
+  return Array.isArray(bms)?bms:[];
+}
+function saveBMs(bms){
+  try{localStorage.setItem(BM_KEY,JSON.stringify(bms));}catch(_){}
+}
+function timeAgo(t){
+  var diff=Math.round((Date.now()-t)/60000);
+  if(diff<1)return 'अभी';
+  if(diff<60)return diff+' मिनट पहले';
+  if(diff<1440)return Math.round(diff/60)+' घंटे पहले';
+  return Math.round(diff/1440)+' दिन पहले';
+}
+function renderBMs(){
+  var bms=loadBMs();
+  var listEl=document.getElementById('bm-list');
+  var emptyEl=document.getElementById('bm-empty');
+  listEl.innerHTML='';
+  if(!bms.length){emptyEl.style.display='';return;}
+  emptyEl.style.display='none';
+  bms.forEach(function(bm,idx){
+    var href=String(bm.s).padStart(3,'0')+'.html#ayah-'+bm.a;
+    var sura=bm.n||('सूरह '+bm.s);
+    var div=document.createElement('div');
+    div.className='bm-item';
+    div.innerHTML=
+      '<div class="bm-info">'
+      +'<div class="bm-title">&#128214; '+sura+' &mdash; आयत '+bm.a+'</div>'
+      +'<div class="bm-meta">'+timeAgo(bm.t)+'</div>'
+      +'</div>'
+      +'<a href="'+href+'" class="bm-go">जाएँ &#8594;</a>'
+      +'<button class="bm-del" onclick="deleteBM('+idx+')" title="हटाएँ">&#10005;</button>';
+    listEl.appendChild(div);
+  });
+}
+window.deleteBM=function(idx){
+  var bms=loadBMs();
+  bms.splice(idx,1);
+  saveBMs(bms);
+  renderBMs();
+};
+window.clearAllBM=function(){
+  if(confirm('क्या आप सभी बुकमार्क हटाना चाहते हैं?')){
+    saveBMs([]);
+    renderBMs();
+  }
+};
+window.exportBM=function(){
+  var bms=loadBMs();
+  var blob=new Blob([JSON.stringify(bms,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='quran-hindi-bookmarks.json';
+  a.click();
+};
+window.importBM=function(e){
+  var file=e.target.files[0];
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      var data=JSON.parse(ev.target.result);
+      if(Array.isArray(data)){saveBMs(data);renderBMs();}
+      else alert('अमान्य फ़ाइल।');
+    }catch(_){alert('फ़ाइल पढ़ने में त्रुटि।');}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+};
+renderBMs();
+</script>
+</body>
+</html>
