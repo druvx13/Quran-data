@@ -120,19 +120,24 @@ JUZ_STARTS = {
     (46, 1): 26, (51, 31): 27, (58, 1): 28, (67, 1): 29, (78, 1): 30,
 }
 
+def _build_juz_map():
+    current = 1
+    out = {}
+    for sura_idx, size in enumerate(SURA_SIZE, 1):
+        for ayah in range(1, size + 1):
+            current = JUZ_STARTS.get((sura_idx, ayah), current)
+            out.setdefault(sura_idx, set()).add(current)
+    return {k: sorted(v) for k, v in out.items()}
+
+JUZ_MAP = _build_juz_map()
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
 def surah_juz_span(sura_idx: int) -> str:
     """Return juz coverage for the surah, e.g. '1' or '1–2'."""
-    size = SURA_SIZE[sura_idx - 1]
-    juz_set = set()
-    current = 1
-    for ayah in range(1, size + 1):
-        current = JUZ_STARTS.get((sura_idx, ayah), current)
-        juz_set.add(current)
-    juz_list = sorted(juz_set)
+    juz_list = JUZ_MAP[sura_idx]
     if len(juz_list) == 1:
         return str(juz_list[0])
     return f"{juz_list[0]}\u2013{juz_list[-1]}"
