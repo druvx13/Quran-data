@@ -31,6 +31,7 @@ Outputs:
   - output/hadith/hadith_{collection}_hindi.txt  (only for nawawi)
 """
 
+import math
 import os
 import json
 import zipfile
@@ -916,9 +917,16 @@ def render_hadith_rows(h, show_hindi=False):
     sec  = html_module.escape(h["sec_name"]) if h["sec_name"] else ""
     grades_str = "; ".join(h["grades"]) if h["grades"] else ""
     ref  = h.get("ref", {})
+    ref_book   = ref.get("book", 0)   if ref else 0
+    ref_hadith = ref.get("hadith", 0) if ref else 0
+    # Build reference string; omit "Book 0" for collections that use sequential
+    # numbering without book divisions (e.g. Ibn Majah Introduction).
     ref_str = ""
-    if ref:
-        ref_str = f"Book {ref.get('book', '')}, Hadith {ref.get('hadith', num)}"
+    if ref_hadith:
+        if ref_book:
+            ref_str = f"Book {ref_book}, Hadith {ref_hadith}"
+        else:
+            ref_str = f"Hadith {ref_hadith}"
 
     dn = f"data-hadith='{num}'"
     rows = []
@@ -947,7 +955,7 @@ def render_hadith_rows(h, show_hindi=False):
         rows.append(f"<tr class='grade' {dn}><td class='label'>Grade</td>"
                     f"<td><span class='grade-text'>{html_module.escape(grades_str)}</span></td></tr>")
 
-    if ref_str and ref.get("book", 0) and ref.get("hadith", 0):
+    if ref_str:
         rows.append(f"<tr class='ref' {dn}><td class='label'>Reference</td>"
                     f"<td><span class='ref-text'>{html_module.escape(ref_str)}</span></td></tr>")
 
@@ -1014,15 +1022,57 @@ def gen_large_collection_pages(coll_info, data):
     author = coll_info["author"]
     desc  = coll_info["desc"]
 
+    # Build a section lookup map to correctly assign hadiths that have no sec_id
+    # in the cached data.  This handles two cases:
+    #   1. Fractional hadith numbers (e.g. 815.2): the section_map only has integer
+    #      keys, so 815.2 misses.  We fall back to floor(815.2) = 815.
+    #   2. Section-gap hadiths: integer hadiths that fall between section ranges in
+    #      the metadata (e.g. Bukhari 521 is between sec 8 [349–520] and sec 9
+    #      [522–602]).  We assign them to the nearest preceding section.
+    _sec_map = {}          # integer hadith number → sec_id
+    _sec_ranges = []       # [(first, last, sec_id), ...] sorted by first
+    for sec_id, sec_detail in data.get("section_details", {}).items():
+        if sec_id == "0":
+            continue
+        first = int(sec_detail.get("hadithnumber_first", 0))
+        last  = int(sec_detail.get("hadithnumber_last", 0))
+        if first and last:
+            for n in range(first, last + 1):
+                _sec_map[n] = sec_id
+            _sec_ranges.append((first, last, sec_id))
+    _sec_ranges.sort()
+
+    def _resolve_sec(h):
+        """Return (sec_id, sec_name) for a hadith, resolving orphaned cases."""
+        if h.get("sec_id"):
+            return h["sec_id"], h.get("sec_name", "")
+        n_float = float(h["n"])
+        # Case 1: fractional — try the integer part
+        n_floor = int(math.floor(n_float))
+        if n_floor in _sec_map:
+            sid = _sec_map[n_floor]
+            return sid, data["sections"].get(sid, "")
+        # Case 2: integer gap — find the section whose range ends just before n
+        best_sid = ""
+        best_end = -1
+        for first, last, sid in _sec_ranges:
+            if first <= n_float and last < n_float and last > best_end:
+                best_sid = sid
+                best_end = last
+        if best_sid:
+            return best_sid, data["sections"].get(best_sid, "")
+        return "0", "General"
+
     # Group hadiths by section
     sections_order = []
     sections_data  = {}
     for h in data["hadiths"]:
-        sid  = h["sec_id"] or "0"
-        sname = h["sec_name"] or "General"
+        sid, sname = _resolve_sec(h)
+        if not sid:
+            sid, sname = "0", "General"
         if sid not in sections_data:
             sections_order.append(sid)
-            sections_data[sid] = {"name": sname, "hadiths": []}
+            sections_data[sid] = {"name": sname or "General", "hadiths": []}
         sections_data[sid]["hadiths"].append(h)
 
     # Keep only sections that have at least one hadith with content
@@ -1048,6 +1098,16 @@ def gen_large_collection_pages(coll_info, data):
                 f'</option>'
             )
         return "".join(opts)
+
+    # Remove stale per-book pages from previous runs that are no longer generated.
+    # (e.g. an old book-000.html that existed when orphaned hadiths were in "General"
+    # but is now empty after the section-resolution fix.)
+    new_page_set = {f"{cid}-book-{int(sid):03d}.html" for sid in sections_order}
+    import glob as _glob
+    for old_path in _glob.glob(os.path.join(DOCS_DIR, f"{cid}-book-???.html")):
+        old_file = os.path.basename(old_path)
+        if old_file not in new_page_set:
+            os.remove(old_path)
 
     # Build per-book pages
     book_links = []
