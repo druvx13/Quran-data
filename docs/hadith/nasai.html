@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunan an-Nasai – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › Sunan an-Nasai</span>
+</header>
+<main>
+<h1>Sunan an-Nasai</h1>
+<div class="meta-info">
+  <strong>Author:</strong> Imam Ahmad ibn Shu&#x27;ayb an-Nasai (d. 303 AH) &nbsp;|&nbsp;
+  <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">سنن النسائي</span> &nbsp;|&nbsp;
+  <strong>Total:</strong> 5,765 hadith
+</div>
+<div class="desc">One of the six canonical Sunni hadith collections, noted for strict criteria.</div>
+<h2>Books / Chapters (52)</h2>
+<ul class="book-list">
+<li><a href="nasai-book-001.html">The Book of Purification<span class="bl-count">324 hadith (1–324)</span></a></li><li><a href="nasai-book-002.html">The Book of Water<span class="bl-count">23 hadith (325–347)</span></a></li><li><a href="nasai-book-003.html">The Book of Menstruation and Istihadah<span class="bl-count">48 hadith (348–395)</span></a></li><li><a href="nasai-book-000.html">General<span class="bl-count">89 hadith (384.2–5564.2)</span></a></li><li><a href="nasai-book-004.html">The Book of Ghusl and Tayammum<span class="bl-count">52 hadith (396–447)</span></a></li><li><a href="nasai-book-005.html">The Book of Salah<span class="bl-count">46 hadith (448–493)</span></a></li><li><a href="nasai-book-006.html">The Book of the Times (of Prayer)<span class="bl-count">132 hadith (494–625)</span></a></li><li><a href="nasai-book-007.html">The Book of the Adhan (The Call to Prayer)<span class="bl-count">62 hadith (626–687)</span></a></li><li><a href="nasai-book-008.html">The Book of the Masjids<span class="bl-count">54 hadith (688–741)</span></a></li><li><a href="nasai-book-009.html">The Book of the Qiblah<span class="bl-count">35 hadith (742–776)</span></a></li><li><a href="nasai-book-010.html">The Book of Leading the Prayer (Al-Imamah)<span class="bl-count">99 hadith (777–875)</span></a></li><li><a href="nasai-book-011.html">The Book of the Commencement of the Prayer<span class="bl-count">153 hadith (876–1028)</span></a></li><li><a href="nasai-book-012.html">The Book of The At-Tatbiq (Clasping One&#x27;s Hands Together)<span class="bl-count">150 hadith (1029–1178)</span></a></li><li><a href="nasai-book-013.html">The Book of Forgetfulness (In Prayer)<span class="bl-count">188 hadith (1179–1366)</span></a></li><li><a href="nasai-book-014.html">The Book of Jumu&#x27;ah (Friday Prayer)<span class="bl-count">66 hadith (1367–1432)</span></a></li><li><a href="nasai-book-015.html">The Book of Shortening the Prayer When Traveling<span class="bl-count">26 hadith (1433–1458)</span></a></li><li><a href="nasai-book-016.html">The Book of Eclipses<span class="bl-count">45 hadith (1459–1503)</span></a></li><li><a href="nasai-book-017.html">The Book of Praying for Rain (Al-Istisqa&#x27;)<span class="bl-count">25 hadith (1504–1528)</span></a></li><li><a href="nasai-book-018.html">The Book of the Fear Prayer<span class="bl-count">27 hadith (1529–1555)</span></a></li><li><a href="nasai-book-019.html">The Book of the Prayer for the Two &#x27;Eids<span class="bl-count">42 hadith (1556–1597)</span></a></li><li><a href="nasai-book-020.html">The Book of Qiyam Al-Lail (The Night Prayer) and Voluntary Prayers During the Day<span class="bl-count">220 hadith (1598–1817)</span></a></li><li><a href="nasai-book-021.html">The Book of Funerals<span class="bl-count">272 hadith (1818–2089)</span></a></li><li><a href="nasai-book-022.html">The Book of Fasting<span class="bl-count">345 hadith (2090–2434)</span></a></li><li><a href="nasai-book-023.html">The Book of Zakah<span class="bl-count">184 hadith (2435–2618)</span></a></li><li><a href="nasai-book-024.html">The Book of Hajj<span class="bl-count">466 hadith (2619–3084)</span></a></li><li><a href="nasai-book-025.html">The Book of Jihad<span class="bl-count">111 hadith (3085–3195)</span></a></li><li><a href="nasai-book-026.html">The Book of Marriage<span class="bl-count">193 hadith (3196–3388)</span></a></li><li><a href="nasai-book-027.html">The Book of Divorce<span class="bl-count">172 hadith (3389–3560)</span></a></li><li><a href="nasai-book-028.html">The Book of Horses, Races and Shooting<span class="bl-count">33 hadith (3561–3593)</span></a></li><li><a href="nasai-book-029.html">The Book of Endowments<span class="bl-count">17 hadith (3594–3610)</span></a></li><li><a href="nasai-book-030.html">The Book of Wills<span class="bl-count">61 hadith (3611–3671)</span></a></li><li><a href="nasai-book-031.html">The Book of Presents<span class="bl-count">16 hadith (3672–3687)</span></a></li><li><a href="nasai-book-032.html">The Book of Gifts<span class="bl-count">18 hadith (3688–3705)</span></a></li><li><a href="nasai-book-033.html">The Book of ar-Ruqba<span class="bl-count">14 hadith (3706–3719)</span></a></li><li><a href="nasai-book-034.html">The Book of &#x27;Umra<span class="bl-count">41 hadith (3720–3760)</span></a></li><li><a href="nasai-book-035.html">The Book of Agriculture<span class="bl-count">96 hadith (3761–3856)</span></a></li><li><a href="nasai-book-036.html">The Book of the Kind Treatment of Women<span class="bl-count">27 hadith (3939–3965)</span></a></li><li><a href="nasai-book-037.html">The Book of Fighting [The Prohibition of Bloodshed]<span class="bl-count">167 hadith (3966–4132)</span></a></li><li><a href="nasai-book-038.html">The Book of Distribution of Al-Fay&#x27;<span class="bl-count">16 hadith (4133–4148)</span></a></li><li><a href="nasai-book-039.html">The Book of al-Bay&#x27;ah<span class="bl-count">63 hadith (4149–4211)</span></a></li><li><a href="nasai-book-040.html">The Book of al-&#x27;Aqiqah<span class="bl-count">10 hadith (4212–4221)</span></a></li><li><a href="nasai-book-041.html">The Book of al-Fara&#x27; and al-&#x27;Atirah<span class="bl-count">41 hadith (4222–4262)</span></a></li><li><a href="nasai-book-042.html">The Book of Hunting and Slaughtering<span class="bl-count">98 hadith (4263–4360)</span></a></li><li><a href="nasai-book-043.html">The Book of ad-Dahaya (Sacrifices)<span class="bl-count">88 hadith (4361–4448)</span></a></li><li><a href="nasai-book-044.html">The Book of Financial Transactions<span class="bl-count">257 hadith (4449–4705)</span></a></li><li><a href="nasai-book-045.html">The Book of Oaths (qasamah), Retaliation and Blood Money<span class="bl-count">164 hadith (4706–4869)</span></a></li><li><a href="nasai-book-046.html">The Book of Cutting off the Hand of the Thief<span class="bl-count">115 hadith (4870–4984)</span></a></li><li><a href="nasai-book-047.html">The Book Of Faith and its Signs<span class="bl-count">55 hadith (4985–5039)</span></a></li><li><a href="nasai-book-048.html">The Book of Adornment<span class="bl-count">339 hadith (5040–5378)</span></a></li><li><a href="nasai-book-049.html">The Book of the Etiquette of Judges<span class="bl-count">49 hadith (5379–5427)</span></a></li><li><a href="nasai-book-050.html">The Book of Seeking Refuge with Allah<span class="bl-count">112 hadith (5428–5539)</span></a></li><li><a href="nasai-book-051.html">The Book of Drinks<span class="bl-count">219 hadith (5540–5758)</span></a></li>
+</ul>
+<nav class="chapter-nav">
+  <a href="index.html">← All Collections</a>
+  <a href="../index.html">Qur'an Home</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

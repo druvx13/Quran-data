@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahih Muslim — The Book of Knowledge – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='muslim.html'>Sahih Muslim</a> › The Book of Knowledge</span>
+</header>
+<main>
+<h1>Sahih Muslim</h1>
+<h2>The Book of Knowledge</h2>
+<div class="meta-info">
+  Hadith 6775–6804 &nbsp;|&nbsp;
+  <a href="muslim.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 6775 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ بْنِ قَعْنَبٍ، حَدَّثَنَا يَزِيدُ بْنُ إِبْرَاهِيمَ التُّسْتَرِيُّ، عَنْ عَبْدِ، اللَّهِ بْنِ أَبِي مُلَيْكَةَ عَنِ الْقَاسِمِ بْنِ مُحَمَّدٍ، عَنْ عَائِشَةَ، قَالَتْ تَلاَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏{‏ هُوَ الَّذِي أَنْزَلَ عَلَيْكَ الْكِتَابَ مِنْهُ آيَاتٌ مُحْكَمَاتٌ هُنَّ أُمُّ الْكِتَابِ وَأُخَرُ مُتَشَابِهَاتٌ فَأَمَّا الَّذِينَ فِي قُلُوبِهِمْ زَيْغٌ فَيَتَّبِعُونَ مَا تَشَابَهَ مِنْهُ ابْتِغَاءَ الْفِتْنَةِ وَابْتِغَاءَ تَأْوِيلِهِ وَمَا يَعْلَمُ تَأْوِيلَهُ إِلاَّ اللَّهُ وَالرَّاسِخُونَ فِي الْعِلْمِ يَقُولُونَ آمَنَّا بِهِ كُلٌّ مِنْ عِنْدِ رَبِّنَا وَمَا يَذَّكَّرُ إِلاَّ أُولُو الأَلْبَابِ‏}‏ قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِذَا رَأَيْتُمُ الَّذِينَ يَتَّبِعُونَ مَا تَشَابَهَ مِنْهُ فَأُولَئِكَ الَّذِينَ سَمَّى اللَّهُ فَاحْذَرُوهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>A&#x27;isha reported that Allah&#x27;s Messenger (ﷺ) recited (these verses of the Qur&#x27;an):&quot;He it is Who revealed to thee (Muhammad) the Book (the Qur&#x27;an) wherein there are clear revelations-these are the substance of the Book and others are allegorical (verses). And as for those who have a yearning for error they go after the allegorical verses seeking (to cause) dissension, by seeking to explain them. And none knows their implications but Allah, and those who are sound in knowledge say: We affirm our faith in everything which is from our Lord. It is only the persons of understanding who really heed&quot; (Al-Qur&#x27;an 3:7). &#x27;A&#x27;isha (further) reported that Allah&#x27;s Messenger (ﷺ) said (in connection with these verses): When you see such verses, avoid them, for it is they whom Allah has pointed out (in the mentioned verses)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6776 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو كَامِلٍ، فُضَيْلُ بْنُ حُسَيْنٍ الْجَحْدَرِيُّ حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، حَدَّثَنَا أَبُو عِمْرَانَ الْجَوْنِيُّ قَالَ كَتَبَ إِلَىَّ عَبْدُ اللَّهِ بْنُ رَبَاحٍ الأَنْصَارِيُّ أَنَّ عَبْدَ اللَّهِ بْنَ عَمْرٍو قَالَ هَجَّرْتُ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم يَوْمًا - قَالَ - فَسَمِعَ أَصْوَاتَ رَجُلَيْنِ اخْتَلَفَا فِي آيَةٍ فَخَرَجَ عَلَيْنَا رَسُولُ اللَّهِ صلى الله عليه وسلم يُعْرَفُ فِي وَجْهِهِ الْغَضَبُ فَقَالَ ‏ &quot;‏ إِنَّمَا هَلَكَ مَنْ كَانَ قَبْلَكُمْ بِاخْتِلاَفِهِمْ فِي الْكِتَابِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abdullah b. &#x27;Umar reported:I went to Allah&#x27;s Messenger (ﷺ) in the morning and he heard the voice of two persons who had an argumentation with each other about a verse. Allah&#x27;s Apostle (ﷺ) came to us (and) the (signs) of anger could be seen on his face. He said: Verily, the (peoples) before you were ruined because of their disputation in the Book</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6777 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ يَحْيَى، أَخْبَرَنَا أَبُو قُدَامَةَ الْحَارِثُ بْنُ عُبَيْدٍ، عَنْ أَبِي عِمْرَانَ، عَنْ جُنْدُبِ بْنِ عَبْدِ اللَّهِ الْبَجَلِيِّ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ اقْرَءُوا الْقُرْآنَ مَا ائْتَلَفَتْ عَلَيْهِ قُلُوبُكُمْ فَإِذَا اخْتَلَفْتُمْ فِيهِ فَقُومُوا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jundub b. &#x27;Abdullah al-Bajali reported Allah&#x27;s Messenger (ﷺ) as saying:Recite the Qur&#x27;an as long as your hearts agree to do so, and when you feel variance between them (between your hearts and tongues), then get up (and leave its recital for the time being)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6778 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي إِسْحَاقُ بْنُ مَنْصُورٍ، أَخْبَرَنَا عَبْدُ الصَّمَدِ، حَدَّثَنَا هَمَّامٌ، حَدَّثَنَا أَبُو عِمْرَانَ، الْجَوْنِيُّ عَنْ جُنْدَبٍ، - يَعْنِي ابْنَ عَبْدِ اللَّهِ - أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ اقْرَءُوا الْقُرْآنَ مَا ائْتَلَفَتْ عَلَيْهِ قُلُوبُكُمْ فَإِذَا اخْتَلَفْتُمْ فَقُومُوا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jundub (i. e. Ibn &#x27;Abdullah) reported that Allah&#x27;s Messenger (ﷺ) said:Recite the Qur&#x27;an as long as your hearts agree to do so and when you find variance between them, then stand up</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6779 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي أَحْمَدُ بْنُ سَعِيدِ بْنِ صَخْرٍ الدَّارِمِيُّ، حَدَّثَنَا حَبَّانُ، حَدَّثَنَا أَبَانُ، حَدَّثَنَا أَبُو عِمْرَانَ قَالَ قَالَ لَنَا جُنْدَبٌ وَنَحْنُ غِلْمَانٌ بِالْكُوفَةِ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ اقْرَءُوا الْقُرْآنَ ‏&quot;‏ ‏.‏ بِمِثْلِ حَدِيثِهِمَا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Imran reported that Jundub told us as we we-re young boys living in Kilfa, that Allah&#x27;s Messenger (ﷺ) had said:Recite the Qur&#x27;an. The rest of the hadith is the same</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6780 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا وَكِيعٌ، عَنِ ابْنِ جُرَيْجٍ، عَنِ ابْنِ أَبِي مُلَيْكَةَ، عَنْ عَائِشَةَ، قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ إِنَّ أَبْغَضَ الرِّجَالِ إِلَى اللَّهِ الأَلَدُّ الْخَصِمُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>A&#x27;isha reported Allah&#x27;s Messenger (ﷺ) as saying:The most despicable amongst persons in the eye of Allah is one who tries to fall into dispute with others (for nothing but only to display his knowledge and power of argumentation)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6781 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي سُوَيْدُ بْنُ سَعِيدٍ، حَدَّثَنَا حَفْصُ بْنُ مَيْسَرَةَ، حَدَّثَنِي زَيْدُ بْنُ أَسْلَمَ، عَنْ عَطَاءِ، بْنِ يَسَارٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لَتَتَّبِعُنَّ سَنَنَ الَّذِينَ مِنْ قَبْلِكُمْ شِبْرًا بِشِبْرٍ وَذِرَاعًا بِذِرَاعٍ حَتَّى لَوْ دَخَلُوا فِي جُحْرِ ضَبٍّ لاَتَّبَعْتُمُوهُمْ ‏&quot;‏ ‏.‏ قُلْنَا يَا رَسُولَ اللَّهِ آلْيَهُودَ وَالنَّصَارَى قَالَ ‏&quot;‏ فَمَنْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Sa&#x27;id al-Khudri reported Allah&#x27;s Messenger (ﷺ) as saying:You would tread the same path as was trodden by those before you inch by inch and step by step so much so that if they had entered into the hole of the lizard, you would follow them in this also. We said: Allah&#x27;s Messenger, do you mean Jews and Christians (by your words)&quot; those before you&quot;? He said: Who else (than those two religious groups)?</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6782 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنَا عِدَّةٌ، مِنْ أَصْحَابِنَا عَنْ سَعِيدِ بْنِ أَبِي مَرْيَمَ، أَخْبَرَنَا أَبُو غَسَّانَ، - وَهُوَ مُحَمَّدُ بْنُ مُطَرِّفٍ - عَنْ زَيْدِ بْنِ أَسْلَمَ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith is reported through Muhammad bin Muttarif from Zayd bin Aslam with the same chain</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6783 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>قَالَ أَبُو إِسْحَاقَ إِبْرَاهِيمُ بْنُ مُحَمَّدٍ حَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى، حَدَّثَنَا ابْنُ أَبِي مَرْيَمَ، حَدَّثَنَا أَبُو غَسَّانَ، حَدَّثَنَا زَيْدُ بْنُ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، ‏.‏ وَذَكَرَ الْحَدِيثَ نَحْوَهُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith has been narrated on the authority of &#x27;Ata&#x27; b. Yasir through another chain of transmitters</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6784 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا حَفْصُ بْنُ غِيَاثٍ، وَيَحْيَى بْنُ سَعِيدٍ، عَنِ ابْنِ، جُرَيْجٍ عَنْ سُلَيْمَانَ بْنِ عَتِيقٍ، عَنْ طَلْقِ بْنِ حَبِيبٍ، عَنِ الأَحْنَفِ بْنِ قَيْسٍ، عَنْ عَبْدِ اللَّهِ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ هَلَكَ الْمُتَنَطِّعُونَ ‏&quot;‏ ‏.‏ قَالَهَا ثَلاَثًا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abdullah reported Allah&#x27;s Messenger (ﷺ) as saying:Ruined, were those who indulged in hair-splitting. He (the Holy Prophet) repeated this thrice</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6785 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا شَيْبَانُ بْنُ فَرُّوخَ، حَدَّثَنَا عَبْدُ الْوَارِثِ، حَدَّثَنَا أَبُو التَّيَّاحِ، حَدَّثَنِي أَنَسُ بْنُ، مَالِكٍ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مِنْ أَشْرَاطِ السَّاعَةِ أَنْ يُرْفَعَ الْعِلْمُ وَيَثْبُتَ الْجَهْلُ وَيُشْرَبَ الْخَمْرُ وَيَظْهَرَ الزِّنَا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Anas b. Malik reported Allah&#x27;s Messenger (ﷺ) as saying:It is from the conditions of the Last Hour that knowledge would be taken away and ignorance would prevail (upon the world), the liquor would be drunk, and adultery would become rampant</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6786 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، وَابْنُ، بَشَّارٍ قَالاَ حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، حَدَّثَنَا شُعْبَةُ، سَمِعْتُ قَتَادَةَ، يُحَدِّثُ عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ أَلاَ أُحَدِّثُكُمْ حَدِيثًا سَمِعْتُهُ مِنْ، رَسُولِ اللَّهِ صلى الله عليه وسلم لاَ يُحَدِّثُكُمْ أَحَدٌ بَعْدِي سَمِعَهُ مِنْهُ ‏ &quot;‏ إِنَّ مِنْ أَشْرَاطِ السَّاعَةِ أَنْ يُرْفَعَ الْعِلْمُ وَيَظْهَرَ الْجَهْلُ وَيَفْشُوَ الزِّنَا وَيُشْرَبَ الْخَمْرُ وَيَذْهَبَ الرِّجَالُ وَتَبْقَى النِّسَاءُ حَتَّى يَكُونَ لِخَمْسِينَ امْرَأَةً قَيِّمٌ وَاحِدٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Qatida reported that Anas b. Malik said:May I not narrate to you a hadith which I heard from Allah&#x27;s Messenger (ﷺ) which no one would narrate to you after me who would have personally heard it from him (the Holy Prophet) (as I have the good fortune to do so)? -&quot; It is from the signs of the Last Hour that knowledge would be taken away, ignorance would prevail upon (the world), adultery would become common, wine would be drunk, the number of men will fall short and the women would survive (and thus such a disparity would arise in the number of men and women) that there would be one man to look after fifty women</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6787 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا مُحَمَّدُ بْنُ بِشْرٍ، ح وَحَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا عَبْدَةُ، وَأَبُو أُسَامَةَ كُلُّهُمْ عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، عَنْ قَتَادَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ وَفِي حَدِيثِ ابْنِ بِشْرٍ وَعَبْدَةَ لاَ يُحَدِّثُكُمُوهُ أَحَدٌ بَعْدِي سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ فَذَكَرَ بِمِثْلِهِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith has been transmitted on the authority of Anas b. Malik through another chain of narrators, but with a slight variation of wording</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6788 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ نُمَيْرٍ، حَدَّثَنَا وَكِيعٌ، وَأَبِي، قَالاَ حَدَّثَنَا الأَعْمَشُ، ح وَحَدَّثَنِي أَبُو سَعِيدٍ الأَشَجُّ، - وَاللَّفْظُ لَهُ - حَدَّثَنَا وَكِيعٌ، حَدَّثَنَا الأَعْمَشُ، عَنْ أَبِي وَائِلٍ، قَالَ كُنْتُ جَالِسًا مَعَ عَبْدِ اللَّهِ وَأَبِي مُوسَى فَقَالاَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ إِنَّ بَيْنَ يَدَىِ السَّاعَةِ أَيَّامًا يُرْفَعُ فِيهَا الْعِلْمُ وَيَنْزِلُ فِيهَا الْجَهْلُ وَيَكْثُرُ فِيهَا الْهَرْجُ وَالْهَرْجُ الْقَتْلُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Wa&#x27;il reported:I was sitting with &#x27;Abdullah and Abu Musa that they reported Allah&#x27;s Messenger (ﷺ) having said: Prior to the Last Hour, there would be a time when knowledge would be taken away, and ignorance would take its place and there would be bloodshed on a large scale</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6789 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ النَّضْرِ بْنِ أَبِي النَّضْرِ، حَدَّثَنَا أَبُو النَّضْرِ، حَدَّثَنَا عُبَيْدُ اللَّهِ الأَشْجَعِيُّ، عَنْ سُفْيَانَ، عَنِ الأَعْمَشِ، عَنْ أَبِي وَائِلٍ، عَنْ عَبْدِ اللَّهِ، وَأَبِي، مُوسَى الأَشْعَرِيِّ قَالاَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ح وَحَدَّثَنِي الْقَاسِمُ بْنُ زَكَرِيَّاءَ، حَدَّثَنَا حُسَيْنٌ الْجُعْفِيُّ، عَنْ زَائِدَةَ، عَنْ سُلَيْمَانَ، عَنْ شَقِيقٍ، قَالَ كُنْتُ جَالِسًا مَعَ عَبْدِ اللَّهِ وَأَبِي مُوسَى وَهُمَا يَتَحَدَّثَانِ فَقَالاَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِمِثْلِ حَدِيثِ وَكِيعٍ وَابْنِ نُمَيْرٍ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith has been narrated on the authority of &#x27;Abdullah (b. Mas&#x27;ud) and Abu Musa (al-Asha&#x27;ri) through other chains of transmitters</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 15</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6790 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَأَبُو كُرَيْبٍ وَابْنُ نُمَيْرٍ وَإِسْحَاقُ الْحَنْظَلِيُّ جَمِيعًا عَنْ أَبِي مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ شَقِيقٍ، عَنْ أَبِي مُوسَى، عَنِ النَّبِيِّ صلى الله عليه وسلم بِمِثْلِهِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>A hadith like this has been narrated on the authority of Abu Musa through another chain of transmitters</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 16</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6791 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، أَخْبَرَنَا جَرِيرٌ، عَنِ الأَعْمَشِ، عَنْ أَبِي وَائِلٍ، قَالَ إِنِّي لَجَالِسٌ مَعَ عَبْدِ اللَّهِ وَأَبِي مُوسَى وَهُمَا يَتَحَدَّثَانِ فَقَالَ أَبُو مُوسَى قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِمِثْلِهِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Wa&#x27;il reported:I was sitting with Abu Musa and &#x27;Abdullah and they were conversing with each other and Abu Musa reported Allah&#x27;s Messenger (ﷺ) as saying (that we find in the above-mentioned ahadith)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 17</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6792 — The Book of Knowledge</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6793 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي حَرْمَلَةُ بْنُ يَحْيَى، أَخْبَرَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي يُونُسُ، عَنِ ابْنِ شِهَابٍ، حَدَّثَنِي حُمَيْدُ بْنُ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، أَنَّ أَبَا هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ يَتَقَارَبُ الزَّمَانُ وَيُقْبَضُ الْعِلْمُ وَتَظْهَرُ الْفِتَنُ وَيُلْقَى الشُّحُّ وَيَكْثُرُ الْهَرْجُ ‏&quot;‏ ‏.‏ قَالُوا وَمَا الْهَرْجُ قَالَ ‏&quot;‏ الْقَتْلُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Huraira reported Allah&#x27;s Messenger (ﷺ) as saying:(When) the time would draw close to the Last Hour, knowledge would be snatched away, turmoil would be rampant, miserliness would be put (in the hearts of the people) and therewould be much bloodshed. They said: What is al-harj? Thereupon he said: It is bloodshed</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 18</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6794 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ عَبْدِ الرَّحْمَنِ الدَّارِمِيُّ، أَخْبَرَنَا أَبُو الْيَمَانِ، أَخْبَرَنَا شُعَيْبٌ، عَنِ الزُّهْرِيِّ، حَدَّثَنِي حُمَيْدُ بْنُ عَبْدِ الرَّحْمَنِ الزُّهْرِيُّ، أَنَّ أَبَا هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ يَتَقَارَبُ الزَّمَانُ وَيُقْبَضُ الْعِلْمُ ‏&quot;‏ ‏.‏ ثُمَّ ذَكَرَ مِثْلَهُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith has been transmitted on the authority of Abu Huraira with a slight variation of wording</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 19</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6795 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ، وَقُتَيْبَةُ، وَابْنُ، حُجْرٍ قَالُوا حَدَّثَنَا إِسْمَاعِيلُ، - يَعْنُونَ ابْنَ جَعْفَرٍ - عَنِ الْعَلاَءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، ح وَحَدَّثَنَا ابْنُ نُمَيْرٍ، وَأَبُو كُرَيْبٍ وَعَمْرٌو النَّاقِدُ قَالُوا حَدَّثَنَا إِسْحَاقُ بْنُ سُلَيْمَانَ، عَنْ حَنْظَلَةَ، عَنْ سَالِمٍ، عَنْ أَبِي هُرَيْرَةَ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ رَافِعٍ، حَدَّثَنَا عَبْدُ الرَّزَّاقِ، حَدَّثَنَا مَعْمَرٌ، عَنْ هَمَّامِ بْنِ مُنَبِّهٍ، عَنْ أَبِي هُرَيْرَةَ، ح وَحَدَّثَنِي أَبُو الطَّاهِرِ، أَخْبَرَنَا ابْنُ وَهْبٍ، عَنْ عَمْرِو بْنِ الْحَارِثِ، عَنْ أَبِي يُونُسَ، عَنْ أَبِي هُرَيْرَةَ، كُلُّهُمْ قَالَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ بِمِثْلِ حَدِيثِ الزُّهْرِيِّ عَنْ حُمَيْدٍ عَنْ أَبِي هُرَيْرَةَ غَيْرَ أَنَّهُمْ لَمْ يَذْكُرُوا ‏ &quot;‏ وَيُلْقَى الشُّحُّ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith has been transmitted on the authority of Abu Huraira through other chains of narrators and there is no mention of:&quot; Miserliness would be put (in the hearts of the people)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 21</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6796 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا جَرِيرٌ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، سَمِعْتُ عَبْدَ، اللَّهِ بْنَ عَمْرِو بْنِ الْعَاصِ يَقُولُ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ إِنَّ اللَّهَ لاَ يَقْبِضُ الْعِلْمَ انْتِزَاعًا يَنْتَزِعُهُ مِنَ النَّاسِ وَلَكِنْ يَقْبِضُ الْعِلْمَ بِقَبْضِ الْعُلَمَاءِ حَتَّى إِذَا لَمْ يَتْرُكْ عَالِمًا اتَّخَذَ النَّاسُ رُءُوسًا جُهَّالاً فَسُئِلُوا فَأَفْتَوْا بِغَيْرِ عِلْمٍ فَضَلُّوا وَأَضَلُّوا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abdullah b. &#x27;Amr b. al-&#x27;As reported Allah&#x27;s Messenger (ﷺ) as saying:Verily, Allah does not take away knowledge by snatching it from the people but He takes away knowledge by taking away the scholars, so that when He leaves no learned person, people turn to the ignorant as their leaders; then they are asked to deliver religious verdicts and they deliver them without knowledge, they go astray, and lead others astray</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 22</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6797 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو الرَّبِيعِ الْعَتَكِيُّ، حَدَّثَنَا حَمَّادٌ يَعْنِي ابْنَ زَيْدٍ، ح وَحَدَّثَنَا يَحْيَى بْنُ يَحْيَى، أَخْبَرَنَا عَبَّادُ بْنُ عَبَّادٍ، وَأَبُو مُعَاوِيَةَ ح وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَزُهَيْرُ بْنُ حَرْبٍ، قَالاَ حَدَّثَنَا وَكِيعٌ، ح وَحَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا ابْنُ إِدْرِيسَ، وَأَبُو أُسَامَةَ وَابْنُ نُمَيْرٍ وَعَبْدَةُ ح وَحَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا سُفْيَانُ، ح وَحَدَّثَنِي مُحَمَّدُ بْنُ حَاتِمٍ، حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ، ح وَحَدَّثَنِي أَبُو بَكْرِ بْنُ نَافِعٍ، قَالَ حَدَّثَنَا عُمَرُ بْنُ عَلِيٍّ، ح وَحَدَّثَنَا عَبْدُ بْنُ حُمَيْدٍ، حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ، أَخْبَرَنَا شُعْبَةُ بْنُ الْحَجَّاجِ، كُلُّهُمْ عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَبْدِ، اللَّهِ بْنِ عَمْرٍو عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ بِمِثْلِ حَدِيثِ جَرِيرٍ وَزَادَ فِي حَدِيثِ عُمَرَ بْنِ عَلِيٍّ ثُمَّ لَقِيتُ عَبْدَ اللَّهِ بْنَ عَمْرٍو عَلَى رَأْسِ الْحَوْلِ فَسَأَلْتُهُ فَرَدَّ عَلَيْنَا الْحَدِيثَ كَمَا حَدَّثَ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith has been narrated on the authority of &#x27;Abdullah b. Umar through other chains of transmitters, but in the hadith transmitted by Umar b. &#x27;Ali there is an addition of these words:, I met &#x27;Abdullah b. &#x27;Amr at the end of the year and I asked him about it, and he narrated to us the hadith as he had narrated before that he had heard Allah&#x27;s Messenger (ﷺ) as saying.... (The rest of the hadith is the same)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 23</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6798 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ حُمْرَانَ، عَنْ عَبْدِ الْحَمِيدِ بْنِ جَعْفَرٍ، أَخْبَرَنِي أَبِي جَعْفَرٌ، عَنْ عُمَرَ بْنِ الْحَكَمِ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ، عَنِ النَّبِيِّ صلى الله عليه وسلم بِمِثْلِ حَدِيثِ هِشَامِ بْنِ عُرْوَةَ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>This hadith has been narrated on the authority of &#x27;Abdullah b. Amr b. al-&#x27;As through another chain of transmitters</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 24</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6799 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا حَرْمَلَةُ بْنُ يَحْيَى التُّجِيبِيُّ، أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ، حَدَّثَنِي أَبُو شُرَيْحٍ، أَنَّ أَبَا الأَسْوَدِ، حَدَّثَهُ عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، قَالَ قَالَتْ لِي عَائِشَةُ يَا ابْنَ أُخْتِي بَلَغَنِي أَنَّحَمَلَ عَنِ النَّبِيِّ صلى الله عليه وسلم عِلْمًا كَثِيرًا - قَالَ - فَلَقِيتُهُ فَسَاءَلْتُهُ عَنْ أَشْيَاءَ يَذْكُرُهَا عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ قَالَ عُرْوَةُ فَكَانَ فِيمَا ذَكَرَ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِنَّ اللَّهَ لاَ يَنْتَزِعُ الْعِلْمَ مِنَ النَّاسِ انْتِزَاعًا وَلَكِنْ يَقْبِضُ الْعُلَمَاءَ فَيَرْفَعُ الْعِلْمَ مَعَهُمْ وَيُبْقِي فِي النَّاسِ رُءُوسًا جُهَّالاً يُفْتُونَهُمْ بِغَيْرِ عِلْمٍ فَيَضِلُّونَ وَيُضِلُّونَ ‏&quot;‏ ‏.‏ قَالَ عُرْوَةُ فَلَمَّا حَدَّثْتُ عَائِشَةَ بِذَلِكَ أَعْظَمَتْ ذَلِكَ وَأَنْكَرَتْهُ قَالَتْ أَحَدَّثَكَ أَنَّهُ سَمِعَ النَّبِيَّ صلى الله عليه وسلم يَقُولُ هَذَا قَالَ عُرْوَةُ حَتَّى إِذَا كَانَ قَابِلٌ قَالَتْ لَهُ إِنَّ ابْنَ عَمْرٍو قَدْ قَدِمَ فَالْقَهُ ثُمَّ فَاتِحْهُ حَتَّى تَسْأَلَهُ عَنِ الْحَدِيثِ الَّذِي ذَكَرَهُ لَكَ فِي الْعِلْمِ - قَالَ - فَلَقِيتُهُ فَسَاءَلْتُهُ فَذَكَرَهُ لِي نَحْوَ مَا حَدَّثَنِي بِهِ فِي مَرَّتِهِ الأُولَى ‏.‏ قَالَ عُرْوَةُ فَلَمَّا أَخْبَرْتُهَا بِذَلِكَ قَالَتْ مَا أَحْسِبُهُ إِلاَّ قَدْ صَدَقَ أَرَاهُ لَمْ يَزِدْ فِيهِ شَيْئًا وَلَمْ يَنْقُصْ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Urwa b. Zubair reported that &#x27;A&#x27;isha said to him:This news has reached me that &#x27;Abdullah b. &#x27;Amr al-&#x27;As would pass by us during the Hajj season, so you meet him and ask him (about religious matters) as he has acquired great knowledge from Allah&#x27;s Messenger (ﷺ). I thus met him and asked him about things which he narrated from Allah&#x27;s Messenger (ﷺ). And amongst these the one he mentioned was that Allah&#x27;s Apostle (ﷺ) said: Verily, Allah does not take away knowledge from people directly but he takes away the scholars and consequently takes away (knowledge) along with them and leaves amongst persons the ignorant as their leaders who deliver religious verdicts without (adequate) knowledge and themselves go astray and lead others astray. &#x27;Urwa said: When I narrated this to &#x27;A&#x27;isha, she deemed it too much (to believe) and thus showed reluctance to accept that (as perfectly true) and said to, &#x27;Urwa: Did he (&#x27;Abdullah b. &#x27;Amr) say to you that he had heard Allah&#x27;s Apostle (ﷺ) as saying: (&#x27;Urwa had forgotten to ask this from &#x27;Abdullah b. &#x27;Amr). So when it was the next year, she (&#x27;A&#x27;isha) said to him (&#x27;Urwa): Ibn Amr has come (for Hajj), so meet him. talk to him and ask him about this hadith that he narrated to You (last year on the occasion of the Hajj) pertaining to knowledge. He (&#x27;Urwa), said: So I met him, and asked about it and he narrated to me exactly like one that he had narrated (to me) for the first time. So when I informed her (&#x27;A&#x27;isha) about that, she said: I do not think but this that he has certainly told the truth and I find that be has neither made any addition to it, nor missed anything from it</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 25</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6800 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا جَرِيرُ بْنُ عَبْدِ الْحَمِيدِ، عَنِ الأَعْمَشِ، عَنْ مُوسَى، بْنِ عَبْدِ اللَّهِ بْنِ يَزِيدَ وَأَبِي الضُّحَى عَنْ عَبْدِ الرَّحْمَنِ بْنِ هِلاَلٍ الْعَبْسِيِّ، عَنْ جَرِيرِ بْنِ عَبْدِ، اللَّهِ قَالَ جَاءَ نَاسٌ مِنَ الأَعْرَابِ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم عَلَيْهِمُ الصُّوفُ فَرَأَى سُوءَ حَالِهِمْ قَدْ أَصَابَتْهُمْ حَاجَةٌ فَحَثَّ النَّاسَ عَلَى الصَّدَقَةِ فَأَبْطَئُوا عَنْهُ حَتَّى رُئِيَ ذَلِكَ فِي وَجْهِهِ - قَالَ - ثُمَّ إِنَّ رَجُلاً مِنَ الأَنْصَارِ جَاءَ بِصُرَّةٍ مِنْ وَرِقٍ ثُمَّ جَاءَ آخَرُ ثُمَّ تَتَابَعُوا حَتَّى عُرِفَ السُّرُورُ فِي وَجْهِهِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ سَنَّ فِي الإِسْلاَمِ سُنَّةً حَسَنَةً فَعُمِلَ بِهَا بَعْدَهُ كُتِبَ لَهُ مِثْلُ أَجْرِ مَنْ عَمِلَ بِهَا وَلاَ يَنْقُصُ مِنْ أُجُورِهِمْ شَىْءٌ وَمَنْ سَنَّ فِي الإِسْلاَمِ سُنَّةً سَيِّئَةً فَعُمِلَ بِهَا بَعْدَهُ كُتِبَ عَلَيْهِ مِثْلُ وِزْرِ مَنْ عَمِلَ بِهَا وَلاَ يَنْقُصُ مِنْ أَوْزَارِهِمْ شَىْءٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jarir b. Abdullah reported that some desert Arabs clad in woollen clothes came to Allah&#x27;s Messenger (ﷺ). He saw them in sad plight as they had been hard pressed by need. He (the Holy Prophet) exhorted people to give charity, but they showed some reluctance until (signs) of anger could be seen on his face. Then a person from the Ansar came with a purse containing silver. Then came another person and then other persons followed them in succession until signs of happiness could be seen on his (sacred) face. Thereupon Allah&#x27;s Messenger (ﷺ) said:He who introduced some good practice in Islam which was followed after him (by people) he would be assured of reward like one who followed it, without their rewards being diminished in any respect. And he who introduced some evil practice in Islam which had been followed subsequently (by others), he would be required to bear the burden like that of one who followed this (evil practice) without their&#x27;s being diminished in any respect</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 26</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6801 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ يَحْيَى، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَأَبُو كُرَيْبٍ جَمِيعًا عَنْ أَبِي مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ مُسْلِمٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ هِلاَلٍ، عَنْ جَرِيرٍ، قَالَ خَطَبَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَحَثَّ عَلَى الصَّدَقَةِ ‏.‏ بِمَعْنَى حَدِيثِ جَرِيرٍ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jarir reported that Allah&#x27;s Messenger (ﷺ) delivered an address in which he exhorted people to give charity</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 27</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6802 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا يَحْيَى، - يَعْنِي ابْنَ سَعِيدٍ - حَدَّثَنَا مُحَمَّدُ بْنُ أَبِي، إِسْمَاعِيلَ حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ هِلاَلٍ الْعَبْسِيُّ، قَالَ قَالَ جَرِيرُ بْنُ عَبْدِ اللَّهِ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ يَسُنُّ عَبْدٌ سُنَّةً صَالِحَةً يُعْمَلُ بِهَا بَعْدَهُ ‏&quot;‏ ‏.‏ ثُمَّ ذَكَرَ تَمَامَ الْحَدِيثِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jarir b. &#x27;Abdullah reported Allah&#x27;s Messenger (ﷺ) as saying:The servant does not introduce good practice which is followed after him.... The rest of the hadith is the same</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 28</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6803 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عُبَيْدُ اللَّهِ بْنُ عُمَرَ الْقَوَارِيرِيُّ، وَأَبُو كَامِلٍ وَمُحَمَّدُ بْنُ عَبْدِ الْمَلِكِ الأُمَوِيُّ قَالُوا حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ عَبْدِ الْمَلِكِ بْنِ عُمَيْرٍ، عَنِ الْمُنْذِرِ بْنِ جَرِيرٍ، عَنْ أَبِيهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم ح وَحَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، ح وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا أَبُو أُسَامَةَ، ح وَحَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُعَاذٍ، حَدَّثَنَا أَبِي قَالُوا، حَدَّثَنَا شُعْبَةُ، عَنْ عَوْنِ، بْنِ أَبِي جُحَيْفَةَ عَنِ الْمُنْذِرِ بْنِ جَرِيرٍ، عَنْ أَبِيهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم بِهَذَا الْحَدِيثِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jarir transmitted this hadith from his father through several other chains of narrators</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 29</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6804 — The Book of Knowledge</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ، وَقُتَيْبَةُ بْنُ سَعِيدٍ، وَابْنُ، حُجْرٍ قَالُوا حَدَّثَنَا إِسْمَاعِيلُ، - يَعْنُونَ ابْنَ جَعْفَرٍ - عَنِ الْعَلاَءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ دَعَا إِلَى هُدًى كَانَ لَهُ مِنَ الأَجْرِ مِثْلُ أُجُورِ مَنْ تَبِعَهُ لاَ يَنْقُصُ ذَلِكَ مِنْ أُجُورِهِمْ شَيْئًا وَمَنْ دَعَا إِلَى ضَلاَلَةٍ كَانَ عَلَيْهِ مِنَ الإِثْمِ مِثْلُ آثَامِ مَنْ تَبِعَهُ لاَ يَنْقُصُ ذَلِكَ مِنْ آثَامِهِمْ شَيْئًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Huraira reported Allah&#x27;s Messenger (ﷺ) as saying:He who called (people) to righteousness, there would be reward (assured) for him like the rewards of those who adhered to it, without their rewards being diminished in any respect. And he who called (people) to error, he shall have to carry (the burden) of its sin, like those who committed it, without their sins being diminished in any respect</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 47, Hadith 30</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="muslim-book-046.html">← The Book of Destiny</a>
+  <a href="muslim.html">📚 Book Index</a>
+  <a href="muslim-book-048.html">The Book Pertaining to the Remembrance o →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

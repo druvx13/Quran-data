@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahih al-Bukhari — Fear Prayer – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='bukhari.html'>Sahih al-Bukhari</a> › Fear Prayer</span>
+</header>
+<main>
+<h1>Sahih al-Bukhari</h1>
+<h2>Fear Prayer</h2>
+<div class="meta-info">
+  Hadith 942–947 &nbsp;|&nbsp;
+  <a href="bukhari.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 942 — Fear Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو الْيَمَانِ، قَالَ أَخْبَرَنَا شُعَيْبٌ، عَنِ الزُّهْرِيِّ، قَالَ سَأَلْتُهُ هَلْ صَلَّى النَّبِيُّ صلى الله عليه وسلم يَعْنِي صَلاَةَ الْخَوْفِ قَالَ أَخْبَرَنِي سَالِمٌ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ ـ رضى الله عنهما ـ قَالَ غَزَوْتُ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم قِبَلَ نَجْدٍ، فَوَازَيْنَا الْعَدُوَّ فَصَافَفْنَا لَهُمْ فَقَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم يُصَلِّي لَنَا فَقَامَتْ طَائِفَةٌ مَعَهُ تُصَلِّي، وَأَقْبَلَتْ طَائِفَةٌ عَلَى الْعَدُوِّ وَرَكَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِمَنْ مَعَهُ، وَسَجَدَ سَجْدَتَيْنِ، ثُمَّ انْصَرَفُوا مَكَانَ الطَّائِفَةِ الَّتِي لَمْ تُصَلِّ، فَجَاءُوا، فَرَكَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِهِمْ رَكْعَةً، وَسَجَدَ سَجْدَتَيْنِ ثُمَّ سَلَّمَ، فَقَامَ كُلُّ وَاحِدٍ مِنْهُمْ فَرَكَعَ لِنَفْسِهِ رَكْعَةً وَسَجَدَ سَجْدَتَيْنِ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Shu&#x27;aib:I asked Az-Zuhri, &quot;Did the Prophet (ﷺ) ever offer the Fear Prayer?&quot; Az-Zuhri said, &quot;I was told by Salim that `Abdullah bin `Umar had said, &#x27;I took part in a holy battle with Allah&#x27;s Messenger (ﷺ) in Najd. We faced the enemy and arranged ourselves in rows. Then Allah&#x27;s Messenger (ﷺ) stood up to lead the prayer and one party stood to pray with him while the other faced the enemy. Allah&#x27;s Messenger (ﷺ) and the former party bowed and performed two prostrations. Then that party left and took the place of those who had not prayed. Allah&#x27;s Messenger (ﷺ) prayed one rak`a (with the latter) and performed two prostrations and finished his prayer with Taslim. Then everyone of them bowed once and performed two prostrations individually</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 943 — Fear Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا سَعِيدُ بْنُ يَحْيَى بْنِ سَعِيدٍ الْقُرَشِيُّ، قَالَ حَدَّثَنِي أَبِي قَالَ، حَدَّثَنَا ابْنُ جُرَيْجٍ، عَنْ مُوسَى بْنِ عُقْبَةَ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، نَحْوًا مِنْ قَوْلِ مُجَاهِدٍ إِذَا اخْتَلَطُوا قِيَامًا‏.‏ وَزَادَ ابْنُ عُمَرَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏ &quot;‏ وَإِنْ كَانُوا أَكْثَرَ مِنْ ذَلِكَ فَلْيُصَلُّوا قِيَامًا وَرُكْبَانًا ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Nafi`:Ibn `Umar said something similar to Mujahid&#x27;s saying: Whenever (Muslims and non-Muslims) stand face to face in battle, the Muslims can pray while standing. Ibn `Umar added, &quot;The Prophet (ﷺ) said, &#x27;If the number of the enemy is greater than the Muslims, they can pray while standing or riding (individually)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 944 — Fear Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا حَيْوَةُ بْنُ شُرَيْحٍ، قَالَ حَدَّثَنَا مُحَمَّدُ بْنُ حَرْبٍ، عَنِ الزُّبَيْدِيِّ، عَنِ الزُّهْرِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ، عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ قَالَ قَامَ النَّبِيُّ صلى الله عليه وسلم وَقَامَ النَّاسُ مَعَهُ، فَكَبَّرَ وَكَبَّرُوا مَعَهُ، وَرَكَعَ وَرَكَعَ نَاسٌ مِنْهُمْ، ثُمَّ سَجَدَ وَسَجَدُوا مَعَهُ، ثُمَّ قَامَ لِلثَّانِيَةِ فَقَامَ الَّذِينَ سَجَدُوا وَحَرَسُوا إِخْوَانَهُمْ، وَأَتَتِ الطَّائِفَةُ الأُخْرَى فَرَكَعُوا وَسَجَدُوا مَعَهُ، وَالنَّاسُ كُلُّهُمْ فِي صَلاَةٍ، وَلَكِنْ يَحْرُسُ بَعْضُهُمْ بَعْضًا‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn `Abbas:Once the Prophet (ﷺ) led the fear prayer and the people stood behind him. He said Takbir (Allahu-Akbar) and the people said the same. He bowed and some of them bowed. Then he prostrated and they also prostrated. Then he stood for the second rak`a and those who had prayed the first rak`a left and guarded their brothers. The second party joined him and performed bowing and prostration with him. All the people were in prayer but they were guarding one another during the prayer</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 945 — Fear Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى، قَالَ حَدَّثَنَا وَكِيعٌ، عَنْ عَلِيِّ بْنِ مُبَارَكٍ، عَنْ يَحْيَى بْنِ أَبِي كَثِيرٍ، عَنْ أَبِي سَلَمَةَ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، قَالَ جَاءَ عُمَرُ يَوْمَ الْخَنْدَقِ، فَجَعَلَ يَسُبُّ كُفَّارَ قُرَيْشٍ وَيَقُولُ يَا رَسُولَ اللَّهِ مَا صَلَّيْتُ الْعَصْرَ حَتَّى كَادَتِ الشَّمْسُ أَنْ تَغِيبَ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏ &quot;‏ وَأَنَا وَاللَّهِ مَا صَلَّيْتُهَا بَعْدُ ‏&quot;‏‏.‏ قَالَ فَنَزَلَ إِلَى بُطْحَانَ فَتَوَضَّأَ، وَصَلَّى الْعَصْرَ بَعْدَ مَا غَابَتِ الشَّمْسُ، ثُمَّ صَلَّى الْمَغْرِبَ بَعْدَهَا‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Jabir bin `Abdullah:On the day of the Khandaq `Umar came, cursing the disbelievers of Quraish and said, &quot;O Allah&#x27;s Apostle! I have not offered the `Asr prayer and the sun has set.&quot; The Prophet (ﷺ) replied, &quot;By Allah! I too, have not offered the prayer yet. &quot;The Prophet (ﷺ) then went to Buthan, performed ablution and performed the `Asr prayer after the sun had set and then offered the Maghrib prayer after it</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 946 — Fear Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ أَسْمَاءَ، قَالَ حَدَّثَنَا جُوَيْرِيَةُ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم لَنَا لَمَّا رَجَعَ مِنَ الأَحْزَابِ ‏ &quot;‏ لاَ يُصَلِّيَنَّ أَحَدٌ الْعَصْرَ إِلاَّ فِي بَنِي قُرَيْظَةَ ‏&quot;‏‏.‏ فَأَدْرَكَ بَعْضُهُمُ الْعَصْرَ فِي الطَّرِيقِ فَقَالَ بَعْضُهُمْ لاَ نُصَلِّي حَتَّى نَأْتِيَهَا، وَقَالَ بَعْضُهُمْ بَلْ نُصَلِّي لَمْ يُرَدْ مِنَّا ذَلِكَ‏.‏ فَذُكِرَ لِلنَّبِيِّ صلى الله عليه وسلم فَلَمْ يُعَنِّفْ وَاحِدًا مِنْهُمْ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn `Umar:When the Prophet (ﷺ) returned from the battle of Al-Ahzab (The confederates), he said to us, &quot;None should offer the &#x27;Asr prayer but at Bani Quraiza.&quot; The &#x27;Asr prayer became due for some of them on the way. Some of them decided not to offer the Salat but at Bani Quraiza while others decided to offer the Salat on the spot and said that the intention of the Prophet (ﷺ) was not what the former party had understood. And when that was told to the Prophet (ﷺ) he did not blame anyone of them</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 947 — Fear Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا حَمَّادٌ، عَنْ عَبْدِ الْعَزِيزِ بْنِ صُهَيْبٍ، وَثَابِتٍ الْبُنَانِيِّ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم صَلَّى الصُّبْحَ بِغَلَسٍ ثُمَّ رَكِبَ فَقَالَ ‏ &quot;‏ اللَّهُ أَكْبَرُ خَرِبَتْ خَيْبَرُ، إِنَّا إِذَا نَزَلْنَا بِسَاحَةِ قَوْمٍ فَسَاءَ صَبَاحُ الْمُنْذَرِينَ ‏&quot;‏‏.‏ فَخَرَجُوا يَسْعَوْنَ فِي السِّكَكِ وَيَقُولُونَ مُحَمَّدٌ وَالْخَمِيسُ ـ قَالَ وَالْخَمِيسُ الْجَيْشُ ـ فَظَهَرَ عَلَيْهِمْ رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَتَلَ الْمُقَاتِلَةَ وَسَبَى الذَّرَارِيَّ، فَصَارَتْ صَفِيَّةُ لِدِحْيَةَ الْكَلْبِيِّ، وَصَارَتْ لِرَسُولِ اللَّهِ صلى الله عليه وسلم ثُمَّ تَزَوَّجَهَا وَجَعَلَ صَدَاقَهَا عِتْقَهَا‏.‏ فَقَالَ عَبْدُ الْعَزِيزِ لِثَابِتٍ يَا أَبَا مُحَمَّدٍ، أَنْتَ سَأَلْتَ أَنَسًا مَا أَمْهَرَهَا قَالَ أَمْهَرَهَا نَفْسَهَا‏.‏ فَتَبَسَّمَ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas bin Malik:Allah&#x27;s Messenger (ﷺ) offered the Fajr prayer when it was still dark, then he rode and said, &#x27;Allahu Akbar! Khaibar is ruined. When we approach near to a nation, the most unfortunate is the morning of those who have been warned.&quot; The people came out into the streets saying, &quot;Muhammad and his army.&quot; Allah&#x27;s Messenger (ﷺ) vanquished them by force and their warriors were killed; the children and women were taken as captives. Safiya was taken by Dihya Al-Kalbi and later she belonged to Allah&#x27;s Apostle, who married her and her Mahr was her manumission</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 6</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="bukhari-book-011.html">← Friday Prayer</a>
+  <a href="bukhari.html">📚 Book Index</a>
+  <a href="bukhari-book-013.html">The Two Festivals (Eids) →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

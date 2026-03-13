@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — The Eclipse Prayer – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › The Eclipse Prayer</span>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>The Eclipse Prayer</h2>
+<div class="meta-info">
+  Hadith 445–448 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 445 — The Eclipse Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ خَسَفَتِ الشَّمْسُ فِي عَهْدِ رَسُولِ اللَّهِ صلى الله عليه وسلم فَصَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم بِالنَّاسِ فَقَامَ فَأَطَالَ الْقِيَامَ ثُمَّ رَكَعَ فَأَطَالَ الرُّكُوعَ ثُمَّ قَامَ فَأَطَالَ الْقِيَامَ وَهُوَ دُونَ الْقِيَامِ الأَوَّلِ ثُمَّ رَكَعَ فَأَطَالَ الرُّكُوعَ وَهُوَ دُونَ الرُّكُوعِ الأَوَّلِ ثُمَّ رَفَعَ فَسَجَدَ ثُمَّ فَعَلَ فِي الرَّكْعَةِ الآخِرَةِ مِثْلَ ذَلِكَ ثُمَّ انْصَرَفَ وَقَدْ تَجَلَّتِ الشَّمْسُ فَخَطَبَ النَّاسَ فَحَمِدَ اللَّهَ وَأَثْنَى عَلَيْهِ ثُمَّ قَالَ ‏ &quot;‏ إِنَّ الشَّمْسَ وَالْقَمَرَ آيَتَانِ مِنْ آيَاتِ اللَّهِ لاَ يَخْسِفَانِ لِمَوْتِ أَحَدٍ وَلاَ لِحَيَاتِهِ فَإِذَا رَأَيْتُمْ ذَلِكَ فَادْعُوا اللَّهَ وَكَبِّرُوا وَتَصَدَّقُوا - ثُمَّ قَالَ - يَا أُمَّةَ مُحَمَّدٍ وَاللَّهِ مَا مِنْ أَحَدٍ أَغْيَرَ مِنَ اللَّهِ أَنْ يَزْنِيَ عَبْدُهُ أَوْ تَزْنِيَ أَمَتُهُ يَا أُمَّةَ مُحَمَّدٍ وَاللَّهِ لَوْ تَعْلَمُونَ مَا أَعْلَمُ لَضَحِكْتُمْ قَلِيلاً وَلَبَكَيْتُمْ كَثِيرًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;There was an eclipse of the sun in the time of the Messenger of Allah, may Allah bless him and grant him peace, and the Messenger of Allah, may Allah bless him and grant him peace, led the people in prayer. He stood, and did so for a long time. Then he went into ruku, and made the ruku long. Then he stood again, and did so for a long time, though not as long as the first time. Then he went into ruku, and made the ruku long, though not as long as thefirst time. Then he rose, and went down into sajda. He then did the same in the second raka, and by the time he had finished the sun had appeared. He then gave a khutba to the people, in which he praised Allah and then said, &#x27;The sun and the moon are two of Allah&#x27;s signs. They do not eclipse for anyone&#x27;s death nor for anyone&#x27;s life. When you see an eclipse, call on Allah and say, &quot;Allah is greater&quot; and give sadaqa.&#x27; Then he said, &#x27;O community of Muhammad! ByAllah, there is no-one more jealous than Allah of a male or female slave of his who commits adultery. O community of Muhammad! By Allah, if you knew what I knew, you would laugh little and weep much</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 446 — The Eclipse Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّهُ قَالَ خَسَفَتِ الشَّمْسُ فَصَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم وَالنَّاسُ مَعَهُ فَقَامَ قِيَامًا طَوِيلاً نَحْوًا مِنْ سُورَةِ الْبَقَرَةِ - قَالَ - ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً ثُمَّ رَفَعَ فَقَامَ قِيَامًا طَوِيلاً وَهُوَ دُونَ الْقِيَامِ الأَوَّلِ ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً وَهُوَ دُونَ الرُّكُوعِ الأَوَّلِ ثُمَّ سَجَدَ ثُمَّ قَامَ قِيَامًا طَوِيلاً وَهُوَ دُونَ الْقِيَامِ الأَوَّلِ ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً وَهُوَ دُونَ الرُّكُوعِ الأَوَّلِ ثُمَّ رَفَعَ فَقَامَ قِيَامًا طَوِيلاً وَهُوَ دُونَ الْقِيَامِ الأَوَّلِ ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً وَهُو دُونَ الرُّكُوعِ الأَوَّلِ ثُمَّ سَجَدَ ثُمَّ انْصَرَفَ وَقَدْ تَجَلَّتِ الشَّمْسُ فَقَالَ ‏&quot;‏ إِنَّ الشَّمْسَ وَالْقَمَرَ آيَتَانِ مِنْ آيَاتِ اللَّهِ لاَ يَخْسِفَانِ لِمَوْتِ أَحَدٍ وَلاَ لِحَيَاتِهِ فَإِذَا رَأَيْتُمْ ذَلِكَ فَاذْكُرُوا اللَّهَ ‏&quot;‏ ‏.‏ قَالُوا يَا رَسُولَ اللَّهِ رَأَيْنَاكَ تَنَاوَلْتَ شَيْئًا فِي مَقَامِكَ هَذَا ثُمَّ رَأَيْنَاكَ تَكَعْكَعْتَ ‏.‏ فَقَالَ ‏&quot;‏ إِنِّي رَأَيْتُ الْجَنَّةَ فَتَنَاوَلْتُ مِنْهَا عُنْقُودًا وَلَوْ أَخَذْتُهُ لأَكَلْتُمْ مِنْهُ مَا بَقِيَتِ الدُّنْيَا وَرَأَيْتُ النَّارَ فَلَمْ أَرَ كَالْيَوْمِ مَنْظَرًا قَطُّ أَفْظَعَ وَرَأَيْتُ أَكْثَرَ أَهْلِهَا النِّسَاءَ ‏&quot;‏ ‏.‏ قَالُوا لِمَ يَا رَسُولَ اللَّهِ قَالَ ‏&quot;‏ لِكُفْرِهِنَّ ‏&quot;‏ ‏.‏ قِيلَ أَيَكْفُرْنَ بِاللَّهِ ‏.‏ قَالَ ‏&quot;‏ وَيَكْفُرْنَ الْعَشِيرَ وَيَكْفُرْنَ الإِحْسَانَ لَوْ أَحْسَنْتَ إِلَى إِحْدَاهُنَّ الدَّهْرَ كُلَّهُ ثُمَّ رَأَتْ مِنْكَ شَيْئًا قَالَتْ مَا رَأَيْتُ مِنْكَ خَيْرًا قَطُّ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam from Ata ibn Yasar that Abdullah ibn Abbas said, &quot;There was an eclipse of the sun and the Messenger of Allah, may Allah bless him and grant him peace, prayed, and the people prayed with him. He stood for a long time, nearly as long as (it takes to recite) Surat al-Baqara (Sura 2), and then went into ruku for a long time. Then he rose and stood for a long time, though less than the first time.Then he went into ruku for a long time, though less than the first time. Then he went down into sajda. Then he stood for a long time, though less than the first time. Then he went into ruku for a long time, though less than the first time. Then he rose and stood for a long time, though less than the firsttime. Then he went into ruku for a long time, though less than the first time. Then he went down into sajda, and by the time he had finished the sun had appeared. Then he said, &#x27;The sun and the moon are two of Allah&#x27;s signs. They do not eclipse for anyone&#x27;s death nor for anyone&#x27;s life. When you see an eclipse, remember Allah.&#x27; They said, &#x27;Messenger of Allah, we saw you reach out for something while you were standing here and then we saw you withdraw.&#x27; He said, &#x27;I saw the Garden and I reached out for a bunch of grapes from it, and if I had taken it you would have been able to eat from it for as long as this world lasted. Then I saw the Fire - and I have never seen anything more hideous than what I saw today - and I saw that most of its people were women.&#x27; They said, &#x27;Why, Messenger of Allah?&#x27; He said, &#x27;Because of their ungratefulness (kufr).&#x27; Someone said, &#x27;Are they ungrateful toAllah?&#x27; He said, &#x27;They are ungrateful to their husbands and they are ungrateful for good behaviour (towards them) . Even if you were to behave well towards one of them for a whole lifetime and then she were to see you do something (that she did not like) she would say that she had never seen anything good from you</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 447 — The Eclipse Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ عَمْرَةَ بِنْتِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ يَهُودِيَّةً جَاءَتْ تَسْأَلُهَا فَقَالَتْ أَعَاذَكِ اللَّهُ مِنْ عَذَابِ الْقَبْرِ ‏.‏ فَسَأَلَتْ عَائِشَةُ رَسُولَ اللَّهِ صلى الله عليه وسلم أَيُعَذَّبُ النَّاسُ فِي قُبُورِهِمْ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَائِذًا بِاللَّهِ مِنْ ذَلِكَ ثُمَّ رَكِبَ رَسُولُ اللَّهِ صلى الله عليه وسلم ذَاتَ غَدَاةٍ مَرْكَبًا فَخَسَفَتِ الشَّمْسُ فَرَجَعَ ضُحًى فَمَرَّ بَيْنَ ظَهْرَانَىِ الْحُجَرِ ثُمَّ قَامَ يُصَلِّي وَقَامَ النَّاسُ وَرَاءَهُ فَقَامَ قِيَامًا طَوِيلاً ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً ثُمَّ رَفَعَ فَقَامَ قِيَامًا طَوِيلاً وَهُوَ دُونَ الْقِيَامِ الأَوَّلِ ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً وَهُوَ دُونَ الرُّكُوعِ الأَوَّلِ ثُمَّ رَفَعَ فَسَجَدَ ثُمَّ قَامَ قِيَامًا طَوِيلاً وَهُوَ دُونَ الْقِيَامِ الأَوَّلِ ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً وَهُوَ دُونَ الرُّكُوعِ الأَوَّلِ ثُمَّ رَفَعَ فَقَامَ قِيَامًا طَوِيلاً وَهُوَ دُونَ الْقِيَامِ الأَوَّلِ ثُمَّ رَكَعَ رُكُوعًا طَوِيلاً وَهُوَ دُونَ الرُّكُوعِ الأَوَّلِ ثُمَّ رَفَعَ ثُمَّ سَجَدَ ثُمَّ انْصَرَفَ فَقَالَ مَا شَاءَ اللَّهُ أَنْ يَقُولَ ثُمَّ أَمَرَهُمْ أَنْ يَتَعَوَّذُوا مِنْ عَذَابِ الْقَبْرِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from &#x27;Amra bint Abd ar-Rahman from A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, that a jewish woman came to beg from her and said, &quot;May Allah give you refuge from the punishment of the grave.&quot; So A&#x27;isha asked the Messenger of Allah, may Allah bless him and grant him peace, &quot;Are people punished in their graves?&quot;, and the Messenger of Allah, may Allah bless him and grant him peace, took refuge in Allah from that. Then one morning the Messenger of Allah, may Allah bless him and grant him peace, went out on a journey and there was an eclipse of the sun, and he returned in the late morning and passed through his apartments. Then he stood and prayed, and the people stood behind him. He stood for a long time, and then went into ruku for a long time. Then he rose and stood for a long time, though less than the first time, and then went into ruku for a long time, though less than the first time. Then he rose, and went down into sajda. Then he stood for a long time, though less than the time before, and then went into ruku for a long time, though less than the time before. Then he rose and stood for a long time, though less than the time before, and then went into ruku for a long time, though less than the time before. Then he rose, and went down into sajda. When he had finished he said what Allah willed him to say, and then he told them to seek protection for themselves from the punishment of the grave</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 448 — The Eclipse Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ فَاطِمَةَ بِنْتِ الْمُنْذِرِ، عَنْ أَسْمَاءَ بِنْتِ أَبِي بَكْرٍ الصِّدِّيقِ، أَنَّهَا قَالَتْ أَتَيْتُ عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم حِينَ خَسَفَتِ الشَّمْسُ فَإِذَا النَّاسُ قِيَامٌ يُصَلُّونَ وَإِذَا هِيَ قَائِمَةٌ تُصَلِّي فَقُلْتُ مَا لِلنَّاسِ فَأَشَارَتْ بِيَدِهَا نَحْوَ السَّمَاءِ وَقَالَتْ سُبْحَانَ اللَّهِ ‏.‏ فَقُلْتُ آيَةٌ فَأَشَارَتْ بِرَأْسِهَا أَنْ نَعَمْ ‏.‏ قَالَتْ فَقُمْتُ حَتَّى تَجَلاَّنِي الْغَشْىُ وَجَعَلْتُ أَصُبُّ فَوْقَ رَأْسِي الْمَاءَ فَحَمِدَ اللَّهَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَثْنَى عَلَيْهِ ثُمَّ قَالَ ‏ &quot;‏ مَا مِنْ شَىْءٍ كُنْتُ لَمْ أَرَهُ إِلاَّ قَدْ رَأَيْتُهُ فِي مَقَامِي هَذَا حَتَّى الْجَنَّةُ وَالنَّارُ وَلَقَدْ أُوحِيَ إِلَىَّ أَنَّكُمْ تُفْتَنُونَ فِي الْقُبُورِ مِثْلَ - أَوْ قَرِيبًا - مِنْ فِتْنَةِ الدَّجَّالِ - لاَ أَدْرِي أَيَّتَهُمَا قَالَتْ أَسْمَاءُ - يُؤْتَى أَحَدُكُمْ فَيُقَالُ لَهُ مَا عِلْمُكَ بِهَذَا الرَّجُلِ فَأَمَّا الْمُؤْمِنُ - أَوِ الْمُوقِنُ لاَ أَدْرِي أَىَّ ذَلِكَ قَالَتْ أَسْمَاءُ - فَيَقُولُ هُوَ مُحَمَّدٌ رَسُولُ اللَّهِ جَاءَنَا بِالْبَيِّنَاتِ وَالْهُدَى فَأَجَبْنَا وَآمَنَّا وَاتَّبَعْنَا فَيُقَالُ لَهُ نَمْ صَالِحًا قَدْ عَلِمْنَا إِنْ كُنْتَ لَمُؤْمِنًا وَأَمَّا الْمُنَافِقُ - أَوِ الْمُرْتَابُ لاَ أَدْرِي أَيَّتَهُمَا قَالَتْ أَسْمَاءُ - فَيَقُولُ لاَ أَدْرِي سَمِعْتُ النَّاسَ يَقُولُونَ شَيْئًا فَقُلْتُهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from Fatima bint al Mundhir that Asma bint Abi Bakr as-Siddiq said, &quot;I went to A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, during an eclipse of the sun, and everybody was standing in prayer, and she too was standing praying. I said, &#x27;What is everybody doing?&#x27; She pointed towards the sky with her hand and said, &#x27;Glory be to Allah.&#x27; I said, &#x27;A sign?&#x27; She nodded &#x27;Yes&#x27; with her head.&quot; She continued, &quot;I stood until I had almost fainted, and I began to pour water over my head. The Messenger of Allah, may Allah bless him and grant him peace, praised Allah and spoke well of Him, and then said, &#x27;There is nothing which I had previously not seen beforehand that I have not now seen while standing - even the Garden and the Fire. It has been revealed to me that you will be tried in your graves with a trial, like, or near to, the trial of the Dajjal (I do not know which one Asma said). Every one of you will have someone who comes to him and asks him, &#x27;What do you know about this man?&#x27; A mumin, or one who has certainty (muqin) (I do not know which one Asma said), will say, &#x27;He is Muhammad, the Messenger of Allah, may Allah bless him and grant him peace, who came to us with clear proofs and guidance, and we answered and believed and followed.&#x27; He will then be told, &#x27;Sleep in a good state. We know now that you were a mumin.&#x27; A hypocrite, however, or one who has doubts (l do not know which one Asma said), will say, &#x27;I do not know, I heard everybody saying something and I said it</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 12, Hadith 4</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-011.html">← The Fear Prayer</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-013.html">Asking for Rain →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

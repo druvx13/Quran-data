@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunan an-Nasai — The Book of Presents – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='nasai.html'>Sunan an-Nasai</a> › The Book of Presents</span>
+</header>
+<main>
+<h1>Sunan an-Nasai</h1>
+<h2>The Book of Presents</h2>
+<div class="meta-info">
+  Hadith 3672–3687 &nbsp;|&nbsp;
+  <a href="nasai.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 3672 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، قَالَ حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ حُمَيْدٍ، ح وَأَنْبَأَنَا مُحَمَّدُ بْنُ مَنْصُورٍ، عَنْ سُفْيَانَ، قَالَ سَمِعْنَاهُ مِنَ الزُّهْرِيِّ، أَخْبَرَنِي حُمَيْدُ بْنُ عَبْدِ الرَّحْمَنِ، وَمُحَمَّدُ بْنُ النُّعْمَانِ، عَنِ النُّعْمَانِ بْنِ بَشِيرٍ، أَنَّ أَبَاهُ، نَحَلَهُ غُلاَمًا فَأَتَى النَّبِيَّ صلى الله عليه وسلم يُشْهِدُهُ فَقَالَ ‏&quot;‏ أَكُلَّ وَلَدِكَ نَحَلْتَ ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَارْدُدْهُ ‏&quot;‏ ‏.‏ وَاللَّفْظُ لِمُحَمَّدٍ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from An-Nu&#x27;man bin Bashir that his father gave him a slave as a present, then he came to the Prophet to ask him to bear witness (to that). He said:&quot;Have you given a present to all of your children?&quot; He said: &quot;No.&quot; He said: &quot;Then take it back.&quot; This wording is that of (one of the narrators) Muhammad</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3673 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ سَلَمَةَ، وَالْحَارِثُ بْنُ مِسْكِينٍ، قِرَاءَةً عَلَيْهِ وَأَنَا أَسْمَعُ، عَنِ ابْنِ الْقَاسِمِ، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ، وَمُحَمَّدِ بْنِ النُّعْمَانِ، يُحَدِّثَانِهِ عَنِ النُّعْمَانِ بْنِ بَشِيرٍ، أَنَّ أَبَاهُ، أَتَى بِهِ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ إِنِّي نَحَلْتُ ابْنِي غُلاَمًا كَانَ لِي فَقَالَ رَسُولُ اللَّهِ ‏&quot;‏ أَكُلَّ وَلَدِكَ نَحَلْتَهُ ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ فَارْجِعْهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from An-Nu&#x27;man bin Bashir that his father brought him to the Messenger of Allah and said:&quot;I have given my son a slave of mine as a present.&quot; The Messenger of Allah said: &quot;Have you given a present to all of your children?&quot; He said: &quot;No.&quot; The Messenger of Allah said: &quot;Then take (your present) back</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3674 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ هَاشِمٍ، قَالَ حَدَّثَنَا الْوَلِيدُ بْنُ مُسْلِمٍ، قَالَ حَدَّثَنَا الأَوْزَاعِيُّ، عَنِ الزُّهْرِيِّ، عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ، وَعَنْ مُحَمَّدِ بْنِ النُّعْمَانِ، عَنِ النُّعْمَانِ بْنِ بَشِيرٍ، أَنَّ أَبَاهُ، بَشِيرَ بْنَ سَعْدٍ جَاءَ بِابْنِهِ النُّعْمَانِ فَقَالَ يَا رَسُولَ اللَّهِ إِنِّي نَحَلْتُ ابْنِي هَذَا غُلاَمًا كَانَ لِي ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَكُلَّ بَنِيكَ نَحَلْتَ ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَارْجِعْهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from An-Nu&#x27;man bin Bashir that his father Bashir bin Sa&#x27;d brought An-Nu&#x27;man with him and said:&quot;O Messenger of Allah, I have given this son of mine a slave who belonged to me as a present.&quot; The Messenger of Allah said: &quot;Have you given a present to all your children?&quot; He said: &quot;No.&quot; He said: &quot;Then take (your present) back</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3675 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَمْرُو بْنُ عُثْمَانَ بْنِ سَعِيدٍ، قَالَ حَدَّثَنَا الْوَلِيدُ، عَنِ الأَوْزَاعِيِّ، عَنِ الزُّهْرِيِّ، أَنَّ مُحَمَّدَ بْنَ النُّعْمَانِ، وَحُمَيْدَ بْنَ عَبْدِ الرَّحْمَنِ، حَدَّثَاهُ عَنْ بَشِيرِ بْنِ سَعْدٍ، أَنَّهُ جَاءَ إِلَى النَّبِيِّ صلى الله عليه وسلم بِالنُّعْمَانِ بْنِ بَشِيرٍ فَقَالَ إِنِّي نَحَلْتُ ابْنِي هَذَا غُلاَمًا فَإِنْ رَأَيْتَ أَنْ تُنْفِذَهُ أَنْفَذْتُهُ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَكُلَّ بَنِيكَ نَحَلْتَهُ ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَارْدُدْهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Bashir bin Sa&#x27;d that he brought An-Nu&#x27;man to the Prophet and said:&quot;I want to give this son of mine a slave as a present, and if you think that I should go ahead with it, I will go ahead.&quot; The Messenger of Allah said: &quot;Have you given a present to all your children?&quot; He said: &quot;No.&quot; He said: &quot;Then take (your present) back</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3676 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَحْمَدُ بْنُ حَرْبٍ، قَالَ حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنْ هِشَامٍ، عَنْ أَبِيهِ، عَنِ النُّعْمَانِ بْنِ بَشِيرٍ، أَنَّ أَبَاهُ، نَحَلَهُ نُحْلاً فَقَالَتْ لَهُ أُمُّهُ أَشْهِدِ النَّبِيَّ صلى الله عليه وسلم عَلَى مَا نَحَلْتَ ابْنِي ‏.‏ فَأَتَى النَّبِيَّ صلى الله عليه وسلم فَذَكَرَ ذَلِكَ لَهُ فَكَرِهَ النَّبِيُّ صلى الله عليه وسلم أَنْ يَشْهَدَ لَهُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from An-Nu&#x27;man bin Bashir that his father gave him a present, and his mother said:&quot;Ask the Prophet to bear witness to what you have given to my son.&quot; So he came to the Prophet and told him about that, and the Prophet did not want to bear witness to it</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3677 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ مَعْمَرٍ، قَالَ حَدَّثَنَا أَبُو عَامِرٍ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ سَعْدٍ، - يَعْنِي ابْنَ إِبْرَاهِيمَ - عَنْ عُرْوَةَ، عَنْ بَشِيرٍ، أَنَّهُ نَحَلَ ابْنَهُ غُلاَمًا فَأَتَى النَّبِيَّ صلى الله عليه وسلم فَأَرَادَ أَنْ يُشْهِدَ النَّبِيَّ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ أَكُلَّ وَلَدِكَ نَحَلْتَهُ مِثْلَ ذَا ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَارْدُدْهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Bashir that he gave his son a slave as a present, then he came to the Prophet and he wanted the Prophet to bear witness to that. He said:&quot;Have you given a similar present to all of your children?&quot; He said: &quot;No.&quot; He said: &quot;Then take (your present) back</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3678 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمٍ، قَالَ حَدَّثَنَا حِبَّانُ، قَالَ حَدَّثَنَا عَبْدُ اللَّهِ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ بَشِيرًا، أَتَى النَّبِيَّ صلى الله عليه وسلم فَقَالَ يَا نَبِيَّ اللَّهِ نَحَلْتُ النُّعْمَانَ نِحْلَةً ‏.‏ قَالَ ‏&quot;‏ أَعْطَيْتَ لإِخْوَتِهِ ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَارْدُدْهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Hisham bin &#x27;Urwah, from his father, that Bashir came to the Prophet and said:&quot;O Prophet of Allah, I have given An-Nu&#x27;man a present.&quot; He said: &quot;Have you given something to his brothers?&quot; He said: &quot;No.&quot; He said: &quot;Then take it back</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3679 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ الْمَلِكِ بْنِ أَبِي الشَّوَارِبِ، قَالَ حَدَّثَنَا يَزِيدُ، - وَهُوَ ابْنُ زُرَيْعٍ - قَالَ حَدَّثَنَا دَاوُدُ، عَنِ الشَّعْبِيِّ، عَنِ النُّعْمَانِ، قَالَ انْطَلَقَ بِهِ أَبُوهُ يَحْمِلُهُ إِلَى النَّبِيِّ صلى الله عليه وسلم قَالَ اشْهَدْ أَنِّي قَدْ نَحَلْتُ النُّعْمَانَ مِنْ مَالِي كَذَا وَكَذَا ‏.‏ قَالَ ‏ &quot;‏ كُلَّ بَنِيكَ نَحَلْتَ مِثْلَ الَّذِي نَحَلْتَ النُّعْمَانَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that An-Nu&#x27;man said that his father took him to the Prophet and said:&quot;Bear witness that I have given An-Nu&#x27;man such and such of my wealth as a gift.&quot; He said: &quot;Have you given all your children a present like that which you have given to An-Nu&#x27;man?</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3680 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، عَنْ عَبْدِ الْوَهَّابِ، قَالَ حَدَّثَنَا دَاوُدُ، عَنْ عَامِرٍ، عَنِ النُّعْمَانِ، أَنَّ أَبَاهُ، أَتَى بِهِ النَّبِيَّ صلى الله عليه وسلم يُشْهِدُ عَلَى نُحْلٍ نَحَلَهُ إِيَّاهُ ‏.‏ فَقَالَ ‏&quot;‏ أَكُلَّ وَلَدِكَ نَحَلْتَ مِثْلَ مَا نَحَلْتَهُ ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَلاَ أَشْهَدُ عَلَى شَىْءٍ أَلَيْسَ يَسُرُّكَ أَنْ يَكُونُوا إِلَيْكَ فِي الْبِرِّ سَوَاءً ‏&quot;‏ ‏.‏ قَالَ بَلَى ‏.‏ قَالَ ‏&quot;‏ فَلاَ إِذًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from An-Nu&#x27;man that his father brought him to the Prophet to bear witness to a present that he gave to him. He said:&quot;Have you given all your children a present like that which you have given to him?&quot; He said: &quot;No.&quot; He said: &quot;I will not bear witness to anything. Will it not please you if they were all to treat you with equal respect?&quot; He said: &quot;Of course.&quot; He said: &quot;Then no (I will not do it)</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3681 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُوسَى بْنُ عَبْدِ الرَّحْمَنِ، قَالَ حَدَّثَنَا أَبُو أُسَامَةَ، قَالَ حَدَّثَنَا أَبُو حَيَّانَ، عَنِ الشَّعْبِيِّ، قَالَ حَدَّثَنِي النُّعْمَانُ بْنُ بَشِيرٍ الأَنْصَارِيُّ، أَنَّ أُمَّهُ ابْنَةَ رَوَاحَةَ، سَأَلَتْ أَبَاهُ بَعْضَ الْمَوْهِبَةِ مِنْ مَالِهِ لاِبْنِهَا فَالْتَوَى بِهَا سَنَةً ثُمَّ بَدَا لَهُ فَوَهَبَهَا لَهُ فَقَالَتْ لاَ أَرْضَى حَتَّى تُشْهِدَ رَسُولَ اللَّهِ صلى الله عليه وسلم ‏.‏ فَقَالَ يَا رَسُولَ اللَّهِ إِنَّ أُمَّ هَذَا ابْنَةَ رَوَاحَةَ قَاتَلَتْنِي عَلَى الَّذِي وَهَبْتُ لَهُ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ يَا بَشِيرُ أَلَكَ وَلَدٌ سِوَى هَذَا ‏&quot;‏ ‏.‏ قَالَ نَعَمْ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَفَكُلُّهُمْ وَهَبْتَ لَهُمْ مِثْلَ الَّذِي وَهَبْتَ لاِبْنِكَ هَذَا ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ فَلاَ تُشْهِدْنِي إِذًا فَإِنِّي لاَ أَشْهَدُ عَلَى جَوْرٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>An-Nu&#x27;man bin Bashir Al-Ansari narrated that his mother, the daughter of Rawahah, asked his father to give some of his wealth to her son. He deferred that for a year, then he decided to give it to him. She said:&quot;I will not be pleased until you ask the Messenger of Allah to bear witness.&quot; He said: &quot;O Messenger of Allah, the mother of this boy, the daughter of Rawahah, insisted that I give a gift to him.&quot; The Messenger of Allah said: &quot;O Bashir, do you have any other children besides this one?&quot; He said: &quot;Yes.&quot; The Messenger of Allah said: &quot;Have you given all of them a gift like that which you have given to this son of yours?&quot; He said: &quot;No.&quot; The Messenger of Allah said: &quot;Then do not ask me to bear witness, for I will not bear witness to unfairness</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3682 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَبُو دَاوُدَ، قَالَ حَدَّثَنَا يَعْلَى، قَالَ حَدَّثَنَا أَبُو حَيَّانَ، عَنِ الشَّعْبِيِّ، عَنِ النُّعْمَانِ، قَالَ سَأَلَتْ أُمِّي أَبِي بَعْضَ الْمَوْهِبَةِ فَوَهَبَهَا لِي فَقَالَتْ لاَ أَرْضَى حَتَّى أُشْهِدَ رَسُولَ اللَّهِ صلى الله عليه وسلم ‏.‏ قَالَ فَأَخَذَ أَبِي بِيَدِي وَأَنَا غُلاَمٌ فَأَتَى رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ إِنَّ أُمَّ هَذَا ابْنَةَ رَوَاحَةَ طَلَبَتْ مِنِّي بَعْضَ الْمَوْهِبَةِ وَقَدْ أَعْجَبَهَا أَنْ أُشْهِدَكَ عَلَى ذَلِكَ ‏.‏ قَالَ ‏&quot;‏ يَا بَشِيرُ أَلَكَ ابْنٌ غَيْرُ هَذَا ‏&quot;‏ ‏.‏ قَالَ نَعَمْ ‏.‏ قَالَ ‏&quot;‏ فَوَهَبْتَ لَهُ مِثْلَ مَا وَهَبْتَ لِهَذَا ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَلاَ تُشْهِدْنِي إِذًا فَإِنِّي لاَ أَشْهَدُ عَلَى جَوْرٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that An-Nu&#x27;man said:&quot;My mother asked my father for a gift and he gave it to me. She said: &#x27;I will not be contented until you ask the Messenger of Allah to bear witness.&#x27; So my father took me by the hand, as I was still a boy, and went to the Messenger of Allah. He said: &#x27;O Messenger of Allah, the mother of this boy, the daughter of Rawahah, asked me for a gift, and she wanted me to ask you to bear witness to that.&#x27; He said: &#x27;O Bashir, do you have any other child apart from this one?&#x27; He said: &#x27;Yes.&#x27; He said: &#x27;Have you given him gifts like that which you have given to this one?&#x27; He said: &#x27;No.&#x27; He said: &#x27;Then do not ask me to bear witness, for I will not bear witness to unfairness</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3683 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَحْمَدُ بْنُ سُلَيْمَانَ، قَالَ حَدَّثَنَا مُحَمَّدُ بْنُ عُبَيْدٍ، قَالَ حَدَّثَنَا إِسْمَاعِيلُ، عَنْ عَامِرٍ، قَالَ أُخْبِرْتُ أَنَّ بَشِيرَ بْنَ سَعْدٍ أَتَى رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ إِنَّ امْرَأَتِي عَمْرَةَ بِنْتَ رَوَاحَةَ أَمَرَتْنِي أَنْ أَتَصَدَّقَ عَلَى ابْنِهَا نُعْمَانَ بِصَدَقَةٍ وَأَمَرَتْنِي أَنْ أُشْهِدَكَ عَلَى ذَلِكَ ‏.‏ فَقَالَ لَهُ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ هَلْ لَكَ بَنُونَ سِوَاهُ ‏&quot;‏ ‏.‏ قَالَ نَعَمْ ‏.‏ قَالَ ‏&quot;‏ فَأَعْطَيْتَهُمْ مِثْلَ مَا أَعْطَيْتَ لِهَذَا ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ فَلاَ تُشْهِدْنِي عَلَى جَوْرٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that &#x27;Amir said:&quot;I was told that Bashir bin Sa&#x27;d came to the Messenger of Allah and said: &#x27;O Messenger of Allah, my wife &#x27;Amrah bint Rawahah told me to give a gift to her son Nu&#x27;man, and she told me to ask you to bear witness to that.&#x27; The Prophet said: &#x27;Do you have any other children?&#x27; He said: &#x27;Yes.&#x27; He said: &#x27;Have you given them something like that which you have given to this one?&#x27; He said: &#x27;No.&#x27; He said: &#x27;Then do not ask me to bear witness to unfairness</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3684 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَحْمَدُ بْنُ سُلَيْمَانَ، قَالَ حَدَّثَنَا أَبُو نُعَيْمٍ، قَالَ حَدَّثَنَا زَكَرِيَّا، عَنْ عَامِرٍ، قَالَ حَدَّثَنِي عَبْدُ اللَّهِ بْنُ عُتْبَةَ بْنِ مَسْعُودٍ، ح وَأَنْبَأَنَا مُحَمَّدُ بْنُ حَاتِمٍ، قَالَ أَنْبَأَنَا حِبَّانُ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ زَكَرِيَّا، عَنِ الشَّعْبِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عُتْبَةَ بْنِ مَسْعُودٍ، أَنَّ رَجُلاً، جَاءَ إِلَى النَّبِيِّ صلى الله عليه وسلم - وَقَالَ مُحَمَّدٌ أَتَى النَّبِيَّ صلى الله عليه وسلم - فَقَالَ إِنِّي تَصَدَّقْتُ عَلَى ابْنِي بِصَدَقَةٍ فَاشْهَدْ فَقَالَ ‏&quot;‏ هَلْ لَكَ وَلَدٌ غَيْرُهُ ‏&quot;‏ ‏.‏ قَالَ نَعَمْ ‏.‏ قَالَ ‏&quot;‏ أَعْطَيْتَهُمْ كَمَا أَعْطَيْتَهُ ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ قَالَ ‏&quot;‏ أَأَشْهَدُ عَلَى جَوْرٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Abdullah bin &#x27;Utbah bin Mas&#x27;ud that a man came to the Prophet and said:&quot;I have given a gift to my son, so bear witness.&quot; He said: &quot;Do you have any other children?&quot; He said: &quot;Yes.&quot; He said: &quot;Have you given them something like that which you have given him?&quot; He said: &quot;No.&quot; He said: &quot;Shall I bear witness to unfairness?</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3685 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ سَعِيدٍ، عَنْ يَحْيَى، عَنْ فِطْرٍ، قَالَ حَدَّثَنِي مُسْلِمُ بْنُ صُبَيْحٍ، قَالَ سَمِعْتُ النُّعْمَانَ بْنَ بَشِيرٍ، يَقُولُ ذَهَبَ بِي أَبِي إِلَى النَّبِيِّ صلى الله عليه وسلم يُشْهِدُهُ عَلَى شَىْءٍ أَعْطَانِيهِ فَقَالَ ‏ &quot;‏ أَلَكَ وَلَدٌ غَيْرُهُ ‏&quot;‏ ‏.‏ قَالَ نَعَمْ ‏.‏ وَصَفَّ بِيَدِهِ بِكَفِّهِ أَجْمَعَ كَذَا أَلاَ سَوَّيْتَ بَيْنَهُمْ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>An-Nu&#x27;man bin Bashir said:&quot;My father took me to the Prophet to ask him to bear witness to something that he had given to me. He said: &#x27;Do you have any other children?&#x27; He said: &#x27;Yes.&#x27; He gestured with his hand held horizontally like this, (saying): &#x27;Why don&#x27;t you treat them all equally?</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Isnaad Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3686 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمٍ، قَالَ أَنْبَأَنَا حِبَّانُ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ فِطْرٍ، عَنْ مُسْلِمِ بْنِ صُبَيْحٍ، قَالَ سَمِعْتُ النُّعْمَانَ، يَقُولُ وَهُوَ يَخْطُبُ انْطَلَقَ بِي أَبِي إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم يُشْهِدُهُ عَلَى عَطِيَّةٍ أَعْطَانِيهَا فَقَالَ ‏&quot;‏ هَلْ لَكَ بَنُونَ سِوَاهُ ‏&quot;‏ ‏.‏ قَالَ نَعَمْ ‏.‏ قَالَ ‏&quot;‏ سَوِّ بَيْنَهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>An-Nu&#x27;man said, when he was delivering a Khutbah:&quot;My father took me to the Messenger of Allah to ask him to bear witness to a gift that he had given me. He said: &#x27;Do you have any other children besides him?&#x27; He said: &#x27;Yes.&#x27; He said: &#x27;Treat them equally</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 15</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3687 — The Book of Presents</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا يَعْقُوبُ بْنُ سُفْيَانَ، قَالَ حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، قَالَ حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ حَاجِبِ بْنِ الْمُفَضَّلِ بْنِ الْمُهَلَّبِ، عَنْ أَبِيهِ، قَالَ سَمِعْتُ النُّعْمَانَ بْنَ بَشِيرٍ، يَخْطُبُ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ اعْدِلُوا بَيْنَ أَبْنَائِكُمُ اعْدِلُوا بَيْنَ أَبْنَائِكُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>An-Nu&#x27;man bin Bashir delivered a Khutbah and said:&quot;The Messenger of Allah said: &#x27;Treat your children fairly, treat your children fairly</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 31, Hadith 16</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="nasai-book-030.html">← The Book of Wills</a>
+  <a href="nasai.html">📚 Book Index</a>
+  <a href="nasai-book-032.html">The Book of Gifts →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

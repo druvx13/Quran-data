@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — Drinks – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Drinks</span>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>Drinks</h2>
+<div class="meta-info">
+  Hadith 1537–1551 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 1537 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنِ السَّائِبِ بْنِ يَزِيدَ، أَنَّهُ أَخْبَرَهُ أَنَّ عُمَرَ بْنَ الْخَطَّابِ خَرَجَ عَلَيْهِمْ فَقَالَ إِنِّي وَجَدْتُ مِنْ فُلاَنٍ رِيحَ شَرَابٍ فَزَعَمَ أَنَّهُ شَرَابُ الطِّلاَءِ وَأَنَا سَائِلٌ عَمَّا شَرِبَ فَإِنْ كَانَ يُسْكِرُ جَلَدْتُهُ ‏.‏ فَجَلَدَهُ عُمَرُ الْحَدَّ تَامًّا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab that as-Sa&#x27;ib ibn Yazid informed him that Umar ibn al-Khattab came out to them. He said, &quot;I have found the smell of wine on so-and-so, and he claimed that it was the drink of boiled fruit juice, and I am inquiring about what he has drunk. If it intoxicates, I will flog him.&quot; Umar then flogged him with the complete hadd</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1538 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ ثَوْرِ بْنِ زَيْدٍ الدِّيلِيِّ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، اسْتَشَارَ فِي الْخَمْرِ يَشْرَبُهَا الرَّجُلُ فَقَالَ لَهُ عَلِيُّ بْنُ أَبِي طَالِبٍ نَرَى أَنْ تَجْلِدَهُ ثَمَانِينَ فَإِنَّهُ إِذَا شَرِبَ سَكِرَ وَإِذَا سَكِرَ هَذَى وَإِذَا هَذَى افْتَرَى ‏.‏ أَوْ كَمَا قَالَ فَجَلَدَ عُمَرُ فِي الْخَمْرِ ثَمَانِينَ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Thawr ibn Zayd ad-Dili that Umar ibn al-Khattab asked advice about a man drinking wine. Ali ibn Abi Talib said to him, &quot;We think that you flog him for it with eighty lashes. Because when he drinks, he becomes intoxicated, and when he becomes intoxicated, he talks confusedly, and when he talks confusedly, he lies.&quot; (80 lashes is the same amount as for slandering) Umar gave eighty lashes for drinking wine</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1539 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنِ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ سُئِلَ عَنْ حَدِّ الْعَبْدِ، فِي الْخَمْرِ فَقَالَ بَلَغَنِي أَنَّ عَلَيْهِ نِصْفَ حَدِّ الْحُرِّ فِي الْخَمْرِ وَأَنَّ عُمَرَ بْنَ الْخَطَّابِ وَعُثْمَانَ بْنَ عَفَّانَ وَعَبْدَ اللَّهِ بْنَ عُمَرَ قَدْ جَلَدُوا عَبِيدَهُمْ نِصْفَ حَدِّ الْحُرِّ فِي الْخَمْرِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab that he was asked about the hadd of the slave for wine. He said, &quot;I heard that he has half the hadd of a freeman for drinking wine. Umar ibn al-Khattab, Uthman ibn Affan, and Abdullah ibn Umar flogged their slaves with half of the hadd of a freeman when they drank wine</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1540 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ سَمِعَ سَعِيدَ بْنَ الْمُسَيَّبِ، يَقُولُ مَا مِنْ شَىْءٍ إِلاَّ اللَّهُ يُحِبُّ أَنْ يُعْفَى عَنْهُ مَا لَمْ يَكُنْ حَدًّا ‏.‏ قَالَ يَحْيَى قَالَ مَالِكٌ وَالسُّنَّةُ عِنْدَنَا أَنَّ كُلَّ مَنْ شَرِبَ شَرَابًا مُسْكِرًا فَسَكِرَ أَوْ لَمْ يَسْكَرْ فَقَدْ وَجَبَ عَلَيْهِ الْحَدُّ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that he heard Said ibn al-Musayyab say, &quot;There is nothing that Allah does not like to be pardoned as long as it is not a hadd.&quot; Yahya said that Malik said, &quot;The sunna with us is that the hadd is obliged against anyone who drinks something intoxicating whether or not he becomes drunk</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1541 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم خَطَبَ النَّاسَ فِي بَعْضِ مَغَازِيهِ - قَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ - فَأَقْبَلْتُ نَحْوَهُ فَانْصَرَفَ قَبْلَ أَنْ أَبْلُغَهُ فَسَأَلْتُ مَاذَا قَالَ فَقِيلَ لِي نَهَى أَنْ يُنْبَذَ فِي الدُّبَّاءِ وَالْمُزَفَّتِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, addressed the people in one of his raids. Abdullah ibn Umar said, &quot;I went towards him, but he finished before I reached him. I asked about what he had said. Someone said to me, &#x27;He forbade preparing nabidh in a gourd or in a jug smeared with pitch</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1542 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ الْعَلاَءِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ يَعْقُوبَ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى أَنْ يُنْبَذَ فِي الدُّبَّاءِ وَالْمُزَفَّتِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from al-Ala ibn Abd ar-Rahman ibn Yaqub from his father from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, forbade preparing nabidh in a gourd or in a jug smeared with pitch</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1543 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، ‏.‏ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى أَنْ يُنْبَذَ الْبُسْرُ وَالرُّطَبُ جَمِيعًا وَالتَّمْرُ وَالزَّبِيبُ جَمِيعًا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam from Ata ibn Yasar that the Messenger of Allah, may Allah bless him and grant him peace, forbade preparing nabidh from nearly ripe dates and fresh dates together, and from dates and raisins together</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1544 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ الثِّقَةِ، عِنْدَهُ عَنْ بُكَيْرِ بْنِ عَبْدِ اللَّهِ بْنِ الأَشَجِّ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْحُبَابِ الأَنْصَارِيِّ، عَنْ أَبِي قَتَادَةَ الأَنْصَارِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى أَنْ يُشْرَبَ التَّمْرُ وَالزَّبِيبُ جَمِيعًا وَالزَّهْوُ وَالرُّطَبُ جَمِيعًا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from a reliable source from Bukayr ibn Abdullah ibn al-Ashajj from Abd ar-Rahman ibn al-Hubab al-Ansari from Abu Qatada al-Ansari that the Messenger of Allah, may Allah bless him and grant him peace, forbade making nabidh from dates and raisins together, and nearly ripe dates and fresh dates together. Malik said, &quot;That is the way of doing things among us in which the people of knowledge in our city continue. It is disapproved of because the Messenger of Allah, may Allah bless him and grant him peace, forbade it</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1545 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ سُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَنِ الْبِتْعِ فَقَالَ ‏ &quot;‏ كُلُّ شَرَابٍ أَسْكَرَ فَهُوَ حَرَامٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from ibn Shihab from Abu Salama ibn Abd ar-Rahman that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, was asked about mead, and he replied, &#x27;Every drink which intoxicates is haram</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1546 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سُئِلَ عَنِ الْغُبَيْرَاءِ فَقَالَ ‏ &quot;‏ لاَ خَيْرَ فِيهَا ‏&quot;‏ ‏.‏ وَنَهَى عَنْهَا ‏.‏ قَالَ مَالِكٌ فَسَأَلْتُ زَيْدَ بْنَ أَسْلَمَ مَا الْغُبَيْرَاءُ فَقَالَ هِيَ الأُسْكَرْكَةُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam from Ata ibn Yasar that the Messenger of Allah, may Allah bless him and grant him peace, was asked about al-Ghubayra. He said, &quot;There is no good in it,&quot; and forbade it. Malik said, &quot;I asked Zayd ibn Aslam, &#x27;What is al- Ghubayra?&#x27; He said, &#x27;It is an intoxicant</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1547 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ شَرِبَ الْخَمْرَ فِي الدُّنْيَا ثُمَّ لَمْ يَتُبْ مِنْهَا حُرِمَهَا فِي الآخِرَةِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said &quot;Whoever drinks wine in this world and does not turn from it in tawba, it is haram for him in the Next World</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1548 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنِ ابْنِ وَعْلَةَ الْمِصْرِيِّ، ‏.‏ أَنَّهُ سَأَلَ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ عَمَّا يُعْصَرُ مِنَ الْعِنَبِ فَقَالَ ابْنُ عَبَّاسٍ أَهْدَى رَجُلٌ لِرَسُولِ اللَّهِ صلى الله عليه وسلم رَاوِيَةَ خَمْرٍ فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَمَا عَلِمْتَ أَنَّ اللَّهَ حَرَّمَهَا ‏&quot;‏ ‏.‏ قَالَ لاَ ‏.‏ فَسَارَّهُ رَجُلٌ إِلَى جَنْبِهِ ‏.‏ فَقَالَ لَهُ صلى الله عليه وسلم ‏&quot;‏ بِمَ سَارَرْتَهُ ‏&quot;‏ ‏.‏ فَقَالَ أَمَرْتُهُ أَنْ يَبِيعَهَا ‏.‏ فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنَّ الَّذِي حَرَّمَ شُرْبَهَا حَرَّمَ بَيْعَهَا ‏&quot;‏ ‏.‏ فَفَتَحَ الرَّجُلُ الْمَزَادَتَيْنِ حَتَّى ذَهَبَ مَا فِيهِمَا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam that Ibn Wala al-Misri asked Abdullah ibn Abbas about what is squeezed from the grapes. Ibn Abbas replied, &quot;A man gave the Messenger of Allah, may Allah bless him and grant him peace, a small water-skin of wine. The Messenger of Allah, may Allah bless him and grant him peace, said to him, &#x27;Don&#x27;t you know that Allah has made it haram?&#x27; He said, &#x27;No.&#x27; Then a man at his side whispered to him. The Messenger of Allah, may Allah bless him and grant him peace, asked what he had whispered, and the man replied, &#x27;I told him to sell it.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;The One who made drinking it haram has made selling it haram.&#x27; The man then opened the water- skins and poured out what was in them</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1549 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّهُ قَالَ كُنْتُ أَسْقِي أَبَا عُبَيْدَةَ بْنَ الْجَرَّاحِ وَأَبَا طَلْحَةَ الأَنْصَارِيَّ وَأُبَىَّ بْنَ كَعْبٍ شَرَابًا مِنْ فَضِيخٍ وَتَمْرٍ - قَالَ - فَجَاءَهُمْ آتٍ فَقَالَ إِنَّ الْخَمْرَ قَدْ حُرِّمَتْ ‏.‏ فَقَالَ أَبُو طَلْحَةَ يَا أَنَسُ قُمْ إِلَى هَذِهِ الْجِرَارِ فَاكْسِرْهَا ‏.‏ قَالَ فَقُمْتُ إِلَى مِهْرَاسٍ لَنَا فَضَرَبْتُهَا بِأَسْفَلِهِ حَتَّى تَكَسَّرَتْ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha that Anas ibn Malik said, &quot;I was serving wine to Abu Ubayda ibn al-Jarrah and Abu Talha al-Ansari and Umayy ibn Kab. The wine had been prepared from crushed ripe dates and dried dates. Someone came to them and said, &#x27;Wine has been made haram.&#x27; Abu Talha ordered me to go and take the jugs and break them. I stood up and went to a mortar of ours and I struck them with the bottom of it until they broke</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1550 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ دَاوُدَ بْنِ الْحُصَيْنِ، عَنْ وَاقِدِ بْنِ عَمْرِو بْنِ سَعْدِ بْنِ مُعَاذٍ، أَنَّهُ أَخْبَرَهُ عَنْ مَحْمُودِ بْنِ لَبِيدٍ الأَنْصَارِيِّ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، حِينَ قَدِمَ الشَّامَ شَكَا إِلَيْهِ أَهْلُ الشَّامِ وَبَاءَ الأَرْضِ وَثِقَلَهَا وَقَالُوا لاَ يُصْلِحُنَا إِلاَّ هَذَا الشَّرَابُ ‏.‏ فَقَالَ عُمَرُ اشْرَبُوا هَذَا الْعَسَلَ ‏.‏ قَالُوا لاَ يُصْلِحُنَا الْعَسَلُ ‏.‏ فَقَالَ رَجُلٌ مِنْ أَهْلِ الأَرْضِ هَلْ لَكَ أَنْ نَجْعَلَ لَكَ مِنْ هَذَا الشَّرَابِ شَيْئًا لاَ يُسْكِرُ قَالَ نَعَمْ ‏.‏ فَطَبَخُوهُ حَتَّى ذَهَبَ مِنْهُ الثُّلُثَانِ وَبَقِيَ الثُّلُثُ فَأَتَوْا بِهِ عُمَرَ فَأَدْخَلَ فِيهِ عُمَرُ إِصْبَعَهُ ثُمَّ رَفَعَ يَدَهُ فَتَبِعَهَا يَتَمَطَّطُ فَقَالَ هَذَا الطِّلاَءُ هَذَا مِثْلُ طِلاَءِ الإِبِلِ ‏.‏ فَأَمَرَهُمْ عُمَرُ أَنْ يَشْرَبُوهُ فَقَالَ لَهُ عُبَادَةُ بْنُ الصَّامِتِ أَحْلَلْتَهَا وَاللَّهِ ‏.‏ فَقَالَ عُمَرُ كَلاَّ وَاللَّهِ اللَّهُمَّ إِنِّي لاَ أُحِلُّ لَهُمْ شَيْئًا حَرَّمْتَهُ عَلَيْهِمْ وَلاَ أُحَرِّمُ عَلَيْهِمْ شَيْئًا أَحْلَلْتَهُ لَهُمْ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Da&#x27;ud ibn al-Husayn that Waqid ibn Amr ibn Sad ibn Muadh informed him from Mahmud ibn Labid al- Ansari that when Umar ibn al-Khattab went to ash-Sham, the people of ash-Sham complained to him about the bad air of their land and its heaviness. They said, &quot;Only this drink helps.&quot; Umar said, &quot;Drink this honey preparation.&quot; They said, &quot;Honey does not help us.&quot; A man from the people of that land said, &quot;Can we give you something of this drink which does not intoxicate?&quot; He said, &quot;Yes.&quot; They cooked it until two- thirds of it evaporated and one-third of it remained. Then they brought it to Umar. Umar put his finger in it and then lifted his head and extended it. He said, &quot;This is fruit juice concentrated by boiling. This is like the distillation with which you smear the camel&#x27;s scabs.&quot; Umar ordered them to drink it. Ubada ibn as-Samit said to him, &quot;You have made it halal, by Allah!&quot; Umar said, &quot;No, by Allah! O Allah! I will not make anything halal for them which You have made haram for them! I will not make anything haram for them which You have made halal for them</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1551 — Drinks</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رِجَالاً، مِنْ أَهْلِ الْعِرَاقِ قَالُوا لَهُ يَا أَبَا عَبْدِ الرَّحْمَنِ إِنَّا نَبْتَاعُ مِنْ ثَمَرِ النَّخْلِ وَالْعِنَبِ فَنَعْصِرُهُ خَمْرًا فَنَبِيعُهَا ‏.‏ فَقَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ إِنِّي أُشْهِدُ اللَّهَ عَلَيْكُمْ وَمَلاَئِكَتَهُ وَمَنْ سَمِعَ مِنَ الْجِنِّ وَالإِنْسِ أَنِّي لاَ آمُرُكُمْ أَنْ تَبِيعُوهَا وَلاَ تَبْتَاعُوهَا وَلاَ تَعْصِرُوهَا وَلاَ تَشْرَبُوهَا وَلاَ تَسْقُوهَا فَإِنَّهَا رِجْسٌ مِنْ عَمَلِ الشَّيْطَانِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that some men from Iraq said to him, &quot;Abu Abd ar-Rahman, we buy the fruit of the palm and grapes and we squeeze them into wine and we sell it.&quot; Abdullah ibn Umar said, &quot;I call on Allah and His angels and whoever hears of jinn and men to testify to you that I order you not to buy it nor sell it nor to press it nor to drink it nor to give it to people to drink. It is something impure from the work of Shaytan</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 42, Hadith 15</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-041.html">← Hudud</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-043.html">Blood-Money →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

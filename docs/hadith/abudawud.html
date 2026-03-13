@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunan Abu Dawud – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › Sunan Abu Dawud</span>
+</header>
+<main>
+<h1>Sunan Abu Dawud</h1>
+<div class="meta-info">
+  <strong>Author:</strong> Imam Abu Dawud as-Sijistani (d. 275 AH) &nbsp;|&nbsp;
+  <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">سنن أبي داود</span> &nbsp;|&nbsp;
+  <strong>Total:</strong> 5,274 hadith
+</div>
+<div class="desc">One of the six canonical Sunni hadith collections, focusing on legal rulings.</div>
+<h2>Books / Chapters (43)</h2>
+<ul class="book-list">
+<li><a href="abudawud-book-001.html">Purification (Kitab Al-Taharah)<span class="bl-count">390 hadith (1–390)</span></a></li><li><a href="abudawud-book-002.html">Prayer (Kitab Al-Salat)<span class="bl-count">770 hadith (391–1160)</span></a></li><li><a href="abudawud-book-003.html">The Book Of The Prayer For Rain (Kitab al-Istisqa&#x27;)<span class="bl-count">37 hadith (1161–1197)</span></a></li><li><a href="abudawud-book-004.html">Prayer (Kitab Al-Salat): Detailed Rules of Law about the Prayer during Journey<span class="bl-count">52 hadith (1198–1249)</span></a></li><li><a href="abudawud-book-005.html">Prayer (Kitab Al-Salat): Voluntary Prayers<span class="bl-count">121 hadith (1250–1370)</span></a></li><li><a href="abudawud-book-006.html">Prayer (Kitab Al-Salat): Detailed Injunctions about Ramadan<span class="bl-count">30 hadith (1371–1400)</span></a></li><li><a href="abudawud-book-007.html">Prayer (Kitab Al-Salat): Prostration while reciting the Qur&#x27;an<span class="bl-count">15 hadith (1401–1415)</span></a></li><li><a href="abudawud-book-008.html">Prayer (Kitab Al-Salat): Detailed Injunctions about Witr<span class="bl-count">140 hadith (1416–1555)</span></a></li><li><a href="abudawud-book-009.html">Zakat (Kitab Al-Zakat)<span class="bl-count">145 hadith (1556–1700)</span></a></li><li><a href="abudawud-book-010.html">The Book of Lost and Found Items<span class="bl-count">20 hadith (1701–1720)</span></a></li><li><a href="abudawud-book-011.html">The Rites of Hajj (Kitab Al-Manasik Wa&#x27;l-Hajj)<span class="bl-count">325 hadith (1721–2045)</span></a></li><li><a href="abudawud-book-012.html">Marriage (Kitab Al-Nikah)<span class="bl-count">129 hadith (2046–2174)</span></a></li><li><a href="abudawud-book-013.html">Divorce (Kitab Al-Talaq)<span class="bl-count">138 hadith (2175–2312)</span></a></li><li><a href="abudawud-book-014.html">Fasting (Kitab Al-Siyam)<span class="bl-count">164 hadith (2313–2476)</span></a></li><li><a href="abudawud-book-015.html">Jihad (Kitab Al-Jihad)<span class="bl-count">311 hadith (2477–2787)</span></a></li><li><a href="abudawud-book-016.html">Sacrifice (Kitab Al-Dahaya)<span class="bl-count">56 hadith (2788–2843)</span></a></li><li><a href="abudawud-book-017.html">Game (Kitab Al-Said)<span class="bl-count">18 hadith (2844–2861)</span></a></li><li><a href="abudawud-book-018.html">Wills (Kitab Al-Wasaya)<span class="bl-count">23 hadith (2862–2884)</span></a></li><li><a href="abudawud-book-019.html">Shares of Inheritance (Kitab Al-Fara&#x27;id)<span class="bl-count">43 hadith (2885–2927)</span></a></li><li><a href="abudawud-book-020.html">Tribute, Spoils, and Rulership (Kitab Al-Kharaj, Wal-Fai&#x27; Wal-Imarah)<span class="bl-count">161 hadith (2928–3088)</span></a></li><li><a href="abudawud-book-021.html">Funerals (Kitab Al-Jana&#x27;iz)<span class="bl-count">153 hadith (3089–3241)</span></a></li><li><a href="abudawud-book-022.html">Oaths and Vows (Kitab Al-Aiman Wa Al-Nudhur)<span class="bl-count">84 hadith (3242–3325)</span></a></li><li><a href="abudawud-book-023.html">Commercial Transactions (Kitab Al-Buyu)<span class="bl-count">90 hadith (3326–3415)</span></a></li><li><a href="abudawud-book-024.html">Wages (Kitab Al-Ijarah)<span class="bl-count">155 hadith (3416–3570)</span></a></li><li><a href="abudawud-book-025.html">The Office of the Judge (Kitab Al-Aqdiyah)<span class="bl-count">70 hadith (3571–3640)</span></a></li><li><a href="abudawud-book-026.html">Knowledge (Kitab Al-Ilm)<span class="bl-count">28 hadith (3641–3668)</span></a></li><li><a href="abudawud-book-027.html">Drinks (Kitab Al-Ashribah)<span class="bl-count">67 hadith (3669–3735)</span></a></li><li><a href="abudawud-book-028.html">Foods (Kitab Al-At&#x27;imah)<span class="bl-count">119 hadith (3736–3854)</span></a></li><li><a href="abudawud-book-029.html">Medicine (Kitab Al-Tibb)<span class="bl-count">49 hadith (3855–3903)</span></a></li><li><a href="abudawud-book-030.html">Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)<span class="bl-count">22 hadith (3904–3925)</span></a></li><li><a href="abudawud-book-031.html">The Book of Manumission of Slaves<span class="bl-count">43 hadith (3926–3968)</span></a></li><li><a href="abudawud-book-032.html">Dialects and Readings of the Qur&#x27;an (Kitab Al-Huruf Wa Al-Qira&#x27;at)<span class="bl-count">40 hadith (3969–4008)</span></a></li><li><a href="abudawud-book-033.html">Hot Baths (Kitab Al-Hammam)<span class="bl-count">11 hadith (4009–4019)</span></a></li><li><a href="abudawud-book-034.html">Clothing (Kitab Al-Libas)<span class="bl-count">139 hadith (4020–4158)</span></a></li><li><a href="abudawud-book-035.html">Combing the Hair (Kitab Al-Tarajjul)<span class="bl-count">55 hadith (4159–4213)</span></a></li><li><a href="abudawud-book-036.html">Signet-Rings (Kitab Al-Khatam)<span class="bl-count">26 hadith (4214–4239)</span></a></li><li><a href="abudawud-book-037.html">Trials and Fierce Battles (Kitab Al-Fitan Wa Al-Malahim)<span class="bl-count">39 hadith (4240–4278)</span></a></li><li><a href="abudawud-book-038.html">The Promised Deliverer (Kitab Al-Mahdi)<span class="bl-count">12 hadith (4279–4290)</span></a></li><li><a href="abudawud-book-039.html">Battles (Kitab Al-Malahim)<span class="bl-count">60 hadith (4291–4350)</span></a></li><li><a href="abudawud-book-040.html">Prescribed Punishments (Kitab Al-Hudud)<span class="bl-count">143 hadith (4351–4493)</span></a></li><li><a href="abudawud-book-041.html">Types of Blood-Wit (Kitab Al-Diyat)<span class="bl-count">102 hadith (4494–4595)</span></a></li><li><a href="abudawud-book-042.html">Model Behavior of the Prophet (Kitab Al-Sunnah)<span class="bl-count">177 hadith (4596–4772)</span></a></li><li><a href="abudawud-book-043.html">General Behavior (Kitab Al-Adab)<span class="bl-count">502 hadith (4773–5274)</span></a></li>
+</ul>
+<nav class="chapter-nav">
+  <a href="index.html">← All Collections</a>
+  <a href="../index.html">Qur'an Home</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

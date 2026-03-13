@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forty Hadith of Shah Waliullah Dehlawi – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › Forty Hadith of Shah Waliullah Dehlawi</span>
+</header>
+<main>
+<h1>Forty Hadith of Shah Waliullah Dehlawi</h1>
+<div class="meta-info">
+  <strong>Author:</strong> Shah Waliullah Dehlawi (d. 1176 AH) &nbsp;|&nbsp;
+  <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">أربعون حديثاً</span> &nbsp;|&nbsp;
+  <strong>Total:</strong> 40 hadith
+</div>
+<div class="desc">A selection of 40 important hadith chosen by the 18th-century Indian scholar Shah Waliullah Dehlawi.</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 1 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>لَیْسَ الْخَبَرُ کَالْمُعَایَنَةِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The report is not like witnessing</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْحَرْبُ خُدَعَةٌ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>War is deception</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْمُسْلِمُ مِرْآةُ الْمُسْلِمِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>A Muslim is a mirror of the Muslim</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْمُسْتَشَارُ مُؤتَمَنٌ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Someone whose advice is sought is in a position of trust</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 5 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الدَّالُّ عَلَی الْخَیْرِ کَفَاعِلِهِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The person guiding (someone) to do a good deed, is like the one performing the good deed</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 6 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>إِسْتَعِیْنُوْا عَلَی الْحَوَائِجِ بِالْکِتْمَانِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Seek help for any needs discreetly</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 7 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>إِتَّقُوْا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Protect yourself from the fire even with a part of a date</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 8 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الدُّنْیَا سِجْنُ الْمُؤمِنِ وَ جَنَّةُ الْکَافِرِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The world is the believer’s prison and the disbeliever’s paradise</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 9 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْحَیَاءُ خَیْرٌ کُلُّهُ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Modesty is entirely good</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 10 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>عِدَةُ الْمُؤمِنِ کَاَخْذِ الْکَفِّ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The word of the believer is like seizing of the hand</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 11 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>لَا یَحِلُّ لِمُؤمِنٍ اَنْ یَّجُهْرَ أخَاهُ فَوقَ ثَلَاثَةِ أیَّامٍ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It is unlawful for a believer to sever relations with his brother for more than three days</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 12 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>لَیْسَ مِنَّا مَنْ غَشَّنَا</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>He is not one of us who cheats us</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 13 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>مَا قَلَّ وَكَفَى خَيْرٌ مِمَّا كَثُرَ وَأَلْهَى</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>A little that suffices is better than an abundance that distracts</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 14 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الرَّاجِعُ فِيْ هِبَتِهِ کَالرَّاجِعِ فِيْ قَیْئِهِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Someone who takes back his gift is like someone who eats his vomit</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 15 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْبَلَاءُ مُوَکِّلٌ بِالْمَنْطِقِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Affliction comes from (loose) talk</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 15</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 16 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>النَّاسُ کَأسْنَانِ الْمُشْطِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>People are like the teeth of a comb</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 16</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 17 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْغِنَى غِنَى النَّفْسِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Richness lies in the richness of the soul</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 17</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 18 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْسَّعِیْدُ مَنْ وُّعِظَ بِغَیْرِهِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The felicitous person takes lessons from (the actions of) others</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 18</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 19 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَ إِنَّ مِنَ الشِّعْرِ لَحِکْمَةً وَاِنَّ مِنَ الْبَیَانِ لَسِحْرًا</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Indeed, in poetry there is wisdom and in eloquence there is magic</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 19</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 20 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>عَفْوُ الْمُلُوْكِ إِبْقَاءٌ لِلْمُلْكِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The king’s pardon preserves the kingdom</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 20</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 21 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>اَلْمَرْءُ مَعَ مَنْ أَحَبَّ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>A man will be with whom he loves</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 21</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 22 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>مَا هَلَكَ إمْرُؤٌ عَرَفَ قَدْرَهُ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>A man who knows his worth will not be ruined</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 22</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 23 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>اَلْوَلَدُ لِلْفِرَاشِ وَ لِلْعَاهِرِ الْحَجَرُ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The child belongs to the bed and stoning is for the adulterer</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 23</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 24 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْیَدُ الْعُلْیَا خَیْرٌ مِّنَ الْیَدِ السُّفْلَی</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The upper hand is superior to the lower hand</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 24</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 25 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>لَا شَکَرَ اللهَ مَنْ لَّا یَشْکُرُ النَّاسَ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>He does not thank Allah who does not thank people</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 25</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 26 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حُبُّكَ الشَّيْءَ یُعْمِيْ وَ یُصِمُّ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Your love of something can blind and deafen (you)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 26</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 27 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>جُبِلَتِ الْقُلُوبُ عَلی حُبَّ مَنْ اَحْسَنَ اِلَیْهَا وَ بُغْضِ مَنْ اَسَاءَ اِلَیْهَا</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Hearts are predisposed to love someone who does them good and detest someone who does them harm</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 27</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 28 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْتَّائِبُ مِنَ الذَّنْبِ کَمَنْ لَا ذَنْبَ لَهُ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>One who repents from sin is like someone without sin</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 28</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 29 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الشَّاهِدُ یَرَی مَا لَا یَرَاهُ الْغَائِبُ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The person who actually witnesses an (event) sees that which one who is absent does not</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 29</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 30 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>اِذا جَاءَکُمْ کَرِیْمُ قَوْمٍ فَاَکْرِمُوهُ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>If the nobleman of a people comes to you, honour him</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 30</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 31 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْیَمِینُ الْفَاجِرَةُ تَدَعُ الدِّیَارَ الْبَلَاقِعَ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>False oaths lay waste to home (lands)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 31</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 32 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>مَنْ قُتِلَ دُونَ مَالِهِ فَهُوَ شَهِیْدٌ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Whoever is killed attempting to save his property is a martyr</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 32</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 33 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْاَعْمَالُ بِالنِّیَّةِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Actions are through intentions</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 33</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 34 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>سَیِّدُ الْقَوْمِ خَادِمُهُمْ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The leader of a people is their servant</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 34</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 35 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>خَیْرُ الْأُمُوْرِ أَوْسَطُهَا</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The best of affairs is that which is balanced</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 35</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 36 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>اَللَّهُمَّ بَارِكْ فِیْ أُمَّتِیْ فِی بُکُوْرِهَا یَوْمَ الْخَمِیْسِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>O Allah, bless my nation in its early rising on Thursdays</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 36</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 37 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>کَادَ الْفَقْرُ أَنْ یَکُوْنَ کُفْرًا</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Poverty can almost turn into disbelief</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 37</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 38 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْسَّفَرُ قِطْعَةٌ مِّنَ الْعَذَابِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Travelling is a portion of punishment</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 38</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 39 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>خَیْرُ زَّادِ الْتَّقْوَی</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The best of provision is God-Consciousness (taqwa)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 39</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 40 — Forty Hadith of Shah Waliullah Dehlawi</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>الْمَجَالِسُ بِالْاَمَانَةِ</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Meetings are under trust</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 1, Hadith 40</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="index.html">← All Collections</a>
+  <a href="../index.html">Qur'an Home</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

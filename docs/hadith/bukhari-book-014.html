@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahih al-Bukhari — Witr Prayer – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='bukhari.html'>Sahih al-Bukhari</a> › Witr Prayer</span>
+</header>
+<main>
+<h1>Sahih al-Bukhari</h1>
+<h2>Witr Prayer</h2>
+<div class="meta-info">
+  Hadith 990–1004 &nbsp;|&nbsp;
+  <a href="bukhari.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 990 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ، قَالَ أَخْبَرَنَا مَالِكٌ، عَنْ نَافِعٍ، وَعَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنِ ابْنِ عُمَرَ، أَنَّ رَجُلاً، سَأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنْ صَلاَةِ اللَّيْلِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ صَلاَةُ اللَّيْلِ مَثْنَى مَثْنَى، فَإِذَا خَشِيَ أَحَدُكُمُ الصُّبْحَ صَلَّى رَكْعَةً وَاحِدَةً، تُوتِرُ لَهُ مَا قَدْ صَلَّى ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn `Umar: Once a person asked Allah&#x27;s Messenger (ﷺ) about the night prayer. Allah&#x27;s Apostle (ﷺ) replied, &quot;The night prayer is offered as two Rak`at followed by two Rak`at and so on and if anyone is afraid of the approaching dawn (Fajr prayer) he should pray one Rak`ah and this will be a Witr for all the Rak`at which he has prayed before</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 991 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَعَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يُسَلِّمُ بَيْنَ الرَّكْعَةِ وَالرَّكْعَتَيْنِ فِي الْوِتْرِ، حَتَّى يَأْمُرَ بِبَعْضِ حَاجَتِهِ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Nafi` told that `Abdullah bin `Umar used to say Taslim between (the first) two Rak`at and (the third) odd one in the Witr prayer, when he wanted to attend to a certain matter (during that interval between the Rak`at)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 992 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، عَنْ مَالِكٍ، عَنْ مَخْرَمَةَ بْنِ سُلَيْمَانَ، عَنْ كُرَيْبٍ، أَنَّ ابْنَ عَبَّاسٍ، أَخْبَرَهُ أَنَّهُ، بَاتَ عِنْدَ مَيْمُونَةَ، وَهْىَ خَالَتُهُ، فَاضْطَجَعْتُ فِي عَرْضِ وِسَادَةٍ، وَاضْطَجَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَهْلُهُ فِي طُولِهَا، فَنَامَ حَتَّى انْتَصَفَ اللَّيْلُ أَوْ قَرِيبًا مِنْهُ، فَاسْتَيْقَظَ يَمْسَحُ النَّوْمَ عَنْ وَجْهِهِ، ثُمَّ قَرَأَ عَشْرَ آيَاتٍ مِنْ آلِ عِمْرَانَ، ثُمَّ قَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم إِلَى شَنٍّ مُعَلَّقَةٍ، فَتَوَضَّأَ فَأَحْسَنَ الْوُضُوءَ، ثُمَّ قَامَ يُصَلِّي فَصَنَعْتُ مِثْلَهُ فَقُمْتُ إِلَى جَنْبِهِ، فَوَضَعَ يَدَهُ الْيُمْنَى عَلَى رَأْسِي، وَأَخَذَ بِأُذُنِي يَفْتِلُهَا، ثُمَّ صَلَّى رَكْعَتَيْنِ، ثُمَّ رَكْعَتَيْنِ، ثُمَّ رَكْعَتَيْنِ، ثُمَّ رَكْعَتَيْنِ، ثُمَّ رَكْعَتَيْنِ، ثُمَّ رَكْعَتَيْنِ، ثُمَّ أَوْتَرَ، ثُمَّ اضْطَجَعَ حَتَّى جَاءَهُ الْمُؤَذِّنُ فَقَامَ فَصَلَّى رَكْعَتَيْنِ ثُمَّ، خَرَجَ فَصَلَّى الصُّبْحَ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn `Abbas:Once I passed the night in the house of Maimuna (his aunt). I slept across the bed while Allah&#x27;s Apostle and his wife slept length-wise. The Prophet (ﷺ) slept till midnight or nearly so and woke up rubbing his face and recited ten verses from Surat &quot;Al-`Imran.&quot; Allah&#x27;s Messenger (ﷺ) went towards a leather skin and performed ablution in the most perfect way and then stood for the prayer. I did the same and stood beside him. The Prophet (ﷺ) put his right hand on my head, twisted my ear and then prayed two rak`at five times and then ended his prayer with witr. He laid down till the Mu&#x27;adh-dhin came then he stood up and offered two rak`at (Sunnah of Fajr prayer) and then went out and offered the Fajr prayer. (See Hadith)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 993 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ سُلَيْمَانَ، قَالَ حَدَّثَنِي ابْنُ وَهْبٍ، قَالَ أَخْبَرَنِي عَمْرٌو، أَنَّ عَبْدَ الرَّحْمَنِ بْنَ الْقَاسِمِ، حَدَّثَهُ عَنْ أَبِيهِ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ &quot;‏ صَلاَةُ اللَّيْلِ مَثْنَى مَثْنَى، فَإِذَا أَرَدْتَ أَنْ تَنْصَرِفَ فَارْكَعْ رَكْعَةً تُوتِرُ لَكَ مَا صَلَّيْتَ ‏&quot;‏‏.‏ قَالَ الْقَاسِمُ وَرَأَيْنَا أُنَاسًا مُنْذُ أَدْرَكْنَا يُوتِرُونَ بِثَلاَثٍ، وَإِنَّ كُلاًّ لَوَاسِعٌ أَرْجُو أَنْ لاَ يَكُونَ بِشَىْءٍ مِنْهُ بَأْسٌ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Abdullah bin `Umar:The Prophet (ﷺ) said, &quot;Night prayer is offered as two rak`at followed by two rak`at and so on, and if you want to finish it, pray only one rak`a which will be witr for all the previous rak`at.&quot; Al-Qasim said, &quot;Since we attained the age of puberty we have seen some people offering a three-rak`at prayer as witr and all that is permissible. I hope there will be no harm in it</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 994 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو الْيَمَانِ، قَالَ أَخْبَرَنَا شُعَيْبٌ، عَنِ الزُّهْرِيِّ، عَنْ عُرْوَةَ، أَنَّ عَائِشَةَ، أَخْبَرَتْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُصَلِّي إِحْدَى عَشْرَةَ رَكْعَةً، كَانَتْ تِلْكَ صَلاَتَهُ ـ تَعْنِي بِاللَّيْلِ ـ فَيَسْجُدُ السَّجْدَةَ مِنْ ذَلِكَ قَدْرَ مَا يَقْرَأُ أَحَدُكُمْ خَمْسِينَ آيَةً قَبْلَ أَنْ يَرْفَعَ رَأْسَهُ، وَيَرْكَعُ رَكْعَتَيْنِ قَبْلَ صَلاَةِ الْفَجْرِ، ثُمَّ يَضْطَجِعُ عَلَى شِقِّهِ الأَيْمَنِ حَتَّى يَأْتِيَهُ الْمُؤَذِّنُ لِلصَّلاَةِ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `A&#x27;isha:Allah&#x27;s Messenger (ﷺ) used to pray eleven rak`at at night and that was his night prayer and each of his prostrations lasted for a period enough for one of you to recite fifty verses before Allah&#x27;s Messenger (ﷺ) raised his head. He also used to pray two rak`at (Sunnah) before the (compulsory) Fajr prayer and then lie down on his right side till the Mu&#x27;adh-dhin came to him for the prayer</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 995 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو النُّعْمَانِ، قَالَ حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، قَالَ حَدَّثَنَا أَنَسُ بْنُ سِيرِينَ، قَالَ قُلْتُ لاِبْنِ عُمَرَ أَرَأَيْتَ الرَّكْعَتَيْنِ قَبْلَ صَلاَةِ الْغَدَاةِ أُطِيلُ فِيهِمَا الْقِرَاءَةَ فَقَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم يُصَلِّي مِنَ اللَّيْلِ مَثْنَى مَثْنَى، وَيُوتِرُ بِرَكْعَةٍ وَيُصَلِّي الرَّكْعَتَيْنِ قَبْلَ صَلاَةِ الْغَدَاةِ وَكَأَنَّ الأَذَانَ بِأُذُنَيْهِ‏.‏ قَالَ حَمَّادٌ أَىْ سُرْعَةً‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas bin Seereen:I asked Ibn `Umar, &quot;What is your opinion about the two rak`at before the Fajr (compulsory) prayer, as to prolonging the recitation in them?&quot; He said, &quot;The Prophet (ﷺ) used to pray at night two rak`at followed by two and so on, and end the prayer by one rak`ah witr. He used to offer two rak`at before the Fajr prayer immediately after the Adhan.&quot; (Hammad, the sub-narrator said, &quot;That meant (that he prayed) quickly</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 996 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عُمَرُ بْنُ حَفْصٍ، قَالَ حَدَّثَنَا أَبِي قَالَ، حَدَّثَنَا الأَعْمَشُ، قَالَ حَدَّثَنِي مُسْلِمٌ، عَنْ مَسْرُوقٍ، عَنْ عَائِشَةَ، قَالَتْ كُلَّ اللَّيْلِ أَوْتَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَانْتَهَى وِتْرُهُ إِلَى السَّحَرِ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Aisha:Allah&#x27;s Messenger (ﷺ) offered witr prayer at different nights at various hours extending (from the `Isha&#x27; prayer) up to the last hour of the night</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 997 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا يَحْيَى، قَالَ حَدَّثَنَا هِشَامٌ، قَالَ حَدَّثَنِي أَبِي، عَنْ عَائِشَةَ، قَالَتْ كَانَ النَّبِيُّ صلى الله عليه وسلم يُصَلِّي، وَأَنَا رَاقِدَةٌ مُعْتَرِضَةً عَلَى فِرَاشِهِ، فَإِذَا أَرَادَ أَنْ يُوتِرَ أَيْقَظَنِي فَأَوْتَرْتُ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `A&#x27;isha:The Prophet (ﷺ) used to offer his night prayer while I was sleeping across in his bed. Whenever he intended to offer the witr prayer, he used to wake me up and I would offer the witr prayer too</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 998 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ، عَنْ عُبَيْدِ اللَّهِ، حَدَّثَنِي نَافِعٌ، عَنْ عَبْدِ اللَّهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ اجْعَلُوا آخِرَ صَلاَتِكُمْ بِاللَّيْلِ وِتْرًا ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Abdullah bin `Umar:The Prophet (ﷺ) said, &quot;Make witr as your last prayer at night</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 999 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا إِسْمَاعِيلُ، قَالَ حَدَّثَنِي مَالِكٌ، عَنْ أَبِي بَكْرِ بْنِ عُمَرَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الْخَطَّابِ، عَنْ سَعِيدِ بْنِ يَسَارٍ، أَنَّهُ قَالَ كُنْتُ أَسِيرُ مَعَ عَبْدِ اللَّهِ بْنِ عُمَرَ بِطَرِيقِ مَكَّةَ فَقَالَ سَعِيدٌ فَلَمَّا خَشِيتُ الصُّبْحَ نَزَلْتُ فَأَوْتَرْتُ، ثُمَّ لَحِقْتُهُ فَقَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ أَيْنَ كُنْتَ فَقُلْتُ خَشِيتُ الصُّبْحَ، فَنَزَلْتُ فَأَوْتَرْتُ‏.‏ فَقَالَ عَبْدُ اللَّهِ أَلَيْسَ لَكَ فِي رَسُولِ اللَّهِ صلى الله عليه وسلم أُسْوَةٌ حَسَنَةٌ فَقُلْتُ بَلَى وَاللَّهِ‏.‏ قَالَ فَإِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُوتِرُ عَلَى الْبَعِيرِ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Sa`id bin Yasar:I was going to Mecca in the company of `Abdullah bin `Umar and when I apprehended the approaching dawn, I dismounted and offered the witr prayer and then joined him. `Abdullah bin `Umar said, &quot;Where have you been?&quot; I replied, &quot;I apprehended the approaching dawn so I dismounted and prayed the witr prayer.&quot; `Abdullah said, &quot;Isn&#x27;t it sufficient for you to follow the good example of Allah&#x27;s Messenger (ﷺ)?&quot; I replied, &quot;Yes, by Allah.&quot; He said, &quot;Allah&#x27;s Messenger (ﷺ) used to pray witr on the back of the camel (while on a journey)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1000 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، قَالَ حَدَّثَنَا جُوَيْرِيَةُ بْنُ أَسْمَاءَ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم يُصَلِّي فِي السَّفَرِ عَلَى رَاحِلَتِهِ، حَيْثُ تَوَجَّهَتْ بِهِ، يُومِئُ إِيمَاءً، صَلاَةَ اللَّيْلِ إِلاَّ الْفَرَائِضَ، وَيُوتِرُ عَلَى رَاحِلَتِهِ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn `Umar:The Prophet (ﷺ) used to offer (Nawafil) prayers on his Rahila (mount) facing its direction by signals, but not the compulsory prayer. He also used to pray witr on his (mount) Rahila</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1001 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ مُحَمَّدٍ، قَالَ سُئِلَ أَنَسٌ أَقَنَتَ النَّبِيُّ صلى الله عليه وسلم فِي الصُّبْحِ قَالَ نَعَمْ‏.‏ فَقِيلَ لَهُ أَوَقَنَتَ قَبْلَ الرُّكُوعِ قَالَ بَعْدَ الرُّكُوعِ يَسِيرًا‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Muhammad bin Seereen:Anas was asked, &quot;Did the Prophet (ﷺ) recite Qunut in the Fajr prayer?&quot; Anas replied in the affirmative. He was further asked, &quot;Did he recite Qunut before bowing?&quot; Anas replied, &quot;He recited Qunut after bowing for some time (for one month)</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1002 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا عَبْدُ الْوَاحِدِ، قَالَ حَدَّثَنَا عَاصِمٌ، قَالَ سَأَلْتُ أَنَسَ بْنَ مَالِكٍ عَنِ الْقُنُوتِ،‏.‏ فَقَالَ قَدْ كَانَ الْقُنُوتُ‏.‏ قُلْتُ قَبْلَ الرُّكُوعِ أَوْ بَعْدَهُ قَالَ قَبْلَهُ‏.‏ قَالَ فَإِنَّ فُلاَنًا أَخْبَرَنِي عَنْكَ أَنَّكَ قُلْتَ بَعْدَ الرُّكُوعِ‏.‏ فَقَالَ كَذَبَ، إِنَّمَا قَنَتَ رَسُولُ اللَّهِ صلى الله عليه وسلم بَعْدَ الرُّكُوعِ شَهْرًا ـ أُرَاهُ ـ كَانَ بَعَثَ قَوْمًا يُقَالُ لَهُمُ الْقُرَّاءُ زُهَاءَ سَبْعِينَ رَجُلاً إِلَى قَوْمٍ مِنَ الْمُشْرِكِينَ دُونَ أُولَئِكَ، وَكَانَ بَيْنَهُمْ وَبَيْنَ رَسُولِ اللَّهِ صلى الله عليه وسلم عَهْدٌ فَقَنَتَ رَسُولُ اللَّهِ صلى الله عليه وسلم شَهْرًا يَدْعُو عَلَيْهِمْ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Asim:I asked Anas bin Malik about the Qunut. Anas replied, &quot;Definitely it was (recited)&quot;. I asked, &quot;Before bowing or after it?&quot; Anas replied, &quot;Before bowing.&quot; I added, &quot;So and so has told me that you had informed him that it had been after bowing.&quot; Anas said, &quot;He told an untruth (i.e. &quot;was mistaken,&quot; according to the Hijazi dialect). Allah&#x27;s Messenger (ﷺ) recited Qunut after bowing for a period of one month.&quot; Anas added, &quot;The Prophet (ﷺ) sent about seventy men (who knew the Qur&#x27;an by heart) towards the pagans (of Najd) who were less than they in number and there was a peace treaty between them and Allah&#x27;s Messenger (ﷺ) (but the Pagans broke the treaty and killed the seventy men). So Allah&#x27;s Messenger (ﷺ) recited Qunut for a period of one month asking Allah to punish them</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1003 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَحْمَدُ بْنُ يُونُسَ، قَالَ حَدَّثَنَا زَائِدَةُ، عَنِ التَّيْمِيِّ، عَنْ أَبِي مِجْلَزٍ، عَنْ أَنَسٍ، قَالَ قَنَتَ النَّبِيُّ صلى الله عليه وسلم شَهْرًا يَدْعُو عَلَى رِعْلٍ وَذَكْوَانَ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas bin Malik:The Prophet (ﷺ) recited Qunut for one month (in the Fajr prayer) asking Allah to punish the tribes of Ral and Dhakwan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1004 — Witr Prayer</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا إِسْمَاعِيلُ، قَالَ حَدَّثَنَا خَالِدٌ، عَنْ أَبِي قِلاَبَةَ، عَنْ أَنَسٍ، قَالَ كَانَ الْقُنُوتُ فِي الْمَغْرِبِ وَالْفَجْرِ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas:The Qunut used to be recited in the Maghrib and the Fajr prayers</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 15</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="bukhari-book-013.html">← The Two Festivals (Eids)</a>
+  <a href="bukhari.html">📚 Book Index</a>
+  <a href="bukhari-book-015.html">Invoking Allah for Rain (Istisqaa) →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

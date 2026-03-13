@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunan an-Nasai — General – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='nasai.html'>Sunan an-Nasai</a> › General</span>
+</header>
+<main>
+<h1>Sunan an-Nasai</h1>
+<h2>General</h2>
+<div class="meta-info">
+  Hadith 384.2–5564.2 &nbsp;|&nbsp;
+  <a href="nasai.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 384.2</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>قَالَ إِسْحَاقُ أَنْبَأَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، بِهَذَا الإِسْنَادِ مِثْلَهُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>(Another chain) with similarity</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 3, Hadith 37</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 434.2</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ الأَعْلَى، أَنْبَأَنَا أُمَيَّةُ بْنُ خَالِدٍ، حَدَّثَنَا شُعْبَةُ، أَنَّ مُخَارِقًا، أَخْبَرَهُمْ عَنْ طَارِقِ بْنِ شِهَابٍ، أَنَّ رَجُلاً، أَجْنَبَ فَلَمْ يُصَلِّ فَأَتَى النَّبِيَّ صلى الله عليه وسلم فَذَكَرَ ذَلِكَ لَهُ فَقَالَ ‏&quot;‏ أَصَبْتَ ‏&quot;‏ ‏.‏ فَأَجْنَبَ رَجُلٌ آخَرُ فَتَيَمَّمَ وَصَلَّى فَأَتَاهُ فَقَالَ نَحْوًا مِمَّا قَالَ لِلآخَرِ يَعْنِي ‏&quot;‏ أَصَبْتَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Tariq bin Shaihab that a man became Junub and did not pray. He came to the Prophet (ﷺ) and told him about that, and he said:&quot;You did the right thing.&quot; Then another man became Junub so he performed Tayammum and prayed. He came (to the Prophet (ﷺ)) who said to him what he had said to the other man- meaning, &quot;You did the right thing</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 4, Hadith 40</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2821.2</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنِي عَمْرُو بْنُ عَلِيٍّ، قَالَ سَمِعْتُ يَحْيَى، وَسَمِعْتُ أَبَا عَاصِمٍ، قَالاَ حَدَّثَنَا ابْنُ جُرَيْجٍ، قَالَ أَخْبَرَنِي الْحَسَنُ بْنُ مُسْلِمٍ، عَنْ طَاوُسٍ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَدِمَ زَيْدُ بْنُ أَرْقَمَ فَقَالَ لَهُ ابْنُ عَبَّاسٍ يَسْتَذْكِرُهُ كَيْفَ أَخْبَرْتَنِي عَنْ لَحْمِ، صَيْدٍ أُهْدِيَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم وَهُوَ حَرَامٌ قَالَ نَعَمْ أَهْدَى لَهُ رَجُلٌ عُضْوًا مِنْ لَحْمِ صَيْدٍ فَرَدَّهُ وَقَالَ ‏ &quot;‏ إِنَّا لاَ نَأْكُلُ إِنَّا حُرُمٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn &#x27;Abbas said:&quot;Zaid bin Arqam came and Ibn Abbas said to him, reminding him: &quot;What did you tell me about the game meat that was given to the Messenger of Allah when he was in Ihram?&quot; He said: &quot;Yes, a man gave him a piece of game meat but he returned it and said: &#x27;We cannot eat it, we are in Ihram</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 204</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3533.2</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>قَالَتْ زَيْنَبُ ثُمَّ دَخَلْتُ عَلَى زَيْنَبَ بِنْتِ جَحْشٍ حِينَ تُوُفِّيَ أَخُوهَا وَقَدْ دَعَتْ بِطِيبٍ وَمَسَّتْ مِنْهُ ثُمَّ قَالَتْ وَاللَّهِ مَا لِي بِالطِّيبِ مِنْ حَاجَةٍ غَيْرَ أَنِّي سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ عَلَى الْمِنْبَرِ ‏ &quot;‏ لاَ يَحِلُّ لاِمْرَأَةٍ تُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ تَحِدُّ عَلَى مَيِّتٍ فَوْقَ ثَلاَثِ لَيَالٍ إِلاَّ عَلَى زَوْجٍ أَرْبَعَةَ أَشْهُرٍ وَعَشْرًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Zainab said:&quot;Then I went into Zainab bint Jahsh when her brother died, and she called for some perfume and put some on. Then she said: &#x27;By Allah, I do not have any need for perfume but I heard the Messenger of Allah say on the Minbar: It is not permissible for any woman who believes in Allah and the Last Day to mourn for anyone who dies for more than three days, except for a husband, (for whom the mourning period is) four months and ten days</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 27, Hadith 146</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3533.3</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَقَالَتْ زَيْنَبُ سَمِعْتُ أُمَّ سَلَمَةَ، تَقُولُ جَاءَتِ امْرَأَةٌ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَتْ يَا رَسُولَ اللَّهِ إِنَّ ابْنَتِي تُوُفِّيَ عَنْهَا زَوْجُهَا وَقَدِ اشْتَكَتْ عَيْنَهَا أَفَأَكْحُلُهَا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ ‏&quot;‏ ‏.‏ ثُمَّ قَالَ ‏&quot;‏ إِنَّمَا هِيَ أَرْبَعَةُ أَشْهُرٍ وَعَشْرًا وَقَدْ كَانَتْ إِحْدَاكُنَّ فِي الْجَاهِلِيَّةِ تَرْمِي بِالْبَعْرَةِ عِنْدَ رَأْسِ الْحَوْلِ ‏&quot;‏ ‏.‏ قَالَ حُمَيْدٌ فَقُلْتُ لِزَيْنَبَ وَمَا تَرْمِي بِالْبَعْرَةِ عِنْدَ رَأْسِ الْحَوْلِ قَالَتْ زَيْنَبُ كَانَتِ الْمَرْأَةُ إِذَا تُوُفِّيَ عَنْهَا زَوْجُهَا دَخَلَتْ حِفْشًا وَلَبِسَتْ شَرَّ ثِيَابِهَا وَلَمْ تَمَسَّ طِيبًا وَلاَ شَيْئًا حَتَّى تَمُرَّ بِهَا سَنَةٌ ثُمَّ تُؤْتَى بِدَابَّةٍ حِمَارٍ أَوْ شَاةٍ أَوْ طَيْرٍ فَتَفْتَضُّ بِهِ فَقَلَّمَا تَفْتَضُّ بِشَىْءٍ إِلاَّ مَاتَ ثُمَّ تَخْرُجُ فَتُعْطَى بَعْرَةً فَتَرْمِي بِهَا وَتُرَاجِعُ بَعْدُ مَا شَاءَتْ مِنْ طِيبٍ أَوْ غَيْرِهِ ‏.‏ قَالَ مَالِكٌ تَفْتَضُّ تَمْسَحُ بِهِ فِي حَدِيثِ مُحَمَّدٍ ‏.‏ قَالَ مَالِكٌ الْحِفْشُ الْخُصُّ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Zainab said:&quot;I heard Umm Salamah say: &#x27;A woman came to the Messenger of Allah and said: O Messenger of Allah, my daughter&#x27;s husband has died and she has a problem in her eye; can I put kohl on her? The Messenger of Allah said: No. Then he said: It is four months and ten days. During the Jahiliyyah one of you would throw a piece of dung at the end of the year.&#x27;&quot; Humaid said: &quot;I said to Zainab: &#x27;What is this throwing a piece of dung at the end of the year?&#x27; She said: &#x27;If a woman&#x27;s husband died, she would enter a small room (Hifsh) and wear her worst clothes, and she would not put on perfume or anything until a year. Then an animal would be brought, a donkey or sheep or bird, and she would end her &#x27;Iddah with it (clean herself with it), and usually any animal used for that purpose would die. Then she would come out and would be given a piece of dung which she would throw, then she would go back to whatever she wanted of perfume, etc.&#x27;&quot; In the narration of Muhammad (bin Salamah) Malik said: Hifsh means hut</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 27, Hadith 147</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3722.2</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، عَنْ سُفْيَانَ، عَنْ عَمْرٍو، عَنْ طَاوُسٍ، عَنْ حُجْرٍ الْمَدَرِيِّ، عَنْ زَيْدِ بْنِ ثَابِتٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَضَى بِالْعُمْرَى لِلْوَارِثِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Zaid bin Thabit that the Prophet ruled that &#x27;Umra (a gift given for life) belongs to the heir</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 34, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3857</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif Muquf; Daif Muquf</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3858</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3859</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3860</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad Maqtu; Sahih Isnaad Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3861</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad Maqtu; Sahih Isnaad Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3862</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3863</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3864</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3865</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3866</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3867</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3868</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3869</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3870</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3871</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3872</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3873</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3874</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3875</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3876</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3877</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3878</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3879</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih Hadith</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3880</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih Hadith</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3881</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3882</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3883</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3884</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3885</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih Isnaad; Hasan Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3886</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3887</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3888</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3889</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3890</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3891</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3892</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3893</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3894</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3895</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3896</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3897</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3898</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3899</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3900</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3901</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3902</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3903</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3904</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3905</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3906</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3907</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3908</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3909</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3910</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3911</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3912</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3913</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3914</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3915</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Shadh; Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3916</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3917</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3918</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3919</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3920</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3921</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih Hadith</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3922</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3923</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3924</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3925</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3926</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Shadh; Shadh</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3927</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3928</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3929</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3930</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3931</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3932</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3933</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad Mauquf; Sahih Isnaad Mauquf</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3934</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad Maqtu; Sahih Isnaad Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3935</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad Maqtu; Sahih Isnaad Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3936</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad Maqtu; Daif Isnaad Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3937</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 3938</td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad Maqtu; Sahih Isnaad Maqtu</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 0, Hadith 0</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 5564.2</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا سُوَيْدٌ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، قَالَ قَتَادَةُ كَانَ أَنَسٌ يَأْمُرُ بِالتَّذْنُوبِ فَيُقْرَضُ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Qatadah said:&quot;Anas used to tell us to cut off the extra bits</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih Isnaad</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 26</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="nasai-book-003.html">← The Book of Menstruation and Istihadah</a>
+  <a href="nasai.html">📚 Book Index</a>
+  <a href="nasai-book-004.html">The Book of Ghusl and Tayammum →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

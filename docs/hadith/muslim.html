@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahih Muslim – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › Sahih Muslim</span>
+</header>
+<main>
+<h1>Sahih Muslim</h1>
+<div class="meta-info">
+  <strong>Author:</strong> Imam Muslim ibn al-Hajjaj (d. 261 AH) &nbsp;|&nbsp;
+  <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">صحيح مسلم</span> &nbsp;|&nbsp;
+  <strong>Total:</strong> 7,563 hadith
+</div>
+<div class="desc">The second most authentic hadith collection. Together with Bukhari, forms the &#x27;Two Sahihs&#x27;.</div>
+<h2>Books / Chapters (16)</h2>
+<ul class="book-list">
+<li><a href="muslim-book-000.html">General<span class="bl-count">92 hadith (1–92)</span></a></li><li><a href="muslim-book-001.html">The Book of Faith<span class="bl-count">291 hadith (93–383)</span></a></li><li><a href="muslim-book-043.html">The Book of Virtues<span class="bl-count">5785 hadith (384–6168)</span></a></li><li><a href="muslim-book-044.html">The Book of the Merits of the Companions<span class="bl-count">331 hadith (6169–6499)</span></a></li><li><a href="muslim-book-045.html">The Book of Virtue, Enjoining Good Manners, and Joining of the Ties of Kinship<span class="bl-count">223 hadith (6500–6722)</span></a></li><li><a href="muslim-book-046.html">The Book of Destiny<span class="bl-count">52 hadith (6723–6774)</span></a></li><li><a href="muslim-book-047.html">The Book of Knowledge<span class="bl-count">30 hadith (6775–6804)</span></a></li><li><a href="muslim-book-048.html">The Book Pertaining to the Remembrance of Allah, Supplication, Repentance and Seeking Forgiveness <span class="bl-count">132 hadith (6805–6936)</span></a></li><li><a href="muslim-book-049.html">The Book of Heart-Melting Traditions<span class="bl-count">15 hadith (6937–6951)</span></a></li><li><a href="muslim-book-050.html">The Book of Repentance<span class="bl-count">72 hadith (6952–7023)</span></a></li><li><a href="muslim-book-051.html">Characteristics of The Hypocrites And Rulings Concerning Them<span class="bl-count">21 hadith (7024–7044)</span></a></li><li><a href="muslim-book-052.html">Characteristics of the Day of Judgment, Paradise, and Hell<span class="bl-count">85 hadith (7045–7129)</span></a></li><li><a href="muslim-book-053.html">The Book of Paradise, its Description, its Bounties and its Inhabitants<span class="bl-count">105 hadith (7130–7234)</span></a></li><li><a href="muslim-book-054.html">The Book of Tribulations and Portents of the Last Hour<span class="bl-count">182 hadith (7235–7416)</span></a></li><li><a href="muslim-book-055.html">The Book of Zuhd and Softening of Hearts <span class="bl-count">106 hadith (7417–7522)</span></a></li><li><a href="muslim-book-056.html">The Book of Commentary on the Qur&#x27;an<span class="bl-count">41 hadith (7523–7563)</span></a></li>
+</ul>
+<nav class="chapter-nav">
+  <a href="index.html">← All Collections</a>
+  <a href="../index.html">Qur'an Home</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — The Qibla – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › The Qibla</span>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>The Qibla</h2>
+<div class="meta-info">
+  Hadith 455–469 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 455 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ رَافِعِ بْنِ إِسْحَاقَ، مَوْلًى لآلِ الشِّفَاءِ - وَكَانَ يُقَالُ لَهُ مَوْلَى أَبِي طَلْحَةَ - أَنَّهُ سَمِعَ أَبَا أَيُّوبَ الأَنْصَارِيَّ صَاحِبَ رَسُولِ اللَّهِ صلى الله عليه وسلم وَهُوَ بِمِصْرَ يَقُولُ وَاللَّهِ مَا أَدْرِي كَيْفَ أَصْنَعُ بِهَذِهِ الْكَرَايِيسِ وَقَدْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ إِذَا ذَهَبَ أَحَدُكُمُ الْغَائِطَ أَوِ الْبَوْلَ فَلاَ يَسْتَقْبِلِ الْقِبْلَةَ وَلاَ يَسْتَدْبِرْهَا بِفَرْجِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha that Rafiibn Ishaq, a mawla of the family of ash-Shifa who was known as the mawla of Abu Talha, heard Abu Ayyub al-Ansari, one of the companions of the Messenger of Allah, may Allah bless him and grant him peace, say, while he was in Egypt, &quot;By Allah! I don&#x27;t know how to deal with these lavatories.&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When you go to defecate or urinate, do not expose your genitals towards the qibla, and do not put your back to it</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 456 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ رَجُلٍ، مِنَ الأَنْصَارِ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى أَنْ تُسْتَقْبَلَ الْقِبْلَةُ لِغَائِطٍ أَوْ بَوْلٍ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from one of the Ansar that the Messenger of Allah, may Allah bless him and grant him peace, forbade defecating or urinating while facing the qibla</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 457 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ يَحْيَى بْنِ حَبَّانَ، عَنْ عَمِّهِ، وَاسِعِ بْنِ حَبَّانَ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ كَانَ يَقُولُ إِنَّ أُنَاسًا يَقُولُونَ إِذَا قَعَدْتَ عَلَى حَاجَتِكَ فَلاَ تَسْتَقْبِلِ الْقِبْلَةَ وَلاَ بَيْتَ الْمَقْدِسِ - قَالَ عَبْدُ اللَّهِ - لَقَدِ ارْتَقَيْتُ عَلَى ظَهْرِ بَيْتٍ لَنَا فَرَأَيْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم عَلَى لَبِنَتَيْنِ مُسْتَقْبِلَ بَيْتِ الْمَقْدِسِ لِحَاجَتِهِ ثُمَّ قَالَ لَعَلَّكَ مِنَ الَّذِينَ يُصَلُّونَ عَلَى أَوْرَاكِهِمْ ‏.‏ قَالَ قُلْتُ لاَ أَدْرِي وَاللَّهِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from Muhammad ibn Yahya ibn Habban from his paternal uncle, Wasi ibn Habban, that Abdullah ibn Umar said, &quot;People say, &#x27;When you sit to relieve yourself, do not face the qibla or the Bayt al-Maqdis.&#x27; &quot; Abdullah continued, &quot;I went upon top of a house of ours and saw the Messenger of Allah, may Allah bless him and grant him peace, (squatting) on two unfired bricks facing the Bayt al-Maqdis, relieving himself.&quot; Ibn Umar added, &quot;Perhaps you are one of those who pray folded on their haunches.&quot; Wasi replied, &quot;I don&#x27;t know, by Allah</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 458 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم رَأَى بُصَاقًا فِي جِدَارِ الْقِبْلَةِ فَحَكَّهُ ثُمَّ أَقْبَلَ عَلَى النَّاسِ فَقَالَ ‏ &quot;‏ إِذَا كَانَ أَحَدُكُمْ يُصَلِّي فَلاَ يَبْصُقْ قِبَلَ وَجْهِهِ فَإِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى قِبَلَ وَجْهِهِ إِذَا صَلَّى ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik said that he meant someone who, when he prostrated, kept his body close to the ground. Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, saw spittle on the wall of the qibla and scraped it off. Then he went up to the people and said, &quot;Do not spit in front of you when you are praying, because Allah, the Blessed and Exalted, is in front of you when you pray</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 459 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father from A&#x27;isha, the wife of the Prophet, mayAllah bless him and grant him peace, that the Prophet, may Allah bless him and grant him peace, saw spittle, or mucus or phlegm, on the wall of the qibla and scraped it off</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 460 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ قَالَ بَيْنَمَا النَّاسُ بِقُبَاءٍ فِي صَلاَةِ الصُّبْحِ إِذْ جَاءَهُمْ آتٍ فَقَالَ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَدْ أُنْزِلَ عَلَيْهِ اللَّيْلَةَ قُرْآنٌ وَقَدْ أُمِرَ أَنْ يَسْتَقْبِلَ الْكَعْبَةَ فَاسْتَقْبِلُوهَا وَكَانَتْ وُجُوهُهُمْ إِلَى الشَّامِ فَاسْتَدَارُوا إِلَى الْكَعْبَةِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Dinar that Abdullah ibn Umar said, &quot;On one occasion when the people were praying subhat Quba a man came to them and said, &#x27;A piece of Qur&#x27;an was sent down to the Messenger of Allah, may Allah bless him and grant him peace, last night, and he was ordered to face the Kaba, so face it.&#x27; They had been facing ash-Sham, so they turned round and faced the Kaba</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 461 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ قَالَ صَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم بَعْدَ أَنْ قَدِمَ الْمَدِينَةَ سِتَّةَ عَشَرَ شَهْرًا نَحْوَ بَيْتِ الْمَقْدِسِ ثُمَّ حُوِّلَتِ الْقِبْلَةُ قَبْلَ بَدْرٍ بِشَهْرَيْنِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that Said ibn al-Musayyab said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, prayed towards the Baytal-Maqdis for sixteen months after arriving in Madina. Then the qibla was moved, two months before the battle of Badr</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 462 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، قَالَ مَا بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ قِبْلَةٌ إِذَا تُوُجِّهَ قِبَلَ الْبَيْتِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Umar ibn al-Khattab said, &quot;Any direction that is between east and west can be taken as a qibla if the person praying is face-on to the House</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 463 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ رَبَاحٍ، وَعُبَيْدِ اللَّهِ بْنِ أَبِي عَبْدِ اللَّهِ، عَنْ أَبِي عَبْدِ اللَّهِ، سَلْمَانَ الأَغَرِّ عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ صَلاَةٌ فِي مَسْجِدِي هَذَا خَيْرٌ مِنْ أَلْفِ صَلاَةٍ فِيمَا سِوَاهُ إِلاَّ الْمَسْجِدَ الْحَرَامَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Rabah and Ubaydullah ibn Abi Abdullah Salman al-Agharr from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;A prayer in this mosque of mine is better than a thousand prayers in any other mosque, except the Masjid al-Haram (in Makka)</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 464 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ خُبَيْبِ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ حَفْصِ بْنِ عَاصِمٍ، عَنْ أَبِي هُرَيْرَةَ، أَوْ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَا بَيْنَ بَيْتِي وَمِنْبَرِي رَوْضَةٌ مِنْ رِيَاضِ الْجَنَّةِ وَمِنْبَرِي عَلَى حَوْضِي ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Khubayb ibn Abd ar-Rahman from Hafs ibn Asim from Abu Hurayra or from Abu Said al-Khudri that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;What is between my house and my mimbar is one of the meadows of the Garden, and my mimbar is on my watering-place (al-Hawd)</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 465 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرٍ، عَنْ عَبَّادِ بْنِ تَمِيمٍ، عَنْ عَبْدِ اللَّهِ بْنِ زَيْدٍ الْمَازِنِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَا بَيْنَ بَيْتِي وَمِنْبَرِي رَوْضَةٌ مِنْ رِيَاضِ الْجَنَّةِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Abi Bakr from Abbad ibn Tamim from Abdullah ibn Zayd al-Mazini that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;What is between my house and my mimbar is one of the meadows of the Garden</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 466 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ تَمْنَعُوا إِمَاءَ اللَّهِ مَسَاجِدَ اللَّهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that Abdullah ibn Umar said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Do not forbid the female slaves of Allah from (going into) the mosques of Allah</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 467 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ عَنْ بُسْرِ بْنِ سَعِيدٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا شَهِدَتْ إِحْدَاكُنَّ صَلاَةَ الْعِشَاءِ فَلاَ تَمَسَّنَّ طِيبًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard from Busr ibn Said that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;None of you women should use perfume when you are present at the isha prayer</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 468 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ عَاتِكَةَ بِنْتِ زَيْدِ بْنِ عَمْرِو بْنِ نُفَيْلٍ، امْرَأَةِ عُمَرَ بْنِ الْخَطَّابِ أَنَّهَا كَانَتْ تَسْتَأْذِنُ عُمَرَ بْنَ الْخَطَّابِ إِلَى الْمَسْجِدِ فَيَسْكُتُ فَتَقُولُ وَاللَّهِ لأَخْرُجَنَّ إِلاَّ أَنْ تَمْنَعَنِي ‏.‏ فَلاَ يَمْنَعُهَا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that Atika bint Zayd ibn Amr ibn Nufayl, the wife of Umar ibn al-Khattab, used to ask Umar ibn al-Khattab for permission to go to the mosque. He would keep silent, so she would say, &quot;By Allah, I will go out, unless you forbid me,&quot; and he would not forbid her</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 469 — The Qibla</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ عَمْرَةَ بِنْتِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ لَوْ أَدْرَكَ رَسُولُ اللَّهِ صلى الله عليه وسلم مَا أَحْدَثَ النِّسَاءُ لَمَنَعَهُنَّ الْمَسَاجِدَ كَمَا مُنِعَهُ نِسَاءُ بَنِي إِسْرَائِيلَ ‏.‏ قَالَ يَحْيَى بْنُ سَعِيدٍ فَقُلْتُ لِعَمْرَةَ أَوَمُنِعَ نِسَاءُ بَنِي إِسْرَائِيلَ الْمَسَاجِدَ قَالَتْ نَعَمْ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from Amra bint Abd ar-Rahman that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;If the Messenger of Allah, may Allah bless him and grant him peace, had seen what women do now, he would have forbidden them to go into the mosques, just as the women of the Bani Israil were forbidden.&quot; Yahya ibn Said said that he asked Amra, &quot;Were the women of the Bani Israil forbidden to go into the mosques?&quot; and she said, &quot;Yes</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 14, Hadith 15</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-013.html">← Asking for Rain</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-015.html">The Qur&#x27;an →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>

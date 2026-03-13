@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunan an-Nasai — The Book of Water – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em}
+.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em}
+.search-box button:hover{background:#2a5a8c}
+@media(max-width:600px){
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='nasai.html'>Sunan an-Nasai</a> › The Book of Water</span>
+</header>
+<main>
+<h1>Sunan an-Nasai</h1>
+<h2>The Book of Water</h2>
+<div class="meta-info">
+  Hadith 325–347 &nbsp;|&nbsp;
+  <a href="nasai.html">📚 Book Index</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr class='hadith-sep'><td colspan='2'>Hadith 325 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا سُوَيْدُ بْنُ نَصْرٍ، قَالَ حَدَّثَنَا عَبْدُ اللَّهِ بْنُ الْمُبَارَكِ، عَنْ سُفْيَانَ، عَنْ سِمَاكٍ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، أَنَّ بَعْضَ، أَزْوَاجِ النَّبِيِّ صلى الله عليه وسلم اغْتَسَلَتْ مِنَ الْجَنَابَةِ فَتَوَضَّأَ النَّبِيُّ صلى الله عليه وسلم بِفَضْلِهَا فَذَكَرَتْ ذَلِكَ لَهُ فَقَالَ ‏ &quot;‏ إِنَّ الْمَاءَ لاَ يُنَجِّسُهُ شَىْءٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn &#x27;Abbas that one of the wives of the Prophet (ﷺ) performed Ghusl from Janabah, and the Prophet (ﷺ) performed Wudu&#x27; with her leftover water. She mentioned that to him and he said:&quot;Water is not made impure by anything.&quot; [1] [1] See the following versions</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Daif</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 326 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا هَارُونُ بْنُ عَبْدِ اللَّهِ، قَالَ حَدَّثَنَا أَبُو أُسَامَةَ، قَالَ حَدَّثَنَا الْوَلِيدُ بْنُ كَثِيرٍ، قَالَ حَدَّثَنَا مُحَمَّدُ بْنُ كَعْبٍ الْقُرَظِيُّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ رَافِعٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، قَالَ قِيلَ يَا رَسُولَ اللَّهِ أَتَتَوَضَّأُ مِنْ بِئْرِ بُضَاعَةَ وَهِيَ بِئْرٌ يُطْرَحُ فِيهَا لُحُومُ الْكِلاَبِ وَالْحِيَضُ وَالنَّتَنُ فَقَالَ ‏ &quot;‏ الْمَاءُ طَهُورٌ لاَ يُنَجِّسُهُ شَىْءٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Abu Sa&#x27;eed Al-Khudri said:&quot;It was said: &#x27;O Messenger of Allah, you perform Wudu&#x27; from the well into which the bodies of dogs, menstrual rags and garbage are thrown?&#x27; He said: &#x27;Water is pure and it is not made impure by anything</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 327 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا الْعَبَّاسُ بْنُ عَبْدِ الْعَظِيمِ، قَالَ حَدَّثَنَا عَبْدُ الْمَلِكِ بْنُ عَمْرٍو، قَالَ حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ مُسْلِمٍ، - وَكَانَ مِنَ الْعَابِدِينَ - عَنْ مُطَرِّفِ بْنِ طَرِيفٍ، عَنْ خَالِدِ بْنِ أَبِي نَوْفٍ، عَنْ سَلِيطٍ، عَنِ ابْنِ أَبِي سَعِيدٍ الْخُدْرِيِّ، عَنْ أَبِيهِ، قَالَ مَرَرْتُ بِالنَّبِيِّ صلى الله عليه وسلم وَهُوَ يَتَوَضَّأُ مِنْ بِئْرِ بُضَاعَةَ فَقُلْتُ أَتَتَوَضَّأُ مِنْهَا وَهِيَ يُطْرَحُ فِيهَا مَا يُكْرَهُ مِنَ النَّتْنِ فَقَالَ ‏ &quot;‏ الْمَاءُ لاَ يُنَجِّسُهُ شَىْءٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn Abi Sa&#x27;eed Al-Khudri that his father said:&quot;I passed by the Prophet (ﷺ) when he was performing Wudu&#x27; from the well of Buda&#x27;ah. I said: &#x27;Are you performing Wudu&#x27; from it when garbage is thrown into it?&#x27; He said: &#x27;Water is not made impure by anything</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 328 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا الْحُسَيْنُ بْنُ حُرَيْثٍ الْمَرْوَزِيُّ، قَالَ حَدَّثَنَا أَبُو أُسَامَةَ، عَنِ الْوَلِيدِ بْنِ كَثِيرٍ، عَنْ مُحَمَّدِ بْنِ جَعْفَرِ بْنِ الزُّبَيْرِ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُمَرَ، عَنْ أَبِيهِ، قَالَ سُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَنِ الْمَاءِ وَمَا يَنُوبُهُ مِنَ الدَّوَابِّ وَالسِّبَاعِ فَقَالَ ‏ &quot;‏ إِذَا كَانَ الْمَاءُ قُلَّتَيْنِ لَمْ يَحْمِلِ الْخَبَثَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Ubaidullah bin &#x27;Abdullah bin &#x27;Umar that his father said:&quot;The Messenger of Allah (ﷺ) was asked about water and how some animals and carnivorous beasts might drink from it. He said: &#x27;If the water is more than two Qullahs, it will not become filthy</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 329 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا قُتَيْبَةُ، قَالَ حَدَّثَنَا حَمَّادٌ، عَنْ ثَابِتٍ، عَنْ أَنَسٍ، أَنَّ أَعْرَابِيًّا، بَالَ فِي الْمَسْجِدِ فَقَامَ إِلَيْهِ بَعْضُ الْقَوْمِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ تُزْرِمُوهُ ‏&quot;‏ ‏.‏ فَلَمَّا فَرَغَ دَعَا بِدَلْوٍ مِنْ مَاءٍ فَصَبَّهُ عَلَيْهِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Anas that a Bedouin urinated in the Masjid, and some of the people went after him, but the Messenger of Allah (ﷺ) said:&quot;Do not restrain him.&quot; When he had finished he called from a bucket (of water) and poured over it</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 330 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَبْدُ الرَّحْمَنِ بْنُ إِبْرَاهِيمَ، عَنْ عُمَرَ بْنِ عَبْدِ الْوَاحِدِ، عَنِ الأَوْزَاعِيِّ، عَنْ مُحَمَّدِ بْنِ الْوَلِيدِ، عَنِ الزُّهْرِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَامَ أَعْرَابِيٌّ فَبَالَ فِي الْمَسْجِدِ فَتَنَاوَلَهُ النَّاسُ فَقَالَ لَهُمْ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ دَعُوهُ وَأَهْرِيقُوا عَلَى بَوْلِهِ دَلْوًا مِنْ مَاءٍ فَإِنَّمَا بُعِثْتُمْ مُيَسِّرِينَ وَلَمْ تُبْعَثُوا مُعَسِّرِينَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Abu Hurairah said:&quot;A Bedouin stood up and urinated in the Masjid, so the people grabbed him. The Messenger of Allah (ﷺ) said to them: &#x27;Leave him alone, and pour a bucket of water over his urine. For you have been sent to make things easy for people, you have not been sent to make things difficult</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 331 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا الْحَارِثُ بْنُ مِسْكِينٍ، قِرَاءَةً عَلَيْهِ وَأَنَا أَسْمَعُ، عَنِ ابْنِ وَهْبٍ، عَنْ عَمْرٍو، - وَهُوَ ابْنُ الْحَارِثِ - عَنْ بُكَيْرٍ، أَنَّ أَبَا السَّائِبِ، حَدَّثَهُ أَنَّهُ، سَمِعَ أَبَا هُرَيْرَةَ، يَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ يَغْتَسِلْ أَحَدُكُمْ فِي الْمَاءِ الدَّائِمِ وَهُوَ جُنُبٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Hurairah said:&quot;The Messenger of Allah (ﷺ) said: &#x27;None of you should perform Ghusl in standing water while he is Junub</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 332 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا قُتَيْبَةُ، عَنْ مَالِكٍ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، عَنْ سَعِيدِ بْنِ سَلَمَةَ، أَنَّ الْمُغِيرَةَ بْنَ أَبِي بُرْدَةَ، أَخْبَرَهُ أَنَّهُ، سَمِعَ أَبَا هُرَيْرَةَ، يَقُولُ سَأَلَ رَجُلٌ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ إِنَّا نَرْكَبُ الْبَحْرَ وَنَحْمِلُ مَعَنَا الْقَلِيلَ مِنَ الْمَاءِ فَإِنْ تَوَضَّأْنَا بِهِ عَطِشْنَا أَفَنَتَوَضَّأُ مِنْ مَاءِ الْبَحْرِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ هُوَ الطَّهُورُ مَاؤُهُ الْحِلُّ مَيْتَتُهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Hurairah said:&quot;A man asked the prophet (ﷺ): &#x27;O Messenger of Allah, we travel by sea and we take a little water with us, but if we use it for Wudu&#x27;, we will go thirsty. Can we perform Wudu&#x27; with seawater?&#x27; The Messenger of Allah (ﷺ) said: &#x27;Its water is a means of purification and its dead meat is permissible</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 333 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، قَالَ أَنْبَأَنَا جَرِيرٌ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، قَالَتْ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ اللَّهُمَّ اغْسِلْ خَطَايَاىَ بِمَاءِ الثَّلْجِ وَالْبَرَدِ وَنَقِّ قَلْبِي مِنَ الْخَطَايَا كَمَا نَقَّيْتَ الثَّوْبَ الأَبْيَضَ مِنَ الدَّنَسِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that &#x27;Aishah said:&quot;The Prophet (ﷺ) used to say: &#x27;Allahummaghsil khatayaya bi-ma&#x27;ith-thalj wal-barad was naqqi qalbi min al-khataya kama naqayta ath-thawb al-abyad min ad-danas (O Allah, wash away my sins with the water of snow and hail, and cleanse my heart of snow and hail, and cleanse my heart of sin as a white garment is cleansed of filth)</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 334 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَلِيُّ بْنُ حُجْرٍ، قَالَ أَنْبَأَنَا جَرِيرٌ، عَنْ عُمَارَةَ بْنِ الْقَعْقَاعِ، عَنْ أَبِي زُرْعَةَ بْنِ عَمْرِو بْنِ جَرِيرٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ اللَّهُمَّ اغْسِلْنِي مِنْ خَطَايَاىَ بِالثَّلْجِ وَالْمَاءِ وَالْبَرَدِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Abu Hurairah said:&quot;The Messenger of Allah (ﷺ) would say: [1] &#x27;Allahummaghsil khatayaya bi-ma&#x27;ith-thalj wal-barad (O Allah, wash away my sins with the water of snow and hail).&#x27;&quot; [1] That is at the beginning of Salah as is clear from the remainder of the narration which preceded under No</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 335 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَلِيُّ بْنُ حُجْرٍ، قَالَ أَنْبَأَنَا عَلِيُّ بْنُ مُسْهِرٍ، عَنِ الأَعْمَشِ، عَنْ أَبِي رَزِينٍ، وَأَبِي، صَالِحٍ عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ إِذَا وَلَغَ الْكَلْبُ فِي إِنَاءِ أَحَدِكُمْ فَلْيُرِقْهُ ثُمَّ لْيَغْسِلْهُ سَبْعَ مَرَّاتٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Abu Hurairah said:&quot;The Messenger of Allah (ﷺ) said: &#x27;If a dog licks the vessel of any one of you, let him throw (the contents) away and wash it seven times</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 336 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ الأَعْلَى، قَالَ حَدَّثَنَا خَالِدٌ، - يَعْنِي ابْنَ الْحَارِثِ - عَنْ شُعْبَةَ، عَنْ أَبِي التَّيَّاحِ، قَالَ سَمِعْتُ مُطَرِّفًا، عَنْ عَبْدِ اللَّهِ بْنِ مُغَفَّلٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم أَمَرَ بِقَتْلِ الْكِلاَبِ وَرَخَّصَ فِي كَلْبِ الصَّيْدِ وَالْغَنَمِ وَقَالَ ‏ &quot;‏ إِذَا وَلَغَ الْكَلْبُ فِي الإِنَاءِ فَاغْسِلُوهُ سَبْعَ مَرَّاتٍ وَعَفِّرُوهُ الثَّامِنَةَ بِالتُّرَابِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Abdullah bin Mughaffal that the Messenger of Allah (ﷺ) commanded that dogs be killed, but he made an exception for hunting dogs and sheepdogs and said:&quot;If a dog licks a vessel then wash it seven times and rub it the eighth time with dust</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 337 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَمْرُو بْنُ يَزِيدَ، قَالَ حَدَّثَنَا بَهْزُ بْنُ أَسَدٍ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ أَبِي التَّيَّاحِ، يَزِيدَ بْنِ حُمَيْدٍ قَالَ سَمِعْتُ مُطَرِّفًا، يُحَدِّثُ عَنْ عَبْدِ اللَّهِ بْنِ مُغَفَّلٍ، قَالَ أَمَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِقَتْلِ الْكِلاَبِ قَالَ ‏&quot;‏ مَا بَالُهُمْ وَبَالُ الْكِلاَبِ ‏&quot;‏ ‏.‏ قَالَ وَرَخَّصَ فِي كَلْبِ الصَّيْدِ وَكَلْبِ الْغَنَمِ وَقَالَ ‏&quot;‏ إِذَا وَلَغَ الْكَلْبُ فِي الإِنَاءِ فَاغْسِلُوهُ سَبْعَ مَرَّاتٍ وَعَفِّرُوا الثَّامِنَةَ بِالتُّرَابِ ‏&quot;‏ ‏.‏ خَالَفَهُ أَبُو هُرَيْرَةَ فَقَالَ إِحْدَاهُنَّ بِالتُّرَابِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that &#x27;Abdullah bin Mughaffal said:&quot;The Messenger of Allah (ﷺ) commanded that dogs be killed. He said: &#x27;What do they have to do with dogs?&#x27; And he granted a concession regarding hunting dogs and sheepdogs. And he said: &#x27;If a dog licks a vessel, wash it seven times, and rub it the eighth time with dust.&#x27; Abu Hurairah differed from him and said: &#x27;Rub it one time with dust</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 338 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، قَالَ أَنْبَأَنَا مُعَاذُ بْنُ هِشَامٍ، قَالَ حَدَّثَنِي أَبِي، عَنْ قَتَادَةَ، عَنْ خِلاَسٍ، عَنْ أَبِي رَافِعٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا وَلَغَ الْكَلْبُ فِي إِنَاءِ أَحَدِكُمْ فَلْيَغْسِلْهُ سَبْعَ مَرَّاتٍ أُولاَهُنَّ بِالتُّرَابِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Abu Hurairah that the Messenger of Allah (ﷺ) said:&quot;If a dog licks the vessel of any one of you, let him wash it seven times, the first time with dust</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 339 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، قَالَ حَدَّثَنَا عَبْدَةُ بْنُ سُلَيْمَانَ، عَنِ ابْنِ أَبِي عَرُوبَةَ، عَنْ قَتَادَةَ، عَنِ ابْنِ سِيرِينَ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا وَلَغَ الْكَلْبُ فِي إِنَاءِ أَحَدِكُمْ فَلْيَغْسِلْهُ سَبْعَ مَرَّاتٍ أُولاَهُنَّ بِالتُّرَابِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Abu Hurairah that the Prophet (ﷺ) said:&quot;If a dog licks the vessel of any one of you, let him wash it seven times, the first time with dust</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 15</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 340 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا قُتَيْبَةُ، عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ حُمَيْدَةَ بِنْتِ عُبَيْدِ بْنِ رِفَاعَةَ، عَنْ كَبْشَةَ بِنْتِ كَعْبِ بْنِ مَالِكٍ، أَنَّ أَبَا قَتَادَةَ، دَخَلَ عَلَيْهَا ثُمَّ ذَكَرَ كَلِمَةً مَعْنَاهَا فَسَكَبْتُ لَهُ وَضُوءًا فَجَاءَتْ هِرَّةٌ فَشَرِبَتْ مِنْهُ فَأَصْغَى لَهَا الإِنَاءَ حَتَّى شَرِبَتْ قَالَتْ كَبْشَةُ فَرَآنِي أَنْظُرُ إِلَيْهِ فَقَالَ أَتَعْجَبِينَ يَا ابْنَةَ أَخِي قُلْتُ نَعَمْ ‏.‏ قَالَ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِنَّهَا لَيْسَتْ بِنَجَسٍ إِنَّمَا هِيَ مِنَ الطَّوَّافِينَ عَلَيْكُمْ وَالطَّوَّافَاتِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Kabshah bint Ka&#x27;ab bin Malik that Abu Qatadah entered upon her, then she narrated the following:&quot;I poured some water for him for Wudu&#x27;, and a cat came and drank from it, so he tilted the vessel for it to drink.&quot; Kabshah said: &quot;He saw me looking at him and said: &#x27;Are you surprised, O daughter of my brother?&#x27; I said: &#x27;Yes.&#x27; He said: &#x27;The Messenger of Allah (ﷺ) said: &#x27;They are not impure, rather they are among the males and females (animals) who go around among you</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 16</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 341 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَمْرُو بْنُ عَلِيٍّ، قَالَ حَدَّثَنَا عَبْدُ الرَّحْمَنِ، عَنْ سُفْيَانَ، عَنِ الْمِقْدَامِ بْنِ شُرَيْحٍ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، - رضى الله عنها - قَالَتْ كُنْتُ أَتَعَرَّقُ الْعَرْقَ فَيَضَعُ رَسُولُ اللَّهِ صلى الله عليه وسلم فَاهُ حَيْثُ وَضَعْتُهُ وَأَنَا حَائِضٌ وَكُنْتُ أَشْرَبُ مِنَ الإِنَاءِ فَيَضَعُ فَاهُ حَيْثُ وَضَعْتُ وَأَنَا حَائِضٌ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that &#x27;Aishah, may Allah be pleased with her, said:&quot;While I was menstruating, I would nibble meat from a bone and the Messenger of Allah (ﷺ) would put his mouth where mine has been. And while I was menstruating, I would drink from a vessel and he would put his mouth where mine had been</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 17</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 342 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا هَارُونُ بْنُ عَبْدِ اللَّهِ، قَالَ حَدَّثَنَا مَعْنٌ، قَالَ حَدَّثَنَا مَالِكٌ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ كَانَ الرِّجَالُ وَالنِّسَاءُ يَتَوَضَّئُونَ فِي زَمَانِ رَسُولِ اللَّهِ صلى الله عليه وسلم جَمِيعًا ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn &#x27;Umar said:&quot;Men and women used to perform Wudu&#x27; together during the time of the Messenger of Allah (ﷺ)</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 18</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 343 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَمْرُو بْنُ عَلِيٍّ، قَالَ حَدَّثَنَا أَبُو دَاوُدَ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ عَاصِمٍ الأَحْوَلِ، قَالَ سَمِعْتُ أَبَا حَاجِبٍ، - قَالَ أَبُو عَبْدِ الرَّحْمَنِ وَاسْمُهُ سَوَادَةُ بْنُ عَاصِمٍ - عَنِ الْحَكَمِ بْنِ عَمْرٍو، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى أَنْ يَتَوَضَّأَ الرَّجُلُ بِفَضْلِ وَضُوءِ الْمَرْأَةِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Al-Hakam bin &#x27;Amr that the Messenger of Allah (ﷺ) forbade a man from performing Wudu&#x27; with the leftovers of a woman&#x27;s (water for) Wudu</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 19</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 344 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا قُتَيْبَةُ، قَالَ حَدَّثَنَا اللَّيْثُ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ، عَنْ عَائِشَةَ، أَنَّهَا كَانَتْ تَغْتَسِلُ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم فِي الإِنَاءِ الْوَاحِدِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Aishah that she used to perform Ghusl with the Messenger of Allah (ﷺ) from a single vessel</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 20</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 345 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَمْرُو بْنُ عَلِيٍّ، قَالَ حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ، قَالَ حَدَّثَنَا شُعْبَةُ، قَالَ حَدَّثَنِي عَبْدُ اللَّهِ بْنُ عَبْدِ اللَّهِ بْنِ جَبْرٍ، قَالَ سَمِعْتُ أَنَسَ بْنَ مَالِكٍ، يَقُولُ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَتَوَضَّأُ بِمَكُّوكٍ وَيَغْتَسِلُ بِخَمْسَةِ مَكَاكِيَّ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that &#x27;Abdullah bin Jabr said:&quot;I heard Anas bin Malik say: &#x27;The Messenger of Allah (ﷺ) used to perform Wudu&#x27; with a Makkuk (cup) and Ghusl with five Makkuks (cups)</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 21</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 346 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا هَارُونُ بْنُ إِسْحَاقَ الْكُوفِيُّ، قَالَ حَدَّثَنَا عَبْدَةُ، - يَعْنِي ابْنَ سُلَيْمَانَ - عَنْ سَعِيدٍ، عَنْ قَتَادَةَ، عَنْ صَفِيَّةَ بِنْتِ شَيْبَةَ، عَنْ عَائِشَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَتَوَضَّأُ بِمُدٍّ وَيَغْتَسِلُ بِنَحْوِ الصَّاعِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Aishah that the Messenger of Allah (ﷺ) used to perform Ghusl with a Mudd and Ghusl with approximately a Sa</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 22</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 347 — The Book of Water</td></tr>
+<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَبُو بَكْرِ بْنُ إِسْحَاقَ، قَالَ حَدَّثَنَا الْحَسَنُ بْنُ مُوسَى، قَالَ حَدَّثَنَا شَيْبَانُ، عَنْ قَتَادَةَ، عَنِ الْحَسَنِ، عَنْ أُمِّهِ، عَنْ عَائِشَةَ، قَالَتْ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَتَوَضَّأُ بِالْمُدِّ وَيَغْتَسِلُ بِالصَّاعِ ‏.‏</span></td></tr>
+<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that &#x27;Aishah said:&quot;The Messenger of Allah (ﷺ) used to perform Ghusl with a Mudd and Ghusl with a Sa</span></td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 2, Hadith 23</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="nasai-book-001.html">← The Book of Purification</a>
+  <a href="nasai.html">📚 Book Index</a>
+  <a href="nasai-book-003.html">The Book of Menstruation and Istihadah →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+</body>
+</html>
