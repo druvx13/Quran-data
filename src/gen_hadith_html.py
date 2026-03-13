@@ -896,10 +896,23 @@ def write_text_outputs(coll_info, data):
 # HTML for small collections (all hadiths on one page)
 # ---------------------------------------------------------------------------
 
+def has_hadith_content(h):
+    """Return True if the hadith has at least some text (EN or AR)."""
+    return bool((h.get("en") or "").strip() or (h.get("ar") or "").strip())
+
+
 def render_hadith_rows(h, show_hindi=False):
-    num  = h["n"]
-    en   = html_module.escape(h["en"])
-    ar   = html_module.escape(h["ar"]) if h["ar"] else ""
+    num     = h["n"]
+    en_raw  = (h.get("en") or "").strip()
+    ar_raw  = (h.get("ar") or "").strip()
+
+    # Skip hadiths with no translatable content — these are stub/placeholder
+    # entries in the upstream data (e.g. Book-0 hadiths in Muslim & Nasai).
+    if not en_raw and not ar_raw:
+        return ""
+
+    en  = html_module.escape(en_raw)
+    ar  = html_module.escape(ar_raw)
     sec  = html_module.escape(h["sec_name"]) if h["sec_name"] else ""
     grades_str = "; ".join(h["grades"]) if h["grades"] else ""
     ref  = h.get("ref", {})
@@ -917,8 +930,9 @@ def render_hadith_rows(h, show_hindi=False):
         rows.append(f"<tr class='arabic' {dn}><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td>"
                     f"<td><span class='arabic-text' lang='ar'>{ar}</span></td></tr>")
 
-    rows.append(f"<tr class='eng' {dn}><td class='label'>English</td>"
-                f"<td><span class='eng-text' lang='en'>{en}</span></td></tr>")
+    if en:
+        rows.append(f"<tr class='eng' {dn}><td class='label'>English</td>"
+                    f"<td><span class='eng-text' lang='en'>{en}</span></td></tr>")
 
     if show_hindi:
         hi = NAWAWI_HINDI.get(num)
@@ -950,9 +964,11 @@ def gen_small_collection_page(coll_info, data):
 
     rows_html = []
     for h in data["hadiths"]:
-        rows_html.append(render_hadith_rows(h, show_hindi=show_hindi))
+        rendered = render_hadith_rows(h, show_hindi=show_hindi)
+        if rendered:
+            rows_html.append(rendered)
 
-    hadiths = data["hadiths"]
+    hadiths = [h for h in data["hadiths"] if has_hadith_content(h)]
     min_n = hadiths[0]["n"]
     max_n = hadiths[-1]["n"]
     filter_panel = gen_filter_panel(min_n, max_n, show_hindi)
@@ -1009,9 +1025,17 @@ def gen_large_collection_pages(coll_info, data):
             sections_data[sid] = {"name": sname, "hadiths": []}
         sections_data[sid]["hadiths"].append(h)
 
-    total = len(data["hadiths"])
+    # Keep only sections that have at least one hadith with content
+    sections_order = [
+        sid for sid in sections_order
+        if any(has_hadith_content(h) for h in sections_data[sid]["hadiths"])
+    ]
 
-    # Build book nav options (shared across all book pages)
+    total = sum(
+        1 for h in data["hadiths"] if has_hadith_content(h)
+    )
+
+    # Build book nav options (only includes sections with content)
     def _book_nav_opts(current_sid):
         opts = ['<option value="">\u2601 Jump to Book\u2026</option>']
         for s_idx2, s_id2 in enumerate(sections_order):
@@ -1028,16 +1052,18 @@ def gen_large_collection_pages(coll_info, data):
     # Build per-book pages
     book_links = []
     for idx, sid in enumerate(sections_order):
-        sec  = sections_data[sid]
+        sec   = sections_data[sid]
         sname = sec["name"]
-        hadiths = sec["hadiths"]
+        hadiths = [h for h in sec["hadiths"] if has_hadith_content(h)]
         page_file = f"{cid}-book-{int(sid):03d}.html"
         first_n = hadiths[0]["n"]
         last_n  = hadiths[-1]["n"]
 
         rows_html = []
         for h in hadiths:
-            rows_html.append(render_hadith_rows(h, show_hindi=False))
+            rendered = render_hadith_rows(h, show_hindi=False)
+            if rendered:
+                rows_html.append(rendered)
 
         prev_link = ""
         next_link = ""
@@ -1531,7 +1557,7 @@ def main():
 
         # 1. Load / download data
         data = load_or_download(cid)
-        collection_counts[cid] = len(data["hadiths"])
+        collection_counts[cid] = sum(1 for h in data["hadiths"] if has_hadith_content(h))
         all_data_dict[cid] = data
 
         # 2. Text output
