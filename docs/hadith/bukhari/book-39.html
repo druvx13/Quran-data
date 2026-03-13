@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sahih al-Bukhari — Book 39: Kafalah">
+<title>Sahih al-Bukhari — Book 39: Kafalah</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <a href='index.html'>Sahih al-Bukhari</a> | <select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Book'><option value=''>Jump to Book…</option><option value='book-0.html'>0. Additional Narrations</option><option value='book-1.html'>1. Revelation</option><option value='book-2.html'>2. Belief</option><option value='book-3.html'>3. Knowledge</option><option value='book-4.html'>4. Ablutions (Wudu')</option><option value='book-5.html'>5. Bathing (Ghusl)</option><option value='book-6.html'>6. Menstrual Periods</option><option value='book-7.html'>7. Rubbing hands and feet with dust (Tayammum)</option><option value='book-8.html'>8. Prayers (Salat)</option><option value='book-9.html'>9. Times of the Prayers</option><option value='book-10.html'>10. Call to Prayers (Adhaan)</option><option value='book-11.html'>11. Friday Prayer</option><option value='book-12.html'>12. Fear Prayer</option><option value='book-13.html'>13. The Two Festivals (Eids)</option><option value='book-14.html'>14. Witr Prayer</option><option value='book-15.html'>15. Invoking Allah for Rain (Istisqaa)</option><option value='book-16.html'>16. Eclipses</option><option value='book-17.html'>17. Prostration During Recital of Qur'an</option><option value='book-18.html'>18. Shortening the Prayers (At-Taqseer)</option><option value='book-19.html'>19. Prayer at Night (Tahajjud)</option><option value='book-20.html'>20. Virtues of Prayer at Masjid Makkah and Madinah</option><option value='book-21.html'>21. Actions while Praying</option><option value='book-22.html'>22. Forgetfulness in Prayer</option><option value='book-23.html'>23. Funerals (Al-Janaa'iz)</option><option value='book-24.html'>24. Obligatory Charity Tax (Zakat)</option><option value='book-25.html'>25. Hajj (Pilgrimage)</option><option value='book-26.html'>26. `Umrah (Minor pilgrimage)</option><option value='book-27.html'>27. Pilgrims Prevented from Completing the Pilgrimage</option><option value='book-28.html'>28. Penalty of Hunting while on Pilgrimage</option><option value='book-29.html'>29. Virtues of Madinah</option><option value='book-30.html'>30. Fasting</option><option value='book-31.html'>31. Praying at Night in Ramadaan (Taraweeh)</option><option value='book-32.html'>32. Virtues of the Night of Qadr</option><option value='book-33.html'>33. Retiring to a Mosque for Remembrance of Allah (I'tikaf)</option><option value='book-34.html'>34. Sales and Trade</option><option value='book-35.html'>35. Sales in which a Price is paid for Goods to be Delivered Later (As-Salam)</option><option value='book-36.html'>36. Shuf'a</option><option value='book-37.html'>37. Hiring</option><option value='book-38.html'>38. Transferance of a Debt from One Person to Another (Al-Hawaala)</option><option value='book-39.html' selected>39. Kafalah</option><option value='book-40.html'>40. Representation, Authorization, Business by Proxy</option><option value='book-41.html'>41. Agriculture</option><option value='book-42.html'>42. Distribution of Water</option><option value='book-43.html'>43. Loans, Payment of Loans, Freezing of Property, Bankruptcy</option><option value='book-44.html'>44. Khusoomaat</option><option value='book-45.html'>45. Lost Things Picked up by Someone (Luqatah)</option><option value='book-46.html'>46. Oppressions</option><option value='book-47.html'>47. Partnership</option><option value='book-48.html'>48. Mortgaging</option><option value='book-49.html'>49. Manumission of Slaves</option><option value='book-50.html'>50. Makaatib</option><option value='book-51.html'>51. Gifts</option><option value='book-52.html'>52. Witnesses</option><option value='book-53.html'>53. Peacemaking</option><option value='book-54.html'>54. Conditions</option><option value='book-55.html'>55. Wills and Testaments (Wasaayaa)</option><option value='book-56.html'>56. Fighting for the Cause of Allah (Jihaad)</option><option value='book-57.html'>57. One-fifth of Booty to the Cause of Allah (Khumus)</option><option value='book-58.html'>58. Jizyah and Mawaada'ah</option><option value='book-59.html'>59. Beginning of Creation</option><option value='book-60.html'>60. Prophets</option><option value='book-61.html'>61. Virtues and Merits of the Prophet (pbuh) and his Companions</option><option value='book-62.html'>62. Companions of the Prophet</option><option value='book-63.html'>63. Merits of the Helpers in Madinah (Ansaar)</option><option value='book-64.html'>64. Military Expeditions led by the Prophet (pbuh) (Al-Maghaazi)</option><option value='book-65.html'>65. Prophetic Commentary on the Qur'an (Tafseer of the Prophet (pbuh))</option><option value='book-66.html'>66. Virtues of the Qur'an</option><option value='book-67.html'>67. Wedlock, Marriage (Nikaah)</option><option value='book-68.html'>68. Divorce</option><option value='book-69.html'>69. Supporting the Family</option><option value='book-70.html'>70. Food, Meals</option><option value='book-71.html'>71. Sacrifice on Occasion of Birth (`Aqiqa)</option><option value='book-72.html'>72. Hunting, Slaughtering</option><option value='book-73.html'>73. Al-Adha Festival Sacrifice (Adaahi)</option><option value='book-74.html'>74. Drinks</option><option value='book-75.html'>75. Patients</option><option value='book-76.html'>76. Medicine</option><option value='book-77.html'>77. Dress</option><option value='book-78.html'>78. Good Manners and Form (Al-Adab)</option><option value='book-79.html'>79. Asking Permission</option><option value='book-80.html'>80. Invocations</option><option value='book-81.html'>81. To make the Heart Tender (Ar-Riqaq)</option><option value='book-82.html'>82. Divine Will (Al-Qadar)</option><option value='book-83.html'>83. Oaths and Vows</option><option value='book-84.html'>84. Expiation for Unfulfilled Oaths</option><option value='book-85.html'>85. Laws of Inheritance (Al-Faraa'id)</option><option value='book-86.html'>86. Limits and Punishments set by Allah (Hudood)</option><option value='book-87.html'>87. Blood Money (Ad-Diyat)</option><option value='book-88.html'>88. Apostates</option><option value='book-89.html'>89. (Statements made under) Coercion</option><option value='book-90.html'>90. Tricks</option><option value='book-91.html'>91. Interpretation of Dreams</option><option value='book-92.html'>92. Afflictions and the End of the World</option><option value='book-93.html'>93. Judgments (Ahkaam)</option><option value='book-94.html'>94. Wishes</option><option value='book-95.html'>95. Accepting Information Given by a Truthful Person</option><option value='book-96.html'>96. Holding Fast to the Qur'an and Sunnah</option><option value='book-97.html'>97. Oneness, Uniqueness of Allah (Tawheed)</option></select> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Sahih al-Bukhari — Book 39: Kafalah</h1>
+<noscript><p class="noscript-warn">&#9888; The Hadith Filter requires JavaScript. All hadiths are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='9' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='9' value='9'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='hadith-en'><label for='cf-0'>English</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='hadith-ar'><label for='cf-1'>Arabic</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Sahih al-Bukhari &mdash; Book 39: Kafalah</th></tr></thead><tbody>
+<tr class='hadith-sep' data-hadith='1' id='h-2290'><td colspan='2'>[39:1] <a class='permalink' href='#h-2290' data-hadith='1'>Hadith 1</a><button class='copy-btn' onclick='copyHadith(this,"[39:1]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='1'><td class='label'>English</td><td lang='en'>Narrated Muhammad bin 'Amr Al-Aslami that his father Hamza said:'Umar (ra) sent him (i.e. Hamza) as a Sadaqa / Zakat collector. A man had committed illegal sexual intercourse with the slave girl of his wife. Hamza took (personal) sureties for the adulterer till they came to 'Umar. 'Umar had lashed the adulterer one hundred lashes. 'Umar confirmed their claim (that the adulterer had already been punished) and excused him because of being Ignorant. Jarir Al-Ash'ath said to Ibn Mas'ud regarding renegades (i.e., those who became infidels after embracing Islam), "Let them repent and take (personal) sureties for them." They repented and their relatives stood sureties for them. According to Hammad, if somebody stands surety for another person and that person dies, the person giving surety will be released from responsibility. According to Al-Hakam, his responsibilities continues</td></tr>
+<tr class='hadith-ar' data-hadith='1'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَقَالَ أَبُو الزِّنَادِ عَنْ مُحَمَّدِ بْنِ حَمْزَةَ بْنِ عَمْرٍو الأَسْلَمِيِّ، عَنْ أَبِيهِ، أَنَّ عُمَرَ ـ رضى الله عنه ـ بَعَثَهُ مُصَدِّقًا، فَوَقَعَ رَجُلٌ عَلَى جَارِيَةِ امْرَأَتِهِ، فَأَخَذَ حَمْزَةُ مِنَ الرَّجُلِ كَفِيلاً حَتَّى قَدِمَ عَلَى عُمَرَ، وَكَانَ عُمَرُ قَدْ جَلَدَهُ مِائَةَ جَلْدَةٍ، فَصَدَّقَهُمْ، وَعَذَرَهُ بِالْجَهَالَةِ‏.‏ وَقَالَ جَرِيرٌ وَالأَشْعَثُ لِعَبْدِ اللَّهِ بْنِ مَسْعُودٍ فِي الْمُرْتَدِّينَ اسْتَتِبْهُمْ، وَكَفِّلْهُمْ‏.‏ فَتَابُوا وَكَفَلَهُمْ عَشَائِرُهُمْ‏.‏ وَقَالَ حَمَّادٌ إِذَا تَكَفَّلَ بِنَفْسٍ فَمَاتَ فَلاَ شَىْءَ عَلَيْهِ‏.‏ وَقَالَ الْحَكَمُ يَضْمَنُ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='2' id='h-2291'><td colspan='2'>[39:2] <a class='permalink' href='#h-2291' data-hadith='2'>Hadith 2</a><button class='copy-btn' onclick='copyHadith(this,"[39:2]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='2'><td class='label'>English</td><td lang='en'>Narrated Abu Huraira: The Prophet (ﷺ) said, "An Israeli man asked another Israeli to lend him one thousand Dinars. The second man required witnesses. The former replied, 'Allah is sufficient as a witness.' The second said, 'I want a surety.' The former replied, 'Allah is sufficient as a surety.' The second said, 'You are right,' and lent him the money for a certain period. The debtor went across the sea. When he finished his job, he searched for a conveyance so that he might reach in time for the repayment of the debt, but he could not find any. So, he took a piece of wood and made a hole in it, inserted in it one thousand Dinars and a letter to the lender and then closed (i.e. sealed) the hole tightly. He took the piece of wood to the sea and said. 'O Allah! You know well that I took a loan of one thousand Dinars from so-and-so. He demanded a surety from me but I told him that Allah's Guarantee was sufficient and he accepted Your guarantee. He then asked for a witness and I told him that Allah was sufficient as a Witness, and he accepted You as a Witness. No doubt, I tried hard to find a conveyance so that I could pay his money but could not find, so I hand over this money to You.' Saying that, he threw the piece of wood into the sea till it went out far into it, and then he went away. Meanwhile he started searching for a conveyance in order to reach the creditor's country. One day the lender came out of his house to see whether a ship had arrived bringing his money, and all of a sudden he saw the piece of wood in which his money had been deposited. He took it home to use for fire. When he sawed it, he found his money and the letter inside it. Shortly after that, the debtor came bringing one thousand Dinars to him and said, 'By Allah, I had been trying hard to get a boat so that I could bring you your money, but failed to get one before the one I have come by.' The lender asked, 'Have you sent something to me?' The debtor replied, 'I have told you I could not get a boat other than the one I have come by.' The lender said, 'Allah has delivered on your behalf the money you sent in the piece of wood. So, you may keep your one thousand Dinars and depart guided on the right path</td></tr>
+<tr class='hadith-ar' data-hadith='2'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>قَالَ أَبُو عَبْدِ اللَّهِ وَقَالَ اللَّيْثُ حَدَّثَنِي جَعْفَرُ بْنُ رَبِيعَةَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ هُرْمُزَ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَنَّهُ ذَكَرَ رَجُلاً مِنْ بَنِي إِسْرَائِيلَ سَأَلَ بَعْضَ بَنِي إِسْرَائِيلَ أَنْ يُسْلِفَهُ أَلْفَ دِينَارٍ، فَقَالَ ائْتِنِي بِالشُّهَدَاءِ أُشْهِدُهُمْ‏.‏ فَقَالَ كَفَى بِاللَّهِ شَهِيدًا‏.‏ قَالَ فَأْتِنِي بِالْكَفِيلِ‏.‏ قَالَ كَفَى بِاللَّهِ كَفِيلاً‏.‏ قَالَ صَدَقْتَ‏.‏ فَدَفَعَهَا إِلَيْهِ إِلَى أَجَلٍ مُسَمًّى، فَخَرَجَ فِي الْبَحْرِ، فَقَضَى حَاجَتَهُ، ثُمَّ الْتَمَسَ مَرْكَبًا يَرْكَبُهَا، يَقْدَمُ عَلَيْهِ لِلأَجَلِ الَّذِي أَجَّلَهُ، فَلَمْ يَجِدْ مَرْكَبًا، فَأَخَذَ خَشَبَةً، فَنَقَرَهَا فَأَدْخَلَ فِيهَا أَلْفَ دِينَارٍ، وَصَحِيفَةً مِنْهُ إِلَى صَاحِبِهِ، ثُمَّ زَجَّجَ مَوْضِعَهَا، ثُمَّ أَتَى بِهَا إِلَى الْبَحْرِ، فَقَالَ اللَّهُمَّ إِنَّكَ تَعْلَمُ أَنِّي كُنْتُ تَسَلَّفْتُ فُلاَنًا أَلْفَ دِينَارٍ، فَسَأَلَنِي كَفِيلاً، فَقُلْتُ كَفَى بِاللَّهِ كَفِيلاً، فَرَضِيَ بِكَ، وَسَأَلَنِي شَهِيدًا، فَقُلْتُ كَفَى بِاللَّهِ شَهِيدًا، فَرَضِيَ بِكَ، وَأَنِّي جَهَدْتُ أَنْ أَجِدَ مَرْكَبًا، أَبْعَثُ إِلَيْهِ الَّذِي لَهُ فَلَمْ أَقْدِرْ، وَإِنِّي أَسْتَوْدِعُكَهَا‏.‏ فَرَمَى بِهَا فِي الْبَحْرِ حَتَّى وَلَجَتْ فِيهِ، ثُمَّ انْصَرَفَ، وَهْوَ فِي ذَلِكَ يَلْتَمِسُ مَرْكَبًا، يَخْرُجُ إِلَى بَلَدِهِ، فَخَرَجَ الرَّجُلُ الَّذِي كَانَ أَسْلَفَهُ، يَنْظُرُ لَعَلَّ مَرْكَبًا قَدْ جَاءَ بِمَالِهِ، فَإِذَا بِالْخَشَبَةِ الَّتِي فِيهَا الْمَالُ، فَأَخَذَهَا لأَهْلِهِ حَطَبًا، فَلَمَّا نَشَرَهَا وَجَدَ الْمَالَ وَالصَّحِيفَةَ، ثُمَّ قَدِمَ الَّذِي كَانَ أَسْلَفَهُ، فَأَتَى بِالأَلْفِ دِينَارٍ، فَقَالَ وَاللَّهِ مَا زِلْتُ جَاهِدًا فِي طَلَبِ مَرْكَبٍ لآتِيَكَ بِمَالِكَ، فَمَا وَجَدْتُ مَرْكَبًا قَبْلَ الَّذِي أَتَيْتُ فِيهِ‏.‏ قَالَ هَلْ كُنْتَ بَعَثْتَ إِلَىَّ بِشَىْءٍ قَالَ أُخْبِرُكَ أَنِّي لَمْ أَجِدْ مَرْكَبًا قَبْلَ الَّذِي جِئْتُ فِيهِ‏.‏ قَالَ فَإِنَّ اللَّهَ قَدْ أَدَّى عَنْكَ الَّذِي بَعَثْتَ فِي الْخَشَبَةِ فَانْصَرِفْ بِالأَلْفِ الدِّينَارِ رَاشِدًا ‏"‏‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='3' id='h-2292'><td colspan='2'>[39:3] <a class='permalink' href='#h-2292' data-hadith='3'>Hadith 3</a><button class='copy-btn' onclick='copyHadith(this,"[39:3]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='3'><td class='label'>English</td><td lang='en'>Narrated Sa`id bin Jubair:Ibn `Abbas said, "In the verse: To every one We have appointed ' (Muwaliya Muwaliya means one's) heirs (4.33).' (And regarding the verse) 'And those with whom your right hands have made a pledge.' Ibn `Abbas said, "When the emigrants came to the Prophet (ﷺ) in Medina, the emigrant would inherit the Ansari while the latter's relatives would not inherit him because of the bond of brotherhood which the Prophet established between them (i.e. the emigrants and the Ansar). When the verse: 'And to everyone We have appointed heirs' (4.33) was revealed, it canceled (the bond (the pledge) of brotherhood regarding inheritance)." Then he said, "The verse: To those also to whom your right hands have pledged, remained valid regarding cooperation and mutual advice, while the matter of inheritance was excluded and it became permissible to assign something in one's testament to the person who had the right of inheriting before</td></tr>
+<tr class='hadith-ar' data-hadith='3'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الصَّلْتُ بْنُ مُحَمَّدٍ، حَدَّثَنَا أَبُو أُسَامَةَ، عَنْ إِدْرِيسَ، عَنْ طَلْحَةَ بْنِ مُصَرِّفٍ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما – ‏{‏وَلِكُلٍّ جَعَلْنَا مَوَالِيَ‏}‏ قَالَ وَرَثَةً ‏{‏وَالَّذِينَ عَقَدَتْ أَيْمَانُكُمْ‏}‏ قَالَ كَانَ الْمُهَاجِرُونَ لَمَّا قَدِمُوا الْمَدِينَةَ يَرِثُ الْمُهَاجِرُ الأَنْصَارِيَّ دُونَ ذَوِي رَحِمِهِ لِلأُخُوَّةِ الَّتِي آخَى النَّبِيُّ صلى الله عليه وسلم بَيْنَهُمْ، فَلَمَّا نَزَلَتْ ‏{‏وَلِكُلٍّ جَعَلْنَا مَوَالِيَ‏}‏ نَسَخَتْ، ثُمَّ قَالَ ‏{‏وَالَّذِينَ عَقَدَتْ أَيْمَانُكُمْ ‏}‏ إِلاَّ النَّصْرَ وَالرِّفَادَةَ وَالنَّصِيحَةَ، وَقَدْ ذَهَبَ الْمِيرَاثُ وَيُوصِي لَهُ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='4' id='h-2293'><td colspan='2'>[39:4] <a class='permalink' href='#h-2293' data-hadith='4'>Hadith 4</a><button class='copy-btn' onclick='copyHadith(this,"[39:4]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='4'><td class='label'>English</td><td lang='en'>Narrated Anas:`Abdur-Rahman bin `Auf came to us and Allah's Messenger (ﷺ) established a bond of brotherhood between him and Sa`d bin Rabi`a</td></tr>
+<tr class='hadith-ar' data-hadith='4'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ جَعْفَرٍ، عَنْ حُمَيْدٍ، عَنْ أَنَسٍ ـ رضى الله عنه ـ قَالَ قَدِمَ عَلَيْنَا عَبْدُ الرَّحْمَنِ بْنُ عَوْفٍ فَآخَى رَسُولُ اللَّهِ صلى الله عليه وسلم بَيْنَهُ وَبَيْنَ سَعْدِ بْنِ الرَّبِيعِ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='5' id='h-2294'><td colspan='2'>[39:5] <a class='permalink' href='#h-2294' data-hadith='5'>Hadith 5</a><button class='copy-btn' onclick='copyHadith(this,"[39:5]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='5'><td class='label'>English</td><td lang='en'>Narrated `Asim:I heard Anas bin Malik, "Have you ever heard that the Prophet (ﷺ) said, 'There is no alliance in Islam?' " He replied, "The Prophet (ﷺ) made alliance between Quraish and the Ansar in my house</td></tr>
+<tr class='hadith-ar' data-hadith='5'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الصَّبَّاحِ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ زَكَرِيَّاءَ، حَدَّثَنَا عَاصِمٌ، قَالَ قُلْتُ لأَنَسٍ رضى الله عنه أَبَلَغَكَ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ "‏ لاَ حِلْفَ فِي الإِسْلاَمِ ‏"‏‏.‏ فَقَالَ قَدْ حَالَفَ النَّبِيُّ صلى الله عليه وسلم بَيْنَ قُرَيْشٍ وَالأَنْصَارِ فِي دَارِي‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='6' id='h-2295'><td colspan='2'>[39:6] <a class='permalink' href='#h-2295' data-hadith='6'>Hadith 6</a><button class='copy-btn' onclick='copyHadith(this,"[39:6]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='6'><td class='label'>English</td><td lang='en'>Narrated Salama bin Al-Akwa`:A dead person was brought to the Prophet (ﷺ) so that he might lead the funeral prayer for him. He asked, "Is he in debt?" When the people replied in the negative, he led the funeral prayer. Another dead person was brought and he asked, "Is he in debt?" They said, "Yes." He (refused to lead the prayer and) said, "Lead the prayer of your friend." Abu Qatada said, "O Allah's Messenger (ﷺ)! I undertake to pay his debt." Allah's Messenger (ﷺ) then led his funeral prayer</td></tr>
+<tr class='hadith-ar' data-hadith='6'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو عَاصِمٍ، عَنْ يَزِيدَ بْنِ أَبِي عُبَيْدٍ، عَنْ سَلَمَةَ بْنِ الأَكْوَعِ ـ رضى الله عنه ـ أَنَّ النَّبِيَّ صلى الله عليه وسلم أُتِيَ بِجَنَازَةٍ، لِيُصَلِّيَ عَلَيْهَا، فَقَالَ ‏"‏ هَلْ عَلَيْهِ مِنْ دَيْنٍ ‏"‏‏.‏ قَالُوا لاَ‏.‏ فَصَلَّى عَلَيْهِ، ثُمَّ أُتِيَ بِجَنَازَةٍ أُخْرَى، فَقَالَ ‏"‏ هَلْ عَلَيْهِ مَنْ دَيْنٍ ‏"‏‏.‏ قَالُوا نَعَمْ‏.‏ قَالَ ‏"‏ صَلُّوا عَلَى صَاحِبِكُمْ ‏"‏‏.‏ قَالَ أَبُو قَتَادَةَ عَلَىَّ دَيْنُهُ يَا رَسُولَ اللَّهِ‏.‏ فَصَلَّى عَلَيْهِ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='7' id='h-2296'><td colspan='2'>[39:7] <a class='permalink' href='#h-2296' data-hadith='7'>Hadith 7</a><button class='copy-btn' onclick='copyHadith(this,"[39:7]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='7'><td class='label'>English</td><td lang='en'>Narrated Jabir bin `Abdullah:Once the Prophet (ﷺ) said (to me), "If the money of Bahrain comes, I will give you a certain amount of it." The Prophet (ﷺ) had breathed his last before the money of Bahrain arrived. When the money of Bahrain reached, Abu Bakr announced, "Whoever was promised by the Prophet (ﷺ) should come to us." I went to Abu Bakr and said, "The Prophet (ﷺ) promised me so and so." Abu Bakr gave me a handful of coins and when I counted them, they were five-hundred in number. Abu Bakr then said, "Take twice the amount you have taken (besides)</td></tr>
+<tr class='hadith-ar' data-hadith='7'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا سُفْيَانُ، حَدَّثَنَا عَمْرٌو، سَمِعَ مُحَمَّدَ بْنَ عَلِيٍّ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ ـ رضى الله عنهم ـ قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ "‏ لَوْ قَدْ جَاءَ مَالُ الْبَحْرَيْنِ، قَدْ أَعْطَيْتُكَ هَكَذَا وَهَكَذَا وَهَكَذَا ‏"‏‏.‏ فَلَمْ يَجِئْ مَالُ الْبَحْرَيْنِ حَتَّى قُبِضَ النَّبِيُّ صلى الله عليه وسلم فَلَمَّا جَاءَ مَالُ الْبَحْرَيْنِ أَمَرَ أَبُو بَكْرٍ فَنَادَى مَنْ كَانَ لَهُ عِنْدَ النَّبِيِّ صلى الله عليه وسلم عِدَةٌ أَوْ دَيْنٌ فَلْيَأْتِنَا‏.‏ فَأَتَيْتُهُ، فَقُلْتُ إِنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ لِي كَذَا وَكَذَا، فَحَثَى لِي حَثْيَةً فَعَدَدْتُهَا فَإِذَا هِيَ خَمْسُمِائَةٍ، وَقَالَ خُذْ مِثْلَيْهَا‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='8' id='h-2297'><td colspan='2'>[39:8] <a class='permalink' href='#h-2297' data-hadith='8'>Hadith 8</a><button class='copy-btn' onclick='copyHadith(this,"[39:8]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='8'><td class='label'>English</td><td lang='en'>Narrated Aisha:(wife of the Prophet) Since I reached the age when I could remember things, I have seen my parents worshipping according to the right faith of Islam. Not a single day passed but Allah's Messenger (ﷺ) visited us both in the morning and in the evening. When the Muslims were persecuted, Abu Bakr set out for Ethiopia as an emigrant. When he reached a place called Bark-al-Ghimad, he met Ibn Ad-Daghna, the chief of the Qara tribe, who asked Abu Bakr, "Where are you going?" Abu Bakr said, "My people have turned me out of the country and I would like to tour the world and worship my Lord." Ibn Ad- Daghna said, "A man like you will not go out, nor will he be turned out as you help the poor earn their living, keep good relation with your Kith and kin, help the disabled (or the dependents), provide guests with food and shelter, and help people during their troubles. I am your protector. So, go back and worship your Lord at your home." Ibn Ad-Daghna went along with Abu Bakr and took him to the chiefs of Quraish saying to them, "A man like Abu Bakr will not go out, nor will he be turned out. Do you turn out a man who helps the poor earn their living, keeps good relations with Kith and kin, helps the disabled, provides guests with food and shelter, and helps the people during their troubles?" So, Quraish allowed Ibn Ad-Daghna's guarantee of protection and told Abu Bakr that he was secure, and said to Ibn Ad-Daghna, "Advise Abu Bakr to worship his Lord in his house and to pray and read what he likes and not to hurt us and not to do these things publicly, for we fear that our sons and women may follow him." Ibn Ad-Daghna told Abu Bakr of all that, so Abu Bakr continued worshipping his Lord in his house and did not pray or recite Qur'an aloud except in his house. Later on Abu Bakr had an idea of building a mosque in the court yard of his house. He fulfilled that idea and started praying and reciting Qur'an there publicly. The women and the offspring of the pagans started gathering around him and looking at him astonishingly. Abu Bakr was a softhearted person and could not help weeping while reciting Qur'an. This horrified the pagan chiefs of Quraish. They sent for Ibn Ad-Daghna and when he came, they said, "We have given Abu Bakr protection on condition that he will worship his Lord in his house, but he has transgressed that condition and has built a mosque in the court yard of his house and offered his prayer and recited Qur'an in public. We are afraid lest he mislead our women and offspring. So, go to him and tell him that if he wishes he can worship his Lord in his house only, and if not, then tell him to return your pledge of protection as we do not like to betray you by revoking your pledge, nor can we tolerate Abu Bakr's public declaration of Islam (his worshipping). `Aisha added: Ibn Ad-Daghna came to Abu Bakr and said, "You know the conditions on which I gave you protection, so you should either abide by those conditions or revoke my protection, as I do not like to hear the 'Arabs saying that Ibn Ad-Daghna gave the pledge of protection to a person and his people did not respect it." Abu Bakr said, "I revoke your pledge of protection and am satisfied with Allah's protection." At that time Allah's Messenger (ﷺ) was still in Mecca and he said to his companions, "Your place of emigration has been shown to me. I have seen salty land, planted with date-palms and situated between two mountains which are the two ,Harras." So, when the Prophet (ﷺ) told it, some of the companions migrated to Medina, and some of those who had migrated to Ethiopia returned to Medina. When Abu Bakr prepared for emigration, Allah's Messenger (ﷺ) said to him, "Wait, for I expect to be permitted to emigrate." Abu Bakr asked, "May my father be sacrificed for your sake, do you really expect that?" Allah's Messenger (ﷺ) replied in the affirmative. So, Abu Bakr postponed his departure in order to accompany Allah's Messenger (ﷺ) and fed two camels which he had, with the leaves of Samor trees for four months</td></tr>
+<tr class='hadith-ar' data-hadith='8'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، قَالَ ابْنُ شِهَابٍ فَأَخْبَرَنِي عُرْوَةُ بْنُ الزُّبَيْرِ، أَنَّ عَائِشَةَ ـ رضى الله عنها ـ زَوْجَ النَّبِيِّ صلى الله عليه وسلم قَالَتْ لَمْ أَعْقِلْ أَبَوَىَّ إِلاَّ وَهُمَا يَدِينَانِ الدِّينَ‏.‏ وَقَالَ أَبُو صَالِحٍ حَدَّثَنِي عَبْدُ اللَّهِ عَنْ يُونُسَ عَنِ الزُّهْرِيِّ قَالَ أَخْبَرَنِي عُرْوَةُ بْنُ الزُّبَيْرِ أَنَّ عَائِشَةَ ـ رضى الله عنها ـ قَالَتْ لَمْ أَعْقِلْ أَبَوَىَّ قَطُّ، إِلاَّ وَهُمَا يَدِينَانِ الدِّينَ، وَلَمْ يَمُرَّ عَلَيْنَا يَوْمٌ إِلاَّ يَأْتِينَا فِيهِ رَسُولُ اللَّهِ صلى الله عليه وسلم طَرَفَىِ النَّهَارِ بُكْرَةً وَعَشِيَّةً، فَلَمَّا ابْتُلِيَ الْمُسْلِمُونَ خَرَجَ أَبُو بَكْرٍ مُهَاجِرًا قِبَلَ الْحَبَشَةِ، حَتَّى إِذَا بَلَغَ بَرْكَ الْغِمَادِ لَقِيَهُ ابْنُ الدَّغِنَةِ ـ وَهْوَ سَيِّدُ الْقَارَةِ ـ فَقَالَ أَيْنَ تُرِيدُ يَا أَبَا بَكْرٍ فَقَالَ أَبُو بَكْرٍ أَخْرَجَنِي قَوْمِي فَأَنَا أُرِيدُ أَنْ أَسِيحَ فِي الأَرْضِ فَأَعْبُدَ رَبِّي‏.‏ قَالَ ابْنُ الدَّغِنَةِ إِنَّ مِثْلَكَ لاَ يَخْرُجُ وَلاَ يُخْرَجُ، فَإِنَّكَ تَكْسِبُ الْمَعْدُومَ، وَتَصِلُ الرَّحِمَ، وَتَحْمِلُ الْكَلَّ، وَتَقْرِي الضَّيْفَ، وَتُعِينُ عَلَى نَوَائِبِ الْحَقِّ، وَأَنَا لَكَ جَارٌ فَارْجِعْ فَاعْبُدْ رَبَّكَ بِبِلاَدِكَ‏.‏ فَارْتَحَلَ ابْنُ الدَّغِنَةِ، فَرَجَعَ مَعَ أَبِي بَكْرٍ، فَطَافَ فِي أَشْرَافِ كُفَّارِ قُرَيْشٍ، فَقَالَ لَهُمْ إِنَّ أَبَا بَكْرٍ لاَ يَخْرُجُ مِثْلُهُ، وَلاَ يُخْرَجُ، أَتُخْرِجُونَ رَجُلاً يُكْسِبُ الْمَعْدُومَ، وَيَصِلُ الرَّحِمَ، وَيَحْمِلُ الْكَلَّ، وَيَقْرِي الضَّيْفَ، وَيُعِينُ عَلَى نَوَائِبِ الْحَقِّ‏.‏ فَأَنْفَذَتْ قُرَيْشٌ جِوَارَ ابْنِ الدَّغِنَةِ وَآمَنُوا أَبَا بَكْرٍ وَقَالُوا لاِبْنِ الدَّغِنَةِ مُرْ أَبَا بَكْرٍ فَلْيَعْبُدْ رَبَّهُ فِي دَارِهِ، فَلْيُصَلِّ وَلْيَقْرَأْ مَا شَاءَ، وَلاَ يُؤْذِينَا بِذَلِكَ، وَلاَ يَسْتَعْلِنْ بِهِ، فَإِنَّا قَدْ خَشِينَا أَنْ يَفْتِنَ أَبْنَاءَنَا وَنِسَاءَنَا‏.‏ قَالَ ذَلِكَ ابْنُ الدَّغِنَةِ لأَبِي بَكْرٍ، فَطَفِقَ أَبُو بَكْرٍ يَعْبُدُ رَبَّهُ فِي دَارِهِ، وَلاَ يَسْتَعْلِنُ بِالصَّلاَةِ وَلاَ الْقِرَاءَةِ فِي غَيْرِ دَارِهِ، ثُمَّ بَدَا لأَبِي بَكْرٍ فَابْتَنَى مَسْجِدًا بِفِنَاءِ دَارِهِ، وَبَرَزَ فَكَانَ يُصَلِّي فِيهِ، وَيَقْرَأُ الْقُرْآنَ، فَيَتَقَصَّفُ عَلَيْهِ نِسَاءُ الْمُشْرِكِينَ وَأَبْنَاؤُهُمْ، يَعْجَبُونَ وَيَنْظُرُونَ إِلَيْهِ، وَكَانَ أَبُو بَكْرٍ رَجُلاً بَكَّاءً لاَ يَمْلِكُ دَمْعَهُ حِينَ يَقْرَأُ الْقُرْآنَ، فَأَفْزَعَ ذَلِكَ أَشْرَافَ قُرَيْشٍ مِنَ الْمُشْرِكِينَ، فَأَرْسَلُوا إِلَى ابْنِ الدَّغِنَةِ فَقَدِمَ عَلَيْهِمْ، فَقَالُوا لَهُ إِنَّا كُنَّا أَجَرْنَا أَبَا بَكْرٍ عَلَى أَنْ يَعْبُدَ رَبَّهُ فِي دَارِهِ، وَإِنَّهُ جَاوَزَ ذَلِكَ، فَابْتَنَى مَسْجِدًا بِفِنَاءِ دَارِهِ، وَأَعْلَنَ الصَّلاَةَ وَالْقِرَاءَةَ، وَقَدْ خَشِينَا أَنْ يَفْتِنَ أَبْنَاءَنَا وَنِسَاءَنَا، فَأْتِهِ فَإِنْ أَحَبَّ أَنْ يَقْتَصِرَ عَلَى أَنْ يَعْبُدَ رَبَّهُ فِي دَارِهِ فَعَلَ، وَإِنْ أَبَى إِلاَّ أَنْ يُعْلِنَ ذَلِكَ فَسَلْهُ أَنْ يَرُدَّ إِلَيْكَ ذِمَّتَكَ، فَإِنَّا كَرِهْنَا أَنْ نُخْفِرَكَ، وَلَسْنَا مُقِرِّينَ لأَبِي بَكْرٍ الاِسْتِعْلاَنَ‏.‏ قَالَتْ عَائِشَةُ فَأَتَى ابْنُ الدَّغِنَةِ أَبَا بَكْرٍ، فَقَالَ قَدْ عَلِمْتَ الَّذِي عَقَدْتُ لَكَ عَلَيْهِ، فَإِمَّا أَنْ تَقْتَصِرَ عَلَى ذَلِكَ وَإِمَّا أَنْ تَرُدَّ إِلَىَّ ذِمَّتِي، فَإِنِّي لاَ أُحِبُّ أَنْ تَسْمَعَ الْعَرَبُ أَنِّي أُخْفِرْتُ فِي رَجُلٍ عَقَدْتُ لَهُ‏.‏ قَالَ أَبُو بَكْرٍ إِنِّي أَرُدُّ إِلَيْكَ جِوَارَكَ، وَأَرْضَى بِجِوَارِ اللَّهِ‏.‏ وَرَسُولُ اللَّهِ صلى الله عليه وسلم يَوْمَئِذٍ بِمَكَّةَ، فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ قَدْ أُرِيتُ دَارَ هِجْرَتِكُمْ، رَأَيْتُ سَبْخَةً ذَاتَ نَخْلٍ بَيْنَ لاَبَتَيْنِ ‏"‏‏.‏ وَهُمَا الْحَرَّتَانِ، فَهَاجَرَ مَنْ هَاجَرَ قِبَلَ الْمَدِينَةِ حِينَ ذَكَرَ ذَلِكَ رَسُولُ اللَّهِ صلى الله عليه وسلم، وَرَجَعَ إِلَى الْمَدِينَةِ بَعْضُ مَنْ كَانَ هَاجَرَ إِلَى أَرْضِ الْحَبَشَةِ، وَتَجَهَّزَ أَبُو بَكْرٍ مُهَاجِرًا، فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ عَلَى رِسْلِكَ فَإِنِّي أَرْجُو أَنْ يُؤْذَنَ لِي ‏"‏‏.‏ قَالَ أَبُو بَكْرٍ هَلْ تَرْجُو ذَلِكَ بِأَبِي أَنْتَ قَالَ ‏"‏ نَعَمْ ‏"‏‏.‏ فَحَبَسَ أَبُو بَكْرٍ نَفْسَهُ عَلَى رَسُولِ اللَّهِ صلى الله عليه وسلم لِيَصْحَبَهُ وَعَلَفَ رَاحِلَتَيْنِ كَانَتَا عِنْدَهُ وَرَقَ السَّمُرِ أَرْبَعَةَ أَشْهُرٍ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='9' id='h-2298'><td colspan='2'>[39:9] <a class='permalink' href='#h-2298' data-hadith='9'>Hadith 9</a><button class='copy-btn' onclick='copyHadith(this,"[39:9]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='9'><td class='label'>English</td><td lang='en'>Narrated Abu Huraira:Whenever a dead man in debt was brought to Allah's Messenger (ﷺ) he would ask, "Has he left anything to repay his debt?" If he was informed that he had left something to repay his debts, he would offer his funeral prayer, otherwise he would tell the Muslims to offer their friend's funeral prayer. When Allah made the Prophet (ﷺ) wealthy through conquests, he said, "I am more rightful than other believers to be the guardian of the believers, so if a Muslim dies while in debt, I am responsible for the repayment of his debt, and whoever leaves wealth (after his death) it will belong to his heirs</td></tr>
+<tr class='hadith-ar' data-hadith='9'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُؤْتَى بِالرَّجُلِ الْمُتَوَفَّى عَلَيْهِ الدَّيْنُ فَيَسْأَلُ ‏"‏ هَلْ تَرَكَ لِدَيْنِهِ فَضْلاً ‏"‏‏.‏ فَإِنْ حُدِّثَ أَنَّهُ تَرَكَ لِدَيْنِهِ وَفَاءً صَلَّى، وَإِلاَّ قَالَ لِلْمُسْلِمِينَ ‏"‏ صَلُّوا عَلَى صَاحِبِكُمْ ‏"‏‏.‏ فَلَمَّا فَتَحَ اللَّهُ عَلَيْهِ الْفُتُوحَ قَالَ ‏"‏ أَنَا أَوْلَى بِالْمُؤْمِنِينَ مِنْ أَنْفُسِهِمْ، فَمَنْ تُوُفِّيَ مِنَ الْمُؤْمِنِينَ فَتَرَكَ دَيْنًا فَعَلَىَّ قَضَاؤُهُ، وَمَنْ تَرَكَ مَالاً فَلِوَرَثَتِهِ ‏"‏‏.‏</td></tr>
+</tbody></table></div>
+<nav class='chapter-nav'><span><a href='book-38.html'>&laquo; Book 38</a></span><span><a href='book-40.html'>Book 40 &raquo;</a></span></nav>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+<script>
+(function(){
+  var CF_KEY='hadith-cf';
+  var FS_KEY='hfs';
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxHadith=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxHadith;
+  var enabledTypes=new Set();
+
+  /* ---- Default content filter prefs ---- */
+  var DEFAULTS={'hadith-en':true,'hadith-ar':true,};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem(CF_KEY);if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=DEFAULTS.hasOwnProperty(key)?DEFAULTS[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem(CF_KEY,JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var h=+tr.dataset.hadith;
+      var inRange=(h>=vcFrom&&h<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxHadith;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxHadith;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+
+  /* ---- Scroll to #h-N anchor ---- */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-highlight');
+          setTimeout(function(){el.classList.remove('hadith-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
+
+  /* ---- Font size control ---- */
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy hadith ---- */
+  window.copyHadith=function(btn,ref){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+ref+']'];
+    if(tbod){
+      var hid=row.dataset.hadith;
+      tbod.querySelectorAll('tr[data-hadith="'+hid+'"]').forEach(function(tr){
+        if(tr.classList.contains('hadith-sep'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#h-'+a.dataset.hadith;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#h-'+a.dataset.hadith);
+    });
+  });
+})();
+</script>
+</body>
+</html>

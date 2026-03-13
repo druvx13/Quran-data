@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Jamiʼ at-Tirmidhi — Book 40: The Book on Faith">
+<title>Jamiʼ at-Tirmidhi — Book 40: The Book on Faith</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <a href='index.html'>Jamiʼ at-Tirmidhi</a> | <select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Book'><option value=''>Jump to Book…</option><option value='book-1.html'>1. The Book on Purification</option><option value='book-2.html'>2. The Book on Salat (Prayer)</option><option value='book-3.html'>3. The Book on Al-Witr</option><option value='book-4.html'>4. The Book on the Day of Friday</option><option value='book-5.html'>5. The Book on the Two Eids</option><option value='book-6.html'>6. The Book on Traveling</option><option value='book-7.html'>7. The Book on Zakat</option><option value='book-8.html'>8. The Book on Fasting</option><option value='book-9.html'>9. The Book on Hajj</option><option value='book-10.html'>10. The Book on Jana''iz (Funerals)</option><option value='book-11.html'>11. The Book on Marriage</option><option value='book-12.html'>12. The Book on Suckling</option><option value='book-13.html'>13. The Book on Divorce and Li'an</option><option value='book-14.html'>14. The Book on Business</option><option value='book-15.html'>15. The Chapters On Judgements From The Messenger of Allah</option><option value='book-16.html'>16. The Book on Blood Money</option><option value='book-17.html'>17. The Book on Legal Punishments (Al-Hudud)</option><option value='book-18.html'>18. The Book on Hunting</option><option value='book-19.html'>19. The Book on Sacrifices</option><option value='book-20.html'>20. The Book on Vows and Oaths</option><option value='book-21.html'>21. The Book on Military Expeditions</option><option value='book-22.html'>22. The Book on Virtues of Jihad</option><option value='book-23.html'>23. The Book on Jihad</option><option value='book-24.html'>24. The Book on Clothing</option><option value='book-25.html'>25. The Book on Food</option><option value='book-26.html'>26. The Book on Drinks</option><option value='book-27.html'>27. Chapters on Righteousness And Maintaining Good Relations With Relatives</option><option value='book-28.html'>28. Chapters on Medicine</option><option value='book-29.html'>29. Chapters On Inheritance</option><option value='book-30.html'>30. Chapters On Wasaya (Wills and Testament)</option><option value='book-31.html'>31. Chapters On Wala' And Gifts</option><option value='book-32.html'>32. Chapters On Al-Qadar</option><option value='book-33.html'>33. Chapters On Al-Fitan</option><option value='book-34.html'>34. Chapters On Dreams</option><option value='book-35.html'>35. Chapters On Witnesses</option><option value='book-36.html'>36. Chapters On Zuhd</option><option value='book-37.html'>37. Chapters on the description of the Day of Judgement, Ar-Riqaq, and Al-Wara'</option><option value='book-38.html'>38. Chapters on the description of Paradise</option><option value='book-39.html'>39. The Book on the Description of Hellfire</option><option value='book-40.html' selected>40. The Book on Faith</option><option value='book-41.html'>41. Chapters on Knowledge</option><option value='book-42.html'>42. Chapters on Seeking Permission</option><option value='book-43.html'>43. Chapters on Manners</option><option value='book-44.html'>44. Chapters on Parables</option><option value='book-45.html'>45. Chapters on The Virtues of the Qur'an</option><option value='book-46.html'>46. Chapters on Recitation</option><option value='book-47.html'>47. Chapters on Tafsir</option><option value='book-48.html'>48. Chapters on Supplication</option><option value='book-49.html'>49. Chapters on Virtues</option></select> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Jamiʼ at-Tirmidhi — Book 40: The Book on Faith</h1>
+<noscript><p class="noscript-warn">&#9888; The Hadith Filter requires JavaScript. All hadiths are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='39' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='39' value='39'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='hadith-en'><label for='cf-0'>English</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='hadith-ar'><label for='cf-1'>Arabic</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Jamiʼ at-Tirmidhi &mdash; Book 40: The Book on Faith</th></tr></thead><tbody>
+<tr class='hadith-sep' data-hadith='1' id='h-2606'><td colspan='2'>[40:1] <a class='permalink' href='#h-2606' data-hadith='1'>Hadith 1</a><button class='copy-btn' onclick='copyHadith(this,"[40:1]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='1'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:narrated that the Messenger of Allah (ﷺ) said: "I have been ordered to fight the people until they say La Ilaha Illallah", and if they say that, then their blood and wealth will be protected from me, except what it makes obligatory upon them, and their reckoning is up to Allah</td></tr>
+<tr class='hadith-ar' data-hadith='1'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أُمِرْتُ أَنْ أُقَاتِلَ النَّاسَ حَتَّى يَقُولُوا لاَ إِلَهَ إِلاَّ اللَّهُ فَإِذَا قَالُوهَا مَنَعُوا مِنِّي دِمَاءَهُمْ وَأَمْوَالَهُمْ إِلاَّ بِحَقِّهَا وَحِسَابُهُمْ عَلَى اللَّهِ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ جَابِرٍ وَأَبِي سَعِيدٍ وَابْنِ عُمَرَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='2' id='h-2607'><td colspan='2'>[40:2] <a class='permalink' href='#h-2607' data-hadith='2'>Hadith 2</a><button class='copy-btn' onclick='copyHadith(this,"[40:2]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='2'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:said: "When the Messenger of Allah (ﷺ) died and Abu Bakr became the Khalifah after him, whoever disbelieved from the Arabs disbelieved, so Umar bin Al-Khattab said to Abu Bakr: 'How will you fight the people while the Messenger of Allah has said: 'I have been ordered to fight the people until they say La Ilaha Illallah, and if they say that, then their blood and wealth will be protected from me, except what it makes obligatory upon them, and their reckoning is with Allah?' So Abu Bakr said: 'By Allah I will fight whoever differentiates between Salat and Zakat. For indeed, Zakat is the right due upon wealth. And by Allah! If they withhold even (camel) tethers which they used to give to the Messenger of Allah (ﷺ) I will fight them for withholding it.' So Umar bin Al-Khattab said: 'By Allah! I saw that Allah had opened Abu Bakr's chest to fighting, so I knew that it was correct</td></tr>
+<tr class='hadith-ar' data-hadith='2'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ الزُّهْرِيِّ، أَخْبَرَنِي عُبَيْدُ اللَّهِ بْنُ عَبْدِ اللَّهِ بْنِ عُتْبَةَ بْنِ مَسْعُودٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ لَمَّا تُوُفِّيَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَاسْتُخْلِفَ أَبُو بَكْرٍ بَعْدَهُ كَفَرَ مَنْ كَفَرَ مِنَ الْعَرَبِ فَقَالَ عُمَرُ بْنُ الْخَطَّابِ لأَبِي بَكْرٍ كَيْفَ تُقَاتِلُ النَّاسَ وَقَدْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أُمِرْتُ أَنْ أُقَاتِلَ النَّاسَ حَتَّى يَقُولُوا لاَ إِلَهَ إِلاَّ اللَّهُ وَمَنْ قَالَ لاَ إِلَهَ إِلاَّ اللَّهُ عَصَمَ مِنِّي مَالَهُ وَنَفْسَهُ إِلاَّ بِحَقِّهِ وَحِسَابُهُ عَلَى اللَّهِ ‏"‏ ‏.‏ قَالَ أَبُو بَكْرٍ وَاللَّهِ لأُقَاتِلَنَّ مَنْ فَرَّقَ بَيْنَ الزَّكَاةِ وَالصَّلاَةِ فَإِنَّ الزَّكَاةَ حَقُّ الْمَالِ وَاللَّهِ لَوْ مَنَعُونِي عِقَالاً كَانُوا يُؤَدُّونَهُ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم لَقَاتَلْتُهُمْ عَلَى مَنْعِهِ فَقَالَ عُمَرُ بْنُ الْخَطَّابِ فَوَاللَّهِ مَا هُوَ إِلاَّ أَنْ رَأَيْتُ أَنَّ اللَّهَ قَدْ شَرَحَ صَدْرَ أَبِي بَكْرٍ لِلْقِتَالِ فَعَرَفْتُ أَنَّهُ الْحَقُّ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَهَكَذَا رَوَى شُعَيْبُ بْنُ أَبِي حَمْزَةَ عَنِ الزُّهْرِيِّ عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ عَنْ أَبِي هُرَيْرَةَ ‏.‏ وَرَوَى عِمْرَانُ الْقَطَّانُ هَذَا الْحَدِيثَ عَنْ مَعْمَرٍ عَنِ الزُّهْرِيِّ عَنْ أَنَسِ بْنِ مَالِكٍ عَنْ أَبِي بَكْرٍ وَهُوَ حَدِيثٌ خَطَأٌ وَقَدْ خُولِفَ عِمْرَانُ فِي رِوَايَتِهِ عَنْ مَعْمَرٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='3' id='h-2608'><td colspan='2'>[40:3] <a class='permalink' href='#h-2608' data-hadith='3'>Hadith 3</a><button class='copy-btn' onclick='copyHadith(this,"[40:3]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='3'><td class='label'>English</td><td lang='en'>Narrated Anas bin Malik:that the Messenger of Allah (ﷺ) said: "I have been ordered to fight the people until they bear witness to La Ilaha Illallah, and that Muhammad is His servant and Messenger, and they face our Qiblah, eat our slaughtered (meat), and perform our Salat. And if they do that, then their blood and wealth will be unlawful to us, except with its due right. For them shall be whatever is for the Muslims, and they shall be obliged with that which the Muslims are obliged</td></tr>
+<tr class='hadith-ar' data-hadith='3'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا سَعِيدُ بْنُ يَعْقُوبَ الطَّالْقَانِيُّ، حَدَّثَنَا ابْنُ الْمُبَارَكِ، أَخْبَرَنَا حُمَيْدٌ الطَّوِيلُ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أُمِرْتُ أَنْ أُقَاتِلَ النَّاسَ حَتَّى يَشْهَدُوا أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ وَأَنْ يَسْتَقْبِلُوا قِبْلَتَنَا وَيَأْكُلُوا ذَبِيحَتَنَا وَأَنْ يُصَلُّوا صَلاَتَنَا فَإِذَا فَعَلُوا ذَلِكَ حُرِّمَتْ عَلَيْنَا دِمَاؤُهُمْ وَأَمْوَالُهُمْ إِلاَّ بِحَقِّهَا لَهُمْ مَا لِلْمُسْلِمِينَ وَعَلَيْهِمْ مَا عَلَى الْمُسْلِمِينَ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ مُعَاذِ بْنِ جَبَلٍ وَأَبِي هُرَيْرَةَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ مِنْ هَذَا الْوَجْهِ ‏.‏ وَقَدْ رَوَاهُ يَحْيَى بْنُ أَيُّوبَ عَنْ حُمَيْدٍ عَنْ أَنَسٍ نَحْوَ هَذَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='4' id='h-2609'><td colspan='2'>[40:4] <a class='permalink' href='#h-2609' data-hadith='4'>Hadith 4</a><button class='copy-btn' onclick='copyHadith(this,"[40:4]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='4'><td class='label'>English</td><td lang='en'>Narrated Ibn 'Umar:that the Messenger of Allah (ﷺ) said: "Islam is based upon five: the testimony of La Ilaha Illallah, and that Muhammad is the Messenger of Allah, the establishment of the Salat, giving the Zakat, fasting (the month of) Ramadan, and performing Hajj to the House</td></tr>
+<tr class='hadith-ar' data-hadith='4'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ سُعَيْرِ بْنِ الْخِمْسِ التَّمِيمِيِّ، عَنْ حَبِيبِ بْنِ أَبِي ثَابِتٍ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ شَهَادَةُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ وَإِقَامُ الصَّلاَةِ وَإِيتَاءُ الزَّكَاةِ وَصَوْمُ رَمَضَانَ وَحَجُّ الْبَيْتِ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ جَرِيرِ بْنِ عَبْدِ اللَّهِ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَقَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ عَنِ ابْنِ عُمَرَ عَنِ النَّبِيِّ صلى الله عليه وسلم نَحْوُ هَذَا ‏.‏ وَسُعَيْرُ بْنُ الْخِمْسِ ثِقَةٌ عِنْدَ أَهْلِ الْحَدِيثِ ‏.‏ حَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا وَكِيعٌ، عَنْ حَنْظَلَةَ بْنِ أَبِي سُفْيَانَ الْجُمَحِيِّ، عَنْ عِكْرِمَةَ بْنِ خَالِدٍ الْمَخْزُومِيِّ، عَنِ ابْنِ عُمَرَ، عَنِ النَّبِيِّ صلى الله عليه وسلم نَحْوَهُ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='5' id='h-2610'><td colspan='2'>[40:5] <a class='permalink' href='#h-2610' data-hadith='5'>Hadith 5</a><button class='copy-btn' onclick='copyHadith(this,"[40:5]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='5'><td class='label'>English</td><td lang='en'>Narrated Abdullah bin Buraidah from Yahya bin Ya'mur who said:"The first person to speak about Al-Qadar was Ma'bad Al-Juhani." He said: "Humaid bin Abdur-Rahman Al-Himyari and I went out until we reached Al-Madinah, and we said: 'If we could only meet someone among the companions of the Prophet (ﷺ) so we could ask him about what those people have innovated." [He said:] "So we met him - meaning Abdullah bin 'Umar - while he was leaving the Masjid." [He said:] "My companion and I were on either side of him." [He said:] I thought my companion was going to leave the speaking to me so I said: "O Abu Abdur-Rahman! There is a group of people who recite the Qur'an and seek knowledge, and they claim there is no Al-Qadar, and that the affair is left to chance.' He said: "Whenever you meet those people, then tell them that I am not of them and they are not of me. By the One Whom Abdullah swears by! If one of them were to spend gold the like of Uhud (mountain) in charity, it would not be accepted from him until he believes in Al-Qadar; the good of it and the bad of it.'" He said: "Then he began to narrate, he said: "'Umar bin Al-Khattab said: "We were with the Messenger of Allah when a man came with extremely white garments, and extremely black hair. He had no appearance of traveling visible on him, yet none of us recognized him. He came until he reached the Prophet (ﷺ). He put his knees up against his knees, and then said: "O Muhammad! What is Iman?' He said 'To believe in Allah, His Angels, His, Books, His Messengers, the Day of Judgement, and Al-Qadar, the good of it and the bad of it.' He said: 'Then what is Islam?' He said: 'Testifying to La Ilaha Illallah, and that Muhammad is His servant and Messenger, establishing the Salat, giving the Zakat, performing Hajj to the House, and fasting (the month of) Ramadan.' He said: 'Then what is Ihsan?' He said 'That (is) you worship Allah as if you see Him, and although you do not see Him, He certainly sees you.' He said: 'For all of those he replied to him: 'You have told the truth.'" He said: "So we were amazed at him, he would ask, and then tell him that he is telling the truth. He said: 'Then when is the Hour?' He (ﷺ) said: 'The one being asked knows no more than the questioner.' He said: 'Then what are its signs?' He said: 'That the slave woman gives birth to her master, and that the naked, poor, and bare-footed shepherds rival each other in the height of the buildings.'" 'Umar said: 'Then the Prophet (ﷺ) met me three days after that and said: 'O 'Umar! Do you know who the questioner was? It was Jibril. He came to teach you about the matters of your religion</td></tr>
+<tr class='hadith-ar' data-hadith='5'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو عَمَّارٍ الْحُسَيْنُ بْنُ حُرَيْثٍ الْخُزَاعِيُّ، أَخْبَرَنَا وَكِيعٌ، عَنْ كَهْمَسِ بْنِ الْحَسَنِ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ يَحْيَى بْنِ يَعْمُرَ، قَالَ أَوَّلُ مَنْ تَكَلَّمَ فِي الْقَدَرِ مَعْبَدٌ الْجُهَنِيُّ قَالَ فَخَرَجْتُ أَنَا وَحُمَيْدُ بْنُ عَبْدِ الرَّحْمَنِ الْحِمْيَرِيُّ حَتَّى أَتَيْنَا الْمَدِينَةَ فَقُلْنَا لَوْ لَقِينَا رَجُلاً مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم فَسَأَلْنَاهُ عَمَّا أَحْدَثَ هَؤُلاَءِ الْقَوْمُ ‏.‏ قَالَ فَلَقِينَاهُ يَعْنِي عَبْدَ اللَّهِ بْنَ عُمَرَ وَهُوَ خَارِجٌ مِنَ الْمَسْجِدِ قَالَ فَاكْتَنَفْتُهُ أَنَا وَصَاحِبِي قَالَ فَظَنَنْتُ أَنَّ صَاحِبِي سَيَكِلُ الْكَلاَمَ إِلَىَّ فَقُلْتُ يَا أَبَا عَبْدِ الرَّحْمَنِ إِنَّ قَوْمًا يَقْرَءُونَ الْقُرْآنَ وَيَتَقَفَّرُونَ الْعِلْمَ وَيَزْعُمُونَ أَنْ لاَ قَدَرَ وَأَنَّ الأَمْرَ أُنُفٌ قَالَ فَإِذَا لَقِيتَ أُولَئِكَ فَأَخْبِرْهُمْ أَنِّي مِنْهُمْ بَرِيءٌ وَأَنَّهُمْ مِنِّي بُرَآءُ وَالَّذِي يَحْلِفُ بِهِ عَبْدُ اللَّهِ لَوْ أَنَّ أَحَدَهُمْ أَنْفَقَ مِثْلَ أُحُدٍ ذَهَبًا مَا قُبِلَ ذَلِكَ مِنْهُ حَتَّى يُؤْمِنَ بِالْقَدَرِ خَيْرِهِ وَشَرِّهِ ‏.‏ قَالَ ثُمَّ أَنْشَأَ يُحَدِّثُ فَقَالَ قَالَ عُمَرُ بْنُ الْخَطَّابِ كُنَّا عِنْدَ رَسُولِ اللَّهِ صلى الله عليه وسلم فَجَاءَ رَجُلٌ شَدِيدُ بَيَاضِ الثِّيَابِ شَدِيدُ سَوَادِ الشَّعَرِ لاَ يُرَى عَلَيْهِ أَثَرُ السَّفَرِ وَلاَ يَعْرِفُهُ مِنَّا أَحَدٌ حَتَّى أَتَى النَّبِيَّ صلى الله عليه وسلم فَأَلْزَقَ رُكْبَتَهُ بِرُكْبَتِهِ ثُمَّ قَالَ يَا مُحَمَّدُ مَا الإِيمَانُ قَالَ ‏"‏ أَنْ تُؤْمِنَ بِاللَّهِ وَمَلاَئِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ وَالْيَوْمِ الآخِرِ وَالْقَدَرِ خَيْرِهِ وَشَرِّهِ ‏"‏ ‏.‏ قَالَ فَمَا الإِسْلاَمُ قَالَ ‏"‏ شَهَادَةُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ وَإِقَامُ الصَّلاَةِ وَإِيتَاءُ الزَّكَاةِ وَحَجُّ الْبَيْتِ وَصَوْمُ رَمَضَانَ ‏"‏ ‏.‏ قَالَ فَمَا الإِحْسَانُ قَالَ ‏"‏ أَنْ تَعْبُدَ اللَّهَ كَأَنَّكَ تَرَاهُ فَإِنَّكَ إِنْ لَمْ تَكُنْ تَرَاهُ فَإِنَّهُ يَرَاكَ ‏"‏ ‏.‏ قَالَ فِي كُلِّ ذَلِكَ يَقُولُ لَهُ صَدَقْتَ ‏.‏ قَالَ فَتَعَجَّبْنَا مِنْهُ يَسْأَلُهُ وَيُصَدِّقُهُ ‏.‏ قَالَ فَمَتَى السَّاعَةُ قَالَ ‏"‏ مَا الْمَسْئُولُ عَنْهَا بِأَعْلَمَ مِنَ السَّائِلِ ‏"‏ ‏.‏ قَالَ فَمَا أَمَارَتُهَا قَالَ أَنْ تَلِدَ الأَمَةُ رَبَّتَهَا وَأَنْ تَرَى الْحُفَاةَ الْعُرَاةَ الْعَالَةَ أَصْحَابَ الشَّاءِ يَتَطَاوَلُونَ فِي الْبُنْيَانِ ‏"‏ ‏.‏ قَالَ عُمَرُ فَلَقِيَنِي النَّبِيُّ صلى الله عليه وسلم بَعْدَ ذَلِكَ بِثَلاَثٍ فَقَالَ ‏"‏ يَا عُمَرُ هَلْ تَدْرِي مَنِ السَّائِلُ ذَاكَ جِبْرِيلُ أَتَاكُمْ يُعَلِّمُكُمْ مَعَالِمَ دِينِكُمْ ‏"‏ ‏.‏ حَدَّثَنَا أَحْمَدُ بْنُ مُحَمَّدٍ، أَخْبَرَنَا ابْنُ الْمُبَارَكِ، أَخْبَرَنَا كَهْمَسُ بْنُ الْحَسَنِ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏ حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا مُعَاذُ بْنُ مُعَاذٍ، عَنْ كَهْمَسٍ، بِهَذَا الإِسْنَادِ نَحْوَهُ بِمَعْنَاهُ ‏.‏ وَفِي الْبَابِ عَنْ طَلْحَةَ بْنِ عُبَيْدِ اللَّهِ وَأَنَسِ بْنِ مَالِكٍ وَأَبِي هُرَيْرَةَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ قَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ نَحْوُ هَذَا عَنْ عُمَرَ ‏.‏ وَقَدْ رُوِيَ هَذَا الْحَدِيثُ عَنِ ابْنِ عُمَرَ عَنِ النَّبِيِّ صلى الله عليه وسلم وَالصَّحِيحُ هُوَ ابْنُ عُمَرَ عَنْ عُمَرَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='6' id='h-2611'><td colspan='2'>[40:6] <a class='permalink' href='#h-2611' data-hadith='6'>Hadith 6</a><button class='copy-btn' onclick='copyHadith(this,"[40:6]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='6'><td class='label'>English</td><td lang='en'>Narrated Ibn 'Abbas:"A delegation of Abdul-Qais came to the Messenger of Allah (ﷺ) and said: 'We are a tribe from Rabi'ah, and we cannot come to you except during the sacred months. So order us with something that we can take from you, and then we call those who are behind us to it.' So he said: 'I order you with four things: To testify to La Ilaha Illallah, and that I am the Messenger of Allah; to establish the Salat, to give the Zakat, and to give the Khumus from the spoils of war that you gain</td></tr>
+<tr class='hadith-ar' data-hadith='6'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا عَبَّادُ بْنُ عَبَّادٍ الْمُهَلَّبِيُّ، عَنْ أَبِي جَمْرَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَدِمَ وَفْدُ عَبْدِ الْقَيْسِ عَلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالُوا إِنَّا هَذَا الْحَىَّ مِنْ رَبِيعَةَ وَلَسْنَا نَصِلُ إِلَيْكَ إِلاَّ فِي أَشْهُرِ الْحَرَامِ فَمُرْنَا بِشَيْءٍ نَأْخُذُهُ عَنْكَ وَنَدْعُو إِلَيْهِ مَنْ وَرَاءَنَا ‏.‏ فَقَالَ ‏ "‏ آمُرُكُمْ بِأَرْبَعٍ الإِيمَانِ بِاللَّهِ ثُمَّ فَسَّرَهَا لَهُمْ شَهَادَةَ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنِّي رَسُولُ اللَّهِ وَإِقَامَ الصَّلاَةِ وَإِيتَاءَ الزَّكَاةِ وَأَنْ تُؤَدُّوا خُمْسَ مَا غَنِمْتُمْ ‏"‏ ‏.‏ حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَبِي جَمْرَةَ، عَنِ ابْنِ عَبَّاسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم مِثْلَهُ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَأَبُو جَمْرَةَ الضُّبَعِيُّ اسْمُهُ نَصْرُ بْنُ عِمْرَانَ ‏.‏ وَقَدْ رَوَاهُ شُعْبَةُ عَنْ أَبِي جَمْرَةَ أَيْضًا وَزَادَ فِيهِ أَتَدْرُونَ مَا الإِيمَانُ شَهَادَةُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنِّي رَسُولُ اللَّهِ وَذَكَرَ الْحَدِيثَ ‏.‏ سَمِعْتُ قُتَيْبَةَ بْنَ سَعِيدٍ يَقُولُ مَا رَأَيْتُ مِثْلَ هَؤُلاَءِ الأَشْرَافِ الأَرْبَعَةِ مَالِكِ بْنِ أَنَسٍ وَاللَّيْثِ بْنِ سَعْدٍ وَعَبَّادِ بْنِ عَبَّادٍ الْمُهَلَّبِيِّ وَعَبْدِ الْوَهَّابِ الثَّقَفِيِّ ‏.‏ قَالَ قُتَيْبَةُ كُنَّا نَرْضَى أَنْ نَرْجِعَ مِنْ عِنْدِ عَبَّادٍ كُلَّ يَوْمٍ بِحَدِيثَيْنِ وَعَبَّادُ بْنُ عَبَّادٍ هُوَ مِنْ وَلَدِ الْمُهَلَّبِ بْنِ أَبِي صُفْرَةَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='7' id='h-2612'><td colspan='2'>[40:7] <a class='permalink' href='#h-2612' data-hadith='7'>Hadith 7</a><button class='copy-btn' onclick='copyHadith(this,"[40:7]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='7'><td class='label'>English</td><td lang='en'>Narrated 'Aishah:that the Messenger of Allah (ﷺ) said: "Indeed among the believers with the most complete faith is the one who is the best in conduct, and the most kind to his family</td></tr>
+<tr class='hadith-ar' data-hadith='7'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ الْبَغْدَادِيُّ، حَدَّثَنَا إِسْمَاعِيلُ ابْنُ عُلَيَّةَ، حَدَّثَنَا خَالِدٌ الْحَذَّاءُ، عَنْ أَبِي قِلاَبَةَ، عَنْ عَائِشَةَ، قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِنَّ مِنْ أَكْمَلِ الْمُؤْمِنِينَ إِيمَانًا أَحْسَنُهُمْ خُلُقًا وَأَلْطَفُهُمْ بِأَهْلِهِ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ أَبِي هُرَيْرَةَ وَأَنَسِ بْنِ مَالِكٍ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ ‏.‏ وَلاَ نَعْرِفُ لأَبِي قِلاَبَةَ سَمَاعًا مِنْ عَائِشَةَ ‏.‏ وَقَدْ رَوَى أَبُو قِلاَبَةَ عَنْ عَبْدِ اللَّهِ بْنِ يَزِيدَ رَضِيعٌ لِعَائِشَةَ عَنْ عَائِشَةَ غَيْرَ هَذَا الْحَدِيثِ وَأَبُو قِلاَبَةَ اسْمُهُ عَبْدُ اللَّهِ بْنُ زَيْدٍ الْجَرْمِيُّ ‏.‏ حَدَّثَنَا ابْنُ أَبِي عُمَرَ حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ قَالَ ذَكَرَ أَيُّوبُ السَّخْتِيَانِيُّ أَبَا قِلاَبَةَ فَقَالَ كَانَ وَاللَّهِ مِنَ الْفُقَهَاءِ ذَوِي الأَلْبَابِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='8' id='h-2613'><td colspan='2'>[40:8] <a class='permalink' href='#h-2613' data-hadith='8'>Hadith 8</a><button class='copy-btn' onclick='copyHadith(this,"[40:8]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='8'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:that the Messenger of Allah (ﷺ) delivered a Khtubah in which he exhorted them, then he said: "O women! Give charity for you are the majority of the people of the Fire." A woman among them said: "And why is that O Messenger of Allah?" He said: "Because of your cursing so much." - meaning your ungratefulness towards your husbands. He said: "And I have not seen any among those lacking in intellect and religion who are more difficult upon people possessing reason and insight than you." A woman among them said: "And what is the deficiency of her intellect and religion?" He said: "The testimony of two women among you is like the testimony of a man, and the deficiency in your religion is menstruation, because one of you will go three or four days without performing Salat</td></tr>
+<tr class='hadith-ar' data-hadith='8'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو عَبْدِ اللَّهِ، هُرَيْمُ بْنُ مِسْعَرٍ الأَزْدِيُّ التِّرْمِذِيُّ حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ مُحَمَّدٍ، عَنْ سُهَيْلِ بْنِ أَبِي صَالِحٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم خَطَبَ النَّاسَ فَوَعَظَهُمْ ثُمَّ قَالَ ‏"‏ يَا مَعْشَرَ النِّسَاءِ تَصَدَّقْنَ فَإِنَّكُنَّ أَكْثَرُ أَهْلِ النَّارِ ‏"‏ ‏.‏ فَقَالَتِ امْرَأَةٌ مِنْهُنَّ وَلِمَ ذَاكَ يَا رَسُولَ اللَّهِ قَالَ ‏"‏ لِكَثْرَةِ لَعْنِكُنَّ ‏"‏ ‏.‏ يَعْنِي وَكُفْرَكُنَّ الْعَشِيرَ ‏.‏ قَالَ ‏"‏ وَمَا رَأَيْتُ مِنْ نَاقِصَاتِ عَقْلٍ وَدِينٍ أَغْلَبَ لِذَوِي الأَلْبَابِ وَذَوِي الرَّأْىِ مِنْكُنَّ ‏"‏ ‏.‏ قَالَتِ امْرَأَةٌ مِنْهُنَّ وَمَا نُقْصَانُ دِينِهَا وَعَقْلِهَا قَالَ ‏"‏ شَهَادَةُ امْرَأَتَيْنِ مِنْكُنَّ بِشَهَادَةِ رَجُلٍ وَنُقْصَانُ دِينِكُنَّ الْحَيْضَةُ تَمْكُثُ إِحْدَاكُنَّ الثَّلاَثَ وَالأَرْبَعَ لاَ تُصَلِّي ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ أَبِي سَعِيدٍ وَابْنِ عُمَرَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ صَحِيحٌ غَرِيبٌ حَسَنٌ مِنْ هَذَا الْوَجْهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='9' id='h-2614'><td colspan='2'>[40:9] <a class='permalink' href='#h-2614' data-hadith='9'>Hadith 9</a><button class='copy-btn' onclick='copyHadith(this,"[40:9]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='9'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:that the Messenger of Allah (ﷺ) said: "Faith has seventy-some odd doors, the lowest of which is removing something harmful from the road, and its highest is the statement 'La Ilaha Illallah</td></tr>
+<tr class='hadith-ar' data-hadith='9'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا وَكِيعٌ، عَنْ سُفْيَانَ، عَنْ سُهَيْلِ بْنِ أَبِي صَالِحٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ الإِيمَانُ بِضْعٌ وَسَبْعُونَ بَابًا فَأَدْنَاهَا إِمَاطَةُ الأَذَى عَنِ الطَّرِيقِ وَأَرْفَعُهَا قَوْلُ لاَ إِلَهَ إِلاَّ اللَّهُ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَهَكَذَا رَوَى سُهَيْلُ بْنُ أَبِي صَالِحٍ عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ ‏.‏ وَرَوَى عُمَارَةُ بْنُ غَزِيَّةَ، هَذَا الْحَدِيثَ عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ الإِيمَانُ أَرْبَعَةٌ وَسِتُّونَ بَابًا ‏"‏ ‏.‏ قَالَ حَدَّثَنَا بِذَلِكَ قُتَيْبَةُ حَدَّثَنَا بَكْرُ بْنُ مُضَرَ عَنْ عُمَارَةَ بْنِ غَزِيَّةَ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='10' id='h-2615'><td colspan='2'>[40:10] <a class='permalink' href='#h-2615' data-hadith='10'>Hadith 10</a><button class='copy-btn' onclick='copyHadith(this,"[40:10]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='10'><td class='label'>English</td><td lang='en'>Narrated Ibn 'Umar:that the Messenger of Allah (ﷺ) passed by a man and he was chastising his brother about modesty, so the Messenger of Allah (ﷺ) said: "Al-Haya' is part of faith</td></tr>
+<tr class='hadith-ar' data-hadith='10'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، وَأَحْمَدُ بْنُ مَنِيعٍ، - الْمَعْنَى وَاحِدٌ قَالاَ حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنِ الزُّهْرِيِّ، عَنْ سَالِمٍ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم مَرَّ بِرَجُلٍ وَهُوَ يَعِظُ أَخَاهُ فِي الْحَيَاءِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ الْحَيَاءُ مِنَ الإِيمَانِ ‏"‏ ‏.‏ قَالَ أَحْمَدُ بْنُ مَنِيعٍ فِي حَدِيثِهِ إِنَّ النَّبِيَّ صلى الله عليه وسلم سَمِعَ رَجُلاً يَعِظُ أَخَاهُ فِي الْحَيَاءِ ‏.‏ قَالَ هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَفِي الْبَابِ عَنْ أَبِي هُرَيْرَةَ وَأَبِي بَكْرَةَ وَأَبِي أُمَامَةَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='11' id='h-2616'><td colspan='2'>[40:11] <a class='permalink' href='#h-2616' data-hadith='11'>Hadith 11</a><button class='copy-btn' onclick='copyHadith(this,"[40:11]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='11'><td class='label'>English</td><td lang='en'>Narrated Mu'adh bin Jabal:"I accompanied the Prophet (ﷺ) on a journey. One day I was near him while we were moving so I said: 'O Messenger of Allah! Inform me about an action by which I will be admitted into Paradise, and which will keep me far from the Fire.' He said: 'You have asked me about something great, but it is easy for whomever Allah makes it easy: Worship Allah and do not associate any partners with Him, establish the Salat, give the Zakat, fast Ramadan and perform Hajj to the HOuse.' Then he said: 'Shall I not guide you to the doors of good? Fasting is a shield, and charity extinguishes sins like water extinguishes fire - and a man's praying in depths of the night.'" He said: "Then he recited: 'Their sides forsake their beds to call upon their Lord.' Until he reached: 'What they used to do.' [32:16-17] Then he said: 'Shall I not inform you about the head of the entire matter, and its pillar, and its hump?' I said: 'Of course O Messenger of Allah! He said: 'The head of the matter is Islam, and its pillar is the Salat, and its hump is Jihad.' Then he said: 'Shall I not inform you about what governs all of that?' I said: 'Of course O Messenger of Allah!'" He (ﷺ) said: "So he grabbed his tongue. He said 'Restrain this.' I said: 'O Prophet of Allah! Will we be taken to account for what we say?' He said: 'May your mother grieve your loss O Mu'adh! Are the people tossed into the Fire upon their faces, or upon their noses, except because of what their tongues have wrought</td></tr>
+<tr class='hadith-ar' data-hadith='11'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُعَاذٍ الصَّنْعَانِيُّ، عَنْ مَعْمَرٍ، عَنْ عَاصِمِ بْنِ أَبِي النَّجُودِ، عَنْ أَبِي وَائِلٍ، عَنْ مُعَاذِ بْنِ جَبَلٍ، قَالَ كُنْتُ مَعَ النَّبِيِّ صلى الله عليه وسلم فِي سَفَرٍ فَأَصْبَحْتُ يَوْمًا قَرِيبًا مِنْهُ وَنَحْنُ نَسِيرُ فَقُلْتُ يَا رَسُولَ اللَّهِ أَخْبِرْنِي بِعَمَلٍ يُدْخِلُنِي الْجَنَّةَ وَيُبَاعِدُنِي مِنَ النَّارِ ‏.‏ قَالَ ‏"‏ لَقَدْ سَأَلْتَنِي عَنْ عَظِيمٍ وَإِنَّهُ لَيَسِيرٌ عَلَى مَنْ يَسَّرَهُ اللَّهُ عَلَيْهِ تَعْبُدُ اللَّهَ وَلاَ تُشْرِكُ بِهِ شَيْئًا وَتُقِيمُ الصَّلاَةَ وَتُؤْتِي الزَّكَاةَ وَتَصُومُ رَمَضَانَ وَتَحُجُّ الْبَيْتَ ‏"‏ ‏.‏ ثُمَّ قَالَ ‏"‏ أَلاَ أَدُلُّكَ عَلَى أَبْوَابِ الْخَيْرِ الصَّوْمُ جُنَّةٌ وَالصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ وَصَلاَةُ الرَّجُلِ مِنْ جَوْفِ اللَّيْلِ ‏"‏ ‏.‏ قَالَ ثُمَّ تَلاََ‏:‏ ‏(‏ تَتَجَافَى جُنُوبُهُمْ عَنِ الْمَضَاجِعِ ‏)‏ حَتَّى بَلَغَ‏:‏ ‏(‏يَعْمَلُونَ‏)‏ ثُمَّ قَالَ ‏"‏ أَلاَ أُخْبِرُكَ بِرَأْسِ الأَمْرِ كُلِّهِ وَعَمُودِهِ وَذِرْوَةِ سَنَامِهِ ‏"‏ ‏.‏ قُلْتُ بَلَى يَا رَسُولَ اللَّهِ ‏.‏ قَالَ ‏"‏ رَأْسُ الأَمْرِ الإِسْلاَمُ وَعَمُودُهُ الصَّلاَةُ وَذِرْوَةُ سَنَامِهِ الْجِهَادُ ‏"‏ ‏.‏ ثُمَّ قَالَ ‏"‏ أَلاَ أُخْبِرُكَ بِمَلاَكِ ذَلِكَ كُلِّهِ ‏"‏ ‏.‏ قُلْتُ بَلَى يَا نَبِيَّ اللَّهِ قَالَ فَأَخَذَ بِلِسَانِهِ قَالَ ‏"‏ كُفَّ عَلَيْكَ هَذَا ‏"‏ ‏.‏ فَقُلْتُ يَا نَبِيَّ اللَّهِ وَإِنَّا لَمُؤَاخَذُونَ بِمَا نَتَكَلَّمُ بِهِ فَقَالَ ‏"‏ ثَكِلَتْكَ أُمُّكَ يَا مُعَاذُ وَهَلْ يَكُبُّ النَّاسَ فِي النَّارِ عَلَى وُجُوهِهِمْ أَوْ عَلَى مَنَاخِرِهِمْ إِلاَّ حَصَائِدُ أَلْسِنَتِهِمْ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='12' id='h-2617'><td colspan='2'>[40:12] <a class='permalink' href='#h-2617' data-hadith='12'>Hadith 12</a><button class='copy-btn' onclick='copyHadith(this,"[40:12]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='12'><td class='label'>English</td><td lang='en'>Narrated Abu Sa'eed:that the Messenger of Allah (ﷺ) said: "If you see a man who comes to the Masjid then bear witness to his faith." Because Allah, the Exalted, says: Only those who believe in Allah, and the Last Day, and establish the Salat, and give the Zakat (should) maintain the Masajid until the end of the Ayah (9:)</td></tr>
+<tr class='hadith-ar' data-hadith='12'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ، عَنْ عَمْرِو بْنِ الْحَارِثِ، عَنْ دَرَّاجٍ أَبِي السَّمْحِ، عَنْ أَبِي الْهَيْثَمِ، عَنْ أَبِي سَعِيدٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ إِذَا رَأَيْتُمُ الرَّجُلَ يَتَعَاهَدُ الْمَسْجِدَ فَاشْهَدُوا لَهُ بِالإِيمَانِ فَإِنَّ اللَّهَ تَعَالَى يَقُولُ‏:‏ ‏(‏إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الآخِرِ وَأَقَامَ الصَّلاَةَ وَآتَى الزَّكَاةَ ‏)‏ ‏"‏ ‏.‏ الآيَةَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ حَسَنٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='13' id='h-2618'><td colspan='2'>[40:13] <a class='permalink' href='#h-2618' data-hadith='13'>Hadith 13</a><button class='copy-btn' onclick='copyHadith(this,"[40:13]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='13'><td class='label'>English</td><td lang='en'>Narrated Jabir:that the Prophet (ﷺ) said: "Between disbelief and faith is abandoning the Salat</td></tr>
+<tr class='hadith-ar' data-hadith='13'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا جَرِيرٌ، وَأَبُو مُعَاوِيَةَ عَنِ الأَعْمَشِ، عَنْ أَبِي سُفْيَانَ، عَنْ جَابِرٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ "‏ بَيْنَ الْكُفْرِ وَالإِيمَانِ تَرْكُ الصَّلاَةِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='14' id='h-2619'><td colspan='2'>[40:14] <a class='permalink' href='#h-2619' data-hadith='14'>Hadith 14</a><button class='copy-btn' onclick='copyHadith(this,"[40:14]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='14'><td class='label'>English</td><td lang='en'>Narrated Al-A'mash:Similar to the previous chain and said: "Between a slave and Shirk or disbelief is abandoning the Salat</td></tr>
+<tr class='hadith-ar' data-hadith='14'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا أَسْبَاطُ بْنُ مُحَمَّدٍ، عَنِ الأَعْمَشِ، بِهَذَا الإِسْنَادِ نَحْوَهُ وَقَالَ ‏ "‏ بَيْنَ الْعَبْدِ وَبَيْنَ الشِّرْكِ أَوِ الْكُفْرِ تَرْكُ الصَّلاَةِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَأَبُو سُفْيَانَ اسْمُهُ طَلْحَةُ بْنُ نَافِعٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='15' id='h-2620'><td colspan='2'>[40:15] <a class='permalink' href='#h-2620' data-hadith='15'>Hadith 15</a><button class='copy-btn' onclick='copyHadith(this,"[40:15]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='15'><td class='label'>English</td><td lang='en'>Narrated Jabir:that the Messenger of Allah (ﷺ) said: "Between a slave of Allah and disbelief is abandoning the Salat</td></tr>
+<tr class='hadith-ar' data-hadith='15'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا وَكِيعٌ، عَنْ سُفْيَانَ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ بَيْنَ الْعَبْدِ وَبَيْنَ الْكُفْرِ تَرْكُ الصَّلاَةِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَأَبُو الزُّبَيْرِ اسْمُهُ مُحَمَّدُ بْنُ مُسْلِمِ بْنِ تَدْرُسَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='16' id='h-2621'><td colspan='2'>[40:16] <a class='permalink' href='#h-2621' data-hadith='16'>Hadith 16</a><button class='copy-btn' onclick='copyHadith(this,"[40:16]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='16'><td class='label'>English</td><td lang='en'>Narrated Abdullah bin Buraidah narrated from his father:that the Messenger of Allah (ﷺ) said: "The covenant between us and them is the Salat, so whoever abandons it he has committed disbelief</td></tr>
+<tr class='hadith-ar' data-hadith='16'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو عَمَّارٍ الْحُسَيْنُ بْنُ حُرَيْثٍ، وَيُوسُفُ بْنُ عِيسَى، قَالاَ حَدَّثَنَا الْفَضْلُ بْنُ مُوسَى، عَنِ الْحُسَيْنِ بْنِ وَاقِدٍ، ح وَحَدَّثَنَا أَبُو عَمَّارٍ الْحُسَيْنُ بْنُ حُرَيْثٍ، وَمَحْمُودُ بْنُ غَيْلاَنَ، قَالاَ حَدَّثَنَا عَلِيُّ بْنُ الْحُسَيْنِ بْنِ وَاقِدٍ، عَنْ أَبِيهِ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ عَلِيِّ بْنِ الْحَسَنِ بْنِ شَقِيقٍ، وَمَحْمُودُ بْنُ غَيْلاَنَ، قَالاَ حَدَّثَنَا عَلِيُّ بْنُ الْحَسَنِ بْنِ شَقِيقٍ، عَنِ الْحُسَيْنِ بْنِ وَاقِدٍ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ أَبِيهِ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ الْعَهْدُ الَّذِي بَيْنَنَا وَبَيْنَهُمُ الصَّلاَةُ فَمَنْ تَرَكَهَا فَقَدْ كَفَرَ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ أَنَسٍ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='17' id='h-2622'><td colspan='2'>[40:17] <a class='permalink' href='#h-2622' data-hadith='17'>Hadith 17</a><button class='copy-btn' onclick='copyHadith(this,"[40:17]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='17'><td class='label'>English</td><td lang='en'>Narrated Abdullah bin Shaqiq Al-'Uqayli:The Companions of Muhammad (ﷺ) didn't consider leaving anything to be disblief except for the Salat</td></tr>
+<tr class='hadith-ar' data-hadith='17'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا بِشْرُ بْنُ الْمُفَضَّلِ، عَنِ الْجُرَيْرِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ شَقِيقٍ الْعُقَيْلِيِّ، قَالَ كَانَ أَصْحَابُ مُحَمَّدٍ صلى الله عليه وسلم لاَ يَرَوْنَ شَيْئًا مِنَ الأَعْمَالِ تَرْكُهُ كُفْرٌ غَيْرَ الصَّلاَةِ ‏.‏ قَالَ أَبُو عِيسَى سَمِعْتُ أَبَا مُصْعَبٍ الْمَدَنِيَّ يَقُولُ مَنْ قَالَ الإِيمَانُ قَوْلٌ يُسْتَتَابُ فَإِنْ تَابَ وَإِلاَّ ضُرِبَتْ عُنُقُهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='18' id='h-2623'><td colspan='2'>[40:18] <a class='permalink' href='#h-2623' data-hadith='18'>Hadith 18</a><button class='copy-btn' onclick='copyHadith(this,"[40:18]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='18'><td class='label'>English</td><td lang='en'>Narrated Al-Abbas bin Abdul-Muttalib:that he heard the Messenger of Allah (ﷺ) say: "Whoever is pleased with Allah as (his) Lord, and Islam as (his) religion, and Muhammad as (his) Prophet, then he has tasted the sweetness of faith</td></tr>
+<tr class='hadith-ar' data-hadith='18'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنِ ابْنِ الْهَادِ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ بْنِ الْحَارِثِ، عَنْ عَامِرِ بْنِ سَعْدِ بْنِ أَبِي وَقَّاصٍ، عَنِ الْعَبَّاسِ بْنِ عَبْدِ الْمُطَّلِبِ، أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ "‏ ذَاقَ طَعْمَ الإِيمَانِ مَنْ رَضِيَ بِاللَّهِ رَبًّا وَبِالإِسْلاَمِ دِينًا وَبِمُحَمَّدٍ نَبِيًّا ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='19' id='h-2624'><td colspan='2'>[40:19] <a class='permalink' href='#h-2624' data-hadith='19'>Hadith 19</a><button class='copy-btn' onclick='copyHadith(this,"[40:19]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='19'><td class='label'>English</td><td lang='en'>Narrated Anas bin Malik:that the Messenger of Allah (ﷺ) said: "There are three things for which whomever has them, then he has tasted the sweetness of faith: The one for whom Allah and His Messenger are more beloved than anything else; whoever loves someone and he does not love him except for the sake of Allah, and whoever hates to return to disbelief after Allah has saved him from it, just as he hates to be thrown into fire</td></tr>
+<tr class='hadith-ar' data-hadith='19'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا عَبْدُ الْوَهَّابِ الثَّقَفِيُّ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلاَبَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ ثَلاَثٌ مَنْ كُنَّ فِيهِ وَجَدَ بِهِنَّ طَعْمَ الإِيمَانِ مَنْ كَانَ اللَّهُ وَرَسُولُهُ أَحَبَّ إِلَيْهِ مِمَّا سِوَاهُمَا وَأَنْ يُحِبَّ الْمَرْءَ لاَ يُحِبُّهُ إِلاَّ لِلَّهِ وَأَنْ يَكْرَهَ أَنْ يَعُودَ فِي الْكُفْرِ بَعْدَ إِذْ أَنْقَذَهُ اللَّهُ مِنْهُ كَمَا يَكْرَهُ أَنْ يُقْذَفَ فِي النَّارِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَقَدْ رَوَاهُ قَتَادَةُ عَنْ أَنَسِ بْنِ مَالِكٍ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='20' id='h-2625'><td colspan='2'>[40:20] <a class='permalink' href='#h-2625' data-hadith='20'>Hadith 20</a><button class='copy-btn' onclick='copyHadith(this,"[40:20]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='20'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:that the Messenger of Allah (ﷺ) said: "The adulterer is not a believer while he is committing adultery, and the thief is not a believer while he is stealing, but there is a chance for repentance; (if he repents, Allah will accept the repentance)</td></tr>
+<tr class='hadith-ar' data-hadith='20'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا عَبِيدَةُ بْنُ حُمَيْدٍ، عَنِ الأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ لاَ يَزْنِي الزَّانِي حِينَ يَزْنِي وَهُوَ مُؤْمِنٌ وَلاَ يَسْرِقُ السَّارِقُ حِينَ يَسْرِقُ وَهُوَ مُؤْمِنٌ وَلَكِنِ التَّوْبَةُ مَعْرُوضَةٌ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنِ ابْنِ عَبَّاسٍ وَعَائِشَةَ وَعَبْدِ اللَّهِ بْنِ أَبِي أَوْفَى ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أَبِي هُرَيْرَةَ حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ مِنْ هَذَا الْوَجْهِ ‏.‏ - وَقَدْ رُوِيَ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ إِذَا زَنَى الْعَبْدُ خَرَجَ مِنْهُ الإِيمَانُ فَكَانَ فَوْقَ رَأْسِهِ كَالظُّلَّةِ فَإِذَا خَرَجَ مِنْ ذَلِكَ الْعَمَلِ عَادَ إِلَيْهِ الإِيمَانُ ‏"‏ ‏.‏ وَقَدْ رُوِيَ عَنْ أَبِي جَعْفَرٍ مُحَمَّدِ بْنِ عَلِيٍّ أَنَّهُ قَالَ فِي هَذَا خَرَجَ مِنَ الإِيمَانِ إِلَى الإِسْلاَمِ ‏.‏ وَقَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ قَالَ فِي الزِّنَا وَالسَّرِقَةِ ‏"‏ مَنْ أَصَابَ مِنْ ذَلِكَ شَيْئًا فَأُقِيمَ عَلَيْهِ الْحَدُّ فَهُوَ كَفَّارَةُ ذَنْبِهِ وَمَنْ أَصَابَ مِنْ ذَلِكَ شَيْئًا فَسَتَرَ اللَّهُ عَلَيْهِ فَهُوَ إِلَى اللَّهِ إِنْ شَاءَ عَذَّبَهُ يَوْمَ الْقِيَامَةِ وَإِنْ شَاءَ غَفَرَ لَهُ ‏"‏ ‏.‏ رَوَى ذَلِكَ عَلِيُّ بْنُ أَبِي طَالِبٍ وَعُبَادَةُ بْنُ الصَّامِتِ وَخُزَيْمَةُ بْنُ ثَابِتٍ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='21' id='h-2626'><td colspan='2'>[40:21] <a class='permalink' href='#h-2626' data-hadith='21'>Hadith 21</a><button class='copy-btn' onclick='copyHadith(this,"[40:21]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='21'><td class='label'>English</td><td lang='en'>Narrated Ali bin Abu Talib:that the Prophet (ﷺ) said: "Whoever is penalized (for a crime) then his punishment has been hastened for him in the world, for Allah is more just than to double the punishment upon His slave in the Hereafter. And whoever does a punishable act and then Allah covers it for him and forgives him, then Allah is more kind than to recount something which He has already forgiven</td></tr>
+<tr class='hadith-ar' data-hadith='21'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو عُبَيْدَةَ بْنُ أَبِي السَّفَرِ، - وَاسْمُهُ أَحْمَدُ بْنُ عَبْدِ اللَّهِ الْهَمْدَانِيُّ الْكُوفِيُّ قَالَ حَدَّثَنَا حَجَّاجُ بْنُ مُحَمَّدٍ، عَنْ يُونُسَ بْنِ أَبِي إِسْحَاقَ، عَنْ أَبِي إِسْحَاقَ الْهَمْدَانِيِّ، عَنْ أَبِي جُحَيْفَةَ، عَنْ عَلِيٍّ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ مَنْ أَصَابَ حَدًّا فَعُجِّلَ عُقُوبَتُهُ فِي الدُّنْيَا فَاللَّهُ أَعْدَلُ مِنْ أَنْ يُثَنِّيَ عَلَى عَبْدِهِ الْعُقُوبَةَ فِي الآخِرَةِ وَمَنْ أَصَابَ حَدًّا فَسَتَرَهُ اللَّهُ عَلَيْهِ وَعَفَا عَنْهُ فَاللَّهُ أَكْرَمُ مِنْ أَنْ يَعُودَ فِي شَيْءٍ قَدْ عَفَا عَنْهُ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى وَهَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ صَحِيحٌ ‏.‏ وَهَذَا قَوْلُ أَهْلِ الْعِلْمِ لاَ نَعْلَمُ أَحَدًا كَفَّرَ أَحَدًا بِالزِّنَا أَوِ السَّرِقَةِ وَشُرْبِ الْخَمْرِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='22' id='h-2627'><td colspan='2'>[40:22] <a class='permalink' href='#h-2627' data-hadith='22'>Hadith 22</a><button class='copy-btn' onclick='copyHadith(this,"[40:22]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='22'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:that the Messenger of Allah (ﷺ) said: "The Muslim is the one from (the harm of) whose tongue and hand (other) Muslims are safe, and the believer is the one with whom the people trust their blood and their wealth</td></tr>
+<tr class='hadith-ar' data-hadith='22'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنِ ابْنِ عَجْلاَنَ، عَنِ الْقَعْقَاعِ بْنِ حَكِيمٍ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ وَالْمُؤْمِنُ مَنْ أَمِنَهُ النَّاسُ عَلَى دِمَائِهِمْ وَأَمْوَالِهِمْ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَيُرْوَى عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ سُئِلَ أَىُّ الْمُسْلِمِينَ أَفْضَلُ قَالَ ‏"‏ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ." وَفِي الْبَابِ عَنْ جَابِرٍ وَأَبِي مُوسَى وَعَبْدِ اللَّهِ بْنِ عَمْرٍو ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='23' id='h-2628'><td colspan='2'>[40:23] <a class='permalink' href='#h-2628' data-hadith='23'>Hadith 23</a><button class='copy-btn' onclick='copyHadith(this,"[40:23]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='23'><td class='label'>English</td><td lang='en'>Narrated Abu Musa Al-Ash'ari:that the Prophet (ﷺ) was asked: "Which of the Muslims is most virtuous?" He said: "The one from (the harm of) whose tongue and hand (other) Muslims are safe</td></tr>
+<tr class='hadith-ar' data-hadith='23'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا بِذَلِكَ إِبْرَاهِيمُ بْنُ سَعِيدٍ الْجَوْهَرِيُّ حَدَّثَنَا أَبُو أُسَامَةَ عَنْ بُرَيْدِ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي بُرْدَةَ عَنْ جَدِّهِ أَبِي بُرْدَةَ عَنْ أَبِي مُوسَى الأَشْعَرِيِّ أَنَّ النَّبِيَّ صلى الله عليه وسلم سُئِلَ أَىُّ الْمُسْلِمِينَ أَفْضَلُ قَالَ ‏ "‏ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ صَحِيحٌ غَرِيبٌ مِنْ حَدِيثِ أَبِي مُوسَى الأَشْعَرِيِّ عَنِ النَّبِيِّ صلى الله عليه وسلم</td></tr>
+<tr class='hadith-sep' data-hadith='24' id='h-2629'><td colspan='2'>[40:24] <a class='permalink' href='#h-2629' data-hadith='24'>Hadith 24</a><button class='copy-btn' onclick='copyHadith(this,"[40:24]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='24'><td class='label'>English</td><td lang='en'>Narrated 'Abdullah bin Mas'ud:that the Messenger of Allah (ﷺ) said: "Indeed Islam began as something strange and it will return to being strange as it began. So Tuba is for the strangers</td></tr>
+<tr class='hadith-ar' data-hadith='24'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا حَفْصُ بْنُ غِيَاثٍ، عَنِ الأَعْمَشِ، عَنْ أَبِي إِسْحَاقَ، عَنْ أَبِي الأَحْوَصِ، عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِنَّ الإِسْلاَمَ بَدَأَ غَرِيبًا وَسَيَعُودُ غَرِيبًا كَمَا بَدَأَ فَطُوبَى لِلْغُرَبَاءِ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ سَعْدٍ وَابْنِ عُمَرَ وَجَابِرٍ وَأَنَسٍ وَعَبْدِ اللَّهِ بْنِ عَمْرٍو ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ مِنْ حَدِيثِ ابْنِ مَسْعُودٍ إِنَّمَا نَعْرِفُهُ مِنْ حَدِيثِ حَفْصِ بْنِ غِيَاثٍ عَنِ الأَعْمَشِ وَأَبُو الأَحْوَصِ اسْمُهُ عَوْفُ بْنُ مَالِكِ بْنِ نَضْلَةَ الْجُشَمِيُّ تَفَرَّدَ بِهِ حَفْصٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='25' id='h-2630'><td colspan='2'>[40:25] <a class='permalink' href='#h-2630' data-hadith='25'>Hadith 25</a><button class='copy-btn' onclick='copyHadith(this,"[40:25]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='25'><td class='label'>English</td><td lang='en'>Narrated Kathir bin 'Abdullah bin 'Amr bin 'Awf bin Zaid bin Milhah narrated from his father, from his grandfather:that the Messenger of Allah (ﷺ) said: "Indeed the religion with creep into the Hijaz just like a snake creeps into its hole, and the religion will cling to the Hijaz just like the female mountain goat cling to the peak of a mountain. Indeed the religion began as something strange and it will return to being strange. So Tuba is for the strangers who correct what the people have corrupted from my Sunnah after me</td></tr>
+<tr class='hadith-ar' data-hadith='25'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ عَبْدِ الرَّحْمَنِ، أَخْبَرَنَا إِسْمَاعِيلُ بْنُ أَبِي أُوَيْسٍ، حَدَّثَنِي كَثِيرُ بْنُ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ عَوْفِ بْنِ زَيْدِ بْنِ مِلْحَةَ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ إِنَّ الدِّينَ لَيَأْرِزُ إِلَى الْحِجَازِ كَمَا تَأْرِزُ الْحَيَّةُ إِلَى جُحْرِهَا وَلَيَعْقِلَنَّ الدِّينُ مِنَ الْحِجَازِ مَعْقِلَ الأُرْوِيَّةِ مِنْ رَأْسِ الْجَبَلِ إِنَّ الدِّينَ بَدَأَ غَرِيبًا وَيَرْجِعُ غَرِيبًا فَطُوبَى لِلْغُرَبَاءِ الَّذِينَ يُصْلِحُونَ مَا أَفْسَدَ النَّاسُ مِنْ بَعْدِي مِنْ سُنَّتِي ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='26' id='h-2631'><td colspan='2'>[40:26] <a class='permalink' href='#h-2631' data-hadith='26'>Hadith 26</a><button class='copy-btn' onclick='copyHadith(this,"[40:26]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='26'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:that the Messenger of Allah (ﷺ) said: "The sign of a hypocrite is that whenever he speaks he lies, and whenever he makes a promise he does not fulfill it, and if he is entrusted he betrays</td></tr>
+<tr class='hadith-ar' data-hadith='26'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو حَفْصٍ، عَمْرُو بْنُ عَلِيٍّ حَدَّثَنَا يَحْيَى بْنُ مُحَمَّدِ بْنِ قَيْسٍ، عَنِ الْعَلاَءِ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ آيَةُ الْمُنَافِقِ ثَلاَثٌ إِذَا حَدَّثَ كَذَبَ وَإِذَا وَعَدَ أَخْلَفَ وَإِذَا اؤْتُمِنَ خَانَ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ مِنْ حَدِيثِ الْعَلاَءِ وَقَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ وَفِي الْبَابِ عَنِ ابْنِ مَسْعُودٍ وَأَنَسٍ وَجَابِرٍ ‏.‏ حَدَّثَنَا عَلِيُّ بْنُ حُجْرٍ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ جَعْفَرٍ، عَنْ أَبِي سُهَيْلِ بْنِ مَالِكٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم نَحْوَهُ بِمَعْنَاهُ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ صَحِيحٌ وَأَبُو سُهَيْلٍ هُوَ عَمُّ مَالِكِ بْنِ أَنَسٍ وَاسْمُهُ نَافِعُ بْنُ مَالِكِ بْنِ أَبِي عَامِرٍ الأَصْبَحِيُّ الْخَوْلاَنِيُّ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='27' id='h-2632'><td colspan='2'>[40:27] <a class='permalink' href='#h-2632' data-hadith='27'>Hadith 27</a><button class='copy-btn' onclick='copyHadith(this,"[40:27]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='27'><td class='label'>English</td><td lang='en'>Narrated 'Abdullah bin 'Amr:that the Prophet (ﷺ) said: There are four things that whoever has them, then he is a hypocrite, and whoever has one attribute from among them, then he has an attribute of hypocrisy,until he leaves it: Whoever lies whenever he speaks, he does not fulfill whenever he promises, he is vulgar whenever he argues, and whenever he makes an agreement he proves treacherous</td></tr>
+<tr class='hadith-ar' data-hadith='27'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُوسَى، عَنْ سُفْيَانَ، عَنِ الأَعْمَشِ، عَنْ عَبْدِ اللَّهِ بْنِ مُرَّةَ، عَنْ مَسْرُوقٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ أَرْبَعٌ مَنْ كُنَّ فِيهِ كَانَ مُنَافِقًا وَإِنْ كَانَتْ خَصْلَةٌ مِنْهُنَّ فِيهِ كَانَتْ فِيهِ خَصْلَةٌ مِنَ النِّفَاقِ حَتَّى يَدَعَهَا مَنْ إِذَا حَدَّثَ كَذَبَ وَإِذَا وَعَدَ أَخْلَفَ وَإِذَا خَاصَمَ فَجَرَ وَإِذَا عَاهَدَ غَدَرَ ‏"‏ ‏.‏ قَالَ هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ الْخَلاَّلُ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نُمَيْرٍ، عَنِ الأَعْمَشِ، عَنْ عَبْدِ اللَّهِ بْنِ مُرَّةَ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَإِنَّمَا مَعْنَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ نِفَاقُ الْعَمَلِ وَإِنَّمَا كَانَ نِفَاقُ التَّكْذِيبِ عَلَى عَهْدِ رَسُولِ اللَّهِ صلى الله عليه وسلم هَكَذَا رُوِيَ عَنِ الْحَسَنِ الْبَصْرِيِّ شَيْئًا مِنْ هَذَا أَنَّهُ قَالَ النِّفَاقُ نِفَاقَانِ نِفَاقُ الْعَمَلِ وَنِفَاقُ التَّكْذِيبِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='28' id='h-2633'><td colspan='2'>[40:28] <a class='permalink' href='#h-2633' data-hadith='28'>Hadith 28</a><button class='copy-btn' onclick='copyHadith(this,"[40:28]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='28'><td class='label'>English</td><td lang='en'>Narrated Zaid bin Arqam:that the Messenger of Allah (ﷺ) said: "Whenever a man makes a promise and he intends to fulfill it, but he does not fulfill it, then there is no burden upon him</td></tr>
+<tr class='hadith-ar' data-hadith='28'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا أَبُو عَامِرٍ، حَدَّثَنَا إِبْرَاهِيمُ بْنُ طَهْمَانَ، عَنْ عَلِيِّ بْنِ عَبْدِ الأَعْلَى، عَنْ أَبِي النُّعْمَانِ، عَنْ أَبِي وَقَّاصٍ، عَنْ زَيْدِ بْنِ أَرْقَمَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِذَا وَعَدَ الرَّجُلُ وَيَنْوِي أَنْ يَفِيَ بِهِ فَلَمْ يَفِ بِهِ فَلاَ جُنَاحَ عَلَيْهِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ وَلَيْسَ إِسْنَادُهُ بِالْقَوِيِّ ‏.‏ عَلِيُّ بْنُ عَبْدِ الأَعْلَى ثِقَةٌ وَلاَ يُعْرَفُ أَبُو النُّعْمَانِ وَلاَ أَبُو وَقَّاصٍ وَهُمَا مَجْهُولاَنِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='29' id='h-2634'><td colspan='2'>[40:29] <a class='permalink' href='#h-2634' data-hadith='29'>Hadith 29</a><button class='copy-btn' onclick='copyHadith(this,"[40:29]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='29'><td class='label'>English</td><td lang='en'>Narrated Ibn Mas'ud:that the Messenger of Allah (ﷺ) said: "A Muslim's fighting his brother is disbelief, and verbally abusing him is disobedience</td></tr>
+<tr class='hadith-ar' data-hadith='29'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ بَزِيعٍ، حَدَّثَنَا عَبْدُ الْحَكِيمِ بْنُ مَنْصُورٍ الْوَاسِطِيُّ، عَنْ عَبْدِ الْمَلِكِ بْنِ عُمَيْرٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، عَنْ أَبِيهِ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ قِتَالُ الْمُسْلِمِ أَخَاهُ كُفْرٌ وَسِبَابُهُ فُسُوقٌ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ سَعْدٍ وَعَبْدِ اللَّهِ بْنِ مُغَفَّلٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ ابْنِ مَسْعُودٍ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَقَدْ رُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ مِنْ غَيْرِ وَجْهٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='30' id='h-2635'><td colspan='2'>[40:30] <a class='permalink' href='#h-2635' data-hadith='30'>Hadith 30</a><button class='copy-btn' onclick='copyHadith(this,"[40:30]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='30'><td class='label'>English</td><td lang='en'>Narrated Ibn Mas'ud:that the Messenger of Allah (ﷺ) said: "Verbally abusing a Muslim is disobedience and fighting him is disbelief</td></tr>
+<tr class='hadith-ar' data-hadith='30'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا وَكِيعٌ، عَنْ سُفْيَانَ، عَنْ زُبَيْدٍ، عَنْ أَبِي وَائِلٍ، عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ سِبَابُ الْمُسْلِمِ فُسُوقٌ وَقِتَالُهُ كُفْرٌ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَمَعْنَى هَذَا الْحَدِيثِ قِتَالُهُ كُفْرٌ لَيْسَ بِهِ كُفْرًا مِثْلَ الاِرْتِدَادِ عَنِ الإِسْلاَمِ وَالْحُجَّةُ فِي ذَلِكَ مَا رُوِيَ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ قَالَ ‏"‏ مَنْ قُتِلَ مُتَعَمَّدًا فَأَوْلِيَاءُ الْمَقْتُولِ بِالْخِيَارِ إِنْ شَاءُوا قَتَلُوا وَإِنْ شَاءُوا عَفَوْا ‏"‏ ‏.‏ وَلَوْ كَانَ الْقَتْلُ كُفْرًا لَوَجَبَ الْقَتْلُ وَلَمْ يَصِحَّ الْعَفْوُ وَقَدْ رُوِيَ عَنِ ابْنِ عَبَّاسٍ وَطَاوُسٍ وَعَطَاءٍ وَغَيْرِ وَاحِدٍ مِنْ أَهْلِ الْعِلْمِ قَالُوا كُفْرٌ دُونَ كُفْرٍ وَفُسُوقٌ دُونَ فُسُوقٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='31' id='h-2636'><td colspan='2'>[40:31] <a class='permalink' href='#h-2636' data-hadith='31'>Hadith 31</a><button class='copy-btn' onclick='copyHadith(this,"[40:31]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='31'><td class='label'>English</td><td lang='en'>Narrated Ad-Dhahak:that the Prophet (ﷺ) said: "It is not for a slave (of Allah) to vow about something he does not possess, and cursing a believer is like killing him, and whoever accuses a believer of disbelief, then it is like he has killed him, and whoever kills himself with something, then Allah will punish him with whatever he killed himself with on the Day of Judgement</td></tr>
+<tr class='hadith-ar' data-hadith='31'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا إِسْحَاقُ بْنُ يُوسُفَ الأَزْرَقُ، عَنْ هِشَامٍ الدَّسْتَوَائِيِّ، عَنْ يَحْيَى بْنِ أَبِي كَثِيرٍ، عَنْ أَبِي قِلاَبَةَ، عَنْ ثَابِتِ بْنِ الضَّحَّاكِ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ لَيْسَ عَلَى الْعَبْدِ نَذْرٌ فِيمَا لاَ يَمْلِكُ وَلاَعِنُ الْمُؤْمِنِ كَقَاتِلِهِ وَمَنْ قَذَفَ مُؤْمِنًا بِكُفْرٍ فَهُوَ كَقَاتِلِهِ وَمَنْ قَتَلَ نَفْسَهُ بِشَيْءٍ عَذَّبَهُ اللَّهُ بِمَا قَتَلَ بِهِ نَفْسَهُ يَوْمَ الْقِيَامَةِ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ أَبِي ذَرٍّ وَابْنِ عُمَرَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='32' id='h-2637'><td colspan='2'>[40:32] <a class='permalink' href='#h-2637' data-hadith='32'>Hadith 32</a><button class='copy-btn' onclick='copyHadith(this,"[40:32]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='32'><td class='label'>English</td><td lang='en'>Narrated Ibn 'Umar:Ibn 'Umar narrated that the Prophet (ﷺ) said: "Whoever says to his brother 'disbeliever' then it will have settled upon one of them." Sahih</td></tr>
+<tr class='hadith-ar' data-hadith='32'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، عَنْ مَالِكِ بْنِ أَنَسٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنِ ابْنِ عُمَرَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ أَيُّمَا رَجُلٍ قَالَ لأَخِيهِ كَافِرٌ فَقَدْ بَاءَ بِهِ أَحَدُهُمَا ‏"‏ ‏.‏ هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ ‏.‏ وَمَعْنَى قَوْلِهِ بَاءَ يَعْنِي أَقَرَّ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='33' id='h-2638'><td colspan='2'>[40:33] <a class='permalink' href='#h-2638' data-hadith='33'>Hadith 33</a><button class='copy-btn' onclick='copyHadith(this,"[40:33]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='33'><td class='label'>English</td><td lang='en'>Narrated As-Sunabihi:from Ubadah bin As-Samit, he said: "I entered upon him while he was dying, so I cried, and he said: "There now, why are you crying? For by Allah, if I am a martyr , then I will intercede for you, and if I can I will benefit you,' then he said: 'By Allah! There is no Hadith which I heard from the Messenger of Allah (ﷺ) which is good for you but I narrate it to you today, while I am near death. I heard the Messenger of Allah (ﷺ) say: "Whoever testifies to La Ilaha Illallah and that Muhammad is the Messenger of Allah, then Allah has forbidden the fire for him</td></tr>
+<tr class='hadith-ar' data-hadith='33'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنِ ابْنِ عَجْلاَنَ، عَنْ مُحَمَّدِ بْنِ يَحْيَى بْنِ حَبَّانَ، عَنِ ابْنِ مُحَيْرِيزٍ، عَنِ الصُّنَابِحِيِّ، عَنْ عُبَادَةَ بْنِ الصَّامِتِ، أَنَّهُ قَالَ دَخَلْتُ عَلَيْهِ وَهُوَ فِي الْمَوْتِ فَبَكَيْتُ فَقَالَ مَهْلاً لِمَ تَبْكِي فَوَاللَّهِ لَئِنِ اسْتُشْهِدْتُ لأَشْهَدَنَّ لَكَ وَلَئِنْ شُفِّعْتُ لأَشْفَعَنَّ لَكَ وَلَئِنِ اسْتَطَعْتُ لأَنْفَعَنَّكَ ثُمَّ قَالَ وَاللَّهِ مَا مِنْ حَدِيثٍ سَمِعْتُهُ مِنْ رَسُولِ اللَّهِ صلى الله عليه وسلم لَكُمْ فِيهِ خَيْرٌ إِلاَّ حَدَّثْتُكُمُوهُ إِلاَّ حَدِيثًا وَاحِدًا وَسَوْفَ أُحَدِّثُكُمُوهُ الْيَوْمَ وَقَدْ أُحِيطَ بِنَفْسِي سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏"‏ مَنْ شَهِدَ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ حَرَّمَ اللَّهُ عَلَيْهِ النَّارَ ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ أَبِي بَكْرٍ وَعُمَرَ وَعُثْمَانَ وَعَلِيٍّ وَطَلْحَةَ وَجَابِرٍ وَابْنِ عُمَرَ وَزَيْدِ بْنِ خَالِدٍ ‏.‏ قَالَ سَمِعْتُ ابْنَ أَبِي عُمَرَ يَقُولُ سَمِعْتُ ابْنَ عُيَيْنَةَ يَقُولُ مُحَمَّدُ بْنُ عَجْلاَنَ كَانَ ثِقَةً مَأْمُونًا فِي الْحَدِيثِ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ مِنْ هَذَا الْوَجْهِ وَالصُّنَابِحِيُّ هُوَ عَبْدُ الرَّحْمَنِ بْنُ عُسَيْلَةَ أَبُو عَبْدِ اللَّهِ ‏.‏ وَقَدْ رُوِيَ عَنِ الزُّهْرِيِّ أَنَّهُ سُئِلَ عَنْ قَوْلِ النَّبِيِّ صلى الله عليه وسلم ‏"‏ مَنْ قَالَ لاَ إِلَهَ إِلاَّ اللَّهُ دَخَلَ الْجَنَّةَ ‏"‏ ‏.‏ فَقَالَ إِنَّمَا كَانَ هَذَا فِي أَوَّلِ الإِسْلاَمِ قَبْلَ نُزُولِ الْفَرَائِضِ وَالأَمْرِ وَالنَّهْىِ ‏.‏ قَالَ أَبُو عِيسَى وَوَجْهُ هَذَا الْحَدِيثِ عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ أَنَّ أَهْلَ التَّوْحِيدِ سَيَدْخُلُونَ الْجَنَّةَ وَإِنْ عُذِّبُوا بِالنَّارِ بِذُنُوبِهِمْ فَإِنَّهُمْ لاَ يُخَلَّدُونَ فِي النَّارِ ‏.‏ وَقَدْ رُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ وَأَبِي ذَرٍّ وَعِمْرَانَ بْنِ حُصَيْنٍ وَجَابِرِ بْنِ عَبْدِ اللَّهِ وَابْنِ عَبَّاسٍ وَأَبِي سَعِيدٍ الْخُدْرِيِّ وَأَنَسِ بْنِ مَالِكٍ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ قَالَ ‏"‏ سَيَخْرُجُ قَوْمٌ مِنَ النَّارِ مِنْ أَهْلِ التَّوْحِيدِ وَيَدْخُلُونَ الْجَنَّةَ ‏"‏ ‏.‏ هَكَذَا رُوِيَ عَنْ سَعِيدِ بْنِ جُبَيْرٍ وَإِبْرَاهِيمَ النَّخَعِيِّ وَغَيْرِ وَاحِدٍ مِنَ التَّابِعِينَ وَقَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم فِي تَفْسِيرِ هَذِهِ الآيَةَِ‏:‏ ‏(‏رُبَمَا يَوَدُّ الَّذِينَ كَفَرُوا لَوْ كَانُوا مُسْلِمِينَ‏)‏ قَالُوا إِذَا أُخْرِجَ أَهْلُ التَّوْحِيدِ مِنَ النَّارِ وَأُدْخِلُوا الْجَنَّةَ يَوَدُّ الَّذِينَ كَفَرُوا لَوْ كَانُوا مُسْلِمِينَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='34' id='h-2639'><td colspan='2'>[40:34] <a class='permalink' href='#h-2639' data-hadith='34'>Hadith 34</a><button class='copy-btn' onclick='copyHadith(this,"[40:34]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='34'><td class='label'>English</td><td lang='en'>Narrated 'Abdullah bin 'Amr bin Al-'As:that the Messenger of Allah (ﷺ) said: "Indeed Allah will distinguish a man from my Ummah before all of creation on the Day of Judgement. Ninety-nine scrolls will be laid out for him, each scroll is as far as the eye can see, then He will say: 'Do you deny any of this? Have those who recorded this wronged you?' He will say: 'No, O Lord!' He will say: Do you have an excuse?' He will say: 'No, O Lord!' So He will say: 'Rather you have a good deed with us, so you shall not be wronged today." Then He will bring out a card (Bitaqah); on it will be: "I testify to La Ilaha Illallah, and I testify that Muhammad is His servant and Messenger." He will say: 'Bring your scales.' He will say: 'O Lord! What good is this card next to these scrolls?' He will say: 'You shall not be wronged.' He said: 'The scrolls will be put on a pan (of the scale), and the card on (the other) pan: the scrolls will be light, and the card will be heavy, nothing is heavier than the Name of Allah</td></tr>
+<tr class='hadith-ar' data-hadith='34'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا سُوَيْدُ بْنُ نَصْرٍ، أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ الْمُبَارَكِ، عَنْ لَيْثِ بْنِ سَعْدٍ، حَدَّثَنِي عَامِرُ بْنُ يَحْيَى، عَنْ أَبِي عَبْدِ الرَّحْمَنِ الْمَعَافِرِيِّ، ثُمَّ الْحُبُلِيِّ قَالَ سَمِعْتُ عَبْدَ اللَّهِ بْنَ عَمْرِو بْنِ الْعَاصِ، يَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِنَّ اللَّهَ سَيُخَلِّصُ رَجُلاً مِنْ أُمَّتِي عَلَى رُءُوسِ الْخَلاَئِقِ يَوْمَ الْقِيَامَةِ فَيَنْشُرُ عَلَيْهِ تِسْعَةً وَتِسْعِينَ سِجِلاًّ كُلُّ سِجِلٍّ مِثْلُ مَدِّ الْبَصَرِ ثُمَّ يَقُولُ أَتُنْكِرُ مِنْ هَذَا شَيْئًا أَظَلَمَكَ كَتَبَتِي الْحَافِظُونَ فَيَقُولُ لاَ يَا رَبِّ ‏.‏ فَيَقُولُ أَفَلَكَ عُذْرٌ فَيَقُولُ لاَ يَا رَبِّ ‏.‏ فَيَقُولُ بَلَى إِنَّ لَكَ عِنْدَنَا حَسَنَةً فَإِنَّهُ لاَ ظُلْمَ عَلَيْكَ الْيَوْمَ فَتَخْرُجُ بِطَاقَةٌ فِيهَا أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ فَيَقُولُ احْضُرْ وَزْنَكَ فَيَقُولُ يَا رَبِّ مَا هَذِهِ الْبِطَاقَةُ مَعَ هَذِهِ السِّجِلاَّتِ فَقَالَ إِنَّكَ لاَ تُظْلَمُ ‏.‏ قَالَ فَتُوضَعُ السِّجِلاَّتُ فِي كِفَّةٍ وَالْبِطَاقَةُ فِي كِفَّةٍ فَطَاشَتِ السِّجِلاَّتُ وَثَقُلَتِ الْبِطَاقَةُ فَلاَ يَثْقُلُ مَعَ اسْمِ اللَّهِ شَيْءٌ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏ حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا ابْنُ لَهِيعَةَ، عَنْ عَامِرِ بْنِ يَحْيَى، بِهَذَا الإِسْنَادِ نَحْوَهُ بِمَعْنَاهُ ‏.‏ وَالْبِطَاقَةُ هِيَ الْقِطْعَةُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='35' id='h-2640'><td colspan='2'>[40:35] <a class='permalink' href='#h-2640' data-hadith='35'>Hadith 35</a><button class='copy-btn' onclick='copyHadith(this,"[40:35]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='35'><td class='label'>English</td><td lang='en'>Narrated Abu Hurairah:that the Messenger of Allah (ﷺ) said: "The Jews split into seventy-one sects, or seventy-two sects, and the Christians similarly, and my Ummah will split into seventy-three sects</td></tr>
+<tr class='hadith-ar' data-hadith='35'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الْحُسَيْنُ بْنُ حُرَيْثٍ أَبُو عَمَّارٍ، حَدَّثَنَا الْفَضْلُ بْنُ مُوسَى، عَنْ مُحَمَّدِ بْنِ عَمْرٍو، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ تَفَرَّقَتِ الْيَهُودُ عَلَى إِحْدَى وَسَبْعِينَ أَوِ اثْنَتَيْنِ وَسَبْعِينَ فِرْقَةً وَالنَّصَارَى مِثْلَ ذَلِكَ وَتَفْتَرِقُ أُمَّتِي عَلَى ثَلاَثٍ وَسَبْعِينَ فِرْقَةً ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ سَعْدٍ وَعَبْدِ اللَّهِ بْنِ عَمْرٍو وَعَوْفِ بْنِ مَالِكٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أَبِي هُرَيْرَةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='36' id='h-2641'><td colspan='2'>[40:36] <a class='permalink' href='#h-2641' data-hadith='36'>Hadith 36</a><button class='copy-btn' onclick='copyHadith(this,"[40:36]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='36'><td class='label'>English</td><td lang='en'>Narrated 'Abdullah bin 'Amr:that the Messenger of Allah (ﷺ) said: "What befell the children of Isra'il will befall my Ummah, step by step, such that if there was one who had intercourse with his mother in the open, then there would be someone from my Ummah who would do that. Indeed the children of Isra'il split into seventy-two sects, and my Ummah will split into seventy-three sects. All of them are in the Fire Except one sect." He said: "And which is it O Messenger of Allah?" He said: "What I am upon and my Companions</td></tr>
+<tr class='hadith-ar' data-hadith='36'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا أَبُو دَاوُدَ الْحَفَرِيُّ، عَنْ سُفْيَانَ الثَّوْرِيِّ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ زِيَادِ بْنِ أَنْعُمَ الإِفْرِيقِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ يَزِيدَ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ لَيَأْتِيَنَّ عَلَى أُمَّتِي مَا أَتَى عَلَى بَنِي إِسْرَائِيلَ حَذْوَ النَّعْلِ بِالنَّعْلِ حَتَّى إِنْ كَانَ مِنْهُمْ مَنْ أَتَى أُمَّهُ عَلاَنِيَةً لَكَانَ فِي أُمَّتِي مَنْ يَصْنَعُ ذَلِكَ وَإِنَّ بَنِي إِسْرَائِيلَ تَفَرَّقَتْ عَلَى ثِنْتَيْنِ وَسَبْعِينَ مِلَّةً وَتَفْتَرِقُ أُمَّتِي عَلَى ثَلاَثٍ وَسَبْعِينَ مِلَّةً كُلُّهُمْ فِي النَّارِ إِلاَّ مِلَّةً وَاحِدَةً قَالُوا وَمَنْ هِيَ يَا رَسُولَ اللَّهِ قَالَ مَا أَنَا عَلَيْهِ وَأَصْحَابِي ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ مُفَسَّرٌ حَسَنٌ غَرِيبٌ لاَ نَعْرِفُهُ مِثْلَ هَذَا إِلاَّ مِنْ هَذَا الْوَجْهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='37' id='h-2642'><td colspan='2'>[40:37] <a class='permalink' href='#h-2642' data-hadith='37'>Hadith 37</a><button class='copy-btn' onclick='copyHadith(this,"[40:37]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='37'><td class='label'>English</td><td lang='en'>Narrated 'Abdullah bin 'Amr:that the Messenger of Allah (ﷺ) said: "Indeed Allah, the Blessed and Exalted, created His creation in darkness, then He cast His Light upon them, so whoever is touched by that light he is guided, and whoever is not, he goes astray. It is for this reason that I say that the pens have dried with Allah's knowledge</td></tr>
+<tr class='hadith-ar' data-hadith='37'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَرَفَةَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ عَيَّاشٍ، عَنْ يَحْيَى بْنِ أَبِي عَمْرٍو السَّيْبَانِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ الدَّيْلَمِيِّ، قَالَ سَمِعْتُ عَبْدَ اللَّهِ بْنَ عَمْرٍو، يَقُولُ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ "‏ إِنَّ اللَّهَ عَزَّ وَجَلَّ خَلَقَ خَلْقَهُ فِي ظُلْمَةٍ فَأَلْقَى عَلَيْهِمْ مِنْ نُورِهِ فَمَنْ أَصَابَهُ مِنْ ذَلِكَ النُّورِ اهْتَدَى وَمَنْ أَخْطَأَهُ ضَلَّ فَلِذَلِكَ أَقُولُ جَفَّ الْقَلَمُ عَلَى عِلْمِ اللَّهِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='38' id='h-2643'><td colspan='2'>[40:38] <a class='permalink' href='#h-2643' data-hadith='38'>Hadith 38</a><button class='copy-btn' onclick='copyHadith(this,"[40:38]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='38'><td class='label'>English</td><td lang='en'>Narrated Mu'adh bin Jabal:that the Messenger of Allah (ﷺ) said: "Do you know what Allah's right upon His slaves is?" I said: "Allah and His Messenger know best." He said: "His right upon them is that they worship Him alone and do not associate any partners with Him." He said: "And do you know what their right over Allah is if they do that?" I said: "Allah and His Messenger know best." He said: "That He will not punish them</td></tr>
+<tr class='hadith-ar' data-hadith='38'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا أَبُو أَحْمَدَ، حَدَّثَنَا سُفْيَانُ، عَنْ أَبِي إِسْحَاقَ، عَنْ عَمْرِو بْنِ مَيْمُونٍ، عَنْ مُعَاذِ بْنِ جَبَلٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ أَتَدْرِي مَا حَقُّ اللَّهِ عَلَى الْعِبَادِ ‏"‏ ‏.‏ قُلْتُ اللَّهُ وَرَسُولُهُ أَعْلَمُ ‏.‏ قَالَ ‏"‏ فَإِنَّ حَقَّهُ عَلَيْهِمْ أَنْ يَعْبُدُوهُ وَلاَ يُشْرِكُوا بِهِ شَيْئًا ‏"‏ ‏.‏ قَالَ ‏"‏ فَتَدْرِي مَا حَقُّهُمْ عَلَيْهِ إِذَا فَعَلُوا ذَلِكَ ‏"‏ ‏.‏ قُلْتُ اللَّهُ وَرَسُولُهُ أَعْلَمُ ‏.‏ قَالَ ‏"‏ أَنْ لاَ يُعَذِّبَهُمْ ‏"‏ ‏.‏ هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَقَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ عَنْ مُعَاذِ بْنِ جَبَلٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='39' id='h-2644'><td colspan='2'>[40:39] <a class='permalink' href='#h-2644' data-hadith='39'>Hadith 39</a><button class='copy-btn' onclick='copyHadith(this,"[40:39]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='39'><td class='label'>English</td><td lang='en'>Narrated Abu Dharr:that the Messenger of Allah (ﷺ) said: "Jibril came to me and gave me glad tidings, that whoever dies without associating anything with Allah, then he will enter Paradise. I said: "Even if he commits adultery and theft?" He said: "Yes</td></tr>
+<tr class='hadith-ar' data-hadith='39'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا أَبُو دَاوُدَ، أَخْبَرَنَا شُعْبَةُ، عَنْ حَبِيبِ بْنِ أَبِي ثَابِتٍ، وَعَبْدِ الْعَزِيزِ بْنِ رُفَيْعٍ، وَالأَعْمَشِ، كُلُّهُمْ سَمِعُوا زَيْدَ بْنَ وَهْبٍ، عَنْ أَبِي ذَرٍّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏"‏ أَتَانِي جِبْرِيلُ فَبَشَّرَنِي فَأَخْبَرَنِي أَنَّهُ مَنْ مَاتَ لاَ يُشْرِكُ بِاللَّهِ شَيْئًا دَخَلَ الْجَنَّةَ ‏"‏ ‏.‏ قُلْتُ وَإِنْ زَنَى وَإِنْ سَرَقَ قَالَ ‏"‏ نَعَمْ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَفِي الْبَابِ عَنْ أَبِي الدَّرْدَاءِ ‏.‏</td></tr>
+</tbody></table></div>
+<nav class='chapter-nav'><span><a href='book-39.html'>&laquo; Book 39</a></span><span><a href='book-41.html'>Book 41 &raquo;</a></span></nav>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+<script>
+(function(){
+  var CF_KEY='hadith-cf';
+  var FS_KEY='hfs';
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxHadith=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxHadith;
+  var enabledTypes=new Set();
+
+  /* ---- Default content filter prefs ---- */
+  var DEFAULTS={'hadith-en':true,'hadith-ar':true,};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem(CF_KEY);if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=DEFAULTS.hasOwnProperty(key)?DEFAULTS[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem(CF_KEY,JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var h=+tr.dataset.hadith;
+      var inRange=(h>=vcFrom&&h<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxHadith;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxHadith;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+
+  /* ---- Scroll to #h-N anchor ---- */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-highlight');
+          setTimeout(function(){el.classList.remove('hadith-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
+
+  /* ---- Font size control ---- */
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy hadith ---- */
+  window.copyHadith=function(btn,ref){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+ref+']'];
+    if(tbod){
+      var hid=row.dataset.hadith;
+      tbod.querySelectorAll('tr[data-hadith="'+hid+'"]').forEach(function(tr){
+        if(tr.classList.contains('hadith-sep'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#h-'+a.dataset.hadith;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#h-'+a.dataset.hadith);
+    });
+  });
+})();
+</script>
+</body>
+</html>

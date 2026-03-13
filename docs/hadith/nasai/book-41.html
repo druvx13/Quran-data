@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sunan an-Nasaʼi — Book 41: The Book of al-Fara' and al-'Atirah">
+<title>Sunan an-Nasaʼi — Book 41: The Book of al-Fara' and al-'Atirah</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <a href='index.html'>Sunan an-Nasaʼi</a> | <select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Book'><option value=''>Jump to Book…</option><option value='book-1.html'>1. The Book of Purification</option><option value='book-2.html'>2. The Book of Water</option><option value='book-3.html'>3. The Book of Menstruation and Istihadah</option><option value='book-4.html'>4. The Book of Ghusl and Tayammum</option><option value='book-5.html'>5. The Book of Salah</option><option value='book-6.html'>6. The Book of the Times (of Prayer)</option><option value='book-7.html'>7. The Book of the Adhan (The Call to Prayer)</option><option value='book-8.html'>8. The Book of the Masjids</option><option value='book-9.html'>9. The Book of the Qiblah</option><option value='book-10.html'>10. The Book of Leading the Prayer (Al-Imamah)</option><option value='book-11.html'>11. The Book of the Commencement of the Prayer</option><option value='book-12.html'>12. The Book of The At-Tatbiq (Clasping One's Hands Together)</option><option value='book-13.html'>13. The Book of Forgetfulness (In Prayer)</option><option value='book-14.html'>14. The Book of Jumu'ah (Friday Prayer)</option><option value='book-15.html'>15. The Book of Shortening the Prayer When Traveling</option><option value='book-16.html'>16. The Book of Eclipses</option><option value='book-17.html'>17. The Book of Praying for Rain (Al-Istisqa')</option><option value='book-18.html'>18. The Book of the Fear Prayer</option><option value='book-19.html'>19. The Book of the Prayer for the Two 'Eids</option><option value='book-20.html'>20. The Book of Qiyam Al-Lail (The Night Prayer) and Voluntary Prayers During the Day</option><option value='book-21.html'>21. The Book of Funerals</option><option value='book-22.html'>22. The Book of Fasting</option><option value='book-23.html'>23. The Book of Zakah</option><option value='book-24.html'>24. The Book of Hajj</option><option value='book-25.html'>25. The Book of Jihad</option><option value='book-26.html'>26. The Book of Marriage</option><option value='book-27.html'>27. The Book of Divorce</option><option value='book-28.html'>28. The Book of Horses, Races and Shooting</option><option value='book-29.html'>29. The Book of Endowments</option><option value='book-30.html'>30. The Book of Wills</option><option value='book-31.html'>31. The Book of Presents</option><option value='book-32.html'>32. The Book of Gifts</option><option value='book-33.html'>33. The Book of ar-Ruqba</option><option value='book-34.html'>34. The Book of 'Umra</option><option value='book-35.html'>35. The Book of Agriculture</option><option value='book-36.html'>36. The Book of the Kind Treatment of Women</option><option value='book-37.html'>37. The Book of Fighting [The Prohibition of Bloodshed]</option><option value='book-38.html'>38. The Book of Distribution of Al-Fay'</option><option value='book-39.html'>39. The Book of al-Bay'ah</option><option value='book-40.html'>40. The Book of al-'Aqiqah</option><option value='book-41.html' selected>41. The Book of al-Fara' and al-'Atirah</option><option value='book-42.html'>42. The Book of Hunting and Slaughtering</option><option value='book-43.html'>43. The Book of ad-Dahaya (Sacrifices)</option><option value='book-44.html'>44. The Book of Financial Transactions</option><option value='book-45.html'>45. The Book of Oaths (qasamah), Retaliation and Blood Money</option><option value='book-46.html'>46. The Book of Cutting off the Hand of the Thief</option><option value='book-47.html'>47. The Book Of Faith and its Signs</option><option value='book-48.html'>48. The Book of Adornment</option><option value='book-49.html'>49. The Book of the Etiquette of Judges</option><option value='book-50.html'>50. The Book of Seeking Refuge with Allah</option><option value='book-51.html'>51. The Book of Drinks</option></select> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Sunan an-Nasaʼi — Book 41: The Book of al-Fara' and al-'Atirah</h1>
+<noscript><p class="noscript-warn">&#9888; The Hadith Filter requires JavaScript. All hadiths are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='41' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='41' value='41'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='hadith-en'><label for='cf-0'>English</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='hadith-ar'><label for='cf-1'>Arabic</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Sunan an-Nasaʼi &mdash; Book 41: The Book of al-Fara' and al-'Atirah</th></tr></thead><tbody>
+<tr class='hadith-sep' data-hadith='1' id='h-4222'><td colspan='2'>[41:1] <a class='permalink' href='#h-4222' data-hadith='1'>Hadith 1</a><button class='copy-btn' onclick='copyHadith(this,"[41:1]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='1'><td class='label'>English</td><td lang='en'>It was narrated from Abu Hurairah that the Messenger of Allah said:"There is no fara' and no' Atirah</td></tr>
+<tr class='hadith-ar' data-hadith='1'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، قَالَ حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ سَعِيدٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ لاَ فَرَعَ وَلاَ عَتِيرَةَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='2' id='h-4223'><td colspan='2'>[41:2] <a class='permalink' href='#h-4223' data-hadith='2'>Hadith 2</a><button class='copy-btn' onclick='copyHadith(this,"[41:2]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='2'><td class='label'>English</td><td lang='en'>It was narrated that Abu Hurairah that:the Messenger of Allah forbade Fara' and 'Atirah</td></tr>
+<tr class='hadith-ar' data-hadith='2'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، قَالَ حَدَّثَنَا أَبُو دَاوُدَ، قَالَ حَدَّثَنَا شُعْبَةُ، قَالَ حَدَّثْتُ أَبَا إِسْحَاقَ، عَنْ مَعْمَرٍ، وَسُفْيَانَ، عَنِ الزُّهْرِيِّ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ أَحَدُهُمَا نَهَى رَسُولُ اللَّهِ صلى الله عليه وسلم عَنِ الْفَرَعِ وَالْعَتِيرَةِ ‏.‏ وَقَالَ الآخَرُ ‏ "‏ لاَ فَرَعَ وَلاَ عَتِيرَةَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='3' id='h-4224'><td colspan='2'>[41:3] <a class='permalink' href='#h-4224' data-hadith='3'>Hadith 3</a><button class='copy-btn' onclick='copyHadith(this,"[41:3]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='3'><td class='label'>English</td><td lang='en'>Mikhnaf bin Sulaim said:"While we were standing with the Messenger of Allah at 'Arafat, he said: 'O people, it is upon each family to offer a sacrifice (Udhiyah) and an 'Atirah each year." (One of the narrators) Muadh said: "Ibn 'Awn used to offer slaughter the 'Atirah, and I saw that with my own eyes during Rajab." (Daif)</td></tr>
+<tr class='hadith-ar' data-hadith='3'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَمْرُو بْنُ زُرَارَةَ، قَالَ حَدَّثَنَا مُعَاذٌ، - وَهُوَ ابْنُ مُعَاذٍ - قَالَ حَدَّثَنَا ابْنُ عَوْنٍ، قَالَ حَدَّثَنَا أَبُو رَمْلَةَ، قَالَ أَنْبَأَنَا مِخْنَفُ بْنُ سُلَيْمٍ، قَالَ بَيْنَا نَحْنُ وُقُوفٌ مَعَ النَّبِيِّ صلى الله عليه وسلم بِعَرَفَةَ فَقَالَ ‏ "‏ يَا أَيُّهَا النَّاسُ إِنَّ عَلَى أَهْلِ بَيْتٍ فِي كُلِّ عَامٍ أَضْحَاةً وَعَتِيرَةً ‏"‏ ‏.‏ قَالَ مُعَاذٌ كَانَ ابْنُ عَوْنٍ يَعْتِرُ أَبْصَرَتْهُ عَيْنِي فِي رَجَبٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='4' id='h-4225'><td colspan='2'>[41:4] <a class='permalink' href='#h-4225' data-hadith='4'>Hadith 4</a><button class='copy-btn' onclick='copyHadith(this,"[41:4]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='4'><td class='label'>English</td><td lang='en'>Amr bin Shu'aib bin Muhammad bin 'Abdullah bin 'Amr (narrated) that his father and Zaid bin Aslam said:"O Messenger of Allah! (What about) the Fara'?" He said: "It is a duty, but if you leave it (the animal) until it becomes half-grown and you load upon it (in Jihad) in the cause of Allah or give it to a widow, that is better than if you slaughter it (when it is just born) and its flesh is difficult to separate from its skin, then you turn your vessel upside down (because you will no longer be able to get milk from the mother) and you cause your she-camel to grieve (at the loss of its young)." They said: "O Messenger of Allah, (what about) the 'Atirah?" He said: "The 'Atirah is a duty." (Hasan) Abu 'Abdur-Rahman (An-Nasa'i) said: Abu 'Ali Al-Hanafi (one of the narrators); they are four brothers: One of them is Abu Bakr, and Bishr, and Sharik, and the other</td></tr>
+<tr class='hadith-ar' data-hadith='4'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنِي إِبْرَاهِيمُ بْنُ يَعْقُوبَ بْنِ إِسْحَاقَ، قَالَ حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ عَبْدِ الْمَجِيدِ أَبُو عَلِيٍّ الْحَنَفِيُّ، قَالَ حَدَّثَنَا دَاوُدُ بْنُ قَيْسٍ، قَالَ سَمِعْتُ عَمْرَو بْنَ شُعَيْبِ بْنِ مُحَمَّدِ بْنِ عَبْدِ اللَّهِ بْنِ عَمْرٍو، عَنْ أَبِيهِ، ‏{‏ عَنْ أَبِيهِ، ‏}‏ وَزَيْدِ بْنِ أَسْلَمَ قَالُوا يَا رَسُولَ اللَّهِ الْفَرَعَ ‏.‏ قَالَ ‏"‏ حَقٌّ فَإِنْ تَرَكْتَهُ حَتَّى يَكُونَ بَكْرًا فَتَحْمِلَ عَلَيْهِ فِي سَبِيلِ اللَّهِ أَوْ تُعْطِيَهُ أَرْمَلَةً خَيْرٌ مِنْ أَنْ تَذْبَحَهُ فَيَلْصَقَ لَحْمُهُ بِوَبَرِهِ فَتُكْفِئَ إِنَاءَكَ وَتُوَلِّهَ نَاقَتَكَ ‏"‏ ‏.‏ قَالُوا يَا رَسُولَ اللَّهِ فَالْعَتِيرَةُ قَالَ ‏"‏ الْعَتِيرَةُ حَقٌّ ‏"‏ ‏.‏ قَالَ أَبُو عَبْدِ الرَّحْمَنِ أَبُو عَلِيٍّ الْحَنَفِيُّ هُمْ أَرْبَعَةُ إِخْوَةٍ أَحَدُهُمْ أَبُو بَكْرٍ وَبِشْرٌ وَشَرِيكٌ وَآخَرُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='5' id='h-4226'><td colspan='2'>[41:5] <a class='permalink' href='#h-4226' data-hadith='5'>Hadith 5</a><button class='copy-btn' onclick='copyHadith(this,"[41:5]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='5'><td class='label'>English</td><td lang='en'>It was narrated that Yahya bin Zurarah bin Karim bin Al-Harith bin 'Amr Al-Bahili said:"I heard my father say, that he heard his grandfather Al-Harith bin 'Amr, that he met the Messenger of Allah during the Farewell Pilgrimage, when he was atop his slit-eared camel. (He said): 'I said: O Messenger of Allah, May my father and mother be ransomed for you; pray for forgiveness for me. He said: May Allah forgive you (plural). Then I came to him from the other side, hoping that he would supplicate just for me alone, and not them. I said: O Messenger of Allah, pray for forgiveness for me. He said: May Allah forgive you (plural). Then a man among the people said: O Messenger of Allah, (what about) the 'Atirah and Fara'? He said: Whoever wishes to offer and 'Atirah may do so, and whoever does not wish to, may not. Whoever wishes to offer a Fara' may do so, and whoever does not wish to, may not. And with regard to sheep, a sacrifice should be offered. And he clasped between his fingers except for one</td></tr>
+<tr class='hadith-ar' data-hadith='5'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا سُوَيْدُ بْنُ نَصْرٍ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، - يَعْنِي ابْنَ الْمُبَارَكِ - عَنْ يَحْيَى، - وَهُوَ ابْنُ زُرَارَةَ بْنِ كُرَيْمِ بْنِ الْحَارِثِ بْنِ عَمْرٍو الْبَاهِلِيُّ - قَالَ سَمِعْتُ أَبِي يَذْكُرُ، أَنَّهُ سَمِعَ جَدَّهُ الْحَارِثَ بْنَ عَمْرٍو، يُحَدِّثُ أَنَّهُ لَقِيَ رَسُولَ اللَّهِ صلى الله عليه وسلم فِي حَجَّةِ الْوَدَاعِ وَهُوَ عَلَى نَاقَتِهِ الْعَضْبَاءِ فَأَتَيْتُهُ مِنْ أَحَدِ شِقَّيْهِ فَقُلْتُ يَا رَسُولَ اللَّهِ بِأَبِي أَنْتَ وَأُمِّي اسْتَغْفِرْ لِي ‏.‏ فَقَالَ ‏"‏ غَفَرَ اللَّهُ لَكُمْ ‏"‏ ‏.‏ ثُمَّ أَتَيْتُهُ مِنَ الشِّقِّ الآخَرِ أَرْجُو أَنْ يَخُصَّنِي دُونَهُمْ فَقُلْتُ يَا رَسُولَ اللَّهِ اسْتَغْفِرْ لِي ‏.‏ فَقَالَ بِيَدِهِ ‏"‏ غَفَرَ اللَّهُ لَكُمْ ‏"‏ ‏.‏ فَقَالَ رَجُلٌ مِنَ النَّاسِ يَا رَسُولَ اللَّهِ الْعَتَائِرُ وَالْفَرَائِعُ ‏.‏ قَالَ ‏"‏ مَنْ شَاءَ عَتَرَ وَمَنْ شَاءَ لَمْ يَعْتِرْ وَمَنْ شَاءَ فَرَّعَ وَمَنْ شَاءَ لَمْ يُفَرِّعْ فِي الْغَنَمِ أُضْحِيَتُهَا ‏"‏ ‏.‏ وَقَبَضَ أَصَابِعَهُ إِلاَّ وَاحِدَةً ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='6' id='h-4227'><td colspan='2'>[41:6] <a class='permalink' href='#h-4227' data-hadith='6'>Hadith 6</a><button class='copy-btn' onclick='copyHadith(this,"[41:6]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='6'><td class='label'>English</td><td lang='en'>Yahya bin Zurarah As-Sahmi said:"My father narrated to me from his grandfather, Al-Harith bin 'Amr that he met the Messenger of Allah during the Farewell Pilgrimage and said: 'May my father and mother be sacrificed for you! O Messenger of Allah; pray for forgiveness for me.' He said: 'May Allah forgive you (plural).' He was atop his slit-eared camel and I came around to the other side"' and he quoted the Hadith</td></tr>
+<tr class='hadith-ar' data-hadith='6'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنِي هَارُونُ بْنُ عَبْدِ اللَّهِ، قَالَ حَدَّثَنَا عَفَّانُ، قَالَ حَدَّثَنَا يَحْيَى بْنُ زُرَارَةَ السَّهْمِيُّ، قَالَ حَدَّثَنِي أَبِي، عَنْ جَدِّهِ الْحَارِثِ بْنِ عَمْرٍو، ح وَأَنْبَأَنَا هَارُونُ بْنُ عَبْدِ اللَّهِ، قَالَ حَدَّثَنَا هِشَامُ بْنُ عَبْدِ الْمَلِكِ، قَالَ حَدَّثَنِي يَحْيَى بْنُ زُرَارَةَ السَّهْمِيُّ، قَالَ حَدَّثَنِي أَبِي، عَنْ جَدِّهِ الْحَارِثِ بْنِ عَمْرٍو، أَنَّهُ لَقِيَ رَسُولَ اللَّهِ صلى الله عليه وسلم فِي حَجَّةِ الْوَدَاعِ فَقُلْتُ بِأَبِي أَنْتَ يَا رَسُولَ اللَّهِ وَأُمِّي اسْتَغْفِرْ لِي ‏.‏ فَقَالَ ‏ "‏ غَفَرَ اللَّهُ لَكُمْ ‏"‏ ‏.‏ وَهُوَ عَلَى نَاقَتِهِ الْعَضْبَاءِ ثُمَّ اسْتَدَرْتُ مِنَ الشِّقِّ الآخَرِ وَسَاقَ الْحَدِيثَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='7' id='h-4228'><td colspan='2'>[41:7] <a class='permalink' href='#h-4228' data-hadith='7'>Hadith 7</a><button class='copy-btn' onclick='copyHadith(this,"[41:7]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='7'><td class='label'>English</td><td lang='en'>It was narrated that Nubaishah said:"It was said to the prophet: 'During the Jahiliyyah we used to offer the 'Atirah.' He said: 'Slaughter for the sake of Allah, the Mighty and sublime, no matter what month it is; do good for the sake of Allah, the Mighty and sublime, and feed the poor</td></tr>
+<tr class='hadith-ar' data-hadith='7'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، قَالَ حَدَّثَنَا ابْنُ أَبِي عَدِيٍّ، عَنِ ابْنِ عَوْنٍ، قَالَ حَدَّثَنَا جَمِيلٌ، عَنْ أَبِي الْمَلِيحِ، عَنْ نُبَيْشَةَ، قَالَ ذُكِرَ لِلنَّبِيِّ صلى الله عليه وسلم قَالَ كُنَّا نَعْتِرُ فِي الْجَاهِلِيَّةِ ‏.‏ قَالَ ‏ "‏ اذْبَحُوا لِلَّهِ عَزَّ وَجَلَّ فِي أَىِّ شَهْرٍ مَا كَانَ وَبَرُّوا اللَّهَ عَزَّ وَجَلَّ وَأَطْعِمُوا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='8' id='h-4229'><td colspan='2'>[41:8] <a class='permalink' href='#h-4229' data-hadith='8'>Hadith 8</a><button class='copy-btn' onclick='copyHadith(this,"[41:8]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='8'><td class='label'>English</td><td lang='en'>It was narrated that Nubaishah said:"A man called out while he was in Mina and said: 'O Messenger of Allah, we used to sacrifice the 'Atirah during the Jahiliyyah in Rajab; what do you command us to do?' He said: 'Sacrifice during whatever month it is, do good for the sake of Allah, the Mighty and Sublime, and feed (the poor).' They said: 'O Messenger of Allah, we used to sacrifice the Fara' during the Jahiliyyah; what do you command us to do?' He said: 'For every flock of grazing animals, feed the firstborn as you feed the rest of you flock until it reaches an age where it could be used carry loads, then sacrifice it, and give its meat in charity</td></tr>
+<tr class='hadith-ar' data-hadith='8'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَمْرُو بْنُ عَلِيٍّ، قَالَ حَدَّثَنَا بِشْرٌ، - وَهُوَ ابْنُ الْمُفَضَّلِ - عَنْ خَالِدٍ، وَرُبَّمَا، قَالَ عَنْ أَبِي الْمَلِيحِ، وَرُبَّمَا، ذَكَرَ أَبَا قِلاَبَةَ عَنْ نُبَيْشَةَ، قَالَ نَادَى رَجُلٌ وَهُوَ بِمِنًى فَقَالَ يَا رَسُولَ اللَّهِ إِنَّا كُنَّا نَعْتِرُ عَتِيرَةً فِي الْجَاهِلِيَّةِ فِي رَجَبٍ فَمَا تَأْمُرُنَا يَا رَسُولَ اللَّهِ قَالَ ‏"‏ اذْبَحُوا فِي أَىِّ شَهْرٍ مَا كَانَ وَبَرُّوا اللَّهَ عَزَّ وَجَلَّ وَأَطْعِمُوا ‏"‏ ‏.‏ قَالَ إِنَّا كُنَّا نُفْرِعُ فَرَعًا فَمَا تَأْمُرُنَا قَالَ ‏"‏ فِي كُلِّ سَائِمَةٍ فَرَعٌ تَغْذُوهُ مَاشِيَتُكَ حَتَّى إِذَا اسْتَحْمَلَ ذَبَحْتَهُ وَتَصَدَّقْتَ بِلَحْمِهِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='9' id='h-4230'><td colspan='2'>[41:9] <a class='permalink' href='#h-4230' data-hadith='9'>Hadith 9</a><button class='copy-btn' onclick='copyHadith(this,"[41:9]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='9'><td class='label'>English</td><td lang='en'>It was narrated from Nubaishah, a man of Hudhail, that the Prophet said:"I used to forbid you to store the meat of the sacrifices for more than three days so that there would be enough for everyone. But now Allah, the mighty and sublime, has bestowed plenty upon us, so eat some, give some in charity and store some, For these days are the days of eating, drinking and remembering Allah." A man said: "O Messenger of Allah, we used to sacrifice the 'Atirah during the Jahiliyyah in Rajab; what do you command us to do?" He said: "Sacrifice to Allah, the Mighty and Sublime, whatever month it is, do good for the sake of Allah, the Mighty and Sublime, and feed (the poor)." He said: "O Messenger of Allah, we used to sacrifice the Fara' during the Jahiliyyah; what do you command us to do?" He said: "For every flock of grazing animals, feed the firstborn as you feed the rest of your flock, until it reaches an age where it could be used to carry loads, then sacrifice it, and give its meat in charity to the wayfarer, for that is good</td></tr>
+<tr class='hadith-ar' data-hadith='9'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ عَبْدِ الرَّحْمَنِ، قَالَ حَدَّثَنَا غُنْدَرٌ، عَنْ شُعْبَةَ، عَنْ خَالِدٍ، عَنْ أَبِي قِلاَبَةَ، عَنْ أَبِي الْمَلِيحِ، وَأَحْسَبُنِي، قَدْ سَمِعْتُهُ مِنَ أَبِي الْمَلِيحِ، عَنْ نُبَيْشَةَ، - رَجُلٌ مِنْ هُذَيْلٍ - عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ إِنِّي كُنْتُ نَهَيْتُكُمْ عَنْ لُحُومِ الأَضَاحِي فَوْقَ ثَلاَثٍ كَيْمَا تَسَعَكُمْ فَقَدْ جَاءَ اللَّهُ عَزَّ وَجَلَّ بِالْخَيْرِ فَكُلُوا وَتَصَدَّقُوا وَادَّخِرُوا وَإِنَّ هَذِهِ الأَيَّامَ أَيَّامُ أَكْلٍ وَشُرْبٍ وَذِكْرِ اللَّهِ عَزَّ وَجَلَّ ‏"‏ ‏.‏ فَقَالَ رَجُلٌ إِنَّا كُنَّا نَعْتِرُ عَتِيرَةً فِي الْجَاهِلِيَّةِ فِي رَجَبٍ فَمَا تَأْمُرُنَا قَالَ ‏"‏ اذْبَحُوا لِلَّهِ عَزَّ وَجَلَّ فِي أَىِّ شَهْرٍ مَا كَانَ وَبَرُّوا اللَّهَ عَزَّ وَجَلَّ وَأَطْعِمُوا ‏"‏ ‏.‏ فَقَالَ رَجُلٌ يَا رَسُولَ اللَّهِ إِنَّا كُنَّا نُفَرِّعُ فَرَعًا فِي الْجَاهِلِيَّةِ فَمَا تَأْمُرُنَا قَالَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ فِي كُلِّ سَائِمَةٍ مِنَ الْغَنَمِ فَرَعٌ تَغْذُوهُ غَنَمُكَ حَتَّى إِذَا اسْتَحْمَلَ ذَبَحْتَهُ وَتَصَدَّقْتَ بِلَحْمِهِ عَلَى ابْنِ السَّبِيلِ فَإِنَّ ذَلِكَ هُوَ خَيْرٌ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='10' id='h-4231'><td colspan='2'>[41:10] <a class='permalink' href='#h-4231' data-hadith='10'>Hadith 10</a><button class='copy-btn' onclick='copyHadith(this,"[41:10]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='10'><td class='label'>English</td><td lang='en'>It was narrated that Nubaishah said:"A man called out to the Prophet and said: 'We used to sacrifice the 'Atirah - i.e., during the Jahiliyyah - in Rajab; what do you command us to do?' He said: 'Sacrifice, whatever month it is, do good for the sake of Allah, the Mighty and Sublime, and feed (the poor).' He said: 'We used to sacrifice the Fara' during the Jahiliyyah; what do you command us to do?' He said: 'For every flock of grazing animals, feed the firstborn as you feed the rest of your flock until it reaches an age where it could be used to carry loads, then sacrifice it, and give its meat in charity, for that is good</td></tr>
+<tr class='hadith-ar' data-hadith='10'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا أَبُو الأَشْعَثِ، أَحْمَدُ بْنُ الْمِقْدَامِ قَالَ حَدَّثَنَا يَزِيدُ، - وَهُوَ ابْنُ زُرَيْعٍ - قَالَ أَنْبَأَنَا خَالِدٌ، عَنْ أَبِي الْمَلِيحِ، عَنْ نُبَيْشَةَ، قَالَ نَادَى النَّبِيَّ صلى الله عليه وسلم رَجُلٌ فَقَالَ إِنَّا كُنَّا نَعْتِرُ عَتِيرَةً يَعْنِي فِي الْجَاهِلِيَّةِ فِي رَجَبٍ فَمَا تَأْمُرُنَا قَالَ ‏"‏ اذْبَحُوهَا فِي أَىِّ شَهْرٍ كَانَ وَبَرُّوا اللَّهَ عَزَّ وَجَلَّ وَأَطْعِمُوا ‏"‏ ‏.‏ قَالَ إِنَّا كُنَّا نُفْرِعُ فَرَعًا فِي الْجَاهِلِيَّةِ ‏.‏ قَالَ ‏"‏ فِي كُلِّ سَائِمَةٍ فَرَعٌ حَتَّى إِذَا اسْتَحْمَلَ ذَبَحْتَهُ وَتَصَدَّقْتَ بِلَحْمِهِ فَإِنَّ ذَلِكَ هُوَ خُيْرٌ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='11' id='h-4232'><td colspan='2'>[41:11] <a class='permalink' href='#h-4232' data-hadith='11'>Hadith 11</a><button class='copy-btn' onclick='copyHadith(this,"[41:11]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='11'><td class='label'>English</td><td lang='en'>It was narrated that Nubaishah Al-Hudhaili said:"A man said: 'O Messenger of Allah, we used to sacrifice the 'Atirah during the Jahiliyyah in Rajab; what do you command us to do?' He said: 'Sacrifice to Allah, the Mighty and Sublime, whatever month it is, do good for the sake of Allah, the Mighty and Sublime, and feed (the poor)</td></tr>
+<tr class='hadith-ar' data-hadith='11'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا يَعْقُوبُ بْنُ إِبْرَاهِيمَ، عَنِ ابْنِ عُلَيَّةَ، عَنْ خَالِدٍ، قَالَ حَدَّثَنِي أَبُو قِلاَبَةَ، عَنْ أَبِي الْمَلِيحِ، فَلَقِيتُ أَبَا الْمَلِيحِ فَسَأَلْتُهُ فَحَدَّثَنِي عَنْ نُبَيْشَةَ الْهُذَلِيِّ، قَالَ قَالَ رَجُلٌ يَا رَسُولَ اللَّهِ إِنَّا كُنَّا نَعْتِرُ عَتِيرَةً فِي الْجَاهِلِيَّةِ فَمَا تَأْمُرُنَا قَالَ ‏ "‏ اذْبَحُوا لِلَّهِ عَزَّ وَجَلَّ فِي أَىِّ شَهْرٍ مَا كَانَ وَبَرُّوا اللَّهَ عَزَّ وَجَلَّ وَأَطْعِمُوا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='12' id='h-4233'><td colspan='2'>[41:12] <a class='permalink' href='#h-4233' data-hadith='12'>Hadith 12</a><button class='copy-btn' onclick='copyHadith(this,"[41:12]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='12'><td class='label'>English</td><td lang='en'>It was narrated that Abu Razin Laqit bin 'Amir Al-Uqaili said:"I said: 'O Messenger of Allah, we used to offer sacrifices during the Jahiliyyah in Rajab, and eat of (their meat) and offer some to those who came to us.' The Messenger of Allah said: 'There is nothing wrong with that."' (One of the narrators) Waki bin 'Udus said: "I will not leave it</td></tr>
+<tr class='hadith-ar' data-hadith='12'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَمْرُو بْنُ عَلِيٍّ، قَالَ حَدَّثَنَا عَبْدُ الرَّحْمَنِ، قَالَ حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ يَعْلَى بْنِ عَطَاءٍ، عَنْ وَكِيعِ بْنِ عُدُسٍ، عَنْ عَمِّهِ أَبِي رَزِينٍ، لَقِيطِ بْنِ عَامِرٍ الْعُقَيْلِيِّ قَالَ قُلْتُ يَا رَسُولَ اللَّهِ إِنَّا كُنَّا نَذْبَحُ ذَبَائِحَ فِي الْجَاهِلِيَّةِ فِي رَجَبٍ فَنَأْكُلُ وَنُطْعِمُ مَنْ جَاءَنَا ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ لاَ بَأْسَ بِهِ ‏"‏ ‏.‏ قَالَ وَكِيعُ بْنُ عُدُسٍ فَلاَ أَدَعُهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='13' id='h-4234'><td colspan='2'>[41:13] <a class='permalink' href='#h-4234' data-hadith='13'>Hadith 13</a><button class='copy-btn' onclick='copyHadith(this,"[41:13]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='13'><td class='label'>English</td><td lang='en'>It was narrated from Ibn 'Abbas, from Maimunah, that:the Prophet passed by a dead sheep that had been thrown aside. He said: "Who does this belong to?" They said: "Maimunah." He said: "Why did she not make use of its skin?" They said: "It is dead meat (i.e., it was not slaughtered properly)." He said: "Allah, the Mighty and Sublime, has only forbidden us to eat it</td></tr>
+<tr class='hadith-ar' data-hadith='13'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا قُتَيْبَةُ، قَالَ حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنِ ابْنِ عَبَّاسٍ، عَنْ مَيْمُونَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم مَرَّ عَلَى شَاةٍ مَيِّتَةٍ مُلْقَاةٍ فَقَالَ ‏"‏ لِمَنْ هَذِهِ ‏"‏ ‏.‏ فَقَالُوا لِمَيْمُونَةَ ‏.‏ فَقَالَ ‏"‏ مَا عَلَيْهَا لَوِ انْتَفَعَتْ بِإِهَابِهَا ‏"‏ ‏.‏ قَالُوا إِنَّهَا مَيْتَةٌ ‏.‏ فَقَالَ ‏"‏ إِنَّمَا حَرَّمَ اللَّهُ عَزَّ وَجَلَّ أَكْلَهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='14' id='h-4235'><td colspan='2'>[41:14] <a class='permalink' href='#h-4235' data-hadith='14'>Hadith 14</a><button class='copy-btn' onclick='copyHadith(this,"[41:14]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='14'><td class='label'>English</td><td lang='en'>It was narrated that Ibn 'Abbas said:"The Messenger of Allah passed by a dead sheep that he had given to a freed slave woman of Maimunah, the wife of the Prophet. He said: 'Why don't you make use of its hide?' They said: 'O Messenger of Allah, it is dead meat.' The Messenger of Allah said: 'It is only forbidden to eat it</td></tr>
+<tr class='hadith-ar' data-hadith='14'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ سَلَمَةَ، وَالْحَارِثُ بْنُ مِسْكِينٍ، قِرَاءَةً عَلَيْهِ وَأَنَا أَسْمَعُ، - وَاللَّفْظُ لَهُ - عَنِ ابْنِ الْقَاسِمِ، قَالَ حَدَّثَنِي مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنِ ابْنِ عَبَّاسٍ، قَالَ مَرَّ رَسُولُ اللَّهِ صلى الله عليه وسلم بِشَاةٍ مَيِّتَةٍ كَانَ أَعْطَاهَا مَوْلاَةً لِمَيْمُونَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم فَقَالَ ‏"‏ هَلاَّ انْتَفَعْتُمْ بِجِلْدِهَا ‏"‏ ‏.‏ قَالُوا يَا رَسُولَ اللَّهِ إِنَّهَا مَيْتَةٌ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ إِنَّمَا حُرِّمَ أَكْلُهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='15' id='h-4236'><td colspan='2'>[41:15] <a class='permalink' href='#h-4236' data-hadith='15'>Hadith 15</a><button class='copy-btn' onclick='copyHadith(this,"[41:15]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='15'><td class='label'>English</td><td lang='en'>Ibn'Abbas said:"The Messenger of Allah saw a dead sheep that belonged to the freed slave woman of Maimunah, and had come from the Sadaqah." He said: "Why don't you take off its hide and make use of it?" They said: "It is dead meat." He said: "It is only unlawful to eat it</td></tr>
+<tr class='hadith-ar' data-hadith='15'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَبْدُ الْمَلِكِ بْنُ شُعَيْبِ بْنِ اللَّيْثِ بْنِ سَعْدٍ، قَالَ حَدَّثَنِي أَبِي، عَنْ جَدِّي، عَنِ ابْنِ أَبِي حَبِيبٍ، - يَعْنِي يَزِيدَ - عَنْ حَفْصِ بْنِ الْوَلِيدِ، عَنْ مُحَمَّدِ بْنِ مُسْلِمٍ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، حَدَّثَهُ أَنَّ ابْنَ عَبَّاسٍ حَدَّثَهُ قَالَ أَبْصَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم شَاةً مَيِّتَةً لِمَوْلاَةٍ لِمَيْمُونَةَ وَكَانَتْ مِنَ الصَّدَقَةِ فَقَالَ ‏"‏ لَوْ نَزَعُوا جِلْدَهَا فَانْتَفَعُوا بِهِ ‏"‏ ‏.‏ قَالُوا إِنَّهَا مَيْتَةٌ ‏.‏ قَالَ ‏"‏ إِنَّمَا حُرِّمَ أَكْلُهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='16' id='h-4237'><td colspan='2'>[41:16] <a class='permalink' href='#h-4237' data-hadith='16'>Hadith 16</a><button class='copy-btn' onclick='copyHadith(this,"[41:16]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='16'><td class='label'>English</td><td lang='en'>It was narrated from Ibn 'Abbas:"Maimunah told me that a sheep died, and the Prophet said: 'Why don't you tan its skin and make use of it'?</td></tr>
+<tr class='hadith-ar' data-hadith='16'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنِي عَبْدُ الرَّحْمَنِ بْنُ خَالِدٍ الْقَطَّانُ الرَّقِّيُّ، قَالَ حَدَّثَنَا حَجَّاجٌ، قَالَ قَالَ ابْنُ جُرَيْجٍ أَخْبَرَنِي عَمْرُو بْنُ دِينَارٍ، قَالَ أَخْبَرَنِي عَطَاءٌ، مُنْذُ حِينٍ عَنِ ابْنِ عَبَّاسٍ، أَخْبَرَتْنِي مَيْمُونَةُ، أَنَّ شَاةً، مَاتَتْ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏ "‏ أَلاَّ دَفَعْتُمْ إِهَابَهَا فَاسْتَمْتَعْتُمْ بِهِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='17' id='h-4238'><td colspan='2'>[41:17] <a class='permalink' href='#h-4238' data-hadith='17'>Hadith 17</a><button class='copy-btn' onclick='copyHadith(this,"[41:17]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='17'><td class='label'>English</td><td lang='en'>Ibn 'Abbas said:"The Prophet passed by a sheep belonging to Maimunah that had died and said: 'Why don't you take its skin and tan it and make use of it'?</td></tr>
+<tr class='hadith-ar' data-hadith='17'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ مَنْصُورٍ، عَنْ سُفْيَانَ، عَنْ عَمْرٍو، عَنْ عَطَاءٍ، قَالَ سَمِعْتُ ابْنَ عَبَّاسٍ، قَالَ مَرَّ النَّبِيُّ صلى الله عليه وسلم بِشَاةٍ لِمَيْمُونَةَ مَيِّتَةٍ فَقَالَ ‏ "‏ أَلاَّ أَخَذْتُمْ إِهَابَهَا فَدَبَغْتُمْ فَانْتَفَعْتُمْ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='18' id='h-4239'><td colspan='2'>[41:18] <a class='permalink' href='#h-4239' data-hadith='18'>Hadith 18</a><button class='copy-btn' onclick='copyHadith(this,"[41:18]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='18'><td class='label'>English</td><td lang='en'>Ibn 'Abbas said:"The Prophet passed by a dead sheep and said: 'Why don't you make use of its skin'?</td></tr>
+<tr class='hadith-ar' data-hadith='18'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ قُدَامَةَ، عَنْ جَرِيرٍ، عَنْ مُغِيرَةَ، عَنِ الشَّعْبِيِّ، قَالَ قَالَ ابْنُ عَبَّاسٍ مَرَّ النَّبِيُّ صلى الله عليه وسلم عَلَى شَاةٍ مَيِّتَةٍ فَقَالَ ‏ "‏ أَلاَّ انْتَفَعْتُمْ بِإِهَابِهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='19' id='h-4240'><td colspan='2'>[41:19] <a class='permalink' href='#h-4240' data-hadith='19'>Hadith 19</a><button class='copy-btn' onclick='copyHadith(this,"[41:19]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='19'><td class='label'>English</td><td lang='en'>It was narrated that Sawdah, the wife of the Prophet, said:"A sheep of ours died, and we tanned its skin, and continued to make Nabidh in it until it wore out</td></tr>
+<tr class='hadith-ar' data-hadith='19'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ الْعَزِيزِ بْنِ أَبِي رِزْمَةَ، قَالَ أَنْبَأَنَا الْفَضْلُ بْنُ مُوسَى، عَنْ إِسْمَاعِيلَ بْنِ أَبِي خَالِدٍ، عَنِ الشَّعْبِيِّ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، عَنْ سَوْدَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم قَالَتْ مَاتَتْ شَاةٌ لَنَا فَدَبَغْنَا مَسْكَهَا فَمَازِلْنَا نَنْبِذُ فِيهَا حَتَّى صَارَتْ شَنًّا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='20' id='h-4241'><td colspan='2'>[41:20] <a class='permalink' href='#h-4241' data-hadith='20'>Hadith 20</a><button class='copy-btn' onclick='copyHadith(this,"[41:20]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='20'><td class='label'>English</td><td lang='en'>It was narrated that Ibn 'Abbas said:"The Messenger of Allah said: 'Any skin that is tanned has been purified</td></tr>
+<tr class='hadith-ar' data-hadith='20'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا قُتَيْبَةُ، وَعَلِيُّ بْنُ حُجْرٍ، عَنْ سُفْيَانَ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنِ ابْنِ وَعْلَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَيُّمَا إِهَابٍ دُبِغَ فَقَدْ طَهُرَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='21' id='h-4242'><td colspan='2'>[41:21] <a class='permalink' href='#h-4242' data-hadith='21'>Hadith 21</a><button class='copy-btn' onclick='copyHadith(this,"[41:21]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='21'><td class='label'>English</td><td lang='en'>It was narrated from Ibn Wa'lah that he asked Ibn 'Abbas:"We are attacking the Maghrib, and they are people who worship idols, and they have waterskins in which they keep milk and water." Ibn 'Abbas said: "Tanning is purification." Ibn Wa'lah said: "Is this your own opinion, or something that you heard from the Messenger of Allah?" He said: "No, (I heard it) from the Messneger of Allah</td></tr>
+<tr class='hadith-ar' data-hadith='21'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنِي الرَّبِيعُ بْنُ سُلَيْمَانَ بْنِ دَاوُدَ، قَالَ حَدَّثَنَا إِسْحَاقُ بْنُ بَكْرٍ، - وَهُوَ ابْنُ مُضَرَ - قَالَ حَدَّثَنِي أَبِي، عَنْ جَعْفَرِ بْنِ رَبِيعَةَ، أَنَّهُ سَمِعَ أَبَا الْخَيْرِ، عَنِ ابْنِ وَعْلَةَ، أَنَّهُ سَأَلَ ابْنَ عَبَّاسٍ فَقَالَ إِنَّا نَغْزُو هَذَا الْمَغْرِبَ وَإِنَّهُمْ أَهْلُ وَثَنٍ وَلَهُمْ قِرَبٌ يَكُونُ فِيهَا اللَّبَنُ وَالْمَاءُ فَقَالَ ابْنُ عَبَّاسٍ الدِّبَاغُ طَهُورٌ ‏.‏ قَالَ ابْنُ وَعْلَةَ عَنْ رَأْيِكَ أَوْ شَىْءٍ سَمِعْتَهُ مِنْ رَسُولِ اللَّهِ صلى الله عليه وسلم قَالَ بَلْ عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='22' id='h-4243'><td colspan='2'>[41:22] <a class='permalink' href='#h-4243' data-hadith='22'>Hadith 22</a><button class='copy-btn' onclick='copyHadith(this,"[41:22]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='22'><td class='label'>English</td><td lang='en'>It was narrated from Salamah bin Al-Muhabbaq that:during the campaign of Tabuk, the Prophet of Allah called for water from a woman. She said: "I only have a waterskin of mine made from an (unslaughtered) dead animal." He said: "Didn't you tan it?" She said: "Of course." He said: "Then it's tanning is its slaughter". (Daif)</td></tr>
+<tr class='hadith-ar' data-hadith='22'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ سَعِيدٍ، قَالَ حَدَّثَنَا مُعَاذُ بْنُ هِشَامٍ، قَالَ حَدَّثَنِي أَبِي، عَنْ قَتَادَةَ، عَنِ الْحَسَنِ، عَنْ جَوْنِ بْنِ قَتَادَةَ، عَنْ سَلَمَةَ بْنِ الْمُحَبِّقِ، أَنَّ نَبِيَّ اللَّهِ صلى الله عليه وسلم فِي غَزْوَةِ تَبُوكَ دَعَا بِمَاءٍ مِنْ عِنْدِ امْرَأَةٍ قَالَتْ مَا عِنْدِي إِلاَّ فِي قِرْبَةٍ لِي مَيْتَةٍ ‏.‏ قَالَ ‏"‏ أَلَيْسَ قَدْ دَبَغْتِهَا ‏"‏ ‏.‏ قَالَتْ بَلَى ‏.‏ قَالَ ‏"‏ فَإِنَّ دِبَاغَهَا ذَكَاتُهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='23' id='h-4244'><td colspan='2'>[41:23] <a class='permalink' href='#h-4244' data-hadith='23'>Hadith 23</a><button class='copy-btn' onclick='copyHadith(this,"[41:23]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='23'><td class='label'>English</td><td lang='en'>It was narrated that 'Aishah said:"The Prophet was asked about the hides of dead animals." He said: "Tanning it purifies it</td></tr>
+<tr class='hadith-ar' data-hadith='23'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا الْحُسَيْنُ بْنُ مَنْصُورِ بْنِ جَعْفَرٍ النَّيْسَابُورِيُّ، قَالَ حَدَّثَنَا الْحُسَيْنُ بْنُ مُحَمَّدٍ، قَالَ حَدَّثَنَا شَرِيكٌ، عَنِ الأَعْمَشِ، عَنْ عُمَارَةَ بْنِ عُمَيْرٍ، عَنِ الأَسْوَدِ، عَنْ عَائِشَةَ، قَالَتْ سُئِلَ النَّبِيُّ صلى الله عليه وسلم عَنْ جُلُودِ الْمَيْتَةِ فَقَالَ ‏ "‏ دِبَاغُهَا طَهُورُهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='24' id='h-4245'><td colspan='2'>[41:24] <a class='permalink' href='#h-4245' data-hadith='24'>Hadith 24</a><button class='copy-btn' onclick='copyHadith(this,"[41:24]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='24'><td class='label'>English</td><td lang='en'>It was narrated that 'Aishah said:"The Messenger of Allah was asked about the hides of dead animals." He said: "Tanning it purifies it</td></tr>
+<tr class='hadith-ar' data-hadith='24'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ سَعْدِ بْنِ إِبْرَاهِيمَ بْنِ سَعْدٍ، قَالَ حَدَّثَنَا عَمِّي، قَالَ حَدَّثَنَا شَرِيكٌ، عَنِ الأَعْمَشِ، عَنْ إِبْرَاهِيمَ، عَنِ الأَسْوَدِ، عَنْ عَائِشَةَ، قَالَتْ سُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَنْ جُلُودِ الْمَيْتَةِ فَقَالَ ‏ "‏ دِبَاغُهَا ذَكَاتُهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='25' id='h-4246'><td colspan='2'>[41:25] <a class='permalink' href='#h-4246' data-hadith='25'>Hadith 25</a><button class='copy-btn' onclick='copyHadith(this,"[41:25]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='25'><td class='label'>English</td><td lang='en'>It was narrated from 'Aishah that the Prophet said:"The dead animal is purified by tanning it</td></tr>
+<tr class='hadith-ar' data-hadith='25'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا أَيُّوبُ بْنُ مُحَمَّدٍ الْوَزَّانُ، قَالَ حَدَّثَنَا حَجَّاجُ بْنُ مُحَمَّدٍ، قَالَ حَدَّثَنَا شَرِيكٌ، عَنِ الأَعْمَشِ، عَنْ إِبْرَاهِيمَ، عَنِ الأَسْوَدِ، عَنْ عَائِشَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ ذَكَاةُ الْمَيْتَةِ دِبَاغُهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='26' id='h-4247'><td colspan='2'>[41:26] <a class='permalink' href='#h-4247' data-hadith='26'>Hadith 26</a><button class='copy-btn' onclick='copyHadith(this,"[41:26]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='26'><td class='label'>English</td><td lang='en'>It was narrated that 'Aishah said:"The Prophet said: 'The dead animal is purified by tanning it</td></tr>
+<tr class='hadith-ar' data-hadith='26'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنِي إِبْرَاهِيمُ بْنُ يَعْقُوبَ، قَالَ حَدَّثَنَا مَالِكُ بْنُ إِسْمَاعِيلَ، قَالَ حَدَّثَنَا إِسْرَائِيلُ، عَنِ الأَعْمَشِ، عَنْ إِبْرَاهِيمَ، عَنِ الأَسْوَدِ، عَنْ عَائِشَةَ، قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ ذَكَاةُ الْمَيْتَةِ دِبَاغُهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='27' id='h-4248'><td colspan='2'>[41:27] <a class='permalink' href='#h-4248' data-hadith='27'>Hadith 27</a><button class='copy-btn' onclick='copyHadith(this,"[41:27]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='27'><td class='label'>English</td><td lang='en'>It was narrated from Maimunah, the wife of the Prophet, that:some men of Quraish passed by the Messenger of Allah dragging a sheep the size of a donkey. He said to them: "Why don't you take its skin?" They said: "It is dead meat." The Messenger of Allah said: "Purify it with water and Qaraz</td></tr>
+<tr class='hadith-ar' data-hadith='27'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا سُلَيْمَانُ بْنُ دَاوُدَ، عَنِ ابْنِ وَهْبٍ، قَالَ أَخْبَرَنِي عَمْرُو بْنُ الْحَارِثِ، وَاللَّيْثُ بْنُ سَعْدٍ، عَنْ كَثِيرِ بْنِ فَرْقَدٍ، أَنَّ عَبْدَ اللَّهِ بْنَ مَالِكِ بْنِ حُذَافَةَ، حَدَّثَهُ عَنِ الْعَالِيَةِ بِنْتِ سُبَيْعٍ، أَنَّ مَيْمُونَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم حَدَّثَتْهَا أَنَّهُ مَرَّ بِرَسُولِ اللَّهِ صلى الله عليه وسلم رِجَالٌ مِنْ قُرَيْشٍ يَجُرُّونَ شَاةً لَهُمْ مِثْلَ الْحِصَانِ فَقَالَ لَهُمْ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ لَوْ أَخَذْتُمْ إِهَابَهَا ‏"‏ ‏.‏ قَالُوا إِنَّهَا مَيْتَةٌ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ يُطَهِّرُهَا الْمَاءُ وَالْقَرَظُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='28' id='h-4249'><td colspan='2'>[41:28] <a class='permalink' href='#h-4249' data-hadith='28'>Hadith 28</a><button class='copy-btn' onclick='copyHadith(this,"[41:28]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='28'><td class='label'>English</td><td lang='en'>It was narrated that 'Abdullah bin 'Ukaim said:"The letter of the Messenger of Allah was read to us when I was a young boy: 'Do not make use of the skins and sinew of dead animals</td></tr>
+<tr class='hadith-ar' data-hadith='28'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا إِسْمَاعِيلُ بْنُ مَسْعُودٍ، قَالَ حَدَّثَنَا بِشْرٌ، - يَعْنِي ابْنَ الْمُفَضَّلِ - قَالَ حَدَّثَنَا شُعْبَةُ، عَنِ الْحَكَمِ، عَنِ ابْنِ أَبِي لَيْلَى، عَنْ عَبْدِ اللَّهِ بْنِ عُكَيْمٍ، قَالَ قُرِئَ عَلَيْنَا كِتَابُ رَسُولِ اللَّهِ صلى الله عليه وسلم وَأَنَا غُلاَمٌ شَابٌّ ‏ "‏ أَنْ لاَ تَنْتَفِعُوا مِنَ الْمَيْتَةِ بِإِهَابٍ وَلاَ عَصَبٍ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='29' id='h-4250'><td colspan='2'>[41:29] <a class='permalink' href='#h-4250' data-hadith='29'>Hadith 29</a><button class='copy-btn' onclick='copyHadith(this,"[41:29]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='29'><td class='label'>English</td><td lang='en'>It was narrated that'Abdullah bin 'Ukaim said:"The Messenger of Allah wrote to us: 'Do not make use of the skins and sinew of dead animals</td></tr>
+<tr class='hadith-ar' data-hadith='29'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ قُدَامَةَ، قَالَ حَدَّثَنَا جَرِيرٌ، عَنْ مَنْصُورٍ، عَنِ الْحَكَمِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي لَيْلَى، عَنْ عَبْدِ اللَّهِ بْنِ عُكَيْمٍ، قَالَ كَتَبَ إِلَيْنَا رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَنْ لاَ تَسْتَمْتِعُوا مِنَ الْمَيْتَةِ بِإِهَابٍ وَلاَ عَصَبٍ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='30' id='h-4251'><td colspan='2'>[41:30] <a class='permalink' href='#h-4251' data-hadith='30'>Hadith 30</a><button class='copy-btn' onclick='copyHadith(this,"[41:30]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='30'><td class='label'>English</td><td lang='en'>It was narrated that 'Abdullah bin 'Ukaim said:"The Messenger of Allah wrote to Juhainah: 'Do not make use of the skin and sinew of dead animals."' (Hasan) Abu 'Abdur-Rahman )An-Nasa'i) said: The most correct about this topic, regarding the skins of the dead animal when it is tanned, is the narration of Az-Zuhri, from 'Ubaidullah bin 'Abdullah, from Ibn 'Abbas, from Maimunah, and Allah knows best</td></tr>
+<tr class='hadith-ar' data-hadith='30'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَلِيُّ بْنُ حُجْرٍ، قَالَ حَدَّثَنَا شَرِيكٌ، عَنْ هِلاَلٍ الْوَزَّانِ، عَنْ عَبْدِ اللَّهِ بْنِ عُكَيْمٍ، قَالَ كَتَبَ رَسُولُ اللَّهِ صلى الله عليه وسلم إِلَى جُهَيْنَةَ ‏ "‏ أَنْ لاَ تَنْتَفِعُوا مِنَ الْمَيْتَةِ بِإِهَابٍ وَلاَ عَصَبٍ ‏"‏ ‏.‏ قَالَ أَبُو عَبْدِ الرَّحْمَنِ أَصَحُّ مَا فِي هَذَا الْبَابِ فِي جُلُودِ الْمَيْتَةِ إِذَا دُبِغَتْ حَدِيثُ الزُّهْرِيِّ عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ عَنِ ابْنِ عَبَّاسٍ عَنْ مَيْمُونَةَ وَاللَّهُ تَعَالَى أَعْلَمُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='31' id='h-4252'><td colspan='2'>[41:31] <a class='permalink' href='#h-4252' data-hadith='31'>Hadith 31</a><button class='copy-btn' onclick='copyHadith(this,"[41:31]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='31'><td class='label'>English</td><td lang='en'>It was narrated from 'Aishah that:the Messenger of Allah ordered that the hides of dead animals be made use of if they had been tanned. (Daif)</td></tr>
+<tr class='hadith-ar' data-hadith='31'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، قَالَ أَنْبَأَنَا بِشْرُ بْنُ عُمَرَ، قَالَ حَدَّثَنَا مَالِكٌ، ح وَالْحَارِثُ بْنُ مِسْكِينٍ قِرَاءَةً عَلَيْهِ وَأَنَا أَسْمَعُ، عَنِ ابْنِ الْقَاسِمِ، قَالَ حَدَّثَنِي مَالِكٌ، عَنْ يَزِيدَ بْنِ عَبْدِ اللَّهِ بْنِ قُسَيْطٍ، عَنْ مُحَمَّدِ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ أُمِّهِ، عَنْ عَائِشَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم أَمَرَ أَنْ يُسْتَمْتَعَ بِجُلُودِ الْمَيْتَةِ إِذَا دُبِغَتْ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='32' id='h-4253'><td colspan='2'>[41:32] <a class='permalink' href='#h-4253' data-hadith='32'>Hadith 32</a><button class='copy-btn' onclick='copyHadith(this,"[41:32]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='32'><td class='label'>English</td><td lang='en'>It was narrated from Abu Al-Malih, from his father, that:the Prophet forbade (the use of) the hides of Predators. (Hassan)</td></tr>
+<tr class='hadith-ar' data-hadith='32'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ سَعِيدٍ، عَنْ يَحْيَى، عَنِ ابْنِ أَبِي عَرُوبَةَ، عَنْ قَتَادَةَ، عَنْ أَبِي الْمَلِيحِ، عَنْ أَبِيهِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم نَهَى عَنْ جُلُودِ السِّبَاعِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='33' id='h-4254'><td colspan='2'>[41:33] <a class='permalink' href='#h-4254' data-hadith='33'>Hadith 33</a><button class='copy-btn' onclick='copyHadith(this,"[41:33]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='33'><td class='label'>English</td><td lang='en'>It was narrated that Al-Miqdam bin Ma di Karib said:"The Messenger of Allah forbade silk, gold and saddlecloths (Miyathir) made of leopard skin</td></tr>
+<tr class='hadith-ar' data-hadith='33'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنِي عَمْرُو بْنُ عُثْمَانَ، قَالَ حَدَّثَنَا بَقِيَّةُ، عَنْ بَحِيرٍ، عَنْ خَالِدِ بْنِ مَعْدَانَ، عَنِ الْمِقْدَامِ بْنِ مَعْدِيكَرِبَ، قَالَ نَهَى رَسُولُ اللَّهِ صلى الله عليه وسلم عَنِ الْحَرِيرِ وَالذَّهَبِ وَمَيَاثِرِ النُّمُورِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='34' id='h-4255'><td colspan='2'>[41:34] <a class='permalink' href='#h-4255' data-hadith='34'>Hadith 34</a><button class='copy-btn' onclick='copyHadith(this,"[41:34]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='34'><td class='label'>English</td><td lang='en'>It was narrated that Khalid said:"Al-Miqdam bin Madikarib came to visit Muawiyah and said to him: I adjure you by Allah, do you know that the messenger of Allah forbade wearing the Hides of predators and riding on them? He said: 'yes</td></tr>
+<tr class='hadith-ar' data-hadith='34'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَمْرُو بْنُ عُثْمَانَ، قَالَ حَدَّثَنَا بَقِيَّةُ، عَنْ بَحِيرٍ، عَنْ خَالِدٍ، قَالَ وَفَدَ الْمِقْدَامُ بْنُ مَعْدِيكَرِبَ عَلَى مُعَاوِيَةَ فَقَالَ لَهُ أَنْشُدُكَ بِاللَّهِ هَلْ تَعْلَمُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى عَنْ لُبُوسِ جُلُودِ السِّبَاعِ وَالرُّكُوبِ عَلَيْهَا قَالَ نَعَمْ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='35' id='h-4256'><td colspan='2'>[41:35] <a class='permalink' href='#h-4256' data-hadith='35'>Hadith 35</a><button class='copy-btn' onclick='copyHadith(this,"[41:35]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='35'><td class='label'>English</td><td lang='en'>It was narraterd from Jabir bin 'Abdullah that, during the year of the Conquest, while he was in Makkah, he heard the Messenger of Allah say:"Allah, the Mighty and Sublime, and His Messenger have forbidden the sale of alcohol, dead meat, pigs and idols." It was said to him: "O Messenger of Allah, what do you think of their fat of dead animals, for it is used to caulk ships, it is daubed on animal skins, and people use it to light their lamps?" He said: "No, it is unlawful." Then the Messenger of Allah said: "May Allah, the Mighty and Sublime, curse the Jews, for Allah forbade them the fat (of dead animals) but they rendered it, sold it, and consumed its price</td></tr>
+<tr class='hadith-ar' data-hadith='35'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا قُتَيْبَةُ، قَالَ حَدَّثَنَا اللَّيْثُ، عَنْ يَزِيدَ بْنِ أَبِي حَبِيبٍ، عَنْ عَطَاءِ بْنِ أَبِي رَبَاحٍ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَامَ الْفَتْحِ وَهُوَ بِمَكَّةَ يَقُولُ ‏"‏ إِنَّ اللَّهَ عَزَّ وَجَلَّ وَرَسُولَهُ حَرَّمَ بَيْعَ الْخَمْرِ وَالْمَيْتَةِ وَالْخِنْزِيرِ وَالأَصْنَامِ ‏"‏ ‏.‏ فَقِيلَ يَا رَسُولَ اللَّهِ أَرَأَيْتَ شُحُومَ الْمَيْتَةِ فَإِنَّهُ يُطْلَى بِهَا السُّفُنُ وَيُدَّهَنُ بِهَا الْجُلُودُ وَيَسْتَصْبِحُ بِهَا النَّاسُ ‏.‏ فَقَالَ ‏"‏ لاَ هُوَ حَرَامٌ ‏"‏ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم عِنْدَ ذَلِكَ ‏"‏ قَاتَلَ اللَّهُ الْيَهُودَ إِنَّ اللَّهَ عَزَّ وَجَلَّ لَمَّا حَرَّمَ عَلَيْهِمُ الشُّحُومَ جَمَّلُوهُ ثُمَّ بَاعُوهُ فَأَكَلُوا ثَمَنَهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='36' id='h-4257'><td colspan='2'>[41:36] <a class='permalink' href='#h-4257' data-hadith='36'>Hadith 36</a><button class='copy-btn' onclick='copyHadith(this,"[41:36]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='36'><td class='label'>English</td><td lang='en'>It was narrated that Ibn'Abbas said:"It reached 'Umar that Samurah had sold some wine, and he said: 'May Allah ruin Samurah! Does he not know that the Messenger of Allah said: May Allah curse the Jews, for animal fat was forbidden to them, but they rendered it.' Sufyan (one of the narrators) said: "Meaning: They melted it down</td></tr>
+<tr class='hadith-ar' data-hadith='36'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، قَالَ أَنْبَأَنَا سُفْيَانُ، عَنْ عَمْرٍو، عَنْ طَاوُسٍ، عَنِ ابْنِ عَبَّاسٍ، قَالَ أُبْلِغَ عُمَرُ أَنَّ سَمُرَةَ، بَاعَ خَمْرًا قَالَ قَاتَلَ اللَّهُ سَمُرَةَ أَلَمْ يَعْلَمْ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ قَاتَلَ اللَّهُ الْيَهُودَ حُرِّمَتْ عَلَيْهِمُ الشُّحُومُ فَجَمَّلُوهَا ‏"‏ ‏.‏ قَالَ سُفْيَانُ يَعْنِي أَذَابُوهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='37' id='h-4258'><td colspan='2'>[41:37] <a class='permalink' href='#h-4258' data-hadith='37'>Hadith 37</a><button class='copy-btn' onclick='copyHadith(this,"[41:37]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='37'><td class='label'>English</td><td lang='en'>It was narrated from Ibn 'Abbas, form Maimunah, that:a mouse fell into some cooking fat and died. The Prophet was asked (about that) and he said: "Throw it away, and whatever is around it, and eat (the rest)</td></tr>
+<tr class='hadith-ar' data-hadith='37'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا قُتَيْبَةُ، قَالَ حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنِ ابْنِ عَبَّاسٍ، عَنْ مَيْمُونَةَ، أَنَّ فَأْرَةً، وَقَعَتْ، فِي سَمْنٍ فَمَاتَتْ فَسُئِلَ النَّبِيُّ صلى الله عليه وسلم فَقَالَ ‏ "‏ أَلْقُوهَا وَمَا حَوْلَهَا وَكُلُوهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='38' id='h-4259'><td colspan='2'>[41:38] <a class='permalink' href='#h-4259' data-hadith='38'>Hadith 38</a><button class='copy-btn' onclick='copyHadith(this,"[41:38]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='38'><td class='label'>English</td><td lang='en'>It was narrated from Ibn' Abbas, from Maimunah, that:the Prophet was asked about a mouse that had fallen into some solid cooking fat. He said. "Take it, and whatever is around it, and throw it away</td></tr>
+<tr class='hadith-ar' data-hadith='38'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا يَعْقُوبُ بْنُ إِبْرَاهِيمَ الدَّوْرَقِيُّ، وَمُحَمَّدُ بْنُ يَحْيَى بْنِ عَبْدِ اللَّهِ النَّيْسَابُورِيُّ، عَنْ عَبْدِ الرَّحْمَنِ، عَنْ مَالِكٍ، عَنِ الزُّهْرِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنِ ابْنِ عَبَّاسٍ، عَنْ مَيْمُونَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم سُئِلَ عَنْ فَأْرَةٍ وَقَعَتْ فِي سَمْنٍ جَامِدٍ فَقَالَ ‏ "‏ خُذُوهَا وَمَا حَوْلَهَا فَأَلْقُوهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='39' id='h-4260'><td colspan='2'>[41:39] <a class='permalink' href='#h-4260' data-hadith='39'>Hadith 39</a><button class='copy-btn' onclick='copyHadith(this,"[41:39]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='39'><td class='label'>English</td><td lang='en'>It was narrated from Ibn' Abbas, from Maimunah, that:the Prophet was asked about a mouse that fell into the cooking fat. He said: "If it (the fat) is solid, then throw it away, and whatever is around it. If it is liquid then do not use it at all."(Daif)</td></tr>
+<tr class='hadith-ar' data-hadith='39'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا خُشَيْشُ بْنُ أَصْرَمَ، قَالَ حَدَّثَنَا عَبْدُ الرَّزَّاقِ، قَالَ أَخْبَرَنِي عَبْدُ الرَّحْمَنِ بْنُ بُؤْذُويَةَ، أَنَّ مَعْمَرًا، ذَكَرَهُ عَنِ الزُّهْرِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنِ ابْنِ عَبَّاسٍ، عَنْ مَيْمُونَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ سُئِلَ عَنِ الْفَأْرَةِ تَقَعُ فِي السَّمْنِ فَقَالَ ‏ "‏ إِنْ كَانَ جَامِدًا فَأَلْقُوهَا وَمَا حَوْلَهَا وَإِنْ كَانَ مَائِعًا فَلاَ تَقْرَبُوهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='40' id='h-4261'><td colspan='2'>[41:40] <a class='permalink' href='#h-4261' data-hadith='40'>Hadith 40</a><button class='copy-btn' onclick='copyHadith(this,"[41:40]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='40'><td class='label'>English</td><td lang='en'>Ibn ' Abbas said:" I heard Sa'eed bin Jubair say: 'The Messenger of Allah passed by a dead goat and said: "Why didn't the owners of this sheep makes use of its skin?</td></tr>
+<tr class='hadith-ar' data-hadith='40'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا سَلَمَةُ بْنُ أَحْمَدَ بْنِ سُلَيْمِ بْنِ عُثْمَانَ الْفَوْزِيُّ، قَالَ حَدَّثَنَا جَدِّي الْخَطَّابُ، قَالَ حَدَّثَنَا مُحَمَّدُ بْنُ حِمْيَرٍ، قَالَ حَدَّثَنَا ثَابِتُ بْنُ عَجْلاَنَ، قَالَ سَمِعْتُ سَعِيدَ بْنَ جُبَيْرٍ، يَقُولُ سَمِعْتُ ابْنَ عَبَّاسٍ، يَقُولُ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم مَرَّ بِعَنْزٍ مَيِّتَةٍ فَقَالَ ‏ "‏ مَا كَانَ عَلَى أَهْلِ هَذِهِ الشَّاةِ لَوِ انْتَفَعُوا بِإِهَابِهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='41' id='h-4262'><td colspan='2'>[41:41] <a class='permalink' href='#h-4262' data-hadith='41'>Hadith 41</a><button class='copy-btn' onclick='copyHadith(this,"[41:41]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='41'><td class='label'>English</td><td lang='en'>It was narrated from Abu Sa'eed Al-Khudri that the Prophet said:"If a fly falls into the vessel of one of you, let him dip it in</td></tr>
+<tr class='hadith-ar' data-hadith='41'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>أَخْبَرَنَا عَمْرُو بْنُ عَلِيٍّ، قَالَ حَدَّثَنَا يَحْيَى، قَالَ حَدَّثَنَا ابْنُ أَبِي ذِئْبٍ، قَالَ حَدَّثَنِي سَعِيدُ بْنُ خَالِدٍ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ إِذَا وَقَعَ الذُّبَابُ فِي إِنَاءِ أَحَدِكُمْ فَلْيَمْقُلْهُ ‏"‏ ‏.‏</td></tr>
+</tbody></table></div>
+<nav class='chapter-nav'><span><a href='book-40.html'>&laquo; Book 40</a></span><span><a href='book-42.html'>Book 42 &raquo;</a></span></nav>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+<script>
+(function(){
+  var CF_KEY='hadith-cf';
+  var FS_KEY='hfs';
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxHadith=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxHadith;
+  var enabledTypes=new Set();
+
+  /* ---- Default content filter prefs ---- */
+  var DEFAULTS={'hadith-en':true,'hadith-ar':true,};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem(CF_KEY);if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=DEFAULTS.hasOwnProperty(key)?DEFAULTS[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem(CF_KEY,JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var h=+tr.dataset.hadith;
+      var inRange=(h>=vcFrom&&h<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxHadith;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxHadith;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+
+  /* ---- Scroll to #h-N anchor ---- */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-highlight');
+          setTimeout(function(){el.classList.remove('hadith-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
+
+  /* ---- Font size control ---- */
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy hadith ---- */
+  window.copyHadith=function(btn,ref){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+ref+']'];
+    if(tbod){
+      var hid=row.dataset.hadith;
+      tbod.querySelectorAll('tr[data-hadith="'+hid+'"]').forEach(function(tr){
+        if(tr.classList.contains('hadith-sep'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#h-'+a.dataset.hadith;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#h-'+a.dataset.hadith);
+    });
+  });
+})();
+</script>
+</body>
+</html>

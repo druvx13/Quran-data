@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search &ndash; Hadith</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+.search-box{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.search-box input[type=text]{flex:1;min-width:160px;padding:9px 12px;border:1px solid #ccd6e0;border-radius:4px;font-size:1em;color:#111}
+.search-box input[type=text]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:9px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:1em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.search-filter{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.search-filter label{font-size:.9em;color:#555}
+.search-filter select{padding:6px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;color:#111;background:#fff}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.9em;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:6px 12px;font-size:.95em}
+.result-field.hadith-en{background:#fff}
+.result-field.hadith-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-field.hadith-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+.result-highlight{background:#fff176;border-radius:2px}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-current{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pagination .pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+@media(prefers-color-scheme:dark){
+  .search-box input[type=text]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .search-filter select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .search-filter label{color:#aaa}
+  #search-status{color:#aaa}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-field.hadith-en{background:#1a1a1a;color:#e8e8e8}
+  .result-field.hadith-ar{background:#2a2010;color:#e8e8e8}
+  .result-field.hadith-hi{background:#1e1530;color:#b39ddb}
+  .result-highlight{background:#4a4200}
+  .pagination button{background:#1a3a5c;color:#fff}
+  .pagination button:disabled{background:#333;color:#888}
+  .pagination .pg-current{background:#ffd54f;color:#1a3a5c}
+}
+
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Qurʼan</a> | <a href='index.html'>&#128209; Hadith</a> | <strong>&#128269; Search</strong></header>
+<main>
+<h1>&#128269; Search Hadith Collections</h1>
+<div class="search-box">
+  <input type="text" id="q" placeholder="e.g. mercy, prayer, fasting&hellip;" autofocus autocomplete="off" spellcheck="false">
+  <button onclick="doSearch()">Search</button>
+</div>
+<div class="search-filter">
+  <label for="coll-select">Collection:</label>
+  <select id="coll-select">
+    <option value="">All collections</option>
+    <option value='bukhari'>Sahih al-Bukhari</option>
+    <option value='muslim'>Sahih Muslim</option>
+    <option value='abudawud'>Sunan Abu Dawud</option>
+    <option value='tirmidhi'>Jamiʼ at-Tirmidhi</option>
+    <option value='ibnmajah'>Sunan Ibn Majah</option>
+    <option value='nasai'>Sunan an-Nasaʼi</option>
+    <option value='malik'>Muwatta Malik</option>
+    <option value='nawawi'>Forty Hadith of an-Nawawi</option>
+    <option value='qudsi'>Forty Hadith Qudsi</option>
+    <option value='dehlawi'>Forty Hadith of Shah Waliullah Dehlawi</option>
+  </select>
+</div>
+<div id="search-status"></div>
+<div id="results"></div>
+<div id="pagination"></div>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../index.html">&#8962; Qur&#x02BC;an Index</a></footer>
+<script>
+(function(){
+  var PAGE_SIZE=20;
+  var COLLECTIONS=[{"id": "bukhari", "name": "Sahih al-Bukhari", "large": true}, {"id": "muslim", "name": "Sahih Muslim", "large": true}, {"id": "abudawud", "name": "Sunan Abu Dawud", "large": true}, {"id": "tirmidhi", "name": "Jamiʼ at-Tirmidhi", "large": true}, {"id": "ibnmajah", "name": "Sunan Ibn Majah", "large": true}, {"id": "nasai", "name": "Sunan an-Nasaʼi", "large": true}, {"id": "malik", "name": "Muwatta Malik", "large": true}, {"id": "nawawi", "name": "Forty Hadith of an-Nawawi", "large": false}, {"id": "qudsi", "name": "Forty Hadith Qudsi", "large": false}, {"id": "dehlawi", "name": "Forty Hadith of Shah Waliullah Dehlawi", "large": false}];
+  var allMatches=[];
+  var currentPage=1;
+  var currentTerms=[];
+  var input=document.getElementById('q');
+  var statusEl=document.getElementById('search-status');
+  var resultsEl=document.getElementById('results');
+  var paginEl=document.getElementById('pagination');
+  var collSelect=document.getElementById('coll-select');
+
+  var metaCache={};
+  var enCache={};
+  var arCache={};
+  var hiCache={};
+  var _pending={};
+
+  function fetchJson(url){
+    if(!_pending[url]){
+      _pending[url]=fetch(url).then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status+' ('+url+')');
+        return r.json();
+      }).catch(function(){return [];});
+    }
+    return _pending[url];
+  }
+
+  function loadColl(cid){
+    var ps=[];
+    if(!metaCache[cid])ps.push(fetchJson('sd/'+cid+'-meta.json').then(function(d){metaCache[cid]=d;}));
+    if(!enCache[cid])ps.push(fetchJson('sd/'+cid+'-en.json').then(function(d){enCache[cid]=d;}));
+    if(!arCache[cid])ps.push(fetchJson('sd/'+cid+'-ar.json').then(function(d){arCache[cid]=d;}));
+    if(cid==='nawawi'&&!hiCache[cid])ps.push(fetchJson('sd/nawawi-hi.json').then(function(d){hiCache[cid]=d;}));
+    return Promise.all(ps);
+  }
+
+  function makeHref(cid,isLarge,bookNum,hadithnumber){
+    if(isLarge)return cid+'/book-'+bookNum+'.html#h-'+hadithnumber;
+    return cid+'.html#h-'+hadithnumber;
+  }
+
+  function escHtml(s){
+    return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function highlight(text,terms){
+    var e=escHtml(text);
+    terms.forEach(function(t){
+      if(!t)return;
+      var re=new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+      e=e.replace(re,'<mark class="result-highlight">$1</mark>');
+    });
+    return e;
+  }
+
+  function renderPage(page){
+    var total=allMatches.length;
+    var totalPages=Math.ceil(total/PAGE_SIZE);
+    if(page<1)page=1;
+    if(page>totalPages)page=totalPages;
+    currentPage=page;
+    var start=(page-1)*PAGE_SIZE;
+    var end=Math.min(start+PAGE_SIZE,total);
+    statusEl.textContent='Showing '+(start+1)+'–'+end+' of '+total+' result(s) for “'+input.value.trim()+'”';
+    var html='';
+    for(var i=start;i<end;i++){
+      var m=allMatches[i];
+      var cname=m.cname;
+      var refLabel='['+m.ref+']';
+      var href=makeHref(m.cid,m.large,m.book,m.hnum);
+      html+='<div class="result-card">'
+        +'<div class="result-header"><span>'+escHtml(cname)+' &mdash; '+refLabel+' &mdash; '+escHtml(m.bname)+'</span>'
+        +'<a href="'+href+'">View &rarr;</a></div>';
+      var en=enCache[m.cid]&&enCache[m.cid][m.idx]||'';
+      var ar=arCache[m.cid]&&arCache[m.cid][m.idx]||'';
+      var hi=(m.cid==='nawawi'&&hiCache[m.cid]&&hiCache[m.cid][m.idx])||'';
+      if(en)html+='<div class="result-field hadith-en">'+highlight(en,currentTerms)+'</div>';
+      if(ar)html+='<div class="result-field hadith-ar">'+highlight(ar,currentTerms)+'</div>';
+      if(hi)html+='<div class="result-field hadith-hi">'+highlight(hi,currentTerms)+'</div>';
+      html+='</div>';
+    }
+    resultsEl.innerHTML=html;
+    var pgHtml='';
+    if(totalPages>1){
+      pgHtml+='<div class="pagination">';
+      pgHtml+='<button onclick="goPage('+(page-1)+')"'+(page<=1?' disabled':'')+'>&laquo; Prev</button>';
+      var pStart=Math.max(1,page-3),pEnd=Math.min(totalPages,page+3);
+      if(pStart>1){pgHtml+='<button onclick="goPage(1)">1</button>';if(pStart>2)pgHtml+='<span class="pg-ellipsis">&hellip;</span>';}
+      for(var p=pStart;p<=pEnd;p++){
+        if(p===page)pgHtml+='<button class="pg-current" disabled>'+p+'</button>';
+        else pgHtml+='<button onclick="goPage('+p+')">'+p+'</button>';
+      }
+      if(pEnd<totalPages){if(pEnd<totalPages-1)pgHtml+='<span class="pg-ellipsis">&hellip;</span>';pgHtml+='<button onclick="goPage('+totalPages+')">'+totalPages+'</button>';}
+      pgHtml+='<button onclick="goPage('+(page+1)+')"'+(page>=totalPages?' disabled':'')+'>Next &raquo;</button>';
+      pgHtml+='</div>';
+    }
+    paginEl.innerHTML=pgHtml;
+  }
+
+  window.goPage=function(page){
+    renderPage(page);
+    resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  window.doSearch=function(){
+    var q=input.value.trim();
+    if(!q){resultsEl.innerHTML='';statusEl.textContent='';paginEl.innerHTML='';allMatches=[];return;}
+    currentTerms=q.toLowerCase().split(/\s+/).filter(Boolean);
+    var filterCid=collSelect?collSelect.value:'';
+    statusEl.textContent='Loading…';
+    resultsEl.innerHTML='';
+    paginEl.innerHTML='';
+    var toLoad=filterCid?COLLECTIONS.filter(function(c){return c.id===filterCid;}):COLLECTIONS;
+    Promise.all(toLoad.map(function(c){return loadColl(c.id);})).then(function(){
+      allMatches=[];
+      toLoad.forEach(function(c){
+        var meta=metaCache[c.id]||[];
+        var enArr=enCache[c.id]||[];
+        var arArr=arCache[c.id]||[];
+        var hiArr=(c.id==='nawawi'&&hiCache[c.id])||[];
+        for(var i=0;i<meta.length;i++){
+          var row=meta[i];
+          var hnum=row[0],book=row[1],ref=row[2],bname=row[3];
+          var en=enArr[i]||'';
+          var ar=arArr[i]||'';
+          var hi=hiArr[i]||'';
+          var haystack=(en+' '+ar+' '+hi+' '+bname+' '+c.name).toLowerCase();
+          if(currentTerms.every(function(t){return haystack.indexOf(t)!==-1;})){
+            allMatches.push({cid:c.id,cname:c.name,large:c.large,hnum:hnum,book:book,ref:ref,bname:bname,idx:i});
+          }
+        }
+      });
+      if(allMatches.length===0){statusEl.textContent='No results found.';resultsEl.innerHTML='';paginEl.innerHTML='';return;}
+      renderPage(1);
+    }).catch(function(err){statusEl.textContent='Error loading search data.';console.error(err);});
+  };
+
+  input.addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
+  var params=new URLSearchParams(location.search);
+  var qs=params.get('q');
+  if(qs){input.value=qs;doSearch();}
+
+  /* Scroll-to-top */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=window.scrollY>400?'flex':'none';},{passive:true});
+})();
+</script>
+</body>
+</html>

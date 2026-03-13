@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sahih Muslim — Book 25: The Book of Wills">
+<title>Sahih Muslim — Book 25: The Book of Wills</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <a href='index.html'>Sahih Muslim</a> | <select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Book'><option value=''>Jump to Book…</option><option value='book-0.html'>0. Introduction</option><option value='book-1.html'>1. The Book of Faith</option><option value='book-2.html'>2. The Book of Purification</option><option value='book-3.html'>3. The Book of Menstruation</option><option value='book-4.html'>4. The Book of Prayers </option><option value='book-5.html'>5. The Book of Mosques and Places of Prayer</option><option value='book-6.html'>6. The Book of Prayer - Travellers</option><option value='book-7.html'>7. The Book of Prayer - Friday</option><option value='book-8.html'>8. The Book of Prayer - Two Eids</option><option value='book-9.html'>9. The Book of Prayer - Rain</option><option value='book-10.html'>10. The Book of Prayer - Eclipses</option><option value='book-11.html'>11. The Book of Prayer - Funerals</option><option value='book-12.html'>12. The Book of Zakat</option><option value='book-13.html'>13. The Book of Fasting </option><option value='book-14.html'>14. The Book of I'tikaf</option><option value='book-15.html'>15. The Book of Pilgrimage</option><option value='book-16.html'>16. The Book of Marriage</option><option value='book-17.html'>17. The Book of Suckling</option><option value='book-18.html'>18. The Book of Divorce </option><option value='book-19.html'>19. The Book of Invoking Curses</option><option value='book-20.html'>20. The Book of Emancipating Slaves</option><option value='book-21.html'>21. The Book of Transactions</option><option value='book-22.html'>22. The Book of Musaqah</option><option value='book-23.html'>23. The Book of the Rules of Inheritance</option><option value='book-24.html'>24. The Book of Gifts</option><option value='book-25.html' selected>25. The Book of Wills</option><option value='book-26.html'>26. The Book of Vows</option><option value='book-27.html'>27. The Book of Oaths</option><option value='book-28.html'>28. The Book of Oaths, Muharibin, Qasas (Retaliation), and Diyat (Blood Money)</option><option value='book-29.html'>29. The Book of Legal Punishments</option><option value='book-30.html'>30. The Book of Judicial Decisions</option><option value='book-31.html'>31. The Book of Lost Property</option><option value='book-32.html'>32. The Book of Jihad and Expeditions</option><option value='book-33.html'>33. The Book on Government</option><option value='book-34.html'>34. The Book of Hunting, Slaughter, and what may be Eaten</option><option value='book-35.html'>35. The Book of Sacrifices</option><option value='book-36.html'>36. The Book of Drinks</option><option value='book-37.html'>37. The Book of Clothes and Adornment</option><option value='book-38.html'>38. The Book of Manners and Etiquette</option><option value='book-39.html'>39. The Book of Greetings</option><option value='book-40.html'>40. The Book Concerning the Use of Correct Words</option><option value='book-41.html'>41. The Book of Poetry</option><option value='book-42.html'>42. The Book of Dreams</option><option value='book-43.html'>43. The Book of Virtues</option><option value='book-44.html'>44. The Book of the Merits of the Companions</option><option value='book-45.html'>45. The Book of Virtue, Enjoining Good Manners, and Joining of the Ties of Kinship</option><option value='book-46.html'>46. The Book of Destiny</option><option value='book-47.html'>47. The Book of Knowledge</option><option value='book-48.html'>48. The Book Pertaining to the Remembrance of Allah, Supplication, Repentance and Seeking Forgiveness </option><option value='book-49.html'>49. The Book of Heart-Melting Traditions</option><option value='book-50.html'>50. The Book of Repentance</option><option value='book-51.html'>51. Characteristics of The Hypocrites And Rulings Concerning Them</option><option value='book-52.html'>52. Characteristics of the Day of Judgment, Paradise, and Hell</option><option value='book-53.html'>53. The Book of Paradise, its Description, its Bounties and its Inhabitants</option><option value='book-54.html'>54. The Book of Tribulations and Portents of the Last Hour</option><option value='book-55.html'>55. The Book of Zuhd and Softening of Hearts </option><option value='book-56.html'>56. The Book of Commentary on the Qur'an</option></select> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Sahih Muslim — Book 25: The Book of Wills</h1>
+<noscript><p class="noscript-warn">&#9888; The Hadith Filter requires JavaScript. All hadiths are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='31' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='31' value='31'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='hadith-en'><label for='cf-0'>English</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='hadith-ar'><label for='cf-1'>Arabic</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Sahih Muslim &mdash; Book 25: The Book of Wills</th></tr></thead><tbody>
+<tr class='hadith-sep' data-hadith='1' id='h-4204'><td colspan='2'>[25:1] <a class='permalink' href='#h-4204' data-hadith='1'>Hadith 1</a><button class='copy-btn' onclick='copyHadith(this,"[25:1]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='1'><td class='label'>English</td><td lang='en'>Ibn Umar (Allah be pleased with them) reported Allah's Messenger (ﷺ) as saying:It is the duty of a Muslim who has something which is to be given as a bequest not to have it for two nights without having his will written down regarding it</td></tr>
+<tr class='hadith-ar' data-hadith='1'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو خَيْثَمَةَ، زُهَيْرُ بْنُ حَرْبٍ وَمُحَمَّدُ بْنُ الْمُثَنَّى الْعَنَزِيُّ - وَاللَّفْظُ لاِبْنِ الْمُثَنَّى - قَالاَ حَدَّثَنَا يَحْيَى، - وَهُوَ ابْنُ سَعِيدٍ الْقَطَّانُ - عَنْ عُبَيْدِ اللَّهِ، أَخْبَرَنِي نَافِعٌ، عَنِ ابْنِ، عُمَرَ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ مَا حَقُّ امْرِئٍ مُسْلِمٍ لَهُ شَىْءٌ يُرِيدُ أَنْ يُوصِيَ فِيهِ يَبِيتُ لَيْلَتَيْنِ إِلاَّ وَوَصِيَّتُهُ مَكْتُوبَةٌ عِنْدَهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='2' id='h-4205'><td colspan='2'>[25:2] <a class='permalink' href='#h-4205' data-hadith='2'>Hadith 2</a><button class='copy-btn' onclick='copyHadith(this,"[25:2]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='2'><td class='label'>English</td><td lang='en'>This hadith has been narrated on the authority of 'Ubaidullah with the same chain of transmitters. but with a slight variation of words</td></tr>
+<tr class='hadith-ar' data-hadith='2'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَبْدَةُ بْنُ سُلَيْمَانَ، وَعَبْدُ اللَّهِ بْنُ نُمَيْرٍ، ح وَحَدَّثَنَا ابْنُ نُمَيْرٍ، حَدَّثَنِي أَبِي كِلاَهُمَا، عَنْ عُبَيْدِ اللَّهِ، بِهَذَا الإِسْنَادِ غَيْرَ أَنَّهُمَا قَالاَ ‏"‏ وَلَهُ شَىْءٌ يُوصِي فِيهِ ‏"‏ ‏.‏ وَلَمْ يَقُولاَ ‏"‏ يُرِيدُ أَنْ يُوصِيَ فِيهِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='3' id='h-4206'><td colspan='2'>[25:3] <a class='permalink' href='#h-4206' data-hadith='3'>Hadith 3</a><button class='copy-btn' onclick='copyHadith(this,"[25:3]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='3'><td class='label'>English</td><td lang='en'>A hadith like this have been narrated on the authority of Nafi', who based his narrations of the words of Ibn 'Umar but with a slight variation of words</td></tr>
+<tr class='hadith-ar' data-hadith='3'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنَا أَبُو كَامِلٍ الْجَحْدَرِيُّ، حَدَّثَنَا حَمَّادٌ يَعْنِي ابْنَ زَيْدٍ، ح وَحَدَّثَنِي زُهَيْرُ بْنُ، حَرْبٍ حَدَّثَنَا إِسْمَاعِيلُ، - يَعْنِي ابْنَ عُلَيَّةَ - كِلاَهُمَا عَنْ أَيُّوبَ، ح وَحَدَّثَنِي أَبُو الطَّاهِرِ، أَخْبَرَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي يُونُسُ، ح وَحَدَّثَنِي هَارُونُ بْنُ سَعِيدٍ الأَيْلِيُّ، حَدَّثَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي أُسَامَةُ بْنُ زَيْدٍ اللَّيْثِيُّ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ رَافِعٍ، حَدَّثَنَا ابْنُ أَبِي فُدَيْكٍ، أَخْبَرَنَا هِشَامٌ، - يَعْنِي ابْنَ سَعْدٍ - كُلُّهُمْ عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ بِمِثْلِ حَدِيثِ عُبَيْدِ اللَّهِ وَقَالُوا جَمِيعًا ‏"‏ لَهُ شَىْءٌ يُوصِي فِيهِ ‏"‏ ‏.‏ إِلاَّ فِي حَدِيثِ أَيُّوبَ فَإِنَّهُ قَالَ ‏"‏ يُرِيدُ أَنْ يُوصِيَ فِيهِ ‏"‏ ‏.‏ كَرِوَايَةِ يَحْيَى عَنْ عُبَيْدِ اللَّهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='4' id='h-4207'><td colspan='2'>[25:4] <a class='permalink' href='#h-4207' data-hadith='4'>Hadith 4</a><button class='copy-btn' onclick='copyHadith(this,"[25:4]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='4'><td class='label'>English</td><td lang='en'>Salim reported on the authority of his father ('Abdullah b. Umar) that he (his father) had heard Allah's Messenger (ﷺ) as saying:It is not proper for a Muslim who has got something to bequeathe to spend even three nights without having his will written down with him regarding it. 'Abdullah b. 'Umar (Allah be pleased with them) said: Ever since I heard Allah's Messenger (ﷺ) say this I have not spent a night without having my will (written) along with me</td></tr>
+<tr class='hadith-ar' data-hadith='4'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا هَارُونُ بْنُ مَعْرُوفٍ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ، أَخْبَرَنِي عَمْرٌو، - وَهْوَ ابْنُ الْحَارِثِ - عَنِ ابْنِ شِهَابٍ، عَنْ سَالِمٍ، عَنْ أَبِيهِ، أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ مَا حَقُّ امْرِئٍ مُسْلِمٍ لَهُ شَىْءٌ يُوصِي فِيهِ يَبِيتُ ثَلاَثَ لَيَالٍ إِلاَّ وَوَصِيَّتُهُ عِنْدَهُ مَكْتُوبَةٌ ‏"‏ ‏.‏ قَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ مَا مَرَّتْ عَلَىَّ لَيْلَةٌ مُنْذُ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ذَلِكَ إِلاَّ وَعِنْدِي وَصِيَّتِي ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='5' id='h-4208'><td colspan='2'>[25:5] <a class='permalink' href='#h-4208' data-hadith='5'>Hadith 5</a><button class='copy-btn' onclick='copyHadith(this,"[25:5]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='5'><td class='label'>English</td><td lang='en'>This hadith has been narrated on the authority of Zuhri with the same chain of transmitters</td></tr>
+<tr class='hadith-ar' data-hadith='5'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِيهِ أَبُو الطَّاهِرِ، وَحَرْمَلَةُ، قَالاَ أَخْبَرَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي يُونُسُ، ح وَحَدَّثَنِي عَبْدُ الْمَلِكِ بْنُ شُعَيْبِ بْنِ اللَّيْثِ، حَدَّثَنِي أَبِي، عَنْ جَدِّي، حَدَّثَنِي عُقَيْلٌ، ح وَحَدَّثَنَا ابْنُ أَبِي عُمَرَ، وَعَبْدُ بْنُ حُمَيْدٍ قَالاَ حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، كُلُّهُمْ عَنِ الزُّهْرِيِّ، بِهَذَا الإِسْنَادِ ‏.‏ نَحْوَ حَدِيثِ عَمْرِو بْنِ الْحَارِثِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='6' id='h-4209'><td colspan='2'>[25:6] <a class='permalink' href='#h-4209' data-hadith='6'>Hadith 6</a><button class='copy-btn' onclick='copyHadith(this,"[25:6]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='6'><td class='label'>English</td><td lang='en'>Amir b. Sa'd reported on the authority of his father (Sa'd b. Abi Waqqas):Allah's Messenger (ﷺ) visited me in my illness which brought me near death in the year of Hajjat-ul-Wada' (Farewell Pilgrimage). I said: Allah's Messenger, you can well see the pain with which I am afflicted and I am a man possessing wealth, and there is none to inherit me except only one daughter. Should I give two-thirds of my property as Sadaqa? He said: No. I said: Should I give half (of my property) as Sadaqa? He said: No. He (further) said: Give one-third (in charity) and that is quite enough. To leave your heirs rich is better than to leave them poor, begging from people; that you would never incur an expense seeking therewith the pleasure of Allah, but you would be rewarded therefor, even for a morsel of food that you put in the mouth of your wife. I said: Allah's Messenger. would I survive my companions? He (the Holy Prophet) said: If you survive them, then do such a deed by means of which you seek the pleasure of Allah, but you would increase in your status (in religion) and prestige; you may survive so that people would benefit from you, and others would be harmed by you. (The Holy Prophet) further said: Allah, complete for my Companions their migration, and not cause them to turn back upon their heels. Sa'd b. Khaula is, however, unfortunate. Allah's Messenger (ﷺ) felt grief for him as he had died in Mecca</td></tr>
+<tr class='hadith-ar' data-hadith='6'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ يَحْيَى التَّمِيمِيُّ، أَخْبَرَنَا إِبْرَاهِيمُ بْنُ سَعْدٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عَامِرِ بْنِ سَعْدٍ، عَنْ أَبِيهِ، قَالَ عَادَنِي رَسُولُ اللَّهِ صلى الله عليه وسلم فِي حَجَّةِ الْوَدَاعِ مِنْ وَجَعٍ أَشْفَيْتُ مِنْهُ عَلَى الْمَوْتِ فَقُلْتُ يَا رَسُولَ اللَّهِ بَلَغَنِي مَا تَرَى مِنَ الْوَجَعِ وَأَنَا ذُو مَالٍ وَلاَ يَرِثُنِي إِلاَّ ابْنَةٌ لِي وَاحِدَةٌ أَفَأَتَصَدَّقُ بِثُلُثَىْ مَالِي قَالَ ‏"‏ لاَ ‏"‏ ‏.‏ قَالَ قُلْتُ أَفَأَتَصَدَّقُ بِشَطْرِهِ قَالَ ‏"‏ لاَ الثُّلُثُ وَالثُّلُثُ كَثِيرٌ إِنَّكَ أَنْ تَذَرَ وَرَثَتَكَ أَغْنِيَاءَ خَيْرٌ مِنْ أَنْ تَذَرَهُمْ عَالَةً يَتَكَفَّفُونَ النَّاسَ وَلَسْتَ تُنْفِقُ نَفَقَةً تَبْتَغِي بِهَا وَجْهَ اللَّهِ إِلاَّ أُجِرْتَ بِهَا حَتَّى اللُّقْمَةُ تَجْعَلُهَا فِي فِي امْرَأَتِكَ ‏"‏ ‏.‏ قَالَ قُلْتُ يَا رَسُولَ اللَّهِ أُخَلَّفُ بَعْدَ أَصْحَابِي قَالَ ‏"‏ إِنَّكَ لَنْ تُخَلَّفَ فَتَعْمَلَ عَمَلاً تَبْتَغِي بِهِ وَجْهَ اللَّهِ إِلاَّ ازْدَدْتَ بِهِ دَرَجَةً وَرِفْعَةً وَلَعَلَّكَ تُخَلَّفُ حَتَّى يُنْفَعَ بِكَ أَقْوَامٌ وَيُضَرَّ بِكَ آخَرُونَ اللَّهُمَّ أَمْضِ لأَصْحَابِي هِجْرَتَهُمْ وَلاَ تَرُدَّهُمْ عَلَى أَعْقَابِهِمْ لَكِنِ الْبَائِسُ سَعْدُ ابْنُ خَوْلَةَ ‏"‏ ‏.‏ قَالَ رَثَى لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم مِنْ أَنْ تُوُفِّيَ بِمَكَّةَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='7' id='h-4210'><td colspan='2'>[25:7] <a class='permalink' href='#h-4210' data-hadith='7'>Hadith 7</a><button class='copy-btn' onclick='copyHadith(this,"[25:7]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='7'><td class='label'>English</td><td lang='en'>This hadith is narrated on the authority of Zuhri with the same chain of transmitters</td></tr>
+<tr class='hadith-ar' data-hadith='7'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ قَالاَ حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، ح وَحَدَّثَنِي أَبُو الطَّاهِرِ، وَحَرْمَلَةُ، قَالاَ أَخْبَرَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي يُونُسُ، ح وَحَدَّثَنَا إِسْحَاقُ، بْنُ إِبْرَاهِيمَ وَعَبْدُ بْنُ حُمَيْدٍ قَالاَ أَخْبَرَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، كُلُّهُمْ عَنِ الزُّهْرِيِّ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='8' id='h-4211'><td colspan='2'>[25:8] <a class='permalink' href='#h-4211' data-hadith='8'>Hadith 8</a><button class='copy-btn' onclick='copyHadith(this,"[25:8]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='8'><td class='label'>English</td><td lang='en'>Amir b. Sa'd reported from S'ad (b. Abu Waqqas):Allah's Apostle (ﷺ) visited me to inquire after my health, the rest of the hadith is the same as transmitted on the authority of Zuhri, but lie did not make mention of the words of Allah's Apostle (ﷺ) in regard to Sa'd b. Khaula except this that he said:" He (the Holy Prophet) did not like death in the land from which lie had migrated</td></tr>
+<tr class='hadith-ar' data-hadith='8'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي إِسْحَاقُ بْنُ مَنْصُورٍ، حَدَّثَنَا أَبُو دَاوُدَ الْحَفَرِيُّ، عَنْ سُفْيَانَ، عَنْ سَعْدِ بْنِ، إِبْرَاهِيمَ عَنْ عَامِرِ بْنِ سَعْدٍ، عَنْ سَعْدٍ، قَالَ دَخَلَ النَّبِيُّ صلى الله عليه وسلم عَلَىَّ يَعُودُنِي ‏.‏ فَذَكَرَ بِمَعْنَى حَدِيثِ الزُّهْرِيِّ وَلَمْ يَذْكُرْ قَوْلَ النَّبِيِّ صلى الله عليه وسلم فِي سَعْدِ ابْنِ خَوْلَةَ غَيْرَ أَنَّهُ قَالَ وَكَانَ يَكْرَهُ أَنْ يَمُوتَ بِالأَرْضِ الَّتِي هَاجَرَ مِنْهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='9' id='h-4212'><td colspan='2'>[25:9] <a class='permalink' href='#h-4212' data-hadith='9'>Hadith 9</a><button class='copy-btn' onclick='copyHadith(this,"[25:9]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='9'><td class='label'>English</td><td lang='en'>Mus'ab b. Sa'd reported on the authority of his father. I was ailing. I sent message to Allah's Apostle (ﷺ) saying:Permit me to give away my property as I like. He refused. I (again) said: (Permit me) to give away half. He (again refused). I (again said): Then one-third. He (the Holy Prophet) observed silence after (I had asked permission to give away) one-third. He (the narrater) said: It was then that endowment of one-third became permissible</td></tr>
+<tr class='hadith-ar' data-hadith='9'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا الْحَسَنُ بْنُ مُوسَى، حَدَّثَنَا زُهَيْرٌ، حَدَّثَنَا سِمَاكُ، بْنُ حَرْبٍ حَدَّثَنِي مُصْعَبُ بْنُ سَعْدٍ، عَنْ أَبِيهِ، قَالَ مَرِضْتُ فَأَرْسَلْتُ إِلَى النَّبِيِّ صلى الله عليه وسلم فَقُلْتُ دَعْنِي أَقْسِمْ مَالِي حَيْثُ شِئْتُ فَأَبَى ‏.‏ قُلْتُ فَالنِّصْفُ فَأَبَى ‏.‏ قُلْتُ فَالثُّلُثُ قَالَ فَسَكَتَ بَعْدَ الثُّلُثِ ‏.‏ قَالَ فَكَانَ بَعْدُ الثُّلُثُ جَائِزًا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='10' id='h-4213'><td colspan='2'>[25:10] <a class='permalink' href='#h-4213' data-hadith='10'>Hadith 10</a><button class='copy-btn' onclick='copyHadith(this,"[25:10]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='10'><td class='label'>English</td><td lang='en'>This hadith has been narrated on the authority of Simak with the same chain of transmitters. But he did not mention:" It was then that one-third became permissible</td></tr>
+<tr class='hadith-ar' data-hadith='10'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي مُحَمَّدُ بْنُ الْمُثَنَّى، وَابْنُ، بَشَّارٍ قَالاَ حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، حَدَّثَنَا شُعْبَةُ، عَنْ سِمَاكٍ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏ وَلَمْ يَذْكُرْ فَكَانَ بَعْدُ الثُّلُثُ جَائِزًا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='11' id='h-4214'><td colspan='2'>[25:11] <a class='permalink' href='#h-4214' data-hadith='11'>Hadith 11</a><button class='copy-btn' onclick='copyHadith(this,"[25:11]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='11'><td class='label'>English</td><td lang='en'>Ibn Sa'd reported his father as saying:Allah's Apostle (ﷺ) visited me during my illness. I said: I am willing away the whole of my property. He said: No. I said: Then half? He said: No. I said: Should I will away one-third? He said: Yes, and even one-third is enough</td></tr>
+<tr class='hadith-ar' data-hadith='11'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي الْقَاسِمُ بْنُ زَكَرِيَّاءَ، حَدَّثَنَا حُسَيْنُ بْنُ عَلِيٍّ، عَنْ زَائِدَةَ، عَنْ عَبْدِ الْمَلِكِ، بْنِ عُمَيْرٍ عَنْ مُصْعَبِ بْنِ سَعْدٍ، عَنْ أَبِيهِ، قَالَ عَادَنِي النَّبِيُّ صلى الله عليه وسلم فَقُلْتُ أُوصِي بِمَالِي كُلِّهِ ‏.‏ قَالَ ‏"‏ لاَ ‏"‏ ‏.‏ قُلْتُ فَالنِّصْفُ ‏.‏ قَالَ ‏"‏ لاَ ‏"‏ ‏.‏ فَقُلْتُ أَبِالثُّلُثِ فَقَالَ ‏"‏ نَعَمْ وَالثُّلُثُ كَثِيرٌ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='12' id='h-4215'><td colspan='2'>[25:12] <a class='permalink' href='#h-4215' data-hadith='12'>Hadith 12</a><button class='copy-btn' onclick='copyHadith(this,"[25:12]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='12'><td class='label'>English</td><td lang='en'>Humaid b. 'Abd al-Rahman al-Himyari reported from three of the sons of Sa'd all of whom reported from their father that Allah's Apostle (ﷺ) visited Sa'd as he was ill in Mecca. He (Sa'd) wept. He (the Holy Prophet) said:What makes you weep? He said: I am afraid I may die in the land from where I migrated as Sa'd b. Khaula had died. Thereupon Allah's Apostle (ﷺ) said: O Allah, grant health to Sa'd. O Allah, grant health to Sad. He repeated it three times. He (Sa'd) said: Allah's Messenger, I own a large property and I have only one daughter as my inheritor. Should I not will away the whole of my property? He (the Holy Prophet) said: No. He said: (Should I not will away, ) two-thirds of the property? he (the Holy Prophet) said: No. He (Sa'd) (again) said: (Should I not will away) half (of my property)? He said: No. He (Sa'd) said: Then one-third? Thereupon he (the Holy Prophet) said: (Yes), one-third, and one-third is quite substanial. And what you spend as charity from your property is Sadaqa and flour spending on your family is also Sadaqa, and what your wife eats from your property is also Sadaqa, and that you leave your heirs well off (or he said: prospreous) is better than to leave them (poor and) begging from people. He (the Holy Prophet) pointed this with his hands</td></tr>
+<tr class='hadith-ar' data-hadith='12'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ أَبِي عُمَرَ الْمَكِّيُّ، حَدَّثَنَا الثَّقَفِيُّ، عَنْ أَيُّوبَ السَّخْتِيَانِيِّ، عَنْ عَمْرِو، بْنِ سَعِيدٍ عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ الْحِمْيَرِيِّ، عَنْ ثَلاَثَةٍ، مِنْ وَلَدِ سَعْدٍ كُلُّهُمْ يُحَدِّثُهُ عَنْ أَبِيهِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم دَخَلَ عَلَى سَعْدٍ يَعُودُهُ بِمَكَّةَ فَبَكَى قَالَ ‏"‏ مَا يُبْكِيكَ ‏"‏ ‏.‏ فَقَالَ قَدْ خَشِيتُ أَنْ أَمُوتَ بِالأَرْضِ الَّتِي هَاجَرْتُ مِنْهَا كَمَا مَاتَ سَعْدُ ابْنُ خَوْلَةَ ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏"‏ اللَّهُمَّ اشْفِ سَعْدًا اللَّهُمَّ اشْفِ سَعْدًا ‏"‏ ‏.‏ ثَلاَثَ مِرَارٍ ‏.‏ قَالَ يَا رَسُولَ اللَّهِ إِنَّ لِي مَالاً كَثِيرًا وَإِنَّمَا يَرِثُنِي ابْنَتِي أَفَأُوصِي بِمَالِي كُلِّهِ قَالَ ‏"‏ لاَ ‏"‏ ‏.‏ قَالَ فَبِالثُّلُثَيْنِ قَالَ ‏"‏ لاَ ‏"‏ ‏.‏ قَالَ فَالنِّصْفُ قَالَ ‏"‏ لاَ ‏"‏ ‏.‏ قَالَ فَالثُّلُثُ قَالَ ‏"‏ الثُّلُثُ وَالثُّلُثُ كَثِيرٌ إِنَّ صَدَقَتَكَ مِنْ مَالِكَ صَدَقَةٌ وَإِنَّ نَفَقَتَكَ عَلَى عِيَالِكَ صَدَقَةٌ وَإِنَّ مَا تَأْكُلُ امْرَأَتُكَ مِنْ مَالِكَ صَدَقَةٌ وَإِنَّكَ أَنْ تَدَعَ أَهْلَكَ بِخَيْرٍ - أَوْ قَالَ بِعَيْشٍ - خَيْرٌ مِنْ أَنْ تَدَعَهُمْ يَتَكَفَّفُونَ النَّاسَ ‏"‏ ‏.‏ وَقَالَ بِيَدِهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='13' id='h-4216'><td colspan='2'>[25:13] <a class='permalink' href='#h-4216' data-hadith='13'>Hadith 13</a><button class='copy-btn' onclick='copyHadith(this,"[25:13]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='13'><td class='label'>English</td><td lang='en'>Humaid b. Abd al-Rahmin al-Himayri reported on the authority of the three of the sons of Sa'd:They said: Sa'd fell ill in Mecca. Allah's Messenger (ﷺ) visited him to inquire after his health. The rest of the hadith is the same</td></tr>
+<tr class='hadith-ar' data-hadith='13'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي أَبُو الرَّبِيعِ الْعَتَكِيُّ، حَدَّثَنَا حَمَّادٌ، حَدَّثَنَا أَيُّوبُ، عَنْ عَمْرِو بْنِ سَعِيدٍ، عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ الْحِمْيَرِيِّ، عَنْ ثَلاَثَةٍ، مِنْ وَلَدِ سَعْدٍ قَالُوا مَرِضَ سَعْدٌ بِمَكَّةَ فَأَتَاهُ رَسُولُ اللَّهِ صلى الله عليه وسلم يَعُودُهُ ‏.‏ بِنَحْوِ حَدِيثِ الثَّقَفِيِّ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='14' id='h-4217'><td colspan='2'>[25:14] <a class='permalink' href='#h-4217' data-hadith='14'>Hadith 14</a><button class='copy-btn' onclick='copyHadith(this,"[25:14]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='14'><td class='label'>English</td><td lang='en'>Humaid b. Abd al-Rahman reported this hadith on the authority of three of Sa'd's sons:Sa'd fell ill in Mecca and Allah's Apostle (ﷺ) visited him. The rest of the hadith is the same</td></tr>
+<tr class='hadith-ar' data-hadith='14'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا عَبْدُ الأَعْلَى، حَدَّثَنَا هِشَامٌ، عَنْ مُحَمَّدٍ، عَنْ حُمَيْدِ، بْنِ عَبْدِ الرَّحْمَنِ حَدَّثَنِي ثَلاَثَةٌ، مِنْ وَلَدِ سَعْدِ بْنِ مَالِكٍ كُلُّهُمْ يُحَدِّثُنِيهِ بِمِثْلِ حَدِيثِ صَاحِبِهِ فَقَالَ مَرِضَ سَعْدٌ بِمَكَّةَ فَأَتَاهُ النَّبِيُّ صلى الله عليه وسلم يَعُودُهُ ‏.‏ بِمِثْلِ حَدِيثِ عَمْرِو بْنِ سَعِيدٍ عَنْ حُمَيْدٍ الْحِمْيَرِيِّ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='15' id='h-4218'><td colspan='2'>[25:15] <a class='permalink' href='#h-4218' data-hadith='15'>Hadith 15</a><button class='copy-btn' onclick='copyHadith(this,"[25:15]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='15'><td class='label'>English</td><td lang='en'>Ibn 'Abbas (Allah be pleased with them) said:(I wish) if people would reduce from third to fourth (part for making a will of their property), for Allah's Messenger (ﷺ) said: So far as the third (part) is concerned it is quite substantial. In the hadith transmitted on the authority of Waki (the words are)" large" or" much</td></tr>
+<tr class='hadith-ar' data-hadith='15'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي إِبْرَاهِيمُ بْنُ مُوسَى الرَّازِيُّ، أَخْبَرَنَا عِيسَى يَعْنِي ابْنَ يُونُسَ، ح وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَأَبُو كُرَيْبٍ قَالاَ حَدَّثَنَا وَكِيعٌ، ح وَحَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا ابْنُ نُمَيْرٍ، كُلُّهُمْ عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنِ ابْنِ عَبَّاسٍ، قَالَ لَوْ أَنَّ النَّاسَ، غَضُّوا مِنَ الثُّلُثِ إِلَى الرُّبُعِ فَإِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏"‏ الثُّلُثُ وَالثُّلُثُ كَثِيرٌ ‏"‏ ‏.‏ وَفِي حَدِيثِ وَكِيعٍ ‏"‏ كَبِيرٌ أَوْ كَثِيرٌ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='16' id='h-4219'><td colspan='2'>[25:16] <a class='permalink' href='#h-4219' data-hadith='16'>Hadith 16</a><button class='copy-btn' onclick='copyHadith(this,"[25:16]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='16'><td class='label'>English</td><td lang='en'>Abu Huraira (Allah be pleased with him) reported that a person said to Allah's Apostle (ﷺ):My father died and left behind property without making any will regarding it. Would he be relieved of the burden of his sins if I give sadaqa on his behalf? He (the Holy Prophet) said: Yes</td></tr>
+<tr class='hadith-ar' data-hadith='16'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ، وَقُتَيْبَةُ بْنُ سَعِيدٍ، وَعَلِيُّ بْنُ حُجْرٍ، قَالُوا حَدَّثَنَا إِسْمَاعِيلُ، - وَهُوَ ابْنُ جَعْفَرٍ - عَنِ الْعَلاَءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَجُلاً، قَالَ لِلنَّبِيِّ صلى الله عليه وسلم إِنَّ أَبِي مَاتَ وَتَرَكَ مَالاً وَلَمْ يُوصِ فَهَلْ يُكَفِّرُ عَنْهُ أَنْ أَتَصَدَّقَ عَنْهُ قَالَ ‏ "‏ نَعَمْ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='17' id='h-4220'><td colspan='2'>[25:17] <a class='permalink' href='#h-4220' data-hadith='17'>Hadith 17</a><button class='copy-btn' onclick='copyHadith(this,"[25:17]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='17'><td class='label'>English</td><td lang='en'>A'isha (Allah be pleased with her) reported that a man said to Allah's Apostle (ﷺ):My mother died all of a sudden, and I think if she (could have the opportunity) to speak she would have (made a will) regarding Sadaqa'. Will I be entitled to reward if I give charity on her behalf? He (the Holy Prophet) said: Yes</td></tr>
+<tr class='hadith-ar' data-hadith='17'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، أَخْبَرَنِي أَبِي، عَنْ عَائِشَةَ، أَنَّ رَجُلاً، قَالَ لِلنَّبِيِّ صلى الله عليه وسلم إِنَّ أُمِّيَ افْتُلِتَتْ نَفْسُهَا وَإِنِّي أَظُنُّهَا لَوْ تَكَلَّمَتْ تَصَدَّقَتْ فَلِيَ أَجْرٌ أَنْ أَتَصَدَّقَ عَنْهَا قَالَ ‏ "‏ نَعَمْ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='18' id='h-4221'><td colspan='2'>[25:18] <a class='permalink' href='#h-4221' data-hadith='18'>Hadith 18</a><button class='copy-btn' onclick='copyHadith(this,"[25:18]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='18'><td class='label'>English</td><td lang='en'>A'isha (Allah be pleased with her) reported that a man came to Allah's Apostle (ﷺ) and said:Allah's Messenger, my mother died all of a sudden without making any will. I think if (she could have the opportunity) to speak she would have made a Sadaqa. Would there be any reward for her if I give charity on her behalf? He (the Holy Prophet) said: Yes</td></tr>
+<tr class='hadith-ar' data-hadith='18'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ نُمَيْرٍ، حَدَّثَنَا مُحَمَّدُ بْنُ بِشْرٍ، حَدَّثَنَا هِشَامٌ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، أَنَّ رَجُلاً، أَتَى النَّبِيَّ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ إِنَّ أُمِّيَ افْتُلِتَتْ نَفْسُهَا وَلَمْ تُوصِ وَأَظُنُّهَا لَوْ تَكَلَّمَتْ تَصَدَّقَتْ أَفَلَهَا أَجْرٌ إِنْ تَصَدَّقْتُ عَنْهَا قَالَ ‏ "‏ نَعَمْ ‏"‏</td></tr>
+<tr class='hadith-sep' data-hadith='19' id='h-4222'><td colspan='2'>[25:19] <a class='permalink' href='#h-4222' data-hadith='19'>Hadith 19</a><button class='copy-btn' onclick='copyHadith(this,"[25:19]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='19'><td class='label'>English</td><td lang='en'>This hadith has been narrated on the authority of Hisham b. 'Urwa with the same chain of transmitters</td></tr>
+<tr class='hadith-ar' data-hadith='19'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنَاهُ أَبُو كُرَيْبٍ، حَدَّثَنَا أَبُو أُسَامَةَ، ح وَحَدَّثَنِي الْحَكَمُ بْنُ مُوسَى، حَدَّثَنَا شُعَيْبُ، بْنُ إِسْحَاقَ ح وَحَدَّثَنِي أُمَيَّةُ بْنُ بِسْطَامَ، حَدَّثَنَا يَزِيدُ، - يَعْنِي ابْنَ زُرَيْعٍ - حَدَّثَنَا رَوْحٌ، - وَهُوَ ابْنُ الْقَاسِمِ - ح وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا جَعْفَرُ بْنُ عَوْنٍ، كُلُّهُمْ عَنْ هِشَامِ بْنِ عُرْوَةَ، بِهَذَا الإِسْنَادِ أَمَّا أَبُو أُسَامَةَ وَرَوْحٌ فَفِي حَدِيثِهِمَا فَهَلْ لِي أَجْرٌ كَمَا قَالَ يَحْيَى بْنُ سَعِيدٍ ‏.‏ وَأَمَّا شُعَيْبٌ وَجَعْفَرٌ فَفِي حَدِيثِهِمَا أَفَلَهَا أَجْرٌ كَرِوَايَةِ ابْنِ بِشْرٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='20' id='h-4223'><td colspan='2'>[25:20] <a class='permalink' href='#h-4223' data-hadith='20'>Hadith 20</a><button class='copy-btn' onclick='copyHadith(this,"[25:20]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='20'><td class='label'>English</td><td lang='en'>Abu Huraira (Allah be pleased with him) reported Allah's Messenger (ﷺ) as saying:When a man dies, his acts come to an end, but three, recurring charity, or knowledge (by which people) benefit, or a pious son, who prays for him (for the deceased)</td></tr>
+<tr class='hadith-ar' data-hadith='20'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ، وَقُتَيْبَةُ، - يَعْنِي ابْنَ سَعِيدٍ - وَابْنُ حُجْرٍ قَالُوا حَدَّثَنَا إِسْمَاعِيلُ، - هُوَ ابْنُ جَعْفَرٍ - عَنِ الْعَلاَءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ إِذَا مَاتَ الإِنْسَانُ انْقَطَعَ عَنْهُ عَمَلُهُ إِلاَّ مِنْ ثَلاَثَةٍ إِلاَّ مِنْ صَدَقَةٍ جَارِيَةٍ أَوْ عِلْمٍ يُنْتَفَعُ بِهِ أَوْ وَلَدٍ صَالِحٍ يَدْعُو لَهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='21' id='h-4224'><td colspan='2'>[25:21] <a class='permalink' href='#h-4224' data-hadith='21'>Hadith 21</a><button class='copy-btn' onclick='copyHadith(this,"[25:21]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='21'><td class='label'>English</td><td lang='en'>Ibn Umar reported:Umar acquired a land at Khaibar. He came to Allah's Apostle (ﷺ) and sought his advice in regard to it. He said: Allah's Messenger, I have acquired land in Khaibar. I have never acquired property more valuable for me than this, so what do you command me to do with it? Thereupon he (Allah's Apostle) said: If you like, you may keep the corpus intact and give its produce as Sadaqa. So 'Umar gave it as Sadaqa declaring that property must not be sold or inherited or given away as gift. And Umar devoted it to the poor, to the nearest kin, and to the emancipation of slaves, aired in the way of Allah and guests. There is no sin for one, who administers it if he eats something from it in a reasonable manner, or if he feeds his friends and does not hoard up goods (for himself). He (the narrator) said: I narrated this hadith to Muhammad, but as I reached the (words)" without hoarding (for himself) out of it." he (Muhammad' said:" without storing the property with a view to becoming rich." Ibn 'Aun said: He who read this book (pertaining to Waqf) informed me that in it (the words are)" without storing the property with a view to becoming rich</td></tr>
+<tr class='hadith-ar' data-hadith='21'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ يَحْيَى التَّمِيمِيُّ، أَخْبَرَنَا سُلَيْمُ بْنُ أَخْضَرَ، عَنِ ابْنِ عَوْنٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ أَصَابَ عُمَرُ أَرْضًا بِخَيْبَرَ فَأَتَى النَّبِيَّ صلى الله عليه وسلم يَسْتَأْمِرُهُ فِيهَا فَقَالَ يَا رَسُولَ اللَّهِ إِنِّي أَصَبْتُ أَرْضًا بِخَيْبَرَ لَمْ أُصِبْ مَالاً قَطُّ هُوَ أَنْفَسُ عِنْدِي مِنْهُ فَمَا تَأْمُرُنِي بِهِ قَالَ ‏ "‏ إِنْ شِئْتَ حَبَسْتَ أَصْلَهَا وَتَصَدَّقْتَ بِهَا ‏"‏ ‏.‏ قَالَ فَتَصَدَّقَ بِهَا عُمَرُ أَنَّهُ لاَ يُبَاعُ أَصْلُهَا وَلاَ يُبْتَاعُ وَلاَ يُورَثُ وَلاَ يُوهَبُ ‏.‏ قَالَ فَتَصَدَّقَ عُمَرُ فِي الْفُقَرَاءِ وَفِي الْقُرْبَى وَفِي الرِّقَابِ وَفِي سَبِيلِ اللَّهِ وَابْنِ السَّبِيلِ وَالضَّيْفِ لاَ جُنَاحَ عَلَى مَنْ وَلِيَهَا أَنْ يَأْكُلَ مِنْهَا بِالْمَعْرُوفِ أَوْ يُطْعِمَ صَدِيقًا غَيْرَ مُتَمَوِّلٍ فِيهِ ‏.‏ قَالَ فَحَدَّثْتُ بِهَذَا الْحَدِيثِ مُحَمَّدًا فَلَمَّا بَلَغْتُ هَذَا الْمَكَانَ غَيْرَ مُتَمَوِّلٍ فِيهِ ‏.‏ قَالَ مُحَمَّدٌ غَيْرَ مُتَأَثِّلٍ مَالاً ‏.‏ قَالَ ابْنُ عَوْنٍ وَأَنْبَأَنِي مَنْ قَرَأَ هَذَا الْكِتَابَ أَنَّ فِيهِ غَيْرَ مُتَأَثِّلٍ مَالاً ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='22' id='h-4225'><td colspan='2'>[25:22] <a class='permalink' href='#h-4225' data-hadith='22'>Hadith 22</a><button class='copy-btn' onclick='copyHadith(this,"[25:22]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='22'><td class='label'>English</td><td lang='en'>This hadith has been narrated on the authority of Ibn 'Aun with the same chain of transmitters up to the words:" Or he may feed the friend withoiut hoarding from it" and he made no mention of what follows</td></tr>
+<tr class='hadith-ar' data-hadith='22'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَاهُ أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا ابْنُ أَبِي زَائِدَةَ، ح وَحَدَّثَنَا إِسْحَاقُ، أَخْبَرَنَا أَزْهَرُ السَّمَّانُ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا ابْنُ أَبِي عَدِيٍّ، كُلُّهُمْ عَنِ ابْنِ عَوْنٍ، بِهَذَا الإِسْنَادِ ‏.‏ مِثْلَهُ غَيْرَ أَنَّ حَدِيثَ ابْنِ أَبِي زَائِدَةَ وَأَزْهَرَ انْتَهَى عِنْدَ قَوْلِهِ ‏ "‏ أَوْ يُطْعِمَ صَدِيقًا غَيْرَ مُتَمَوِّلٍ فِيهِ ‏"‏ ‏.‏ وَلَمْ يُذْكَرْ مَا بَعْدَهُ ‏.‏ وَحَدِيثُ ابْنِ أَبِي عَدِيٍّ فِيهِ مَا ذَكَرَ سُلَيْمٌ قَوْلُهُ فَحَدَّثْتُ بِهَذَا الْحَدِيثِ مُحَمَّدًا ‏.‏ إِلَى آخِرِهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='23' id='h-4226'><td colspan='2'>[25:23] <a class='permalink' href='#h-4226' data-hadith='23'>Hadith 23</a><button class='copy-btn' onclick='copyHadith(this,"[25:23]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='23'><td class='label'>English</td><td lang='en'>Umar reported:I acquired land from the lands of Khaibar. I came to Allah's Messenger (ﷺ) and said: I have acquired a piece of land. Never have I acquired land more loved by me and more cherished by me than this. The rest of the hadith is the same, but he made no mention of this:" I narrated it to Muhammad" and what follows</td></tr>
+<tr class='hadith-ar' data-hadith='23'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا أَبُو دَاوُدَ الْحَفَرِيُّ، عُمَرُ بْنُ سَعْدٍ عَنْ سُفْيَانَ، عَنِ ابْنِ عَوْنٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، عَنْ عُمَرَ، قَالَ أَصَبْتُ أَرْضًا مِنْ أَرْضِ خَيْبَرَ فَأَتَيْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقُلْتُ أَصَبْتُ أَرْضًا لَمْ أُصِبْ مَالاً أَحَبَّ إِلَىَّ وَلاَ أَنْفَسَ عِنْدِي مِنْهَا ‏.‏ وَسَاقَ الْحَدِيثَ بِمِثْلِ حَدِيثِهِمْ وَلَمْ يَذْكُرْ فَحَدَّثْتُ مُحَمَّدًا وَمَا بَعْدَهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='24' id='h-4227'><td colspan='2'>[25:24] <a class='permalink' href='#h-4227' data-hadith='24'>Hadith 24</a><button class='copy-btn' onclick='copyHadith(this,"[25:24]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='24'><td class='label'>English</td><td lang='en'>Talha b. Musarrif reported:I asked 'Abdullah b. Abu Aufa whether Allah's Messenger (ﷺ) had made any will (in regard to his property). He said: NO. I said: Then why has making of will been made necessary for the Muslims, or why were they commanded to make will? Thereupon he said: He made the will according to the Book of Allah, the Exalted and Majestic</td></tr>
+<tr class='hadith-ar' data-hadith='24'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ يَحْيَى التَّمِيمِيُّ، أَخْبَرَنَا عَبْدُ الرَّحْمَنِ بْنُ مَهْدِيٍّ، عَنْ مَالِكِ بْنِ مِغْوَلٍ، عَنْ طَلْحَةَ بْنِ مُصَرِّفٍ، قَالَ سَأَلْتُ عَبْدَ اللَّهِ بْنَ أَبِي أَوْفَى هَلْ أَوْصَى رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ لاَ ‏.‏ قُلْتُ فَلِمَ كُتِبَ عَلَى الْمُسْلِمِينَ الْوَصِيَّةُ أَوْ فَلِمَ أُمِرُوا بِالْوَصِيَّةِ قَالَ أَوْصَى بِكِتَابِ اللَّهِ عَزَّ وَجَلَّ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='25' id='h-4228'><td colspan='2'>[25:25] <a class='permalink' href='#h-4228' data-hadith='25'>Hadith 25</a><button class='copy-btn' onclick='copyHadith(this,"[25:25]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='25'><td class='label'>English</td><td lang='en'>This hadith has been narrated on the authority of Malik b. Mighwal with the same chain of transmitters but with a slight variation of words. In the hadith related by Waki (the words are)" I said:How the people have been ordered about the will" ; and in the hadith of Ibn Numair (the words are):" How the will has been prescribed for the Muslims</td></tr>
+<tr class='hadith-ar' data-hadith='25'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنَاهُ أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا وَكِيعٌ، ح وَحَدَّثَنَا ابْنُ نُمَيْرٍ، حَدَّثَنَا أَبِي، كِلاَهُمَا عَنْ مَالِكِ بْنِ مِغْوَلٍ، بِهَذَا الإِسْنَادِ ‏.‏ مِثْلَهُ غَيْرَ أَنَّ فِي حَدِيثِ وَكِيعٍ قُلْتُ فَكَيْفَ أُمِرَ النَّاسُ بِالْوَصِيَّةِ وَفِي حَدِيثِ ابْنِ نُمَيْرٍ قُلْتُ كَيْفَ كُتِبَ عَلَى الْمُسْلِمِينَ الْوَصِيَّةُ</td></tr>
+<tr class='hadith-sep' data-hadith='26' id='h-4229'><td colspan='2'>[25:26] <a class='permalink' href='#h-4229' data-hadith='26'>Hadith 26</a><button class='copy-btn' onclick='copyHadith(this,"[25:26]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='26'><td class='label'>English</td><td lang='en'>A'isha reported:Allah's Messenger (ﷺ) left neither dinar nor dirham (wealth in the form of cash), nor goats (and sheep), nor camels. And he made no will about anything (in regard to his material possessions, as he had none)</td></tr>
+<tr class='hadith-ar' data-hadith='26'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نُمَيْرٍ، وَأَبُو مُعَاوِيَةَ عَنِ الأَعْمَشِ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ نُمَيْرٍ، حَدَّثَنَا أَبِي وَأَبُو مُعَاوِيَةَ قَالاَ حَدَّثَنَا الأَعْمَشُ، عَنْ أَبِي وَائِلٍ، عَنْ مَسْرُوقٍ، عَنْ عَائِشَةَ، قَالَتْ مَا تَرَكَ رَسُولُ اللَّهِ صلى الله عليه وسلم دِينَارًا وَلاَ دِرْهَمًا وَلاَ شَاةً وَلاَ بَعِيرًا وَلاَ أَوْصَى بِشَىْءٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='27' id='h-4230'><td colspan='2'>[25:27] <a class='permalink' href='#h-4230' data-hadith='27'>Hadith 27</a><button class='copy-btn' onclick='copyHadith(this,"[25:27]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='27'><td class='label'>English</td><td lang='en'>This hadith has been narrated on the authority of A'mash with the same chain of transmitters</td></tr>
+<tr class='hadith-ar' data-hadith='27'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنَا زُهَيْرُ بْنُ حَرْبٍ، وَعُثْمَانُ بْنُ أَبِي شَيْبَةَ، وَإِسْحَاقُ بْنُ إِبْرَاهِيمَ، كُلُّهُمْ عَنْ جَرِيرٍ، ح وَحَدَّثَنَا عَلِيُّ بْنُ خَشْرَمٍ، أَخْبَرَنَا عِيسَى، - وَهُوَ ابْنُ يُونُسَ - جَمِيعًا عَنِ الأَعْمَشِ، بِهَذَا الإِسْنَادِ ‏.‏ مِثْلَهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='28' id='h-4231'><td colspan='2'>[25:28] <a class='permalink' href='#h-4231' data-hadith='28'>Hadith 28</a><button class='copy-btn' onclick='copyHadith(this,"[25:28]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='28'><td class='label'>English</td><td lang='en'>Aswad b. Yazid reported:It was mentioned before A'isha that will had been made (by the Holy Prophet) in favour of 'Ali (as the Prophet's first caliph), whereupon she said: When did he make will in his favour? I had been providing support to him (to the Holy Prophet) with my chest (or with my lap). He asked for a tray, when he fell in my lap (relaxing his body), and I did not realise that he had breathed his last. When did he make any will in his ('Ali's) favour?</td></tr>
+<tr class='hadith-ar' data-hadith='28'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنَا يَحْيَى بْنُ يَحْيَى، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ - وَاللَّفْظُ لِيَحْيَى - قَالَ أَخْبَرَنَا إِسْمَاعِيلُ ابْنُ عُلَيَّةَ، عَنِ ابْنِ عَوْنٍ، عَنْ إِبْرَاهِيمَ، عَنِ الأَسْوَدِ بْنِ يَزِيدَ، قَالَ ذَكَرُوا عِنْدَ عَائِشَةَ أَنَّ عَلِيًّا كَانَ وَصِيًّا فَقَالَتْ مَتَى أَوْصَى إِلَيْهِ فَقَدْ كُنْتُ مُسْنِدَتَهُ إِلَى صَدْرِي - أَوْ قَالَتْ حَجْرِي - فَدَعَا بِالطَّسْتِ فَلَقَدِ انْخَنَثَ فِي حَجْرِي وَمَا شَعَرْتُ أَنَّهُ مَاتَ فَمَتَى أَوْصَى إِلَيْهِ</td></tr>
+<tr class='hadith-sep' data-hadith='29' id='h-4232'><td colspan='2'>[25:29] <a class='permalink' href='#h-4232' data-hadith='29'>Hadith 29</a><button class='copy-btn' onclick='copyHadith(this,"[25:29]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='29'><td class='label'>English</td><td lang='en'>Sa'id b. Jubair reported that Ibn 'Abbas said:Thursday, (and then said): What is this Thursday? He then wept so much that his tears moistened the pebbles. I said: Ibn 'Abbas, what is (significant) about Thursday? He (Ibn 'Abbas) said: The illness of Allah's Messenger (ﷺ) took a serious turn (on this day), and he said: Come to me, so that I should write for you a document that you may not go astray after me. They (the Companions around him) disputed, and it is not meet to dispute in the presence of the Apostle. They said: How is lie (Allah's Apostle)? Has he lost his consciousness? Try to learn from him (this point). He (the Holy Prophet) said: Leave me. I am better in the state (than the one in which you are engaged). I make a will about three things: Turn out the polytheists from the territory of Arabia; show hospitality to the (foreign) delegations as I used to show them hospitality. He (the narrator) said: He (Ibn Abbas) kept silent on the third point, or he (the narrator) said: But I forgot that. This hadith was mentioned through another chain</td></tr>
+<tr class='hadith-ar' data-hadith='29'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا سَعِيدُ بْنُ مَنْصُورٍ، وَقُتَيْبَةُ بْنُ سَعِيدٍ، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَعَمْرٌو النَّاقِدُ - وَاللَّفْظُ لِسَعِيدٍ - قَالُوا حَدَّثَنَا سُفْيَانُ، عَنْ سُلَيْمَانَ الأَحْوَلِ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، قَالَ قَالَ ابْنُ عَبَّاسٍ يَوْمُ الْخَمِيسِ وَمَا يَوْمُ الْخَمِيسِ ثُمَّ بَكَى حَتَّى بَلَّ دَمْعُهُ الْحَصَى ‏.‏ فَقُلْتُ يَا ابْنَ عَبَّاسٍ وَمَا يَوْمُ الْخَمِيسِ قَالَ اشْتَدَّ بِرَسُولِ اللَّهِ صلى الله عليه وسلم وَجَعُهُ ‏.‏ فَقَالَ ‏"‏ ائْتُونِي أَكْتُبْ لَكُمْ كِتَابًا لاَ تَضِلُّوا بَعْدِي ‏"‏ ‏.‏ فَتَنَازَعُوا وَمَا يَنْبَغِي عِنْدَ نَبِيٍّ تَنَازُعٌ ‏.‏ وَقَالُوا مَا شَأْنُهُ أَهَجَرَ اسْتَفْهِمُوهُ ‏.‏ قَالَ ‏"‏ دَعُونِي فَالَّذِي أَنَا فِيهِ خَيْرٌ أُوصِيكُمْ بِثَلاَثٍ أَخْرِجُوا الْمُشْرِكِينَ مِنْ جَزِيرَةِ الْعَرَبِ وَأَجِيزُوا الْوَفْدَ بِنَحْوِ مَا كُنْتُ أُجِيزُهُمْ ‏"‏ ‏.‏ قَالَ وَسَكَتَ عَنِ الثَّالِثَةِ أَوْ قَالَهَا فَأُنْسِيتُهَا ‏.‏ قَالَ أَبُو إِسْحَاقَ إِبْرَاهِيمُ حَدَّثَنَا الْحَسَنُ بْنُ بِشْرٍ، قَالَ حَدَّثَنَا سُفْيَانُ، بِهَذَا الْحَدِيثِ</td></tr>
+<tr class='hadith-sep' data-hadith='30' id='h-4233'><td colspan='2'>[25:30] <a class='permalink' href='#h-4233' data-hadith='30'>Hadith 30</a><button class='copy-btn' onclick='copyHadith(this,"[25:30]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='30'><td class='label'>English</td><td lang='en'>Sa'id b. Jubair reported from Ibn Abbas that he said:Thursday, and what about Thursday? Then tears began to flow until I saw them on his cheeks as it they were the strings of pearls. He (the narrator) said that Allah's Messenger (ﷺ) said: Bring me a shoulder blade and ink-pot (or tablet and inkpot), so that I write for you a document (by following which) you would never go astray. They said: Allah's Messenger (may peace upon him) is in the state of unconsciousness</td></tr>
+<tr class='hadith-ar' data-hadith='30'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، أَخْبَرَنَا وَكِيعٌ، عَنْ مَالِكِ بْنِ مِغْوَلٍ، عَنْ طَلْحَةَ بْنِ مُصَرِّفٍ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنِ ابْنِ عَبَّاسٍ، أَنَّهُ قَالَ يَوْمُ الْخَمِيسِ وَمَا يَوْمُ الْخَمِيسِ ‏.‏ ثُمَّ جَعَلَ تَسِيلُ دُمُوعُهُ حَتَّى رَأَيْتُ عَلَى خَدَّيْهِ كَأَنَّهَا نِظَامُ اللُّؤْلُؤِ ‏.‏ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ ائْتُونِي بِالْكَتِفِ وَالدَّوَاةِ - أَوِ اللَّوْحِ وَالدَّوَاةِ - أَكْتُبْ لَكُمْ كِتَابًا لَنْ تَضِلُّوا بَعْدَهُ أَبَدًا ‏"‏ ‏.‏ فَقَالُوا إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم يَهْجُرُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='31' id='h-4234'><td colspan='2'>[25:31] <a class='permalink' href='#h-4234' data-hadith='31'>Hadith 31</a><button class='copy-btn' onclick='copyHadith(this,"[25:31]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='31'><td class='label'>English</td><td lang='en'>Ibn Abbas reported:When Allah's Messenger (ﷺ) was about to leave this world, there were persons (around him) in his house, 'Umar b. al-Kbattab being one of them. Allah's Apostle (ﷺ) said: Come, I may write for you a document; you would not go astray after that. Thereupon Umar said: Verily Allah's Messenger (ﷺ) is deeply afflicted with pain. You have the Qur'an with you. The Book of Allah is sufficient for us. Those who were present in the house differed. Some of them said: Bring him (the writing material) so that Allah's Messenger (ﷺ) may write a document for you and you would never go astray after him And some among them said what 'Umar had (already) said. When they indulged in nonsense and began to dispute in the presence of Allah's Messenger (ﷺ), he said: Get up (and go away) 'Ubaidullah said: Ibn Abbas used to say: There was a heavy loss, indeed a heavy loss, that, due to their dispute and noise. Allah's Messenger (ﷺ) could not write (or dictate) the document for them</td></tr>
+<tr class='hadith-ar' data-hadith='31'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي مُحَمَّدُ بْنُ رَافِعٍ، وَعَبْدُ بْنُ حُمَيْدٍ، - قَالَ عَبْدٌ أَخْبَرَنَا وَقَالَ ابْنُ رَافِعٍ، حَدَّثَنَا عَبْدُ الرَّزَّاقِ، - أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ لَمَّا حُضِرَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَفِي الْبَيْتِ رِجَالٌ فِيهِمْ عُمَرُ بْنُ الْخَطَّابِ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏"‏ هَلُمَّ أَكْتُبْ لَكُمْ كِتَابًا لاَ تَضِلُّونَ بَعْدَهُ ‏"‏ ‏.‏ فَقَالَ عُمَرُ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَدْ غَلَبَ عَلَيْهِ الْوَجَعُ وَعِنْدَكُمُ الْقُرْآنُ حَسْبُنَا كِتَابُ اللَّهِ ‏.‏ فَاخْتَلَفَ أَهْلُ الْبَيْتِ فَاخْتَصَمُوا فَمِنْهُمْ مَنْ يَقُولُ قَرِّبُوا يَكْتُبْ لَكُمْ رَسُولُ اللَّهِ صلى الله عليه وسلم كِتَابًا لَنْ تَضِلُّوا بَعْدَهُ ‏.‏ وَمِنْهُمْ مَنْ يَقُولُ مَا قَالَ عُمَرُ ‏.‏ فَلَمَّا أَكْثَرُوا اللَّغْوَ وَالاِخْتِلاَفَ عِنْدَ رَسُولِ اللَّهِ صلى الله عليه وسلم قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ قُومُوا ‏"‏ ‏.‏ قَالَ عُبَيْدُ اللَّهِ فَكَانَ ابْنُ عَبَّاسٍ يَقُولُ إِنَّ الرَّزِيَّةَ كُلَّ الرَّزِيَّةِ مَا حَالَ بَيْنَ رَسُولِ اللَّهِ صلى الله عليه وسلم وَبَيْنَ أَنْ يَكْتُبَ لَهُمْ ذَلِكَ الْكِتَابَ مِنِ اخْتِلاَفِهِمْ وَلَغَطِهِمْ ‏.‏</td></tr>
+</tbody></table></div>
+<nav class='chapter-nav'><span><a href='book-24.html'>&laquo; Book 24</a></span><span><a href='book-26.html'>Book 26 &raquo;</a></span></nav>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+<script>
+(function(){
+  var CF_KEY='hadith-cf';
+  var FS_KEY='hfs';
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxHadith=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxHadith;
+  var enabledTypes=new Set();
+
+  /* ---- Default content filter prefs ---- */
+  var DEFAULTS={'hadith-en':true,'hadith-ar':true,};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem(CF_KEY);if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=DEFAULTS.hasOwnProperty(key)?DEFAULTS[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem(CF_KEY,JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var h=+tr.dataset.hadith;
+      var inRange=(h>=vcFrom&&h<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxHadith;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxHadith;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+
+  /* ---- Scroll to #h-N anchor ---- */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-highlight');
+          setTimeout(function(){el.classList.remove('hadith-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
+
+  /* ---- Font size control ---- */
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy hadith ---- */
+  window.copyHadith=function(btn,ref){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+ref+']'];
+    if(tbod){
+      var hid=row.dataset.hadith;
+      tbod.querySelectorAll('tr[data-hadith="'+hid+'"]').forEach(function(tr){
+        if(tr.classList.contains('hadith-sep'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#h-'+a.dataset.hadith;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#h-'+a.dataset.hadith);
+    });
+  });
+})();
+</script>
+</body>
+</html>
