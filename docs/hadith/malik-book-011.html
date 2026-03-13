@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › The Fear Prayer</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,19 +166,19 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 441 — The Fear Prayer</td></tr>
+<tr id='h441' class='hadith-sep'><td colspan='2'>Hadith 441 — The Fear Prayer</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ رُومَانَ، عَنْ صَالِحِ بْنِ خَوَّاتٍ، عَمَّنْ صَلَّى مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم يَوْمَ ذَاتِ الرِّقَاعِ صَلاَةَ الْخَوْفِ أَنَّ طَائِفَةً صَفَّتْ مَعَهُ وَصَفَّتْ طَائِفَةٌ وِجَاهَ الْعَدُوِّ فَصَلَّى بِالَّتِي مَعَهُ رَكْعَةً ثُمَّ ثَبَتَ قَائِمًا وَأَتَمُّوا لأَنْفُسِهِمْ ثُمَّ انْصَرَفُوا فَصَفُّوا وِجَاهَ الْعَدُوِّ وَجَاءَتِ الطَّائِفَةُ الأُخْرَى فَصَلَّى بِهِمُ الرَّكْعَةَ الَّتِي بَقِيَتْ مِنْ صَلاَتِهِ ثُمَّ ثَبَتَ جَالِسًا وَأَتَمُّوا لأَنْفُسِهِمْ ثُمَّ سَلَّمَ بِهِمْ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me that Malik said, &quot;The sunna concerning the time of prayer on the ids of Fitr and Adha - and there is no disagreement amongst us about it - is that the imam leaves his house and as soon as he has reached the place of prayer the prayer falls due.&quot; Yahya said that Malik was asked whether a man who prayed with the imam could leave before the khutba, and he said, &quot;He should not leave until the imam leaves.&quot; Yahya related to me from Malik from Yazid ibn Ruman from Salih ibn Khawwat from someone who had prayed (the prayer of fear) with the Messenger of Allah, may Allah bless him and grant him peace, on the day of Dhat ar-Riqa that one group had formed a row with him and one group had formed a row opposite the enemy. He then prayed one raka with the group he was with, and then remained standing while they finished by themselves. They then left and formed a row opposite the enemy, and then the other group came and he prayed the remaining raka of his prayer with them, and then remained sitting while they finished by themselves. Then he said the taslim with them</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 11, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 442 — The Fear Prayer</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 11, Hadith 1</span></td></tr><tr id='h442' class='hadith-sep'><td colspan='2'>Hadith 442 — The Fear Prayer</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنِ الْقَاسِمِ بْنِ مُحَمَّدٍ، عَنْ صَالِحِ بْنِ خَوَّاتٍ، أَنَّ سَهْلَ بْنَ أَبِي حَثْمَةَ، حَدَّثَهُ أَنَّ صَلاَةَ الْخَوْفِ أَنْ يَقُومَ الإِمَامُ وَمَعَهُ طَائِفَةٌ مِنْ أَصْحَابِهِ وَطَائِفَةٌ مُوَاجِهَةٌ الْعَدُوَّ فَيَرْكَعُ الإِمَامُ رَكْعَةً وَيَسْجُدُ بِالَّذِينَ مَعَهُ ثُمَّ يَقُومُ فَإِذَا اسْتَوَى قَائِمًا ثَبَتَ وَأَتَمُّوا لأَنْفُسِهِمُ الرَّكْعَةَ الْبَاقِيَةَ ثُمَّ يُسَلِّمُونَ وَيَنْصَرِفُونَ وَالإِمَامُ قَائِمٌ فَيَكُونُونَ وِجَاهَ الْعَدُوِّ ثُمَّ يُقْبِلُ الآخَرُونَ الَّذِينَ لَمْ يُصَلُّوا فَيُكَبِّرُونَ وَرَاءَ الإِمَامِ فَيَرْكَعُ بِهِمُ الرَّكْعَةَ وَيَسْجُدُ ثُمَّ يُسَلِّمُ فَيَقُومُونَ فَيَرْكَعُونَ لأَنْفُسِهِمُ الرَّكْعَةَ الْبَاقِيَةَ ثُمَّ يُسَلِّمُونَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from al-Qasim ibn Muhammad from Salih ibn Khawwat that Sahl ibn Abi Hathma related to him that the form of the prayer of fear was that the imam stood with a group of his companions, while another group faced the enemy. The imam prayed one raka with them, including the prostration, and then stood. He remained standing while they completed the remaining raka by themselves. They then said the taslim, left, and formed up opposite the enemy while the imam remained standing. Then the others who had not prayed came forward and said the takbir behind the imam and he prayed one raka with them, including the prostration. He then said the taslim, while they stood up and prayed the remaining raka by themselves. Then they said the taslim</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 11, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 443 — The Fear Prayer</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 11, Hadith 2</span></td></tr><tr id='h443' class='hadith-sep'><td colspan='2'>Hadith 443 — The Fear Prayer</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ إِذَا سُئِلَ عَنْ صَلاَةِ الْخَوْفِ، قَالَ يَتَقَدَّمُ الإِمَامُ وَطَائِفَةٌ مِنَ النَّاسِ فَيُصَلِّي بِهِمُ الإِمَامُ رَكْعَةً وَتَكُونُ طَائِفَةٌ مِنْهُمْ بَيْنَهُ وَبَيْنَ الْعَدُوِّ لَمْ يُصَلُّوا فَإِذَا صَلَّى الَّذِينَ مَعَهُ رَكْعَةً اسْتَأْخَرُوا مَكَانَ الَّذِينَ لَمْ يُصَلُّوا وَلاَ يُسَلِّمُونَ وَيَتَقَدَّمُ الَّذِينَ لَمْ يُصَلُّوا فَيُصَلُّونَ مَعَهُ رَكْعَةً ثُمَّ يَنْصَرِفُ الإِمَامُ وَقَدْ صَلَّى رَكْعَتَيْنِ فَتَقُومُ كُلُّ وَاحِدَةٍ مِنَ الطَّائِفَتَيْنِ فَيُصَلُّونَ لأَنْفُسِهِمْ رَكْعَةً رَكْعَةً بَعْدَ أَنْ يَنْصَرِفَ الإِمَامُ فَيَكُونُ كُلُّ وَاحِدَةٍ مِنَ الطَّائِفَتَيْنِ قَدْ صَلَّوْا رَكْعَتَيْنِ فَإِنْ كَانَ خَوْفًا هُوَ أَشَدَّ مِنْ ذَلِكَ صَلَّوْا رِجَالاً قِيَامًا عَلَى أَقْدَامِهِمْ أَوْ رُكْبَانًا مُسْتَقْبِلِي الْقِبْلَةِ أَوْ غَيْرَ مُسْتَقْبِلِيهَا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar, when asked about the fear prayer said, &quot;The imam and a group of people go forward and the imam prays a raka with them, while another group, who have not yet prayed, position themselves between him and the enemy. When those who are with him have prayed a raka they draw back to where those who have not prayed are, and do not say the taslim. Then those who have not prayed come forward and pray a raka with him. Then the imam leaves, as he has now prayed two rakas. Everyone else in the two groups stands and prays a raka by himself after the imam has left. In this way each of the two groups will have prayed two rakas. If the fear is greater than that, then the men pray standing on their feet or mounted, either facing the qibla or otherwise</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 11, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 444 — The Fear Prayer</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 11, Hadith 3</span></td></tr><tr id='h444' class='hadith-sep'><td colspan='2'>Hadith 444 — The Fear Prayer</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ قَالَ مَا صَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم الظُّهْرَ وَالْعَصْرَ يَوْمَ الْخَنْدَقِ حَتَّى غَابَتِ الشَّمْسُ ‏.‏ قَالَ مَالِكٌ وَحَدِيثُ الْقَاسِمِ بْنِ مُحَمَّدٍ عَنْ صَالِحِ بْنِ خَوَّاتٍ أَحَبُّ مَا سَمِعْتُ إِلَىَّ فِي صَلاَةِ الْخَوْفِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik said that Nafi said, &quot;I do not believe that Abdullah ibn Umar related it from anyone other than the Messenger of Allah, may Allah bless him and grant him peace.&quot; Yahya related to me from Malik from Yahya ibn Said that Said ibn al-Musayyab said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, did not pray dhuhr and asr on the day of the Trench until after the sun had set.&quot; Malik said, &quot;The hadith of al- Qasim ibn Muhammad from Salih ibn Khawwat is the one I like most out of what I have heard about the fear prayer</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>

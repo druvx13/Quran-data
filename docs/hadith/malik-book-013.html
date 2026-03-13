@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Asking for Rain</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,27 +166,27 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 449 — Asking for Rain</td></tr>
+<tr id='h449' class='hadith-sep'><td colspan='2'>Hadith 449 — Asking for Rain</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ عَمْرِو بْنِ حَزْمٍ، أَنَّهُ سَمِعَ عَبَّادَ بْنَ تَمِيمٍ، يَقُولُ سَمِعْتُ عَبْدَ اللَّهِ بْنَ زَيْدٍ الْمَازِنِيَّ، يَقُولُ خَرَجَ رَسُولُ اللَّهِ صلى الله عليه وسلم إِلَى الْمُصَلَّى فَاسْتَسْقَى وَحَوَّلَ رِدَاءَهُ حِينَ اسْتَقْبَلَ الْقِبْلَةَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Abi Bakr ibn Amr ibn Hazm that he had heard Abbad ibn Tamim say that he had heard Abdullah ibn Zayd al-Mazini say, &quot;The Messenger of Allah, may Allah bless him and grant him peace, came out to the place of prayer and asked for rain, and when he faced the qibla he turned his cloak inside out.&quot; Malik was asked how many rakas there were in the prayer of asking for rain and he said, &quot;Two rakas, and the imam does the prayer before he gives the khutba. He prays two rakas, and then he gives a khutba and makes dua, facing the qibla and turning his cloak inside out. He recites out loud in both rakas, and when he turns his cloak inside out he puts what is on his right on his left, and what is on his left on his right, and all the people turn their cloaks inside out when the imam does so, and face the qibla, sitting</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 450 — Asking for Rain</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 1</span></td></tr><tr id='h450' class='hadith-sep'><td colspan='2'>Hadith 450 — Asking for Rain</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ إِذَا اسْتَسْقَى قَالَ ‏ &quot;‏ اللَّهُمَّ اسْقِ عِبَادَكَ وَبَهِيمَتَكَ وَانْشُرْ رَحْمَتَكَ وَأَحْىِ بَلَدَكَ الْمَيِّتَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from Amr ibn Shuayb that the Messenger of Allah, may Allah bless him and grant him peace, said, when he asked for rain, &quot;O Allah, give water to Your slaves and Your animals, and spread Your mercy, and give life to Your dead land</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 451 — Asking for Rain</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 2</span></td></tr><tr id='h451' class='hadith-sep'><td colspan='2'>Hadith 451 — Asking for Rain</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ شَرِيكِ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي نَمِرٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّهُ قَالَ جَاءَ رَجُلٌ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ هَلَكَتِ الْمَوَاشِي وَتَقَطَّعَتِ السُّبُلُ فَادْعُ اللَّهَ ‏.‏ فَدَعَا رَسُولُ اللَّهِ صلى الله عليه وسلم فَمُطِرْنَا مِنَ الْجُمُعَةِ إِلَى الْجُمُعَةِ ‏.‏ قَالَ فَجَاءَ رَجُلٌ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ تَهَدَّمَتِ الْبُيُوتُ وَانْقَطَعَتِ السُّبُلُ وَهَلَكَتِ الْمَوَاشِي ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ اللَّهُمَّ ظُهُورَ الْجِبَالِ وَالآكَامِ وَبُطُونَ الأَوْدِيَةِ وَمَنَابِتَ الشَّجَرِ ‏&quot;‏ ‏.‏ قَالَ فَانْجَابَتْ عَنِ الْمَدِينَةِ انْجِيَابَ الثَّوْبِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Sharik ibn Abdullah ibn Abi Namir that Anas ibn Malik said, &quot;A man came to the Messenger of Allah, may Allah bless him and grant him peace, and said, &#x27;Messenger of Allah, our animals are dying and our camels are too weak to travel, so make dua to Allah.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, made dua, and it rained on us from one jumua to the next.&quot; Anas continued, &quot;Then a man came to the Messenger of Allah, may Allah bless him and grant him peace, and said, &#x27;Messenger of Allah, our houses have fallen down, the paths are blocked, and our flocks are dying.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;O Allah, (only) the mountain and hill-tops, the valley bottoms, and the places where trees grow.&#x27; &quot; Anas added, &quot;It cleared away from Madina like a garment being removed.&quot; Malik said, about a man who missed the prayer of asking for rain but caught the khutba, and wished to pray in the mosque, or in his house when he returned, &quot;He is free to do so, or not, as he wishes</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 452 — Asking for Rain</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 3</span></td></tr><tr id='h452' class='hadith-sep'><td colspan='2'>Hadith 452 — Asking for Rain</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ صَالِحِ بْنِ كَيْسَانَ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ بْنِ مَسْعُودٍ، عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّهُ قَالَ صَلَّى لَنَا رَسُولُ اللَّهِ صلى الله عليه وسلم صَلاَةَ الصُّبْحِ بِالْحُدَيْبِيَةِ عَلَى إِثْرِ سَمَاءٍ كَانَتْ مِنَ اللَّيْلِ فَلَمَّا انْصَرَفَ أَقْبَلَ عَلَى النَّاسِ فَقَالَ ‏&quot;‏ أَتَدْرُونَ مَاذَا قَالَ رَبُّكُمْ ‏&quot;‏ ‏.‏ قَالُوا اللَّهُ وَرَسُولُهُ أَعْلَمُ ‏.‏ قَالَ ‏&quot;‏ قَالَ أَصْبَحَ مِنْ عِبَادِي مُؤْمِنٌ بِي وَكَافِرٌ بِي فَأَمَّا مَنْ قَالَ مُطِرْنَا بِفَضْلِ اللَّهِ وَرَحْمَتِهِ فَذَلِكَ مُؤْمِنٌ بِي كَافِرٌ بِالْكَوْكَبِ وَأَمَّا مَنْ قَالَ مُطِرْنَا بِنَوْءِ كَذَا وَكَذَا فَذَلِكَ كَافِرٌ بِي مُؤْمِنٌ بِالْكَوْكَبِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Salih ibn Kaysan from Ubaydullah ibn Abdullah ibn Utba ibn Masud that Zayd ibn Khalid al- Juhani said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, took the subh prayer with us at Hudaybiyya after it had rained in the night. When he had finished he went up to the people and said, &#x27;Do you know what your Lord has said?&#x27; They said, &#x27;Allah and His Messenger know best.&#x27; He said, &#x27;Some of my slaves have begun the morning believing in Me, and others have begun it rejecting Me. As for those who say, &#x27;We were rained on by the overflowing favour of Allah and His mercy,&#x27; they believe in Me and reject the stars. But as for those who say, &#x27;We were rained on by such and such a star, they reject Me and believe in the stars</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 453 — Asking for Rain</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 4</span></td></tr><tr id='h453' class='hadith-sep'><td colspan='2'>Hadith 453 — Asking for Rain</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَقُولُ ‏ &quot;‏ إِذَا أَنْشَأَتْ بَحْرِيَّةً ثُمَّ تَشَاءَمَتْ فَتِلْكَ عَيْنٌ غُدَيْقَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, used to say, &quot;When a cloud appears from the direction of the sea and then goes towards ash-Sham, it will be an abundant source of rain</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mawdu</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 454 — Asking for Rain</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 13, Hadith 5</span></td></tr><tr id='h454' class='hadith-sep'><td colspan='2'>Hadith 454 — Asking for Rain</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ أَبَا هُرَيْرَةَ، كَانَ يَقُولُ إِذَا أَصْبَحَ وَقَدْ مُطِرَ النَّاسُ مُطِرْنَا بِنَوْءِ الْفَتْحِ ثُمَّ يَتْلُو هَذِهِ الآيَةَ ‏{‏مَا يَفْتَحِ اللَّهُ لِلنَّاسِ مِنْ رَحْمَةٍ فَلاَ مُمْسِكَ لَهَا وَمَا يُمْسِكْ فَلاَ مُرْسِلَ لَهُ مِنْ بَعْدِهِ ‏}‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that Abu Hurayra used to say, when morning came after it had rained on the people, &quot;We have been rained upon by the rain of Allah&#x27;s opening,&quot; and would then recite the ayat, &quot;Whatever Allah opens to man of His mercy no-one can withhold, and whatever He withholds no-one can send forward after Him. &quot; (Sura 35 ayat)</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>

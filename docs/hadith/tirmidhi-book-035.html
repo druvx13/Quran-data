@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='tirmidhi.html'>Jami At-Tirmidhi</a> › Chapters On Witnesses</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Jami At-Tirmidhi</h1>
@@ -105,39 +166,39 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 2295 — Chapters On Witnesses</td></tr>
+<tr id='h2295' class='hadith-sep'><td colspan='2'>Hadith 2295 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الأَنْصَارِيُّ، حَدَّثَنَا مَعْنٌ، حَدَّثَنَا مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ مُحَمَّدِ بْنِ عَمْرِو بْنِ حَزْمٍ، عَنْ أَبِيهِ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ عُثْمَانَ، عَنْ أَبِي عَمْرَةَ الأَنْصَارِيِّ، عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ أَلاَ أُخْبِرُكُمْ بِخَيْرِ الشُّهَدَاءِ الَّذِي يَأْتِي بِالشَّهَادَةِ قَبْلَ أَنْ يُسْأَلَهَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Zaid bin Khalid Al-Juhani narrated that the Messenger of Allah (s.a.w) said:&quot;Shall l not inform you of the best of witnesses? The one who comes with his testimony before being asked for it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2296 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 1</span></td></tr><tr id='h2296' class='hadith-sep'><td colspan='2'>Hadith 2296 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ الْحَسَنِ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، عَنْ مَالِكٍ، نَحْوَهُ وَقَالَ ابْنُ أَبِي عَمْرَةَ ‏.‏ قَالَ هَذَا حَدِيثٌ حَسَنٌ ‏.‏ وَأَكْثَرُ النَّاسِ يَقُولُونَ عَبْدُ الرَّحْمَنِ بْنُ أَبِي عَمْرَةَ وَاخْتَلَفُوا عَلَى مَالِكٍ فِي رِوَايَةِ هَذَا الْحَدِيثِ فَرَوَى بَعْضُهُمْ عَنْ أَبِي عَمْرَةَ وَرَوَى بَعْضُهُمْ عَنِ ابْنِ أَبِي عَمْرَةَ وَهُوَ عَبْدُ الرَّحْمَنِ بْنُ أَبِي عَمْرَةَ الأَنْصَارِيُّ وَهَذَا أَصَحُّ لأَنَّهُ قَدْ رُوِيَ مِنْ غَيْرِ حَدِيثِ مَالِكٍ عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي عَمْرَةَ عَنْ زَيْدِ بْنِ خَالِدٍ وَقَدْ رُوِيَ عَنِ ابْنِ أَبِي عَمْرَةَ عَنْ زَيْدِ بْنِ خَالِدٍ غَيْرُ هَذَا الْحَدِيثِ وَهُوَ حَدِيثٌ صَحِيحٌ أَيْضًا وَأَبُو عَمْرَةَ مَوْلَى زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ وَلَهُ حَدِيثُ الْغُلُولِ وَأَكْثَرُ النَّاسِ يَقُولُونَ عَبْدُ الرَّحْمَنِ بْنُ أَبِي عَمْرَةَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>(Another chain) from Malik in which he said:Ibn Abi &#x27;Amrah</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2297 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 2</span></td></tr><tr id='h2297' class='hadith-sep'><td colspan='2'>Hadith 2297 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا بِشْرُ بْنُ آدَمَ ابْنُ بِنْتِ أَزْهَرَ السَّمَّانِ، حَدَّثَنَا زَيْدُ بْنُ الْحُبَابِ، حَدَّثَنَا أُبَىُّ بْنُ عَبَّاسِ بْنِ سَهْلِ بْنِ سَعْدٍ، حَدَّثَنِي أَبُو بَكْرِ بْنُ مُحَمَّدِ بْنِ عَمْرِو بْنِ حَزْمٍ، حَدَّثَنِي عَبْدُ اللَّهِ بْنُ عَمْرِو بْنِ عُثْمَانَ، حَدَّثَنِي خَارِجَةُ بْنُ زَيْدِ بْنِ ثَابِتٍ، حَدَّثَنِي عَبْدُ الرَّحْمَنِ بْنُ أَبِي عَمْرَةَ، حَدَّثَنِي زَيْدُ بْنُ خَالِدٍ الْجُهَنِيُّ، أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ خَيْرُ الشُّهَدَاءِ مَنْ أَدَّى شَهَادَتَهُ قَبْلَ أَنْ يُسْأَلَهَا ‏&quot;‏ ‏.‏ قَالَ هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ مِنْ هَذَا الْوَجْهِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Zaid bin Khalid Al-Juhani narrated that the Messenger of Allah(s.a.w) said:&quot;The best of witnesses is the one who gives his testimony before being asked for it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2298 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 3</span></td></tr><tr id='h2298' class='hadith-sep'><td colspan='2'>Hadith 2298 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا مَرْوَانُ بْنُ مُعَاوِيَةَ الْفَزَارِيُّ، عَنْ يَزِيدَ بْنِ زِيَادٍ الدِّمَشْقِيِّ، عَنِ الزُّهْرِيِّ، عَنْ عُرْوَةَ، عَنْ عَائِشَةَ، قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ تَجُوزُ شَهَادَةُ خَائِنٍ وَلاَ خَائِنَةٍ وَلاَ مَجْلُودٍ حَدًّا وَلاَ مَجْلُودَةٍ وَلاَ ذِي غِمْرٍ لأَخِيهِ وَلاَ مُجَرَّبِ شَهَادَةٍ وَلاَ الْقَانِعِ أَهْلَ الْبَيْتِ لَهُمْ وَلاَ ظَنِينٍ فِي وَلاَءٍ وَلاَ قَرَابَةٍ ‏&quot;‏ ‏.‏ قَالَ الْفَزَارِيُّ الْقَانِعُ التَّابِعُ ‏.‏ هَذَا حَدِيثٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ حَدِيثِ يَزِيدَ بْنِ زِيَادٍ الدِّمَشْقِيِّ ‏.‏ وَيَزِيدُ يُضَعَّفُ فِي الْحَدِيثِ وَلاَ يُعْرَفُ هَذَا الْحَدِيِثُ مِنْ حَدِيثِ الزُّهْرِيِّ إِلاَّ مِنْ حَدِيثِهِ ‏.‏ وَفِي الْبَابِ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو ‏.‏ قَالَ وَلاَ نَعْرِفُ مَعْنَى هَذَا الْحَدِيثِ وَلاَ يَصِحُّ عِنْدِي مِنْ قِبَلِ إِسْنَادِهِ ‏.‏ وَالْعَمَلُ عِنْدَ أَهْلِ الْعِلْمِ فِي هَذَا أَنَّ شَهَادَةَ الْقَرِيبِ جَائِزَةٌ لِقَرَابَتِهِ ‏.‏ وَاخْتَلَفَ أَهْلُ الْعِلْمِ فِي شَهَادَةِ الْوَالِدِ لِلْوَلَدِ وَالْوَلَدِ لِوَالِدِهِ وَلَمْ يُجِزْ أَكْثَرُ أَهْلِ الْعِلْمِ شَهَادَةَ الْوَالِدِ لِلْوَلَدِ وَلاَ الْوَلَدِ لِلْوَالِدِ ‏.‏ وَقَالَ بَعْضُ أَهْلِ الْعِلْمِ إِذَا كَانَ عَدْلاً فَشَهَادَةُ الْوَالِدِ لِلْوَلَدِ جَائِزَةٌ وَكَذَلِكَ شَهَادَةُ الْوَلَدِ لِلْوَالِدِ ‏.‏ وَلَمْ يَخْتَلِفُوا فِي شَهَادَةِ الأَخِ لأَخِيهِ أَنَّهَا جَائِزَةٌ وَكَذَلِكَ شَهَادَةُ كُلِّ قَرِيبٍ لِقَرِيبِهِ ‏.‏ وَقَالَ الشَّافِعِيُّ لاَ تَجُوزُ شَهَادَةٌ لِرَجُلٍ عَلَى الآخَرِ وَإِنْ كَانَ عَدْلاً إِذَا كَانَتْ بَيْنَهُمَا عَدَاوَةٌ ‏.‏ وَذَهَبَ إِلَى حَدِيثِ عَبْدِ الرَّحْمَنِ الأَعْرَجِ عَنِ النَّبِيِّ صلى الله عليه وسلم مُرْسَلاً ‏&quot;‏ لاَ تَجُوزُ شَهَادَةُ صَاحِبِ إِحْنَةٍ ‏&quot;‏ ‏.‏ يَعْنِي صَاحِبَ عَدَاوَةٍ وَكَذَلِكَ مَعْنَى هَذَا الْحَدِيثِ حَيْثُ قَالَ ‏&quot;‏ لاَ تَجُوزُ شَهَادَةُ صَاحِبِ غِمْرٍ لأَخِيهِ ‏&quot;‏ يَعْنِي صَاحِبَ عَدَاوَةٍ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Aishah narrated that the Messenger of Allah (s.a.w) said:The testimony of a treacherous man is not acceptable nor a treacherous woman nor a man lashed for the Hadd nor a woman lashed nor one possessing malice of enmity nor a rehearsed witness nor the Qani of (one contracted by)the family on their behalf nor the one associating himself to other than his Wala or to other than his relatives</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2299 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 14</span></td></tr><tr id='h2299' class='hadith-sep'><td colspan='2'>Hadith 2299 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا مَرْوَانُ بْنُ مُعَاوِيَةَ، عَنْ سُفْيَانَ بْنِ زِيَادٍ الأَسَدِيِّ، عَنْ فَاتِكِ بْنِ فَضَالَةَ، عَنْ أَيْمَنَ بْنِ خُرَيْمٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَامَ خَطِيبًا فَقَالَ ‏ &quot;‏ يَا أَيُّهَا النَّاسُ عُدِلَتْ شَهَادَةُ الزُّورِ إِشْرَاكًا بِاللَّهِ ‏&quot;‏ ‏.‏ ثُمَّ قَرَأَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏:‏ ‏(‏وَاجْتَنِبُوا الرِّجْسَ مِنَ الأَوْثَانِ وَاجْتَنِبُوا قَوْلَ الزُّورِ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى وَهَذَا حَدِيثٌ غَرِيبٌ إِنَّمَا نَعْرِفُهُ مِنْ حَدِيثِ سُفْيَانَ بْنِ زِيَادٍ وَاخْتَلَفُوا فِي رِوَايَةِ هَذَا الْحَدِيثِ عَنْ سُفْيَانَ بْنِ زِيَادٍ ‏.‏ وَلاَ نَعْرِفُ لأَيْمَنَ بْنِ خُرَيْمٍ سَمَاعًا مِنَ النَّبِيِّ صلى الله عليه وسلم ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ayman bin Khuraim narrated that the Prophet (s.a.w) stood to give a Khutbah and said:&quot;O you people False witness is tantamount to Shirk with Allah&quot; Then the Messenger of Allah (s.a.w)recited: So shun the Rijs of the idols, and shun false speech</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2300 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 5</span></td></tr><tr id='h2300' class='hadith-sep'><td colspan='2'>Hadith 2300 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ بْنُ حُمَيْدٍ، حَدَّثَنَا مُحَمَّدُ بْنُ عُبَيْدٍ، حَدَّثَنَا سُفْيَانُ، وَهُوَ ابْنُ زِيَادٍ الْعُصْفُرِيُّ عَنْ أَبِيهِ، عَنْ حَبِيبِ بْنِ النُّعْمَانِ الأَسَدِيِّ، عَنْ خُرَيْمِ بْنِ فَاتِكٍ الأَسَدِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم صَلَّى صَلاَةَ الصُّبْحِ فَلَمَّا انْصَرَفَ قَامَ قَائِمًا فَقَالَ ‏&quot;‏ عُدِلَتْ شَهَادَةُ الزُّورِ بِالشِّرْكِ بِاللَّهِ ‏&quot;‏ ‏.‏ ثَلاَثَ مَرَّاتٍ ثُمَّ تَلاَ هَذِهِ الآيَةَ ‏(‏وَاجْتَنِبُوا قَوْلَ الزُّورِ ‏)‏ إِلَى آخِرِ الآيَةِ ‏.‏ قَالَ أَبُو عِيسَى هَذَا عِنْدِي أَصَحُّ ‏.‏ وَخُرَيْمُ بْنُ فَاتِكٍ لَهُ صُحْبَةٌ وَقَدْ رَوَى عَنِ النَّبِيِّ صلى الله عليه وسلم أَحَادِيثَ وَهُوَ مَشْهُورٌ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Khuraim bin Fatik Al-Asadi narrated that the Messenger of Allah (s.a.w) performed the Subh (Fajr)prayer. Then when he turned he got up to stand and said:&quot;O you people! False witness is tantamount to Shirk with Allah.&quot;Saying it three times, then he recited this Ayah And shun false speech Until the end of the Ayah</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2301 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 6</span></td></tr><tr id='h2301' class='hadith-sep'><td colspan='2'>Hadith 2301 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا حُمَيْدُ بْنُ مَسْعَدَةَ، حَدَّثَنَا بِشْرُ بْنُ الْمُفَضَّلِ، عَنِ الْجُرَيْرِيِّ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي بَكْرَةَ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ أَلاَ أُخْبِرُكُمْ بِأَكْبَرِ الْكَبَائِرِ ‏&quot;‏ ‏.‏ قَالُوا بَلَى يَا رَسُولَ اللَّهِ ‏.‏ قَالَ ‏&quot;‏ الإِشْرَاكُ بِاللَّهِ وَعُقُوقُ الْوَالِدَيْنِ وَشَهَادَةُ الزُّورِ أَوْ قَوْلُ الزُّورِ ‏&quot;‏ ‏.‏ قَالَ فَمَا زَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَقُولُهَا حَتَّى قُلْنَا لَيْتَهُ سَكَتَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَفِي الْبَابِ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abdur-Rahman bin Abi Bakrah narrated from his father that the Messenger of Allah (s.a.w) said:&quot;Shall I not inform you of the greatest of the major sins?&quot; They said: &quot;Of course O Messenger of Allah(s.a.w)!&quot; He said: &quot;Shirk with Allah disobeying parents, and false testimony.&quot; Or: &quot;False speech&quot; He said: &quot;So the Messenger of Allah(s.a.w) would not stop saying it until we said ( to ourselves): &#x27;I wish he would be quiet</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2302 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 7</span></td></tr><tr id='h2302' class='hadith-sep'><td colspan='2'>Hadith 2302 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا وَاصِلُ بْنُ عَبْدِ الأَعْلَى، حَدَّثَنَا مُحَمَّدُ بْنُ فُضَيْلٍ، عَنِ الأَعْمَشِ، عَنْ عَلِيِّ بْنِ مُدْرِكٍ، عَنْ هِلاَلِ بْنِ يِسَافٍ، عَنْ عِمْرَانَ بْنِ حُصَيْنِ، قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ خَيْرُ النَّاسِ قَرْنِي ثُمَّ الَّذِينَ يَلُونَهُمْ ثُمَّ الَّذِينَ يَلُونَهُمْ ثُمَّ الَّذِينَ يَلُونَهُمْ ثَلاَثًا ثُمَّ يَجِيءُ قَوْمٌ مِنْ بَعْدِهِمْ يَتَسَمَّنُونَ وَيُحِبُّونَ السِّمَنَ يُعْطُونَ الشَّهَادَةَ قَبْلَ أَنْ يُسْأَلُوهَا ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى وَهَذَا حَدِيثٌ غَرِيبٌ مِنْ حَدِيثِ الأَعْمَشِ عَنْ عَلِيِّ بْنِ مُدْرِكٍ وَأَصْحَابُ الأَعْمَشِ إِنَّمَا رَوَوْا عَنِ الأَعْمَشِ عَنْ هِلاَلِ بْنِ يِسَافٍ عَنْ عِمْرَانَ بْنِ حُصَيْنٍ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Imran bin Husain narrated that the Messenger of Allah(s.a.w)said:&quot;The best of people are my generation, then those who follow them,then those who follow them, then those who follow them.&quot;(He(s.a.w)said that) three times. &quot;Then, after them a people will come who increase in fatness, loving fatness, giving testimony before they are asked for it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2303 — Chapters On Witnesses</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 35, Hadith 8</span></td></tr><tr id='h2303' class='hadith-sep'><td colspan='2'>Hadith 2303 — Chapters On Witnesses</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدِيثِ عُمَرَ بْنِ الْخَطَّابِ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏&quot;‏ خَيْرُ النَّاسِ قَرْنِي ثُمَّ الَّذِينَ يَلُونَهُمْ ثُمَّ الَّذِينَ يَلُونَهُمْ ثُمَّ يَفْشُو الْكَذِبُ حَتَّى يَشْهَدَ الرَّجُلُ وَلاَ يُسْتَشْهَدُ وَيَحْلِفُ الرَّجُلُ وَلاَ يُسْتَحْلَفُ ‏&quot;‏ ‏.‏ وَمَعْنَى حَدِيثِ النَّبِيِّ صلى الله عليه وسلم ‏&quot;‏ خَيْرُ الشُّهَدَاءِ الَّذِي يَأْتِي بِشَهَادَتِهِ قَبْلَ أَنْ يُسْأَلَهَا ‏&quot;‏ ‏.‏ هُوَ عِنْدَنَا إِذَا أُشْهِدَ الرَّجُلُ عَلَى الشَّىْءِ أَنْ يُؤَدِّيَ شَهَادَتَهُ وَلاَ يَمْتَنِعَ مِنَ الشَّهَادَةِ هَكَذَا وَجْهُ الْحَدِيثِ عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ ‏.‏ كَمُلَ وَالْحَمْدُ لِلَّهِ كِتَابُ الشَّهَادَاتِ وَيَلِيهِ كِتَابُ الزُّهْدِ</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Clarification of this is in the Hadith of &#x27;Umar bin Al-Khattab, from the Prophet(s.a.w) who said:&quot;The best of people are my generation, then those who follow them,then those who follow them. Then lying will spread, until a man testifies while his testimony was not requested, and a man will take an oath while an oath was not sought</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>

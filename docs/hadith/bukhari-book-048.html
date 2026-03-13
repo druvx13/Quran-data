@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='bukhari.html'>Sahih al-Bukhari</a> › Mortgaging</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Sahih al-Bukhari</h1>
@@ -105,28 +166,28 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 2508 — Mortgaging</td></tr>
+<tr id='h2508' class='hadith-sep'><td colspan='2'>Hadith 2508 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا هِشَامٌ، حَدَّثَنَا قَتَادَةُ، عَنْ أَنَسٍ ـ رضى الله عنه ـ قَالَ وَلَقَدْ رَهَنَ النَّبِيُّ صلى الله عليه وسلم دِرْعَهُ بِشَعِيرٍ، وَمَشَيْتُ إِلَى النَّبِيِّ صلى الله عليه وسلم بِخُبْزِ شَعِيرٍ وَإِهَالَةٍ سَنِخَةٍ، وَلَقَدْ سَمِعْتُهُ يَقُولُ ‏ &quot;‏ مَا أَصْبَحَ لآلِ مُحَمَّدٍ صلى الله عليه وسلم إِلاَّ صَاعٌ، وَلاَ أَمْسَى ‏&quot;‏‏.‏ وَإِنَّهُمْ لَتِسْعَةُ أَبْيَاتٍ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas:No doubt, the Prophet (ﷺ) mortgaged his armor for barley grains. Once I took barley bread with some dissolved fat on it to the Prophet (ﷺ) and I heard him saying, &quot;The household of Muhammad did not possess except a Sa (of food grain, barley, etc.) for both the morning and the evening meals although they were nine houses</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2509 — Mortgaging</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 1</span></td></tr><tr id='h2509' class='hadith-sep'><td colspan='2'>Hadith 2509 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا عَبْدُ الْوَاحِدِ، حَدَّثَنَا الأَعْمَشُ، قَالَ تَذَاكَرْنَا عِنْدَ إِبْرَاهِيمَ الرَّهْنَ، وَالْقَبِيلَ فِي السَّلَفِ، فَقَالَ إِبْرَاهِيمُ حَدَّثَنَا الأَسْوَدُ عَنْ عَائِشَةَ ـ رضى الله عنها ـ أَنَّ النَّبِيَّ صلى الله عليه وسلم اشْتَرَى مِنْ يَهُودِيٍّ طَعَامًا إِلَى أَجَلٍ وَرَهَنَهُ دِرْعَهُ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Aisha:The Prophet (ﷺ) bought some foodstuff on credit for a limited period and mortgaged his armor for it</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2510 — Mortgaging</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 2</span></td></tr><tr id='h2510' class='hadith-sep'><td colspan='2'>Hadith 2510 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا سُفْيَانُ، قَالَ عَمْرٌو سَمِعْتُ جَابِرَ بْنَ عَبْدِ اللَّهِ ـ رضى الله عنهما ـ يَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ لِكَعْبِ بْنِ الأَشْرَفِ فَإِنَّهُ آذَى اللَّهَ وَرَسُولَهُ صلى الله عليه وسلم ‏&quot;‏‏.‏ فَقَالَ مُحَمَّدُ بْنُ مَسْلَمَةَ أَنَا‏.‏ فَأَتَاهُ فَقَالَ أَرَدْنَا أَنْ تُسْلِفَنَا وَسْقًا أَوْ وَسْقَيْنِ‏.‏ فَقَالَ ارْهَنُونِي نِسَاءَكُمْ‏.‏ قَالُوا كَيْفَ نَرْهَنُكَ نِسَاءَنَا، وَأَنْتَ أَجْمَلُ الْعَرَبِ قَالَ فَارْهَنُونِي أَبْنَاءَكُمْ‏.‏ قَالُوا كَيْفَ نَرْهَنُ أَبْنَاءَنَا فَيُسَبُّ أَحَدُهُمْ، فَيُقَالُ رُهِنَ بِوَسْقٍ أَوْ وَسْقَيْنِ هَذَا عَارٌ عَلَيْنَا وَلَكِنَّا نَرْهَنُكَ اللأْمَةَ ـ قَالَ سُفْيَانُ يَعْنِي السِّلاَحَ ـ فَوَعَدَهُ أَنْ يَأْتِيَهُ فَقَتَلُوهُ، ثُمَّ أَتَوُا النَّبِيَّ صلى الله عليه وسلم فَأَخْبَرُوهُ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Jabir bin `Abdullah:Allah&#x27;s Messenger (ﷺ) said, &quot;Who would kill Ka`b bin Al-Ashraf as he has harmed Allah and His Apostle ?&quot; Muhammad bin Maslama (got up and) said, &quot;I will kill him.&quot; So, Muhammad bin Maslama went to Ka`b and said, &quot;I want a loan of one or two Wasqs of food grains.&quot; Ka`b said, &quot;Mortgage your women to me.&quot; Muhammad bin Maslama said, &quot;How can we mortgage our women, and you are the most handsome among the Arabs?&quot; He said, &quot;Then mortgage your sons to me.&quot; Muhammad said, &quot;How can we mortgage our sons, as the people will abuse them for being mortgaged for one or two Wasqs of food grains? It is shameful for us. But we will mortgage our arms to you.&quot; So, Muhammad bin Maslama promised him that he would come to him next time. They (Muhammad bin Maslama and his companions came to him as promised and murdered him. Then they went to the Prophet (ﷺ) and told him about it</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2511 — Mortgaging</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 3</span></td></tr><tr id='h2511' class='hadith-sep'><td colspan='2'>Hadith 2511 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو نُعَيْمٍ، حَدَّثَنَا زَكَرِيَّاءُ، عَنْ عَامِرٍ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ كَانَ يَقُولُ ‏ &quot;‏ الرَّهْنُ يُرْكَبُ بِنَفَقَتِهِ، وَيُشْرَبُ لَبَنُ الدَّرِّ إِذَا كَانَ مَرْهُونًا ‏&quot;‏‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abu Huraira:The Prophet (ﷺ) said, &quot;One can ride the mortgaged animal because of what one spends on it, and one can drink the milk of a milch animal as long as it is mortgaged</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2512 — Mortgaging</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 4</span></td></tr><tr id='h2512' class='hadith-sep'><td colspan='2'>Hadith 2512 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ مُقَاتِلٍ، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا زَكَرِيَّاءُ، عَنِ الشَّعْبِيِّ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم‏.‏ ‏ &quot;‏ الرَّهْنُ يُرْكَبُ بِنَفَقَتِهِ إِذَا كَانَ مَرْهُونًا، وَلَبَنُ الدَّرِّ يُشْرَبُ بِنَفَقَتِهِ إِذَا كَانَ مَرْهُونًا، وَعَلَى الَّذِي يَرْكَبُ وَيَشْرَبُ النَّفَقَةُ ‏&quot;‏‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abu Huraira:Allah&#x27;s Messenger (ﷺ) said, &quot;The mortgaged animal can be used for riding as long as it is fed and the milk of the milch animal can be drunk according to what one spends on it. The one who rides the animal or drinks its milk should provide the expenditures</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2513 — Mortgaging</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 5</span></td></tr><tr id='h2513' class='hadith-sep'><td colspan='2'>Hadith 2513 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا جَرِيرٌ، عَنِ الأَعْمَشِ، عَنْ إِبْرَاهِيمَ، عَنِ الأَسْوَدِ، عَنْ عَائِشَةَ ـ رضى الله عنها ـ قَالَتِ اشْتَرَى رَسُولُ اللَّهِ صلى الله عليه وسلم مِنْ يَهُودِيٍّ طَعَامًا وَرَهَنَهُ دِرْعَهُ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Aisha:Allah&#x27;s Messenger (ﷺ) bought some foodstuff from a Jew and mortgaged his armor to him</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2514 — Mortgaging</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 6</span></td></tr><tr id='h2514' class='hadith-sep'><td colspan='2'>Hadith 2514 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا خَلاَّدُ بْنُ يَحْيَى، حَدَّثَنَا نَافِعُ بْنُ عُمَرَ، عَنِ ابْنِ أَبِي مُلَيْكَةَ، قَالَ كَتَبْتُ إِلَى ابْنِ عَبَّاسٍ فَكَتَبَ إِلَىَّ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَضَى أَنَّ الْيَمِينَ عَلَى الْمُدَّعَى عَلَيْهِ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn Abu Mulaika:I wrote a letter to Ibn `Abbas and he wrote to me that the Prophet (ﷺ) had given the verdict that the defendant had to take an oath</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2515 — Mortgaging</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 7</span></td></tr><tr id='h2515' class='hadith-sep'><td colspan='2'>Hadith 2515 — Mortgaging</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا جَرِيرٌ، عَنْ مَنْصُورٍ، عَنْ أَبِي وَائِلٍ، قَالَ قَالَ عَبْدُ اللَّهِ ـ رضى الله عنه مَنْ حَلَفَ عَلَى يَمِينٍ، يَسْتَحِقُّ بِهَا مَالاً وَهْوَ فِيهَا فَاجِرٌ، لَقِيَ اللَّهَ وَهْوَ عَلَيْهِ غَضْبَانُ، فَأَنْزَلَ اللَّهُ تَصْدِيقَ ذَلِكَ ‏{‏إِنَّ الَّذِينَ يَشْتَرُونَ بِعَهْدِ اللَّهِ وَأَيْمَانِهِمْ ثَمَنًا قَلِيلاً‏}‏ فَقَرَأَ إِلَى ‏{‏عَذَابٌ أَلِيمٌ‏}‏‏.‏ثُمَّ إِنَّ الأَشْعَثَ بْنَ قَيْسٍ خَرَجَ إِلَيْنَا فَقَالَ مَا يُحَدِّثُكُمْ أَبُو عَبْدِ الرَّحْمَنِ قَالَ فَحَدَّثْنَاهُ قَالَ فَقَالَ صَدَقَ لَفِيَّ وَاللَّهِ أُنْزِلَتْ، كَانَتْ بَيْنِي وَبَيْنَ رَجُلٍ خُصُومَةٌ فِي بِئْرٍ فَاخْتَصَمْنَا إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ شَاهِدُكَ أَوْ يَمِينُهُ ‏&quot;‏‏.‏ قُلْتُ إِنَّهُ إِذًا يَحْلِفُ وَلاَ يُبَالِي‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مَنْ حَلَفَ عَلَى يَمِينٍ يَسْتَحِقُّ بِهَا مَالاً هُوَ فِيهَا فَاجِرٌ، لَقِيَ اللَّهَ وَهْوَ عَلَيْهِ غَضْبَانُ ‏&quot;‏‏.‏ فَأَنْزَلَ اللَّهُ تَصْدِيقَ ذَلِكَ، ثُمَّ اقْتَرَأَ هَذِهِ الآيَةَ ‏{‏إِنَّ الَّذِينَ يَشْتَرُونَ بِعَهْدِ اللَّهِ وَأَيْمَانِهِمْ ثَمَنًا قَلِيلاً‏}‏ إِلَى ‏{‏وَلَهُمْ عَذَابٌ أَلِيمٌ‏}‏‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abu Wail: Abdullah (bin Mas&#x27;ud) said, &quot;Whoever took a false oath in order to grab somebody&#x27;s property will meet Allah while Allah will be angry with him.&quot; Allah revealed the following verse to confirm that:--&quot;Verily! Those who purchase a small gain at the cost of Allah&#x27;s covenant And their oaths...a painful torment.&quot; (3.77) Al-Ash&#x27;ath bin Qais came to us and asked as to what Abu Abdur-Rehman (i.e. Ibn Mas&#x27;ud) was telling you.&quot; We related the story to him. On that he said, &quot;He has told the truth. This verse was revealed about me. I had some dispute with another man regarding a well and we took the case before Allah&#x27;s Messenger (ﷺ). Allah&#x27;s Messenger (ﷺ) said (to me), &quot;Produce two witnesses (to support your claim); otherwise the defendant has the right to take an oath (to refute your claim).&#x27; I said, &#x27;The defendant would not mind to take a false oath.&quot; Allah&#x27;s Messenger (ﷺ) then said, &#x27;Whoever took a false oath in order to grab someone else&#x27;s property will meet Allah, Allah will be angry with him.&#x27; Allah then revealed what Confirmed it.&quot; Al-Ash&#x27;ath then recited the following Verse:--&quot;Verily! Those who purchase a small gain at the cost of Allah&#x27;s covenant, And their oaths . . . (to) . . . they shall have a painful torment!&#x27; (3.77) (See Hadith No)</span></td></tr>
 <tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 48, Hadith 8</span></td></tr>

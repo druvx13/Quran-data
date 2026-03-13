@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='ibnmajah.html'>Sunan Ibn Majah</a> › The Chapters on Pre-emption</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Sunan Ibn Majah</h1>
@@ -105,42 +166,42 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 2492 — The Chapters on Pre-emption</td></tr>
+<tr id='h2492' class='hadith-sep'><td colspan='2'>Hadith 2492 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا هِشَامُ بْنُ عَمَّارٍ، وَمُحَمَّدُ بْنُ الصَّبَّاحِ، قَالاَ حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ كَانَتْ لَهُ نَخْلٌ أَوْ أَرْضٌ فَلاَ يَبِيعُهَا حَتَّى يَعْرِضَهَا عَلَى شَرِيكِهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Jabir said:“The Messenger of Allah (ﷺ) said: &#x27;Whoever has a date-palm tree or land, should not sell it until he has offered it to his partner.&#x27; ”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2493 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 1</span></td></tr><tr id='h2493' class='hadith-sep'><td colspan='2'>Hadith 2493 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ سِنَانٍ، وَالْعَلاَءُ بْنُ سَالِمٍ، قَالاَ حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ، أَنْبَأَنَا شَرِيكٌ، عَنْ سِمَاكٍ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ كَانَتْ لَهُ أَرْضٌ فَأَرَادَ بَيْعَهَا فَلْيَعْرِضْهَا عَلَى جَارِهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn Abbas that the Prophet (ﷺ) said:“Whoever has land and wants to sell it, let him offer it to his neighbor.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih Lighairihi; Sahih Lighairihi; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2494 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 2</span></td></tr><tr id='h2494' class='hadith-sep'><td colspan='2'>Hadith 2494 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا هُشَيْمٌ، أَنْبَأَنَا عَبْدُ الْمَلِكِ، عَنْ عَطَاءٍ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الْجَارُ أَحَقُّ بِشُفْعَةِ جَارِهِ يَنْتَظِرُ بِهَا إِنْ كَانَ غَائِبًا إِذَا كَانَ طَرِيقُهُمَا وَاحِدًا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Jabir that the Messenger of Allah (ﷺ) said:“The neighbor has more right to preemption of his neighbor, so let him wait for him even if he is absent, if they share a path.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2495 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 3</span></td></tr><tr id='h2495' class='hadith-sep'><td colspan='2'>Hadith 2495 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَعَلِيُّ بْنُ مُحَمَّدٍ، قَالاَ حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ إِبْرَاهِيمَ بْنِ مَيْسَرَةَ، عَنْ عَمْرِو بْنِ الشَّرِيدِ، عَنْ أَبِي رَافِعٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْجَارُ أَحَقُّ بِسَقَبِهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Abu Rafi&#x27; that the Prophet (ﷺ) said:“The neighbor has more right to property that is near.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2496 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 4</span></td></tr><tr id='h2496' class='hadith-sep'><td colspan='2'>Hadith 2496 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا أَبُو أُسَامَةَ، عَنْ حُسَيْنٍ الْمُعَلِّمِ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ عَمْرِو بْنِ الشَّرِيدِ بْنِ سُوَيْدٍ، عَنْ أَبِيهِ الشَّرِيدِ بْنِ سُوَيْدٍ، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ أَرْضٌ لَيْسَ فِيهَا لأَحَدٍ قِسْمٌ وَلاَ شِرْكٌ إِلاَّ الْجِوَارُ ‏.‏ قَالَ ‏ &quot;‏ الْجَارُ أَحَقُّ بِسَقَبِهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Sharid bin Suwaid said:“I said: &#x27;O Messenger of Allah, (what do you think of) land owned by only one person but this land has neighbors?&#x27; He said: &#x27;The neighbor has more right to property that is near.&#x27; ”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Hasan Sahih; Sahih; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2497 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 5</span></td></tr><tr id='h2497' class='hadith-sep'><td colspan='2'>Hadith 2497 — The Chapters on Pre-emption</td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2498 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 6</span></td></tr><tr id='h2498' class='hadith-sep'><td colspan='2'>Hadith 2498 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ الْجَرَّاحِ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ إِبْرَاهِيمَ بْنِ مَيْسَرَةَ، عَنْ عَمْرِو بْنِ الشَّرِيدِ، عَنْ أَبِي رَافِعٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الشَّرِيكُ أَحَقُّ بِسَقَبِهِ مَا كَانَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Abu Rafi&#x27; that the Messenger of Allah (ﷺ) said:“The partner has more right to what is near him, so long as he is still a partner.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2499 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 8</span></td></tr><tr id='h2499' class='hadith-sep'><td colspan='2'>Hadith 2499 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى، حَدَّثَنَا عَبْدُ الرَّزَّاقِ، عَنْ مَعْمَرٍ، عَنِ الزُّهْرِيِّ، عَنْ أَبِي سَلَمَةَ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، قَالَ إِنَّمَا جَعَلَ رَسُولُ اللَّهِ صلى الله عليه وسلم الشُّفْعَةَ فِي كُلِّ مَا لَمْ يُقْسَمْ فَإِذَا وَقَعَتِ الْحُدُودُ وَصُرِّفَتِ الطُّرُقُ فَلاَ شُفْعَةَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Jabir bin Abdullah that:the Messenger of Allah (ﷺ) ruled that preemption takes effect in all cases where land has not been divided. But if the boundaries have been set and the roads laid out, then there is no preemption.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2500 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 9</span></td></tr><tr id='h2500' class='hadith-sep'><td colspan='2'>Hadith 2500 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا مُحَمَّدُ بْنُ الْحَارِثِ، عَنْ مُحَمَّدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ الْبَيْلَمَانِيِّ، عَنْ أَبِيهِ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الشُّفْعَةُ كَحَلِّ الْعِقَالِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn &#x27;Umar that the Messenger of Allah (ﷺ) said:“Preemption is like undoing the `Iqal.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Very Daif; Very Daif; Very Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2501 — The Chapters on Pre-emption</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 10</span></td></tr><tr id='h2501' class='hadith-sep'><td colspan='2'>Hadith 2501 — The Chapters on Pre-emption</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا سُوَيْدُ بْنُ سَعِيدٍ، قَالَ حَدَّثَنَا مُحَمَّدُ بْنُ الْحَارِثِ، عَنْ مُحَمَّدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ الْبَيْلَمَانِيِّ، عَنْ أَبِيهِ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ شُفْعَةَ لِشَرِيكٍ عَلَى شَرِيكٍ إِذَا سَبَقَهُ بِالشِّرَاءِ وَلاَ لِصَغِيرٍ وَلاَ لِغَائِبٍ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn &#x27;Umar that the Messenger of Allah (ﷺ) said:“There is no preemption for a partner when his co-partner has beaten him to it (in another deal before), not for a minor nor one who is absent.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Very Daif; Very Daif; Very Daif; Daif</span></td></tr>

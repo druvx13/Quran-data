@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Visions</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,37 +166,37 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1747 — Visions</td></tr>
+<tr id='h1747' class='hadith-sep'><td colspan='2'>Hadith 1747 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ الأَنْصَارِيِّ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الرُّؤْيَا الْحَسَنَةُ مِنَ الرَّجُلِ الصَّالِحِ جُزْءٌ مِنْ سِتَّةٍ وَأَرْبَعِينَ جُزْءًا مِنَ النُّبُوَّةِ ‏&quot;‏ ‏.‏ وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم بِمِثْلِ ذَلِكَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha al-Ansari from Anas ibn Malik that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;The good dream of a man who is salih is a forty-sixth part of prophecy.&quot; Yahya related the like of that to me from Malik from Abu&#x27;z-Zinad from al- Araj from Abu Hurayra from the Messenger of Allah, may Allah bless him and grant him peace</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1748 — Visions</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 1</span></td></tr><tr id='h1748' class='hadith-sep'><td colspan='2'>Hadith 1748 — Visions</td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1749 — Visions</td></tr>
+<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr><tr id='h1749' class='hadith-sep'><td colspan='2'>Hadith 1749 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ زُفَرَ بْنِ صَعْصَعَةَ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ إِذَا انْصَرَفَ مِنْ صَلاَةِ الْغَدَاةِ يَقُولُ ‏&quot;‏ هَلْ رَأَى أَحَدٌ مِنْكُمُ اللَّيْلَةَ رُؤْيَا ‏&quot;‏ ‏.‏ وَيَقُولُ ‏&quot;‏ لَيْسَ يَبْقَى بَعْدِي مِنَ النُّبُوَّةِ إِلاَّ الرُّؤْيَا الصَّالِحَةُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha from Zufar ibn Sasaca from his father from Abu Hurayra that when the Messenger of Allah, may Allah bless him and grant him peace, left the morning prayer, he would say, &quot;Has any of you had a dream last night? All that will remain of prophecy after me will be the true dream</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1750 — Visions</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 1</span></td></tr><tr id='h1750' class='hadith-sep'><td colspan='2'>Hadith 1750 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ لَنْ يَبْقَى بَعْدِي مِنَ النُّبُوَّةِ إِلاَّ الْمُبَشِّرَاتُ ‏&quot;‏ ‏.‏ فَقَالُوا وَمَا الْمُبَشِّرَاتُ يَا رَسُولَ اللَّهِ قَالَ ‏&quot;‏ الرُّؤْيَا الصَّالِحَةُ يَرَاهَا الرَّجُلُ الصَّالِحُ أَوْ تُرَى لَهُ جُزْءٌ مِنْ سِتَّةٍ وَأَرْبَعِينَ جُزْءًا مِنَ النُّبُوَّةِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam from Ata ibn Yasar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;All that will be left of prophecy after me are the mubashshirat.&quot; They said, &quot;What are the mubashshirat, Messenger of Allah?&quot; He said, &quot;The true dream which a man who is salih sees - or which is shown to him - is a forty-sixth part of prophecy</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1751 — Visions</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 2</span></td></tr><tr id='h1751' class='hadith-sep'><td colspan='2'>Hadith 1751 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، أَنَّهُ قَالَ سَمِعْتُ أَبَا قَتَادَةَ بْنَ رِبْعِيٍّ، يَقُولُ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ الرُّؤْيَا الصَّالِحَةُ مِنَ اللَّهِ وَالْحُلْمُ مِنَ الشَّيْطَانِ فَإِذَا رَأَى أَحَدُكُمُ الشَّىْءَ يَكْرَهُهُ فَلْيَنْفُثْ عَنْ يَسَارِهِ ثَلاَثَ مَرَّاتٍ إِذَا اسْتَيْقَظَ وَلْيَتَعَوَّذْ بِاللَّهِ مِنْ شَرِّهَا فَإِنَّهَا لَنْ تَضُرَّهُ إِنْ شَاءَ اللَّهُ ‏&quot;‏ ‏.‏ قَالَ أَبُو سَلَمَةَ إِنْ كُنْتُ لأَرَى الرُّؤْيَا هِيَ أَثْقَلُ عَلَىَّ مِنَ الْجَبَلِ فَلَمَّا سَمِعْتُ هَذَا الْحَدِيثَ فَمَا كُنْتُ أُبَالِيهَا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that Abu Salama ibn Abd ar-Rahman said, &quot;I heard Abu Qatada ibn Ribiyy say that he heard the Messenger of Allah, may Allah bless him and grant him peace, say, &#x27;The good dream is from Allah, and the bad dream is from shaytan. When you see what you dislike, spit to your left side three times when you wake up, and seek refuge with Allah from its evil. It will not harm you then, Allah willing.&#x27; &quot; Abu Salama said, &quot;I would see dreams which weighed on me more heavily than a mountain. When I heard this hadith, I was not concerned about it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1752 — Visions</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 3</span></td></tr><tr id='h1752' class='hadith-sep'><td colspan='2'>Hadith 1752 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّهُ كَانَ يَقُولُ فِي هَذِهِ الآيَةِ ‏{‏لَهُمُ الْبُشْرَى فِي الْحَيَاةِ الدُّنْيَا وَفِي الآخِرَةِ‏}‏ ‏.‏ قَالَ هِيَ الرُّؤْيَا الصَّالِحَةُ يَرَاهَا الرَّجُلُ الصَّالِحُ أَوْ تُرَى لَهُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa that his father said about this ayat, &quot;You have good news in the life of this world and the next world,&quot; (Sura 10 ayat 64), that it was the good dream which the man who was salih saw or which was shown to him</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1753 — Visions</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 4</span></td></tr><tr id='h1753' class='hadith-sep'><td colspan='2'>Hadith 1753 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ مُوسَى بْنِ مَيْسَرَةَ، عَنْ سَعِيدِ بْنِ أَبِي هِنْدٍ، عَنْ أَبِي مُوسَى الأَشْعَرِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ لَعِبَ بِالنَّرْدِ فَقَدْ عَصَى اللَّهَ وَرَسُولَهُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Musa ibn Maysara from Said ibn Abi Hind from Abu Musa al-Ashari that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Whoever plays games of dice has disobeyed Allah and His Messenger</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1754 — Visions</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 5</span></td></tr><tr id='h1754' class='hadith-sep'><td colspan='2'>Hadith 1754 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَلْقَمَةَ بْنِ أَبِي عَلْقَمَةَ، عَنْ أُمِّهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ بَلَغَهَا أَنَّ أَهْلَ بَيْتٍ فِي دَارِهَا كَانُوا سُكَّانًا فِيهَا وَعِنْدَهُمْ نَرْدٌ فَأَرْسَلَتْ إِلَيْهِمْ لَئِنْ لَمْ تُخْرِجُوهَا لأُخْرِجَنَّكُمْ مِنْ دَارِي وَأَنْكَرَتْ ذَلِكَ عَلَيْهِمْ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Alqama from his mother that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, heard that the people who lived in a room in her house had some dice. She sent a message to them, &quot;If you do not remove them, I will remove you from my house,&quot; and she reproached them for it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1755 — Visions</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 52, Hadith 6</span></td></tr><tr id='h1755' class='hadith-sep'><td colspan='2'>Hadith 1755 — Visions</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ كَانَ إِذَا وَجَدَ أَحَدًا مِنْ أَهْلِهِ يَلْعَبُ بِالنَّرْدِ ضَرَبَهُ وَكَسَرَهَا ‏.‏ قَالَ يَحْيَى وَسَمِعْتُ مَالِكًا يَقُولُ لاَ خَيْرَ فِي الشَّطْرَنْجِ ‏.‏ وَكَرِهَهَا وَسَمِعْتُهُ يَكْرَهُ اللَّعِبَ بِهَا وَبِغَيْرِهَا مِنَ الْبَاطِلِ وَيَتْلُو هَذِهِ الآيَةَ ‏{‏فَمَاذَا بَعْدَ الْحَقِّ إِلاَّ الضَّلاَلُ ‏}‏‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that when he found one of his family playing dice he beat him and destroyed the dice. Yahya said that he heard Malik say, &quot;There is no good in chess, and he disapproved of it.&quot; Yahya said, &quot;I heard him disapprove of playing it and other worthless games. He recited this ayat, &#x27;What is there after the truth except going the wrong way.&#x27; &quot; (Sura l0 ayat)</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>

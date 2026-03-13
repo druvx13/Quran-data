@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Slaughtering Animals</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,43 +166,43 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1042 — Slaughtering Animals</td></tr>
+<tr id='h1042' class='hadith-sep'><td colspan='2'>Hadith 1042 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّهُ قَالَ سُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَقِيلَ لَهُ يَا رَسُولَ اللَّهِ إِنَّ نَاسًا مِنْ أَهْلِ الْبَادِيَةِ يَأْتُونَنَا بِلُحْمَانٍ وَلاَ نَدْرِي هَلْ سَمَّوُا اللَّهَ عَلَيْهَا أَمْ لاَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ سَمُّوا اللَّهَ عَلَيْهَا ثُمَّ كُلُوهَا ‏&quot;‏ ‏.‏ قَالَ مَالِكٌ وَذَلِكَ فِي أَوَّلِ الإِسْلاَمِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa that his father said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, was asked, &#x27;Messenger of Allah! Some people from the desert bring us meat, and we do not know whether the name of Allah has been mentioned over it or not.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Mention the name of Allah over it and eat.&#x27; &quot; Malik said, &quot;That was in the beginning of Islam</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1043 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 1</span></td></tr><tr id='h1043' class='hadith-sep'><td colspan='2'>Hadith 1043 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عَيَّاشِ بْنِ أَبِي رَبِيعَةَ الْمَخْزُومِيَّ، أَمَرَ غُلاَمًا لَهُ أَنْ يَذْبَحَ ذَبِيحَةً فَلَمَّا أَرَادَ أَنْ يَذْبَحَهَا قَالَ لَهُ سَمِّ اللَّهَ ‏.‏ فَقَالَ لَهُ الْغُلاَمُ قَدْ سَمَّيْتُ ‏.‏ فَقَالَ لَهُ سَمِّ اللَّهَ وَيْحَكَ ‏.‏ قَالَ لَهُ قَدْ سَمَّيْتُ اللَّهَ ‏.‏ فَقَالَ لَهُ عَبْدُ اللَّهِ بْنُ عَيَّاشٍ وَاللَّهِ لاَ أَطْعَمُهَا أَبَدًا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that Abdullah ibn Ayyash ibn Abi Rabia al-Makhzumi ordered one of his slaves to slaughter an animal. When he wanted to slaughter it, he said to him, &quot;Mention Allah&#x27;s name.&quot; The slave said to him, &quot;I have mentioned the name!&quot; He said to him, &quot;Mention the name of Allah, bother you!&quot; He said to him, &quot;I have mentioned the name of Allah &quot; Abdullah ibn Ayyash said, &quot;By Allah, I shall never eat it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1044 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 2</span></td></tr><tr id='h1044' class='hadith-sep'><td colspan='2'>Hadith 1044 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، أَنَّ رَجُلاً، مِنَ الأَنْصَارِ مِنْ بَنِي حَارِثَةَ كَانَ يَرْعَى لِقْحَةً لَهُ بِأُحُدٍ فَأَصَابَهَا الْمَوْتُ فَذَكَّاهَا بِشِظَاظٍ فَسُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَنْ ذَلِكَ فَقَالَ ‏ &quot;‏ لَيْسَ بِهَا بَأْسٌ فَكُلُوهَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam from Ata ibn Yasar that a man from the Ansar of the tribe of Banu Haritha was herding a pregnant she-camel at Uhud. It was about to die, so he slaughtered it with a sharp stake. The Messenger of Allah was asked about that, and he said, &quot;There is no harm in it, eat it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1045 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 3</span></td></tr><tr id='h1045' class='hadith-sep'><td colspan='2'>Hadith 1045 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ رَجُلٍ، مِنَ الأَنْصَارِ عَنْ مُعَاذِ بْنِ سَعْدٍ، أَوْ سَعْدِ بْنِ مُعَاذٍ أَنَّ جَارِيَةً، لِكَعْبِ بْنِ مَالِكٍ كَانَتْ تَرْعَى غَنَمًا لَهَا بِسَلْعٍ فَأُصِيبَتْ شَاةٌ مِنْهَا فَأَدْرَكَتْهَا فَذَكَّتْهَا بِحَجَرٍ فَسُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَنْ ذَلِكَ فَقَالَ ‏ &quot;‏ لاَ بَأْسَ بِهَا فَكُلُوهَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from a man of the Ansar from Muadh ibn Sad or Sad ibn Muadh that a slave-girl of Kab ibn Malik was herding some sheep at Sal (a mountain near Madina). One of the sheep was about to die, so she went over to it and slaughtered it with a stone. The Messenger of Allah, may Allah bless him and grant him peace, was asked about that, and he said, &quot;There is no harm in it, so eat it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1046 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 4</span></td></tr><tr id='h1046' class='hadith-sep'><td colspan='2'>Hadith 1046 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ ثَوْرِ بْنِ زَيْدٍ الدِّيلِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّهُ سُئِلَ عَنْ ذَبَائِحِ، نَصَارَى الْعَرَبِ فَقَالَ لاَ بَأْسَ بِهَا وَتَلاَ هَذِهِ الآيَةَ ‏{‏وَمَنْ يَتَوَلَّهُمْ مِنْكُمْ فَإِنَّهُ مِنْهُمْ ‏}‏‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Thawr ibn Zayd ad-Dili that Abdullah ibn Abbas was asked about animals slaughtered by the Christian Arabs. He said, &quot;There is no harm in them,&quot; but he recited this ayat, &quot;Whoever takes them as friends is from them.&quot; (Sura 5 ayat)</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1047 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 5</span></td></tr><tr id='h1047' class='hadith-sep'><td colspan='2'>Hadith 1047 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، كَانَ يَقُولُ مَا فَرَى الأَوْدَاجَ فَكُلُوهُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Abdullah ibn Abbas used to say, &quot;You can eat anything that has had its jugular vein cut</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1048 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 6</span></td></tr><tr id='h1048' class='hadith-sep'><td colspan='2'>Hadith 1048 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ كَانَ يَقُولُ مَا ذُبِحَ بِهِ إِذَا بَضَعَ فَلاَ بَأْسَ بِهِ إِذَا اضْطُرِرْتَ إِلَيْهِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that Said ibn al-Musayyab said, &quot;There is no harm in whatever you slaughter with a cutting edge, as long as you are forced to do it by necessity</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1049 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 7</span></td></tr><tr id='h1049' class='hadith-sep'><td colspan='2'>Hadith 1049 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ أَبِي مُرَّةَ، مَوْلَى عَقِيلِ بْنِ أَبِي طَالِبٍ أَنَّهُ سَأَلَ أَبَا هُرَيْرَةَ عَنْ شَاةٍ، ذُبِحَتْ فَتَحَرَّكَ بَعْضُهَا فَأَمَرَهُ أَنْ يَأْكُلَهَا ثُمَّ سَأَلَ عَنْ ذَلِكَ زَيْدَ بْنَ ثَابِتٍ فَقَالَ إِنَّ الْمَيْتَةَ لَتَتَحَرَّكُ وَنَهَاهُ عَنْ ذَلِكَ ‏.‏ وَسُئِلَ مَالِكٌ عَنْ شَاةٍ تَرَدَّتْ فَتَكَسَّرَتْ فَأَدْرَكَهَا صَاحِبُهَا فَذَبَحَهَا فَسَالَ الدَّمُ مِنْهَا وَلَمْ تَتَحَرَّكْ فَقَالَ مَالِكٌ إِذَا كَانَ ذَبَحَهَا وَنَفَسُهَا يَجْرِي وَهِيَ تَطْرِفُ فَلْيَأْكُلْهَا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that Abu Murra, the mawla of Aqil ibn Abi Talib asked Abu Hurayra about a sheep which was slaughtered and then part of it moved. He ordered him to eat it. Then he asked Zayd ibn Thabit about it, and he said, &quot;Does a corpse move?&quot; and he forbade eating its meat. Malik was asked about a sheep which fell down and injured itself badly and then its master reached it and slaughtered it. Blood flowed from it but it did not move. Malik said, &quot;If he kills it and blood flows from it and its eyes blink, he should eat it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1050 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 8</span></td></tr><tr id='h1050' class='hadith-sep'><td colspan='2'>Hadith 1050 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ كَانَ يَقُولُ إِذَا نُحِرَتِ النَّاقَةُ فَذَكَاةُ مَا فِي بَطْنِهَا فِي ذَكَاتِهَا إِذَا كَانَ قَدْ تَمَّ خَلْقُهُ وَنَبَتَ شَعَرُهُ فَإِذَا خَرَجَ مِنْ بَطْنِ أُمِّهِ ذُبِحَ حَتَّى يَخْرُجَ الدَّمُ مِنْ جَوْفِهِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar said, &quot;When a she-camel is slaughtered, what is in its womb is included in the slaughter if it is perfectly formed and its hair has begun to grow. If it comes out of its mother&#x27;s womb, it is slaughtered so that blood flows from its heart</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1051 — Slaughtering Animals</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 24, Hadith 9</span></td></tr><tr id='h1051' class='hadith-sep'><td colspan='2'>Hadith 1051 — Slaughtering Animals</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ عَبْدِ اللَّهِ بْنِ قُسَيْطٍ اللَّيْثِيِّ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ كَانَ يَقُولُ ذَكَاةُ مَا فِي بَطْنِ الذَّبِيحَةِ فِي ذَكَاةِ أُمِّهِ إِذَا كَانَ قَدْ تَمَّ خَلْقُهُ وَنَبَتَ شَعَرُهُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yazid ibn Abdullah ibn Qusayt al-Laythi that Said ibn al- Musayyab said, &quot;The slaughter of what is in the womb is included in the slaughter of the mother if it is perfectly formed and its hair has begun to grow</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>

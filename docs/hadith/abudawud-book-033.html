@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='abudawud.html'>Sunan Abu Dawud</a> › Hot Baths (Kitab Al-Hammam)</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Sunan Abu Dawud</h1>
@@ -105,47 +166,47 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 4009 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr id='h4009' class='hadith-sep'><td colspan='2'>Hadith 4009 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا حَمَّادٌ، عَنْ عَبْدِ اللَّهِ بْنِ شَدَّادٍ، عَنْ أَبِي عُذْرَةَ، عَنْ عَائِشَةَ، رضى الله عنها أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى عَنْ دُخُولِ الْحَمَّامَاتِ ثُمَّ رَخَّصَ لِلرِّجَالِ أَنْ يَدْخُلُوهَا فِي الْمَيَازِرِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Aisha, Ummul Mu&#x27;minin: The Messenger of Allah (ﷺ) forbade to enter the hot baths. He then permitted men to enter them in lower garments</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4010 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 1</span></td></tr><tr id='h4010' class='hadith-sep'><td colspan='2'>Hadith 4010 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ قُدَامَةَ، حَدَّثَنَا جَرِيرٌ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، حَدَّثَنَا شُعْبَةُ، - جَمِيعًا - عَنْ مَنْصُورٍ، عَنْ سَالِمِ بْنِ أَبِي الْجَعْدِ، - قَالَ ابْنُ الْمُثَنَّى - عَنْ أَبِي الْمَلِيحِ، قَالَ دَخَلَ نِسْوَةٌ مِنْ أَهْلِ الشَّامِ عَلَى عَائِشَةَ - رضى الله عنها - فَقَالَتْ مِمَّنْ أَنْتُنَّ قُلْنَ مِنْ أَهْلِ الشَّامِ ‏.‏ قَالَتْ لَعَلَّكُنَّ مِنَ الْكُورَةِ الَّتِي تَدْخُلُ نِسَاؤُهَا الْحَمَّامَاتِ قُلْنَ نَعَمْ ‏.‏ قَالَتْ أَمَا إِنِّي سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ مَا مِنِ امْرَأَةٍ تَخْلَعُ ثِيَابَهَا فِي غَيْرِ بَيْتِهَا إِلاَّ هَتَكَتْ مَا بَيْنَهَا وَبَيْنَ اللَّهِ تَعَالَى ‏&quot;‏ ‏.‏ قَالَ أَبُو دَاوُدَ هَذَا حَدِيثُ جَرِيرٍ وَهُوَ أَتَمُّ وَلَمْ يَذْكُرْ جَرِيرٌ أَبَا الْمَلِيحِ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Aisha, Ummul Mu&#x27;minin: AbulMalih said: Some women of Syria came to Aisha. She asked them: From whom are you? They replied: From the people of Syria. She said: Perhaps you belong to the place where women enter hot baths (for washing ). The said: Yes. She said: I heard the Messenger of Allah (ﷺ) say: If a woman puts off her clothes in a place other than her house, she tears the veil between her and Allah, the Exalted. Abu Dawud said: This is the tradition narrated by Jarir, and it is more perfect. Jarir did not mention Abu al-Malih. He said (on the authority of &#x27;A&#x27;ishah) that the Messenger of Allah (ﷺ) said</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4011 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 2</span></td></tr><tr id='h4011' class='hadith-sep'><td colspan='2'>Hadith 4011 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ يُونُسَ، حَدَّثَنَا زُهَيْرٌ، حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ زِيَادِ بْنِ أَنْعَمَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ رَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِنَّهَا سَتُفْتَحُ لَكُمْ أَرْضُ الْعَجَمِ وَسَتَجِدُونَ فِيهَا بُيُوتًا يُقَالُ لَهَا الْحَمَّامَاتُ فَلاَ يَدْخُلَنَّهَا الرِّجَالُ إِلاَّ بِالأُزُرِ وَامْنَعُوهَا النِّسَاءَ إِلاَّ مَرِيضَةً أَوْ نُفَسَاءَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abdullah ibn Amr ibn al-&#x27;As: The Prophet (ﷺ) said: After some time the lands of the non-Arabs will be conquered for you, and there you will find houses called hammamat (hot baths). so men should not enter them (to wash) except in lower garments, and forbid the women to enter them except a sick or one who is in a child-bed</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4012 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 3</span></td></tr><tr id='h4012' class='hadith-sep'><td colspan='2'>Hadith 4012 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ نُفَيْلٍ، حَدَّثَنَا زُهَيْرٌ، عَنْ عَبْدِ الْمَلِكِ بْنِ أَبِي سُلَيْمَانَ الْعَرْزَمِيِّ، عَنْ عَطَاءٍ، عَنْ يَعْلَى، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم رَأَى رَجُلاً يَغْتَسِلُ بِالْبَرَازِ بِلاَ إِزَارٍ فَصَعِدَ الْمِنْبَرَ فَحَمِدَ اللَّهَ وَأَثْنَى عَلَيْهِ ثُمَّ قَالَ صلى الله عليه وسلم ‏ &quot;‏ إِنَّ اللَّهَ عَزَّ وَجَلَّ حَيِيٌّ سِتِّيرٌ يُحِبُّ الْحَيَاءَ وَالسَّتْرَ فَإِذَا اغْتَسَلَ أَحَدُكُمْ فَلْيَسْتَتِرْ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ya&#x27;la: The Messenger of Allah (ﷺ) saw a man washing in a public place without a lower garment. So he mounted the pulpit, praised and extolled Allah and said: Allah is characterised by modesty and concealment. So when any of you washes, he should conceal himself</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4013 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 4</span></td></tr><tr id='h4013' class='hadith-sep'><td colspan='2'>Hadith 4013 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ أَحْمَدَ بْنِ أَبِي خَلَفٍ، حَدَّثَنَا الأَسْوَدُ بْنُ عَامِرٍ، حَدَّثَنَا أَبُو بَكْرِ بْنُ عَيَّاشٍ، عَنْ عَبْدِ الْمَلِكِ بْنِ أَبِي سُلَيْمَانَ، عَنْ عَطَاءٍ، عَنْ صَفْوَانَ بْنِ يَعْلَى، عَنْ أَبِيهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم بِهَذَا الْحَدِيثِ ‏.‏ قَالَ أَبُو دَاوُدَ الأَوَّلُ أَتَمُّ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The tradition mentioned above has also been transmitted by Ya&#x27;la from the Prophet (ﷺ) through a different chain of narrators. Abu Dawud said:The former is more perfect</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4014 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 5</span></td></tr><tr id='h4014' class='hadith-sep'><td colspan='2'>Hadith 4014 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، عَنْ مَالِكٍ، عَنْ أَبِي النَّضْرِ، عَنْ زُرْعَةَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ جَرْهَدٍ، عَنْ أَبِيهِ، - قَالَ كَانَ جَرْهَدٌ هَذَا مِنْ أَصْحَابِ الصُّفَّةِ - قَالَ جَلَسَ رَسُولُ اللَّهِ صلى الله عليه وسلم عِنْدَنَا وَفَخِذِي مُنْكَشِفَةٌ فَقَالَ ‏ &quot;‏ أَمَا عَلِمْتَ أَنَّ الْفَخِذَ عَوْرَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Jarhad: The Messenger of Allah (ﷺ) sat with us and my thigh was uncovered. He said: Do you not know that thigh is a private part ?</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4015 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 6</span></td></tr><tr id='h4015' class='hadith-sep'><td colspan='2'>Hadith 4015 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَلِيُّ بْنُ سَهْلٍ الرَّمْلِيُّ، حَدَّثَنَا حَجَّاجٌ، عَنِ ابْنِ جُرَيْجٍ، قَالَ أُخْبِرْتُ عَنْ حَبِيبِ بْنِ أَبِي ثَابِتٍ، عَنْ عَاصِمِ بْنِ ضَمْرَةَ، عَنْ عَلِيٍّ، رضى الله عنه قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ تَكْشِفْ فَخِذَكَ وَلاَ تَنْظُرْ إِلَى فَخِذِ حَىٍّ وَلاَ مَيِّتٍ ‏&quot;‏ ‏.‏ قَالَ أَبُو دَاوُدَ هَذَا الْحَدِيثُ فِيهِ نَكَارَةٌ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ali ibn AbuTalib: The Prophet (ﷺ) said: Do not uncover you thigh, and do not look at the thigh of the living and the dead. Abu Dawud said: This tradition disagrees with the generally reported traditions (nakarah)</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Very Daif; Very Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4016 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 7</span></td></tr><tr id='h4016' class='hadith-sep'><td colspan='2'>Hadith 4016 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا إِسْمَاعِيلُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الأُمَوِيُّ، عَنْ عُثْمَانَ بْنِ حَكِيمٍ، عَنْ أَبِي أُمَامَةَ بْنِ سَهْلٍ، عَنِ الْمِسْوَرِ بْنِ مَخْرَمَةَ، قَالَ حَمَلْتُ حَجَرًا ثَقِيلاً فَبَيْنَا أَمْشِي فَسَقَطَ عَنِّي ثَوْبِي فَقَالَ لِي رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ خُذْ عَلَيْكَ ثَوْبَكَ وَلاَ تَمْشُوا عُرَاةً ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Al-Miswar b. Makhramah:I lifted a heavy stone. While I was walking my garment fell down. The Messenger of Allah (ﷺ) said to me: Take you garment upon you, and do not walk naked</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Muslim (341)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4017 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 8</span></td></tr><tr id='h4017' class='hadith-sep'><td colspan='2'>Hadith 4017 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، حَدَّثَنَا أَبِي ح، وَحَدَّثَنَا ابْنُ بَشَّارٍ، حَدَّثَنَا يَحْيَى، نَحْوَهُ عَنْ بَهْزِ بْنِ حَكِيمٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ عَوْرَاتُنَا مَا نَأْتِي مِنْهَا وَمَا نَذَرُ قَالَ ‏&quot;‏ احْفَظْ عَوْرَتَكَ إِلاَّ مِنْ زَوْجَتِكَ أَوْ مَا مَلَكَتْ يَمِينُكَ ‏&quot;‏ ‏.‏ قَالَ قُلْتُ يَا رَسُولَ اللَّهِ إِذَا كَانَ الْقَوْمُ بَعْضُهُمْ فِي بَعْضٍ قَالَ ‏&quot;‏ إِنِ اسْتَطَعْتَ أَنْ لاَ يَرَيَنَّهَا أَحَدٌ فَلاَ يَرَيَنَّهَا ‏&quot;‏ ‏.‏ قَالَ قُلْتُ يَا رَسُولَ اللَّهِ إِذَا كَانَ أَحَدُنَا خَالِيًا قَالَ ‏&quot;‏ اللَّهُ أَحَقُّ أَنْ يُسْتَحْيَا مِنْهُ مِنَ النَّاسِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Bahz b. Hakim said that his father told on the authority of his grandfather:I said: Messenger of Allah, from whom should we conceal our private parts and to whom can we show? He replied: conceal your private parts except from your wife and from whom your right hands possess (slave-girls). I then asked: Messenger of Allah, (what should we do), if the people are assembled together? He replied: If it is within your power that no one looks at it, then no one should look at it. I then asked: Messenger of Allah if one of us is alone, (what should he do)? He replied: Allah is more entitled than people that bashfulness should be shown to him</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4018 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 9</span></td></tr><tr id='h4018' class='hadith-sep'><td colspan='2'>Hadith 4018 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا ابْنُ أَبِي فُدَيْكٍ، عَنِ الضَّحَّاكِ بْنِ عُثْمَانَ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي سَعِيدٍ الْخُدْرِيِّ، عَنْ أَبِيهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ يَنْظُرُ الرَّجُلُ إِلَى عُرْيَةِ الرَّجُلِ وَلاَ الْمَرْأَةُ إِلَى عُرْيَةِ الْمَرْأَةِ وَلاَ يُفْضِي الرَّجُلُ إِلَى الرَّجُلِ فِي ثَوْبٍ وَاحِدٍ وَلاَ تُفْضِي الْمَرْأَةُ إِلَى الْمَرْأَةِ فِي ثَوْبٍ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated AbuSa&#x27;id al-Khudri: The Prophet (ﷺ) said: A man should not look at the private parts of another man, and a woman should not look at the private parts of another woman. A man should not lie with another man without wearing lower garment under one cover; and a woman should not be lie with another woman without wearing lower garment under one cover</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim (338)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 4019 — Hot Baths (Kitab Al-Hammam)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 10</span></td></tr><tr id='h4019' class='hadith-sep'><td colspan='2'>Hadith 4019 — Hot Baths (Kitab Al-Hammam)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا إِبْرَاهِيمُ بْنُ مُوسَى، أَخْبَرَنَا ابْنُ عُلَيَّةَ، عَنِ الْجُرَيْرِيِّ، ح وَحَدَّثَنَا مُؤَمَّلُ بْنُ هِشَامٍ، قَالَ حَدَّثَنَا إِسْمَاعِيلُ، عَنِ الْجُرَيْرِيِّ، عَنْ أَبِي نَضْرَةَ، عَنْ رَجُلٍ، مِنَ الطُّفَاوَةِ عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ يُفْضِيَنَّ رَجُلٌ إِلَى رَجُلٍ وَلاَ امْرَأَةٌ إِلَى امْرَأَةٍ إِلاَّ وَلَدًا أَوْ وَالِدًا ‏&quot;‏ ‏.‏ قَالَ وَذَكَرَ الثَّالِثَةَ فَنَسِيتُهَا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated AbuHurayrah: The Prophet (ﷺ) said: A man should not lie with another man and a woman should not lie with another woman without covering their private parts except a child or a father. He also mentioned a third thing which I forgot</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>

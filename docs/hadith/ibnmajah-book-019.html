@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='ibnmajah.html'>Sunan Ibn Majah</a> › The Chapters on Manumission (of…</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Sunan Ibn Majah</h1>
@@ -105,87 +166,87 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 2512 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr id='h2512' class='hadith-sep'><td colspan='2'>Hadith 2512 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ نُمَيْرٍ، وَعَلِيُّ بْنُ مُحَمَّدٍ، قَالاَ حَدَّثَنَا وَكِيعٌ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ أَبِي خَالِدٍ، عَنْ سَلَمَةَ بْنِ كُهَيْلٍ، عَنْ عَطَاءٍ، عَنْ جَابِرٍ، أَنَّ رَسُولَ اللَّهِ ذصلى الله عليه وسلم بَاعَ الْمُدَبَّرَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Jabir that:the Messenger of Allah (ﷺ) sold a Mudabbar</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2513 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 1</span></td></tr><tr id='h2513' class='hadith-sep'><td colspan='2'>Hadith 2513 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا هِشَامُ بْنُ عَمَّارٍ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ عَمْرِو بْنِ دِينَارٍ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، قَالَ دَبَّرَ رَجُلٌ مِنَّا غُلاَمًا وَلَمْ يَكُنْ لَهُ مَالٌ غَيْرُهُ فَبَاعَهُ النَّبِيُّ صلى الله عليه وسلم فَاشْتَرَاهُ ابْنُ النَّحَّامِ رَجُلٌ مِنْ بَنِي عَدِيٍّ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Jabir bin &#x27;Abdullah said:“A man among us promised freedom to a slave after his death, and he did not have any property other than him (this slave). So the Prophet (ﷺ) sold him, and Ibn (Nahham), a man from Banu &#x27;Adi, bought him.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Hadith; Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2514 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 2</span></td></tr><tr id='h2514' class='hadith-sep'><td colspan='2'>Hadith 2514 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَلِيُّ بْنُ ظَبْيَانَ، عَنْ عُبَيْدِ اللَّهِ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏&quot;‏ الْمُدَبَّرُ مِنَ الثُّلُثِ ‏&quot;‏ ‏.‏ قَالَ ابْنُ مَاجَهْ سَمِعْتُ عُثْمَانَ - يَعْنِي ابْنَ أَبِي شَيْبَةَ - يَقُولُ هَذَا خَطَأٌ يَعْنِي حَدِيثَ ‏&quot;‏ الْمُدَبَّرُ مِنَ الثُّلُثِ ‏&quot;‏ ‏.‏ قَالَ أَبُو عَبْدِ اللَّهِ لَيْسَ لَهُ أَصْلٌ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn`Umar that the Prophet (ﷺ) said:“The Mudabbar is part of the one third of the estate.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mawdu; Mawdu; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2515 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 3</span></td></tr><tr id='h2515' class='hadith-sep'><td colspan='2'>Hadith 2515 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَلِيُّ بْنُ مُحَمَّدٍ، وَمُحَمَّدُ بْنُ إِسْمَاعِيلَ، قَالاَ حَدَّثَنَا وَكِيعٌ، حَدَّثَنَا شَرِيكٌ، عَنْ حُسَيْنِ بْنِ عَبْدِ اللَّهِ بْنِ عُبَيْدِ اللَّهِ بْنِ عَبَّاسٍ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ أَيُّمَا رَجُلٍ وَلَدَتْ أَمَتُهُ مِنْهُ فَهِيَ مُعْتَقَةٌ عَنْ دُبُرٍ مِنْهُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn`Abbas that the Messenger of Allah (ﷺ) said:“Any man whose slave won an bears him a child, she will be free after he dies.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2516 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 4</span></td></tr><tr id='h2516' class='hadith-sep'><td colspan='2'>Hadith 2516 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ يُوسُفَ، حَدَّثَنَا أَبُو عَاصِمٍ، حَدَّثَنَا أَبُو بَكْرٍ يَعْنِي النَّهْشَلِيَّ، عَنِ الْحُسَيْنِ بْنِ عَبْدِ اللَّهِ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ ذُكِرَتْ أُمُّ إِبْرَاهِيمَ عِنْدَ رَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ فَقَالَ ‏ &quot;‏ أَعْتَقَهَا وَلَدُهَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn`Abbas said:“Mention was made of the mother of Ibrahim in the presence of the Messenger of Allah (ﷺ), and he said: &#x27;Her son set her free.&#x27;”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Very Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2517 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 5</span></td></tr><tr id='h2517' class='hadith-sep'><td colspan='2'>Hadith 2517 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى، وَإِسْحَاقُ بْنُ مَنْصُورٍ، قَالاَ حَدَّثَنَا عَبْدُ الرَّزَّاقِ، عَنِ ابْنِ جُرَيْجٍ، أَخْبَرَنِي أَبُو الزُّبَيْرِ، أَنَّهُ سَمِعَ جَابِرَ بْنَ عَبْدِ اللَّهِ، يَقُولُ كُنَّا نَبِيعُ سَرَارِينَا وَأُمَّهَاتِ أَوْلاَدِنَا وَالنَّبِيُّ صلى الله عليه وسلم فِينَا حَىٌّ لاَ نَرَى بِذَلِكَ بَأْسًا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jabir bin `Abdullah was heard to say:“We used to sell our slave women and the mothers of our children (Umahat Awaldina) when the Prophet (ﷺ) was still living among us, and we did not see anything wrong with that.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2518 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 6</span></td></tr><tr id='h2518' class='hadith-sep'><td colspan='2'>Hadith 2518 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَعَبْدُ اللَّهِ بْنُ سَعِيدٍ، قَالاَ حَدَّثَنَا أَبُو خَالِدٍ الأَحْمَرُ، عَنِ ابْنِ عَجْلاَنَ، عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ ثَلاَثَةٌ كُلُّهُمْ حَقٌّ عَلَى اللَّهِ عَوْنُهُ الْغَازِي فِي سَبِيلِ اللَّهِ وَالْمُكَاتَبُ الَّذِي يُرِيدُ الأَدَاءَ وَالنَّاكِحُ الَّذِي يُرِيدُ التَّعَفُّفَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Hurairah (ra) said that the Messenger of Allah (ﷺ) said &quot;Three who&#x27;s support is a right upon Allah:the warrior in the path of Allah, the mukatab seeking to fulfill (his manumission debt), and the one getting married seeking chastity</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Hasan; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2519 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 7</span></td></tr><tr id='h2519' class='hadith-sep'><td colspan='2'>Hadith 2519 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نُمَيْرٍ، وَمُحَمَّدُ بْنُ فُضَيْلٍ، عَنْ حَجَّاجٍ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ أَيُّمَا عَبْدٍ كُوتِبَ عَلَى مِائَةِ أُوقِيَّةٍ فَأَدَّاهَا إِلاَّ عَشْرَ أُوقِيَّاتٍ فَهُوَ رَقِيقٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from `Amr bin Shu&#x27;aib , from his father, from his grandfather that the Messenger of Allah (ﷺ) said:“Any slave who has made a contract to buy his freedom for one hundread Uqiyyah and pays it all except ten Uqiyyah; he is still a slave.” (One Uqiyyah is equal to 40 Dirham)</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Hasan; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2520 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 8</span></td></tr><tr id='h2520' class='hadith-sep'><td colspan='2'>Hadith 2520 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنِ الزُّهْرِيِّ، عَنْ نَبْهَانَ، - مَوْلَى أُمِّ سَلَمَةَ - عَنْ أُمِّ سَلَمَةَ، أَنَّهَا أَخْبَرَتْ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ قَالَ ‏ &quot;‏ إِذَا كَانَ لإِحْدَاكُنَّ مُكَاتَبٌ وَكَانَ عِنْدَهُ مَا يُؤَدِّي فَلْتَحْتَجِبْ مِنْهُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Umm Salamah that the Prophet (ﷺ) said:“If anyone of you (women) has a Mukatab, and he has enough (wealth) to pay off (his contact of manumission), she must veil herself from him.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2521 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 9</span></td></tr><tr id='h2521' class='hadith-sep'><td colspan='2'>Hadith 2521 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَعَلِيُّ بْنُ مُحَمَّدٍ، قَالاَ حَدَّثَنَا وَكِيعٌ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ بَرِيرَةَ أَتَتْهَا وَهِيَ مُكَاتَبَةٌ قَدْ كَاتَبَهَا أَهْلُهَا عَلَى تِسْعِ أَوَاقٍ فَقَالَتْ لَهَا إِنْ شَاءَ أَهْلُكِ عَدَدْتُ لَهُمْ عَدَّةً وَاحِدَةً وَكَانَ الْوَلاَءُ لِي قَالَ فَأَتَتْ أَهْلَهَا فَذَكَرَتْ ذَلِكَ لَهُمْ فَأَبَوْا إِلاَّ أَنْ تَشْتَرِطَ الْوَلاَءَ لَهُمْ فَذَكَرَتْ عَائِشَةُ ذَلِكَ لِلنَّبِيِّ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ افْعَلِي ‏&quot;‏ ‏.‏ قَالَتْ فَقَامَ النَّبِيُّ صلى الله عليه وسلم فَخَطَبَ النَّاسَ فَحَمِدَ اللَّهَ وَأَثْنَى عَلَيْهِ ثُمَّ قَالَ ‏&quot;‏ مَا بَالُ رِجَالٍ يَشْتَرِطُونَ شُرُوطًا لَيْسَتْ فِي كِتَابِ اللَّهِ كُلُّ شَرْطٍ لَيْسَ فِي كِتَابِ اللَّهِ فَهُوَ بَاطِلٌ وَإِنْ كَانَ مِائَةَ شَرْطٍ كِتَابُ اللَّهِ أَحَقُّ وَشَرْطُ اللَّهِ أَوْثَقُ وَالْوَلاَءُ لِمَنْ أَعْتَقَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Hisham bin &#x27;Urwah, from his father, about &#x27;Aishah the wife of the Prophet (ﷺ) - :that Barirah came to her when she was came to her when she was Muktabah, and her masters had written a contract of manumission for nine Uqiyyah. She (`Aishah) said: “If your masters wish I will pay them that in one sum, and the right of inheritance will belong to me.” He said: “So she went to her masters and told them about that, but they insisted that the right of inheritance should belong to them. `Aishah mentioned that to the Prophet (ﷺ) and he said: &#x27;Do it.&#x27; Then the Prophet (ﷺ) stood up and addressed the people. He praised and glorified Allah (SWT), then he said: &#x27;What is the matter with some people who stipulated conditions that are not in the Book of Allah (SWT)? Every conditions that is not in the Book of Allah (SWT) is invalid, even if there are one hundred conditions. The Book of Allah(SWT) is more deserving of being followed and the conditions of Allah (SWT) are more binding. And the Wala belongs to the one who manumits (the slave).”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Muslim</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2522 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 10</span></td></tr><tr id='h2522' class='hadith-sep'><td colspan='2'>Hadith 2522 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ عَمْرِو بْنِ مُرَّةَ، عَنْ سَالِمِ بْنِ أَبِي الْجَعْدِ، عَنْ شُرَحْبِيلَ بْنِ السِّمْطِ، قَالَ قُلْتُ لِكَعْبٍ يَا كَعْبَ بْنَ مُرَّةَ حَدِّثْنَا عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم وَاحْذَرْ ‏.‏ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ مَنْ أَعْتَقَ امْرَأً مُسْلِمًا كَانَ فِكَاكَهُ مِنَ النَّارِ يُجْزِئُ بِكُلِّ عَظْمٍ مِنْهُ عَظْمٌ مِنْهُ وَمَنْ أَعْتَقَ امْرَأَتَيْنِ مُسْلِمَتَيْنِ كَانَتَا فِكَاكَهُ مِنَ النَّارِ يُجْزِئُ بِكُلِّ عَظْمَيْنِ مِنْهُمَا عَظْمٌ مِنْهُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Shurahbil bin Simt said:I said to Ka&#x27;b bin Murrah, tell us a Hadith from the Messenger of Allah (ﷺ), but be careful. He said: I heard the Messenger of Allah (ﷺ) say: “Whoever frees a Muslim man, he will be his ransom from the Fire; each of his bones will suffice (as a ransom) for each of his bones. Whoever frees two Muslim women, they will be his ransom from the Fire; each of their two bones will suffice (as a ransom) for each of his bones.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2523 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 11</span></td></tr><tr id='h2523' class='hadith-sep'><td colspan='2'>Hadith 2523 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ سِنَانٍ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، حَدَّثَنَا هِشَامُ بْنُ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ أَبِي مُرَاوِحٍ، عَنْ أَبِي ذَرٍّ، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ أَىُّ الرِّقَابِ أَفْضَلُ قَالَ ‏ &quot;‏ أَنْفَسُهَا عِنْدَ أَهْلِهَا وَأَغْلاَهَا ثَمَنًا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Abu Dharr said:“I said: &#x27;O Messenger of Allah (ﷺ), which slave is best?&#x27; He said: ‘The one who is most precious to his master and most valuable in price.&#x27; ”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2524 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 12</span></td></tr><tr id='h2524' class='hadith-sep'><td colspan='2'>Hadith 2524 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عُقْبَةُ بْنُ مُكْرَمٍ، وَإِسْحَاقُ بْنُ مَنْصُورٍ، قَالاَ حَدَّثَنَا مُحَمَّدُ بْنُ بَكْرٍ الْبُرْسَانِيُّ، عَنْ حَمَّادِ بْنِ سَلَمَةَ، عَنْ قَتَادَةَ، وَعَاصِمٍ، عَنِ الْحَسَنِ، عَنْ سَمُرَةَ بْنِ جُنْدُبٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ مَلَكَ ذَا رَحِمٍ مَحْرَمٍ فَهُوَ حُرٌّ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Samurah bin Jundub that the Prophet (ﷺ) said:“Whoever becomes the master of a Mahram relative (with whom marriage is not lawful), he becomes free.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Lighairihi; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2525 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 13</span></td></tr><tr id='h2525' class='hadith-sep'><td colspan='2'>Hadith 2525 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا رَاشِدُ بْنُ سَعِيدٍ الرَّمْلِيُّ، وَعُبَيْدُ اللَّهِ بْنُ الْجَهْمِ الأَنْمَاطِيُّ، قَالاَ حَدَّثَنَا ضَمْرَةُ بْنُ رَبِيعَةَ، عَنْ سُفْيَانَ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ مَلَكَ ذَا رَحِمٍ مَحْرَمٍ فَهُوَ حُرٌّ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn`Umar that the Messenger of Allah (ﷺ) said:“Whoever becomes the master of a Mahram relative, he becomes free.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2526 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 14</span></td></tr><tr id='h2526' class='hadith-sep'><td colspan='2'>Hadith 2526 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُعَاوِيَةَ الْجُمَحِيُّ، حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، عَنْ سَعِيدِ بْنِ جُمْهَانَ، عَنْ سَفِينَةَ أَبِي عَبْدِ الرَّحْمَنِ، قَالَ أَعْتَقَتْنِي أُمُّ سَلَمَةَ وَاشْتَرَطَتْ عَلَىَّ أَنْ أَخْدُمَ النَّبِيَّ صلى الله عليه وسلم مَا عَاشَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from that Safinah - Abu &#x27;Abdur-Rahman-said :“Umm Salamah freed me but stipulated that I should serve the Prophet (ﷺ) as long he lived.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 15</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2527 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 15</span></td></tr><tr id='h2527' class='hadith-sep'><td colspan='2'>Hadith 2527 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَلِيُّ بْنُ مُسْهِرٍ، وَمُحَمَّدُ بْنُ بِشْرٍ، عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، عَنْ قَتَادَةَ، عَنِ النَّضْرِ بْنِ أَنَسٍ، عَنْ بَشِيرِ بْنِ نَهِيكٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ أَعْتَقَ نَصِيبًا لَهُ فِي مَمْلُوكٍ أَوْ شِقْصًا فَعَلَيْهِ خَلاَصُهُ مِنْ مَالِهِ إِنْ كَانَ لَهُ مَالٌ فَإِنْ لَمْ يَكُنْ لَهُ مَالٌ اسْتُسْعِيَ الْعَبْدُ فِي قِيمَتِهِ غَيْرَ مَشْقُوقٍ عَلَيْهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Abu Hurairah that the Messenger of Allah (ﷺ) said:“Whoever frees his share of a slave or part of his share, must pay from his wealth if he has any wealth if he has any wealth (in order to buy the rest of the slave&#x27;s freedom). If he does not have wealth, then the slave should be asked to work for the price (of his freedom), without that causing him too much hardship.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 16</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2528 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 16</span></td></tr><tr id='h2528' class='hadith-sep'><td colspan='2'>Hadith 2528 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ حَكِيمٍ، حَدَّثَنَا عُثْمَانُ بْنُ عُمَرَ، حَدَّثَنَا مَالِكُ بْنُ أَنَسٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ أَعْتَقَ شِرْكًا لَهُ فِي عَبْدٍ أُقِيمَ عَلَيْهِ بِقِيمَةِ عَدْلٍ فَأَعْطَى شُرَكَاءَهُ حِصَصَهُمْ إِنْ كَانَ لَهُ مِنَ الْمَالِ مَا يَبْلُغُ ثَمَنَهُ وَعَتَقَ عَلَيْهِ الْعَبْدُ وَإِلاَّ فَقَدْ عَتَقَ مِنْهُ مَا عَتَقَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn`Umar that the Messenger of Allah (ﷺ) said:“Whoever frees his share of a slave, the price of the slave should be fairly evaluated, and he (the partner who initiated this process) should free him (in full, by giving the rest of his price to the other co-owners), if he has enough wealth to do so. Otherwise, he will have freed whatever he freed.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 15, Hadith 46</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2529 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 15, Hadith 46</span></td></tr><tr id='h2529' class='hadith-sep'><td colspan='2'>Hadith 2529 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا حَرْمَلَةُ بْنُ يَحْيَى، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ، أَخْبَرَنِي ابْنُ لَهِيعَةَ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى، حَدَّثَنَا سَعِيدُ بْنُ أَبِي مَرْيَمَ، أَنْبَأَنَا اللَّيْثُ بْنُ سَعْدٍ، جَمِيعًا عَنْ عُبَيْدِ اللَّهِ بْنِ أَبِي جَعْفَرٍ، عَنْ بُكَيْرِ بْنِ الأَشَجِّ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ أَعْتَقَ عَبْدًا وَلَهُ مَالٌ فَمَالُ الْعَبْدِ لَهُ إِلاَّ أَنْ يَشْتَرِطَ السَّيِّدُ مَالَهُ فَيَكُونَ لَهُ ‏&quot;‏ ‏.‏ وَقَالَ ابْنُ لَهِيعَةَ إِلاَّ أَنْ يَسْتَثْنِيَهُ السَّيِّدُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn`Umar that the Messenger of Allah (ﷺ) said:“Whoever frees a slave who has some wealth, the slave&#x27;s wealth belongs to him, unless the master stipulates that it will belong to him.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 18</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2530 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 18</span></td></tr><tr id='h2530' class='hadith-sep'><td colspan='2'>Hadith 2530 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى، حَدَّثَنَا سَعِيدُ بْنُ مُحَمَّدٍ الْجَرْمِيُّ، حَدَّثَنَا الْمُطَّلِبُ بْنُ زِيَادٍ، عَنْ إِسْحَاقَ بْنِ إِبْرَاهِيمَ، عَنْ جَدِّهِ، عُمَيْرٍ - وَهُوَ مَوْلَى ابْنِ مَسْعُودٍ - أَنَّ عَبْدَ اللَّهِ، قَالَ لَهُ يَا عُمَيْرُ إِنِّي أُعْتِقُكَ عِتْقًا هَنِيئًا إِنِّي سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ أَيُّمَا رَجُلٍ أَعْتَقَ غُلاَمًا وَلَمْ يُسَمِّ مَالَهُ فَالْمَالُ لَهُ ‏&quot;‏ ‏.‏ فَأَخْبِرْنِي مَا مَالُكَ ‏.‏ حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ نُمَيْرٍ، حَدَّثَنَا الْمُطَّلِبُ بْنُ زِيَادٍ، عَنْ إِسْحَاقَ بْنِ إِبْرَاهِيمَ، قَالَ قَالَ عَبْدُ اللَّهِ بْنُ مَسْعُودٍ لِجَدِّي فَذَكَرَ نَحْوَهُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ishaq bin Ibrahim, from his grandfather &#x27;Umair, who was the freed slave of Ibn Mas&#x27;ud, that `Abdullah said to him:“O Umair, I have set you free in a good way. I heard the Messenger of Allah (ﷺ) say: &#x27;Any man who frees a slave and does not say anything about his (the slave&#x27;s) wealth, it belongs to him (the slave).&#x27; So tell me, how much wealth do you have?” Another chain reports a similar hadith</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Very Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 19</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2531 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 19</span></td></tr><tr id='h2531' class='hadith-sep'><td colspan='2'>Hadith 2531 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا الْفَضْلُ بْنُ دُكَيْنٍ، حَدَّثَنَا إِسْرَائِيلُ، عَنْ زَيْدِ بْنِ جُبَيْرٍ، عَنْ أَبِي يَزِيدَ الضِّنِّيِّ، عَنْ مَيْمُونَةَ بِنْتِ سَعْدٍ، - مَوْلاَةِ النَّبِيِّ صلى الله عليه وسلم - أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سُئِلَ عَنْ وَلَدِ الزِّنَا فَقَالَ ‏ &quot;‏ نَعْلاَنِ أُجَاهِدُ فِيهِمَا خَيْرٌ مِنْ أَنْ أُعْتِقَ وَلَدَ الزِّنَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Maimunah bint Sa`d, the freed slave woman of the Prophet (ﷺ) that :the Messenger of Allah (ﷺ) was asked about illegitimate children. He said: “Two sandals in which I wage Jihad are better than freeing an illegitimate child.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 20</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2532 — The Chapters on Manumission (of Slaves)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 19, Hadith 20</span></td></tr><tr id='h2532' class='hadith-sep'><td colspan='2'>Hadith 2532 — The Chapters on Manumission (of Slaves)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا حَمَّادُ بْنُ مَسْعَدَةَ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ خَلَفٍ الْعَسْقَلاَنِيُّ، وَإِسْحَاقُ بْنُ مَنْصُورٍ، قَالاَ حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ عَبْدِ الْمَجِيدِ، حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ عَبْدِ الرَّحْمَنِ بْنِ عَبْدِ اللَّهِ بْنِ مَوْهَبٍ، عَنِ الْقَاسِمِ بْنِ مُحَمَّدٍ، عَنْ عَائِشَةَ، أَنَّهَا كَانَ لَهَا غُلاَمٌ وَجَارِيَةٌ زَوْجٌ فَقَالَتْ يَا رَسُولَ اللَّهِ إِنِّي أُرِيدُ أَنْ أُعْتِقَهُمَا ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ إِنْ أَعْتَقْتِهِمَا فَابْدَئِي بِالرَّجُلِ قَبْلَ الْمَرْأَةِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that :`Aishah had a male slave and a female slave who were married. She said: “O Messenger of Allah (ﷺ), I want to free them both.” The Messenger of Allah (ﷺ) said: “If you free them, then start with the man before the woman.”</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Isnaad Hasan</span></td></tr>

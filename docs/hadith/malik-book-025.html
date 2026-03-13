@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Game</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,61 +166,61 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1052 — Game</td></tr>
+<tr id='h1052' class='hadith-sep'><td colspan='2'>Hadith 1052 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّهُ قَالَ رَمَيْتُ طَائِرَيْنِ بِحَجَرٍ وَأَنَا بِالْجُرْفِ، فَأَصَبْتُهُمَا فَأَمَّا أَحَدُهُمَا فَمَاتَ فَطَرَحَهُ عَبْدُ اللَّهِ بْنُ عُمَرَ وَأَمَّا الآخَرُ فَذَهَبَ عَبْدُ اللَّهِ بْنُ عُمَرَ يُذَكِّيهِ بِقَدُومٍ فَمَاتَ قَبْلَ أَنْ يُذَكِّيَهُ فَطَرَحَهُ عَبْدُ اللَّهِ أَيْضًا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>ahya related to me from Malik that Nafi said, &quot;I was at al-Juruf (near Madina) and threw a stone at two birds, and hit them. One of them died, and Abdullah ibn Umar threw it away, and then went to slaughter the other one with an adze. It died before he could slaughter it, so Abdullah threw that one away as well</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1053 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 1</span></td></tr><tr id='h1053' class='hadith-sep'><td colspan='2'>Hadith 1053 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ الْقَاسِمَ بْنَ مُحَمَّدٍ، كَانَ يَكْرَهُ مَا قَتَلَ الْمِعْرَاضُ وَالْبُنْدُقَةُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that al-Qasim ibn Muhammad disapproved of eating game that had been killed with throwing sticks and by clay pellets</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1054 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 2</span></td></tr><tr id='h1054' class='hadith-sep'><td colspan='2'>Hadith 1054 — Game</td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1055 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 3</span></td></tr><tr id='h1055' class='hadith-sep'><td colspan='2'>Hadith 1055 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ كَانَ يَقُولُ فِي الْكَلْبِ الْمُعَلَّمِ كُلْ مَا أَمْسَكَ عَلَيْكَ إِنْ قَتَلَ وَإِنْ لَمْ يَقْتُلْ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1056 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 4</span></td></tr><tr id='h1056' class='hadith-sep'><td colspan='2'>Hadith 1056 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَمَّنْ سَمِعَ نَافِعًا، يَقُولُ قَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ وَإِنْ أَكَلَ وَإِنْ لَمْ يَأْكُلْ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he heard Nafi say that Abdullah ibn Umar said, &quot;Whether it eats from it or not</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1057 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 5</span></td></tr><tr id='h1057' class='hadith-sep'><td colspan='2'>Hadith 1057 — Game</td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1058 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 6</span></td></tr><tr id='h1058' class='hadith-sep'><td colspan='2'>Hadith 1058 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ الرَّحْمَنِ بْنَ أَبِي هُرَيْرَةَ، سَأَلَ عَبْدَ اللَّهِ بْنَ عُمَرَ عَمَّا لَفَظَ الْبَحْرُ فَنَهَاهُ عَنْ أَكْلِهِ، ‏.‏ قَالَ نَافِعٌ ثُمَّ انْقَلَبَ عَبْدُ اللَّهِ فَدَعَا بِالْمُصْحَفِ فَقَرَأَ ‏{‏أُحِلَّ لَكُمْ صَيْدُ الْبَحْرِ وَطَعَامُهُ‏}‏ قَالَ نَافِعٌ فَأَرْسَلَنِي عَبْدُ اللَّهِ بْنُ عُمَرَ إِلَى عَبْدِ الرَّحْمَنِ بْنِ أَبِي هُرَيْرَةَ إِنَّهُ لاَ بَأْسَ بِأَكْلِهِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1059 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 7</span></td></tr><tr id='h1059' class='hadith-sep'><td colspan='2'>Hadith 1059 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ سَعْدٍ الْجَارِيِّ، مَوْلَى عُمَرَ بْنِ الْخَطَّابِ أَنَّهُ قَالَ سَأَلْتُ عَبْدَ اللَّهِ بْنَ عُمَرَ عَنِ الْحِيتَانِ، يَقْتُلُ بَعْضُهَا بَعْضًا أَوْ تَمُوتُ صَرَدًا فَقَالَ لَيْسَ بِهَا بَأْسٌ ‏.‏ قَالَ سَعْدٌ ثُمَّ سَأَلْتُ عَبْدَ اللَّهِ بْنَ عَمْرِو بْنِ الْعَاصِ فَقَالَ مِثْلَ ذَلِكَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam that Sad al- Jari, the mawla of Umar ibn al-Khattab asked Abdullah ibn Umar about fish which had killed each other or which had died from severe cold . He said, &quot;There is no harm in eating them.&#x27;&#x27; Sad said,&#x27; &#x27;I then asked Abdullah ibn Amr ibn al As and he said the same</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1060 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 8</span></td></tr><tr id='h1060' class='hadith-sep'><td colspan='2'>Hadith 1060 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ أَبِي هُرَيْرَةَ، وَزَيْدِ بْنِ ثَابِتٍ، أَنَّهُمَا كَانَا لاَ يَرَيَانِ بِمَا لَفَظَ الْبَحْرُ بَأْسًا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu&#x27;z-Zinad from Abu Salama ibn Abd ar-Rahman from Abu Hurayra and Zayd ibn Thabit that they saw no harm in eating what was cast up by the sea</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1061 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 9</span></td></tr><tr id='h1061' class='hadith-sep'><td colspan='2'>Hadith 1061 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، أَنَّ نَاسًا، مِنْ أَهْلِ الْجَارِ قَدِمُوا فَسَأَلُوا مَرْوَانَ بْنَ الْحَكَمِ عَمَّا لَفَظَ الْبَحْرُ فَقَالَ لَيْسَ بِهِ بَأْسٌ وَقَالَ اذْهَبُوا إِلَى زَيْدِ بْنِ ثَابِتٍ وَأَبِي هُرَيْرَةَ فَاسْأَلُوهُمَا عَنْ ذَلِكَ ثُمَّ ائْتُونِي فَأَخْبِرُونِي مَاذَا يَقُولاَنِ فَأَتَوْهُمَا فَسَأَلُوهُمَا فَقَالاَ لاَ بَأْسَ بِهِ ‏.‏ فَأَتَوْا مَرْوَانَ فَأَخْبَرُوهُ ‏.‏ فَقَالَ مَرْوَانُ قَدْ قُلْتُ لَكُمْ ‏.‏ قَالَ مَالِكٌ لاَ بَأْسَ بِأَكْلِ الْحِيتَانِ يَصِيدُهَا الْمَجُوسِيُّ لأَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ فِي الْبَحْرِ ‏ &quot;‏ هُوَ الطَّهُورُ مَاؤُهُ الْحِلُّ مَيْتَتُهُ ‏&quot;‏ ‏.‏ قَالَ مَالِكٌ وَإِذَا أُكِلَ ذَلِكَ مَيْتًا فَلاَ يَضُرُّهُ مَنْ صَادَهُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu&#x27;z-Zinad from Abu Salama ibn Abd ar-Rahman that some people from al-Jar came to Marwan ibn al- Hakam and asked him about eating what was cast up by the sea. He said, &quot;There is no harm in eating it.&quot; Marwan said, &quot;Go to Zayd ibn Thabit and Abu Hurayra and ask them about it, then come to me and tell me what they say.&quot; They went to them and asked them, and they both said, &quot;There is no harm in eating it &quot; They returned to Marwan and told him. Marwan said, &quot;I told you.&quot; Malik said that there was no harm in eating fish caught by magians, because the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;In the sea&#x27;s water is purity, and that which is dead in it is halal. &quot; Malik said, &quot;If it is eaten when it is dead, there is no harm in who catches it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1062 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 10</span></td></tr><tr id='h1062' class='hadith-sep'><td colspan='2'>Hadith 1062 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنِ أَبِي إِدْرِيسَ الْخَوْلاَنِيِّ، عَنْ أَبِي ثَعْلَبَةَ الْخُشَنِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ أَكْلُ كُلِّ ذِي نَابٍ مِنَ السِّبَاعِ حَرَامٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shibab from Abu Idris al- Khawlani from Abu Tha~laba al-Khushani that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;It is haram to eat animals with fangs</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Shadh</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1063 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 11</span></td></tr><tr id='h1063' class='hadith-sep'><td colspan='2'>Hadith 1063 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْمَاعِيلَ بْنِ أَبِي حَكِيمٍ، عَنْ عَبِيدَةَ بْنِ سُفْيَانَ الْحَضْرَمِيِّ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ أَكْلُ كُلِّ ذِي نَابٍ مِنَ السِّبَاعِ حَرَامٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ismail ibn Abi Hakim from Abiyda ibn Sufyan al-Hadrami from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Eating animals with fangs is haram. &quot; Malik said, &quot;This is the custom among us</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1064 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 12</span></td></tr><tr id='h1064' class='hadith-sep'><td colspan='2'>Hadith 1064 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ بْنِ مَسْعُودٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّهُ قَالَ مَرَّ رَسُولُ اللَّهِ صلى الله عليه وسلم بِشَاةٍ مَيِّتَةٍ كَانَ أَعْطَاهَا مَوْلاَةً لِمَيْمُونَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ أَفَلاَ انْتَفَعْتُمْ بِجِلْدِهَا ‏&quot;‏ ‏.‏ فَقَالُوا يَا رَسُولَ اللَّهِ إِنَّهَا مَيْتَةٌ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنَّمَا حُرِّمَ أَكْلُهَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that the best of what he had heard about horses, mules, and donkeys was that they were not eaten because Allah, the Blessed, the Exalted,said, &quot;And horses, and mules and asses, for you to ride, and as an adornment. &quot; (Sura 16 ayat 8) . He said, may He be Blessed and Exalted, &quot;In cattle, some of them you ride, and some of them you eat.&quot; (Sura 6 ayat 79). He said, the Blessed, the Exalted, &quot;Mention Allah&#x27;s name over what He has provided you of cattle, and eat of them and feed the beggar (al-qani) and the suppliant (al-mutarr). (Sura 22 ayat 34). Malik said &quot;Allah mentioned horses, mules, and donkeys for riding and adornment, and He mentioned cattle for riding and eating.&quot; Malik said, &quot;Al-qani also means the poor.&quot; Yahya related to me from Malik from Ibn Shihab from Ubaydullah ibn Abdullah ibn Utba ibn Masud that Abdullah ibn Abbas said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, passed by a dead sheep which had been given to a mawla of his wife, Maimuna. He said, &#x27; Aren&#x27;t you going to use its skin?&#x27; They said, &#x27;Messenger of Allah, but it is carrion. &#x27;The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Only eating it is haram</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1065 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 13</span></td></tr><tr id='h1065' class='hadith-sep'><td colspan='2'>Hadith 1065 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنِ ابْنِ وَعْلَةَ الْمِصْرِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا دُبِغَ الإِهَابُ فَقَدْ طَهُرَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Zayd ibn Aslam from Ibn Wala al-Misri from Abdullah ibn Abbas that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;A skin when it is tanned is pure</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1066 — Game</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 25, Hadith 14</span></td></tr><tr id='h1066' class='hadith-sep'><td colspan='2'>Hadith 1066 — Game</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ عَبْدِ اللَّهِ بْنِ قُسَيْطٍ، عَنْ مُحَمَّدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ ثَوْبَانَ، عَنْ أُمِّهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم أَمَرَ أَنْ يُسْتَمْتَعَ بِجُلُودِ الْمَيْتَةِ إِذَا دُبِغَتْ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yazid ibn Abdullah ibn Qusayt from Muhammad ibn Abd ar-Rahman ibn Thawban from his mother that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said that the Messenger of Allah, may Allah bless him and grant him peace, ordered that the skins of carrion be used after they had been tanned</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>

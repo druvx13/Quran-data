@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › The Evil Eye</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,79 +166,79 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1711 — The Evil Eye</td></tr>
+<tr id='h1711' class='hadith-sep'><td colspan='2'>Hadith 1711 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ أَبِي أُمَامَةَ بْنِ سَهْلِ بْنِ حُنَيْفٍ، أَنَّهُ سَمِعَ أَبَاهُ، يَقُولُ اغْتَسَلَ أَبِي سَهْلُ بْنُ حُنَيْفٍ بِالْخَرَّارِ فَنَزَعَ جُبَّةً كَانَتْ عَلَيْهِ وَعَامِرُ بْنُ رَبِيعَةَ يَنْظُرُ قَالَ وَكَانَ سَهْلٌ رَجُلاً أَبْيَضَ حَسَنَ الْجِلْدِ - قَالَ - فَقَالَ لَهُ عَامِرُ بْنُ رَبِيعَةَ مَا رَأَيْتُ كَالْيَوْمِ وَلاَ جِلْدَ عَذْرَاءَ ‏.‏ قَالَ فَوُعِكَ سَهْلٌ مَكَانَهُ وَاشْتَدَّ وَعْكُهُ فَأُتِيَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَأُخْبِرَ أَنَّ سَهْلاً وُعِكَ وَأَنَّهُ غَيْرُ رَائِحٍ مَعَكَ يَا رَسُولَ اللَّهِ فَأَتَاهُ رَسُولُ اللَّهِ صلى الله عليه وسلم فَأَخْبَرَهُ سَهْلٌ بِالَّذِي كَانَ مِنْ شَأْنِ عَامِرٍ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ عَلاَمَ يَقْتُلُ أَحَدُكُمْ أَخَاهُ أَلاَّ بَرَّكْتَ إِنَّ الْعَيْنَ حَقٌّ تَوَضَّأْ لَهُ ‏&quot;‏ ‏.‏ فَتَوَضَّأَ لَهُ عَامِرٌ فَرَاحَ سَهْلٌ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم لَيْسَ بِهِ بَأْسٌ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Muhammad ibn Abi Umama ibn Sahl ibn Hunayf heard his father say, &quot;My father, Sahl ibn Hunayf did a ghusl at al-Kharrar. He removed the jubbah he had on while Amir ibn Rabia was watching, and Sahl was a man with beautiful white skin. Amir said to him, &#x27;I have never seen anything like what I have seen today, not even the skin of a virgin.&#x27; Sahl fell ill on the spot, and his condition grew worse. Somebody went to the Messenger of Allah, may Allah bless him and grant him peace, and told him that Sahl was ill, and could not go with him. The Messenger of Allah, may Allah bless him and grant him peace, came to him, and Sahl told him what had happened with Amir. The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Why does one of you kill his brother? Why did you not say, &quot;May Allah bless you?&quot; (ta baraka-llah) The evil eye is true. Do wudu from it.&#x27; Amir did wudu from it and Sahl went with the Messenger of Allah, may Allah bless him and grant him peace, and there was nothing wrong with him</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1712 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 1</span></td></tr><tr id='h1712' class='hadith-sep'><td colspan='2'>Hadith 1712 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ أَبِي أُمَامَةَ بْنِ سَهْلِ بْنِ حُنَيْفٍ، أَنَّهُ قَالَ رَأَى عَامِرُ بْنُ رَبِيعَةَ سَهْلَ بْنَ حُنَيْفٍ يَغْتَسِلُ فَقَالَ مَا رَأَيْتُ كَالْيَوْمِ وَلاَ جِلْدَ مُخْبَأَةٍ ‏.‏ فَلُبِطَ سَهْلٌ فَأُتِيَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَقِيلَ يَا رَسُولَ اللَّهِ هَلْ لَكَ فِي سَهْلِ بْنِ حُنَيْفٍ وَاللَّهِ مَا يَرْفَعُ رَأْسَهُ ‏.‏ فَقَالَ ‏&quot;‏ هَلْ تَتَّهِمُونَ لَهُ أَحَدًا ‏&quot;‏ قَالُوا نَتَّهِمُ عَامِرَ بْنَ رَبِيعَةَ ‏.‏ قَالَ فَدَعَا رَسُولُ اللَّهِ صلى الله عليه وسلم عَامِرًا فَتَغَيَّظَ عَلَيْهِ وَقَالَ ‏&quot;‏ عَلاَمَ يَقْتُلُ أَحَدُكُمْ أَخَاهُ أَلاَّ بَرَّكْتَ اغْتَسِلْ لَهُ ‏&quot;‏ ‏.‏ فَغَسَلَ عَامِرٌ وَجْهَهُ وَيَدَيْهِ وَمِرْفَقَيْهِ وَرُكْبَتَيْهِ وَأَطْرَافَ رِجْلَيْهِ وَدَاخِلَةَ إِزَارِهِ فِي قَدَحٍ ثُمَّ صُبَّ عَلَيْهِ فَرَاحَ سَهْلٌ مَعَ النَّاسِ لَيْسَ بِهِ بَأْسٌ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Ibn Shihab that Abu Umama ibn Sahl ibn Hunayf said, &#x27;&#x27;Amir ibn Rabia saw Sahl ibn Hunayf doing a ghusl and said, &#x27;I have not seen the like of what I see today, not even the skin of a maiden who has never been out of doors.&#x27; Sahl fell to the ground. The Messenger of Allah, may Allah bless him and grant him peace, was approached and it was said, &#x27;Messenger of Allah, can you do anything about Sahl ibn Hunayf? By Allah, he can not raise his head.&#x27; He said, &#x27;Do you suspect anyone of it?&#x27; They said, &#x27;We suspect Amir ibn Rabia.&#x27; &quot; He continued, &quot;The Messenger of Allah, may Allah bless him and grant him peace, summoned Amir and was furious with him and said, &#x27;Why does one of you kill his brother? Why did you not say, &quot;May Allah bless you?&quot; Do ghusl for it.&#x27; Amir washed his face, hands, elbows, knees, the end of his feet, and inside his lower garment in a vessel. Then he poured it over him, and Sahl went off with the people, and there was nothing wrong with him</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1713 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 2</span></td></tr><tr id='h1713' class='hadith-sep'><td colspan='2'>Hadith 1713 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ حُمَيْدِ بْنِ قَيْسٍ الْمَكِّيِّ، أَنَّهُ قَالَ دُخِلَ عَلَى رَسُولِ اللَّهِ صلى الله عليه وسلم بِابْنَىْ جَعْفَرِ بْنِ أَبِي طَالِبٍ فَقَالَ لِحَاضِنَتِهِمَا ‏&quot;‏ مَا لِي أَرَاهُمَا ضَارِعَيْنِ ‏&quot;‏ ‏.‏ فَقَالَتْ حَاضِنَتُهُمَا يَا رَسُولَ اللَّهِ إِنَّهُ تَسْرَعُ إِلَيْهِمَا الْعَيْنُ وَلَمْ يَمْنَعْنَا أَنْ نَسْتَرْقِيَ لَهُمَا إِلاَّ أَنَّا لاَ نَدْرِي مَا يُوَافِقُكَ مِنْ ذَلِكَ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ اسْتَرْقُوا لَهُمَا فَإِنَّهُ لَوْ سَبَقَ شَىْءٌ الْقَدَرَ لَسَبَقَتْهُ الْعَيْنُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Humayd ibn Qays al-Makki said, &quot;A man came to the Messenger of Allah, may Allah bless him and grant him peace, with the two sons of Jafar ibn Abi Talib. He said to their nursemaid, &#x27;Why do I see them so thin?&#x27; Their nursemaid said, &#x27;Messenger of Allah, the evil eye goes quickly to them. Nothing stops us from asking someone to make incantations (using ayats of Qur&#x27;an) for them, except that we do not know what of that would agree with you.&#x27; The Messenger of ,Allah, may Allah bless him and grant him peace, said, &#x27;Make incantations for them. Had anything been able to precede the decree, the evil eye would precede it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1714 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 3</span></td></tr><tr id='h1714' class='hadith-sep'><td colspan='2'>Hadith 1714 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ سُلَيْمَانَ بْنِ يَسَارٍ، أَنَّ عُرْوَةَ بْنَ الزُّبَيْرِ، حَدَّثَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم دَخَلَ بَيْتَ أُمِّ سَلَمَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم وَفِي الْبَيْتِ صَبِيٌّ يَبْكِي فَذَكَرُوا لَهُ أَنَّ بِهِ الْعَيْنَ - قَالَ عُرْوَةُ - فَقَالَ رَسُولُ اللَّهِ</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from Sulayman ibn Yasar that Urwa ibn az-Zubayr told him that the Messenger of Allah, may Allah bless him and grant him peace, entered the house of Umm Salama, the wife of the Prophet, may Allah bless him and grant him peace. There was a child weeping in the house, and they told him that it was from the evil eye. Urwa said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Why do you not find someone to make an incantation to protect it from the evil eye?</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1715 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 4</span></td></tr><tr id='h1715' class='hadith-sep'><td colspan='2'>Hadith 1715 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا مَرِضَ الْعَبْدُ بَعَثَ اللَّهُ تَعَالَى إِلَيْهِ مَلَكَيْنِ فَقَالَ انْظُرَا مَاذَا يَقُولُ لِعُوَّادِهِ ‏.‏ فَإِنْ هُوَ - إِذَا جَاءُوهُ - حَمِدَ اللَّهَ وَأَثْنَى عَلَيْهِ رَفَعَا ذَلِكَ إِلَى اللَّهِ عَزَّ وَجَلَّ - وَهُوَ أَعْلَمُ - فَيَقُولُ لِعَبْدِي عَلَىَّ إِنْ تَوَفَّيْتُهُ أَنْ أُدْخِلَهُ الْجَنَّةَ وَإِنْ أَنَا شَفَيْتُهُ أَنْ أُبْدِلَ لَهُ لَحْمًا خَيْرًا مِنْ لَحْمِهِ وَدَمًا خَيْرًا مِنْ دَمِهِ وَأَنْ أُكَفِّرَ عَنْهُ سَيِّئَاتِهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam from Ata ibn Yasar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When the slave is ill, Allah ta&#x27;ala sends two angels to him.&quot; He said, &quot;They look at what he says to his visitors. If he praises Allah and lauds Him, when they come to him, they take that up to Allah, the Mighty, the Majestic, and He knows best, and He says, &#x27;If I make my slave die, I will make him enter the Garden. If I heal him, I will replace his flesh with better flesh and his blood with better blood and I will efface his evil actions</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1716 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 5</span></td></tr><tr id='h1716' class='hadith-sep'><td colspan='2'>Hadith 1716 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ خُصَيْفَةَ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، أَنَّهُ قَالَ سَمِعْتُ عَائِشَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم تَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ يُصِيبُ الْمُؤْمِنَ مِنْ مُصِيبَةٍ حَتَّى الشَّوْكَةُ إِلاَّ قُصَّ بِهَا أَوْ كُفِّرَ بِهَا مِنْ خَطَايَاهُ ‏&quot;‏ ‏.‏ لاَ يَدْرِي يَزِيدُ أَيَّهُمَا قَالَ عُرْوَةُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yazid ibn Khusayfa that Urwa ibn az-Zubayr said that he heard A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, say, &quot;The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;When a mumin is afflicted by something, even a thorn, it removes (or effaces) his wrong actions.&#x27; &quot; Yazid did not know which of them Urwa said</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1717 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 6</span></td></tr><tr id='h1717' class='hadith-sep'><td colspan='2'>Hadith 1717 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ مُحَمَّدِ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي صَعْصَعَةَ، أَنَّهُ قَالَ سَمِعْتُ أَبَا الْحُبَابِ، سَعِيدَ بْنَ يَسَارٍ يَقُولُ سَمِعْتُ أَبَا هُرَيْرَةَ، يَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُصِبْ مِنْهُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Muhammad ibn Abdullah ibn Abi Sasaca said that he heard Abu&#x27;l-Hubab Said ibn Yasar say that he had heard Abu Hurayra say, &quot;The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Allah afflicts the one for whom He desires good</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1718 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 7</span></td></tr><tr id='h1718' class='hadith-sep'><td colspan='2'>Hadith 1718 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ رَجُلاً، جَاءَهُ الْمَوْتُ فِي زَمَانِ رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَ رَجُلٌ هَنِيئًا لَهُ مَاتَ وَلَمْ يُبْتَلَ بِمَرَضٍ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ وَيْحَكَ وَمَا يُدْرِيكَ لَوْ أَنَّ اللَّهَ ابْتَلاَهُ بِمَرَضٍ يُكَفِّرُ بِهِ مِنْ سَيِّئَاتِهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that death came to a man in the time of the Messenger of Allah, may Allah bless him and grant him peace. A man said, &quot;He was fortunate,&quot; as he had died without being tried by illness. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Alas for you, what will let you know that if Allah had tried him with illness, He would have wiped out his wrong actions</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1719 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 8</span></td></tr><tr id='h1719' class='hadith-sep'><td colspan='2'>Hadith 1719 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ خُصَيْفَةَ، أَنَّ عَمْرَو بْنَ عَبْدِ اللَّهِ بْنِ كَعْبٍ السَّلَمِيَّ، أَخْبَرَهُ أَنَّ نَافِعَ بْنَ جُبَيْرٍ أَخْبَرَهُ عَنْ عُثْمَانَ بْنِ أَبِي الْعَاصِ، أَنَّهُ أَتَى رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ عُثْمَانُ وَبِي وَجَعٌ قَدْ كَادَ يُهْلِكُنِي ‏.‏ قَالَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ امْسَحْهُ بِيَمِينِكَ سَبْعَ مَرَّاتٍ وَقُلْ أَعُوذُ بِعِزَّةِ اللَّهِ وَقُدْرَتِهِ مِنْ شَرِّ مَا أَجِدُ ‏&quot;‏ ‏.‏ قَالَ فَقُلْتُ ذَلِكَ فَأَذْهَبَ اللَّهُ مَا كَانَ بِي فَلَمْ أَزَلْ آمُرُ بِهَا أَهْلِي وَغَيْرَهُمْ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yazid ibn Khusayfa that Amr ibn Abdullah ibn Kab as-Salami told him that Nafi ibn Jubayr told him that Uthman ibn Abi al-As came to the Messenger of Allah, may Allah bless him and grant him peace. Uthman said that he had a pain which was enough to kill him. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Rub it with your right hand seven times and say, &#x27;I take refuge with the might of Allah and His power from the evil of what I feel.&#x27; &quot; Uthman added, &quot;I said that, and Allah removed what I had. I still command my family and others to say it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1720 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 9</span></td></tr><tr id='h1720' class='hadith-sep'><td colspan='2'>Hadith 1720 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ إِذَا اشْتَكَى يَقْرَأُ عَلَى نَفْسِهِ بِالْمُعَوِّذَاتِ وَيَنْفِثُ ‏.‏ قَالَتْ فَلَمَّا اشْتَدَّ وَجَعُهُ كُنْتُ أَنَا أَقْرَأُ عَلَيْهِ وَأَمْسَحُ عَلَيْهِ بِيَمِينِهِ رَجَاءَ بَرَكَتِهَا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab from Urwa ibn az- Zubayr from A&#x27;isha that the Messenger of Allah, may Allah bless him and grant him peace, when he had a complaint, would recite the last three suras of Qur&#x27;an, over himself and blow. She said, &quot;When his pain was great, I would recite it over him and wipe him with his right hand hoping for its blessing</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1721 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 10</span></td></tr><tr id='h1721' class='hadith-sep'><td colspan='2'>Hadith 1721 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ عَمْرَةَ بِنْتِ عَبْدِ الرَّحْمَنِ، أَنَّ أَبَا بَكْرٍ الصِّدِّيقَ، دَخَلَ عَلَى عَائِشَةَ وَهِيَ تَشْتَكِي وَيَهُودِيَّةٌ تَرْقِيهَا فَقَالَ أَبُو بَكْرٍ ارْقِيهَا بِكِتَابِ اللَّهِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from Amra bint Abd ar-Rahman that Abu Bakr as-Siddiq visited A&#x27;isha while she had a [health] complaint and a jewish woman was making incantation (ruqya) for her. Abu Bakr said, &quot;Do it (incantation) with the Book of Allah</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1722 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 11</span></td></tr><tr id='h1722' class='hadith-sep'><td colspan='2'>Hadith 1722 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، أَنَّ رَجُلاً، فِي زَمَانِ رَسُولِ اللَّهِ صلى الله عليه وسلم أَصَابَهُ جُرْحٌ فَاحْتَقَنَ الْجُرْحُ الدَّمَ وَأَنَّ الرَّجُلَ دَعَا رَجُلَيْنِ مِنْ بَنِي أَنْمَارٍ فَنَظَرَا إِلَيْهِ فَزَعَمَا أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ لَهُمَا ‏&quot;‏ أَيُّكُمَا أَطَبُّ ‏&quot;‏ ‏.‏ فَقَالاَ أَوَ فِي الطِّبِّ خَيْرٌ يَا رَسُولَ اللَّهِ فَزَعَمَ زَيْدٌ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ أَنْزَلَ الدَّوَاءَ الَّذِي أَنْزَلَ الأَدْوَاءَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam that a man received a wound in the time of the Messenger of Allah, may Allah bless him and grant him peace. The blood clotted in the wound and the man called two men from the Banu Ammar tribe. They looked at it and claimed that the Messenger of Allah, may Allah bless him and grant him peace, said to them, &quot;Which of you is the better doctor?&quot; They said, &quot;Is there any good in medicine, Messenger of Allah?&quot; Zayd claimed that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;The one who sent down the disease sent down the remedy</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Isnaad Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1723 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 12</span></td></tr><tr id='h1723' class='hadith-sep'><td colspan='2'>Hadith 1723 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، قَالَ بَلَغَنِي أَنَّ سَعْدَ بْنَ زُرَارَةَ، اكْتَوَى فِي زَمَانِ رَسُولِ اللَّهِ صلى الله عليه وسلم مِنَ الذُّبَحَةِ فَمَاتَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Yahya ibn Said said, &quot;I heard that Sad ibn Zurara cauterized himself because of a pain in the throat accompanied by blood and he died</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1724 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 13</span></td></tr><tr id='h1724' class='hadith-sep'><td colspan='2'>Hadith 1724 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، اكْتَوَى مِنَ اللَّقْوَةِ وَرُقِيَ مِنَ الْعَقْرَبِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar cauterized for the palsy and he had a talisman made for a scorpion sting</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1725 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 14</span></td></tr><tr id='h1725' class='hadith-sep'><td colspan='2'>Hadith 1725 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ فَاطِمَةَ بِنْتِ الْمُنْذِرِ، أَنَّ أَسْمَاءَ بِنْتَ أَبِي بَكْرٍ، كَانَتْ إِذَا أُتِيَتْ بِالْمَرْأَةِ وَقَدْ حُمَّتْ تَدْعُو لَهَا أَخَذَتِ الْمَاءَ فَصَبَّتْهُ بَيْنَهَا وَبَيْنَ جَيْبِهَا وَقَالَتْ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَأْمُرُنَا أَنْ نُبْرِدَهَا بِالْمَاءِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from Fatima bint al-Mundhir that whenever a woman who had a fever, was brought to Asma bint Abi Bakr, she made dua for her and took water and poured it inside her collar. She said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, ordered us to cool it with water</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 15</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1726 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 15</span></td></tr><tr id='h1726' class='hadith-sep'><td colspan='2'>Hadith 1726 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِنَّ الْحُمَّى مِنْ فَيْحِ جَهَنَّمَ فَابْرُدُوهَا بِالْمَاءِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Fever is from the vehemence of the heat of Jahannam, so cool it with water</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 16</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1727 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 16</span></td></tr><tr id='h1727' class='hadith-sep'><td colspan='2'>Hadith 1727 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْحُمَّى مِنْ فَيْحِ جَهَنَّمَ فَأَطْفِئُوهَا بِالْمَاءِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Nafi from Ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Fever is from the vehemence of the heat of Jahannam, so put it out with water</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 17</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1728 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 17</span></td></tr><tr id='h1728' class='hadith-sep'><td colspan='2'>Hadith 1728 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا عَادَ الرَّجُلُ الْمَرِيضَ خَاضَ الرَّحْمَةَ حَتَّى إِذَا قَعَدَ عِنْدَهُ قَرَّتْ فِيهِ ‏&quot;‏ ‏.‏ أَوْ نَحْوَ هَذَا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard from Jabir ibn Abdullah that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When a man visits an invalid, he plunges into mercy to the extent that when he sits with him, it settles in him,&quot; or the like of that</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 18</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1729 — The Evil Eye</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 50, Hadith 18</span></td></tr><tr id='h1729' class='hadith-sep'><td colspan='2'>Hadith 1729 — The Evil Eye</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ عَنْ بُكَيْرِ بْنِ عَبْدِ اللَّهِ بْنِ الأَشَجِّ، عَنِ ابْنِ عَطِيَّةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ لاَ عَدْوَى وَلاَ هَامَ وَلاَ صَفَرَ وَلاَ يَحُلَّ الْمُمْرِضُ عَلَى الْمُصِحِّ وَلْيَحْلُلِ الْمُصِحُّ حَيْثُ شَاءَ ‏&quot;‏ ‏.‏ فَقَالُوا يَا رَسُولَ اللَّهِ وَمَا ذَاكَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنَّهُ أَذًى ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard from Bukayr ibn Abdullah ibn al-Ashajj from Ibn Atiya that the Messenger of Allah, may Allah bless him and grant him peace, said:&quot;There is no contagion, no hama and no serpent in a hungry belly. However, the possessor of sick livestock must not stop at the same place as the possessor of healthy livestock, but the possessor of healthy livestock may stop wherever he wishes.&quot; They said, &quot;Messenger of Allah, Why is that?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;It is harmful.&quot; Note: The majority of scholars interpret this to mean that these things in and of themselves do not transmit or cause harm through supernatural or hidden means but that Allah is ultimately in control and any fearful superstition around these is false</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>

@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Qirad</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,11 +166,11 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1386 — Qirad</td></tr>
+<tr id='h1386' class='hadith-sep'><td colspan='2'>Hadith 1386 — Qirad</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ أَبِيهِ، أَنَّهُ قَالَ خَرَجَ عَبْدُ اللَّهِ وَعُبَيْدُ اللَّهِ ابْنَا عُمَرَ بْنِ الْخَطَّابِ فِي جَيْشٍ إِلَى الْعِرَاقِ فَلَمَّا قَفَلاَ مَرَّا عَلَى أَبِي مُوسَى الأَشْعَرِيِّ وَهُوَ أَمِيرُ الْبَصْرَةِ فَرَحَّبَ بِهِمَا وَسَهَّلَ ثُمَّ قَالَ لَوْ أَقْدِرُ لَكُمَا عَلَى أَمْرٍ أَنْفَعُكُمَا بِهِ لَفَعَلْتُ ‏.‏ ثُمَّ قَالَ بَلَى هَا هُنَا مَالٌ مِنْ مَالِ اللَّهِ أُرِيدُ أَنْ أَبْعَثَ بِهِ إِلَى أَمِيرِ الْمُؤْمِنِينَ فَأُسْلِفُكُمَاهُ فَتَبْتَاعَانِ بِهِ مَتَاعًا مِنْ مَتَاعِ الْعِرَاقِ ثُمَّ تَبِيعَانِهِ بِالْمَدِينَةِ فَتُؤَدِّيَانِ رَأْسَ الْمَالِ إِلَى أَمِيرِ الْمُؤْمِنِينَ وَيَكُونُ الرِّبْحُ لَكُمَا فَقَالاَ وَدِدْنَا ذَلِكَ ‏.‏ فَفَعَلَ وَكَتَبَ إِلَى عُمَرَ بْنِ الْخَطَّابِ أَنْ يَأْخُذَ مِنْهُمَا الْمَالَ فَلَمَّا قَدِمَا بَاعَا فَأُرْبِحَا فَلَمَّا دَفَعَا ذَلِكَ إِلَى عُمَرَ قَالَ أَكُلُّ الْجَيْشِ أَسْلَفَهُ مِثْلَ مَا أَسْلَفَكُمَا قَالاَ لاَ ‏.‏ فَقَالَ عُمَرُ بْنُ الْخَطَّابِ ابْنَا أَمِيرِ الْمُؤْمِنِينَ فَأَسْلَفَكُمَا أَدِّيَا الْمَالَ وَرِبْحَهُ ‏.‏ فَأَمَّا عَبْدُ اللَّهِ فَسَكَتَ وَأَمَّا عُبَيْدُ اللَّهِ فَقَالَ مَا يَنْبَغِي لَكَ يَا أَمِيرَ الْمُؤْمِنِينَ هَذَا لَوْ نَقَصَ هَذَا الْمَالُ أَوْ هَلَكَ لَضَمِنَّاهُ ‏.‏ فَقَالَ عُمَرُ أَدِّيَاهُ ‏.‏ فَسَكَتَ عَبْدُ اللَّهِ وَرَاجَعَهُ عُبَيْدُ اللَّهِ ‏.‏ فَقَالَ رَجُلٌ مِنْ جُلَسَاءِ عُمَرَ يَا أَمِيرَ الْمُؤْمِنِينَ لَوْ جَعَلْتَهُ قِرَاضًا ‏.‏ فَقَالَ عُمَرُ قَدْ جَعَلْتُهُ قِرَاضًا ‏.‏ فَأَخَذَ عُمَرُ رَأْسَ الْمَالِ وَنِصْفَ رِبْحِهِ وَأَخَذَ عَبْدُ اللَّهِ وَعُبَيْدُ اللَّهِ ابْنَا عُمَرَ بْنِ الْخَطَّابِ نِصْفَ رِبْحِ الْمَالِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Zayd ibn Aslam that his father said, &quot;Abdullah and Ubaydullah, the sons of Umar ibn al-Khattab went out with the army to Iraq. On the way home, they passed by Abu Musa al- Ashari who was the amir of Basra. He greeted them and made them welcome, and told them that if there was anything he could do to help them, he would do it. Then he said, &#x27;There is some of the property of Allah which I want to send to the amir al-muminin, so I will lend it to you, and you can buy wares from Iraq and sell them in Madina. Then give the principal to the amir al-muminin, and you keep the profit.&#x27; They said that they would like to do it, and so he gave them the money and wrote to Umar ibn al-Khattab to take the money from them. When they came to sell they made a profit, and when they paid the principal to Umar he asked, &#x27;Did he lend everyone in the army the like of what he lent you?&#x27; They said, &#x27;No.&#x27; Umar ibn al-Khattab said, &#x27;He made you the loan, because you are the sons of the amir al-muminin, so pay the principal and the profit.&#x27; Abdullah was silent. Ubaydullah said, &#x27;You do not need to do this, amir al-muminin. Had the principal decreased or been destroyed, we would have guaranteed it.&#x27; Umar said, &#x27;Pay it.&#x27; Abdullah was silent, and Ubaydullah repeated it. A man who was sitting with Umar said, &#x27;Amir al-muminin, better that you make it a qirad. &#x27;Umar said, &#x27;I have made it qirad.&#x27; Umar then took the principal and half of the profit, and Abdullah and Ubaydullah, the sons of Umar ibn al-Khattab took half of the profit</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1387 — Qirad</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 1</span></td></tr><tr id='h1387' class='hadith-sep'><td colspan='2'>Hadith 1387 — Qirad</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنِ الْعَلاَءِ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، أَنَّ عُثْمَانَ بْنَ عَفَّانَ، أَعْطَاهُ مَالاً قِرَاضًا يَعْمَلُ فِيهِ عَلَى أَنَّ الرِّبْحَ بَيْنَهُمَا ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from al-Ala ibn Abd ar-Rahman from his father from his father that Uthman ibn Affan gave him some money as qirad to use provided the profit was shared between them</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Hasan</span></td></tr>

@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › The Decree</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,43 +166,43 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1623 — The Decree</td></tr>
+<tr id='h1623' class='hadith-sep'><td colspan='2'>Hadith 1623 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ تَحَاجَّ آدَمُ وَمُوسَى فَحَجَّ آدَمُ مُوسَى قَالَ لَهُ مُوسَى أَنْتَ آدَمُ الَّذِي أَغْوَيْتَ النَّاسَ وَأَخْرَجْتَهُمْ مِنَ الْجَنَّةِ فَقَالَ لَهُ آدَمُ أَنْتَ مُوسَى الَّذِي أَعْطَاهُ اللَّهُ عِلْمَ كُلِّ شَىْءٍ وَاصْطَفَاهُ عَلَى النَّاسِ بِرِسَالَتِهِ قَالَ نَعَمْ ‏.‏ قَالَ أَفَتَلُومُنِي عَلَى أَمْرٍ قَدْ قُدِّرَ عَلَىَّ قَبْلَ أَنْ أُخْلَقَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Adam and Musa argued and Adam got the better of Musa. Musa rebuked Adam, &#x27;You are Adam who led people astray and brought them out of the Garden.&#x27; Adam said to him, &#x27;You are Musa to whom Allah gave knowledge of everything and whom he chose above people with His message.&#x27; He said, &#x27;Yes.&#x27; He said, &#x27;Do you then censure me for a matter which was decreed for me before I was created?</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1624 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 1</span></td></tr><tr id='h1624' class='hadith-sep'><td colspan='2'>Hadith 1624 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَبِي أُنَيْسَةَ، عَنْ عَبْدِ الْحَمِيدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ زَيْدِ بْنِ الْخَطَّابِ، أَنَّهُ أَخْبَرَهُ عَنْ مُسْلِمِ بْنِ يَسَارٍ الْجُهَنِيِّ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، سُئِلَ عَنْ هَذِهِ الآيَةِ، ‏{‏وَإِذْ أَخَذَ رَبُّكَ مِنْ بَنِي آدَمَ مِنْ ظُهُورِهِمْ ذُرِّيَّتَهُمْ وَأَشْهَدَهُمْ عَلَى أَنْفُسِهِمْ أَلَسْتُ بِرَبِّكُمْ قَالُوا بَلَى شَهِدْنَا أَنْ تَقُولُوا يَوْمَ الْقِيَامَةِ إِنَّا كُنَّا عَنْ هَذَا غَافِلِينَ‏}‏ ‏.‏ فَقَالَ عُمَرُ بْنُ الْخَطَّابِ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يُسْأَلُ عَنْهَا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى خَلَقَ آدَمَ ثُمَّ مَسَحَ ظَهْرَهُ بِيَمِينِهِ فَاسْتَخْرَجَ مِنْهُ ذُرِّيَّةً فَقَالَ خَلَقْتُ هَؤُلاَءِ لِلْجَنَّةِ وَبِعَمَلِ أَهْلِ الْجَنَّةِ يَعْمَلُونَ ثُمَّ مَسَحَ ظَهْرَهُ فَاسْتَخْرَجَ مِنْهُ ذُرِّيَّةً فَقَالَ خَلَقْتُ هَؤُلاَءِ لِلنَّارِ وَبِعَمَلِ أَهْلِ النَّارِ يَعْمَلُونَ ‏&quot;‏ ‏.‏ فَقَالَ رَجُلٌ يَا رَسُولَ اللَّهِ فَفِيمَ الْعَمَلُ قَالَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنَّ اللَّهَ إِذَا خَلَقَ الْعَبْدَ لِلْجَنَّةِ اسْتَعْمَلَهُ بِعَمَلِ أَهْلِ الْجَنَّةِ حَتَّى يَمُوتَ عَلَى عَمَلٍ مِنْ أَعْمَالِ أَهْلِ الْجَنَّةِ فَيُدْخِلَهُ بِهِ الْجَنَّةَ وَإِذَا خَلَقَ الْعَبْدَ لِلنَّارِ اسْتَعْمَلَهُ بِعَمَلِ أَهْلِ النَّارِ حَتَّى يَمُوتَ عَلَى عَمَلٍ مِنْ أَعْمَالِ أَهْلِ النَّارِ فَيُدْخِلَهُ بِهِ النَّارَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Abi Unaysa that Abd al-Hamid ibn Abd ar-Rahman ibn Zayd ibn al-Khattab informed him from Muslim ibn Yasar al-Juhani that Umar ibn al-Khattab was asked about this ayat - &quot;When your Lord took their progeny from the Banu Adam from their backs and made them testify against themselves. &#x27;Am I not your Lord?&#x27; They said, &#x27;Yes, we bear witness&#x27; Lest you should say on the Day of Rising, &#x27;We were heedless of that.&#x27;&quot; (Sura 7 ayat 172) Umar ibn al-Khattab said, &quot;I heard the Messenger of Allah, may Allah bless him and grant him peace, being asked about it. The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Allah, the Blessed, the Exalted, created Adam. Then He stroked his back with His right hand, and progeny issued from it. He said, &quot;I created these for the Garden and they will act with the behaviour of the people of the Garden.&quot; Then He stroked his back again and brought forth progeny from him. He said, &quot;I created these for the Fire and they will act with the behaviour of the people of the Fire.&quot; &#x27;A man said, &#x27;Messenger of Allah! Then of what value are deeds?&#x27; The Messenger of Allah, may Allah bless him and grant him peace, answered, &#x27;When Allah creates a slave for the Garden, he makes him use the behaviour of the people of the Garden, so that he dies on one of the actions of the people of the Garden and by it He brings him into the Garden. When He creates a slave for the Fire, He makes him use the behaviour of the people of the Fire, so that he dies on one of the actions of the people of the Fire, and by it, He brings him into the Fire</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1625 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 2</span></td></tr><tr id='h1625' class='hadith-sep'><td colspan='2'>Hadith 1625 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ تَرَكْتُ فِيكُمْ أَمْرَيْنِ لَنْ تَضِلُّوا مَا تَمَسَّكْتُمْ بِهِمَا كِتَابَ اللَّهِ وَسُنَّةَ نَبِيِّهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he heard that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;I have left two matters with you. As long as you hold to them, you will not go the wrong way. They are the Book of Allah and the Sunna of His Prophet</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1626 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 3</span></td></tr><tr id='h1626' class='hadith-sep'><td colspan='2'>Hadith 1626 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زِيَادِ بْنِ سَعْدٍ، عَنْ عَمْرِو بْنِ مُسْلِمٍ، عَنْ طَاوُسٍ الْيَمَانِيِّ، أَنَّهُ قَالَ أَدْرَكْتُ نَاسًا مِنْ أَصْحَابِ رَسُولِ اللَّهِ صلى الله عليه وسلم يَقُولُونَ كُلُّ شَىْءٍ بِقَدَرٍ ‏.‏ قَالَ طَاوُسٌ وَسَمِعْتُ عَبْدَ اللَّهِ بْنَ عُمَرَ يَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ كُلُّ شَىْءٍ بِقَدَرٍ حَتَّى الْعَجْزِ وَالْكَيْسِ أَوِ الْكَيْسِ وَالْعَجْزِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ziyad ibn Sad from Amr ibn Muslim that Tawus al-Yamani said, &quot;I found some of the companions of the Messenger of Allah, may Allah bless him and grant him peace, saying &#x27;Everything is by decree.&#x27; &quot; Tawus added, &quot;I heard Abdullah ibn Umar say that The Messenger of Allah, may Allah bless him and grant him peace. said, &#x27;Everything is by decree - even incapacity and ability,&#x27; (or &#x27;ability and incapacity)</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1627 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 4</span></td></tr><tr id='h1627' class='hadith-sep'><td colspan='2'>Hadith 1627 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ زِيَادِ بْنِ سَعْدٍ، عَنْ عَمْرِو بْنِ دِينَارٍ، أَنَّهُ قَالَ سَمِعْتُ عَبْدَ اللَّهِ بْنَ الزُّبَيْرِ، يَقُولُ فِي خُطْبَتِهِ إِنَّ اللَّهَ هُوَ الْهَادِي وَالْفَاتِنُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Ziyad ibn Sad that Amr ibn Dinar said, &quot;I heard Abdullah ibn az-Zubayr say in a khutba, &#x27;Allah - He is the Guider and the One Who Tempts Away</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1628 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 5</span></td></tr><tr id='h1628' class='hadith-sep'><td colspan='2'>Hadith 1628 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَمِّهِ أَبِي سُهَيْلِ بْنِ مَالِكٍ، أَنَّهُ قَالَ كُنْتُ أَسِيرُ مَعَ عُمَرَ بْنِ عَبْدِ الْعَزِيزِ فَقَالَ مَا رَأْيُكَ فِي هَؤُلاَءِ الْقَدَرِيَّةِ فَقُلْتُ رَأْيِي أَنْ تَسْتَتِيبَهُمْ فَإِنْ تَابُوا وَإِلاَّ عَرَضْتَهُمْ عَلَى السَّيْفِ ‏.‏ فَقَالَ عُمَرُ بْنُ عَبْدِ الْعَزِيزِ وَذَلِكَ رَأْيِي ‏.‏ قَالَ مَالِكٌ وَذَلِكَ رَأْيِي ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that his paternal uncle, Abu Suhayl ibn Malik said, &quot;I was a prisoner with Umar ibn Abd al-Aziz. He said, &#x27;What do you think about these Qadariyya (fatalists)?&#x27; I said, &#x27;My opinion is that one should ask them to turn from wrong action, if they will do so. If not, subject them to the sword.&#x27; Umar ibn Abd al- Aziz said, &#x27;That is my opinion. Malik added, &quot;That is my opinion also</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1629 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 6</span></td></tr><tr id='h1629' class='hadith-sep'><td colspan='2'>Hadith 1629 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ تَسْأَلِ الْمَرْأَةُ طَلاَقَ أُخْتِهَا لِتَسْتَفْرِغَ صَحْفَتَهَا وَلِتَنْكِحَ فَإِنَّمَا لَهَا مَا قُدِّرَ لَهَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;A woman should not ask for the divorce of her sister to make her plate empty and in order to marry. She has what is decreed for her</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1630 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 7</span></td></tr><tr id='h1630' class='hadith-sep'><td colspan='2'>Hadith 1630 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ زِيَادٍ، عَنْ مُحَمَّدِ بْنِ كَعْبٍ الْقُرَظِيِّ، قَالَ قَالَ مُعَاوِيَةُ بْنُ أَبِي سُفْيَانَ وَهُوَ عَلَى الْمِنْبَرِ أَيُّهَا النَّاسُ إِنَّهُ لاَ مَانِعَ لِمَا أَعْطَى اللَّهُ وَلاَ مُعْطِيَ لِمَا مَنَعَ اللَّهُ وَلاَ يَنْفَعُ ذَا الْجَدِّ مِنْهُ الْجَدُّ مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ ‏.‏ ثُمَّ قَالَ مُعَاوِيَةُ سَمِعْتُ هَؤُلاَءِ الْكَلِمَاتِ مِنْ رَسُولِ اللَّهِ صلى الله عليه وسلم عَلَى هَذِهِ الأَعْوَادِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yazid ibn Ziyad that Muhammad ibn Kab al-Quradhi said, &#x27;&#x27;Muawiya ibn Abi Sufyan said from the mimbar, &#x27;O people! Nothing keeps away what Allah gives and nothing gives what Allah keeps away. The earnestness of the earnest one does not profit him. When Allah desires good for him, he gives him understanding in the deen.&#x27; Then Muawiya said, &#x27;I heard these words from the Messenger of Allah, may Allah bless him and grant him peace, on these blocks of wood</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1631 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 8</span></td></tr><tr id='h1631' class='hadith-sep'><td colspan='2'>Hadith 1631 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّهُ كَانَ يُقَالُ الْحَمْدُ لِلَّهِ الَّذِي خَلَقَ كُلَّ شَىْءٍ كَمَا يَنْبَغِي الَّذِي لاَ يَعْجَلُ شَىْءٌ أَنَاهُ وَقَدَّرَهُ حَسْبِيَ اللَّهُ وَكَفَى سَمِعَ اللَّهُ لِمَنْ دَعَا لَيْسَ وَرَاءَ اللَّهِ مَرْمَى ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that this was said &quot;Praise be to Allah who created everything as is necessary, who does not hasten anything He defers and determines. Allah is enough for me and sufficient. Allah hears whoever makes dua to him. Allah does not have a goal</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1632 — The Decree</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 9</span></td></tr><tr id='h1632' class='hadith-sep'><td colspan='2'>Hadith 1632 — The Decree</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّهُ كَانَ يُقَالُ إِنَّ أَحَدًا لَنْ يَمُوتَ حَتَّى يَسْتَكْمِلَ رِزْقَهُ فَأَجْمِلُوا فِي الطَّلَبِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he heard that this was said &quot;No one will die until his provision is completed for him, so behave correctly in your seeking it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>

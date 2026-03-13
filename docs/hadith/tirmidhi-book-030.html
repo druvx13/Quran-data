@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='tirmidhi.html'>Jami At-Tirmidhi</a> › Chapters On Wasaya (Wills and…</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Jami At-Tirmidhi</h1>
@@ -105,39 +166,39 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 2116 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr id='h2116' class='hadith-sep'><td colspan='2'>Hadith 2116 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنِ الزُّهْرِيِّ، عَنْ عَامِرِ بْنِ سَعْدِ بْنِ أَبِي وَقَّاصٍ، عَنْ أَبِيهِ، قَالَ مَرِضْتُ عَامَ الْفَتْحِ مَرَضًا أَشْفَيْتُ مِنْهُ عَلَى الْمَوْتِ فَأَتَانِي رَسُولُ اللَّهِ صلى الله عليه وسلم يَعُودُنِي فَقُلْتُ يَا رَسُولَ اللَّهِ إِنَّ لِي مَالاً كَثِيرًا وَلَيْسَ يَرِثُنِي إِلاَّ ابْنَتِي أَفَأُوصِي بِمَالِي كُلِّهِ قَالَ ‏&quot;‏ لاَ ‏&quot;‏ ‏.‏ قُلْتُ فَثُلُثَىْ مَالِي قَالَ ‏&quot;‏ لاَ ‏&quot;‏ ‏.‏ قُلْتُ فَالشَّطْرُ قَالَ ‏&quot;‏ لاَ ‏&quot;‏ ‏.‏ قُلْتُ فَالثُّلُثُ قَالَ ‏&quot;‏ الثُّلُثُ وَالثُّلُثُ كَثِيرٌ إِنَّكَ إِنْ تَدَعْ وَرَثَتَكَ أَغْنِيَاءَ خَيْرٌ مِنْ أَنْ تَدَعَهُمْ عَالَةً يَتَكَفَّفُونَ النَّاسَ وَإِنَّكَ لَنْ تُنْفِقَ نَفَقَةً إِلاَّ أُجِرْتَ فِيهَا حَتَّى اللُّقْمَةَ تَرْفَعُهَا إِلَى فِي امْرَأَتِكَ ‏&quot;‏ ‏.‏ قَالَ قُلْتُ يَا رَسُولَ اللَّهِ أُخَلَّفُ عَنْ هِجْرَتِي قَالَ ‏&quot;‏ إِنَّكَ لَنْ تُخَلَّفَ بَعْدِي فَتَعْمَلَ عَمَلاً تُرِيدُ بِهِ وَجْهَ اللَّهِ إِلاَّ ازْدَدْتَ بِهِ رِفْعَةً وَدَرَجَةً وَلَعَلَّكَ أَنْ تُخَلَّفَ حَتَّى يَنْتَفِعَ بِكَ أَقْوَامٌ وَيُضَرَّ بِكَ آخَرُونَ اللَّهُمَّ أَمْضِ لأَصْحَابِي هِجْرَتَهُمْ وَلاَ تَرُدَّهُمْ عَلَى أَعْقَابِهِمْ لَكِنِ الْبَائِسُ سَعْدُ ابْنُ خَوْلَةَ يَرْثِي لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم أَنْ مَاتَ بِمَكَّةَ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى وَفِي الْبَابِ عَنِ ابْنِ عَبَّاسٍ ‏.‏ وَهَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَقَدْ رُوِيَ هَذَا الْحَدِيثُ مِنْ غَيْرِ وَجْهٍ عَنْ سَعْدِ بْنِ أَبِي وَقَّاصٍ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ أَنَّهُ لَيْسَ لِلرَّجُلِ أَنْ يُوصِيَ بِأَكْثَرَ مِنَ الثُّلُثِ وَقَدِ اسْتَحَبَّ بَعْضُ أَهْلِ الْعِلْمِ أَنْ يَنْقُصَ مِنَ الثُّلُثِ لِقَوْلِ رَسُولِ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ وَالثُّلُثُ كَثِيرٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Amir bin Sa&#x27;d bin Abi Waqqas narrated from his father, who said:&quot;I was ill during the year of the Conquest (of Makkah) with an illness bringing me to the brink of death. So The Messenger of Allah (S.A.W) came to visit me, and I said: &#x27;O Messenger of Allah (S.A.W)! Indeed I have a great deal of wealth and I do not have any heirs except my daughter, so should I will all of my wealth?&#x27; He said: &#x27;No.&#x27; I said: &#x27;Then two-thirds of my wealth?&#x27; He said: &#x27;No.&#x27; I said: &#x27;Then half?&#x27; He said: &#x27;No.&#x27; I said: &#x27;Then a third&#x27; He said: &#x27;No.&#x27; A third and a third is too much. If you leave your heirs without need it is better than to leave them in poverty begging from the people. Indeed you do not do any spending (on your family) except that you are rewarded for it, even the morsel of food you raise to your wife&#x27;s mouth.&#x27;&quot; He said: &quot;I said: &#x27;Will I be left behind from my emigration?&#x27; He said: &#x27;You will not be left behind after me,and do righteous deeds intending Allah&#x27;s Face, except that it will add to your elevation in rank. Perhaps you will remain until some people benefit from you and others will be harmed by you. O Allah! Complete the emigration of my companions and do not turn them on their heels. But the case of Sa&#x27;d bin Khawlah is sad.&#x27;&quot; the Messenger of Allah (S.A.W) felt sorry for him dying in Makkah</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2117 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 1</span></td></tr><tr id='h2117' class='hadith-sep'><td colspan='2'>Hadith 2117 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ الْجَهْضَمِيُّ، حَدَّثَنَا عَبْدُ الصَّمَدِ بْنُ عَبْدِ الْوَارِثِ، حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ، وَهُوَ جَدُّ هَذَا النَّصْرِ حَدَّثَنَا الأَشْعَثُ بْنُ جَابِرٍ، عَنْ شَهْرِ بْنِ حَوْشَبٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ حَدَّثَهُ عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ إِنَّ الرَّجُلَ لَيَعْمَلُ وَالْمَرْأَةُ بِطَاعَةِ اللَّهِ سِتِّينَ سَنَةً ثُمَّ يَحْضُرُهُمَا الْمَوْتُ فَيُضَارَّانِ فِي الْوَصِيَّةِ فَتَجِبُ لَهُمَا النَّارُ ‏&quot;‏ ‏.‏ ثُمَّ قَرَأَ عَلَىَّ أَبُو هُرَيْرَةَْ ‏:‏ ‏(‏مِنْ بَعْدِ وَصِيَّةٍ يُوصَى بِهَا أَوْ دَيْنٍ غَيْرَ مُضَارٍّ وَصِيَّةً مِنَ اللَّهِ ‏)‏ إِلَى قَوْلِهِ ‏:‏ ‏(‏ ذَلِكَ الْفَوْزُ الْعَظِيمُ ‏)‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ ‏.‏ وَنَصْرُ بْنُ عَلِيٍّ الَّذِي رَوَى عَنِ الأَشْعَثِ بْنِ جَابِرٍ هُوَ جَدُّ نَصْرِ بْنِ عَلِيٍّ الْجَهْضَمِيِّ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Hurairah narrated that the Messenger of Allah (S.A.W) said:&quot;Indeed a man, and a woman, perform deeds in obedience to Allah for sixty years, then death presents itself to them, and they cause such harm in the will that the Fire becomes warranted for them.&quot;Then he recited: After payment of legacies he (or she) may have bequeathed or debts, without causing harm. This is a Commandment from Allah. up to His saying: That is the magnificent success</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2118 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 2</span></td></tr><tr id='h2118' class='hadith-sep'><td colspan='2'>Hadith 2118 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا سُفْيَانُ، عَنْ أَيُّوبَ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ &quot;‏ مَا حَقُّ امْرِئٍ مُسْلِمٍ يَبِيتُ لَيْلَتَيْنِ وَلَهُ مَا يُوصِي فِيهِ إِلاَّ وَوَصِيَّتُهُ مَكْتُوبَةٌ عِنْدَهُ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَقَدْ رُوِيَ عَنِ الزُّهْرِيِّ عَنْ سَالِمٍ عَنِ ابْنِ عُمَرَ عَنِ النَّبِيِّ صلى الله عليه وسلم نَحْوُهُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ibn &#x27;Umar narrated that the Messenger of Allah (S.A.W) said:&quot;It is not right for a Muslim man to spend two nights, having what he would will, without having his will written with him</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2119 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 3</span></td></tr><tr id='h2119' class='hadith-sep'><td colspan='2'>Hadith 2119 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا أَبُو قَطَنٍ، عَمْرُو بْنُ الْهَيْثَمِ الْبَغْدَادِيُّ حَدَّثَنَا مَالِكُ بْنُ مِغْوَلٍ، عَنْ طَلْحَةَ بْنِ مُصَرِّفٍ، قَالَ قُلْتُ لاِبْنِ أَبِي أَوْفَى أَوْصَى رَسُولُ اللَّهِ صلى الله عليه وسلم قَالَ لاَ ‏.‏ قُلْتُ كَيْفَ كُتِبَتِ الْوَصِيَّةُ وَكَيْفَ أَمَرَ النَّاسَ قَالَ أَوْصَى بِكِتَابِ اللَّهِ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ حَدِيثِ مَالِكِ بْنِ مِغْوَلٍ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Talhah bin Musarrif said:&quot;I said to Ibn Abi Awfi: Did the Messenger of Allah (S.A.W) leave a will?&#x27; He said: &#x27;No&#x27; I said: &#x27;How is the will written, and how was it enjoined upon the people?&#x27; He said: &#x27;It was ordered in the Book of Allah, Most High</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2120 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 4</span></td></tr><tr id='h2120' class='hadith-sep'><td colspan='2'>Hadith 2120 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَلِيُّ بْنُ حُجْرٍ، وَهَنَّادٌ، قَالاَ حَدَّثَنَا إِسْمَاعِيلُ بْنُ عَيَّاشٍ، حَدَّثَنَا شُرَحْبِيلُ بْنُ مُسْلِمٍ الْخَوْلاَنِيُّ، عَنْ أَبِي أُمَامَةَ الْبَاهِلِيِّ، قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم فِي خُطْبَتِهِ عَامَ حَجَّةِ الْوَدَاعِ ‏&quot;‏ إِنَّ اللَّهَ قَدْ أَعْطَى كُلَّ ذِي حَقٍّ حَقَّهُ فَلاَ وَصِيَّةَ لِوَارِثٍ الْوَلَدُ لِلْفِرَاشِ وَلِلْعَاهِرِ الْحَجَرُ وَحِسَابُهُمْ عَلَى اللَّهِ وَمَنِ ادَّعَى إِلَى غَيْرِ أَبِيهِ أَوِ انْتَمَى إِلَى غَيْرِ مَوَالِيهِ فَعَلَيْهِ لَعْنَةُ اللَّهِ التَّابِعَةُ إِلَى يَوْمِ الْقِيَامَةِ لاَ تُنْفِقُ امْرَأَةٌ مِنْ بَيْتِ زَوْجِهَا إِلاَّ بِإِذْنِ زَوْجِهَا ‏&quot;‏ ‏.‏ قِيلَ يَا رَسُولَ اللَّهِ وَلاَ الطَّعَامَ قَالَ ‏&quot;‏ ذَلِكَ أَفْضَلُ أَمْوَالِنَا ‏&quot;‏ ‏.‏ ثُمَّ قَالَ ‏&quot;‏ الْعَارِيَةُ مُؤَدَّاةٌ وَالْمِنْحَةُ مَرْدُودَةٌ وَالدَّيْنُ مَقْضِيٌّ وَالزَّعِيمُ غَارِمٌ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى وَفِي الْبَابِ عَنْ عَمْرِو بْنِ خَارِجَةَ وَأَنَسِ بْنِ مَالِكٍ ‏.‏ وَهُوَ حَدِيثٌ حَسَنٌ صَحِيحٌ وَقَدْ رُوِيَ عَنْ أَبِي أُمَامَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم مِنْ غَيْرِ هَذَا الْوَجْهِ ‏.‏ وَرِوَايَةُ إِسْمَاعِيلَ بْنِ عَيَّاشٍ عَنْ أَهْلِ الْعِرَاقِ وَأَهْلِ الْحِجَازِ لَيْسَ بِذَلِكَ فِيمَا تَفَرَّدَ بِهِ لأَنَّهُ رَوَى عَنْهُمْ مَنَاكِيرَ وَرِوَايَتُهُ عَنْ أَهْلِ الشَّامِ أَصَحُّ هَكَذَا قَالَ مُحَمَّدُ بْنُ إِسْمَاعِيلَ ‏.‏ قَالَ سَمِعْتُ أَحْمَدَ بْنَ الْحَسَنِ يَقُولُ قَالَ أَحْمَدُ بْنُ حَنْبَلٍ إِسْمَاعِيلُ بْنُ عَيَّاشٍ أَصْلَحُ حَدِيثًا مِنْ بَقِيَّةَ وَلِبَقِيَّةَ أَحَادِيثُ مَنَاكِيرُ عَنِ الثِّقَاتِ ‏.‏ وَسَمِعْتُ عَبْدَ اللَّهِ بْنَ عَبْدِ الرَّحْمَنِ يَقُولُ سَمِعْتُ زَكَرِيَّا بْنَ عَدِيٍّ يَقُولُ قَالَ أَبُو إِسْحَاقَ الْفَزَارِيُّ خُذُوا عَنْ بَقِيَّةَ مَا حَدَّثَ عَنِ الثِّقَاتِ وَلاَ تَأْخُذُوا عَنْ إِسْمَاعِيلَ بْنِ عَيَّاشٍ مَا حَدَّثَ عَنِ الثِّقَاتِ وَلاَ عَنْ غَيْرِ الثِّقَاتِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Ummah said:&quot;During the year of the Farewell Pilgrimage, I heard the Messenger of Allah (S.A.W) saying in the Khutbah: &#x27;Indeed Allah, Most Blessed and Most High, has given the right due to everyone deserving a right. So there is no will for an heir, the child is for the bed, and for the fornicator is the stone, and their reckoning is for Allah, Most High. And whoever claims someone other than his father, or an affiliation with other than his Mawali, then upon him is the continued curse of Allah until the Day of Judgment. The wife is not to spend from her husband&#x27;s house except with her husband&#x27;s permission.&#x27; They said: &#x27;O Messenger of Allah! Not even food?&#x27; He said: &#x27;That is the most virtuous of our wealth.&#x27; And he said: &#x27;The borrowed is to be returned, the endowment is to be refunded and the debt is to be repaid, and the guarantor is responsible</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2121 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 5</span></td></tr><tr id='h2121' class='hadith-sep'><td colspan='2'>Hadith 2121 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ قَتَادَةَ، عَنْ شَهْرِ بْنِ حَوْشَبٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ غَنْمٍ، عَنْ عَمْرِو بْنِ خَارِجَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم خَطَبَ عَلَى نَاقَتِهِ وَأَنَا تَحْتَ جِرَانِهَا وَهِيَ تَقْصَعُ بِجَرَّتِهَا وَإِنَّ لُعَابَهَا يَسِيلُ بَيْنَ كَتِفَىَّ فَسَمِعْتُهُ يَقُولُ ‏ &quot;‏ إِنَّ اللَّهَ أَعْطَى كُلَّ ذِي حَقٍّ حَقَّهُ وَلاَ وَصِيَّةَ لِوَارِثٍ وَالْوَلَدُ لِلْفِرَاشِ وَلِلْعَاهِرِ الْحَجَرُ وَمَنِ ادَّعَى إِلَى غَيْرِ أَبِيهِ أَوِ انْتَمَى إِلَى غَيْرِ مَوَالِيهِ رَغْبَةً عَنْهُمْ فَعَلَيْهِ لَعْنَةُ اللَّهِ لاَ يَقْبَلُ اللَّهُ مِنْهُ صَرْفًا وَلاَ عَدْلاً ‏&quot;‏ ‏.‏ قَالَ وَسَمِعْتُ أَحْمَدَ بْنَ الْحَسَنِ يَقُولُ قَالَ أَحْمَدُ بْنُ حَنْبَلٍ لاَ أُبَالِي بِحَدِيثِ شَهْرِ بْنِ حَوْشَبٍ ‏.‏ قَالَ وَسَأَلْتُ مُحَمَّدَ بْنَ إِسْمَاعِيلَ عَنْ شَهْرِ بْنِ حَوْشَبٍ فَوَثَّقَهُ وَقَالَ إِنَّمَا يَتَكَلَّمُ فِيهِ ابْنُ عَوْنٍ ثُمَّ رَوَى ابْنُ عَوْنٍ عَنْ هِلاَلِ بْنِ أَبِي زَيْنَبَ عَنْ شَهْرِ بْنِ حَوْشَبٍ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Amr bin Kharajah narrated:&quot;The Prophet (s.a.w) gave a Khutbah upon his she-camel, while I was under the front of her neck, and she was chewing her curd, with her saliva dripping between my shoulders. I heard him saying: &#x27;Indeed Allah, Most Blessed and Most High, has given the right due to everyone deserving a right. So there is no will for an heir, the child is for the bed, and for the fornicator is the stone</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2122 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 6</span></td></tr><tr id='h2122' class='hadith-sep'><td colspan='2'>Hadith 2122 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ أَبِي إِسْحَاقَ الْهَمْدَانِيِّ، عَنِ الْحَارِثِ، عَنْ عَلِيٍّ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَضَى بِالدَّيْنِ قَبْلَ الْوَصِيَّةِ وَأَنْتُمْ تَقْرَءُونَ الْوَصِيَّةَ قَبْلَ الدَّيْنِ ‏.‏ قَالَ أَبُو عِيسَى وَالْعَمَلُ عَلَى هَذَا عِنْدَ عَامَّةِ أَهْلِ الْعِلْمِ أَنَّهُ يُبْدَأُ بِالدَّيْنِ قَبْلَ الْوَصِيَّةِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Al-Harith narrated from &#x27;Ali:&quot;The Prophet (s.a.w) judged with the debt before the will, and you people recite the will before the debt</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2123 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 7</span></td></tr><tr id='h2123' class='hadith-sep'><td colspan='2'>Hadith 2123 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا بُنْدَارٌ، حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ مَهْدِيٍّ، حَدَّثَنَا سُفْيَانُ، عَنْ أَبِي إِسْحَاقَ، عَنْ أَبِي حَبِيبَةَ الطَّائِيِّ، قَالَ أَوْصَى إِلَىَّ أَخِي بِطَائِفَةٍ مِنْ مَالِهِ فَلَقِيتُ أَبَا الدَّرْدَاءِ فَقُلْتُ إِنَّ أَخِي أَوْصَى إِلَىَّ بِطَائِفَةٍ مِنْ مَالِهِ فَأَيْنَ تَرَى لِي وَضْعَهُ فِي الْفُقَرَاءِ أَوِ الْمَسَاكِينِ أَوِ الْمُجَاهِدِينَ فِي سَبِيلِ اللَّهِ فَقَالَ أَمَّا أَنَا فَلَوْ كُنْتُ لَمْ أَعْدِلْ بِالْمُجَاهِدِينَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ مَثَلُ الَّذِي يُعْتِقُ عِنْدَ الْمَوْتِ كَمَثَلِ الَّذِي يُهْدِي إِذَا شَبِعَ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Habibah At-Ta&#x27;i said:&quot;My brother willed a portion of his wealth to me. So I met Abu Ad-Darda and said: &#x27;My brother has willed a portion of his wealth to me, so where do you suggest that I should give it- to the poor, the needy, or the Mujahidin in Allah&#x27;s Cause?&#x27; He said: &#x27;As for me, then I would not consider them equal to the Mujahidin. I heard the Messenger of Allah (S.A.W) saying: &quot;The parable of the one who frees a slave at the time of his death is that of the one who gives a gift when he is satisfied (fulfilled his needs)</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Hasan Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 2124 — Chapters On Wasaya (Wills and Testament)</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 8</span></td></tr><tr id='h2124' class='hadith-sep'><td colspan='2'>Hadith 2124 — Chapters On Wasaya (Wills and Testament)</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ، أَنَّ عَائِشَةَ، أَخْبَرَتْهُ أَنَّ بَرِيرَةَ جَاءَتْ تَسْتَعِينُ عَائِشَةَ فِي كِتَابَتِهَا وَلَمْ تَكُنْ قَضَتْ مِنْ كِتَابَتِهَا شَيْئًا فَقَالَتْ لَهَا عَائِشَةُ ارْجِعِي إِلَى أَهْلِكِ فَإِنْ أَحَبُّوا أَنْ أَقْضِيَ عَنْكِ كِتَابَتَكِ وَيَكُونَ لِي وَلاَؤُكِ فَعَلْتُ ‏.‏ فَذَكَرَتْ ذَلِكَ بَرِيرَةُ لأَهْلِهَا فَأَبَوْا وَقَالُوا إِنْ شَاءَتْ أَنْ تَحْتَسِبَ عَلَيْكِ وَيَكُونَ لَنَا وَلاَؤُكِ فَلْتَفْعَلْ ‏.‏ فَذَكَرَتْ ذَلِكَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَ لَهَا رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ ابْتَاعِي فَأَعْتِقِي فَإِنَّمَا الْوَلاَءُ لِمَنْ أَعْتَقَ ‏&quot;‏ ثُمَّ قَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ مَا بَالُ أَقْوَامٍ يَشْتَرِطُونَ شُرُوطًا لَيْسَتْ فِي كِتَابِ اللَّهِ مَنِ اشْتَرَطَ شَرْطًا لَيْسَ فِي كِتَابِ اللَّهِ فَلَيْسَ لَهُ وَإِنِ اشْتَرَطَ مِائَةَ مَرَّةٍ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَقَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ عَنْ عَائِشَةَ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ أَنَّ الْوَلاَءَ لِمَنْ أَعْتَقَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Urwah narrated that :&#x27;Aishah had informed him that Barrirah came to her (&#x27;Aishah) seeking her help for her writ of emancipation, and she had not yet paid anything for her writ of emancipation. So &#x27;Aishah said to her: &#x27;Return to your people, and if they agree to me paying for your writ of emancipation and that your Wala will be for me, then I will do so.&quot; So Barrirah mentioned that to her people and they refused. They said: &quot;If she wants the reward for (freeing) you while the Wala is for us, then let her do it.&quot; So I mentioned that to the Messenger of Allah (S.A.W) and the Messenger of Allah (S.A.W) said: &quot;Buy her, then free her, for the Wala is only for the one who frees.&quot; Then the Messenger of Allah (S.A.W) stood and said: &quot;What is the case of people who make conditions that are not in Allah&#x27;s Book? Whoever makes a condition that is not in Allah&#x27;s Book, then it will not be so for him, even if he were to make a condition a hundred times</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>

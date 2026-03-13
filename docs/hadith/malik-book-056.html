@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Speech</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,115 +166,115 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1811 — Speech</td></tr>
+<tr id='h1811' class='hadith-sep'><td colspan='2'>Hadith 1811 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ قَالَ لأَخِيهِ يَا كَافِرُ ‏.‏ فَقَدْ بَاءَ بِهَا أَحَدُهُمَا ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abdullah ibn Dinar from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If a man says to his muslim brother, &#x27;O kafir!&#x27; it is true about one of them</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1812 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 1</span></td></tr><tr id='h1812' class='hadith-sep'><td colspan='2'>Hadith 1812 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ سُهَيْلِ بْنِ أَبِي صَالِحٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا سَمِعْتَ الرَّجُلَ يَقُولُ هَلَكَ النَّاسُ ‏.‏ فَهُوَ أَهْلَكُهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Suhayl ibn Abu Salih from his father from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When you hear a man say, &#x27;The people are ruined,&#x27; he himself is the most ruined of them all</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1813 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 2</span></td></tr><tr id='h1813' class='hadith-sep'><td colspan='2'>Hadith 1813 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ يَقُلْ أَحَدُكُمْ يَا خَيْبَةَ الدَّهْرِ ‏.‏ فَإِنَّ اللَّهَ هُوَ الدَّهْرُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Let none of you complain about time, for Allah is time</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1814 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 3</span></td></tr><tr id='h1814' class='hadith-sep'><td colspan='2'>Hadith 1814 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ عِيسَى ابْنَ مَرْيَمَ، لَقِيَ خِنْزِيرًا بِالطَّرِيقِ فَقَالَ لَهُ انْفُذْ بِسَلاَمٍ ‏.‏ فَقِيلَ لَهُ تَقُولُ هَذَا لِخِنْزِيرٍ فَقَالَ عِيسَى إِنِّي أَخَافُ أَنْ أُعَوِّدَ لِسَانِي النُّطْقَ بِالسُّوءِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Yahya ibn Said that Isa ibn Maryam encountered a pig on the road. He said to it, &quot;Go in peace.&quot; Somebody asked, &quot;Do you say this to a pig?&quot; Isa said, &quot;I fear lest I accustom my tongue to evil speech</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1815 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 4</span></td></tr><tr id='h1815' class='hadith-sep'><td colspan='2'>Hadith 1815 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ مُحَمَّدِ بْنِ عَمْرِو بْنِ عَلْقَمَةَ، عَنْ أَبِيهِ، عَنْ بِلاَلِ بْنِ الْحَارِثِ الْمُزَنِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِنَّ الرَّجُلَ لَيَتَكَلَّمُ بِالْكَلِمَةِ مِنْ رِضْوَانِ اللَّهِ مَا كَانَ يَظُنُّ أَنْ تَبْلُغَ مَا بَلَغَتْ يَكْتُبُ اللَّهُ لَهُ بِهَا رِضْوَانَهُ إِلَى يَوْمِ يَلْقَاهُ وَإِنَّ الرَّجُلَ لَيَتَكَلَّمُ بِالْكَلَمِةِ مِنْ سَخَطِ اللَّهِ مَا كَانَ يَظُنُّ أَنْ تَبْلُغَ مَا بَلَغَتْ يَكْتُبُ اللَّهُ لَهُ بِهَا سَخَطَهُ إِلَى يَوْمِ يَلْقَاهُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Muhammad ibn Amr ibn Alqama from his father from Bilal ibn al-Harith al-Muzani that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;A man speaks what is pleasing to Allah and he does not suspect that it will have the result that it does, and Allah will write for him His good pleasure for it until the day when he meets Him. And a man speaks what excites the wrath of Allah and he does not suspect that it will have the result that it does, and Allah will write His wrath for him for it until the day when he meets Him</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1816 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 5</span></td></tr><tr id='h1816' class='hadith-sep'><td colspan='2'>Hadith 1816 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ أَبِي صَالِحٍ السَّمَّانِ، أَنَّهُ أَخْبَرَهُ أَنَّ أَبَا هُرَيْرَةَ قَالَ إِنَّ الرَّجُلَ لَيَتَكَلَّمُ بِالْكَلِمَةِ مَا يُلْقِي لَهَا بَالاً يَهْوِي بِهَا فِي نَارِ جَهَنَّمَ وَإِنَّ الرَّجُلَ لَيَتَكَلَّمُ بِالْكَلَمَةِ مَا يُلْقِي لَهَا بَالاً يَرْفَعُهُ اللَّهُ بِهَا فِي الْجَنَّةِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abdullah ibn Dinar that Abu Salih as- Samman informed him that Abu Hurayra said, &quot;Truly a man utters words to which he attaches no importance, and by them he falls into the fire of Jahannam, and truly a man utters words to which he attaches no importance, and by them Allah raises him into the Garden</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1817 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 6</span></td></tr><tr id='h1817' class='hadith-sep'><td colspan='2'>Hadith 1817 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ قَالَ قَدِمَ رَجُلاَنِ مِنَ الْمَشْرِقِ فَخَطَبَا فَعَجِبَ النَّاسُ لِبَيَانِهِمَا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنَّ مِنَ الْبَيَانِ لَسِحْرًا ‏&quot;‏ ‏.‏ أَوْ قَالَ ‏&quot;‏ إِنَّ بَعْضَ الْبَيَانِ لَسِحْرٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Zayd ibn Aslam that Abdullah ibn Umar said, &quot;Two men from the east stood up and spoke, and people were amazed at their eloquence. The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Some eloquence is sorcery,&#x27; or he said, &#x27;Part of eloquence is sorcery</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1818 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 7</span></td></tr><tr id='h1818' class='hadith-sep'><td colspan='2'>Hadith 1818 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، أَنَّهُ بَلَغَهُ أَنَّ عِيسَى ابْنَ مَرْيَمَ، كَانَ يَقُولُ لاَ تُكْثِرُوا الْكَلاَمَ بِغَيْرِ ذِكْرِ اللَّهِ فَتَقْسُوَ قُلُوبُكُمْ فَإِنَّ الْقَلْبَ الْقَاسِيَ بَعِيدٌ مِنَ اللَّهِ وَلَكِنْ لاَ تَعْلَمُونَ وَلاَ تَنْظُرُوا فِي ذُنُوبِ النَّاسِ كَأَنَّكُمْ أَرْبَابٌ وَانْظُرُوا فِي ذُنُوبِكُمْ كَأَنَّكُمْ عَبِيدٌ فَإِنَّمَا النَّاسُ مُبْتَلًى وَمُعَافًى فَارْحَمُوا أَهْلَ الْبَلاَءِ وَاحْمَدُوا اللَّهَ عَلَى الْعَافِيَةِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that he heard that Isa ibn Maryam used to say, &quot;Do not speak much without the mention of Allah for you will harden your hearts. A hard heart is far from Allah, but you do not know. Do not look at the wrong actions of people as if you were lords. Look at your wrong actions as if you were slaves. Some people are afflicted by wrong action and some people are protected from it. Be merciful to the people of affliction and praise Allah for His protection</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 8</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1819 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 8</span></td></tr><tr id='h1819' class='hadith-sep'><td colspan='2'>Hadith 1819 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكُ، أَنَّهُ بَلَغَهُ أَنَّ عَائِشَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَانَتْ تُرْسِلُ إِلَى بَعْضِ أَهْلِهَا بَعْدَ الْعَتَمَةِ فَتَقُولُ أَلاَ تُرِيحُونَ الْكُتَّابَ</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that he heard that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, sent a message to one of her family after the evening prayer, saying, &quot;Will you not allow the recording angel to rest?</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 9</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1820 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 9</span></td></tr><tr id='h1820' class='hadith-sep'><td colspan='2'>Hadith 1820 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنِ الْوَلِيدِ بْنِ عَبْدِ اللَّهِ بْنِ صَيَّادٍ، أَنَّ الْمُطَّلِبَ بْنَ عَبْدِ اللَّهِ بْنِ حَنْطَبَ الْمَخْزُومِيَّ، أَخْبَرَهُ أَنَّ رَجُلاً سَأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم مَا الْغِيبَةُ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَنْ تَذْكُرَ مِنَ الْمَرْءِ مَا يَكْرَهُ أَنْ يَسْمَعَ ‏&quot;‏ ‏.‏ قَالَ يَا رَسُولَ اللَّهِ وَإِنْ كَانَ حَقًّا قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِذَا قُلْتَ بَاطِلاً فَذَلِكَ الْبُهْتَانُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from al-Walid ibn Abdullah ibn Sayyad that al-Muttalib ibn Abdullah ibn Hantab al-Makhzumi informed him that a man asked the Messenger of Allah, may Allah bless him and grant him peace, &quot;What is backbiting?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;It is to mention about a man what he does not want to hear.&quot; He said, &quot;Messenger of Allah! Even if it is true?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If you utter something false, then it is slander</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 10</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1821 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 10</span></td></tr><tr id='h1821' class='hadith-sep'><td colspan='2'>Hadith 1821 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ مَنْ وَقَاهُ اللَّهُ شَرَّ اثْنَيْنِ وَلَجَ الْجَنَّةَ ‏&quot;‏ ‏.‏ فَقَالَ رَجُلٌ يَا رَسُولَ اللَّهِ لاَ تُخْبِرْنَا ‏.‏ فَسَكَتَ رَسُولُ اللَّهِ صلى الله عليه وسلم ثُمَّ عَادَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ مِثْلَ مَقَالَتِهِ الأُولَى فَقَالَ لَهُ الرَّجُلُ لاَ تُخْبِرْنَا يَا رَسُولَ اللَّهِ ‏.‏ فَسَكَتَ رَسُولُ اللَّهِ صلى الله عليه وسلم ثُمَّ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم مِثْلَ ذَلِكَ أَيْضًا فَقَالَ الرَّجُلُ لاَ تُخْبِرْنَا يَا رَسُولَ اللَّهِ ‏.‏ ثُمَّ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم مِثْلَ ذَلِكَ أَيْضًا ‏.‏ ثُمَّ ذَهَبَ الرَّجُلُ يَقُولُ مِثْلَ مَقَالَتِهِ الأُولَى فَأَسْكَتَهُ رَجُلٌ إِلَى جَنْبِهِ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مَنْ وَقَاهُ اللَّهُ شَرَّ اثْنَيْنِ وَلَجَ الْجَنَّةَ مَا بَيْنَ لَحْيَيْهِ وَمَا بَيْنَ رِجْلَيْهِ مَا بَيْنَ لَحْيَيْهِ وَمَا بَيْنَ رِجْلَيْهِ مَا بَيْنَ لَحْيَيْهِ وَمَا بَيْنَ رِجْلَيْهِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Zayd ibn Aslam from Ata ibn Yasar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Whomever Allah protects from the evil of two things will enter the Garden.&quot; A man said, &quot;Messenger of Allah, do not tell us!&quot; The Messenger of Allah, may Allah bless him and grant him peace, was silent. Then the Messenger of Allah, may Allah bless him and grant him peace, repeated what he had said the first time. The man said to him, &quot;Do not tell us, Messenger of Allah!&quot; The Messenger of Allah, may Allah bless him and grant him peace, was silent. Then the Messenger of Allah, may Allah bless him and grant him peace, said the same thing again. The man said, &quot;Do not tell us, Messenger of Allah!&quot; Then the Messenger of Allah, may Allah bless him and grant him peace, said the same thing again. Then the man began to say what he had said previously and a man at his side silenced him. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Whomever Allah protects from the evil of two things will enter the Garden. They are what is between his jaws and what is between his legs, what is between his jaws and what is between his legs, what is between his jaws and what is between his legs</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 11</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1822 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 11</span></td></tr><tr id='h1822' class='hadith-sep'><td colspan='2'>Hadith 1822 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ أَبِيهِ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، دَخَلَ عَلَى أَبِي بَكْرٍ الصِّدِّيقِ وَهُوَ يَجْبِذُ لِسَانَهُ فَقَالَ لَهُ عُمَرُ مَهْ غَفَرَ اللَّهُ لَكَ ‏.‏ فَقَالَ أَبُو بَكْرٍ إِنَّ هَذَا أَوْرَدَنِي الْمَوَارِدَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Zayd ibn Aslam from his father that Umar ibn al-Khattab came upon Abu Bakr as-Siddiq pulling his tongue. Umar said to him, &quot;Stop, may Allah forgive you!&quot; Abu Bakr replied, &quot;This has brought me to dangerous places</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 12</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1823 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 12</span></td></tr><tr id='h1823' class='hadith-sep'><td colspan='2'>Hadith 1823 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، قَالَ كُنْتُ أَنَا وَعَبْدُ اللَّهِ بْنُ عُمَرَ، عِنْدَ دَارِ خَالِدِ بْنِ عُقْبَةَ الَّتِي بِالسُّوقِ فَجَاءَ رَجُلٌ يُرِيدُ أَنْ يُنَاجِيَهُ وَلَيْسَ مَعَ عَبْدِ اللَّهِ بْنِ عُمَرَ أَحَدٌ غَيْرِي وَغَيْرُ الرَّجُلِ الَّذِي يُرِيدُ أَنْ يُنَاجِيَهُ فَدَعَا عَبْدُ اللَّهِ بْنُ عُمَرَ رَجُلاً آخَرَ حَتَّى كُنَّا أَرْبَعَةً فَقَالَ لِي وَلِلرَّجُلِ الَّذِي دَعَاهُ اسْتَأْخِرَا شَيْئًا فَإِنِّي سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ لاَ يَتَنَاجَى اثْنَانِ دُونَ وَاحِدٍ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abdullah ibn Dinar saying, &quot;Abdullah ibn Umar and I were at the house of Khalid ibn Uqba who was away at the market. A man came who wanted to speak to Abdullah ibn Umar and I was the only other person present Abdullah ibn Umar called another man so that we were four and said to me and the man whom he had called, &#x27;Go a little way off together, because I heard the Messenger of Allah, may Allah bless him and grant him peace, say, &quot;Two do not converse secretly to the exclusion of another</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 13</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1824 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 13</span></td></tr><tr id='h1824' class='hadith-sep'><td colspan='2'>Hadith 1824 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا كَانَ ثَلاَثَةٌ فَلاَ يَتَنَاجَى اثْنَانِ دُونَ وَاحِدٍ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Two must not converse secretly to the exclusion of another person</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 14</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1825 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 14</span></td></tr><tr id='h1825' class='hadith-sep'><td colspan='2'>Hadith 1825 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، أَنَّ رَجُلاً، قَالَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم أَكْذِبُ امْرَأَتِي يَا رَسُولَ اللَّهِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ خَيْرَ فِي الْكَذِبِ ‏&quot;‏ ‏.‏ فَقَالَ الرَّجُلُ يَا رَسُولَ اللَّهِ أَعِدُهَا وَأَقُولُ لَهَا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ جُنَاحَ عَلَيْكَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Safwan ibn Sulaym that a man asked the Messenger of Allah, may Allah bless him and grant him peace, &quot;Can I lie to my wife, Messenger of Allah?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;There is no good in lying.&quot; The man said, &quot;Messenger of Allah! Shall I make her a promise and tell her?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;It will not be held against you</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 15</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1826 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 15</span></td></tr><tr id='h1826' class='hadith-sep'><td colspan='2'>Hadith 1826 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ مَسْعُودٍ، كَانَ يَقُولُ عَلَيْكُمْ بِالصِّدْقِ فَإِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ وَالْبِرَّ يَهْدِي إِلَى الْجَنَّةِ وَإِيَّاكُمْ وَالْكَذِبَ فَإِنَّ الْكَذِبَ يَهْدِي إِلَى الْفُجُورِ وَالْفُجُورَ يَهْدِي إِلَى النَّارِ أَلاَ تَرَى أَنَّهُ يُقَالُ صَدَقَ وَبَرَّ وَكَذَبَ وَفَجَرَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that he heard that Abdullah ibn Masud used to say, &quot;You must tell the truth. Truthfulness leads to right action. Right action leads to the Garden. Beware of lying. Lying leads to corruption, and corruption leads to the Fire. Don&#x27;t you see that it is said, &#x27;He speaks the truth and acts rightly,&#x27; and, &#x27;He lies and is corrupt</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 16</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1827 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 16</span></td></tr><tr id='h1827' class='hadith-sep'><td colspan='2'>Hadith 1827 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، أَنَّهُ بَلَغَهُ أَنَّهُ قِيلَ لِلُقْمَانَ مَا بَلَغَ بِكَ مَا نَرَى يُرِيدُونَ الْفَضْلَ ‏.‏ فَقَالَ لُقْمَانُ صِدْقُ الْحَدِيثِ وَأَدَاءُ الأَمَانَةِ وَتَرْكُ مَا لاَ يَعْنِينِي ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that he heard that someone said to Luqman, &quot;What has brought you to what we see?&quot; meaning his high rank. Luqman said, &quot;Truthful speech, fulfilling the trust, and leaving what does not concern me</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 17</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1828 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 17</span></td></tr><tr id='h1828' class='hadith-sep'><td colspan='2'>Hadith 1828 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ مَسْعُودٍ، كَانَ يَقُولُ لاَ يَزَالُ الْعَبْدُ يَكْذِبُ وَتُنْكَتُ فِي قَلْبِهِ نُكْتَةٌ سَوْدَاءُ حَتَّى يَسْوَدَّ قَلْبُهُ كُلُّهُ فَيُكْتَبَ عِنْدَ اللَّهِ مِنَ الْكَاذِبِينَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that he heard that Abdullah ibn Masud used to say, &quot;The slave continues to lie and a black spot grows in his heart until all his heart becomes black. Then he is written, in Allah&#x27;s sight, among the liars</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 18</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1829 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 18</span></td></tr><tr id='h1829' class='hadith-sep'><td colspan='2'>Hadith 1829 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، أَنَّهُ قَالَ قِيلَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم أَيَكُونُ الْمُؤْمِنُ جَبَانًا فَقَالَ ‏&quot;‏ نَعَمْ ‏&quot;‏ ‏.‏ فَقِيلَ لَهُ أَيَكُونُ الْمُؤْمِنُ بَخِيلاً فَقَالَ ‏&quot;‏ نَعَمْ ‏&quot;‏ ‏.‏ فَقِيلَ لَهُ أَيَكُونُ الْمُؤْمِنُ كَذَّابًا فَقَالَ ‏&quot;‏ لاَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that Safwan ibn Sulaym said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, was asked, &#x27;Can the mumin be a coward?&#x27; He said, &#x27;Yes.&#x27; He was asked, &#x27;Can the mumin be a miser?&#x27; He said, &#x27;Yes.&#x27; He was asked, &#x27;Can the mumin be a liar?&#x27; He said, &#x27;No</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 19</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1830 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 19</span></td></tr><tr id='h1830' class='hadith-sep'><td colspan='2'>Hadith 1830 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ سُهَيْلِ بْنِ أَبِي صَالِحٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِنَّ اللَّهَ يَرْضَى لَكُمْ ثَلاَثًا وَيَسْخَطُ لَكُمْ ثَلاَثًا يَرْضَى لَكُمْ أَنْ تَعْبُدُوهُ وَلاَ تُشْرِكُوا بِهِ شَيْئًا وَأَنْ تَعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَأَنْ تَنَاصَحُوا مَنْ وَلاَّهُ اللَّهُ أَمْرَكُمْ وَيَسْخَطُ لَكُمْ قِيلَ وَقَالَ وَإِضَاعَةَ الْمَالِ وَكَثْرَةَ السُّؤَالِ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Suhayl ibn Abi Salih from his father from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Allah is pleased with three things from you, and He is angry with three things from you. He is pleased that you worship Him and do not associate anything with Him, and that you take hold of the rope of Allah altogether, and that you give good counsel to the one to whom Allah gives command over you. He is angry with you for gossip, squandering property, and asking too many questions</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 20</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1831 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 20</span></td></tr><tr id='h1831' class='hadith-sep'><td colspan='2'>Hadith 1831 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مِنْ شَرِّ النَّاسِ ذُو الْوَجْهَيْنِ الَّذِي يَأْتِي هَؤُلاَءِ بِوَجْهٍ وَهَؤُلاَءِ بِوَجْهٍ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;One of the most evil of people is the two-faced person who shows one face to these people and another face to those people</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 21</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1832 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 21</span></td></tr><tr id='h1832' class='hadith-sep'><td colspan='2'>Hadith 1832 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، أَنَّهُ بَلَغَهُ أَنَّ أُمَّ سَلَمَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم قَالَتْ يَا رَسُولَ اللَّهِ أَنَهْلِكُ وَفِينَا الصَّالِحُونَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ نَعَمْ إِذَا كَثُرَ الْخَبَثُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that he had heard that Umm Salama, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;Messenger of Allah! Shall we be destroyed while there are people who are salih among us?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Yes, if there is much wickedness</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 22</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1833 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 22</span></td></tr><tr id='h1833' class='hadith-sep'><td colspan='2'>Hadith 1833 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ إِسْمَاعِيلَ بْنِ أَبِي حَكِيمٍ، أَنَّهُ سَمِعَ عُمَرَ بْنَ عَبْدِ الْعَزِيزِ، يَقُولُ كَانَ يُقَالُ إِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى لاَ يُعَذِّبُ الْعَامَّةَ بِذَنْبِ الْخَاصَّةِ وَلَكِنْ إِذَا عُمِلَ الْمُنْكَرُ جِهَارًا اسْتَحَقُّوا الْعُقُوبَةَ كُلُّهُمْ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that Ismail ibn Abi Hakim heard Umar ibn Abd al-Aziz say, &quot;Some say that Allah the Blessed, the Exalted, will not punish the many for the wrong action of the few. However, when the objectionable action is committed openly, then they all deserve to be punished</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 23</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1834 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 23</span></td></tr><tr id='h1834' class='hadith-sep'><td colspan='2'>Hadith 1834 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ، وَخَرَجْتُ، مَعَهُ حَتَّى دَخَلَ حَائِطًا فَسَمِعْتُهُ وَهُوَ، يَقُولُ وَبَيْنِي وَبَيْنَهُ جِدَارٌ - وَهُوَ فِي جَوْفِ الْحَائِطِ - عُمَرُ بْنُ الْخَطَّابِ أَمِيرُ الْمُؤْمِنِينَ بَخٍ بَخٍ وَاللَّهِ لَتَتَّقِيَنَّ اللَّهَ أَوْ لَيُعَذِّبَنَّكَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Ishaq ibn Abdullah ibn Abi Talha that Anas ibn Malik said, &quot;I heard Umar ibn al-Khattab, when I was going out with him to visit an orchard, say to himself, and there was a wall between him and me and he was inside the garden, &#x27;Umar ibn al-Khattab, amir al-muminin! Well done! Well done! By Allah, fear Allah or he will punish you</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 24</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1835 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 24</span></td></tr><tr id='h1835' class='hadith-sep'><td colspan='2'>Hadith 1835 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>قَالَ مَالِكٌ وَبَلَغَنِي أَنَّ الْقَاسِمَ بْنَ مُحَمَّدٍ كَانَ يَقُولُ أَدْرَكْتُ النَّاسَ وَمَا يَعْجَبُونَ بِالْقَوْلِ ‏.‏ قَالَ مَالِكٌ يُرِيدُ بِذَلِكَ الْعَمَلَ إِنَّمَا يُنْظَرُ إِلَى عَمَلِهِ وَلاَ يُنْظَرُ إِلَى قَوْلِهِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik said, &quot;I heard that al-Qasim ibn Muhammad used to say, &#x27;I have seen the people, (i.e. the companions), and they were not impressed by speech.&#x27; &quot; Malik said, &quot;He meant that only action and deeds would be looked at, not words</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 25</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1836 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 25</span></td></tr><tr id='h1836' class='hadith-sep'><td colspan='2'>Hadith 1836 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ عَامِرِ بْنِ عَبْدِ اللَّهِ بْنِ الزُّبَيْرِ، أَنَّهُ كَانَ إِذَا سَمِعَ الرَّعْدَ، تَرَكَ الْحَدِيثَ</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that Amir ibn Abdullah ibn az-Zubayr would stop speaking when he heard thunder and say, &quot;Glory be to Allah whom the thunder glorifies with His praise and the angels from the fear of Him.&quot; (Subhana-aladhee yusabihu ar-radu bi hamdihi wa mala&#x27;ikatu min khiyfatihi.) Then he would say, &quot;This is a severe warning to the people of the earth</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 26</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1837 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 26</span></td></tr><tr id='h1837' class='hadith-sep'><td colspan='2'>Hadith 1837 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّ أَزْوَاجَ النَّبِيِّ، صلى الله عليه وسلم حِينَ تُوُفِّيَ رَسُولُ اللَّهِ صلى الله عليه وسلم أَرَدْنَ أَنْ يَبْعَثْنَ عُثْمَانَ بْنَ عَفَّانَ إِلَى أَبِي بَكْرٍ الصِّدِّيقِ فَيَسْأَلْنَهُ مِيرَاثَهُنَّ مِنْ رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَتْ لَهُنَّ عَائِشَةُ أَلَيْسَ قَدْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ نُورَثُ مَا تَرَكْنَا فَهُوَ صَدَقَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Ibn Shihab from Urwa ibn az-Zubayr from A&#x27;isha, umm al-muminin that when the Messenger of Allah, may Allah bless him and grant him peace, died, the wives of the Prophet, may Allah bless him and grant him peace, wanted to send Uthman ibn Affan to Abu Bakr as-Siddiq to ask him about their inheritance from the Messenger of Allah, may Allah bless him and grant him peace A&#x27;isha said to them, &quot;Didn&#x27;t the Messenger of Allah, may Allah bless him and grant him peace, say, &#x27;No one inherits from us. What we leave is sadaqa</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 27</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1838 — Speech</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 56, Hadith 27</span></td></tr><tr id='h1838' class='hadith-sep'><td colspan='2'>Hadith 1838 — Speech</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ يَقْتَسِمُ وَرَثَتِي دَنَانِيرَ مَا تَرَكْتُ بَعْدَ نَفَقَةِ نِسَائِي وَمُؤْنَةِ عَامِلِي فَهُوَ صَدَقَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;My inheritance is not divided up by the dinar. What I leave apart from the maintenance of my wives and provision for my servant is sadaqa</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>

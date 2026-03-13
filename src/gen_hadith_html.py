@@ -351,10 +351,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -380,6 +440,7 @@ def make_header(title, breadcrumb_extra=""):
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   {bc}
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>"""
 
 def truncate_words(text, max_chars=40):
@@ -544,7 +605,7 @@ def render_hadith_rows(h, show_hindi=False):
         ref_str = f"Book {ref.get('book', '')}, Hadith {ref.get('hadith', num)}"
 
     rows = []
-    rows.append(f"<tr class='hadith-sep'><td colspan='2'>Hadith {num}{(' — '+sec) if sec else ''}</td></tr>")
+    rows.append(f"<tr id='h{num}' class='hadith-sep'><td colspan='2'>Hadith {num}{(' — '+sec) if sec else ''}</td></tr>")
 
     if ar:
         rows.append(f"<tr class='arabic'><td class='label'>Arabic</td>"
@@ -724,6 +785,313 @@ def gen_large_collection_pages(coll_info, data):
 
 
 # ---------------------------------------------------------------------------
+# Search data generation (docs/hadith/sd/)
+# ---------------------------------------------------------------------------
+
+def gen_search_data(all_data_dict):
+    """Write per-collection search JSON files to docs/hadith/sd/.
+
+    Per collection:
+      {cid}-meta.json — [[hadith_num, sec_id, sec_name], ...] (very small)
+      {cid}-en.json   — [english_text, ...] (lazy-loaded when field selected)
+      {cid}-ar.json   — [arabic_text, ...]  (lazy-loaded when field selected)
+    Special:
+      nawawi-hi.json  — [[narrator, hindi_text], ...] (42 entries)
+    """
+    sd_dir = os.path.join(DOCS_DIR, "sd")
+    os.makedirs(sd_dir, exist_ok=True)
+
+    total_written = 0
+    for coll in COLLECTIONS:
+        cid = coll["id"]
+        data = all_data_dict[cid]
+        hadiths = data["hadiths"]
+
+        is_large = coll["large"]
+        if is_large:
+            meta = [[h["n"], h["sec_id"] or "", h["sec_name"] or ""] for h in hadiths]
+        else:
+            meta = [[h["n"], "", ""] for h in hadiths]
+        en_arr = [h["en"] for h in hadiths]
+        ar_arr = [h["ar"] for h in hadiths]
+
+        def _write(name, obj):
+            p = os.path.join(sd_dir, name)
+            with open(p, "w", encoding="utf-8") as f:
+                json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
+
+        _write(f"{cid}-meta.json", meta)
+        _write(f"{cid}-en.json", en_arr)
+        _write(f"{cid}-ar.json", ar_arr)
+
+        if cid == "nawawi":
+            hi_arr = []
+            for h in hadiths:
+                hi = NAWAWI_HINDI.get(h["n"])
+                if hi:
+                    narrator, text = hi
+                    hi_arr.append([narrator, text])
+                else:
+                    hi_arr.append(["", h["en"]])
+            _write("nawawi-hi.json", hi_arr)
+
+        total_written += 1
+
+    print(f"  [sd] docs/hadith/sd/ — {total_written} collections × 3 files + nawawi-hi.json")
+
+
+# ---------------------------------------------------------------------------
+# Search page (docs/hadith/search.html)
+# ---------------------------------------------------------------------------
+
+def gen_search_page(collection_counts):
+    # Build collections JS array
+    coll_js = json.dumps(
+        [{"id": c["id"], "name": c["name_en"], "large": c["large"],
+          "count": collection_counts.get(c["id"], 0)}
+         for c in COLLECTIONS],
+        ensure_ascii=False
+    )
+    # Build option list for the dropdown
+    options = ['<option value="">All Collections</option>']
+    for c in COLLECTIONS:
+        cnt = collection_counts.get(c["id"], 0)
+        options.append(
+            f'<option value="{html_module.escape(c["id"])}">'
+            f'{html_module.escape(c["name_en"])} ({cnt:,})</option>'
+        )
+    options_html = "\n".join(options)
+
+    body = f"""<h1>🔍 Search Hadith</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">
+  Full-text search across 10 hadith collections (36,512 hadith). English and Arabic.
+  Hindi available for An-Nawawi's 40. Results link directly to the hadith.
+</p>
+<div class="search-box">
+  <input type="text" id="q" placeholder="e.g. patience, mercy, prayer…"
+         autofocus autocomplete="off" spellcheck="false">
+  <button onclick="doSearch()">Search</button>
+</div>
+<div class="search-controls">
+  <div class="sc-group">
+    <span class="sc-label">Collection</span>
+    <select id="coll-select" class="sc-select" onchange="onCollChange()">
+{options_html}
+    </select>
+    <span class="data-size-note" id="size-note">Searching all: loads data on first search (≈15 MB EN, ≈20 MB AR)</span>
+  </div>
+  <div class="sc-group">
+    <span class="sc-label">Search in</span>
+    <div class="field-pills">
+      <span class="fp-item">
+        <input type="checkbox" id="f-en" checked>
+        <label for="f-en">English</label>
+      </span>
+      <span class="fp-item">
+        <input type="checkbox" id="f-ar">
+        <label for="f-ar">العربية</label>
+      </span>
+      <span class="fp-item" id="hi-pill" style="display:none">
+        <input type="checkbox" id="f-hi">
+        <label for="f-hi">हिन्दी (Nawawi)</label>
+      </span>
+    </div>
+  </div>
+</div>
+<div id="search-status"></div>
+<div id="results"></div>
+<div id="pagination"></div>
+<script>
+(function(){{
+var COLLS={coll_js};
+var PAGE_SIZE=15;
+var allMatches=[];
+var currentPage=1;
+var currentTerms=[];
+var metaCache={{}};
+var enCache={{}};
+var arCache={{}};
+var hiCache=null;
+var _pending={{}};
+
+function fetchJson(url){{
+  if(!_pending[url]){{
+    _pending[url]=fetch(url).then(function(r){{
+      if(!r.ok)throw new Error('HTTP '+r.status+' ('+url+')');
+      return r.json();
+    }});
+  }}
+  return _pending[url];
+}}
+
+function loadColl(cid,fields){{
+  var proms=[fetchJson('sd/'+cid+'-meta.json').then(function(d){{metaCache[cid]=d;}})];
+  if(fields.indexOf('en')>=0&&!enCache[cid])
+    proms.push(fetchJson('sd/'+cid+'-en.json').then(function(d){{enCache[cid]=d;}}));
+  if(fields.indexOf('ar')>=0&&!arCache[cid])
+    proms.push(fetchJson('sd/'+cid+'-ar.json').then(function(d){{arCache[cid]=d;}}));
+  if(fields.indexOf('hi')>=0&&cid==='nawawi'&&!hiCache)
+    proms.push(fetchJson('sd/nawawi-hi.json').then(function(d){{hiCache=d;}}));
+  return Promise.all(proms);
+}}
+
+function selColl(){{return document.getElementById('coll-select').value;}}
+function selFields(){{
+  var f=[];
+  if(document.getElementById('f-en').checked)f.push('en');
+  if(document.getElementById('f-ar').checked)f.push('ar');
+  var hp=document.getElementById('hi-pill');
+  if(hp.style.display!=='none'&&document.getElementById('f-hi').checked)f.push('hi');
+  return f;
+}}
+function targetColls(){{
+  var sc=selColl();
+  return sc?COLLS.filter(function(c){{return c.id===sc;}}):COLLS;
+}}
+
+function hadithUrl(cid,n,sec_id,large){{
+  if(large&&sec_id)return cid+'-book-'+String(parseInt(sec_id,10)).padStart(3,'0')+'.html#h'+n;
+  return cid+'.html#h'+n;
+}}
+
+function escHtml(s){{
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}}
+function hl(text,terms){{
+  var s=escHtml(text);
+  terms.forEach(function(t){{
+    if(!t)return;
+    var re=new RegExp('('+t.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&')+')','gi');
+    s=s.replace(re,'<mark class="hl">$1</mark>');
+  }});
+  return s;
+}}
+
+window.onCollChange=function(){{
+  var sc=selColl();
+  var hp=document.getElementById('hi-pill');
+  hp.style.display=(sc===''||sc==='nawawi')?'':'none';
+  // update size note
+  var note=document.getElementById('size-note');
+  if(sc===''){{
+    note.textContent='Searching all: loads data on first search (\u224815\u00a0MB\u00a0EN, \u224820\u00a0MB\u00a0AR)';
+  }}else{{
+    var c=COLLS.find(function(x){{return x.id===sc;}});
+    note.textContent=c?'Collection: '+c.count.toLocaleString()+' hadith':'';
+  }}
+}};
+
+window.doSearch=function(){{
+  var q=document.getElementById('q').value.trim();
+  var statusEl=document.getElementById('search-status');
+  var resultsEl=document.getElementById('results');
+  var paginEl=document.getElementById('pagination');
+  if(!q){{resultsEl.innerHTML='';statusEl.textContent='';paginEl.innerHTML='';allMatches=[];return;}}
+  var fields=selFields();
+  if(!fields.length){{statusEl.textContent='Select at least one field (English / Arabic).';return;}}
+  currentTerms=q.toLowerCase().split(/\\s+/).filter(Boolean);
+  statusEl.textContent='Loading\u2026';
+  resultsEl.innerHTML='';
+  paginEl.innerHTML='';
+  var tc=targetColls();
+  Promise.all(tc.map(function(c){{return loadColl(c.id,fields);}})).then(function(){{
+    allMatches=[];
+    tc.forEach(function(coll){{
+      var cid=coll.id;
+      var meta=metaCache[cid]||[];
+      var en=enCache[cid]||[];
+      var ar=arCache[cid]||[];
+      for(var idx=0;idx<meta.length;idx++){{
+        var row=meta[idx];
+        var n=row[0],sec_id=row[1],sec_name=row[2];
+        var parts=[];
+        if(fields.indexOf('en')>=0&&en[idx])parts.push(en[idx]);
+        if(fields.indexOf('ar')>=0&&ar[idx])parts.push(ar[idx]);
+        if(fields.indexOf('hi')>=0&&cid==='nawawi'&&hiCache&&hiCache[idx])parts.push(hiCache[idx][1]||'');
+        var hay=parts.join(' ').toLowerCase();
+        if(currentTerms.every(function(t){{return hay.indexOf(t)>=0;}})){{
+          allMatches.push({{cid:cid,n:n,sec_id:sec_id,sec_name:sec_name,idx:idx,
+            large:coll.large,cname:coll.name}});
+        }}
+      }}
+    }});
+    if(!allMatches.length){{statusEl.textContent='No results found.';return;}}
+    renderPage(1);
+  }}).catch(function(err){{
+    statusEl.textContent='Error loading search data. Please try again.';
+    console.error(err);
+  }});
+}};
+
+function renderPage(page){{
+  var total=allMatches.length;
+  var tp=Math.ceil(total/PAGE_SIZE);
+  if(page<1)page=1;if(page>tp)page=tp;
+  currentPage=page;
+  var start=(page-1)*PAGE_SIZE;
+  var end=Math.min(start+PAGE_SIZE,total);
+  var q=document.getElementById('q').value.trim();
+  document.getElementById('search-status').textContent=
+    'Showing '+(start+1)+'\u2013'+end+' of '+total.toLocaleString()+' result(s) for \u201c'+q+'\u201d';
+  var fields=selFields();
+  var html='';
+  for(var i=start;i<end;i++){{
+    var m=allMatches[i];
+    var url=hadithUrl(m.cid,m.n,m.sec_id,m.large);
+    var lbl=escHtml(m.cname)+' \u2014 Hadith '+m.n;
+    if(m.sec_name)lbl+=' <span style="font-weight:normal;opacity:.8">(\u200b'+escHtml(m.sec_name)+')</span>';
+    html+='<div class="result-card">'
+         +'<div class="result-header"><span>'+lbl+'</span>'
+         +'<a href="'+url+'">View \u2192</a></div>';
+    var en=(enCache[m.cid]||[])[m.idx];
+    var ar=(arCache[m.cid]||[])[m.idx];
+    if(fields.indexOf('en')>=0&&en)html+='<div class="result-field result-en">'+hl(en,currentTerms)+'</div>';
+    if(fields.indexOf('ar')>=0&&ar)html+='<div class="result-field result-ar">'+hl(ar,currentTerms)+'</div>';
+    if(fields.indexOf('hi')>=0&&m.cid==='nawawi'&&hiCache&&hiCache[m.idx]){{
+      html+='<div class="result-field result-hi">'+hl(hiCache[m.idx][1]||'',currentTerms)+'</div>';
+    }}
+    html+='</div>';
+  }}
+  document.getElementById('results').innerHTML=html;
+  var pgHtml='';
+  if(tp>1){{
+    pgHtml+='<div class="pagination">';
+    pgHtml+='<button onclick="goPage('+(page-1)+')"'+(page<=1?' disabled':'')+'>&laquo; Prev</button>';
+    var ps=Math.max(1,page-3),pe=Math.min(tp,page+3);
+    if(ps>1){{pgHtml+='<button onclick="goPage(1)">1</button>';if(ps>2)pgHtml+='<span class="pg-ellipsis">&hellip;</span>';}}
+    for(var p=ps;p<=pe;p++){{
+      if(p===page)pgHtml+='<button class="pg-cur" disabled>'+p+'</button>';
+      else pgHtml+='<button onclick="goPage('+p+')">'+p+'</button>';
+    }}
+    if(pe<tp){{if(pe<tp-1)pgHtml+='<span class="pg-ellipsis">&hellip;</span>';pgHtml+='<button onclick="goPage('+tp+')">'+tp+'</button>';}}
+    pgHtml+='<button onclick="goPage('+(page+1)+')"'+(page>=tp?' disabled':'')+'>Next &raquo;</button>';
+    pgHtml+='</div>';
+  }}
+  document.getElementById('pagination').innerHTML=pgHtml;
+}}
+
+window.goPage=function(page){{
+  renderPage(page);
+  document.getElementById('results').scrollIntoView({{behavior:'smooth',block:'start'}});
+}};
+
+document.getElementById('q').addEventListener('keydown',function(e){{if(e.key==='Enter')doSearch();}});
+var _p=new URLSearchParams(location.search);
+var _q=_p.get('q');
+var _c=_p.get('coll');
+if(_c){{document.getElementById('coll-select').value=_c;onCollChange();}}
+if(_q){{document.getElementById('q').value=_q;doSearch();}}
+}})();
+</script>"""
+
+    out_path = os.path.join(DOCS_DIR, "search.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(page_wrap("Search Hadith", body,
+                          breadcrumb_extra=" › Search"))
+    print("  [html] docs/hadith/search.html")
+
+
+# ---------------------------------------------------------------------------
 # Hadith index page (docs/hadith/index.html)
 # ---------------------------------------------------------------------------
 
@@ -747,12 +1115,18 @@ def gen_index_page(collection_counts):
   <strong>10 collections</strong> — from the concise 40-hadith compilations to the six canonical
   Sunni collections (<em>Kutub al-Sittah</em>). English and Arabic text for all collections;
   Hindi translation available for An-Nawawi's 40 Hadith.
+  <br><br>
+  <a href="search.html" style="display:inline-block;padding:8px 18px;background:#1a3a5c;
+     color:#fff;border-radius:4px;text-decoration:none;font-size:.95em;font-weight:bold">
+    🔍 Search All Hadith →
+  </a>
 </div>
 <div class="coll-grid">
 {"".join(cards)}
 </div>
 <nav class="chapter-nav">
   <a href="../index.html">← Qur'an Home</a>
+  <a href="search.html">🔍 Search</a>
 </nav>"""
 
     out_path = os.path.join(DOCS_DIR, "index.html")
@@ -812,6 +1186,7 @@ def main():
     print("=" * 60)
 
     collection_counts = {}
+    all_data_dict = {}
 
     for coll in COLLECTIONS:
         cid = coll["id"]
@@ -820,6 +1195,7 @@ def main():
         # 1. Load / download data
         data = load_or_download(cid)
         collection_counts[cid] = len(data["hadiths"])
+        all_data_dict[cid] = data
 
         # 2. Text output
         write_text_outputs(coll, data)
@@ -834,14 +1210,23 @@ def main():
     print("\n[index]")
     gen_index_page(collection_counts)
 
-    # 5. Update Quran index
+    # 5. Search data (docs/hadith/sd/)
+    print("\n[search-data]")
+    gen_search_data(all_data_dict)
+
+    # 6. Search page
+    print("\n[search-page]")
+    gen_search_page(collection_counts)
+
+    # 7. Update Quran index
     print("\n[quran-index]")
     update_quran_index()
 
     total_hadiths = sum(collection_counts.values())
     print(f"\n{'='*60}")
     print(f"Done! Generated pages for {total_hadiths:,} hadith across {len(COLLECTIONS)} collections.")
-    print(f"  docs/hadith/ — HTML pages")
+    print(f"  docs/hadith/ — HTML pages + search.html")
+    print(f"  docs/hadith/sd/ — search data JSONs")
     print(f"  output/hadith/ — plain-text files")
     print(f"  data/hadith/ — compressed JSON source data")
     print("=" * 60)

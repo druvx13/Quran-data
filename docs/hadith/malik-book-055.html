@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › The Oath of Allegiance</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,15 +166,15 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1808 — The Oath of Allegiance</td></tr>
+<tr id='h1808' class='hadith-sep'><td colspan='2'>Hadith 1808 — The Oath of Allegiance</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، قَالَ كُنَّا إِذَا بَايَعْنَا رَسُولَ اللَّهِ صلى الله عليه وسلم عَلَى السَّمْعِ وَالطَّاعَةِ يَقُولُ لَنَا رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ فِيمَا اسْتَطَعْتُمْ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abdullah ibn Dinar that Abdullah ibn Umar said, &quot;When we took an oath of allegiance with him to hear and obey, the Messenger of Allah, may Allah bless him and grant him peace, said to us, &#x27;In what you are able</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 55, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1809 — The Oath of Allegiance</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 55, Hadith 1</span></td></tr><tr id='h1809' class='hadith-sep'><td colspan='2'>Hadith 1809 — The Oath of Allegiance</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ مُحَمَّدِ بْنِ الْمُنْكَدِرِ، عَنْ أُمَيْمَةَ بِنْتِ رُقَيْقَةَ، أَنَّهَا قَالَتْ أَتَيْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم فِي نِسْوَةٍ بَايَعْنَهُ عَلَى الإِسْلاَمِ فَقُلْنَ يَا رَسُولَ اللَّهِ نُبَايِعُكَ عَلَى أَنْ لاَ نُشْرِكَ بِاللَّهِ شَيْئًا وَلاَ نَسْرِقَ وَلاَ نَزْنِيَ وَلاَ نَقْتُلَ أَوْلاَدَنَا وَلاَ نَأْتِيَ بِبُهْتَانٍ نَفْتَرِيهِ بَيْنَ أَيْدِينَا وَأَرْجُلِنَا وَلاَ نَعْصِيَكَ فِي مَعْرُوفٍ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ فِيمَا اسْتَطَعْتُنَّ وَأَطَقْتُنَّ ‏&quot;‏ ‏.‏ قَالَتْ فَقُلْنَ اللَّهُ وَرَسُولُهُ أَرْحَمُ بِنَا مِنْ أَنْفُسِنَا هَلُمَّ نُبَايِعْكَ يَا رَسُولَ اللَّهِ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنِّي لاَ أُصَافِحُ النِّسَاءَ إِنَّمَا قَوْلِي لِمِائَةِ امْرَأَةٍ كَقَوْلِي لاِمْرَأَةٍ وَاحِدَةٍ أَوْ مِثْلِ قَوْلِي لاِمْرَأَةٍ وَاحِدَةٍ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Muhammad ibn al-Munkadir that Umayma bint Ruqayqa said, &quot;I went to the Messenger of Allah, may Allah bless him and grant him peace, with the women who took an oath of allegiance with him in Islam. They said, &#x27;Messenger of Allah! We take a pledge with you not to associate anything with Allah, not to steal, not to commit adultery, not to kill our children, nor to produce any lie that we have devised between our hands and feet, and not to disobey you in what is known.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;In what you can do and are able.&#x27; &quot; Umayma continued, &quot;They said, &#x27;Allah and His Messenger are more merciful to us than ourselves. Come, let us give our hands to you, Messenger of Allah!&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;I do not shake hands with women. My word to a hundred women is like my word to one woman</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 55, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1810 — The Oath of Allegiance</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 55, Hadith 2</span></td></tr><tr id='h1810' class='hadith-sep'><td colspan='2'>Hadith 1810 — The Oath of Allegiance</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَتَبَ إِلَى عَبْدِ الْمَلِكِ بْنِ مَرْوَانَ يُبَايِعُهُ فَكَتَبَ إِلَيْهِ بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ‏.‏ أَمَّا بَعْدُ لِعَبْدِ اللَّهِ عَبْدِ الْمَلِكِ أَمِيرِ الْمُؤْمِنِينَ سَلاَمٌ عَلَيْكَ فَإِنِّي أَحْمَدُ إِلَيْكَ اللَّهَ الَّذِي لاَ إِلَهَ إِلاَّ هُوَ وَأُقِرُّ لَكَ بِالسَّمْعِ وَالطَّاعَةِ عَلَى سُنَّةِ اللَّهِ وَسُنَّةِ رَسُولِهِ فِيمَا اسْتَطَعْتُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Abdullah ibn Dinar that Abdullah ibn Umar wrote to Abd al-Malik ibn Marwan, making an oath of allegiance. He wrote, &quot;In the name of Allah, the Merciful, the Compassionate. To the slave of Allah, Abd al-Malik, the amir al-muminin, Peace be upon you. I praise Allah to you. There is no god but Him. I acknowledge your right to my hearing and my obedience according to the sunna of Allah and the sunna of His Prophet, in what I am able</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>

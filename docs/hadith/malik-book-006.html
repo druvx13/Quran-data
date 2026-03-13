@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Prayer in Ramadan</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,35 +166,35 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 246 — Prayer in Ramadan</td></tr>
+<tr id='h246' class='hadith-sep'><td colspan='2'>Hadith 246 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم صَلَّى فِي الْمَسْجِدِ ذَاتَ لَيْلَةٍ فَصَلَّى بِصَلاَتِهِ نَاسٌ ثُمَّ صَلَّى اللَّيْلَةَ الْقَابِلَةَ فَكَثُرَ النَّاسُ ثُمَّ اجْتَمَعُوا مِنَ اللَّيْلَةِ الثَّالِثَةِ أَوِ الرَّابِعَةِ فَلَمْ يَخْرُجْ إِلَيْهِمْ رَسُولُ اللَّهِ صلى الله عليه وسلم فَلَمَّا أَصْبَحَ قَالَ ‏ &quot;‏ قَدْ رَأَيْتُ الَّذِي صَنَعْتُمْ وَلَمْ يَمْنَعْنِي مِنَ الْخُرُوجِ إِلَيْكُمْ إِلاَّ أَنِّي خَشِيتُ أَنْ تُفْرَضَ عَلَيْكُمْ ‏&quot;‏ ‏.‏ وَذَلِكَ فِي رَمَضَانَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab from Urwa ibn az- Zubayr from A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, that the Messenger of Allah, may Allah bless him and grant him peace, prayed in the mosque one night and people prayed behind him. Then he prayed the next night and there were more people. Then they gathered on the third or fourth night and the Messenger of Allah, may Allah bless him and grant him peace, did not come out to them. In the morning, he said, &quot;I saw what you were doing and the only thing that prevented me from coming out to you was that I feared that it would become obligatory (fard) for you.&quot; This happened in Ramadan</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 247 — Prayer in Ramadan</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 1</span></td></tr><tr id='h247' class='hadith-sep'><td colspan='2'>Hadith 247 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُرَغِّبُ فِي قِيَامِ رَمَضَانَ مِنْ غَيْرِ أَنْ يَأْمُرَ بِعَزِيمَةٍ فَيَقُولُ ‏ &quot;‏ مَنْ قَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ ‏&quot;‏ ‏.‏ قَالَ ابْنُ شِهَابٍ فَتُوُفِّيَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَالأَمْرُ عَلَى ذَلِكَ ثُمَّ كَانَ الأَمْرُ عَلَى ذَلِكَ فِي خِلاَفَةِ أَبِي بَكْرٍ وَصَدْرًا مِنْ خِلاَفَةِ عُمَرَ بْنِ الْخَطَّابِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab from Abu Salama ibn Abd ar-Rahman ibn Awf from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, used to exhort people to watch the night in prayer in Ramadan but never ordered it definitely. He used to say, &quot;Whoever watches the night in prayer in Ramadan with trust and expectancy, will be forgiven all his previous wrong actions.&quot; Ibn Shihab said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, died while that was still the custom, and it continued to be the custom in the caliphate of Abu Bakr and at the beginning of the caliphate of Umar ibn al-Khattab</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 248 — Prayer in Ramadan</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 2</span></td></tr><tr id='h248' class='hadith-sep'><td colspan='2'>Hadith 248 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَبْدٍ الْقَارِيِّ، أَنَّهُ قَالَ خَرَجْتُ مَعَ عُمَرَ بْنِ الْخَطَّابِ فِي رَمَضَانَ إِلَى الْمَسْجِدِ فَإِذَا النَّاسُ أَوْزَاعٌ مُتَفَرِّقُونَ يُصَلِّي الرَّجُلُ لِنَفْسِهِ وَيُصَلِّي الرَّجُلُ فَيُصَلِّي بِصَلاَتِهِ الرَّهْطُ فَقَالَ عُمَرُ وَاللَّهِ إِنِّي لأَرَانِي لَوْ جَمَعْتُ هَؤُلاَءِ عَلَى قَارِئٍ وَاحِدٍ لَكَانَ أَمْثَلَ ‏.‏ فَجَمَعَهُمْ عَلَى أُبَىِّ بْنِ كَعْبٍ - قَالَ - ثُمَّ خَرَجْتُ مَعَهُ لَيْلَةً أُخْرَى وَالنَّاسُ يُصَلُّونَ بِصَلاَةِ قَارِئِهِمْ فَقَالَ عُمَرُ نِعْمَتِ الْبِدْعَةُ هَذِهِ وَالَّتِي تَنَامُونَ عَنْهَا أَفْضَلُ مِنَ الَّتِي تَقُومُونَ ‏.‏ يَعْنِي آخِرَ اللَّيْلِ وَكَانَ النَّاسُ يَقُومُونَ أَوَّلَهُ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Ibn Shihab from Urwa ibn az-Zubayr that Abd ar-Rahman ibn Abd al-Qari said, &quot;I went out with Umar ibn alKhattab in Ramadan to the mosque and the people there were spread out in groups. Some men were praying by themselves, whilst others were praying in small groups. Umar said, &#x27;By Allah! It would be better in my opinion if these people gathered behind one reciter.&#x27; So he gathered them behind Ubayy ibn Kab. Then I went out with him another night and the people were praying behind their Qur&#x27;an reciter. Umar said, &#x27;How excellent this new way is, but what you miss while you are asleep is better than what you watch in prayer.&#x27; He meant the end of the night, and people used to watch the beginning of the night in prayer</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 249 — Prayer in Ramadan</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 3</span></td></tr><tr id='h249' class='hadith-sep'><td colspan='2'>Hadith 249 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ يُوسُفَ، عَنِ السَّائِبِ بْنِ يَزِيدَ، أَنَّهُ قَالَ أَمَرَ عُمَرُ بْنُ الْخَطَّابِ أُبَىَّ بْنَ كَعْبٍ وَتَمِيمًا الدَّارِيَّ أَنْ يَقُومَا، لِلنَّاسِ بِإِحْدَى عَشْرَةَ رَكْعَةً قَالَ وَقَدْ كَانَ الْقَارِئُ يَقْرَأُ بِالْمِئِينَ حَتَّى كُنَّا نَعْتَمِدُ عَلَى الْعِصِيِّ مِنْ طُولِ الْقِيَامِ وَمَا كُنَّا نَنْصَرِفُ إِلاَّ فِي فُرُوعِ الْفَجْرِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Muhammad ibn Yusuf that as- Sa&#x27;ib ibn Yazid said, &quot;Umar ibn al-Khattab ordered Ubayy ibn Kab and Tamim ad-Dari to watch the night in prayer with the people for eleven rakas.The reciterof the Qur&#x27;an would recite the Mi&#x27;in (a group of medium-sized suras) until we would be leaning on our staffs from having stood so long in prayer. And we would not leave until the approach of dawn</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 250 — Prayer in Ramadan</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 4</span></td></tr><tr id='h250' class='hadith-sep'><td colspan='2'>Hadith 250 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ رُومَانَ، أَنَّهُ قَالَ كَانَ النَّاسُ يَقُومُونَ فِي زَمَانِ عُمَرَ بْنِ الْخَطَّابِ فِي رَمَضَانَ بِثَلاَثٍ وَعِشْرِينَ رَكْعَةً ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Yazid ibn Ruman said, &quot;The people used to watch the night in prayer during Ramadan for twenty- three rakas in the time of Umar ibn al-Khattab</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Munkar</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 251 — Prayer in Ramadan</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 5</span></td></tr><tr id='h251' class='hadith-sep'><td colspan='2'>Hadith 251 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ دَاوُدَ بْنِ الْحُصَيْنِ، أَنَّهُ سَمِعَ الأَعْرَجَ، يَقُولُ مَا أَدْرَكْتُ النَّاسَ إِلاَّ وَهُمْ يَلْعَنُونَ الْكَفَرَةَ فِي رَمَضَانَ ‏.‏ قَالَ وَكَانَ الْقَارِئُ يَقْرَأُ سُورَةَ الْبَقَرَةِ فِي ثَمَانِ رَكَعَاتٍ فَإِذَا قَامَ بِهَا فِي اثْنَتَىْ عَشْرَةَ رَكْعَةً رَأَى النَّاسُ أَنَّهُ قَدْ خَفَّفَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Da&#x27;ud ibn al-Husayn that he heard al-Araj say, &quot;I never saw the people in Ramadan, but that they were cursing the disbelievers.&quot; He added, &quot;The reciter of Qur&#x27;an used to recite surat al-Baqara in eight rakas and if he did it in twelve rakas the people would think that he had made it easy</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 252 — Prayer in Ramadan</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 6</span></td></tr><tr id='h252' class='hadith-sep'><td colspan='2'>Hadith 252 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرٍ، قَالَ سَمِعْتُ أَبِي يَقُولُ، كُنَّا نَنْصَرِفُ فِي رَمَضَانَ فَنَسْتَعْجِلُ الْخَدَمَ بِالطَّعَامِ مَخَافَةَ الْفَجْرِ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Abdullah ibn Abi Bakr said, &quot;I heard my father say, &#x27;We finished praying in Ramadan and the servants hurried with the food, fearing the approach of dawn</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 7</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 253 — Prayer in Ramadan</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 6, Hadith 7</span></td></tr><tr id='h253' class='hadith-sep'><td colspan='2'>Hadith 253 — Prayer in Ramadan</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ ذَكْوَانَ أَبَا عَمْرٍو، - وَكَانَ عَبْدًا لِعَائِشَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم فَأَعْتَقَتْهُ عَنْ دُبُرٍ مِنْهَا - كَانَ يَقُومُ يَقْرَأُ لَهَا فِي رَمَضَانَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father that Dhakwan Abu Amr (a slave belonging to A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, who was freed by her after her death) used to stand in prayer and recite for her in Ramadan</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>

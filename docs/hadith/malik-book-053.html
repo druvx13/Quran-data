@@ -75,10 +75,70 @@ footer a:hover{text-decoration:underline}
 .book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
 .search-box{margin-bottom:16px;display:flex;gap:8px}
 .search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
-  font-size:.95em}
-.search-box button{padding:8px 16px;background:#1a3a5c;color:#fff;border:none;
-  border-radius:4px;cursor:pointer;font-size:.95em}
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
 .search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
 @media(max-width:600px){
   main{padding:10px 8px}
   h1{font-size:1.15em}
@@ -93,6 +153,7 @@ footer a:hover{text-decoration:underline}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Greetings</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
 <h1>Muwatta Malik</h1>
@@ -105,31 +166,31 @@ footer a:hover{text-decoration:underline}
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr class='hadith-sep'><td colspan='2'>Hadith 1756 — Greetings</td></tr>
+<tr id='h1756' class='hadith-sep'><td colspan='2'>Hadith 1756 — Greetings</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ يُسَلِّمُ الرَّاكِبُ عَلَى الْمَاشِي وَإِذَا سَلَّمَ مِنَ الْقَوْمِ وَاحِدٌ أَجْزَأَ عَنْهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;The one riding greets the one walking, and when one of a group of people gives a greeting, it is enough for all of them</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 1</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1757 — Greetings</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 1</span></td></tr><tr id='h1757' class='hadith-sep'><td colspan='2'>Hadith 1757 — Greetings</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ وَهْبِ بْنِ كَيْسَانَ، عَنْ مُحَمَّدِ بْنِ عَمْرِو بْنِ عَطَاءٍ، أَنَّهُ قَالَ كُنْتُ جَالِسًا عِنْدَ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ فَدَخَلَ عَلَيْهِ رَجُلٌ مِنْ أَهْلِ الْيَمَنِ فَقَالَ السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ ‏.‏ ثُمَّ زَادَ شَيْئًا مَعَ ذَلِكَ أَيْضًا ‏.‏ قَالَ ابْنُ عَبَّاسٍ وَهُوَ يَوْمَئِذٍ قَدْ ذَهَبَ بَصَرُهُ مَنْ هَذَا قَالُوا هَذَا الْيَمَانِيُّ الَّذِي يَغْشَاكَ ‏.‏ فَعَرَّفُوهُ إِيَّاهُ ‏.‏ قَالَ فَقَالَ ابْنُ عَبَّاسٍ إِنَّ السَّلاَمَ انْتَهَى إِلَى الْبَرَكَةِ ‏.‏ قَالَ يَحْيَى سُئِلَ مَالِكٌ هَلْ يُسَلَّمُ عَلَى الْمَرْأَةِ فَقَالَ أَمَّا الْمُتَجَالَّةُ فَلاَ أَكْرَهُ ذَلِكَ وَأَمَّا الشَّابَّةُ فَلاَ أُحِبُّ ذَلِكَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Wahb ibn Kaysan that Muhammad ibn Amr ibn Ata said, &quot;I was sitting with Abdullah ibn Abbas when a Yemeni man came in. He said, &#x27;Peace be upon you, and the mercy of Allah and His blessing&#x27; (as-salamu alaykum wa rahmatullahi wa barakatuhu), and then he added something more to that. Ibn Abbas said (and at that time his eyesight had gone), &#x27;Who is this?&#x27; People said, &#x27;This is a Yemeni who has come to see you,&#x27; and they introduced him. Ibn Abbas said, &#x27;The greeting ends with the word blessing.&#x27; &quot; Yahya said that Malik was asked, &quot;Does one greet a woman?&quot; He said, &quot;As for an old woman, I do not disapprove of it. As for a young woman, I do not like it</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 2</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1758 — Greetings</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 2</span></td></tr><tr id='h1758' class='hadith-sep'><td colspan='2'>Hadith 1758 — Greetings</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ إِنَّ الْيَهُودَ إِذَا سَلَّمَ عَلَيْكُمْ أَحَدُهُمْ فَإِنَّمَا يَقُولُ السَّامُ عَلَيْكُمْ ‏.‏ فَقُلْ عَلَيْكَ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Dinar that Abdullah ibn Umar said that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When a jew greets you, and says &#x27;Death to you&#x27; (as-samu alaykum) say, &#x27;And to you.&#x27; &quot; Yahya said, &quot;Malik was asked whether a person who greeted a jew or christian, should apologise for it. He said, &#x27;No</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 3</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1759 — Greetings</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 3</span></td></tr><tr id='h1759' class='hadith-sep'><td colspan='2'>Hadith 1759 — Greetings</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ أَبِي مُرَّةَ، مَوْلَى عَقِيلِ بْنِ أَبِي طَالِبٍ عَنْ أَبِي وَاقِدٍ اللَّيْثِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم بَيْنَمَا هُوَ جَالِسٌ فِي الْمَسْجِدِ وَالنَّاسُ مَعَهُ إِذْ أَقْبَلَ نَفَرٌ ثَلاَثَةٌ فَأَقْبَلَ اثْنَانِ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم وَذَهَبَ وَاحِدٌ فَلَمَّا وَقَفَا عَلَى مَجْلِسِ رَسُولِ اللَّهِ صلى الله عليه وسلم سَلَّمَا فَأَمَّا أَحَدُهُمَا فَرَأَى فُرْجَةً فِي الْحَلْقَةِ فَجَلَسَ فِيهَا وَأَمَّا الآخَرُ فَجَلَسَ خَلْفَهُمْ وَأَمَّا الثَّالِثُ فَأَدْبَرَ ذَاهِبًا فَلَمَّا فَرَغَ رَسُولُ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ أَلاَ أُخْبِرُكُمْ عَنِ النَّفَرِ الثَّلاَثَةِ أَمَّا أَحَدُهُمْ فَأَوَى إِلَى اللَّهِ فَآوَاهُ اللَّهُ وَأَمَّا الآخَرُ فَاسْتَحْيَا فَاسْتَحْيَا اللَّهُ مِنْهُ وَأَمَّا الآخَرُ فَأَعْرَضَ فَأَعْرَضَ اللَّهُ عَنْهُ ‏&quot;‏ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha from Abu Murra, the mawla of Aqil ibn Abi Talib from Abu Waqid al-Laythi that the Messenger of Allah, may Allah bless him and grant him peace, was sitting in the mosque with some people when three people came in. Two came toward the Messenger of Allah, may Allah bless him and grant him peace, and one went away. When the two stopped at the assembly of the Messenger of Allah, may Allah bless him and grant him peace, they gave the greeting. One of them saw a gap in the circle and sat in it. The other sat down behind the circle. The third turned away and left. When the Messenger of Allah, may Allah bless him and grant him peace, finished, he said, &quot;Shall I tell you about three people? One of them sought shelter with Allah, so Allah gave him shelter. The other was shy, so Allah was shy to him. The other turned away, so Allah turned away from him</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 4</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1760 — Greetings</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 4</span></td></tr><tr id='h1760' class='hadith-sep'><td colspan='2'>Hadith 1760 — Greetings</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّهُ سَمِعَ عُمَرَ بْنَ الْخَطَّابِ، وَسَلَّمَ، عَلَيْهِ رَجُلٌ فَرَدَّ عَلَيْهِ السَّلاَمَ ثُمَّ سَأَلَ عُمَرُ الرَّجُلَ كَيْفَ أَنْتَ فَقَالَ أَحْمَدُ إِلَيْكَ اللَّهَ ‏.‏ فَقَالَ عُمَرُ ذَلِكَ الَّذِي أَرَدْتُ مِنْكَ ‏.‏</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha that Anas ibn Malik heard Umar ibn al-Khattab return the greeting of a man who greeted him. Then Umar asked the man, &quot;How are you?&quot; He said, &quot;I praise Allah to you.&quot; (Ahmadu ilayka Allah) Umar said, &quot;That is what I wanted from you</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 5</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1761 — Greetings</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 5</span></td></tr><tr id='h1761' class='hadith-sep'><td colspan='2'>Hadith 1761 — Greetings</td></tr>
 <tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، أَنَّ الطُّفَيْلَ بْنَ أُبَىِّ بْنِ كَعْبٍ، أَخْبَرَهُ أَنَّهُ، كَانَ يَأْتِي عَبْدَ اللَّهِ بْنَ عُمَرَ فَيَغْدُو مَعَهُ إِلَى السُّوقِ قَالَ فَإِذَا غَدَوْنَا إِلَى السُّوقِ لَمْ يَمُرَّ عَبْدُ اللَّهِ بْنُ عُمَرَ عَلَى سَقَاطٍ وَلاَ صَاحِبِ بَيْعَةٍ وَلاَ مِسْكِينٍ وَلاَ أَحَدٍ إِلاَّ سَلَّمَ عَلَيْهِ - قَالَ الطُّفَيْلُ - فَجِئْتُ عَبْدَ اللَّهِ بْنَ عُمَرَ يَوْمًا فَاسْتَتْبَعَنِي إِلَى السُّوقِ فَقُلْتُ لَهُ وَمَا تَصْنَعُ فِي السُّوقِ وَأَنْتَ لاَ تَقِفُ عَلَى الْبَيِّعِ وَلاَ تَسْأَلُ عَنِ السِّلَعِ وَلاَ تَسُومُ بِهَا وَلاَ تَجْلِسُ فِي مَجَالِسِ السُّوقِ قَالَ وَأَقُولُ اجْلِسْ بِنَا هَا هُنَا نَتَحَدَّثْ ‏.‏ قَالَ فَقَالَ لِي عَبْدُ اللَّهِ بْنُ عُمَرَ يَا أَبَا بَطْنٍ - وَكَانَ الطُّفَيْلُ ذَا بَطْنٍ - إِنَّمَا نَغْدُو مِنْ أَجْلِ السَّلاَمِ نُسَلِّمُ</span></td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha that at-Tufayl ibn Ubayy ibn Kab told him that he visited Abdullah ibn Umar one morning and went out with him to the market, and when they were out, Abdullah ibn Umar did not pass by anyone selling poor merchandise or selling commodities or a needy person or anyone but that he greeted them. At-Tufayl said, &quot;I came to Abdullah ibn Umar one day and he asked me to follow him to the market. I said to him, &#x27;What will you do in the market if you will not stop to sell nor seek any goods or barter with them or sit in any of the assemblies or market?&#x27; Abdullah ibn Umar said that we should sit down and talk, and then he explained, &#x27;Abu Batni, (lit. father of the belly, at- Tufayl had a prominent stomach), we go out in the morning only for the sake of the greeting. We greet whomever we meet</span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 6</span></td></tr><tr class='hadith-sep'><td colspan='2'>Hadith 1762 — Greetings</td></tr>
+<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 6</span></td></tr><tr id='h1762' class='hadith-sep'><td colspan='2'>Hadith 1762 — Greetings</td></tr>
 <tr class='eng'><td class='label'>English</td><td><span class='eng-text'></span></td></tr>
 <tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
 <tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 53, Hadith 7</span></td></tr>
