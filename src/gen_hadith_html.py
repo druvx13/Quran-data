@@ -382,6 +382,14 @@ def make_header(title, breadcrumb_extra=""):
   {bc}
 </header>"""
 
+def truncate_words(text, max_chars=40):
+    """Truncate at a word boundary, adding '…' if needed."""
+    if len(text) <= max_chars:
+        return text
+    trunc = text[:max_chars].rsplit(" ", 1)[0]
+    return trunc + "…"
+
+
 def page_wrap(title, body, breadcrumb_extra="", lang="en"):
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -558,7 +566,7 @@ def render_hadith_rows(h, show_hindi=False):
         rows.append(f"<tr class='grade'><td class='label'>Grade</td>"
                     f"<td><span class='grade-text'>{html_module.escape(grades_str)}</span></td></tr>")
 
-    if ref_str:
+    if ref_str and ref.get("book", 0) and ref.get("hadith", 0):
         rows.append(f"<tr class='ref'><td class='label'>Reference</td>"
                     f"<td><span class='ref-text'>{html_module.escape(ref_str)}</span></td></tr>")
 
@@ -648,12 +656,12 @@ def gen_large_collection_pages(coll_info, data):
             prev_sid = sections_order[idx - 1]
             prev_file = f"{cid}-book-{int(prev_sid):03d}.html"
             prev_name = sections_data[prev_sid]["name"]
-            prev_link = f'<a href="{prev_file}">← {html_module.escape(prev_name[:40])}</a>'
+            prev_link = f'<a href="{prev_file}">← {html_module.escape(truncate_words(prev_name))}</a>'
         if idx < len(sections_order) - 1:
             next_sid = sections_order[idx + 1]
             next_file = f"{cid}-book-{int(next_sid):03d}.html"
             next_name = sections_data[next_sid]["name"]
-            next_link = f'<a href="{next_file}">{html_module.escape(next_name[:40])} →</a>'
+            next_link = f'<a href="{next_file}">{html_module.escape(truncate_words(next_name))} →</a>'
 
         body = f"""<h1>{html_module.escape(name)}</h1>
 <h2>{html_module.escape(sname)}</h2>
@@ -678,7 +686,7 @@ def gen_large_collection_pages(coll_info, data):
         out_path = os.path.join(DOCS_DIR, page_file)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(page_wrap(f"{name} — {sname}", body,
-                              breadcrumb_extra=f" › <a href='{cid}.html'>{html_module.escape(name)}</a> › {html_module.escape(sname[:30])}"))
+                              breadcrumb_extra=f" › <a href='{cid}.html'>{html_module.escape(name)}</a> › {html_module.escape(truncate_words(sname, 35))}"))
 
         book_links.append((page_file, sname, len(hadiths), first_n, last_n))
 
