@@ -1,0 +1,1659 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Download all available hadith collections and generate HTML pages + plain-text output.
+
+Run from the repository root:
+    python3 src/gen_hadith_html.py
+
+Sources:
+  - fawazahmed0/hadith-api (via jsDelivr CDN) — English + Arabic for all 10 collections
+  - Hand-curated Hindi translations for Al-Nawawi's 40 Hadith
+
+Collections (10 total):
+  1. Forty Hadith of an-Nawawi       (42 hadiths)
+  2. Forty Hadith Qudsi               (40 hadiths)
+  3. Forty Hadith of Shah Waliullah Dehlawi (40 hadiths)
+  4. Sahih al-Bukhari                 (7589 hadiths)
+  5. Sahih Muslim                     (7563 hadiths)
+  6. Sunan Abu Dawud                  (5274 hadiths)
+  7. Jami At-Tirmidhi                 (3998 hadiths)
+  8. Sunan Ibn Majah                  (4343 hadiths)
+  9. Sunan an-Nasai                   (5765 hadiths)
+ 10. Muwatta Malik                    (1858 hadiths)
+
+Outputs:
+  - data/hadith/{collection}.json.zip   — compressed source data (English + Arabic)
+  - docs/hadith/index.html              — collection browser
+  - docs/hadith/{collection}.html       — small collections (all hadiths on one page)
+  - docs/hadith/{collection}-book-NNN.html — large collections (one page per book)
+  - output/hadith/hadith_{collection}_english.txt
+  - output/hadith/hadith_{collection}_arabic.txt
+  - output/hadith/hadith_{collection}_hindi.txt  (only for nawawi)
+"""
+
+import math
+import os
+import json
+import zipfile
+import urllib.request
+import html as html_module
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR  = os.path.join(REPO_ROOT, "data", "hadith")
+OUT_DIR   = os.path.join(REPO_ROOT, "output", "hadith")
+DOCS_DIR  = os.path.join(REPO_ROOT, "docs", "hadith")
+DOCS_ROOT = os.path.join(REPO_ROOT, "docs")
+
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(OUT_DIR,  exist_ok=True)
+os.makedirs(DOCS_DIR, exist_ok=True)
+
+CDN_BASE = "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions"
+
+# ---------------------------------------------------------------------------
+# Collection registry
+# ---------------------------------------------------------------------------
+COLLECTIONS = [
+    {
+        "id": "nawawi",
+        "name_en": "Forty Hadith of an-Nawawi",
+        "name_ar": "الأربعون النووية",
+        "author": "Imam Yahya ibn Sharaf an-Nawawi (d. 676 AH)",
+        "desc": "A collection of 42 fundamental hadith compiled by Imam Nawawi, covering the essential principles of Islam.",
+        "large": False,
+    },
+    {
+        "id": "qudsi",
+        "name_en": "Forty Hadith Qudsi",
+        "name_ar": "الأحاديث القدسية الأربعون",
+        "author": "Various",
+        "desc": "Forty Sacred (Qudsi) Hadith — narrations in which the Prophet (ﷺ) attributes words directly to Allah.",
+        "large": False,
+    },
+    {
+        "id": "dehlawi",
+        "name_en": "Forty Hadith of Shah Waliullah Dehlawi",
+        "name_ar": "أربعون حديثاً",
+        "author": "Shah Waliullah Dehlawi (d. 1176 AH)",
+        "desc": "A selection of 40 important hadith chosen by the 18th-century Indian scholar Shah Waliullah Dehlawi.",
+        "large": False,
+    },
+    {
+        "id": "bukhari",
+        "name_en": "Sahih al-Bukhari",
+        "name_ar": "صحيح البخاري",
+        "author": "Imam Muhammad al-Bukhari (d. 256 AH)",
+        "desc": "The most authentic collection of hadith, compiled by Imam Bukhari. Contains over 7,500 hadith in 97 books.",
+        "large": True,
+    },
+    {
+        "id": "muslim",
+        "name_en": "Sahih Muslim",
+        "name_ar": "صحيح مسلم",
+        "author": "Imam Muslim ibn al-Hajjaj (d. 261 AH)",
+        "desc": "The second most authentic hadith collection. Together with Bukhari, forms the 'Two Sahihs'.",
+        "large": True,
+    },
+    {
+        "id": "abudawud",
+        "name_en": "Sunan Abu Dawud",
+        "name_ar": "سنن أبي داود",
+        "author": "Imam Abu Dawud as-Sijistani (d. 275 AH)",
+        "desc": "One of the six canonical Sunni hadith collections, focusing on legal rulings.",
+        "large": True,
+    },
+    {
+        "id": "tirmidhi",
+        "name_en": "Jami At-Tirmidhi",
+        "name_ar": "جامع الترمذي",
+        "author": "Imam Muhammad at-Tirmidhi (d. 279 AH)",
+        "desc": "One of the six canonical Sunni hadith collections, known for grading each hadith.",
+        "large": True,
+    },
+    {
+        "id": "ibnmajah",
+        "name_en": "Sunan Ibn Majah",
+        "name_ar": "سنن ابن ماجه",
+        "author": "Imam Muhammad ibn Yazid ibn Majah (d. 273 AH)",
+        "desc": "The sixth of the six canonical Sunni hadith collections.",
+        "large": True,
+    },
+    {
+        "id": "nasai",
+        "name_en": "Sunan an-Nasai",
+        "name_ar": "سنن النسائي",
+        "author": "Imam Ahmad ibn Shu'ayb an-Nasai (d. 303 AH)",
+        "desc": "One of the six canonical Sunni hadith collections, noted for strict criteria.",
+        "large": True,
+    },
+    {
+        "id": "malik",
+        "name_en": "Muwatta Malik",
+        "name_ar": "موطأ مالك",
+        "author": "Imam Malik ibn Anas (d. 179 AH)",
+        "desc": "The earliest surviving collection of hadith; the foundational text of the Maliki school.",
+        "large": True,
+    },
+]
+
+# ---------------------------------------------------------------------------
+# Hindi translations for Al-Nawawi's 40 Hadith
+# ---------------------------------------------------------------------------
+NAWAWI_HINDI = {
+1: ("उमर बिन अल-खत्ताब (रज़ि.)",
+    "बेशक सभी कार्य नीयत से होते हैं, और हर व्यक्ति को वही मिलता है जो उसने नीयत की। "
+    "अतः जिसका हिजरत अल्लाह और उसके रसूल की ओर हो, उसका हिजरत अल्लाह और उसके रसूल की ओर है; "
+    "और जिसका हिजरत दुनिया की किसी चीज़ को पाने या किसी स्त्री से विवाह करने के लिए हो, "
+    "तो उसका हिजरत उसी की ओर है जिसके लिए उसने हिजरत की।"),
+2: ("उमर (रज़ि.) — जिबरील का हदीस",
+    "जब जिबरील (अलैहि.) इंसानी रूप में आए और इस्लाम, ईमान और इहसान के बारे में पूछा। "
+    "आप (ﷺ) ने फ़रमाया: इस्लाम यह है कि तुम गवाही दो कि अल्लाह के सिवाय कोई इबादत के लायक नहीं "
+    "और मुहम्मद (ﷺ) अल्लाह के रसूल हैं, नमाज़ क़ायम करो, ज़कात दो, रमज़ान के रोज़े रखो, "
+    "और हज करो। ईमान यह है कि तुम अल्लाह, उसके फ़रिश्तों, उसकी किताबों, उसके रसूलों, "
+    "आख़िरत के दिन और तक़दीर के अच्छे-बुरे पर ईमान रखो। और इहसान यह है कि "
+    "तुम अल्लाह की इबादत इस तरह करो जैसे उसे देख रहे हो।"),
+3: ("अब्दुल्लाह बिन उमर (रज़ि.)",
+    "इस्लाम की बुनियाद पाँच चीज़ों पर है: इस बात की गवाही देना कि अल्लाह के सिवाय कोई "
+    "इबादत के लायक नहीं और मुहम्मद (ﷺ) अल्लाह के रसूल हैं, नमाज़ क़ायम करना, "
+    "ज़कात अदा करना, अल्लाह के घर का हज करना, और रमज़ान के रोज़े रखना।"),
+4: ("अब्दुल्लाह बिन मसऊद (रज़ि.)",
+    "तुम में से हर एक की पैदाइश उसकी माँ के पेट में चालीस दिन तक नुत्फ़े की शक्ल में, "
+    "फिर उतने ही समय में 'अलक़' की शक्ल में, फिर उतने ही समय में 'मुज़्ग़ा' की शक्ल में रहती है। "
+    "फिर एक फ़रिश्ता चार बातें लिखता है: रिज़्क़, उम्र, आमाल, और ख़ुश-नसीब या बदनसीब। "
+    "इसके बाद उसमें रूह फूँकी जाती है।"),
+5: ("उम्मुल मोमिनीन आइशा (रज़ि.)",
+    "जिसने हमारे इस दीन में कोई ऐसी चीज़ ईजाद की जो उसमें नहीं, वह मर्दूद (अस्वीकृत) है।"),
+6: ("नोमान बिन बशीर (रज़ि.)",
+    "हलाल ज़ाहिर है और हराम भी ज़ाहिर है, और उन दोनों के बीच कुछ संदिग्ध चीज़ें हैं। "
+    "जो संदिग्ध चीज़ों से बचा, उसने अपने दीन और अपनी इज्जत की हिफ़ाजत की। "
+    "और जो संदिग्ध चीज़ों में पड़ गया वह हराम में पड़ गया।"),
+7: ("शद्दाद बिन औस (रज़ि.)",
+    "बेशक अल्लाह ने हर चीज़ पर इहसान फ़र्ज़ किया है। अतः जब तुम (किसी को) क़त्ल करो तो "
+    "अच्छी तरह क़त्ल करो, और जब ज़बह करो तो अच्छी तरह ज़बह करो। छुरी तेज़ रखो।"),
+8: ("अब्दुल्लाह बिन उमर (रज़ि.)",
+    "मुझे तब तक लोगों से लड़ने का हुक्म दिया गया है जब तक वे गवाही न दें कि अल्लाह के सिवाय "
+    "कोई इबादत के लायक नहीं और मुहम्मद (ﷺ) अल्लाह के रसूल हैं, नमाज़ क़ायम करें और ज़कात दें।"),
+9: ("अबू हुरैरा (रज़ि.)",
+    "जो मैंने तुम्हें हुक्म दिया हो उसे करते रहो और जो मना किया हो उससे रुको — "
+    "जहाँ तक तुम्हारी ताक़त हो।"),
+10: ("अबू हुरैरा (रज़ि.)",
+    "बेशक अल्लाह पाक है और पाकी को ही पसंद करता है। वह तय्यिब है और तय्यिब को ही क़ुबूल करता है।"),
+11: ("अल-हसन बिन अली (रज़ि.)",
+    "जो चीज़ तुम्हें शक में डाले उसे छोड़ो और जो शक में न डाले उसे लो। "
+    "सच्चाई में सुकून है और झूठ में शक।"),
+12: ("अबू हुरैरा (रज़ि.)",
+    "किसी इंसान के इस्लाम की ख़ूबी में से यह है कि वह फ़ुज़ूल बातों को छोड़ दे।"),
+13: ("अनस बिन मालिक (रज़ि.)",
+    "तुम में से कोई उस वक़्त तक मोमिन नहीं होता जब तक अपने भाई के लिए वही पसंद न करे "
+    "जो अपने लिए पसंद करता है।"),
+14: ("अब्दुल्लाह बिन मसऊद (रज़ि.)",
+    "किसी मुसलमान का ख़ून तीन में से एक सूरत के बिना हलाल नहीं: शादीशुदा होते हुए ज़िना, "
+    "जान के बदले जान, और अपना दीन छोड़कर जमाअत से अलग होना।"),
+15: ("अबू हुरैरा (रज़ि.)",
+    "जो अल्लाह पर और आख़िरत के दिन पर ईमान रखता हो, वह अच्छी बात कहे या ख़ामोश रहे; "
+    "और अपने पड़ोसी को तकलीफ़ न दे; और अपने मेहमान की इज्जत करे।"),
+16: ("अबू हुरैरा (रज़ि.)",
+    "ग़ुस्सा मत करो।"),
+17: ("शद्दाद बिन औस (रज़ि.)",
+    "बेशक अल्लाह ने मुझ पर वह्य की कि तुम झुको (विनम्र रहो) यहाँ तक कि कोई किसी पर "
+    "फ़ख्र न करे और कोई किसी पर ज़ुल्म न करे।"),
+18: ("अबू ज़र (रज़ि.) और मुआज़ बिन जबल (रज़ि.)",
+    "जहाँ भी रहो, अल्लाह से डरो, बुराई के बाद नेकी करो वह उसे मिटा देगी, "
+    "और लोगों के साथ अच्छे अख़्लाक़ से पेश आओ।"),
+19: ("अब्दुल्लाह बिन अब्बास (रज़ि.)",
+    "अल्लाह की हिफ़ाज़त करो, अल्लाह तुम्हारी हिफ़ाज़त करेगा। अल्लाह को याद रखो, "
+    "उसे अपने सामने पाओगे। जब माँगो तो अल्लाह से माँगो और जब मदद चाहो तो "
+    "अल्लाह से मदद माँगो।"),
+20: ("अबू मसऊद (रज़ि.)",
+    "पहले नबुव्वत की जो बातें लोगों तक पहुँची हैं उनमें से यह है: "
+    "जब तुम्हें शर्म न आए तो जो चाहो करो।"),
+21: ("सुफ़यान बिन अब्दुल्लाह (रज़ि.)",
+    "कहो: मैं अल्लाह पर ईमान लाया, फिर (उस पर) क़ायम रहो।"),
+22: ("जाबिर बिन अब्दुल्लाह (रज़ि.)",
+    "अगर तुम फ़र्ज़ नमाज़ें अदा करो, रमज़ान के रोज़े रखो, हलाल को हलाल और हराम को हराम समझो "
+    "तो जन्नत में जाओगे।"),
+23: ("अबू मालिक अल-अशअरी (रज़ि.)",
+    "पाकी आधा ईमान है। 'अलहम्दुलिल्लाह' मीज़ान को भर देती है। "
+    "'सुब्हानल्लाह' और 'अलहम्दुलिल्लाह' आसमान और ज़मीन के बीच की जगह को भर देती हैं। "
+    "नमाज़ नूर है, सदक़ा दलील है, सब्र रोशनी है।"),
+24: ("अबू ज़र अल-ग़िफ़ारी (रज़ि.) — हदीस क़ुदसी",
+    "ऐ मेरे बंदो! मैंने अपने ऊपर ज़ुल्म हराम किया है और इसे तुम्हारे बीच भी हराम किया है, "
+    "अतः एक-दूसरे पर ज़ुल्म न करो। ऐ मेरे बंदो! तुम सब गुमराह हो सिवाय उसके जिसे "
+    "मैं हिदायत दूँ, अतः मुझसे हिदायत माँगो।"),
+25: ("अबू हुरैरा (रज़ि.)",
+    "लोगों में सबसे बुरा दुतरफ़ा बात करने वाला है जो एक तरफ़ की बात दूसरी तरफ़ पहुँचाता है।"),
+26: ("अबू हुरैरा (रज़ि.)",
+    "हर इंसान पर हर रोज़ जब उसकी हर हड्डी पर सूरज उगता है सदक़ा ज़रूरी है। "
+    "दो लोगों के बीच इंसाफ़ करो — यह सदक़ा है। रास्ते से तकलीफ़देह चीज़ हटाना सदक़ा है।"),
+27: ("नव्वास बिन समआन (रज़ि.)",
+    "नेकी अच्छे अख़्लाक़ का नाम है, और गुनाह वह है जो तुम्हारी छाती में खटके "
+    "और तुम नहीं चाहते कि लोग उससे बाख़बर हों।"),
+28: ("इर्बाज़ बिन सारिया (रज़ि.)",
+    "मैं तुम्हें अल्लाह के तक़वे की और सुनने और मानने की वसीयत करता हूँ। "
+    "मेरी सुन्नत और हिदायत पाए हुए ख़ुलफ़ा-ए-राशिदीन की सुन्नत को लाज़िम पकड़ो।"),
+29: ("मुआज़ बिन जबल (रज़ि.)",
+    "जन्नत का रास्ता: अल्लाह की इबादत करो और उसके साथ किसी को शरीक न करो, "
+    "नमाज़ क़ायम करो, ज़कात दो, रमज़ान के रोज़े रखो, और हज करो।"),
+30: ("सुफ़यान बिन अब्दुल्लाह अस-सक़फ़ी (रज़ि.)",
+    "अल्लाह ने फ़रमाया: बेशक यह मेरा सीधा रास्ता है, इसलिए इसी पर चलो "
+    "और दूसरे रास्तों पर मत चलो।"),
+31: ("अबू सालिब (रज़ि.)",
+    "सत्य का रास्ता अपनाओ क्योंकि सत्य नेकी तक पहुँचाता है और नेकी जन्नत तक पहुँचाती है।"),
+32: ("अबू सईद अल-ख़ुद्री (रज़ि.)",
+    "नुक़सान न करो और न नुक़सान सहो।"),
+33: ("इब्ने अब्बास (रज़ि.)",
+    "सबूत देने की ज़िम्मेदारी दावा करने वाले पर है और क़सम उसके ज़िम्मे है जो इनकार करे।"),
+34: ("अबू सईद अल-ख़ुद्री (रज़ि.)",
+    "जिसने तुममें से कोई बुराई देखी, वह उसे अपने हाथ से बदल दे; अगर इसकी ताक़त न हो "
+    "तो ज़बान से; अगर इसकी भी ताक़त न हो तो दिल से — और यह ईमान का सबसे कमज़ोर दर्जा है।"),
+35: ("अबू हुरैरा (रज़ि.)",
+    "आपस में हसद न करो, एक-दूसरे से नफ़रत न करो, मुसलमान मुसलमान का भाई है, "
+    "उस पर ज़ुल्म नहीं करता, उसे बेसहारा नहीं छोड़ता।"),
+36: ("अबू हुरैरा (रज़ि.)",
+    "जो कोई किसी मोमिन की दुनिया की परेशानी दूर करे, अल्लाह उसकी क़यामत की "
+    "परेशानी दूर करेगा। अल्लाह बंदे की मदद में रहता है जब तक बंदा "
+    "अपने भाई की मदद में रहता है।"),
+37: ("इब्ने अब्बास (रज़ि.)",
+    "बेशक अल्लाह ने नेकियाँ और बुराइयाँ लिख दी हैं। जो नेकी का इरादा करे लेकिन न करे, "
+    "अल्लाह उसके लिए एक पूरी नेकी लिखता है। और अगर कर भी लिया तो "
+    "दस से सात सौ गुने तक नेकियाँ लिखता है।"),
+38: ("अबू हुरैरा (रज़ि.) — हदीस क़ुदसी",
+    "जो मेरे किसी ولी से दुश्मनी रखे, मैं उसके ख़िलाफ़ जंग का ऐलान करता हूँ। "
+    "मेरा बंदा नफ़ल इबादत से मेरे क़रीब होता रहता है यहाँ तक कि मैं उससे प्यार करने लगता हूँ। "
+    "जब मैं उससे प्यार करता हूँ तो मैं उसके कान, आँखें, हाथ और पाँव बन जाता हूँ।"),
+39: ("इब्ने अब्बास (रज़ि.)",
+    "बेशक अल्लाह ने मेरी उम्मत के लिए ग़लतियाँ, भूल और वह काम जिस पर उन्हें "
+    "मजबूर किया जाए — माफ़ कर दिए हैं।"),
+40: ("इब्ने उमर (रज़ि.)",
+    "दुनिया में ऐसे रहो जैसे तुम परदेसी हो या राही (मुसाफ़िर)। "
+    "जब शाम हो जाए तो सुबह का इंतज़ार न करो, और जब सुबह हो तो शाम का। "
+    "बीमारी से पहले सेहत को और मौत से पहले ज़िंदगी को ग़नीमत जानो।"),
+41: ("अब्दुल्लाह बिन अम्र बिन अल-आस (रज़ि.)",
+    "तुम में से कोई उस वक़्त तक (पूरा) मोमिन नहीं होता जब तक उसकी इच्छाएँ उस दीन के "
+    "ताबे न हो जाएँ जो मैं लेकर आया हूँ।"),
+42: ("अनस बिन मालिक (रज़ि.) — हदीस क़ुदसी",
+    "ऐ आदम के बेटे! जब तक तू मुझसे दुआ करता रहेगा और मुझसे उम्मीद रखेगा, "
+    "मैं तेरे गुनाह माफ़ करता रहूँगा — चाहे वे जितने भी हों। "
+    "ऐ आदम के बेटे! अगर तेरे गुनाह आसमान की बुलंदियों तक पहुँच जाएँ और "
+    "फिर तू मुझसे माफ़ी माँगे, मैं तुझे माफ़ कर दूँगा।"),
+}
+
+# ---------------------------------------------------------------------------
+# Shared CSS / header / footer
+# ---------------------------------------------------------------------------
+SHARED_CSS = """
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+"""
+
+FOOTER_HTML = """<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>"""
+
+HADITH_VC_JS = """\
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>"""
+
+def make_header(title, breadcrumb_extra="", book_nav_html=""):
+    bc = f'<span class="breadcrumb"><a href="../index.html">Qur\'an</a> › <a href="index.html">Hadith</a>{breadcrumb_extra}</span>'
+    nav = f'\n  {book_nav_html}' if book_nav_html else ""
+    return f"""<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  {bc}{nav}
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>"""
+
+def truncate_words(text, max_chars=40):
+    """Truncate at a word boundary, adding '…' if needed."""
+    if len(text) <= max_chars:
+        return text
+    trunc = text[:max_chars].rsplit(" ", 1)[0]
+    return trunc + "…"
+
+
+def gen_filter_panel(min_n, max_n, show_hindi=False):
+    """Return the Hadith & Content Filter <details> panel HTML."""
+    if show_hindi:
+        cf_pills = (
+            "<span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'>"
+            "<label for='hcf-0'>Arabic</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'>"
+            "<label for='hcf-1'>English</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-2' data-rowclass='hindi'>"
+            "<label for='hcf-2'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-3' data-rowclass='narrator'>"
+            "<label for='hcf-3'>Narrator</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'>"
+            "<label for='hcf-4'>Grade</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'>"
+            "<label for='hcf-5'>Reference</label></span>"
+        )
+    else:
+        cf_pills = (
+            "<span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'>"
+            "<label for='hcf-0'>Arabic</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'>"
+            "<label for='hcf-1'>English</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'>"
+            "<label for='hcf-4'>Grade</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'>"
+            "<label for='hcf-5'>Reference</label></span>"
+        )
+    return (
+        "<noscript><p class=\"noscript-warn\">&#9888; The Hadith &amp; Content Filter requires "
+        "JavaScript. All hadith are shown below.</p></noscript>\n"
+        "<details class='verse-chooser'>"
+        "<summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span>"
+        "<span class='vc-arrow'>&#x25BC;</span></summary>"
+        "<div class='vc-body'>"
+        "<div class='vc-font-ctrl'><span>Font Size:</span>"
+        "<button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button>"
+        "<button onclick='fsReset()' title='Reset font size'>A</button>"
+        "<button onclick='fsIncrease()' title='Increase font size'>A+</button></div>"
+        "<div class='vc-section-title'>Hadith Range</div>"
+        "<div class='vc-controls'>"
+        "<button onclick='hvcSelectAll()'>Show All</button>"
+        "<button onclick='hvcClearAll()'>Hide All</button></div>"
+        f"<div class='vc-range'>"
+        f"<label>From <input type='number' id='hvc-from' min='{min_n}' max='{max_n}' value='{min_n}'></label>"
+        f"<label>To <input type='number' id='hvc-to' min='{min_n}' max='{max_n}' value='{max_n}'></label>"
+        f"<button onclick='hvcApplyRange()'>Apply Range</button></div>"
+        "<div class='vc-section-title' style='margin-top:12px'>Content</div>"
+        f"<div class='cf-list' id='hcf-list'>{cf_pills}</div>"
+        "</div></details>"
+    )
+
+
+def page_wrap(title, body, breadcrumb_extra="", lang="en", scripts="", book_nav_html=""):
+    return f"""<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html_module.escape(title)} – Hadith Reader</title>
+<style>{SHARED_CSS}</style>
+</head>
+<body>
+{make_header(title, breadcrumb_extra, book_nav_html)}
+<main>
+{body}
+</main>
+{FOOTER_HTML}
+{scripts}
+</body>
+</html>"""
+
+# ---------------------------------------------------------------------------
+# Data download helpers
+# ---------------------------------------------------------------------------
+
+def fetch_url(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    return urllib.request.urlopen(req).read()
+
+
+def load_or_download(collection_id):
+    """Return merged dict {hadithnumber: {en, ar, grades, reference, section}} for a collection."""
+    zip_path = os.path.join(DATA_DIR, f"{collection_id}.json.zip")
+
+    if os.path.exists(zip_path):
+        print(f"  [cache] {collection_id}")
+        with zipfile.ZipFile(zip_path) as zf:
+            with zf.open(f"{collection_id}.json") as fh:
+                return json.load(fh)
+
+    print(f"  [download] {collection_id} ...")
+    eng_url = f"{CDN_BASE}/eng-{collection_id}.min.json"
+    ara_url = f"{CDN_BASE}/ara-{collection_id}.min.json"
+
+    eng_data = json.loads(fetch_url(eng_url))
+    ara_data = json.loads(fetch_url(ara_url))
+
+    # Build section lookup: hadithnumber -> section name
+    sections = eng_data["metadata"]["sections"]
+    section_details = eng_data["metadata"]["section_details"]
+    section_map = {}
+    for sec_id, sec_detail in section_details.items():
+        if sec_id == "0":
+            continue
+        sec_name = sections.get(sec_id, "")
+        first = int(sec_detail.get("hadithnumber_first", 0))
+        last  = int(sec_detail.get("hadithnumber_last", 0))
+        for n in range(first, last + 1):
+            section_map[n] = {"id": sec_id, "name": sec_name}
+
+    # Build Arabic lookup
+    ara_lookup = {h["hadithnumber"]: h["text"] for h in ara_data["hadiths"]}
+
+    merged = {
+        "collection_id": collection_id,
+        "name_en": eng_data["metadata"]["name"],
+        "sections": {k: v for k, v in sections.items() if k != "0"},
+        "section_details": section_details,
+        "hadiths": []
+    }
+
+    for h in eng_data["hadiths"]:
+        num = h["hadithnumber"]
+        sec = section_map.get(num, {})
+        grades = [g.get("grade", "") for g in h.get("grades", []) if g.get("grade")]
+        merged["hadiths"].append({
+            "n": num,
+            "an": h.get("arabicnumber", num),
+            "en": h["text"],
+            "ar": ara_lookup.get(num, ""),
+            "sec_id": sec.get("id", ""),
+            "sec_name": sec.get("name", ""),
+            "grades": grades,
+            "ref": h.get("reference", {}),
+        })
+
+    # Save to zip
+    json_bytes = json.dumps(merged, ensure_ascii=False).encode("utf-8")
+    with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+        zf.writestr(f"{collection_id}.json", json_bytes)
+
+    size_kb = os.path.getsize(zip_path) // 1024
+    print(f"  [saved]    data/hadith/{collection_id}.json.zip ({size_kb} KB, {len(merged['hadiths'])} hadiths)")
+    return merged
+
+
+# ---------------------------------------------------------------------------
+# Text output generation
+# ---------------------------------------------------------------------------
+
+def write_text_outputs(coll_info, data):
+    cid = coll_info["id"]
+    name = coll_info["name_en"]
+
+    def write_file(suffix, lines):
+        path = os.path.join(OUT_DIR, f"hadith_{cid}_{suffix}.txt")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(f"{'='*70}\n{name}\n{'='*70}\n\n")
+            f.write("\n".join(lines))
+        print(f"  [txt] output/hadith/hadith_{cid}_{suffix}.txt")
+
+    eng_lines = []
+    ara_lines = []
+    cur_sec = None
+
+    for h in data["hadiths"]:
+        if h["sec_name"] and h["sec_name"] != cur_sec:
+            cur_sec = h["sec_name"]
+            sep = f"\n--- {cur_sec} ---\n"
+            eng_lines.append(sep)
+            ara_lines.append(sep)
+
+        eng_lines.append(f"[{h['n']}] {h['en']}\n")
+        ara_lines.append(f"[{h['n']}] {h['ar']}\n")
+
+    write_file("english", eng_lines)
+    write_file("arabic", ara_lines)
+
+    # Hindi only for Nawawi
+    if cid == "nawawi":
+        hi_lines = []
+        for h in data["hadiths"]:
+            hi = NAWAWI_HINDI.get(h["n"])
+            if hi:
+                narrator, text = hi
+                hi_lines.append(f"[{h['n']}] [{narrator}]\n{text}\n")
+            else:
+                hi_lines.append(f"[{h['n']}] {h['en']}\n")
+        write_file("hindi", hi_lines)
+
+
+# ---------------------------------------------------------------------------
+# HTML for small collections (all hadiths on one page)
+# ---------------------------------------------------------------------------
+
+def has_hadith_content(h):
+    """Return True if the hadith has at least some text (EN or AR)."""
+    return bool((h.get("en") or "").strip() or (h.get("ar") or "").strip())
+
+
+def render_hadith_rows(h, show_hindi=False):
+    num     = h["n"]
+    en_raw  = (h.get("en") or "").strip()
+    ar_raw  = (h.get("ar") or "").strip()
+
+    # Skip hadiths with no translatable content — these are stub/placeholder
+    # entries in the upstream data (e.g. Book-0 hadiths in Muslim & Nasai).
+    if not en_raw and not ar_raw:
+        return ""
+
+    en  = html_module.escape(en_raw)
+    ar  = html_module.escape(ar_raw)
+    sec  = html_module.escape(h["sec_name"]) if h["sec_name"] else ""
+    grades_str = "; ".join(h["grades"]) if h["grades"] else ""
+    ref  = h.get("ref", {})
+    ref_book   = ref.get("book", 0)   if ref else 0
+    ref_hadith = ref.get("hadith", 0) if ref else 0
+    # Build reference string; omit "Book 0" for collections that use sequential
+    # numbering without book divisions (e.g. Ibn Majah Introduction).
+    ref_str = ""
+    if ref_hadith:
+        if ref_book:
+            ref_str = f"Book {ref_book}, Hadith {ref_hadith}"
+        else:
+            ref_str = f"Hadith {ref_hadith}"
+
+    dn = f"data-hadith='{num}'"
+    rows = []
+    rows.append(f"<tr id='h{num}' class='hadith-sep' {dn}>"
+                f"<td colspan='2'><a class='permalink' href='#h{num}'>Hadith {num}</a>"
+                f"{(' — ' + sec) if sec else ''}</td></tr>")
+
+    if ar:
+        rows.append(f"<tr class='arabic' {dn}><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td>"
+                    f"<td><span class='arabic-text' lang='ar'>{ar}</span></td></tr>")
+
+    if en:
+        rows.append(f"<tr class='eng' {dn}><td class='label'>English</td>"
+                    f"<td><span class='eng-text' lang='en'>{en}</span></td></tr>")
+
+    if show_hindi:
+        hi = NAWAWI_HINDI.get(num)
+        if hi:
+            narrator, text = hi
+            rows.append(f"<tr class='narrator' {dn}><td class='label'>Narrator</td>"
+                        f"<td><span class='narrator-text'>{html_module.escape(narrator)}</span></td></tr>")
+            rows.append(f"<tr class='hindi' {dn}><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</td>"
+                        f"<td><span class='hindi-text' lang='hi'>{html_module.escape(text)}</span></td></tr>")
+
+    if grades_str:
+        rows.append(f"<tr class='grade' {dn}><td class='label'>Grade</td>"
+                    f"<td><span class='grade-text'>{html_module.escape(grades_str)}</span></td></tr>")
+
+    if ref_str:
+        rows.append(f"<tr class='ref' {dn}><td class='label'>Reference</td>"
+                    f"<td><span class='ref-text'>{html_module.escape(ref_str)}</span></td></tr>")
+
+    return "\n".join(rows)
+
+
+def gen_small_collection_page(coll_info, data):
+    cid   = coll_info["id"]
+    name  = coll_info["name_en"]
+    name_ar = coll_info["name_ar"]
+    author = coll_info["author"]
+    desc  = coll_info["desc"]
+    show_hindi = (cid == "nawawi")
+
+    rows_html = []
+    for h in data["hadiths"]:
+        rendered = render_hadith_rows(h, show_hindi=show_hindi)
+        if rendered:
+            rows_html.append(rendered)
+
+    hadiths = [h for h in data["hadiths"] if has_hadith_content(h)]
+    min_n = hadiths[0]["n"]
+    max_n = hadiths[-1]["n"]
+    filter_panel = gen_filter_panel(min_n, max_n, show_hindi)
+
+    body = f"""<h1>{html_module.escape(name)}</h1>
+<div class="meta-info">
+  <strong>Author:</strong> {html_module.escape(author)} &nbsp;|&nbsp;
+  <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">{html_module.escape(name_ar)}</span> &nbsp;|&nbsp;
+  <strong>Total:</strong> {len(hadiths)} hadith
+</div>
+<div class="desc">{html_module.escape(desc)}</div>
+{"<div class='desc' style='background:#f5f0ff;border-color:#6a4c93'>🇮🇳 <strong>Hindi translation available</strong> for this collection.</div>" if show_hindi else ""}
+{filter_panel}
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+{"".join(rows_html)}
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="index.html">← All Collections</a>
+  <a href="../index.html">Qur'an Home</a>
+</nav>"""
+
+    out_path = os.path.join(DOCS_DIR, f"{cid}.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(page_wrap(name, body,
+                          breadcrumb_extra=f" › {html_module.escape(name)}",
+                          scripts=HADITH_VC_JS))
+    print(f"  [html] docs/hadith/{cid}.html")
+
+
+# ---------------------------------------------------------------------------
+# HTML for large collections (index + per-book pages)
+# ---------------------------------------------------------------------------
+
+def gen_large_collection_pages(coll_info, data):
+    cid   = coll_info["id"]
+    name  = coll_info["name_en"]
+    name_ar = coll_info["name_ar"]
+    author = coll_info["author"]
+    desc  = coll_info["desc"]
+
+    # Build a section lookup map to correctly assign hadiths that have no sec_id
+    # in the cached data.  This handles two cases:
+    #   1. Fractional hadith numbers (e.g. 815.2): the section_map only has integer
+    #      keys, so 815.2 misses.  We fall back to floor(815.2) = 815.
+    #   2. Section-gap hadiths: integer hadiths that fall between section ranges in
+    #      the metadata (e.g. Bukhari 521 is between sec 8 [349–520] and sec 9
+    #      [522–602]).  We assign them to the nearest preceding section.
+    _sec_map = {}          # integer hadith number → sec_id
+    _sec_ranges = []       # [(first, last, sec_id), ...] sorted by first
+    for sec_id, sec_detail in data.get("section_details", {}).items():
+        if sec_id == "0":
+            continue
+        first = int(sec_detail.get("hadithnumber_first", 0))
+        last  = int(sec_detail.get("hadithnumber_last", 0))
+        if first and last:
+            for n in range(first, last + 1):
+                _sec_map[n] = sec_id
+            _sec_ranges.append((first, last, sec_id))
+    _sec_ranges.sort()
+
+    def _resolve_sec(h):
+        """Return (sec_id, sec_name) for a hadith, resolving orphaned cases."""
+        if h.get("sec_id"):
+            return h["sec_id"], h.get("sec_name", "")
+        n_float = float(h["n"])
+        # Case 1: fractional — try the integer part
+        n_floor = int(math.floor(n_float))
+        if n_floor in _sec_map:
+            sid = _sec_map[n_floor]
+            return sid, data["sections"].get(sid, "")
+        # Case 2: integer gap — find the section whose range ends just before n
+        best_sid = ""
+        best_end = -1
+        for first, last, sid in _sec_ranges:
+            if first <= n_float and last < n_float and last > best_end:
+                best_sid = sid
+                best_end = last
+        if best_sid:
+            return best_sid, data["sections"].get(best_sid, "")
+        return "0", "General"
+
+    # Group hadiths by section
+    sections_order = []
+    sections_data  = {}
+    for h in data["hadiths"]:
+        sid, sname = _resolve_sec(h)
+        if not sid:
+            sid, sname = "0", "General"
+        if sid not in sections_data:
+            sections_order.append(sid)
+            sections_data[sid] = {"name": sname or "General", "hadiths": []}
+        sections_data[sid]["hadiths"].append(h)
+
+    # Keep only sections that have at least one hadith with content
+    sections_order = [
+        sid for sid in sections_order
+        if any(has_hadith_content(h) for h in sections_data[sid]["hadiths"])
+    ]
+
+    total = sum(
+        1 for h in data["hadiths"] if has_hadith_content(h)
+    )
+
+    # Build book nav options (only includes sections with content)
+    def _book_nav_opts(current_sid):
+        opts = ['<option value="">\u2601 Jump to Book\u2026</option>']
+        for s_idx2, s_id2 in enumerate(sections_order):
+            s_name2 = sections_data[s_id2]["name"]
+            s_file2 = f"{cid}-book-{int(s_id2):03d}.html"
+            sel = " selected" if s_id2 == current_sid else ""
+            opts.append(
+                f'<option value="{s_file2}"{sel}>'
+                f'{s_idx2 + 1}. {html_module.escape(truncate_words(s_name2, 50))}'
+                f'</option>'
+            )
+        return "".join(opts)
+
+    # Remove stale per-book pages from previous runs that are no longer generated.
+    # (e.g. an old book-000.html that existed when orphaned hadiths were in "General"
+    # but is now empty after the section-resolution fix.)
+    new_page_set = {f"{cid}-book-{int(sid):03d}.html" for sid in sections_order}
+    import glob as _glob
+    for old_path in _glob.glob(os.path.join(DOCS_DIR, f"{cid}-book-???.html")):
+        old_file = os.path.basename(old_path)
+        if old_file not in new_page_set:
+            os.remove(old_path)
+
+    # Build per-book pages
+    book_links = []
+    for idx, sid in enumerate(sections_order):
+        sec   = sections_data[sid]
+        sname = sec["name"]
+        hadiths = [h for h in sec["hadiths"] if has_hadith_content(h)]
+        page_file = f"{cid}-book-{int(sid):03d}.html"
+        first_n = hadiths[0]["n"]
+        last_n  = hadiths[-1]["n"]
+
+        rows_html = []
+        for h in hadiths:
+            rendered = render_hadith_rows(h, show_hindi=False)
+            if rendered:
+                rows_html.append(rendered)
+
+        prev_link = ""
+        next_link = ""
+        if idx > 0:
+            prev_sid = sections_order[idx - 1]
+            prev_file = f"{cid}-book-{int(prev_sid):03d}.html"
+            prev_name = sections_data[prev_sid]["name"]
+            prev_link = f'<a href="{prev_file}">← {html_module.escape(truncate_words(prev_name))}</a>'
+        if idx < len(sections_order) - 1:
+            next_sid = sections_order[idx + 1]
+            next_file = f"{cid}-book-{int(next_sid):03d}.html"
+            next_name = sections_data[next_sid]["name"]
+            next_link = f'<a href="{next_file}">{html_module.escape(truncate_words(next_name))} →</a>'
+
+        book_nav_html = (
+            f"<select class='book-nav-select' onchange='location.href=this.value' "
+            f"aria-label='Jump to Book'>{_book_nav_opts(sid)}</select>"
+        )
+        filter_panel = gen_filter_panel(first_n, last_n, False)
+
+        body = f"""<h1>{html_module.escape(name)}</h1>
+<h2>{html_module.escape(sname)}</h2>
+<div class="meta-info">
+  Hadith {first_n}–{last_n} &nbsp;|&nbsp;
+  <a href="{cid}.html">📚 Book Index</a>
+</div>
+{filter_panel}
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+{"".join(rows_html)}
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  {prev_link if prev_link else '<span></span>'}
+  <a href="{cid}.html">📚 Book Index</a>
+  {next_link if next_link else '<span></span>'}
+</nav>"""
+
+        out_path = os.path.join(DOCS_DIR, page_file)
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(page_wrap(f"{name} — {sname}", body,
+                              breadcrumb_extra=f" › <a href='{cid}.html'>{html_module.escape(name)}</a> › {html_module.escape(truncate_words(sname, 35))}",
+                              scripts=HADITH_VC_JS,
+                              book_nav_html=book_nav_html))
+
+        book_links.append((page_file, sname, len(hadiths), first_n, last_n))
+
+    print(f"  [html] docs/hadith/{cid}-book-NNN.html × {len(sections_order)} books")
+
+    # Build collection index page
+    book_items = []
+    for page_file, sname, count, first_n, last_n in book_links:
+        book_items.append(
+            f'<li><a href="{page_file}">{html_module.escape(sname)}'
+            f'<span class="bl-count">{count} hadith ({first_n}–{last_n})</span>'
+            f'</a></li>'
+        )
+
+    body = f"""<h1>{html_module.escape(name)}</h1>
+<div class="meta-info">
+  <strong>Author:</strong> {html_module.escape(author)} &nbsp;|&nbsp;
+  <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">{html_module.escape(name_ar)}</span> &nbsp;|&nbsp;
+  <strong>Total:</strong> {total:,} hadith
+</div>
+<div class="desc">{html_module.escape(desc)}</div>
+<h2>Books / Chapters ({len(sections_order)})</h2>
+<ul class="book-list">
+{"".join(book_items)}
+</ul>
+<nav class="chapter-nav">
+  <a href="index.html">← All Collections</a>
+  <a href="../index.html">Qur'an Home</a>
+</nav>"""
+
+    out_path = os.path.join(DOCS_DIR, f"{cid}.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(page_wrap(name, body, breadcrumb_extra=f" › {html_module.escape(name)}"))
+    print(f"  [html] docs/hadith/{cid}.html (index)")
+
+
+# ---------------------------------------------------------------------------
+# Search data generation (docs/hadith/sd/)
+# ---------------------------------------------------------------------------
+
+def gen_search_data(all_data_dict):
+    """Write per-collection search JSON files to docs/hadith/sd/.
+
+    Per collection:
+      {cid}-meta.json — [[hadith_num, sec_id, sec_name], ...] (very small)
+      {cid}-en.json   — [english_text, ...] (lazy-loaded when field selected)
+      {cid}-ar.json   — [arabic_text, ...]  (lazy-loaded when field selected)
+    Special:
+      nawawi-hi.json  — [[narrator, hindi_text], ...] (42 entries)
+    """
+    sd_dir = os.path.join(DOCS_DIR, "sd")
+    os.makedirs(sd_dir, exist_ok=True)
+
+    total_written = 0
+    for coll in COLLECTIONS:
+        cid = coll["id"]
+        data = all_data_dict[cid]
+        hadiths = data["hadiths"]
+
+        is_large = coll["large"]
+        if is_large:
+            meta = [[h["n"], h["sec_id"] or "", h["sec_name"] or ""] for h in hadiths]
+        else:
+            meta = [[h["n"], "", ""] for h in hadiths]
+        en_arr = [h["en"] for h in hadiths]
+        ar_arr = [h["ar"] for h in hadiths]
+
+        def _write(name, obj):
+            p = os.path.join(sd_dir, name)
+            with open(p, "w", encoding="utf-8") as f:
+                json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
+
+        _write(f"{cid}-meta.json", meta)
+        _write(f"{cid}-en.json", en_arr)
+        _write(f"{cid}-ar.json", ar_arr)
+
+        if cid == "nawawi":
+            hi_arr = []
+            for h in hadiths:
+                hi = NAWAWI_HINDI.get(h["n"])
+                if hi:
+                    narrator, text = hi
+                    hi_arr.append([narrator, text])
+                else:
+                    hi_arr.append(["", h["en"]])
+            _write("nawawi-hi.json", hi_arr)
+
+        total_written += 1
+
+    print(f"  [sd] docs/hadith/sd/ — {total_written} collections × 3 files + nawawi-hi.json")
+
+
+# ---------------------------------------------------------------------------
+# Search page (docs/hadith/search.html)
+# ---------------------------------------------------------------------------
+
+def gen_search_page(collection_counts):
+    # Build collections JS array
+    coll_js = json.dumps(
+        [{"id": c["id"], "name": c["name_en"], "large": c["large"],
+          "count": collection_counts.get(c["id"], 0)}
+         for c in COLLECTIONS],
+        ensure_ascii=False
+    )
+    # Build option list for the dropdown
+    options = ['<option value="">All Collections</option>']
+    for c in COLLECTIONS:
+        cnt = collection_counts.get(c["id"], 0)
+        options.append(
+            f'<option value="{html_module.escape(c["id"])}">'
+            f'{html_module.escape(c["name_en"])} ({cnt:,})</option>'
+        )
+    options_html = "\n".join(options)
+
+    body = f"""<h1>🔍 Search Hadith</h1>
+<p style="font-size:.93em;color:#555;margin-bottom:14px">
+  Full-text search across 10 hadith collections (36,512 hadith). English and Arabic.
+  Hindi available for An-Nawawi's 40. Results link directly to the hadith.
+</p>
+<div class="search-box">
+  <input type="text" id="q" placeholder="e.g. patience, mercy, prayer…"
+         autofocus autocomplete="off" spellcheck="false">
+  <button onclick="doSearch()">Search</button>
+</div>
+<div class="search-controls">
+  <div class="sc-group">
+    <span class="sc-label">Collection</span>
+    <select id="coll-select" class="sc-select" onchange="onCollChange()">
+{options_html}
+    </select>
+    <span class="data-size-note" id="size-note">Searching all: loads data on first search (≈15 MB EN, ≈20 MB AR)</span>
+  </div>
+  <div class="sc-group">
+    <span class="sc-label">Search in</span>
+    <div class="field-pills">
+      <span class="fp-item">
+        <input type="checkbox" id="f-en" checked>
+        <label for="f-en">English</label>
+      </span>
+      <span class="fp-item">
+        <input type="checkbox" id="f-ar">
+        <label for="f-ar">العربية</label>
+      </span>
+      <span class="fp-item" id="hi-pill" style="display:none">
+        <input type="checkbox" id="f-hi">
+        <label for="f-hi">हिन्दी (Nawawi)</label>
+      </span>
+    </div>
+  </div>
+</div>
+<div id="search-status"></div>
+<div id="results"></div>
+<div id="pagination"></div>
+<script>
+(function(){{
+var COLLS={coll_js};
+var PAGE_SIZE=15;
+var allMatches=[];
+var currentPage=1;
+var currentTerms=[];
+var metaCache={{}};
+var enCache={{}};
+var arCache={{}};
+var hiCache=null;
+var _pending={{}};
+
+function fetchJson(url){{
+  if(!_pending[url]){{
+    _pending[url]=fetch(url).then(function(r){{
+      if(!r.ok)throw new Error('HTTP '+r.status+' ('+url+')');
+      return r.json();
+    }});
+  }}
+  return _pending[url];
+}}
+
+function loadColl(cid,fields){{
+  var proms=[fetchJson('sd/'+cid+'-meta.json').then(function(d){{metaCache[cid]=d;}})];
+  if(fields.indexOf('en')>=0&&!enCache[cid])
+    proms.push(fetchJson('sd/'+cid+'-en.json').then(function(d){{enCache[cid]=d;}}));
+  if(fields.indexOf('ar')>=0&&!arCache[cid])
+    proms.push(fetchJson('sd/'+cid+'-ar.json').then(function(d){{arCache[cid]=d;}}));
+  if(fields.indexOf('hi')>=0&&cid==='nawawi'&&!hiCache)
+    proms.push(fetchJson('sd/nawawi-hi.json').then(function(d){{hiCache=d;}}));
+  return Promise.all(proms);
+}}
+
+function selColl(){{return document.getElementById('coll-select').value;}}
+function selFields(){{
+  var f=[];
+  if(document.getElementById('f-en').checked)f.push('en');
+  if(document.getElementById('f-ar').checked)f.push('ar');
+  var hp=document.getElementById('hi-pill');
+  if(hp.style.display!=='none'&&document.getElementById('f-hi').checked)f.push('hi');
+  return f;
+}}
+function targetColls(){{
+  var sc=selColl();
+  return sc?COLLS.filter(function(c){{return c.id===sc;}}):COLLS;
+}}
+
+function hadithUrl(cid,n,sec_id,large){{
+  if(large&&sec_id)return cid+'-book-'+String(parseInt(sec_id,10)).padStart(3,'0')+'.html#h'+n;
+  return cid+'.html#h'+n;
+}}
+
+function escHtml(s){{
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}}
+function hl(text,terms){{
+  var s=escHtml(text);
+  terms.forEach(function(t){{
+    if(!t)return;
+    var re=new RegExp('('+t.replace(/[.*+?^${{}}()|[\\]\\\\]/g,'\\\\$&')+')','gi');
+    s=s.replace(re,'<mark class="hl">$1</mark>');
+  }});
+  return s;
+}}
+
+window.onCollChange=function(){{
+  var sc=selColl();
+  var hp=document.getElementById('hi-pill');
+  hp.style.display=(sc===''||sc==='nawawi')?'':'none';
+  // update size note
+  var note=document.getElementById('size-note');
+  if(sc===''){{
+    note.textContent='Searching all: loads data on first search (\u224815\u00a0MB\u00a0EN, \u224820\u00a0MB\u00a0AR)';
+  }}else{{
+    var c=COLLS.find(function(x){{return x.id===sc;}});
+    note.textContent=c?'Collection: '+c.count.toLocaleString()+' hadith':'';
+  }}
+}};
+
+window.doSearch=function(){{
+  var q=document.getElementById('q').value.trim();
+  var statusEl=document.getElementById('search-status');
+  var resultsEl=document.getElementById('results');
+  var paginEl=document.getElementById('pagination');
+  if(!q){{resultsEl.innerHTML='';statusEl.textContent='';paginEl.innerHTML='';allMatches=[];return;}}
+  var fields=selFields();
+  if(!fields.length){{statusEl.textContent='Select at least one field (English / Arabic).';return;}}
+  currentTerms=q.toLowerCase().split(/\\s+/).filter(Boolean);
+  statusEl.textContent='Loading\u2026';
+  resultsEl.innerHTML='';
+  paginEl.innerHTML='';
+  var tc=targetColls();
+  Promise.all(tc.map(function(c){{return loadColl(c.id,fields);}})).then(function(){{
+    allMatches=[];
+    tc.forEach(function(coll){{
+      var cid=coll.id;
+      var meta=metaCache[cid]||[];
+      var en=enCache[cid]||[];
+      var ar=arCache[cid]||[];
+      for(var idx=0;idx<meta.length;idx++){{
+        var row=meta[idx];
+        var n=row[0],sec_id=row[1],sec_name=row[2];
+        var parts=[];
+        if(fields.indexOf('en')>=0&&en[idx])parts.push(en[idx]);
+        if(fields.indexOf('ar')>=0&&ar[idx])parts.push(ar[idx]);
+        if(fields.indexOf('hi')>=0&&cid==='nawawi'&&hiCache&&hiCache[idx])parts.push(hiCache[idx][1]||'');
+        var hay=parts.join(' ').toLowerCase();
+        if(currentTerms.every(function(t){{return hay.indexOf(t)>=0;}})){{
+          allMatches.push({{cid:cid,n:n,sec_id:sec_id,sec_name:sec_name,idx:idx,
+            large:coll.large,cname:coll.name}});
+        }}
+      }}
+    }});
+    if(!allMatches.length){{statusEl.textContent='No results found.';return;}}
+    renderPage(1);
+  }}).catch(function(err){{
+    statusEl.textContent='Error loading search data. Please try again.';
+    console.error(err);
+  }});
+}};
+
+function renderPage(page){{
+  var total=allMatches.length;
+  var tp=Math.ceil(total/PAGE_SIZE);
+  if(page<1)page=1;if(page>tp)page=tp;
+  currentPage=page;
+  var start=(page-1)*PAGE_SIZE;
+  var end=Math.min(start+PAGE_SIZE,total);
+  var q=document.getElementById('q').value.trim();
+  document.getElementById('search-status').textContent=
+    'Showing '+(start+1)+'\u2013'+end+' of '+total.toLocaleString()+' result(s) for \u201c'+q+'\u201d';
+  var fields=selFields();
+  var html='';
+  for(var i=start;i<end;i++){{
+    var m=allMatches[i];
+    var url=hadithUrl(m.cid,m.n,m.sec_id,m.large);
+    var lbl=escHtml(m.cname)+' \u2014 Hadith '+m.n;
+    if(m.sec_name)lbl+=' <span style="font-weight:normal;opacity:.8">(\u200b'+escHtml(m.sec_name)+')</span>';
+    html+='<div class="result-card">'
+         +'<div class="result-header"><span>'+lbl+'</span>'
+         +'<a href="'+url+'">View \u2192</a></div>';
+    var en=(enCache[m.cid]||[])[m.idx];
+    var ar=(arCache[m.cid]||[])[m.idx];
+    if(fields.indexOf('en')>=0&&en)html+='<div class="result-field result-en">'+hl(en,currentTerms)+'</div>';
+    if(fields.indexOf('ar')>=0&&ar)html+='<div class="result-field result-ar">'+hl(ar,currentTerms)+'</div>';
+    if(fields.indexOf('hi')>=0&&m.cid==='nawawi'&&hiCache&&hiCache[m.idx]){{
+      html+='<div class="result-field result-hi">'+hl(hiCache[m.idx][1]||'',currentTerms)+'</div>';
+    }}
+    html+='</div>';
+  }}
+  document.getElementById('results').innerHTML=html;
+  var pgHtml='';
+  if(tp>1){{
+    pgHtml+='<div class="pagination">';
+    pgHtml+='<button onclick="goPage('+(page-1)+')"'+(page<=1?' disabled':'')+'>&laquo; Prev</button>';
+    var ps=Math.max(1,page-3),pe=Math.min(tp,page+3);
+    if(ps>1){{pgHtml+='<button onclick="goPage(1)">1</button>';if(ps>2)pgHtml+='<span class="pg-ellipsis">&hellip;</span>';}}
+    for(var p=ps;p<=pe;p++){{
+      if(p===page)pgHtml+='<button class="pg-cur" disabled>'+p+'</button>';
+      else pgHtml+='<button onclick="goPage('+p+')">'+p+'</button>';
+    }}
+    if(pe<tp){{if(pe<tp-1)pgHtml+='<span class="pg-ellipsis">&hellip;</span>';pgHtml+='<button onclick="goPage('+tp+')">'+tp+'</button>';}}
+    pgHtml+='<button onclick="goPage('+(page+1)+')"'+(page>=tp?' disabled':'')+'>Next &raquo;</button>';
+    pgHtml+='</div>';
+  }}
+  document.getElementById('pagination').innerHTML=pgHtml;
+}}
+
+window.goPage=function(page){{
+  renderPage(page);
+  document.getElementById('results').scrollIntoView({{behavior:'smooth',block:'start'}});
+}};
+
+document.getElementById('q').addEventListener('keydown',function(e){{if(e.key==='Enter')doSearch();}});
+var _p=new URLSearchParams(location.search);
+var _q=_p.get('q');
+var _c=_p.get('coll');
+if(_c){{document.getElementById('coll-select').value=_c;onCollChange();}}
+if(_q){{document.getElementById('q').value=_q;doSearch();}}
+}})();
+</script>"""
+
+    out_path = os.path.join(DOCS_DIR, "search.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(page_wrap("Search Hadith", body,
+                          breadcrumb_extra=" › Search"))
+    print("  [html] docs/hadith/search.html")
+
+
+# ---------------------------------------------------------------------------
+# Hadith index page (docs/hadith/index.html)
+# ---------------------------------------------------------------------------
+
+def gen_index_page(collection_counts):
+    cards = []
+    for coll in COLLECTIONS:
+        cid   = coll["id"]
+        count = collection_counts.get(cid, "?")
+        cards.append(
+            f'<a class="coll-card" href="{cid}.html">'
+            f'<div class="cc-name-ar">{html_module.escape(coll["name_ar"])}</div>'
+            f'<div class="cc-name">{html_module.escape(coll["name_en"])}</div>'
+            f'<div class="cc-author">{html_module.escape(coll["author"])}</div>'
+            f'<div class="cc-desc">{html_module.escape(coll["desc"])}</div>'
+            f'<div class="cc-count">📜 {count:,} hadith</div>'
+            f'</a>'
+        )
+
+    body = f"""<h1>📜 Hadith Collections</h1>
+<div class="desc">
+  <strong>10 collections</strong> — from the concise 40-hadith compilations to the six canonical
+  Sunni collections (<em>Kutub al-Sittah</em>). English and Arabic text for all collections;
+  Hindi translation available for An-Nawawi's 40 Hadith.
+  <br><br>
+  <a href="search.html" style="display:inline-block;padding:8px 18px;background:#1a3a5c;
+     color:#fff;border-radius:4px;text-decoration:none;font-size:.95em;font-weight:bold">
+    🔍 Search All Hadith →
+  </a>
+</div>
+<div class="coll-grid">
+{"".join(cards)}
+</div>
+<nav class="chapter-nav">
+  <a href="../index.html">← Qur'an Home</a>
+  <a href="search.html">🔍 Search</a>
+</nav>"""
+
+    out_path = os.path.join(DOCS_DIR, "index.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(page_wrap("Hadith Collections", body))
+    print("  [html] docs/hadith/index.html")
+
+
+# ---------------------------------------------------------------------------
+# Update docs/index.html to add Hadith section link
+# ---------------------------------------------------------------------------
+
+def update_quran_index():
+    idx_path = os.path.join(DOCS_ROOT, "index.html")
+    with open(idx_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # Check if already updated
+    if "hadith/index.html" in content:
+        print("  [skip] docs/index.html already has Hadith link")
+        return
+
+    # Insert a Hadith section before the footer
+    hadith_section = """
+<section id="hadith-section" style="margin-top:28px">
+  <h2 style="font-size:1.2em;color:#1a3a5c;margin-bottom:8px">📜 Hadith</h2>
+  <div style="background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;padding:14px 16px;margin-bottom:8px">
+    <p style="margin:0 0 10px;font-size:.95em;line-height:1.6">
+      Browse <strong>10 hadith collections</strong> — from the concise 40-hadith compilations
+      (An-Nawawi, Qudsi, Dehlawi) to the six canonical Sunni collections (Bukhari, Muslim,
+      Abu Dawud, Tirmidhi, Ibn Majah, Nasai) and Muwatta Malik.
+      English + Arabic for all; Hindi for An-Nawawi's 40.
+    </p>
+    <a href="hadith/index.html" style="display:inline-block;padding:9px 20px;
+       background:#1a3a5c;color:#fff;border-radius:4px;text-decoration:none;
+       font-size:.95em;font-weight:bold">Browse Hadith Collections →</a>
+  </div>
+</section>"""
+
+    # Insert before the last </main> tag
+    if "</main>" in content:
+        content = content.replace("</main>", hadith_section + "\n</main>", 1)
+        with open(idx_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print("  [html] docs/index.html — added Hadith section")
+    else:
+        print("  [warn] Could not find </main> in docs/index.html")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main():
+    print("=" * 60)
+    print("Hadith Generator")
+    print("=" * 60)
+
+    collection_counts = {}
+    all_data_dict = {}
+
+    for coll in COLLECTIONS:
+        cid = coll["id"]
+        print(f"\n[{cid}] {coll['name_en']}")
+
+        # 1. Load / download data
+        data = load_or_download(cid)
+        collection_counts[cid] = sum(1 for h in data["hadiths"] if has_hadith_content(h))
+        all_data_dict[cid] = data
+
+        # 2. Text output
+        write_text_outputs(coll, data)
+
+        # 3. HTML pages
+        if coll["large"]:
+            gen_large_collection_pages(coll, data)
+        else:
+            gen_small_collection_page(coll, data)
+
+    # 4. Hadith index page
+    print("\n[index]")
+    gen_index_page(collection_counts)
+
+    # 5. Search data (docs/hadith/sd/)
+    print("\n[search-data]")
+    gen_search_data(all_data_dict)
+
+    # 6. Search page
+    print("\n[search-page]")
+    gen_search_page(collection_counts)
+
+    # 7. Update Quran index
+    print("\n[quran-index]")
+    update_quran_index()
+
+    total_hadiths = sum(collection_counts.values())
+    print(f"\n{'='*60}")
+    print(f"Done! Generated pages for {total_hadiths:,} hadith across {len(COLLECTIONS)} collections.")
+    print(f"  docs/hadith/ — HTML pages + search.html")
+    print(f"  docs/hadith/sd/ — search data JSONs")
+    print(f"  output/hadith/ — plain-text files")
+    print(f"  data/hadith/ — compressed JSON source data")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — Sharecropping – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Sharecropping</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html">5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html">7. Tahajjud</option><option value="malik-book-008.html">8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-021.html">21. Jihad</option><option value="malik-book-022.html">22. Vows and Oaths</option><option value="malik-book-023.html">23. Sacrificial Animals</option><option value="malik-book-024.html">24. Slaughtering Animals</option><option value="malik-book-025.html">25. Game</option><option value="malik-book-026.html">26. The &#x27;Aqiqa</option><option value="malik-book-027.html">27. Fara&#x27;id</option><option value="malik-book-028.html">28. Marriage</option><option value="malik-book-029.html">29. Divorce</option><option value="malik-book-030.html">30. Suckling</option><option value="malik-book-031.html">31. Business Transactions</option><option value="malik-book-032.html">32. Qirad</option><option value="malik-book-033.html" selected>33. Sharecropping</option><option value="malik-book-034.html">34. Renting Land</option><option value="malik-book-035.html">35. Pre-emption in Property</option><option value="malik-book-036.html">36. Judgements</option><option value="malik-book-037.html">37. Wills and Testaments</option><option value="malik-book-038.html">38. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">39. The Mukatab</option><option value="malik-book-040.html">40. The Mudabbar</option><option value="malik-book-041.html">41. Hudud</option><option value="malik-book-042.html">42. Drinks</option><option value="malik-book-043.html">43. Blood-Money</option><option value="malik-book-044.html">44. The Oath of Qasama</option><option value="malik-book-045.html">45. Madina</option><option value="malik-book-046.html">46. The Decree</option><option value="malik-book-047.html">47. Good Character</option><option value="malik-book-048.html">48. Dress</option><option value="malik-book-049.html">49. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">50. The Evil Eye</option><option value="malik-book-051.html">51. Hair</option><option value="malik-book-052.html">52. Visions</option><option value="malik-book-053.html">53. Greetings</option><option value="malik-book-054.html">54. General Subjects</option><option value="malik-book-055.html">55. The Oath of Allegiance</option><option value="malik-book-056.html">56. Speech</option><option value="malik-book-057.html">57. Jahannam</option><option value="malik-book-058.html">58. Sadaqa</option><option value="malik-book-059.html">59. Knowledge</option><option value="malik-book-060.html">60. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">61. The Names of the Prophet, may Allah Bless Him and…</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>Sharecropping</h2>
+<div class="meta-info">
+  Hadith 1388–1388 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='1388' max='1388' value='1388'></label><label>To <input type='number' id='hvc-to' min='1388' max='1388' value='1388'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h1388' class='hadith-sep' data-hadith='1388'><td colspan='2'><a class='permalink' href='#h1388'>Hadith 1388</a> — Sharecropping</td></tr>
+<tr class='arabic' data-hadith='1388'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ لِيَهُودِ خَيْبَرَ يَوْمَ افْتَتَحَ خَيْبَرَ ‏ &quot;‏ أُقِرُّكُمْ فِيهَا مَا أَقَرَّكُمُ اللَّهُ عَزَّ وَجَلَّ عَلَى أَنَّ الثَّمَرَ بَيْنَنَا وَبَيْنَكُمْ ‏&quot;‏ ‏.‏ قَالَ فَكَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَبْعَثُ عَبْدَ اللَّهِ بْنَ رَوَاحَةَ فَيَخْرُصُ بَيْنَهُ وَبَيْنَهُمْ ثُمَّ يَقُولُ إِنْ شِئْتُمْ فَلَكُمْ وَإِنْ شِئْتُمْ فَلِيَ ‏.‏ فَكَانُوا يَأْخُذُونَهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1388'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik said, &quot;The recognised and permitted form of qirad is that a man take capital from an associate to use. He does not guarantee it and in travelling pays out of the capital for food and clothes and what he makes good use of, according to the amount of capital. That is, when he travels to do the work and the capital can support it. If he remains with his people, he does not have expenses or clothing from the capital.&quot; Malik said, &quot;There is no harm in the two parties in a qirad helping each other by way of a favour when it is acceptable to them both.&quot; Malik said, &quot;There is no harm in the investor of the capital buying some of the goods from the agent in the qirad if that is acceptable and without conditions.&quot; Malik spoke about an investor making a qirad loan to a man and his slave, to be used by both. He said, &quot;That is permitted, and there is no harm in it because the profit is property for his slave, and the profit is not for the master until he takes it from him. It is like the rest of his earnings.&quot; Malik said, &quot;When a man owes money to another man and he asks him to let it stay with him as a quirad, that is disapproved of until the creditor receives his property. Then he can make it a qirad loan or keep it. That is because the debtor may be in a tight situation, and want to delay it to increase it for him.&quot; Malik spoke about an investor who made a qirad loan to a man, and some of the principal was lost before he used it, and then he used it and made a profit. The agent wanted to make the principal the remainder of the money after what was lost from it. Malik said, &quot;His statement is not accepted, and the principal is made up to its original amount from his profit. Then they divide what remains after the principal has been repaid according to the conditions of the qirad.&quot; Malik said, &quot;Qirad loan is only good in gold or silver coin and it is never permitted in any kind of wares or goods or articles.&quot; Malik said, &quot;There are certain transactions which if a long span of time passes after the transaction takes place, its revocation becomes unacceptable. As for usury, there is never anything except its rejection whether it is a little or a lot. What is permitted in other than it is not permitted in it because Allah, the Blessed and the Exalted, said in His Book, &#x27;If you repent, you have your capital back, not wronging and not wronged. &#x27; &quot; 32.4 Conditions Permitted in Qirad Yahya said that Malik spoke about an investor who made a qirad loan and stipulated to the agent that only certain goods should be bought with his money or he forbade certain goods which he named to be bought. He said, &quot;There is no harm in an investor making a condition on an agent in qirad not to buy a certain kind of animal or goods which he specifies. It is disapproved of for an investor to make as a condition on an agent in qirad that he only buy certain goods unless the goods which he orders him to buy are in plentiful supply and do not fail either in winter or summer. There is no harm in that case.&quot; Malik spoke about an investor who loaned qirad money and stipulated that something of the profit should be his alone without the agent sharing in it. He said, &quot;That is not good, even if it is only one dirham unless he stipulates that half the profit is his and half the profit is the agent&#x27;s or a third or a fourth or whatever. When he names a percentage, whether great or small, everything specified by that is halal. This is the qirad of the muslims.&quot; He said, &quot;It is also not good if the investor stipulates that one dirham or more of the profit is purely his, with out the agent sharing it and then what remains of the profit is to be divided in half between them. That is not the qirad of the Muslims.&quot; Yahya said that Malik said, &quot;The person who puts up the principal must not stipulate that he has something of the profit alone without the agent sharing in it, nor must the agent stipulate that he has something of the profit alone without the investor sharing. In qirad, there is no sale, no rent, no work, no advance, and no convenience which one party specifies to himself without the other party sharing unless one party allows it to the other unconditionally as a favour and that is alright to both. Neither of the parties should make a condition over the other which increases him in gold or silver or food over the other party.&quot; He said, &quot;If any of that enters the qirad, it becomes hire, and hire is only good with known and fixed terms. The agent should not stipulate when he takes the principal that he repay or commission anyone with the goods, nor that he take any of them for himself. When there is a profit, and it is time to separate the capital, then they divide the profit according to the terms of the contract. If the principal does not increase or there is a loss, the agent does not have to make up for what he spent on himself or for the loss. That falls to the investor from the principal. Qirad is permitted upon whatever terms the investor and the agent make a mutual agreement, of half the profit, or a third or a fourth or whatever.&quot; Malik said, &quot;It is not permitted for the agent to stipulate that he use the qirad money for a certain number of years and that it not be taken from him during that time.&quot; He said, &quot;It is not good for the investor to stipulate that the qirad money should not be returned for a certain number of years which are specified, because the qirad is not for a term. The investor loans it to an agent to use for him. If it seems proper to either of them to abandon the project and the money is coin, and nothing has been bought with it, it can be abandoned, and the investor takes his money back. If it seems proper to the investor to take the qirad loan back after goods have been purchased with it, he cannot do so until the buyer has sold the goods and they have become money. If it seems proper to the agent to return the loan, and it has been turned to goods he cannot do so until he has sold them. He returns the loan in cash as he took it.&quot; Malik said, &quot;It is not good for the investor to stipulate that the agent pay any zakat due from his portion of the profit in particular, because the investor by stipulating that, stipulates fixed increase for himself from the profit because the portion of zakat he would be liable for by his portion of the profit, is removed from him. &quot;It is not permitted for the investor to stipulate to the agent to only buy from so-and-so, referring to a specific man. That is not permitted because by doing so he would become his hireling for a wage.&quot; Malik spoke about an investor in qirad who stipulated a guarantee for an amount of money from the agent, &quot;The investor is not permitted to stipulate conditions about his principal other than the conditions on which qirad is based or according to the precedent of the sunna of the Muslims. If the principal is increased by the condition of guarantee, the investor has increased his share of the profit because of the position of the guarantee. But the profit is only to be divided according to what it would have been had the loan been given without the guarantee. If the principal is destroyed, I do not think that the agent has a guarantee held against him because the stipulation of guarantees in qirad is null and void.&quot; Malik spoke about an investor who gave qirad money to a man and the man stipulated that he would only buy palms or animals with it because he sought to eat the dates or the offspring of the animals and he kept them for some time to use for himself. He said, &quot;That is not permitted. It is not the sunna of the Muslims in qirad unless he buys it and then sells it as other goods are sold.&quot; Malik said, &quot;There is no harm in the agent stipulating on the investor a slave to help him provided that the slave stands to gain along with him out of the investment, and when the slave only helps him with the investment, not with anything else.&quot; Yahya said that Malik said, &quot;No one should make a qirad loan except in coin, because the loan must not be in wares, since loaning wares can only be worked in one of two ways:Either the owner of the wares says to the borrower, &#x27;Take these wares and sell them. Buy and sell with the capital realized according to qirad.&#x27; The investor stipulates increase for himself from the sale of his goods and what relieves him of expenses in selling it. Or else he says, &#x27;Barter with these goods and sell. When you are through, buy for me the like of my goods which I gave you. If there is increase, it is between you and me. &#x27;It may happen that the investor gives the goods to the agent at a time in which they are in demand and expensive, and then the agent returns them while they are cheap and he might have bought them for only a third of the original price or even less than that. The agent then has a profit of half the amount by which the price of the wares has decreased as his portion of the profit. Or he might take the wares at a time when their price is low, and make use of them until he has a lot of money. Then those wares become expensive and their price rises when he returns them, so he buys them for all that he has so that all his work and concern have been in vain. This is an uncertain transaction and is not good. If, however, that is not known until it has happened, then the wage an agent in qirad would be paid for selling that, is looked at and he is given it for his concern. Then the money is qirad from the day the money became cash and collected as coin and it is returned as a qirad like that.&quot; Yahya said that Malik spoke about a man who made a qirad loan to a man and he bought wares with it and transported them to a commercial centre. It was not profitable to sell them and the agent feared a loss if he sold them, so he hired transport to take them to another city, and he sold them there and made a loss, and the cost of the hire was greater than the principal. Malik said, &quot;If the agent can pay the cost of the hire from what the capital realized, his way is that. Whatever portion of the hire is not covered by the principal, the agent must pay it. The investor is not answerable for any of it. That is because the investor only ordered him to trade with the principal. The investor is not answerable for other than the principal. Had the investor been liable, it would have been an additional loss to him on top of the principal which he invested. The agent cannot put that on to the investor.&quot; Yahya said that Malik spoke about an investor who made a qirad loan to a man, who used it and made a profit. Then the man bought with all the profit a slave-girl and he had intercourse with her and she became pregnant by him, and so the capital decreased. Malik said, &quot;If he has money, the price of the slave-girl is taken from his property, and the capital is restored by it. If there is something left over after the money is paid, it is divided between them according to the first qirad. If he cannot pay it, the slave-girl is sold so that the capital is restored from her price.&quot; Malik spoke about an investor who made a qirad loan to a man, and the agent spent more than the amount of the qirad loan when buying goods with it and paid the increase from his own money. Malik said, &quot;The investor has a choice if the goods are sold for a profit or loss or if they are not sold. If he wishes to take the goods, he takes them and pays the agent back what he put in for them. If the agent refuses, the investor is a partner for his share of the price in increase and decrease according to what the agent paid extra for them from himself.&quot; Malik spoke about an agent who took qirad money from a man and then gave it to another man to use as a qirad without the consent of the investor. He said, &quot;The agent is responsible for the property. If it is decreased, he is responsible for the loss. If there is profit, the investor has his stipulation of the profit, and then the agent has his stipulation of what remains of the money.&quot; Malik spoke about an agent who exceeded and borrowed some of what he had of qirad in money and he bought goods for himself with it. Malik said, &quot;If he has a profit, the profit is divided according to the condition between them in the qirad. If he has a loss, he is responsible for the loss.&quot; Malik said about an investor who paid qirad money to a man, and the agent borrowed some of the cash and bought goods for himself with it, &quot;The investor of the capital has a choice. If he wishes, he shares with him in the goods according to the qirad, and if he wishes, he frees himself of them, and takes all of the principal back from the agent. That is what is done with some one who oversteps.&quot; Yahya said that Malik spoke about an investor who made a qirad loan to a man. He said, &quot;When the investment is large, the travelling expenses of the agent are taken from it. He can use it to eat and clothe himself in an acceptable fashion according to the size of the investment. If it saves him trouble, he can take a wage from some of the capital, if it is large, and he cannot support himself. There are certain jobs which an agent or his like are not responsible for, amongst them are collecting debts, transporting the goods, loading up and so forth. He can hire from the capital someone to do that for him. The agent should not spend from the capital nor clothe himself from it while he resides with his family. It is only permitted for him to have expenses when he travels for the investment. The expenses are taken from the capital. If he is only trading with the property in the city in which he resides, he has no expenses from the capital and no clothing.&quot; Malik spoke about an investor who paid qirad money to a man, and the agent went out with it and with his own capital. He said, &quot;The expenses come from the qirad and from his own capital according to their proportions.&quot; Yahya said that Malik spoke about an agent who had qirad money with him and he spent from it and clothed himself. He said, &quot;He cannot give away any of it, and neither a beggar nor anyone else is to be given any of it and he does not pay anyone compensation from it. If he meets some people, and they bring out food and he brings out food, I hope that that will be permitted to him if he does not intend to bestow something on them. If he intends that or what is like that without the permission of the investor, he must get the sanction of the investor for it. If he sanctions it, there is no harm. If he refuses to sanction it, he must repay it with like if he has something which is suitable as compensation.&quot; Yahya said that Malik said, &quot;The generally agreed on way of doing things among us about an investor who pays qirad money to an agent to buy goods, and the agent then sells the goods for a price to be paid later, and has a profit in the transaction, then the agent dies before he has received payment, is that if his heirs want to take that money, they have their father&#x27;s stipulated portion from the profit. That is theirs if they are trustworthy to take the payment. If they dislike to collect it from the debtor and they refer him to the investor, they are not obliged to collect it and there is nothing against them and nothing for them by their surrendering it to the investor. If they do collect it, they have a share of it and expenses like their father had. They are in the position of their father. If they are not trustworthy to do so, they can bring someone reliable and trustworthy to collect the money. If he collects all the capital and all the profit, they are in the position of their father.&quot; Malik spoke about an investor who paid qirad money to a man provided that he used it and was responsible for any delayed payment for which he sold it. He said, &quot;This is obligatory on the agent. If he sells it for delayed payment, he is responsible for it.&quot; Yahya said that Malik spoke about an investor who gave qirad money to a man, and then the man sought a loan from the investor or the investor borrowed money from the agent, or the investor left goods with the agent to sell for him, or the investor gave the agent dinars to buy goods with. Malik said, &quot;There is no harm if the investor leaves his goods with him knowing that if the agent did not have his money and he had asked a similar thing of him, he would have still done it because of the brotherhood between them or because it would have been no bother to him and that had the agent refused that, he would not have removed his capital from him. Or if the agent had borrowed from the investor or carried his goods for him and he knew that if the investor had not had his capital with him, he would have still done the same for him, and had he refused that to him, he would not have returned his capital to him. If that is true between both of them and it is in the way of a favour between them and it is not a condition in the terms of the qirad, it is permitted and there is no harm in it. If a condition comes into it, or it is feared that the agent is only doing it for the investor in order to safeguard the capital in his possession, or the investor is only doing it because the agent has taken his capital and will not return it to him, that is not permitted in qirad and it is part of what the people of knowledge forbid.&#x27; &quot; Yahya said that Malik spoke about a man who loaned another man money and then the debtor asked him to leave it with him as a qirad. Malik said, &quot;I do not like that unless he takes his money back from him, and then pays it to him as a qirad if he wishes or if he wishes keep it.&quot; Malik spoke about an investor who paid a man qirad money and the man told him that it was collected with him and asked him to write it for him as a loan. He said, &quot;I do not like that unless he takes his money from him and then lends it to him or keeps it as he wishes. That is only out of fear that he has lost some of it, and wants to defer it so that he can make up what has been lost of it. That is disapproved of and is not permitted and it is not good.&quot; Yahya said that Malik spoke about an investor paying qirad money to an agent who made a profit and then wanted to take his share of the profit and the investor was away. He said, &quot;He should not take any of it unless the investor is present. If he takes something from it, he is responsible for it until it is accounted for in the division of the capital.&quot; Malik said, &quot;It is not permitted for the parties involved in a qirad to account and divide property which is away from them until the capital is present, and the investor is given the principal in full. Then they divide the profit into their agreed portions.&quot; Malik spoke about a man taking qirad money, and buying goods with it while he had a debt. His creditors sought and found him while he was in a city away from the investor, and he had profitable merchandise whose good quality was clear. They wanted him to sell the merchandise for them so that they could take his share of the profit. Malik said, &quot;None of the profit of the qirad is taken until the investor is present. He takes his principal and then the profit is divided mutually between them.&quot; Malik spoke about an investor who put qirad money with an agent and he used it and had a profit. Then the principal was set aside and the profit divided. He took his share and added the share of the investor to his principal in the presence of witnesses he had called. Malik said, &quot;It is not permitted to divide the profit unless the investor is present. If he has taken something here turns it until the investor has received the principal in full. Then what remains is divided into their respective portions.&quot; Malik spoke about an investor who put qirad money with an agent. The agent used it and then came to the investor and said, &quot;This is your portion of the profit, and I have taken the like of it for myself, and I have retained your principal in full.&quot; Malik said, &quot;I do not like that, unless all the capital is present, the principal is there and he knows that it is complete and he receives it. Then they divide the profit between them. He returns the principal to him if he wishes, or he keeps it. The presence of the principal is necessary out of fear that the agent might have lost some of it, and so may want it not to be removed from him and to keep it in his hand.&quot; Yahya said that Malik spoke about an investor who put qirad money with an agent who bought goods with it, and the investor told him to sell them. The agent said that he did not see any way to sell at that time and they quarrelled about it. He said, &quot;One does not look at the statement of either of them. The people of experience and insight concerning such goods are asked about these goods. If they can see anyway of selling them they are sold for them. If they think it is time to wait, they should wait.&quot; Malik spoke about a man who took qirad money from an investor and used it and when the investor asked him for his money, he said that he had it in full. When he held him to his settlement he admitted that &quot;Such-and-such of it was lost with me,&quot; and he named an amount of money. &quot;I told you that so that you would leave it with me.&quot; Malik said, &quot;He does not benefit by denying it after he had confirmed that he had it all . He is answerable by his confession against himself unless he produces evidence about the loss of that property which confirms his statement. If he does not produce an acceptable reason he is answerable by his confession, and his denial does not avail him.&quot; Malik said, &quot;Similarly, had he said, &#x27;I have had such-and-such a profit from the capital,&#x27; and then the owner of the capital asked him to pay him the principal and his profit, and he said that he had not had any profit in it and had said that only so it might be left in his possession, it does not benefit him. He is taken to account for what he affirmed unless he brings acceptable proof of his word, so that the first statement is not binding on him.&quot; Malik spoke about an investor who put qirad money with an agent who made a profit with it. The agent said, &quot;I took the qirad from you provided that I would have two-thirds.&quot; The owner of the capital says, &quot;I gave you a qirad provided that you had a third.&quot; Malik said, &quot;The word is the word of the agent, and he must take an oath on that if what he says resembles the known practice of qirad or is close to it. If he brings a matter which is unacceptable and people do not make qirads like that, he is not believed, and it is judged to be according to how a qirad like it would normally be.&quot; Malik spoke about a man who gave a man one hundred dinars as a qirad. He bought goods with it and then went to pay the one hundred dinars to the owner of the goods and found that they had been stolen. The investor says, &quot;Sell the goods. If there is anything over, it is mine. If there is a loss, it is against you because you lost it.&quot; The agent says, &quot;Rather you must fulfil what the seller is owed. I bought them with your capital which you gave me.&quot; Malik said, &quot;The agent is obliged to pay the price to the seller and the investor is told, &#x27;If you wish, pay the hundred dinars to the agent and the goods are between you. The qirad is according to what the first hundred was based on. If you wish, you are free of the goods.&#x27; If the hundred dinars are paid to the agent, it is a qirad according to the conditions of the first qirad. If he refuses, the goods belong to the agent and he must pay their price.&quot; Malik spoke about two people in a qirad who settled up and the agent still had some of the goods which he used - threadbare cloth or a waterskin or the like of that. Malik said, &quot;Any of that which is insignificant is of no importance and belongs to the agent. I have not heard anyone give a decision calling for the return of that. Anything which has a price is returned. If it is something which has value like an animal, camel, coarse cloth or the like of that which fetches a price, I think that he should return what he has remaining of such things unless the owner overlooks it.&quot; Yahya related to me from Malik from Ibn Shihab from Said ibn al- Musayyab that the Messenger of Allah, may Allah bless him and grant him peace, said to the jews of Khaybar on the day of the conquest of Khaybar, &quot;I confirm you in it as long as Allah, the Mighty, the Majestic, establishes you in it, provided that the fruits are divided between us and you.&quot; Said continued, &quot;The Messenger of Allah, may Allah bless him and grant him peace, used to send Abdullah ibn Rawaha, to assess the division of the fruit crop between him and them, and he would say, &#x27;If you wish, you can buy it back, and if you wish, it is mine.&#x27; They would take it</span></td></tr>
+<tr class='grade' data-hadith='1388'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='1388'><td class='label'>Reference</td><td><span class='ref-text'>Book 33, Hadith 1</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-032.html">← Qirad</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-034.html">Renting Land →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

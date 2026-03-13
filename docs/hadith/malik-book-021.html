@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — Jihad – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Jihad</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html">5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html">7. Tahajjud</option><option value="malik-book-008.html">8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-021.html" selected>21. Jihad</option><option value="malik-book-022.html">22. Vows and Oaths</option><option value="malik-book-023.html">23. Sacrificial Animals</option><option value="malik-book-024.html">24. Slaughtering Animals</option><option value="malik-book-025.html">25. Game</option><option value="malik-book-026.html">26. The &#x27;Aqiqa</option><option value="malik-book-027.html">27. Fara&#x27;id</option><option value="malik-book-028.html">28. Marriage</option><option value="malik-book-029.html">29. Divorce</option><option value="malik-book-030.html">30. Suckling</option><option value="malik-book-031.html">31. Business Transactions</option><option value="malik-book-032.html">32. Qirad</option><option value="malik-book-033.html">33. Sharecropping</option><option value="malik-book-034.html">34. Renting Land</option><option value="malik-book-035.html">35. Pre-emption in Property</option><option value="malik-book-036.html">36. Judgements</option><option value="malik-book-037.html">37. Wills and Testaments</option><option value="malik-book-038.html">38. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">39. The Mukatab</option><option value="malik-book-040.html">40. The Mudabbar</option><option value="malik-book-041.html">41. Hudud</option><option value="malik-book-042.html">42. Drinks</option><option value="malik-book-043.html">43. Blood-Money</option><option value="malik-book-044.html">44. The Oath of Qasama</option><option value="malik-book-045.html">45. Madina</option><option value="malik-book-046.html">46. The Decree</option><option value="malik-book-047.html">47. Good Character</option><option value="malik-book-048.html">48. Dress</option><option value="malik-book-049.html">49. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">50. The Evil Eye</option><option value="malik-book-051.html">51. Hair</option><option value="malik-book-052.html">52. Visions</option><option value="malik-book-053.html">53. Greetings</option><option value="malik-book-054.html">54. General Subjects</option><option value="malik-book-055.html">55. The Oath of Allegiance</option><option value="malik-book-056.html">56. Speech</option><option value="malik-book-057.html">57. Jahannam</option><option value="malik-book-058.html">58. Sadaqa</option><option value="malik-book-059.html">59. Knowledge</option><option value="malik-book-060.html">60. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">61. The Names of the Prophet, may Allah Bless Him and…</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>Jihad</h2>
+<div class="meta-info">
+  Hadith 959–1008 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='959' max='1008' value='959'></label><label>To <input type='number' id='hvc-to' min='959' max='1008' value='1008'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h959' class='hadith-sep' data-hadith='959'><td colspan='2'><a class='permalink' href='#h959'>Hadith 959</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='959'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَثَلُ الْمُجَاهِدِ فِي سَبِيلِ اللَّهِ كَمَثَلِ الصَّائِمِ الْقَائِمِ الدَّائِمِ الَّذِي لا يَفْتُرُ مِنْ صَلاَةٍ وَلاَ صِيَامٍ حَتَّى يَرْجِعَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='959'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said &quot;Someone who does jihad in the way of Allah is like someone who fasts and prays constantly and who does not slacken from his prayer and fasting until he returns</span></td></tr>
+<tr class='grade' data-hadith='959'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='959'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 1</span></td></tr><tr id='h960' class='hadith-sep' data-hadith='960'><td colspan='2'><a class='permalink' href='#h960'>Hadith 960</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='960'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ تَكَفَّلَ اللَّهُ لِمَنْ جَاهَدَ فِي سَبِيلِهِ - لاَ يُخْرِجُهُ مِنْ بَيْتِهِ إِلاَّ الْجِهَادُ فِي سَبِيلِهِ وَتَصْدِيقُ كَلِمَاتِهِ - أَنْ يُدْخِلَهُ الْجَنَّةَ أَوْ يَرُدَّهُ إِلَى مَسْكَنِهِ الَّذِي خَرَجَ مِنْهُ مَعَ مَا نَالَ مِنْ أَجْرٍ أَوْ غَنِيمَةٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='960'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Allah guarantees either the Garden or a safe return to his home with whatever he has obtained of reward or booty, for the one who does jihad in His way, if it is solely jihad and trust in his promise that brings him out of his house</span></td></tr>
+<tr class='grade' data-hadith='960'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='960'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 2</span></td></tr><tr id='h961' class='hadith-sep' data-hadith='961'><td colspan='2'><a class='permalink' href='#h961'>Hadith 961</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='961'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ أَبِي صَالِحٍ السَّمَّانِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ الْخَيْلُ لِرَجُلٍ أَجْرٌ وَلِرَجُلٍ سِتْرٌ وَعَلَى رَجُلٍ وِزْرٌ فَأَمَّا الَّذِي هِيَ لَهُ أَجْرٌ فَرَجُلٌ رَبَطَهَا فِي سَبِيلِ اللَّهِ فَأَطَالَ لَهَا فِي مَرْجٍ أَوْ رَوْضَةٍ فَمَا أَصَابَتْ فِي طِيَلِهَا ذَلِكَ مِنَ الْمَرْجِ أَوِ الرَّوْضَةِ كَانَ لَهُ حَسَنَاتٌ وَلَوْ أَنَّهَا قَطَعَتْ طِيَلَهَا ذَلِكَ فَاسْتَنَّتْ شَرَفًا أَوْ شَرَفَيْنِ كَانَتْ آثَارُهَا وَأَرْوَاثُهَا حَسَنَاتٍ لَهُ وَلَوْ أَنَّهَا مَرَّتْ بِنَهَرٍ فَشَرِبَتْ مِنْهُ وَلَمْ يُرِدْ أَنْ يَسْقِيَ بِهِ كَانَ ذَلِكَ لَهُ حَسَنَاتٍ فَهِيَ لَهُ أَجْرٌ وَرَجُلٌ رَبَطَهَا تَغَنِّيًا وَتَعَفُّفًا وَلَمْ يَنْسَ حَقَّ اللَّهِ فِي رِقَابِهَا وَلاَ فِي ظُهُورِهَا فَهِيَ لِذَلِكَ سِتْرٌ وَرَجُلٌ رَبَطَهَا فَخْرًا وَرِيَاءً وَنِوَاءً لأَهْلِ الإِسْلاَمِ فَهِيَ عَلَى ذَلِكَ وِزْرٌ ‏&quot;‏ ‏.‏ وَسُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَنِ الْحُمُرِ فَقَالَ ‏&quot;‏ لَمْ يَنْزِلْ عَلَىَّ فِيهَا شَىْءٌ إِلاَّ هَذِهِ الآيَةُ الْجَامِعَةُ الْفَاذَّةُ ‏{‏فَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ وَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُ ‏}‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='961'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam from Abu Salih as-Samman from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Horses are a reward for one man, a protection for another, a burden for another. The one who has them as a reward is the one who dedicates them for use in the way of Allah, and tethers them in a meadow or grassland. Whatever the horse enjoys of the grassland or meadow in the length of its tether are good deeds for him. If it breaks its tether and goes over a hillock or two, its tracks and droppings are good deeds for him. If it crosses a river and drinks from it while he did not mean to allow it to drink it, that counts as good deeds for him, and the horse is a reward for him. Another man uses his horse to gain self reliance and up- standingness and does not forget Allah&#x27;s right on their necks and backs (i.e. he does not ill treat or over-work them). Horses are a protection for him . Another man uses them out of pride to show them off and in hostility to the people of Islam. They are a burden on that man.&quot; The Messenger of Allah, may Allah bless him and grant him peace, was asked about donkeys, and he said, &quot;Nothing has been revealed to me about them except this single all- inclusive ayat, &#x27;Whoever does an atom of good will see it, and whoever does an atom of evil, will see it.&#x27; &quot; (Sura 99 Ayats)</span></td></tr>
+<tr class='grade' data-hadith='961'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='961'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 3</span></td></tr><tr id='h962' class='hadith-sep' data-hadith='962'><td colspan='2'><a class='permalink' href='#h962'>Hadith 962</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='962'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ عَبْدِ اللَّهِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ مَعْمَرٍ الأَنْصَارِيِّ، عَنْ عَطَاءِ بْنِ يَسَارٍ، أَنَّهُ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ أَلاَ أُخْبِرُكُمْ بِخَيْرِ النَّاسِ مَنْزِلاً رَجُلٌ آخِذٌ بِعِنَانِ فَرَسِهِ يُجَاهِدُ فِي سَبِيلِ اللَّهِ أَلاَ أُخْبِرُكُمْ بِخَيْرِ النَّاسِ مَنْزِلاً بَعْدَهُ رَجُلٌ مُعْتَزِلٌ فِي غُنَيْمَتِهِ يُقِيمُ الصَّلاَةَ وَيُؤْتِي الزَّكَاةَ وَيَعْبُدُ اللَّهَ لاَ يُشْرِكُ بِهِ شَيْئًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='962'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Abdullah ibn Abd ar-Rahman ibn Mamar al- Ansari that Ata ibn Yasar said that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Shall I tell you who has the best degree among people? A man who takes the rein of his horse to do jihad in the way of Allah. Shall I tell you who has the best degree among people after him? A man who lives alone with a few sheep, performs the prayer, pays the zakat, and worships Allah without associating anything with him</span></td></tr>
+<tr class='grade' data-hadith='962'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='962'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 4</span></td></tr><tr id='h963' class='hadith-sep' data-hadith='963'><td colspan='2'><a class='permalink' href='#h963'>Hadith 963</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='963'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، قَالَ أَخْبَرَنِي عُبَادَةُ بْنُ الْوَلِيدِ بْنِ عُبَادَةَ بْنِ الصَّامِتِ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ بَايَعْنَا رَسُولَ اللَّهِ صلى الله عليه وسلم عَلَى السَّمْعِ وَالطَّاعَةِ فِي الْيُسْرِ وَالْعُسْرِ وَالْمَنْشَطِ وَالْمَكْرَهِ وَأَنْ لاَ نُنَازِعَ الأَمْرَ أَهْلَهُ وَأَنْ نَقُولَ أَوْ نَقُومَ بِالْحَقِّ حَيْثُمَا كُنَّا لاَ نَخَافُ فِي اللَّهِ لَوْمَةَ لاَئِمٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='963'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said, &#x27;&#x27;Ubada ibn al-Walid ibn Ubada ibn as-Samit informed me from his father that his grandfather (Ubada) said, &#x27;We made a contract with the Messenger of Allah, may Allah bless him and grant him peace, to hear and obey in ease and hardship, enthusiasm and reluctance, and not to dispute with people in authority and to speak or establish the truth wherever we were without worrying about criticism</span></td></tr>
+<tr class='grade' data-hadith='963'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='963'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 5</span></td></tr><tr id='h964' class='hadith-sep' data-hadith='964'><td colspan='2'><a class='permalink' href='#h964'>Hadith 964</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='964'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، قَالَ كَتَبَ أَبُو عُبَيْدَةَ بْنُ الْجَرَّاحِ إِلَى عُمَرَ بْنِ الْخَطَّابِ يَذْكُرُ لَهُ جُمُوعًا مِنَ الرُّومِ وَمَا يَتَخَوَّفُ مِنْهُمْ فَكَتَبَ إِلَيْهِ عُمَرُ بْنُ الْخَطَّابِ أَمَّا بَعْدُ فَإِنَّهُ مَهْمَا يَنْزِلْ بِعَبْدٍ مُؤْمِنٍ مِنْ مُنْزَلِ شِدَّةٍ يَجْعَلِ اللَّهُ بَعْدَهُ فَرَجًا وَإِنَّهُ لَنْ يَغْلِبَ عُسْرٌ يُسْرَيْنِ وَأَنَّ اللَّهَ تَعَالَى يَقُولُ فِي كِتَابِهِ ‏{‏يَا أَيُّهَا الَّذِينَ آمَنُوا اصْبِرُوا وَصَابِرُوا وَرَابِطُوا وَاتَّقُوا اللَّهَ لَعَلَّكُمْ تُفْلِحُونَ ‏}‏</span></td></tr>
+<tr class='eng' data-hadith='964'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Zayd ibn Aslam had said that Ubayda ibn al-Jarrah had written to Umar ibn al-Khattab mentioning to him a great array of Byzantine troops and the anxiety they were causing him. Umar ibn al-Khattab wrote in reply to him, &quot;Whatever hardship befalls a believing slave, Allah will make an opening for him after it, and a hardship will not overcome two eases. Allah the Exalted says in His Book, &#x27;O you who trust, be patient, and vie in patience; be steadfast and fear Allah, perhaps you will profit.&#x27; &quot; (Sura 3 ayat)</span></td></tr>
+<tr class='grade' data-hadith='964'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='964'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 6</span></td></tr><tr id='h965' class='hadith-sep' data-hadith='965'><td colspan='2'><a class='permalink' href='#h965'>Hadith 965</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='965'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ قَالَ نَهَى رَسُولُ اللَّهِ صلى الله عليه وسلم أَنْ يُسَافَرَ بِالْقُرْآنِ إِلَى أَرْضِ الْعَدُوِّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='965'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar said that the Messenger of Allah, may Allah bless him and grant him peace, forbade travelling with a Qur&#x27;an in the land of the enemy. Malik commented, &quot;That is out of fear that the enemy will get hold of it</span></td></tr>
+<tr class='grade' data-hadith='965'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='965'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 7</span></td></tr><tr id='h966' class='hadith-sep' data-hadith='966'><td colspan='2'><a class='permalink' href='#h966'>Hadith 966</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='966'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنِ ابْنٍ لِكَعْبِ بْنِ مَالِكٍ، - قَالَ حَسِبْتُ أَنَّهُ قَالَ عَنْ عَبْدِ الرَّحْمَنِ بْنِ كَعْبٍ، أَنَّهُ - قَالَ نَهَى رَسُولُ اللَّهِ صلى الله عليه وسلم الَّذِينَ قَتَلُوا ابْنَ أَبِي الْحُقَيْقِ عَنْ قَتْلِ النِّسَاءِ وَالْوِلْدَانِ - قَالَ - فَكَانَ رَجُلٌ مِنْهُمْ يَقُولُ بَرَّحَتْ بِنَا امْرَأَةُ ابْنِ أَبِي الْحُقَيْقِ بِالصِّيَاحِ فَأَرْفَعُ السَّيْفَ عَلَيْهَا ثُمَّ أَذْكُرُ نَهْىَ رَسُولِ اللَّهِ صلى الله عليه وسلم فَأَكُفُّ وَلَوْلاَ ذَلِكَ اسْتَرَحْنَا مِنْهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='966'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that a son of Kab ibn Malik (Malik believed that ibn Shihab said it was Abd ar-Rahman ibn Kab) said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, forbade those who fought ibn Abi Huqayq (a treacherous jew from Madina) to kill women and children. He said that one of the men fighting had said, &#x27;The wife of ibn Abi Huqayq began screaming and I repeatedly raised my sword against her. Then I would remember the prohibition of the Messenger of Allah, may Allah bless him and grant him peace, so I would stop. Had it not been for that, we would have been rid of her</span></td></tr>
+<tr class='grade' data-hadith='966'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='966'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 8</span></td></tr><tr id='h967' class='hadith-sep' data-hadith='967'><td colspan='2'><a class='permalink' href='#h967'>Hadith 967</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='967'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم رَأَى فِي بَعْضِ مَغَازِيهِ امْرَأَةً مَقْتُولَةً فَأَنْكَرَ ذَلِكَ وَنَهَى عَنْ قَتْلِ النِّسَاءِ وَالصِّبْيَانِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='967'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, saw the corpse of a woman who had been slain in one of the raids, and he disapproved of it and forbade the killing of women and children</span></td></tr>
+<tr class='grade' data-hadith='967'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='967'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 9</span></td></tr><tr id='h968' class='hadith-sep' data-hadith='968'><td colspan='2'><a class='permalink' href='#h968'>Hadith 968</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='968'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ أَبَا بَكْرٍ الصِّدِّيقَ، بَعَثَ جُيُوشًا إِلَى الشَّامِ فَخَرَجَ يَمْشِي مَعَ يَزِيدَ بْنِ أَبِي سُفْيَانَ - وَكَانَ أَمِيرَ رُبْعٍ مِنْ تِلْكَ الأَرْبَاعِ - فَزَعَمُوا أَنَّ يَزِيدَ قَالَ لأَبِي بَكْرٍ إِمَّا أَنْ تَرْكَبَ وَإِمَّا أَنْ أَنْزِلَ ‏.‏ فَقَالَ أَبُو بَكْرٍ مَا أَنْتَ بِنَازِلٍ وَمَا أَنَا بِرَاكِبٍ إِنِّي أَحْتَسِبُ خُطَاىَ هَذِهِ فِي سَبِيلِ اللَّهِ ثُمَّ قَالَ لَهُ إِنَّكَ سَتَجِدُ قَوْمًا زَعَمُوا أَنَّهُمْ حَبَّسُوا أَنْفُسَهُمْ لِلَّهِ فَذَرْهُمْ وَمَا زَعَمُوا أَنَّهُمْ حَبَّسُوا أَنْفُسَهُمْ لَهُ وَسَتَجِدُ قَوْمًا فَحَصُوا عَنْ أَوْسَاطِ رُءُوسِهِمْ مِنَ الشَّعَرِ فَاضْرِبْ مَا فَحَصُوا عَنْهُ بِالسَّيْفِ وَإِنِّي مُوصِيكَ بِعَشْرٍ لاَ تَقْتُلَنَّ امْرَأَةً وَلاَ صَبِيًّا وَلاَ كَبِيرًا هَرِمًا وَلاَ تَقْطَعَنَّ شَجَرًا مُثْمِرًا وَلاَ تُخَرِّبَنَّ عَامِرًا وَلاَ تَعْقِرَنَّ شَاةً وَلاَ بَعِيرًا إِلاَّ لِمَأْكُلَةٍ وَلاَ تَحْرِقَنَّ نَحْلاً وَلاَ تُفَرِّقَنَّهُ وَلاَ تَغْلُلْ وَلاَ تَجْبُنْ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='968'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that Abu Bakr as-Siddiq was sending armies to ash-Sham. He went for a walk with Yazid ibn Abi Sufyan who was the commander of one of the battalions. It is claimed that Yazid said to Abu Bakr, &quot;Will you ride or shall I get down?&quot; Abu Bakrsaid, &quot;I will not ride and you will not get down. I intend these steps of mine to be in the way of Allah.&quot; Then Abu Bakr advised Yazid, &quot;You will find a people who claim to have totally given themselves to Allah. Leave them to what they claim to have given themselves. You will find a people who have shaved the middle of their heads, strike what they have shaved with the sword. &quot;I advise you ten things:Do not kill women or children or an aged, infirm person. Do not cut down fruit-bearing trees. Do not destroy an inhabited place. Do not slaughter sheep or camels except for food. Do not burn bees and do not scatter them. Do not steal from the booty, and do not be cowardly</span></td></tr>
+<tr class='grade' data-hadith='968'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='968'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 10</span></td></tr><tr id='h969' class='hadith-sep' data-hadith='969'><td colspan='2'><a class='permalink' href='#h969'>Hadith 969</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='969'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عُمَرَ بْنَ عَبْدِ الْعَزِيزِ، كَتَبَ إِلَى عَامِلٍ مِنْ عُمَّالِهِ أَنَّهُ بَلَغَنَا أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ إِذَا بَعَثَ سَرِيَّةً يَقُولُ لَهُمُ ‏ &quot;‏ اغْزُوا بِاسْمِ اللَّهِ فِي سَبِيلِ اللَّهِ تُقَاتِلُونَ مَنْ كَفَرَ بِاللَّهِ لاَ تَغُلُّوا وَلاَ تَغْدِرُوا وَلاَ تُمَثِّلُوا وَلاَ تَقْتُلُوا وَلِيدًا وَقُلْ ذَلِكَ لِجِيُوشِكَ وَسَرَايَاكَ إِنْ شَاءَ اللَّهُ وَالسَّلاَمُ عَلَيْكَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='969'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Umar ibn Abd al-Aziz wrote to one of his governors, &quot;It has been passed down to us that when the Messenger of Allah, may Allah bless him and grant him peace, sent out a raiding party, he would say to them, &#x27;Make your raids in the name of Allah in the way of Allah. Fight whoever denies Allah. Do not steal from the booty, and do not act treacherously. Do not mutilate and do not kill children.&#x27; Say the same to your armies and raiding parties, Allah willing. Peace be upon you</span></td></tr>
+<tr class='grade' data-hadith='969'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='969'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 11</span></td></tr><tr id='h970' class='hadith-sep' data-hadith='970'><td colspan='2'><a class='permalink' href='#h970'>Hadith 970</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='970'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ رَجُلٍ، مِنْ أَهْلِ الْكُوفَةِ أَنَّ عُمَرَ بْنَ الْخَطَّابِ، كَتَبَ إِلَى عَامِلِ جَيْشٍ كَانَ بَعَثَهُ إِنَّهُ بَلَغَنِي أَنَّ رِجَالاً مِنْكُمْ يَطْلُبُونَ الْعِلْجَ حَتَّى إِذَا أَسْنَدَ فِي الْجَبَلِ وَامْتَنَعَ قَالَ رَجُلٌ مَطْرَسْ - يَقُولَ لاَ تَخَفْ - فَإِذَا أَدْرَكَهُ قَتَلَهُ وَإِنِّي وَالَّذِي نَفْسِي بِيَدِهِ لاَ أَعْلَمُ مَكَانَ وَاحِدٍ فَعَلَ ذَلِكَ إِلاَّ ضَرَبْتُ عُنُقَهُ ‏.‏ قَالَ يَحْيَى سَمِعْتُ مَالِكًا يَقُولُ لَيْسَ هَذَا الْحَدِيثُ بِالْمُجْتَمَعِ عَلَيْهِ وَلَيْسَ عَلَيْهِ الْعَمَلُ ‏.‏ وَسُئِلَ مَالِكٌ عَنِ الإِشَارَةِ بِالأَمَانِ أَهِيَ بِمَنْزِلَةِ الْكَلاَمِ فَقَالَ نَعَمْ وَإِنِّي أَرَى أَنْ يُتَقَدَّمَ إِلَى الْجُيُوشِ أَنْ لاَ تَقْتُلُوا أَحَدًا أَشَارُوا إِلَيْهِ بِالأَمَانِ لأَنَّ الإِشَارَةَ عِنْدِي بِمَنْزِلَةِ الْكَلاَمِ وَإِنَّهُ بَلَغَنِي أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ قَالَ مَا خَتَرَ قَوْمٌ بِالْعَهْدِ إِلاَّ سَلَّطَ اللَّهُ عَلَيْهِمُ الْعَدُوَّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='970'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from a man of Kufa that Umar ibn al-Khattab wrote to a lieutenant of an army which he had sent out, &quot;I have heard that it is the habit of some of your men to chase an unbeliever till he takes refuge in a high place. Then one man tells him in Persian not to be afraid, and when he comes up to him, he kills him. By He in whose hand my self is, if I knew someone who had done that, I would strike off his head.&quot; Yahya said, I heard Malik say, &quot;This tradition is not unanimously agreed upon, so one does not act on it.&quot; Malik when asked whether safe conduct promised by gesture had the same status as that promised by speech, said, &quot;Yes. I think that one can request an army not to kill someone by gesturing for safe conduct, because as far as I am concerned, gesture has the same status as speech. I have heard that Abdullah ibn Abbas said, &#x27;There is no people who betray a pledge, but that Allah gives their enemies power over them</span></td></tr>
+<tr class='grade' data-hadith='970'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='970'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 12</span></td></tr><tr id='h971' class='hadith-sep' data-hadith='971'><td colspan='2'><a class='permalink' href='#h971'>Hadith 971</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='971'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ كَانَ إِذَا أَعْطَى شَيْئًا فِي سَبِيلِ اللَّهِ يَقُولُ لِصَاحِبِهِ إِذَا بَلَغْتَ وَادِيَ الْقُرَى فَشَأْنَكَ بِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='971'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that when Abdullah ibn Umar gave something in the way of Allah, he would say to its owner, &quot;When you reach Wadi&#x27;l-Qura, (on the outskirts of Madina) then it is your affair</span></td></tr>
+<tr class='grade' data-hadith='971'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='971'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 13</span></td></tr><tr id='h972' class='hadith-sep' data-hadith='972'><td colspan='2'><a class='permalink' href='#h972'>Hadith 972</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='972'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ سَعِيدَ بْنَ الْمُسَيَّبِ، كَانَ يَقُولُ إِذَا أُعْطِيَ الرَّجُلُ الشَّىْءَ فِي الْغَزْوِ فَيَبْلُغُ بِهِ رَأْسَ مَغْزَاتِهِ فَهُوَ لَهُ ‏.‏ وَسُئِلَ مَالِكٌ عَنْ رَجُلٍ أَوْجَبَ عَلَى نَفْسِهِ الْغَزْوَ فَتَجَهَّزَ حَتَّى إِذَا أَرَادَ أَنْ يَخْرُجَ مَنَعَهُ أَبَوَاهُ أَوْ أَحَدُهُمَا فَقَالَ لاَ يُكَابِرْهُمَا وَلَكِنْ يُؤَخِّرُ ذَلِكَ إِلَى عَامٍ آخَرَ فَأَمَّا الْجِهَازُ فَإِنِّي أَرَى أَنْ يَرْفَعَهُ حَتَّى يَخْرُجَ بِهِ فَإِنْ خَشِيَ أَنْ يَفْسُدَ بَاعَهُ وَأَمْسَكَ ثَمَنَهُ حَتَّى يَشْتَرِيَ بِهِ مَا يُصْلِحُهُ لِلْغَزْوِ فَإِنْ كَانَ مُوسِرًا يَجِدُ مِثْلَ جِهَازِهِ إِذَا خَرَجَ فَلْيَصْنَعْ بِجِهَازِهِ مَا شَاءَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='972'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that Said ibn al-Musayyab used to say, &quot;When a man is given something to use in a military expedition, and he brings it to the battlefield, it is his.&quot; Malik was asked about a man who pledged himself to go on a military campaign, equipped himself,and when he wanted to go out, one or both of his parents prevented him. He said, &quot;He should not contradict them. Let him put it off for another year. As for the equipment, I think that he should store it until he needs it. If he fears that it will spoil, let him sell it and keep its price so that he can readily buy what is needed fora military expedition. If he is well-to-do, he will find the like of his equipment when he goes out, so let him do what he likes with his equipment</span></td></tr>
+<tr class='grade' data-hadith='972'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='972'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 14</span></td></tr><tr id='h973' class='hadith-sep' data-hadith='973'><td colspan='2'><a class='permalink' href='#h973'>Hadith 973</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='973'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم بَعَثَ سَرِيَّةً فِيهَا عَبْدُ اللَّهِ بْنُ عُمَرَ قِبَلَ نَجْدٍ فَغَنِمُوا إِبِلاً كَثِيرَةً فَكَانَ سُهْمَانُهُمُ اثْنَىْ عَشَرَ بَعِيرًا أَوْ أَحَدَ عَشَرَ بَعِيرًا وَنُفِّلُوا بَعِيرًا بَعِيرًا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='973'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, sent a raiding party which included Abdullah ibn Umar near Najd. They plundered many camels and their portions were twelve or eleven camels each. They divided it up camel by camel</span></td></tr>
+<tr class='grade' data-hadith='973'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='973'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 15</span></td></tr><tr id='h974' class='hadith-sep' data-hadith='974'><td colspan='2'><a class='permalink' href='#h974'>Hadith 974</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='974'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ سَمِعَ سَعِيدَ بْنَ الْمُسَيَّبِ، يَقُولُ كَانَ النَّاسُ فِي الْغَزْوِ إِذَا اقْتَسَمُوا غَنَائِمَهُمْ يَعْدِلُونَ الْبَعِيرَ بِعَشْرِ شِيَاهٍ ‏.‏ قَالَ مَالِكٌ فِي الأَجِيرِ فِي الْغَزْوِ إِنَّهُ إِنْ كَانَ شَهِدَ الْقِتَالَ وَكَانَ مَعَ النَّاسِ عِنْدَ الْقِتَالِ وَكَانَ حُرًّا فَلَهُ سَهْمُهُ وَإِنْ لَمْ يَفْعَلْ ذَلِكَ فَلاَ سَهْمَ لَهُ وَأَرَى أَنْ لاَ يُقْسَمَ إِلاَّ لِمَنْ شَهِدَ الْقِتَالَ مِنَ الأَحْرَارِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='974'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that he heard Said ibn al-Musayyab say, &quot;When people in military expeditions divided the spoils, they made a camel equal to ten sheep.&quot; Malik said about the paid labourer in military expeditions, &quot;If he is present at the battle and is with the people in the battle and he is a free man, he has his share. If he is not present, he has no share.&quot; Malik summed up, &quot;I think that the booty is only divided among free men who have been present at the battle</span></td></tr>
+<tr class='grade' data-hadith='974'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='974'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 16</span></td></tr><tr id='h975' class='hadith-sep' data-hadith='975'><td colspan='2'><a class='permalink' href='#h975'>Hadith 975</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='975'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدًا، لِعَبْدِ اللَّهِ بْنِ عُمَرَ أَبَقَ وَأَنَّ فَرَسًا لَهُ عَارَ فَأَصَابَهُمَا الْمُشْرِكُونَ ثُمَّ غَنِمَهُمَا الْمُسْلِمُونَ فَرُدَّا عَلَى عَبْدِ اللَّهِ بْنِ عُمَرَ وَذَلِكَ قَبْلَ أَنْ تُصِيبَهُمَا الْمَقَاسِمُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='975'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik said about enemy soldiers who were found on the seashore of a Muslim land, and they claimed that they were merchants and that the sea had driven them ashore, while the Muslims were not able to verify any of that except that their ships were damaged, or they were thirsty and had disembarked without the permission of the Muslims, &quot;I think that it is up to the imam to give his opinion about them, and I do not think that the tax of one fifth is taken from them.&quot; Malik said, &quot;I do not see that there is any harm in the Muslims eating whatever food they come across in enemy territory before the spoils are divided.&quot; Malik said, &quot;I think that any camels, cattle and sheep (taken as booty) are considered as food which the Muslims can eat in enemy territory. If they could not be eaten until the people had gathered for the division and the spoils had been distributed among them, that would be harmful for the army. I do not see any objection to eating such things within acceptable limits. I do not think, however, that anyone should store up any of it to take back to his family.&quot; Malik was asked whether it was proper for a man who obtained food in enemy territory and ate some of it and made provision so that there was some of it left over to keep and eat with his family, or to sell before he had come to his country and make use of its price. He said, &quot;If he sells it while he is on a military expedition, I think that he should put its price into the booty of the Muslims. If he takes it back to his country, I see no objection to his eating it and using it if it is a small insignificant thing.&quot; Yahya related to me from Malik that it reached him that a slave of Abdullah ibn Umar escaped and one of his horses wandered off, and the idol worshippers seized them. Then the Muslims recaptured them, and they were returned to Abdullah ibn Umar, before the division of the spoils took place. I heard Malik say about muslim property that had been seized by the enemy, &quot;If it is noticed before the distribution, then it is returned to itsowner. Whatever has already been distributed is not returned to anyone.&quot; Malik, when asked about a man whose young male slave was taken by the idol worshippers and then the Muslims re-captured him, said, &quot;The owner is more entitled to him without having to pay his price or value or having to incur any loss before the distribution takes place. If the distribution has already taken place then I think that the slave belongs to his master for his price if the master wants him back.&quot; Regarding an umm walad of a Muslim man who has been taken by the idol worshippers and then recaptured by the Muslims and allotted in the distribution of spoils and then recognised by her master after the distribution, Malik said, &quot;She is not to be enslaved. I think that the Imam should pay a ransom for her for her master. If he does not do it, then her master must pay a ransom for her and not leave her. I do not think that she should be made a slave by whoever takes her and intercourse with her is not halal. She is in the position of a free woman because her master would be required to pay compensation if she injured somebody and so she is in the same position (as a wife). He must not leave the mother of his son to be enslaved nor may intercourse with her be made halal.&quot; Malik was asked about a man who went to enemy territory to pay ransom or to trade, and he bought a free man or a slave, or they were given to him. He said, &quot;As for the free man, the price he buys him for is a debt against the man and he is not made a slave. If the captive is given to him freely, he is free and owes nothing unless the man gave something in recompense for him. That is a debt against the free man, the same as if a ransom had been paid for him. As for a slave, his former master can choose to take him back and pay his price to the man who bought him or he can choose to leave him, as he wishes. If he was given to the man, the former master is more entitled to him, and he owes nothing for him unless the man gave something for him in recompense. Whatever he gave for him is a loss against the master if he wants him back</span></td></tr>
+<tr class='grade' data-hadith='975'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='975'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 17</span></td></tr><tr id='h976' class='hadith-sep' data-hadith='976'><td colspan='2'><a class='permalink' href='#h976'>Hadith 976</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='976'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ عُمَرَ بْنِ كَثِيرِ بْنِ أَفْلَحَ، عَنْ أَبِي مُحَمَّدٍ، مَوْلَى أَبِي قَتَادَةَ عَنْ أَبِي قَتَادَةَ بْنِ رِبْعِيٍّ، أَنَّهُ قَالَ خَرَجْنَا مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم عَامَ حُنَيْنٍ فَلَمَّا الْتَقَيْنَا كَانَتْ لِلْمُسْلِمِينَ جَوْلَةٌ - قَالَ - فَرَأَيْتُ رَجُلاً مِنَ الْمُشْرِكِينَ قَدْ عَلاَ رَجُلاً مِنَ الْمُسْلِمِينَ - قَالَ - فَاسْتَدَرْتُ لَهُ حَتَّى أَتَيْتُهُ مِنْ وَرَائِهِ فَضَرَبْتُهُ بِالسَّيْفِ عَلَى حَبْلِ عَاتِقِهِ فَأَقْبَلَ عَلَىَّ فَضَمَّنِي ضَمَّةً وَجَدْتُ مِنْهَا رِيحَ الْمَوْتِ ثُمَّ أَدْرَكَهُ الْمَوْتُ فَأَرْسَلَنِي - قَالَ - فَلَقِيتُ عُمَرَ بْنَ الْخَطَّابِ فَقُلْتُ مَا بَالُ النَّاسِ فَقَالَ أَمْرُ اللَّهِ ‏.‏ ثُمَّ إِنَّ النَّاسَ رَجَعُوا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مَنْ قَتَلَ قَتِيلاً لَهُ عَلَيْهِ بَيِّنَةٌ فَلَهُ سَلَبُهُ ‏&quot;‏ ‏.‏ قَالَ فَقُمْتُ ثُمَّ قُلْتُ مَنْ يَشْهَدُ لِي ثُمَّ جَلَسْتُ ‏.‏ ثُمَّ قَالَ ‏&quot;‏ مَنْ قَتَلَ قَتِيلاً لَهُ عَلَيْهِ بَيِّنَةٌ فَلَهُ سَلَبُهُ ‏&quot;‏ ‏.‏ قَالَ فَقُمْتُ ثُمَّ قُلْتُ مَنْ يَشْهَدُ لِي ثُمَّ جَلَسْتُ ثُمَّ قَالَ ذَلِكَ الثَّالِثَةَ فَقُمْتُ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مَا لَكَ يَا أَبَا قَتَادَةَ ‏&quot;‏ ‏.‏ قَالَ فَاقْتَصَصْتُ عَلَيْهِ الْقِصَّةَ ‏.‏ فَقَالَ رَجُلٌ مِنَ الْقَوْمِ صَدَقَ يَا رَسُولَ اللَّهِ وَسَلَبُ ذَلِكَ الْقَتِيلِ عِنْدِي فَأَرْضِهِ عَنْهُ يَا رَسُولَ اللَّهِ ‏.‏ فَقَالَ أَبُو بَكْرٍ لاَ هَاءَ اللَّهِ إِذًا لاَ يَعْمِدُ إِلَى أَسَدٍ مِنْ أُسْدِ اللَّهِ يُقَاتِلُ عَنِ اللَّهِ وَرَسُولِهِ فَيُعْطِيكَ سَلَبَهُ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ صَدَقَ فَأَعْطِهِ إِيَّاهُ ‏&quot;‏ ‏.‏ فَأَعْطَانِيهِ فَبِعْتُ الدِّرْعَ فَاشْتَرَيْتُ بِهِ مَخْرَفًا فِي بَنِي سَلِمَةَ فَإِنَّهُ لأَوَّلُ مَالٍ تَأَثَّلْتُهُ فِي الإِسْلاَمِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='976'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said from Amr ibn Kathir ibn Aflah from Abu Muhammad, the mawla of Abu Qatada that Abu Qatada ibn Ribi said, &quot;We went out with the Messenger of Allah, may Allah bless him and grant him peace, in the year of Hunayn. When the armies met, the Muslims were put in disarray. I saw a man from the idol worshippers who had got the better of one of the Muslims, so I circled round and came up behind him, and struck him with a sword on his shoulder-blade. He turned to me and grabbed me so hard that I felt the smell of death in it. Then death overcame him, and he let go of me.&quot; He continued, &quot;I met Umar ibn al-Khattab and said to him, &#x27;What&#x27;s going on with the people?&#x27; He replied, &#x27;The Command of Allah.&#x27; Then the people took hold of the battle and the Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Whoever has killed one of the dead and can prove it, can strip him of his personal effects.&#x27; I stood up and said, &#x27;Who will testify for me?&#x27; and then I sat down. The Messenger of Allah repeated, &#x27;Whoever has killed one of the dead and can prove it, can strip him of his personal effects.&#x27; I stood up and said, &#x27;Who will testify for me?&#x27; then I sat down. Then he repeated his statement a third time, so I stood up, and the Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;What&#x27;s the matter with you, Abu Qatada?&#x27; So I related my story to him. A man said, &#x27;He has spoken the truth, Messenger of Allah. I have the effects of that slain person with me, so give him compensation for it, Messenger of Allah.&#x27; Abu Bakr said, &#x27;No, by Allah! He did not intend that one of the lions of Allah should fight for Allah and His Messenger and then give you his spoils.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;He has spoken the truth, hand it over to him.&#x27; He gave it to me, and I sold the breast-plate and I bought a garden in the area of the Banu Salima with the money. It was my first property, and I acquired it in Islam</span></td></tr>
+<tr class='grade' data-hadith='976'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='976'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 18</span></td></tr><tr id='h977' class='hadith-sep' data-hadith='977'><td colspan='2'><a class='permalink' href='#h977'>Hadith 977</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='977'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنِ الْقَاسِمِ بْنِ مُحَمَّدٍ، أَنَّهُ قَالَ سَمِعْتُ رَجُلاً، يَسْأَلُ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ عَنِ الأَنْفَالِ، فَقَالَ ابْنُ عَبَّاسٍ الْفَرَسُ مِنَ النَّفَلِ وَالسَّلَبُ مِنَ النَّفَلِ ‏.‏ قَالَ ثُمَّ عَادَ الرَّجُلُ لِمَسْأَلَتِهِ فَقَالَ ابْنُ عَبَّاسٍ ذَلِكَ أَيْضًا ثُمَّ قَالَ الرَّجُلُ الأَنْفَالُ الَّتِي قَالَ اللَّهُ فِي كِتَابِهِ مَا هِيَ قَالَ الْقَاسِمُ فَلَمْ يَزَلْ يَسْأَلُهُ حَتَّى كَادَ أَنْ يُحْرِجَهُ ثُمَّ قَالَ ابْنُ عَبَّاسٍ أَتَدْرُونَ مَا مَثَلُ هَذَا مَثَلُ صَبِيغٍ الَّذِي ضَرَبَهُ عُمَرُ بْنُ الْخَطَّابِ ‏.‏ قَالَ وَسُئِلَ مَالِكٌ عَمَّنْ قَتَلَ قَتِيلاً مِنَ الْعَدُوِّ أَيَكُونُ لَهُ سَلَبُهُ بِغَيْرِ إِذْنِ الإِمَامِ قَالَ لاَ يَكُونُ ذَلِكَ لأَحَدٍ بِغَيْرِ إِذْنِ الإِمَامِ وَلاَ يَكُونُ ذَلِكَ مِنَ الإِمَامِ إِلاَّ عَلَى وَجْهِ الاِجْتِهَادِ وَلَمْ يَبْلُغْنِي أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ قَتَلَ قَتِيلاً فَلَهُ سَلَبُهُ ‏&quot;‏ ‏.‏ إِلاَّ يَوْمَ حُنَيْنٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='977'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that al-Qasim ibn Muhammad said that he had heard a man asking ibn Abbas about booty. Ibn Abbas said, &quot;Horses are part of the booty and personal effects are as well.&quot; Then the man repeated his question, and Ibn Abbas repeated his answer. Then the man said, &quot;What are the spoils which He, the Blessed, the Exalted, mentioned in His Book?&quot; He kept on asking until Ibn Abbas was on the verge of being annoyed, then Ibn Abbas said, &quot;Do you know who this man is like? Ibn Sabigh, who was beaten by Umar ibn al-Khattab because he was notorious for asking foolish questions.&quot; Yahya said that Malik was asked whether someone who killed one of the enemy could keep the man&#x27;s effects without the permission of the Imam. He said, &quot;No one can do that without the permission of the Imam. Only the Imam can make ijtihad. I have not heard that the Messenger of Allah, may Allah bless him and grant him peace, ever said, &#x27;Whoever kills someone can have his effects,&#x27; on any other day than the day of Hunayn</span></td></tr>
+<tr class='grade' data-hadith='977'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='977'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 19</span></td></tr><tr id='h978' class='hadith-sep' data-hadith='978'><td colspan='2'><a class='permalink' href='#h978'>Hadith 978</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='978'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ قَالَ كَانَ النَّاسُ يُعْطَوْنَ النَّفَلَ مِنَ الْخُمُسِ ‏.‏ قَالَ مَالِكٌ وَذَلِكَ أَحْسَنُ مَا سَمِعْتُ إِلَىَّ فِي ذَلِكَ ‏.‏ وَسُئِلَ مَالِكٌ عَنِ النَّفَلِ هَلْ يَكُونُ فِي أَوَّلِ مَغْنَمٍ قَالَ ذَلِكَ عَلَى وَجْهِ الاِجْتِهَادِ مِنَ الإِمَامِ وَلَيْسَ عِنْدَنَا فِي ذَلِكَ أَمْرٌ مَعْرُوفٌ مَوْثُوقٌ إِلاَّ اجْتِهَادُ السُّلْطَانِ وَلَمْ يَبْلُغْنِي أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَفَّلَ فِي مَغَازِيهِ كُلِّهَا وَقَدْ بَلَغَنِي أَنَّهُ نَفَّلَ فِي بَعْضِهَا يَوْمَ حُنَيْنٍ وَإِنَّمَا ذَلِكَ عَلَى وَجْهِ الاِجْتِهَادِ مِنَ الإِمَامِ فِي أَوَّلِ مَغْنَمٍ وَفِيمَا بَعْدَهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='978'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z-Zinad that Said ibn al- Musayyab said, &quot;People used to be given bonuses from the Khumus.&quot; Malik said, &quot;That is the best of what I have heard on the matter.&quot; Malik was asked about bonuses and whether they were taken from the first of the spoils, and he said, &quot;That is only decided according to the ijtihad of the Imam. We do not have a known reliable command about that other than it is up to the ijtihad of the Sultan. I have not heard that the Messenger of Allah, may Allah bless him and grant him peace, gave bonuses in all his raids. I have only heard that he gave bonuses in one of them, namely the day of Hunayn. It depends on the ijtihad of the Imam whether they are taken from the first of the spoils or what is after it</span></td></tr>
+<tr class='grade' data-hadith='978'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='978'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 20</span></td></tr><tr id='h979' class='hadith-sep' data-hadith='979'><td colspan='2'><a class='permalink' href='#h979'>Hadith 979</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='979'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، أَنَّهُ قَالَ بَلَغَنِي أَنَّ عُمَرَ بْنَ عَبْدِ الْعَزِيزِ، كَانَ يَقُولُ لِلْفَرَسِ سَهْمَانِ وَلِلرَّجُلِ سَهْمٌ ‏.‏ قَالَ مَالِكٌ وَلَمْ أَزَلْ أَسْمَعُ ذَلِكَ ‏.‏ وَسُئِلَ مَالِكٌ عَنْ رَجُلٍ يَحْضُرُ بِأَفْرَاسٍ كَثِيرَةٍ فَهَلْ يُقْسَمُ لَهَا كُلِّهَا فَقَالَ لَمْ أَسْمَعْ بِذَلِكَ وَلاَ أَرَى أَنْ يُقْسَمَ إِلاَّ لِفَرَسٍ وَاحِدٍ الَّذِي يُقَاتِلُ عَلَيْهِ ‏.‏ قَالَ مَالِكٌ لاَ أَرَى الْبَرَاذِينَ وَالْهُجُنَ إِلاَّ مِنَ الْخَيْلِ لأَنَّ اللَّهَ تَبَارَكَ وَتَعَالَى قَالَ فِي كِتَابِهِ ‏{‏وَالْخَيْلَ وَالْبِغَالَ وَالْحَمِيرَ لِتَرْكَبُوهَا وَزِينَةً‏}‏ وَقَالَ عَزَّ وَجَلَّ ‏{‏وَأَعِدُّوا لَهُمْ مَا اسْتَطَعْتُمْ مِنْ قُوَّةٍ وَمِنْ رِبَاطِ الْخَيْلِ تُرْهِبُونَ بِهِ عَدُوَّ اللَّهِ وَعَدُوَّكُمْ‏}‏ فَأَنَا أَرَى الْبَرَاذِينَ وَالْهُجُنَ مِنَ الْخَيْلِ إِذَا أَجَازَهَا الْوَالِي وَقَدْ قَالَ سَعِيدُ بْنُ الْمُسَيَّبِ وَسُئِلَ عَنِ الْبَرَاذِينَ هَلْ فِيهَا مِنْ صَدَقَةٍ فَقَالَ وَهَلْ فِي الْخَيْلِ مِنْ صَدَقَةٍ</span></td></tr>
+<tr class='eng' data-hadith='979'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me that Malik said that he had heard that Umar ibn Abd al-Aziz used to say, &quot;The man on horse-back has two shares, and the man on foot has one.&quot; Malik added, &quot;I continue to hear the same.&quot; Malik, when asked whether a man who was present with several horses took a share for all of them, said, &quot;I have never heard that. I think that there is only a share for the horse on which he fought.&quot; Malik said, &quot;I think that foreign horses and half-breeds are considered as horses because Allah, the Blessed, the Exalted, said in His Book, &#x27;All horses, and mules, and asses, for you to ride, and as an adornment.&#x27; (Sura16 ayat 8). He said, the Mighty, the Majestic, &#x27;Make ready for them whatever force and strings of horses you can, to terrify thereby the enemy of Allah and your enemy.&#x27; (Sura 8 ayat 60). I think that foreign breeds and half-breeds are considered as horses if the governor accepts them.&quot; Said ibn al-Musayyab was asked about working horses, and whether there was zakat on them. He said, &quot;Is there any zakat on horses.?</span></td></tr>
+<tr class='grade' data-hadith='979'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
+<tr class='ref' data-hadith='979'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 21</span></td></tr><tr id='h980' class='hadith-sep' data-hadith='980'><td colspan='2'><a class='permalink' href='#h980'>Hadith 980</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='980'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ رَبِّهِ بْنِ سَعِيدٍ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم حِينَ صَدَرَ مِنْ حُنَيْنٍ وَهُوَ يُرِيدُ الْجِعِرَّانَةَ سَأَلَهُ النَّاسُ حَتَّى دَنَتْ بِهِ نَاقَتُهُ مِنْ شَجَرَةٍ فَتَشَبَّكَتْ بِرِدَائِهِ حَتَّى نَزَعَتْهُ عَنْ ظَهْرِهِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ رُدُّوا عَلَىَّ رِدَائِي أَتَخَافُونَ أَنْ لاَ أَقْسِمَ بَيْنَكُمْ مَا أَفَاءَ اللَّهُ عَلَيْكُمْ وَالَّذِي نَفْسِي بِيَدِهِ لَوْ أَفَاءَ اللَّهُ عَلَيْكُمْ مِثْلَ سَمُرِ تِهَامَةَ نَعَمًا لَقَسَمْتُهُ بَيْنَكُمْ ثُمَّ لاَ تَجِدُونِي بَخِيلاً وَلاَ جَبَانًا وَلاَ كَذَّابًا ‏&quot;‏ ‏.‏ فَلَمَّا نَزَلَ رَسُولُ اللَّهِ صلى الله عليه وسلم قَامَ فِي النَّاسِ فَقَالَ ‏&quot;‏ أَدُّوا الْخِيَاطَ وَالْمِخْيَطَ فَإِنَّ الْغُلُولَ عَارٌ وَنَارٌ وَشَنَارٌ عَلَى أَهْلِهِ يَوْمَ الْقِيَامَةِ ‏&quot;‏ ‏.‏ قَالَ ثُمَّ تَنَاوَلَ مِنَ الأَرْضِ وَبَرَةً مِنْ بَعِيرٍ أَوْ شَيْئًا ثُمَّ قَالَ ‏&quot;‏ وَالَّذِي نَفْسِي بِيَدِهِ مَا لِي مِمَّا أَفَاءَ اللَّهُ عَلَيْكُمْ وَلاَ مِثْلَ هَذِهِ إِلاَّ الْخُمُسُ وَالْخُمُسُ مَرْدُودٌ عَلَيْكُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='980'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abd ar-Rahman ibn Said from Amr ibn Shuayb that when the Messenger of Allah, may Allah bless him and grant him peace, came back from Hunayn heading for al-Jiirrana, the people crowded around so much to question him that his she-camel backed into a tree, which became entangled in his cloak and pulled it off his back. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Return my cloak to me. Are you afraid that I will not distribute among you what Allah has given you as spoils. By He in whose hand my self is! Had Allah given you spoils equal to the number of acacia trees on the plain of Tihama, I would have distributed it among you. You will not find me to be miserly, cowardly, or a liar.&quot; Then the Messenger of Allah, may Allah bless him and grant him peace, got down and stood among the people, and said, &quot;Hand over even the needle and thread, for stealing from the spoils is disgrace, fire, ignominy on the Day of Rising for people who do it.&quot; Then he took a bit of camel fluff or something from the ground and said, &quot;By He in whose hand my self is! What Allah has made spoils for you is not mine - even the like of this! - except for the tax of one fifth, and the tax of one fifth is returned to you</span></td></tr>
+<tr class='grade' data-hadith='980'><td class='label'>Grade</td><td><span class='grade-text'>Hasan</span></td></tr>
+<tr class='ref' data-hadith='980'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 22</span></td></tr><tr id='h981' class='hadith-sep' data-hadith='981'><td colspan='2'><a class='permalink' href='#h981'>Hadith 981</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='981'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ يَحْيَى بْنِ حَبَّانَ، أَنَّ زَيْدَ بْنَ خَالِدٍ الْجُهَنِيَّ، قَالَ تُوُفِّيَ رَجُلٌ يَوْمَ حُنَيْنٍ وَإِنَّهُمْ ذَكَرُوهُ لِرَسُولِ اللَّهِ صلى الله عليه وسلم فَزَعَمَ زَيْدٌ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ صَلُّوا عَلَى صَاحِبِكُمْ ‏&quot;‏ ‏.‏ فَتَغَيَّرَتْ وُجُوهُ النَّاسِ لِذَلِكَ فَزَعَمَ زَيْدٌ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ إِنَّ صَاحِبَكُمْ قَدْ غَلَّ فِي سَبِيلِ اللَّهِ ‏&quot;‏ ‏.‏ قَالَ فَفَتَحْنَا مَتَاعَهُ فَوَجَدْنَا خَرَزَاتٍ مِنْ خَرَزِ يَهُودَ مَا تُسَاوِينَ دِرْهَمَيْنِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='981'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said from Muhammad ibn Yahya ibn Habban from Ibn Abi Amra that Zayd ibn Khalid al-Juhani said, &quot;A man died on the day of Hunayn, and they mentioned him to the Messenger of Allah, may Allah bless him and grant him peace.&quot; Zayd claimed that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;You pray over your companion.&quot; (i.e. he would not pray himself). The people&#x27;s faces dropped at that. Zayd claimed that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Your companion stole from the spoils taken in the way of Allah.&quot; Zayd said, &quot;So we opened up his baggage and found some Jews&#x27; beads worth about two dirhams</span></td></tr>
+<tr class='grade' data-hadith='981'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='981'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 23</span></td></tr><tr id='h982' class='hadith-sep' data-hadith='982'><td colspan='2'><a class='permalink' href='#h982'>Hadith 982</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='982'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ عَبْدِ اللَّهِ بْنِ الْمُغِيرَةِ بْنِ أَبِي بُرْدَةَ الْكِنَانِيِّ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم أَتَى النَّاسَ فِي قَبَائِلِهِمْ يَدْعُو لَهُمْ وَأَنَّهُ تَرَكَ قَبِيلَةً مِنَ الْقَبَائِلِ - قَالَ - وَإِنَّ الْقَبِيلَةَ وَجَدُوا فِي بَرْدَعَةِ رَجُلٍ مِنْهُمْ عِقْدَ جَزْعٍ غُلُولاً فَأَتَاهُمْ رَسُولُ اللَّهِ صلى الله عليه وسلم فَكَبَّرَ عَلَيْهِمْ كَمَا يُكَبِّرُ عَلَى الْمَيِّتِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='982'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said from Abdullah ibn al-Mughira ibn Abi Burda al-Kinani that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, came to the people in their tribes and made dua for them, but left out one of the tribes. Abdullah related, &quot;The tribe found an onyx necklace in the saddle-bags of one of their men. The Messenger of Allah, may Allah bless him and grant him peace, came to them, and then did the takbir over them as one does the takbir over the dead</span></td></tr>
+<tr class='grade' data-hadith='982'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='982'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 24</span></td></tr><tr id='h983' class='hadith-sep' data-hadith='983'><td colspan='2'><a class='permalink' href='#h983'>Hadith 983</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='983'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ ثَوْرِ بْنِ زَيْدٍ الدِّيلِيِّ، عَنْ أَبِي الْغَيْثِ، سَالِمٍ مَوْلَى ابْنِ مُطِيعٍ عَنْ أَبِي هُرَيْرَةَ، قَالَ خَرَجْنَا مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم عَامَ حُنَيْنٍ فَلَمْ نَغْنَمْ ذَهَبًا وَلاَ وَرِقًا إِلاَّ الأَمْوَالَ الثِّيَابَ وَالْمَتَاعَ - قَالَ - فَأَهْدَى رِفَاعَةُ بْنُ زَيْدٍ لِرَسُولِ اللَّهِ صلى الله عليه وسلم غُلاَمًا أَسْوَدَ يُقَالُ لَهُ مِدْعَمٌ فَوَجَّهَ رَسُولُ اللَّهِ صلى الله عليه وسلم إِلَى وَادِي الْقُرَى حَتَّى إِذَا كُنَّا بِوَادِي الْقُرَى بَيْنَمَا مِدْعَمٌ يَحُطُّ رَحْلَ رَسُولِ اللَّهِ صلى الله عليه وسلم إِذْ جَاءَهُ سَهْمٌ عَائِرٌ فَأَصَابَهُ فَقَتَلَهُ فَقَالَ النَّاسُ هَنِيئًا لَهُ الْجَنَّةُ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ كَلاَّ وَالَّذِي نَفْسِي بِيَدِهِ إِنَّ الشَّمْلَةَ الَّتِي أَخَذَ يَوْمَ حُنَيْنٍ مِنَ الْمَغَانِمِ لَمْ تُصِبْهَا الْمَقَاسِمُ لَتَشْتَعِلُ عَلَيْهِ نَارًا ‏&quot;‏ ‏.‏ قَالَ فَلَمَّا سَمِعَ النَّاسُ ذَلِكَ جَاءَ رَجُلٌ بِشِرَاكٍ أَوْ شِرَاكَيْنِ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ شِرَاكٌ أَوْ شِرَاكَانِ مِنْ نَارٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='983'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Thawr ibn Zayd ad-Dili from Abu&#x27;l-Ghayth Salim, the mawla of ibn Muti that Abu Hurayra said, &quot;We went out with the Messenger of Allah, may Allah bless him and grant him peace, in the yearof Khaybar. We did not capture any gold or silver except for personal effects, clothes, and baggage. Rifaa ibn Zayd presented a black slave boy to the Messenger of Allah, may Allah bless him and grant him peace, whose name was Midam. The Messenger of Allah, may Allah bless him and grant him peace, made for Wadi&#x27;l-Qura, and when he arrived there, Midam was unsaddling the camel of the Messenger of Allah, may Allah bless him and grant him peace, when a stray arrow struck and killed him. The people said, &#x27;Good luck to him! The Garden!&#x27; The Messenger of Allah said, &#x27;No! By He in whose hand my self is! The cloak which he took from the spoils on the Day of Khaybar before they were distributed will blaze with fire on him.&#x27; When the people heard that, a man brought a sandal-strap or two sandal-straps to the Messenger of Allah, may Allah bless him and grant him peace. The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;A sandal-strap or two sandal-straps of fire</span></td></tr>
+<tr class='grade' data-hadith='983'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='983'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 25</span></td></tr><tr id='h984' class='hadith-sep' data-hadith='984'><td colspan='2'><a class='permalink' href='#h984'>Hadith 984</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='984'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ بَلَغَهُ عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّهُ قَالَ مَا ظَهَرَ الْغُلُولُ فِي قَوْمٍ قَطُّ إِلاَّ أُلْقِيَ فِي قُلُوبِهِمُ الرُّعْبُ وَلاَ فَشَا الزِّنَا فِي قَوْمٍ قَطُّ إِلاَّ كَثُرَ فِيهِمُ الْمَوْتُ وَلاَ نَقَصَ قَوْمٌ الْمِكْيَالَ وَالْمِيزَانَ إِلاَّ قُطِعَ عَنْهُمُ الرِّزْقُ وَلاَ حَكَمَ قَوْمٌ بِغَيْرِ الْحَقِّ إِلاَّ فَشَا فِيهِمُ الدَّمُ وَلاَ خَتَرَ قَوْمٌ بِالْعَهْدِ إِلاَّ سَلَّطَ اللَّهُ عَلَيْهِمُ الْعَدُوَّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='984'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that he had heard that Abdullah ibn Abbas said, &quot;Stealing from the spoils does not appear in a people but that terror is cast into their hearts. Fornication does not spread in a people but that there is much death among them. A people do not lessen the measure and weight but that provision is cut off from them. A people do not judge without right but that blood spreads among them. A people do not betray the pledge but that Allah gives their enemies power over them</span></td></tr>
+<tr class='grade' data-hadith='984'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='984'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 26</span></td></tr><tr id='h985' class='hadith-sep' data-hadith='985'><td colspan='2'><a class='permalink' href='#h985'>Hadith 985</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='985'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ وَالَّذِي نَفْسِي بِيَدِهِ لَوَدِدْتُ أَنِّي أُقَاتِلُ فِي سَبِيلِ اللَّهِ فَأُقْتَلُ ثُمَّ أُحْيَا فَأُقْتَلُ ثُمَّ أُحْيَا فَأُقْتَلُ ‏&quot;‏ ‏.‏ فَكَانَ أَبُو هُرَيْرَةَ يَقُولُ ثَلاَثًا أَشْهَدُ بِاللَّهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='985'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;By He in whose hand my self is! I would like to fight in the way of Allah and be killed, then be brought to life again so I could be killed, and then be brought to life again so I could be killed.&quot; Abu Hurayra said three times, &quot;I testify to it by Allah</span></td></tr>
+<tr class='grade' data-hadith='985'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='985'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 27</span></td></tr><tr id='h986' class='hadith-sep' data-hadith='986'><td colspan='2'><a class='permalink' href='#h986'>Hadith 986</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='986'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ يَضْحَكُ اللَّهُ إِلَى رَجُلَيْنِ يَقْتُلُ أَحَدُهُمَا الآخَرَ كِلاَهُمَا يَدْخُلُ الْجَنَّةَ يُقَاتِلُ هَذَا فِي سَبِيلِ اللَّهِ فَيُقْتَلُ ثُمَّ يَتُوبُ اللَّهُ عَلَى الْقَاتِلِ فَيُقَاتِلُ فَيُسْتَشْهَدُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='986'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Allah laughs at two men. One of them kills the other, but each of them will enter the Garden:one fights in the way of Allah and is killed, then Allah turns to the killer, so he fights (in the way of Allah) and also becomes a martyr</span></td></tr>
+<tr class='grade' data-hadith='986'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='986'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 28</span></td></tr><tr id='h987' class='hadith-sep' data-hadith='987'><td colspan='2'><a class='permalink' href='#h987'>Hadith 987</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='987'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ وَالَّذِي نَفْسِي بِيَدِهِ لاَ يُكْلَمُ أَحَدٌ فِي سَبِيلِ اللَّهِ - وَاللَّهُ أَعْلَمُ بِمَنْ يُكْلَمُ فِي سَبِيلِهِ - إِلاَّ جَاءَ يَوْمَ الْقِيَامَةِ وَجُرْحُهُ يَثْعَبُ دَمًا اللَّوْنُ لَوْنُ دَمٍ وَالرِّيحُ رِيحُ الْمِسْكِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='987'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;By He in whose hand my self is! None of you is wounded in the way of Allah - and Allah knows best who is wounded in HisWay, but that when the Day of Rising comes, blood will gush forth from his wound. It will be the colour of blood, but its scent will be that of musk</span></td></tr>
+<tr class='grade' data-hadith='987'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='987'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 29</span></td></tr><tr id='h988' class='hadith-sep' data-hadith='988'><td colspan='2'><a class='permalink' href='#h988'>Hadith 988</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='988'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، كَانَ يَقُولُ اللَّهُمَّ لاَ تَجْعَلْ قَتْلِي بِيَدِ رَجُلٍ صَلَّى لَكَ سَجْدَةً وَاحِدَةً يُحَاجُّنِي بِهَا عِنْدَكَ يَوْمَ الْقِيَامَةِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='988'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam that Umar ibn al-Khattab used to say, &quot;O Allah! Do not let me be slain by the hand of a man who has prayed a single prostration to You with which he will dispute with me before You on the Day of Rising</span></td></tr>
+<tr class='grade' data-hadith='988'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='988'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 30</span></td></tr><tr id='h989' class='hadith-sep' data-hadith='989'><td colspan='2'><a class='permalink' href='#h989'>Hadith 989</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='989'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ الْمَقْبُرِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي قَتَادَةَ، عَنْ أَبِيهِ، أَنَّهُ قَالَ جَاءَ رَجُلٌ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ إِنْ قُتِلْتُ فِي سَبِيلِ اللَّهِ صَابِرًا مُحْتَسِبًا مُقْبِلاً غَيْرَ مُدْبِرٍ أَيُكَفِّرُ اللَّهُ عَنِّي خَطَايَاىَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ نَعَمْ ‏&quot;‏ ‏.‏ فَلَمَّا أَدْبَرَ الرَّجُلُ نَادَاهُ رَسُولُ اللَّهِ صلى الله عليه وسلم أَوْ أَمَرَ بِهِ فَنُودِيَ لَهُ فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ كَيْفَ قُلْتَ ‏&quot;‏ ‏.‏ فَأَعَادَ عَلَيْهِ قَوْلَهُ فَقَالَ لَهُ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ نَعَمْ إِلاَّ الدَّيْنَ كَذَلِكَ قَالَ لِي جِبْرِيلُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='989'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said from Said al- Maqburi from Abdullah ibn Abi Qatada that his father had said that a man came to the Messenger of Allah, may Allah bless him and grant him peace, and said, &quot;O Messenger of Allah! If I am killed in the way of Allah, expectant for reward, sincere, advancing, and not retreating, will Allah pardon my faults?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Yes.&quot; When the man turned away, the Messenger of Allah, may Allah bless him and grant him peace, called him - or commanded him and he was called to him. The Messenger of Allah, may Allah bless him and grant him peace, said to him, &quot;What did you say?&quot; He repeated his words to him, and the Prophet, may Allah bless him and grant him peace, said to him, &quot;Yes, except for the debt. Jibril said that to me</span></td></tr>
+<tr class='grade' data-hadith='989'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='989'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 31</span></td></tr><tr id='h990' class='hadith-sep' data-hadith='990'><td colspan='2'><a class='permalink' href='#h990'>Hadith 990</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='990'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي النَّضْرِ، مَوْلَى عُمَرَ بْنِ عُبَيْدِ اللَّهِ أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ لِشُهَدَاءِ أُحُدٍ ‏&quot;‏ هَؤُلاَءِ أَشْهَدُ عَلَيْهِمْ ‏&quot;‏ ‏.‏ فَقَالَ أَبُو بَكْرٍ الصِّدِّيقُ أَلَسْنَا يَا رَسُولَ اللَّهِ بِإِخْوَانِهِمْ أَسْلَمْنَا كَمَا أَسْلَمُوا وَجَاهَدْنَا كَمَا جَاهَدُوا ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ بَلَى وَلَكِنْ لاَ أَدْرِي مَا تُحْدِثُونَ بَعْدِي ‏&quot;‏ ‏.‏ فَبَكَى أَبُو بَكْرٍ ثُمَّ بَكَى ثُمَّ قَالَ أَئِنَّا لَكَائِنُونَ بَعْدَكَ</span></td></tr>
+<tr class='eng' data-hadith='990'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;n-Nadr, the mawla of Umar ibn Ubaydullah that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, said over the martyrs of Uhud, &quot;I testify for them.&quot; Abu Bakr as-Siddiq said, &quot;Messenger of Allah! Are we not their brothers? We entered Islam as they entered Islam and we did jihad as they did jihad.&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Yes, but I do not know what you will do after me.&quot; Abu Bakr wept profusely and said, &quot;Are we really going to out-live you</span></td></tr>
+<tr class='grade' data-hadith='990'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='990'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 32</span></td></tr><tr id='h991' class='hadith-sep' data-hadith='991'><td colspan='2'><a class='permalink' href='#h991'>Hadith 991</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='991'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، قَالَ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم جَالِسًا وَقَبْرٌ يُحْفَرُ بِالْمَدِينَةِ فَاطَّلَعَ رَجُلٌ فِي الْقَبْرِ فَقَالَ بِئْسَ مَضْجَعُ الْمُؤْمِنِ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ بِئْسَ مَا قُلْتَ ‏&quot;‏ ‏.‏ فَقَالَ الرَّجُلُ إِنِّي لَمْ أُرِدْ هَذَا يَا رَسُولَ اللَّهِ إِنَّمَا أَرَدْتُ الْقَتْلَ فِي سَبِيلِ اللَّهِ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ مِثْلَ لِلْقَتْلِ فِي سَبِيلِ اللَّهِ مَا عَلَى الأَرْضِ بُقْعَةٌ هِيَ أَحَبُّ إِلَىَّ أَنْ يَكُونَ قَبْرِي بِهَا مِنْهَا ‏&quot;‏ ‏.‏ ثَلاَثَ مَرَّاتٍ يَعْنِي الْمَدِينَةَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='991'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, was sitting by a grave which was being dug at Madina. A man looked into the grave and said, &#x27;An awful bed for the mumin. &#x27;The Messenger of Allah, may Allah blesshim and grant him peace, said, &#x27;Evil? What you have said is absolutely wrong.&#x27; The man said, &#x27;I didn&#x27;t mean that, Messenger of Allah. I meant being killed in the way of Allah.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Being killed in the way of Allah has no like! There is no place on the earth which I would prefer my grave to be than here (meaning Madina). He repeated it three times</span></td></tr>
+<tr class='grade' data-hadith='991'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='991'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 33</span></td></tr><tr id='h992' class='hadith-sep' data-hadith='992'><td colspan='2'><a class='permalink' href='#h992'>Hadith 992</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='992'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، كَانَ يَقُولُ اللَّهُمَّ إِنِّي أَسْأَلُكَ شَهَادَةً فِي سَبِيلِكَ وَوَفَاةً بِبَلَدِ رَسُولِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='992'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam that Umar ibn al-Khattab used to say, &quot;O Allah! I ask you for martyrdom in Your way and death in the city of Your Messenger</span></td></tr>
+<tr class='grade' data-hadith='992'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='992'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 34</span></td></tr><tr id='h993' class='hadith-sep' data-hadith='993'><td colspan='2'><a class='permalink' href='#h993'>Hadith 993</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='993'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، قَالَ كَرَمُ الْمُؤْمِنِ تَقْوَاهُ وَدِينُهُ حَسَبُهُ وَمُرُوءَتُهُ خُلُقُهُ وَالْجُرْأَةُ وَالْجُبْنُ غَرَائِزُ يَضَعُهَا اللَّهُ حَيْثُ شَاءَ فَالْجَبَانُ يَفِرُّ عَنْ أَبِيهِ وَأُمِّهِ وَالْجَرِيءُ يُقَاتِلُ عَمَّا لاَ يَؤُوبُ بِهِ إِلَى رَحْلِهِ وَالْقَتْلُ حَتْفٌ مِنَ الْحُتُوفِ وَالشَّهِيدُ مَنِ احْتَسَبَ نَفْسَهُ عَلَى اللَّهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='993'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that Umar ibn al-Khattab said, &quot;The nobility of the mumin is his taqwa. His deen is his noble descent. His manliness is his good character. Boldness and cowardice are but instincts which Allah places wherever He wills. The coward shrinks from defending even his father and mother, and the bold one fights for the sake of the combat not for the spoils. Being slain is but one way of meeting death, and the martyr is the one who gives himself, expectant of reward from Allah</span></td></tr>
+<tr class='grade' data-hadith='993'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='993'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 35</span></td></tr><tr id='h995' class='hadith-sep' data-hadith='995'><td colspan='2'><a class='permalink' href='#h995'>Hadith 995</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='995'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، كَانَ يَحْمِلُ فِي الْعَامِ الْوَاحِدِ عَلَى أَرْبَعِينَ أَلْفِ بَعِيرٍ يَحْمِلُ الرَّجُلَ إِلَى الشَّامِ عَلَى بَعِيرٍ وَيَحْمِلُ الرَّجُلَيْنِ إِلَى الْعِرَاقِ عَلَى بَعِيرٍ فَجَاءَهُ رَجُلٌ مِنْ أَهْلِ الْعِرَاقِ فَقَالَ احْمِلْنِي وَسُحَيْمًا ‏.‏ فَقَالَ لَهُ عُمَرُ بْنُ الْخَطَّابِ نَشَدْتُكَ اللَّهَ أَسُحَيْمٌ زِقٌّ قَالَ لَهُ نَعَمْ ‏.‏</span></td></tr>
+<tr class='grade' data-hadith='995'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='995'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 37</span></td></tr><tr id='h996' class='hadith-sep' data-hadith='996'><td colspan='2'><a class='permalink' href='#h996'>Hadith 996</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='996'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم إِذَا ذَهَبَ إِلَى قُبَاءٍ يَدْخُلُ عَلَى أُمِّ حَرَامٍ بِنْتِ مِلْحَانَ فَتُطْعِمُهُ وَكَانَتْ أُمُّ حَرَامٍ تَحْتَ عُبَادَةَ بْنِ الصَّامِتِ فَدَخَلَ عَلَيْهَا رَسُولُ اللَّهِ صلى الله عليه وسلم يَوْمًا فَأَطْعَمَتْهُ وَجَلَسَتْ تَفْلِي فِي رَأْسِهِ فَنَامَ رَسُولُ اللَّهِ صلى الله عليه</span></td></tr>
+<tr class='eng' data-hadith='996'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ishaq ibn Abdullah ibn Abi Talha that Anas ibn Malik had said that when the Messenger of Allah, may Allah bless him and grant him peace, went to Quba, he visited Umm Haram bint Milhan and she fed him. Umm Haram was the wife of Ubada ibn as-Samit. One day the Messenger of Allah, may Allah bless him and grant him peace, had called on her and she had fed him, and sat down to delouse his hair. The Messenger of Allah, may Allah bless him and grant him peace, had dozed and woke up smiling. Umm Haram said, &quot;What is making you smile, Messenger of Allah?&quot; He said, &quot;Some of my community were presented to me, raiding in the way of Allah. They were riding in the middle of the sea, kings on thrones, or like kings on thrones.&quot; (Ishaq wasn&#x27;t sure). She said, &quot;O Messenger of Allah! Ask Allah to put me among them!&quot; So he had made a dua for her, and put his head down and slept. Then he had woken up smiling, and she said to him, &quot;Messenger of Allah, why are you smiling?&quot; He said, &quot;Some of my community were presented to me, raiding in the way of Allah. They were kings on thrones or like kings on thrones,&quot; as he had said in the first one. She said, &quot;O Messenger of Allah! Ask Allah to put me among them!&quot; He said, &quot;You are among the first.&quot; Ishaq added, &quot;She travelled on the sea in the time of Muawiya, and when she landed, she was thrown from her mount and killed</span></td></tr>
+<tr class='grade' data-hadith='996'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='996'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 38</span></td></tr><tr id='h997' class='hadith-sep' data-hadith='997'><td colspan='2'><a class='permalink' href='#h997'>Hadith 997</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='997'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ أَبِي صَالِحٍ السَّمَّانِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لَوْلاَ أَنْ أَشُقَّ عَلَى أُمَّتِي لأَحْبَبْتُ أَنْ لاَ أَتَخَلَّفَ عَنْ سَرِيَّةٍ تَخْرُجُ فِي سَبِيلِ اللَّهِ وَلَكِنِّي لاَ أَجِدُ مَا أَحْمِلُهُمْ عَلَيْهِ وَلاَ يَجِدُونَ مَا يَتَحَمَّلُونَ عَلَيْهِ فَيَخْرُجُونَ وَيَشُقُّ عَلَيْهِمْ أَنْ يَتَخَلَّفُوا بَعْدِي فَوَدِدْتُ أَنِّي أُقَاتِلُ فِي سَبِيلِ اللَّهِ فَأُقْتَلُ ثُمَّ أُحْيَا فَأُقْتَلُ ثُمَّ أُحْيَا فَأُقْتَلُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='997'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said from Abu Salih as-Samman from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Had I not been concerned for my community, I would have liked never to stay behind a raiding party going out in the way of Allah. However, I do not find the means to carry them to it, nor do they find anything on which to ride out and it is grievous for them that they should stay behind me. I would like to fight in the way of Allah and be killed, then brought to life so I could be killed and then brought to life so I could be killed</span></td></tr>
+<tr class='grade' data-hadith='997'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='997'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 39</span></td></tr><tr id='h998' class='hadith-sep' data-hadith='998'><td colspan='2'><a class='permalink' href='#h998'>Hadith 998</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='998'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، قَالَ لَمَّا كَانَ يَوْمُ أُحُدٍ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ يَأْتِينِي بِخَبَرِ سَعْدِ بْنِ الرَّبِيعِ الأَنْصَارِيِّ ‏&quot;‏ ‏.‏ فَقَالَ رَجُلٌ أَنَا يَا رَسُولَ اللَّهِ ‏.‏ فَذَهَبَ الرَّجُلُ يَطُوفُ بَيْنَ الْقَتْلَى فَقَالَ لَهُ سَعْدُ بْنُ الرَّبِيعِ مَا شَأْنُكَ فَقَالَ لَهُ الرَّجُلُ بَعَثَنِي إِلَيْكَ رَسُولُ اللَّهِ صلى الله عليه وسلم لآتِيَهُ بِخَبَرِكَ ‏.‏ قَالَ فَاذْهَبْ إِلَيْهِ فَأَقْرِئْهُ مِنِّي السَّلاَمَ وَأَخْبِرْهُ أَنِّي قَدْ طُعِنْتُ اثْنَتَىْ عَشْرَةَ طَعْنَةً وَأَنِّي قَدْ أُنْفِذَتْ مَقَاتِلِي وَأَخْبِرْ قَوْمَكَ أَنَّهُ لاَ عُذْرَ لَهُمْ عِنْدَ اللَّهِ إِنْ قُتِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَوَاحِدٌ مِنْهُمْ حَىٌّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='998'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said, &quot;On the Day of Uhud, The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Who will bring me news of Sad ibn al-Rabi al-Ansari?&#x27; a man said, &#x27;Me, Messenger of Allah!&#x27; So the man went around among the slain, and Sad ibn al-Rabi said to him, &#x27;What are you doing?&#x27; The man said to him, &#x27;The Messenger of Allah, may Allah bless him and grant him peace, sent me to bring him news of you.&#x27; He said, &#x27;Go to him, and give him my greetings, and tell him that I have been stabbed twelve times, and am mortally wounded. Tell your people that they will have no excuse with Allah if the Messenger of Allah, may Allah bless him and grant him peace, is slain while one of them is still alive</span></td></tr>
+<tr class='grade' data-hadith='998'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='998'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 40</span></td></tr><tr id='h999' class='hadith-sep' data-hadith='999'><td colspan='2'><a class='permalink' href='#h999'>Hadith 999</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='999'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم رَغَّبَ فِي الْجِهَادِ وَذَكَرَ الْجَنَّةَ وَرَجُلٌ مِنَ الأَنْصَارِ يَأْكُلُ تَمَرَاتٍ فِي يَدِهِ فَقَالَ إِنِّي لَحَرِيصُ عَلَى الدُّنْيَا إِنْ جَلَسْتُ حَتَّى أَفْرُغَ مِنْهُنَّ ‏.‏ فَرَمَى مَا فِي يَدِهِ فَحَمَلَ بِسَيْفِهِ فَقَاتَلَ حَتَّى قُتِلَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='999'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that the Messenger of Allah, may Allah bless him and grant him peace, stimulated people for jihad and mentioned the Garden. One of the Ansar was eating some dates in his hand, and said, &quot;Am I so desirous of this world that I should sit until I finish them?&quot; He threw aside what was in his hand and took his sword, and fought until he was slain</span></td></tr>
+<tr class='grade' data-hadith='999'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='999'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 41</span></td></tr><tr id='h1000' class='hadith-sep' data-hadith='1000'><td colspan='2'><a class='permalink' href='#h1000'>Hadith 1000</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1000'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُعَاذِ بْنِ جَبَلٍ، أَنَّهُ قَالَ الْغَزْوُ غَزْوَانِ فَغَزْوٌ تُنْفَقُ فِيهِ الْكَرِيمَةُ وَيُيَاسَرُ فِيهِ الشَّرِيكُ وَيُطَاعُ فِيهِ ذُو الأَمْرِ وَيُجْتَنَبُ فِيهِ الْفَسَادُ فَذَلِكَ الْغَزْوُ خَيْرٌ كُلُّهُ وَغَزْوٌ لاَ تُنْفَقُ فِيهِ الْكَرِيمَةُ وَلاَ يُيَاسَرُ فِيهِ الشَّرِيكُ وَلاَ يُطَاعُ فِيهِ ذُو الأَمْرِ وَلاَ يُجْتَنَبُ فِيهِ الْفَسَادُ فَذَلِكَ الْغَزْوُ لاَ يَرْجِعُ صَاحِبُهُ كَفَافًا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1000'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that Muadh ibn Jabal said, &quot;There are two military expeditions. There is one military expedition in which valuables are spent, the contributor is willing, the authorities are obeyed, and corruption is avoided. That military expedition is all good. There is a military expedition in which valuables are not spent, the contributor is not willing, the authorities are not obeyed, and corruption is not avoided. The one who fights in that military expedition does not return with reward</span></td></tr>
+<tr class='grade' data-hadith='1000'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1000'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 42</span></td></tr><tr id='h1001' class='hadith-sep' data-hadith='1001'><td colspan='2'><a class='permalink' href='#h1001'>Hadith 1001</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1001'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْخَيْلُ فِي نَوَاصِيهَا الْخَيْرُ إِلَى يَوْمِ الْقِيَامَةِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1001'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Blessing is in the forelocks of horses until the Day of Rising</span></td></tr>
+<tr class='grade' data-hadith='1001'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1001'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 43</span></td></tr><tr id='h1002' class='hadith-sep' data-hadith='1002'><td colspan='2'><a class='permalink' href='#h1002'>Hadith 1002</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1002'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سَابَقَ بَيْنَ الْخَيْلِ الَّتِي قَدْ أُضْمِرَتْ مِنَ الْحَفْيَاءِ وَكَانَ أَمَدُهَا ثَنِيَّةَ الْوَدَاعِ وَسَابَقَ بَيْنَ الْخَيْلِ الَّتِي لَمْ تُضَمَّرْ مِنَ الثَّنِيَّةِ إِلَى مَسْجِدِ بَنِي زُرَيْقٍ وَأَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ كَانَ مِمَّنْ سَابَقَ بِهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1002'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, held a race between horses which had been made lean by training, from al-Hafya to Thaniyatu-lWada. He held a race between horses which had not been made lean from the Thaniya (a mountain pass near Madina) to the mosque of the Banu Zurayq. Abdullah ibn Umar was among those who raced them</span></td></tr>
+<tr class='grade' data-hadith='1002'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1002'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 44</span></td></tr><tr id='h1003' class='hadith-sep' data-hadith='1003'><td colspan='2'><a class='permalink' href='#h1003'>Hadith 1003</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1003'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ سَمِعَ سَعِيدَ بْنَ الْمُسَيَّبِ، يَقُولُ لَيْسَ بِرِهَانِ الْخَيْلِ بَأْسٌ إِذَا دَخَلَ فِيهَا مُحَلِّلٌ فَإِنْ سَبَقَ أَخَذَ السَّبَقَ وَإِنْ سُبِقَ لَمْ يَكُنْ عَلَيْهِ شَىْءٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1003'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said heard Said ibn al-Musayyab say, &quot;There is no harm in placing stakes on horses if a third horse enters it. The winner takes the stake, and there is no fine against the loser</span></td></tr>
+<tr class='grade' data-hadith='1003'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='1003'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 45</span></td></tr><tr id='h1004' class='hadith-sep' data-hadith='1004'><td colspan='2'><a class='permalink' href='#h1004'>Hadith 1004</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1004'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم رُئِيَ وَهُوَ يَمْسَحُ وَجْهَ فَرَسِهِ بِرِدَائِهِ فَسُئِلَ عَنْ ذَلِكَ فَقَالَ ‏ &quot;‏ إِنِّي عُوتِبْتُ اللَّيْلَةَ فِي الْخَيْلِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1004'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that the Messenger of Allah, may Allah bless him and grant him peace, was seen wiping the face of his horse with his cloak. He was questioned about it and said, &quot;I was reproached in the night about horses.&quot; i.e. not taking care of them</span></td></tr>
+<tr class='grade' data-hadith='1004'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='1004'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 46</span></td></tr><tr id='h1005' class='hadith-sep' data-hadith='1005'><td colspan='2'><a class='permalink' href='#h1005'>Hadith 1005</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1005'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ حُمَيْدٍ الطَّوِيلِ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم حِينَ خَرَجَ إِلَى خَيْبَرَ أَتَاهَا لَيْلاً وَكَانَ إِذَا أَتَى قَوْمًا بِلَيْلٍ لَمْ يُغِرْ حَتَّى يُصْبِحَ فَخَرَجَتْ يَهُودُ بِمَسَاحِيهِمْ وَمَكَاتِلِهِمْ فَلَمَّا رَأَوْهُ قَالُوا مُحَمَّدٌ وَاللَّهِ مُحَمَّدٌ وَالْخَمِيسُ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ اللَّهُ أَكْبَرُ خَرِبَتْ خَيْبَرُ إِنَّا إِذَا نَزَلْنَا بِسَاحَةِ قَوْمٍ فَسَاءَ صَبَاحُ الْمُنْذَرِينَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1005'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Humayd at-Tawil from Anas ibn Malik that when the Messenger of Allah, may Allah bless him and grant him peace, went out to Khaybar, he arrived there at night, and when he came upon a people by night, he did not attack until morning. In the morning, the jews came out with their spades and baskets. When they saw him, they said, &quot;Muhammad! By Allah, Muhammad and his army!&quot; The Messenger of Allah, may Allah bless him and grant him peace, said &quot;Allah is greater! Khaybar is destroyed. When we come to a people, it is an evil morning for those who have been warned</span></td></tr>
+<tr class='grade' data-hadith='1005'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1005'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 47</span></td></tr><tr id='h1006' class='hadith-sep' data-hadith='1006'><td colspan='2'><a class='permalink' href='#h1006'>Hadith 1006</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1006'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ مَنْ أَنْفَقَ زَوْجَيْنِ فِي سَبِيلِ اللَّهِ نُودِيَ فِي الْجَنَّةِ يَا عَبْدَ اللَّهِ هَذَا خَيْرٌ فَمَنْ كَانَ مِنْ أَهْلِ الصَّلاَةِ دُعِيَ مِنْ بَابِ الصَّلاَةِ وَمَنْ كَانَ مِنْ أَهْلِ الْجِهَادِ دُعِيَ مِنْ بَابِ الْجِهَادِ وَمَنْ كَانَ مِنْ أَهْلِ الصَّدَقَةِ دُعِيَ مِنْ بَابِ الصَّدَقَةِ وَمَنْ كَانَ مِنْ أَهْلِ الصِّيَامِ دُعِيَ مِنْ بَابِ الرَّيَّانِ ‏&quot;‏ ‏.‏ فَقَالَ أَبُو بَكْرٍ الصِّدِّيقُ يَا رَسُولَ اللَّهِ مَا عَلَى مَنْ يُدْعَى مِنْ هَذِهِ الأَبْوَابِ مِنْ ضَرُورَةٍ فَهَلْ يُدْعَى أَحَدٌ مِنْ هَذِهِ الأَبْوَابِ كُلِّهَا قَالَ ‏&quot;‏ نَعَمْ وَأَرْجُو أَنْ تَكُونَ مِنْهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1006'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Humayd ibn Abd ar-Rahman ibn Awf from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Whoever hands over two of any type of property in the way of Allah is called to the Garden, with the words &#x27;O slave of Allah! This is good!&#x27; Whoever is among the people of prayer, is called from the gate of prayer. Whoever is among the people of jihad is called from the gate of jihad. Whoever is among the people of sadaqa, is called from the gate of sadaqa. Whoever is among the people of fasting, is called from the gate of the well- watered. (Bab ar-Rayyan).&quot; Abu Bakr as-Siddiq said, &quot;Messenger of Allah! Is it absolutely necessary that one be called from one of these gates? Can someone be called from all of these gates?&quot; He said, &quot;Yes, and I hope you are among them .&quot; 21.20 Acquisition of the Land of Those who Surrender from the People of Dhimma</span></td></tr>
+<tr class='grade' data-hadith='1006'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1006'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 48</span></td></tr><tr id='h1007' class='hadith-sep' data-hadith='1007'><td colspan='2'><a class='permalink' href='#h1007'>Hadith 1007</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1007'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي صَعْصَعَةَ، أَنَّهُ بَلَغَهُ أَنَّ عَمْرَو بْنَ الْجَمُوحِ، وَعَبْدَ اللَّهِ بْنَ عَمْرٍو الأَنْصَارِيَّيْنِ، ثُمَّ السَّلَمِيَّيْنِ كَانَا قَدْ حَفَرَ السَّيْلُ قَبْرَهُمَا وَكَانَ قَبْرُهُمَا مِمَّا يَلِي السَّيْلَ وَكَانَا فِي قَبْرٍ وَاحِدٍ وَهُمَا مِمَّنِ اسْتُشْهِدَ يَوْمَ أُحُدٍ فَحُفِرَ عَنْهُمَا لِيُغَيَّرَا مِنْ مَكَانِهِمَا فَوُجِدَا لَمْ يَتَغَيَّرَا كَأَنَّهُمَا مَاتَا بِالأَمْسِ وَكَانَ أَحَدُهُمَا قَدْ جُرِحَ فَوَضَعَ يَدَهُ عَلَى جُرْحِهِ فَدُفِنَ وَهُوَ كَذَلِكَ فَأُمِيطَتْ يَدُهُ عَنْ جُرْحِهِ ثُمَّ أُرْسِلَتْ فَرَجَعَتْ كَمَا كَانَتْ وَكَانَ بَيْنَ أُحُدٍ وَبَيْنَ يَوْمَ حُفِرَ عَنْهُمَا سِتٌّ وَأَرْبَعُونَ سَنَةً ‏.‏ قَالَ مَالِكٌ لاَ بَأْسَ أَنْ يُدْفَنَ الرَّجُلاَنِ وَالثَّلاَثَةُ فِي قَبْرٍ وَاحِدٍ مِنْ ضَرُورَةٍ وَيُجْعَلَ الأَكْبَرُ مِمَّا يَلِي الْقِبْلَةَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1007'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik was asked whether, when an imam had accepted jizya from a people and they gave it, he thought that the land of one of them who surrendered belonged to him or whether his land and property belonged to the Muslims. Malik said, &quot;That varies. As for the people of peace, if one of them surrenders, then he is entitled to his land and property. As for the people of force who use force, if one of them surrenders, his land and property belong to the Muslims because the people of force are overcome in their towns, and it becomes booty for the Muslims. As for the people of peace, their property and selves are protected so that they make peace for them. Only what they have made peace for is obliged of them.&quot; Yahya related to me from Malik from Abd ar-Rahman ibn Abi Sasaca that he had heard that Amr ibn al-Jamuh al-Ansari and Abdullah ibn Umar al-Ansari, both of the tribe of Banu Salami, had their grave uncovered by a flood. Their grave was part of what was left after the flood. They were in the same grave, and they were among those martyred at Uhud. They were dug up so that they might be moved. They were found unchanged. It was as if they had died only the day before. One of them had been wounded, and he had put his hand over his wound and had been buried like that. His hand was pulled away from his wound and released, and it returned to where it had been. It was forty-six years between Uhud and the day they were dug up. Malik said, &quot;There is no harm in burying two or three men in the same grave due to necessity. The oldest one is put next to the qibla</span></td></tr>
+<tr class='grade' data-hadith='1007'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
+<tr class='ref' data-hadith='1007'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 49</span></td></tr><tr id='h1008' class='hadith-sep' data-hadith='1008'><td colspan='2'><a class='permalink' href='#h1008'>Hadith 1008</a> — Jihad</td></tr>
+<tr class='arabic' data-hadith='1008'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ رَبِيعَةَ بْنِ أَبِي عَبْدِ الرَّحْمَنِ، أَنَّهُ قَالَ قَدِمَ عَلَى أَبِي بَكْرٍ الصِّدِّيقِ مَالٌ مِنَ الْبَحْرَيْنِ فَقَالَ مَنْ كَانَ لَهُ عِنْدَ رَسُولِ اللَّهِ صلى الله عليه وسلم وَأْىٌ أَوْ عِدَةٌ فَلْيَأْتِنِي فَجَاءَهُ جَابِرُ بْنُ عَبْدِ اللَّهِ فَحَفَنَ لَهُ ثَلاَثَ حَفَنَاتٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1008'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Rabia ibn Abi Abd ar-Rahman said, &quot;Property was sent to Abu Bakr as-Siddiq from Bahrayn. He said, &#x27;If someone had a promise or a pledge with the Messenger of Allah, may Allah bless him and grant him peace, let him come to me.&#x27; So Jabir ibn Abdullah came to him, and he gave him three times as much of it as would fill both hands</span></td></tr>
+<tr class='grade' data-hadith='1008'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='1008'><td class='label'>Reference</td><td><span class='ref-text'>Book 21, Hadith 50</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-020.html">← Hajj</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-022.html">Vows and Oaths →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — Prayer in Congregation – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Prayer in Congregation</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html">5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html">7. Tahajjud</option><option value="malik-book-008.html" selected>8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-021.html">21. Jihad</option><option value="malik-book-022.html">22. Vows and Oaths</option><option value="malik-book-023.html">23. Sacrificial Animals</option><option value="malik-book-024.html">24. Slaughtering Animals</option><option value="malik-book-025.html">25. Game</option><option value="malik-book-026.html">26. The &#x27;Aqiqa</option><option value="malik-book-027.html">27. Fara&#x27;id</option><option value="malik-book-028.html">28. Marriage</option><option value="malik-book-029.html">29. Divorce</option><option value="malik-book-030.html">30. Suckling</option><option value="malik-book-031.html">31. Business Transactions</option><option value="malik-book-032.html">32. Qirad</option><option value="malik-book-033.html">33. Sharecropping</option><option value="malik-book-034.html">34. Renting Land</option><option value="malik-book-035.html">35. Pre-emption in Property</option><option value="malik-book-036.html">36. Judgements</option><option value="malik-book-037.html">37. Wills and Testaments</option><option value="malik-book-038.html">38. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">39. The Mukatab</option><option value="malik-book-040.html">40. The Mudabbar</option><option value="malik-book-041.html">41. Hudud</option><option value="malik-book-042.html">42. Drinks</option><option value="malik-book-043.html">43. Blood-Money</option><option value="malik-book-044.html">44. The Oath of Qasama</option><option value="malik-book-045.html">45. Madina</option><option value="malik-book-046.html">46. The Decree</option><option value="malik-book-047.html">47. Good Character</option><option value="malik-book-048.html">48. Dress</option><option value="malik-book-049.html">49. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">50. The Evil Eye</option><option value="malik-book-051.html">51. Hair</option><option value="malik-book-052.html">52. Visions</option><option value="malik-book-053.html">53. Greetings</option><option value="malik-book-054.html">54. General Subjects</option><option value="malik-book-055.html">55. The Oath of Allegiance</option><option value="malik-book-056.html">56. Speech</option><option value="malik-book-057.html">57. Jahannam</option><option value="malik-book-058.html">58. Sadaqa</option><option value="malik-book-059.html">59. Knowledge</option><option value="malik-book-060.html">60. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">61. The Names of the Prophet, may Allah Bless Him and…</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>Prayer in Congregation</h2>
+<div class="meta-info">
+  Hadith 287–325 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='287' max='325' value='287'></label><label>To <input type='number' id='hvc-to' min='287' max='325' value='325'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h287' class='hadith-sep' data-hadith='287'><td colspan='2'><a class='permalink' href='#h287'>Hadith 287</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='287'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ صَلاَةُ الْجَمَاعَةِ تَفْضُلُ صَلاَةَ الْفَذِّ بِسَبْعٍ وَعِشْرِينَ دَرَجَةً ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='287'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Prayer in congregation is better than the prayer of a man by himself by twenty-seven degrees</span></td></tr>
+<tr class='grade' data-hadith='287'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='287'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 1</span></td></tr><tr id='h288' class='hadith-sep' data-hadith='288'><td colspan='2'><a class='permalink' href='#h288'>Hadith 288</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='288'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ صَلاَةُ الْجَمَاعَةِ أَفْضَلُ مِنْ صَلاَةِ أَحَدِكُمْ وَحْدَهُ بِخَمْسَةٍ وَعِشْرِينَ جُزْءًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='288'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Said ibn al- Musayyab from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Prayer in congregation is better than the prayer of one of you on his own by twenty-five parts</span></td></tr>
+<tr class='grade' data-hadith='288'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='288'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 2</span></td></tr><tr id='h289' class='hadith-sep' data-hadith='289'><td colspan='2'><a class='permalink' href='#h289'>Hadith 289</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='289'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ وَالَّذِي نَفْسِي بِيَدِهِ لَقَدْ هَمَمْتُ أَنْ آمُرَ بِحَطَبٍ فَيُحْطَبَ ثُمَّ آمُرَ بِالصَّلاَةِ فَيُؤَذَّنَ لَهَا ثُمَّ آمُرَ رَجُلاً فَيَؤُمَّ النَّاسَ ثُمَّ أُخَالِفَ إِلَى رِجَالٍ فَأُحَرِّقَ عَلَيْهِمْ بُيُوتَهُمْ</span></td></tr>
+<tr class='eng' data-hadith='289'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;zZinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;By Him in whose hand myself is! I had in mind to order firewood to be collected, then to order the prayer to be called, and to appoint a man to lead the people in prayer, and then to come up behind certain men and burn their houses down about them! By Him in whose hand myself is! If one of them knew that he would find a meaty bone or two good legs of meat, he would be present at isha</span></td></tr>
+<tr class='grade' data-hadith='289'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='289'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 3</span></td></tr><tr id='h290' class='hadith-sep' data-hadith='290'><td colspan='2'><a class='permalink' href='#h290'>Hadith 290</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='290'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي النَّضْرِ، مَوْلَى عُمَرَ بْنِ عُبَيْدِ اللَّهِ عَنْ بُسْرِ بْنِ سَعِيدٍ، أَنَّ زَيْدَ بْنَ ثَابِتٍ، قَالَ أَفْضَلُ الصَّلاَةِ صَلاَتُكُمْ فِي بُيُوتِكُمْ إِلاَّ صَلاَةَ الْمَكْتُوبَةِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='290'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;n-Nadr, the mawla of Umar ibn Ubaydullah from Yusr ibn Said that Zayd ibn Thabit said, &quot;The most excellent prayer is your prayer in your house, except for the prescribed prayers</span></td></tr>
+<tr class='grade' data-hadith='290'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='290'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 4</span></td></tr><tr id='h291' class='hadith-sep' data-hadith='291'><td colspan='2'><a class='permalink' href='#h291'>Hadith 291</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='291'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ حَرْمَلَةَ الأَسْلَمِيِّ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ بَيْنَنَا وَبَيْنَ الْمُنَافِقِينَ شُهُودُ الْعِشَاءِ وَالصُّبْحِ لاَ يَسْتَطِيعُونَهُمَا ‏&quot;‏ ‏.‏ أَوْ نَحْوَ هَذَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='291'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abd ar-Rahman ibn Harmala al- Aslami from Said ibn al-Musayyab that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;What separates us from the hypocrites is being present at isha and subh. They cannot do it,&quot; or words to that effect</span></td></tr>
+<tr class='grade' data-hadith='291'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='291'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 5</span></td></tr><tr id='h292' class='hadith-sep' data-hadith='292'><td colspan='2'><a class='permalink' href='#h292'>Hadith 292</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='292'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سُمَىٍّ، مَوْلَى أَبِي بَكْرِ بْنِ عَبْدِ الرَّحْمَنِ عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ بَيْنَمَا رَجُلٌ يَمْشِي بِطَرِيقٍ إِذْ وَجَدَ غُصْنَ شَوْكٍ عَلَى الطَّرِيقِ فَأَخَّرَهُ فَشَكَرَ اللَّهُ لَهُ فَغَفَرَ لَهُ ‏&quot;‏ ‏.‏ وَقَالَ ‏&quot;‏ الشُّهَدَاءُ خَمْسَةٌ الْمَطْعُونُ وَالْمَبْطُونُ وَالْغَرِقُ وَصَاحِبُ الْهَدْمِ وَالشَّهِيدُ فِي سَبِيلِ اللَّهِ ‏&quot;‏ ‏.‏ وَقَالَ ‏&quot;‏ لَوْ يَعْلَمُ النَّاسُ مَا فِي النِّدَاءِ وَالصَّفِّ الأَوَّلِ ثُمَّ لَمْ يَجِدُوا إِلاَّ أَنْ يَسْتَهِمُوا عَلَيْهِ لاَسْتَهَمُوا وَلَوْ يَعْلَمُونَ مَا فِي التَّهْجِيرِ لاَسْتَبَقُوا إِلَيْهِ وَلَوْ يَعْلَمُونَ مَا فِي الْعَتَمَةِ وَالصُّبْحِ لأَتَوْهُمَا وَلَوْ حَبْوًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='292'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Sumayy, the mawla of Abu Bakr ibn Abd ar-Rahman from Abu Salih from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If a man who is walking along a road finds a branch of thorns on the road and removes it, Allah thanks him for doing it and forgives him.&quot; He also said, &quot;Martyrs are five:the one killed by a plague, the one killed by a disease of the belly, the one who drowns, the one killed by a collapsing building, and the martyr in the path of Allah.&#x27; He also said, &quot;If people knew what there was in the call to prayer and the first row, and they could find no other way except to draw lots for it, they would draw lots for it. And if they knew what there was in doing dhuhr at its time, they would race each other to it. And if they knew what there was in the prayers of isha and maghrib, they would come to them even if they had to crawl</span></td></tr>
+<tr class='grade' data-hadith='292'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='292'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 6</span></td></tr><tr id='h293' class='hadith-sep' data-hadith='293'><td colspan='2'><a class='permalink' href='#h293'>Hadith 293</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='293'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَبِي بَكْرِ بْنِ سُلَيْمَانَ بْنِ أَبِي حَثْمَةَ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، فَقَدَ سُلَيْمَانَ بْنَ أَبِي حَثْمَةَ فِي صَلاَةِ الصُّبْحِ وَأَنَّ عُمَرَ بْنَ الْخَطَّابِ غَدَا إِلَى السُّوقِ - وَمَسْكَنُ سُلَيْمَانَ بَيْنَ السُّوقِ وَالْمَسْجِدِ النَّبَوِيِّ - فَمَرَّ عَلَى الشِّفَاءِ أُمِّ سُلَيْمَانَ فَقَالَ لَهَا لَمْ أَرَ سُلَيْمَانَ فِي الصُّبْحِ فَقَالَتْ إِنَّهُ بَاتَ يُصَلِّي فَغَلَبَتْهُ عَيْنَاهُ ‏.‏ فَقَالَ عُمَرُ لأَنْ أَشْهَدَ صَلاَةَ الصُّبْحِ فِي الْجَمَاعَةِ أَحَبُّ إِلَىَّ مِنْ أَنْ أَقُومَ لَيْلَةً ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='293'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Abu Bakr ibn Sulayman ibn Abi Hathma that Umar ibn al-Khattab missed Sulayman ibn Abi Hathma in the subh prayer. In the morning he went to the market, and Sulayman&#x27;s house was between the market and the Prophet&#x27;s mosque. He passed ash-Shifa, Sulayman&#x27;s mother, and said to her, &quot;I did not see Sulayman at subh.&quot; She replied, &quot;He spent the night in prayer and his eyes overcame him. Umar said, &quot;I would rather be present at subh than stand the whole night in prayer</span></td></tr>
+<tr class='grade' data-hadith='293'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='293'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 7</span></td></tr><tr id='h294' class='hadith-sep' data-hadith='294'><td colspan='2'><a class='permalink' href='#h294'>Hadith 294</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='294'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي عَمْرَةَ الأَنْصَارِيِّ، أَنَّهُ قَالَ جَاءَ عُثْمَانُ بْنُ عَفَّانَ إِلَى صَلاَةِ الْعِشَاءِ فَرَأَى أَهْلَ الْمَسْجِدِ قَلِيلاً فَاضْطَجَعَ فِي مُؤَخَّرِ الْمَسْجِدِ يَنْتَظِرُ النَّاسَ أَنْ يَكْثُرُوا فَأَتَاهُ ابْنُ أَبِي عَمْرَةَ فَجَلَسَ إِلَيْهِ فَسَأَلَهُ مَنْ هُوَ فَأَخْبَرَهُ فَقَالَ مَا مَعَكَ مِنَ الْقُرْآنِ فَأَخْبَرَهُ ‏.‏ فَقَالَ لَهُ عُثْمَانُ مَنْ شَهِدَ الْعِشَاءَ فَكَأَنَّمَا قَامَ نِصْفَ لَيْلَةٍ وَمَنْ شَهِدَ الصُّبْحَ فَكَأَنَّمَا قَامَ لَيْلَةً ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='294'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said from Muhammad ibn Ibrahim that Abd ar-Rahman ibn Abi Amra al-Ansari said that Uthman ibn Affan came to the isha prayer and seeing only a few people in the mosque, he lay down at the back of the mosque to wait for the number of people to increase. Ibn Abi Amra went and sat down beside him and Uthman asked him who he was, so he told him. Uthman said, &quot;What have you memorised of the Qur&#x27;an?&quot;, and he told him. Uthman said, &quot;If someone is present at isha, it is as if he had stood in prayer for half a night, and if some one is present at subh, it is as if he had stood in prayer for a whole night</span></td></tr>
+<tr class='grade' data-hadith='294'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='294'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 8</span></td></tr><tr id='h295' class='hadith-sep' data-hadith='295'><td colspan='2'><a class='permalink' href='#h295'>Hadith 295</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='295'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ رَجُلٍ، مِنْ بَنِي الدِّيلِ يُقَالُ لَهُ بُسْرُ بْنُ مِحْجَنٍ عَنْ أَبِيهِ، مِحْجَنٍ أَنَّهُ كَانَ فِي مَجْلِسٍ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم فَأُذِّنَ بِالصَّلاَةِ فَقَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَصَلَّى ثُمَّ رَجَعَ وَمِحْجَنٌ فِي مَجْلِسِهِ لَمْ يُصَلِّ مَعَهُ فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مَا مَنَعَكَ أَنْ تُصَلِّيَ مَعَ النَّاسِ أَلَسْتَ بِرَجُلٍ مُسْلِمٍ ‏&quot;‏ ‏.‏ فَقَالَ بَلَى يَا رَسُولَ اللَّهِ وَلَكِنِّي قَدْ صَلَّيْتُ فِي أَهْلِي ‏.‏ فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِذَا جِئْتَ فَصَلِّ مَعَ النَّاسِ وَإِنْ كُنْتَ قَدْ صَلَّيْتَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='295'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam from a man of the Bani&#x27;d-Dil called Busr ibn Mihjan from his father Mihjan that he was in a gathering with the Messenger of Allah, may Allah bless him and grant him peace, and the call to prayer was made. The Messenger of Allah, may Allah bless him and grant him peace, rose and prayed and then returned. Mihjan remained sitting and did not pray with him. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;What prevented you from praying with the people? Aren&#x27;t you a muslim?&quot; He said, &quot;Of course, Messenger of Allah, but I have already prayed with my family.&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When you come, pray with the people, even if you have prayed already</span></td></tr>
+<tr class='grade' data-hadith='295'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='295'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 9</span></td></tr><tr id='h296' class='hadith-sep' data-hadith='296'><td colspan='2'><a class='permalink' href='#h296'>Hadith 296</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='296'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ رَجُلاً، سَأَلَ عَبْدَ اللَّهِ بْنَ عُمَرَ فَقَالَ إِنِّي أُصَلِّي فِي بَيْتِي ثُمَّ أُدْرِكُ الصَّلاَةَ مَعَ الإِمَامِ أَفَأُصَلِّي مَعَهُ فَقَالَ لَهُ عَبْدُ اللَّهِ بْنُ عُمَرَ نَعَمْ ‏.‏ فَقَالَ الرَّجُلُ أَيَّتَهُمَا أَجْعَلُ صَلاَتِي فَقَالَ لَهُ ابْنُ عُمَرَ أَوَذَلِكَ إِلَيْكَ إِنَّمَا ذَلِكَ إِلَى اللَّهِ يَجْعَلُ أَيَّتَهُمَا شَاءَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='296'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that a man asked Abdullah ibn Umar, &quot;Sometimes I pray in my house, and then catch the prayer with the imam. Should I pray with him?&quot; Abdullah ibn Umar said to him, &quot;Yes,&quot; and the man said, &quot;Which of them do I make my prayer?&quot; Abdullah ibn Umar said, &quot;Is that up to you? It is up to Allah. He will decide on whichever of them He wishes</span></td></tr>
+<tr class='grade' data-hadith='296'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='296'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 10</span></td></tr><tr id='h297' class='hadith-sep' data-hadith='297'><td colspan='2'><a class='permalink' href='#h297'>Hadith 297</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='297'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ رَجُلاً، سَأَلَ سَعِيدَ بْنَ الْمُسَيَّبِ فَقَالَ إِنِّي أُصَلِّي فِي بَيْتِي ثُمَّ آتِي الْمَسْجِدَ فَأَجِدُ الإِمَامَ يُصَلِّي أَفَأُصَلِّي مَعَهُ فَقَالَ سَعِيدٌ نَعَمْ ‏.‏ فَقَالَ الرَّجُلُ فَأَيُّهُمَا صَلاَتِي فَقَالَ سَعِيدٌ أَوَأَنْتَ تَجْعَلُهُمَا إِنَّمَا ذَلِكَ إِلَى اللَّهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='297'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that a man asked Said ibn al-Musayyab, &quot;I pray in my house, and then I come to the mosque and find the imam praying. Should I pray with him?&quot; Said said, &quot;Yes,&quot; and the man said, &quot;Which of them is my prayer?&quot; Said said, &quot;Are you the one to decide that? That is up to Allah</span></td></tr>
+<tr class='grade' data-hadith='297'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='297'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 11</span></td></tr><tr id='h298' class='hadith-sep' data-hadith='298'><td colspan='2'><a class='permalink' href='#h298'>Hadith 298</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='298'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَفِيفٍ السَّهْمِيِّ، عَنْ رَجُلٍ، مِنْ بَنِي أَسَدٍ أَنَّهُ سَأَلَ أَبَا أَيُّوبَ الأَنْصَارِيَّ فَقَالَ إِنِّي أُصَلِّي فِي بَيْتِي ثُمَّ آتِي الْمَسْجِدَ فَأَجِدُ الإِمَامَ يُصَلِّي أَفَأُصَلِّي مَعَهُ فَقَالَ أَبُو أَيُّوبَ نَعَمْ فَصَلِّ مَعَهُ فَإِنَّ مَنْ صَنَعَ ذَلِكَ فَإِنَّ لَهُ سَهْمَ جَمْعٍ أَوْ مِثْلَ سَهْمِ جَمْعٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='298'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Afif as-Sahmi that a man from the tribe of Bani Asad asked Abu Ayyub al-Ansari. &quot;Sometimes I pray in my house, and then come to the mosque and find the imam praying. Should I pray with him?&quot; Abu Ayyub said, &quot;Yes, pray with him, for some one who does so has the reward of the group, or the equivalent of the reward of the group</span></td></tr>
+<tr class='grade' data-hadith='298'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='298'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 12</span></td></tr><tr id='h299' class='hadith-sep' data-hadith='299'><td colspan='2'><a class='permalink' href='#h299'>Hadith 299</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='299'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يَقُولُ مَنْ صَلَّى الْمَغْرِبَ أَوِ الصُّبْحَ ثُمَّ أَدْرَكَهُمَا مَعَ الإِمَامِ فَلاَ يَعُدْ لَهُمَا ‏.‏ قَالَ مَالِكٌ وَلاَ أَرَى بَأْسًا أَنْ يُصَلِّيَ مَعَ الإِمَامِ مَنْ كَانَ قَدْ صَلَّى فِي بَيْتِهِ إِلاَّ صَلاَةَ الْمَغْرِبِ فَإِنَّهُ إِذَا أَعَادَهَا كَانَتْ شَفْعًا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='299'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar used to say, &quot;Someone who prays maghrib or subh and then catches them with the imam should not repeat them.&quot; Malik said, &quot;I do not see any harm in someone who has already prayed in his house praying with the imam, except for maghrib, because if he repeats it, he makes it even</span></td></tr>
+<tr class='grade' data-hadith='299'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='299'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 13</span></td></tr><tr id='h300' class='hadith-sep' data-hadith='300'><td colspan='2'><a class='permalink' href='#h300'>Hadith 300</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='300'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا صَلَّى أَحَدُكُمْ بِالنَّاسِ فَلْيُخَفِّفْ فَإِنَّ فِيهِمُ الضَّعِيفَ وَالسَّقِيمَ وَالْكَبِيرَ وَإِذَا صَلَّى أَحَدُكُمْ لِنَفْسِهِ فَلْيُطَوِّلْ مَا شَاءَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='300'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When you lead people in the prayer, make it short, because there are among them some people who are weak, ill and old. But when you pray on your own, make it as long as you wish</span></td></tr>
+<tr class='grade' data-hadith='300'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='300'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 14</span></td></tr><tr id='h301' class='hadith-sep' data-hadith='301'><td colspan='2'><a class='permalink' href='#h301'>Hadith 301</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='301'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّهُ قَالَ قُمْتُ وَرَاءَ عَبْدِ اللَّهِ بْنِ عُمَرَ فِي صَلاَةٍ مِنَ الصَّلَوَاتِ وَلَيْسَ مَعَهُ أَحَدٌ غَيْرِي فَخَالَفَ عَبْدُ اللَّهِ بِيَدِهِ فَجَعَلَنِي حِذَاءَهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='301'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Nafi said, &quot;I stood behind Abdullah ibn Umar in one of the prayers when there was no one else with him, and he reached behind with his hand and placed me beside him</span></td></tr>
+<tr class='grade' data-hadith='301'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='301'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 15</span></td></tr><tr id='h302' class='hadith-sep' data-hadith='302'><td colspan='2'><a class='permalink' href='#h302'>Hadith 302</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='302'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ رَجُلاً، كَانَ يَؤُمُّ النَّاسَ بِالْعَقِيقِ فَأَرْسَلَ إِلَيْهِ عُمَرُ بْنُ عَبْدِ الْعَزِيزِ فَنَهَاهُ ‏.‏ قَالَ مَالِكٌ وَإِنَّمَا نَهَاهُ لأَنَّهُ كَانَ لاَ يُعْرَفُ أَبُوهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='302'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that a man used to lead the people in prayer in al-Aqiq (a place near Madina), and Umar ibn Abd al-Aziz sent a message to him forbidding him to do so. Malik said, &quot;He only forbade him because his father was not known</span></td></tr>
+<tr class='grade' data-hadith='302'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='302'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 16</span></td></tr><tr id='h303' class='hadith-sep' data-hadith='303'><td colspan='2'><a class='permalink' href='#h303'>Hadith 303</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='303'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم رَكِبَ فَرَسًا فَصُرِعَ فَجُحِشَ شِقُّهُ الأَيْمَنُ فَصَلَّى صَلاَةً مِنَ الصَّلَوَاتِ وَهُوَ قَاعِدٌ وَصَلَّيْنَا وَرَاءَهُ قُعُودًا فَلَمَّا انْصَرَفَ قَالَ ‏ &quot;‏ إِنَّمَا جُعِلَ الإِمَامُ لِيُؤْتَمَّ بِهِ فَإِذَا صَلَّى قَائِمًا فَصَلُّوا قِيَامًا وَإِذَا رَكَعَ فَارْكَعُوا وَإِذَا رَفَعَ فَارْفَعُوا وَإِذَا قَالَ سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ فَقُولُوا رَبَّنَا وَلَكَ الْحَمْدُ وَإِذَا صَلَّى جَالِسًا فَصَلُّوا جُلُوسًا أَجْمَعُونَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='303'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Anas ibn Malik that the Messenger of Allah, may Allah bless him and grant him peace, fell off his horse when riding, and his right side was scraped, so he did one of the prayers sitting, and we prayed behind him sitting. When he left, he said, &quot;The imam is appointed to be followed. If he prays standing, then pray standing, and when he goes into ruku, go into ruku, and when he rises, rise, and when he says, &#x27;Allah hears whoever praises him,&#x27; say, &#x27;Our Lord, praise belongs to You,&#x27; and if he prays sitting, then all of you pray sitting</span></td></tr>
+<tr class='grade' data-hadith='303'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='303'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 17</span></td></tr><tr id='h304' class='hadith-sep' data-hadith='304'><td colspan='2'><a class='permalink' href='#h304'>Hadith 304</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='304'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ صَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم وَهُوَ شَاكٍ فَصَلَّى جَالِسًا وَصَلَّى وَرَاءَهُ قَوْمٌ قِيَامًا فَأَشَارَ إِلَيْهِمْ أَنِ اجْلِسُوا فَلَمَّا انْصَرَفَ قَالَ ‏ &quot;‏ إِنَّمَا جُعِلَ الإِمَامُ لِيُؤْتَمَّ بِهِ فَإِذَا رَكَعَ فَارْكَعُوا وَإِذَا رَفَعَ فَارْفَعُوا وَإِذَا صَلَّى جَالِسًا فَصَلُّوا جُلُوسًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='304'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, prayed while he was ill. He prayed sitting, and some people prayed behind him standing, and he indicated to them to sit down. When he left, he said, &#x27;The imam is only appointed to be followed. When he goes into ruku, go into ruku and when he rises, rise and if he prays sitting, pray sitting</span></td></tr>
+<tr class='grade' data-hadith='304'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='304'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 18</span></td></tr><tr id='h305' class='hadith-sep' data-hadith='305'><td colspan='2'><a class='permalink' href='#h305'>Hadith 305</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='305'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم خَرَجَ فِي مَرَضِهِ فَأَتَى فَوَجَدَ أَبَا بَكْرٍ وَهُوَ قَائِمٌ يُصَلِّي بِالنَّاسِ فَاسْتَأْخَرَ أَبُو بَكْرٍ فَأَشَارَ إِلَيْهِ رَسُولُ اللَّهِ صلى الله عليه وسلم أَنْ كَمَا أَنْتَ فَجَلَسَ رَسُولُ اللَّهِ صلى الله عليه وسلم إِلَى جَنْبِ أَبِي بَكْرٍ فَكَانَ أَبُو بَكْرٍ يُصَلِّي بِصَلاَةِ رَسُولِ اللَّهِ صلى الله عليه وسلم وَهُوَ جَالِسٌ وَكَانَ النَّاسُ يُصَلُّونَ بِصَلاَةِ أَبِي بَكْرٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='305'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that the Messenger of Allah, may Allah bless him and grant him peace, came out during his illness, and approached and found Abu Bakr standing, leading the people in prayer. Abu Bakr began to go back, but the Messenger of Allah, may Allah bless him and grant him peace, indicated to him to stay where he was. The Messenger of Allah, may Allah bless him and grant him peace, sat by the side of Abu Bakr, and Abu Bakr prayed following the prayer of the Messenger of Allah, may Allah bless him and grant him peace, who was sitting, and the people prayed following the prayer of Abu Bakr</span></td></tr>
+<tr class='grade' data-hadith='305'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='305'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 19</span></td></tr><tr id='h306' class='hadith-sep' data-hadith='306'><td colspan='2'><a class='permalink' href='#h306'>Hadith 306</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='306'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ إِسْمَاعِيلَ بْنِ مُحَمَّدِ بْنِ سَعْدِ بْنِ أَبِي وَقَّاصٍ، عَنْ مَوْلًى، لِعَمْرِو بْنِ الْعَاصِ - أَوْ لِعَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ - عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ صَلاَةُ أَحَدِكُمْ وَهُوَ قَاعِدٌ مِثْلُ نِصْفِ صَلاَتِهِ وَهُوَ قَائِمٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='306'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ismail ibn Muhammad ibn Said ibn Abi Waqqas from a mawla of Amr ibn al-As or of Abdullah ibn Amr ibn al-As that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;The prayer of one of you sitting down is only equal to half the prayer of one of you when he is standing</span></td></tr>
+<tr class='grade' data-hadith='306'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='306'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 20</span></td></tr><tr id='h307' class='hadith-sep' data-hadith='307'><td colspan='2'><a class='permalink' href='#h307'>Hadith 307</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='307'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ، أَنَّهُ قَالَ لَمَّا قَدِمْنَا الْمَدِينَةَ نَالَنَا وَبَاءٌ مِنْ وَعْكِهَا شَدِيدٌ فَخَرَجَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَلَى النَّاسِ وَهُمْ يُصَلُّونَ فِي سُبْحَتِهِمْ قُعُودًا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ صَلاَةُ الْقَاعِدِ مِثْلُ نِصْفِ صَلاَةِ الْقَائِمِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='307'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that Abdullah ibn Amr ibn al As said, &quot;When we arrived at Madina we were struck down by a severe epidemic which debilitated us greatly. The Messenger of Allah, may Allah bless him and grant him peace, came out to the people while they were praying nawafil prayers sitting down. The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;The prayer of the one sitting is equal to only half the prayer of the one standing</span></td></tr>
+<tr class='grade' data-hadith='307'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='307'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 21</span></td></tr><tr id='h308' class='hadith-sep' data-hadith='308'><td colspan='2'><a class='permalink' href='#h308'>Hadith 308</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='308'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنِ السَّائِبِ بْنِ يَزِيدَ، عَنِ الْمُطَّلِبِ بْنِ أَبِي وَدَاعَةَ السَّهْمِيِّ، عَنْ حَفْصَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ مَا رَأَيْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم صَلَّى فِي سُبْحَتِهِ قَاعِدًا قَطُّ حَتَّى كَانَ قَبْلَ وَفَاتِهِ بِعَامٍ فَكَانَ يُصَلِّي فِي سُبْحَتِهِ قَاعِدًا وَيَقْرَأُ بِالسُّورَةِ فَيُرَتِّلُهَا حَتَّى تَكُونَ أَطْوَلَ مِنْ أَطْوَلَ مِنْهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='308'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from as-Sa&#x27;ib ibn Yazid from al Muttalib ibn Abi Wadaa as-Sahmi that Hafsa, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;I never saw the Messenger of Allah, may Allah bless him and grant him peace, praying nawafil sitting, until a year before his death, when he began to pray them sitting. He would recite the sura with a measured slowness so that it would seem to be longer than other suras which were actually longer than it</span></td></tr>
+<tr class='grade' data-hadith='308'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='308'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 22</span></td></tr><tr id='h309' class='hadith-sep' data-hadith='309'><td colspan='2'><a class='permalink' href='#h309'>Hadith 309</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='309'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا أَخْبَرَتْهُ أَنَّهَا لَمْ تَرَ رَسُولَ اللَّهِ صلى الله عليه وسلم يُصَلِّي صَلاَةَ اللَّيْلِ قَاعِدًا قَطُّ حَتَّى أَسَنَّ فَكَانَ يَقْرَأُ قَاعِدًا حَتَّى إِذَا أَرَادَ أَنْ يَرْكَعَ قَامَ فَقَرَأَ نَحْوًا مِنْ ثَلاَثِينَ أَوْ أَرْبَعِينَ آيَةً ثُمَّ رَكَعَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='309'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, told him that she had never seen the Messenger of Allah, may Allah bless him and grant him peace, doing night prayers sitting down until he was getting on in years. He would recite sitting down until when he wanted to go into ruku, he would stand up and recite about thirty or forty ayats and then go into ruku</span></td></tr>
+<tr class='grade' data-hadith='309'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='309'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 23</span></td></tr><tr id='h310' class='hadith-sep' data-hadith='310'><td colspan='2'><a class='permalink' href='#h310'>Hadith 310</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='310'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ يَزِيدَ الْمَدَنِيِّ، وَعَنْ أَبِي النَّضْرِ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُصَلِّي جَالِسًا فَيَقْرَأُ وَهُوَ جَالِسٌ فَإِذَا بَقِيَ مِنْ قِرَاءَتِهِ قَدْرُ مَا يَكُونُ ثَلاَثِينَ أَوْ أَرْبَعِينَ آيَةً قَامَ فَقَرَأَ وَهُوَ قَائِمٌ ثُمَّ رَكَعَ وَسَجَدَ ثُمَّ صَنَعَ فِي الرَّكْعَةِ الثَّانِيَةِ مِثْلَ ذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='310'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abdullah ibn Yazid al-Madani and from Abu&#x27;n Nadr from Abu Salama ibn Abd ar-Rahman from A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, that the Messenger of Allah, may Allah bless him and grant him peace, used to pray sitting. He would recite sitting, and then, when about thirty or forty ayats of what he was reciting remained, he would stand up and recite standing and then go into ruku and sajda. He would do the same in the second raka</span></td></tr>
+<tr class='grade' data-hadith='310'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='310'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 24</span></td></tr><tr id='h311' class='hadith-sep' data-hadith='311'><td colspan='2'><a class='permalink' href='#h311'>Hadith 311</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='311'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عُرْوَةَ بْنَ الزُّبَيْرِ، وَسَعِيدَ بْنَ الْمُسَيَّبِ، كَانَا يُصَلِّيَانِ النَّافِلَةَ وَهُمَا مُحْتَبِيَانِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='311'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Urwa ibn az-Zubayr and Said ibn al-Musayyab used to pray voluntary prayers sitting</span></td></tr>
+<tr class='grade' data-hadith='311'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='311'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 25</span></td></tr><tr id='h312' class='hadith-sep' data-hadith='312'><td colspan='2'><a class='permalink' href='#h312'>Hadith 312</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='312'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنِ الْقَعْقَاعِ بْنِ حَكِيمٍ، عَنْ أَبِي يُونُسَ، مَوْلَى عَائِشَةَ أُمِّ الْمُؤْمِنِينَ أَنَّهُ قَالَ أَمَرَتْنِي عَائِشَةُ أَنْ أَكْتُبَ لَهَا مُصْحَفًا ثُمَّ قَالَتْ إِذَا بَلَغْتَ هَذِهِ الآيَةَ فَآذِنِّي ‏{‏حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلاَةِ الْوُسْطَى وَقُومُوا لِلَّهِ قَانِتِينَ‏}‏ فَلَمَّا بَلَغْتُهَا آذَنْتُهَا فَأَمْلَتْ عَلَىَّ حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلاَةِ الْوُسْطَى وَصَلاَةِ الْعَصْرِ وَقُومُوا لِلَّهِ قَانِتِينَ قَالَتْ عَائِشَةُ سَمِعْتُهَا مِنْ رَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='312'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam from al-Qaqa ibn Hakim that Abu Yunus, the mawla of A&#x27;isha, umm al-muminin said, &#x27;&#x27;A&#x27;isha ordered me to write out a Qur&#x27;an for her. She said, &#x27;When you reach this ayat, let me know, &quot;Guard the prayers carefully and the middle prayer and stand obedient to Allah.&quot; &#x27; When I reached it I told her, and she dictated to me, &#x27;Guard the prayers carefully and the middle prayer and the asr prayer and stand obedient to Allah.&#x27; A&#x27;isha said, &#x27;I heard it from the Messenger of Allah, may Allah bless him and grant him peace</span></td></tr>
+<tr class='grade' data-hadith='312'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='312'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 26</span></td></tr><tr id='h313' class='hadith-sep' data-hadith='313'><td colspan='2'><a class='permalink' href='#h313'>Hadith 313</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='313'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَمْرِو بْنِ رَافِعٍ، أَنَّهُ قَالَ كُنْتُ أَكْتُبُ مُصْحَفًا لِحَفْصَةَ أُمِّ الْمُؤْمِنِينَ فَقَالَتْ إِذَا بَلَغْتَ هَذِهِ الآيَةَ فَآذِنِّي ‏{‏حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلاَةِ الْوُسْطَى وَقُومُوا لِلَّهِ قَانِتِينَ ‏}‏ فَلَمَّا بَلَغْتُهَا آذَنْتُهَا فَأَمْلَتْ عَلَىَّ حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلاَةِ الْوُسْطَى وَصَلاَةِ الْعَصْرِ وَقُومُوا لِلَّهِ قَانِتِينَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='313'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam that Amr ibn Rafi said, &quot;I was writing a Qur&#x27;an for Hafsa, umm al-muminin, and she said, &#x27;When you reach this ayat, let me know, &quot;Guard the prayers carefully and the middle prayer and stand obedient to Allah.&quot; When I reached it I told her and she dictated to me, &#x27;Guard the prayers carefully and the middle prayer and the asr prayer and stand obedient to Allah</span></td></tr>
+<tr class='grade' data-hadith='313'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Hasan</span></td></tr>
+<tr class='ref' data-hadith='313'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 27</span></td></tr><tr id='h314' class='hadith-sep' data-hadith='314'><td colspan='2'><a class='permalink' href='#h314'>Hadith 314</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='314'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ دَاوُدَ بْنِ الْحُصَيْنِ، عَنِ ابْنِ يَرْبُوعٍ الْمَخْزُومِيِّ، أَنَّهُ قَالَ سَمِعْتُ زَيْدَ بْنَ ثَابِتٍ، يَقُولُ الصَّلاَةُ الْوُسْطَى صَلاَةُ الظُّهْرِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='314'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Da&#x27;ud ibn al-Husayn that Ibn Yarbu al-Makhzumi said, &quot;I heard Zayd ibn Thabit say, &#x27;The middle prayer is the prayer of dhuhr</span></td></tr>
+<tr class='grade' data-hadith='314'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='314'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 28</span></td></tr><tr id='h315' class='hadith-sep' data-hadith='315'><td colspan='2'><a class='permalink' href='#h315'>Hadith 315</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='315'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَلِيَّ بْنَ أَبِي طَالِبٍ، وَعَبْدَ اللَّهِ بْنَ عَبَّاسٍ، كَانَا يَقُولاَنِ الصَّلاَةُ الْوُسْطَى صَلاَةُ الصُّبْحِ ‏.‏ قَالَ مَالِكٌ وَقَوْلُ عَلِيٍّ وَابْنِ عَبَّاسٍ أَحَبُّ مَا سَمِعْتُ إِلَىَّ فِي ذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='315'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that AIi ibn Abi Talib and Abdullah ibn Abbas used to say, &quot;The middle prayer is the prayer of subh.&quot; Malik said, &quot;Out of all that I have heard about the matter, I prefer what Ali ibn Abi Talib and Abdullah ibn Abbas said</span></td></tr>
+<tr class='grade' data-hadith='315'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='315'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 29</span></td></tr><tr id='h316' class='hadith-sep' data-hadith='316'><td colspan='2'><a class='permalink' href='#h316'>Hadith 316</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='316'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عُمَرَ بْنِ أَبِي سَلَمَةَ، أَنَّهُ رَأَى رَسُولَ اللَّهِ صلى الله عليه وسلم يُصَلِّي فِي ثَوْبٍ وَاحِدٍ مُشْتَمِلاً بِهِ فِي بَيْتِ أُمِّ سَلَمَةَ وَاضِعًا طَرَفَيْهِ عَلَى عَاتِقَيْهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='316'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that Umar ibn Abi Salama saw the Messenger of Allah, may Allah bless him and grant him peace, praying in one garment in the house of Umm Salama. He was completely covered by it, and had put both ends over his shoulders</span></td></tr>
+<tr class='grade' data-hadith='316'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='316'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 30</span></td></tr><tr id='h317' class='hadith-sep' data-hadith='317'><td colspan='2'><a class='permalink' href='#h317'>Hadith 317</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='317'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ سَائِلاً، سَأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنِ الصَّلاَةِ فِي ثَوْبٍ وَاحِدٍ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ أَوَلِكُلِّكُمْ ثَوْبَانِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='317'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Said ibn al- Musayyab from Abu Hurayra that some one asked the Messenger of Allah, may Allah bless him and grant him peace about praying in one garment. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Do you all have two garments?</span></td></tr>
+<tr class='grade' data-hadith='317'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='317'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 31</span></td></tr><tr id='h318' class='hadith-sep' data-hadith='318'><td colspan='2'><a class='permalink' href='#h318'>Hadith 318</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='318'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ قَالَ سُئِلَ أَبُو هُرَيْرَةَ هَلْ يُصَلِّي الرَّجُلُ فِي ثَوْبٍ وَاحِدٍ فَقَالَ نَعَمْ ‏.‏ فَقِيلَ لَهُ هَلْ تَفْعَلُ أَنْتَ ذَلِكَ فَقَالَ نَعَمْ إِنِّي لأُصَلِّي فِي ثَوْبٍ وَاحِدٍ وَإِنَّ ثِيَابِي لَعَلَى الْمِشْجَبِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='318'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that Said ibn al- Musayyab said that Abu Hurayra was asked, &quot;May a man pray in one garment?&quot; He said, &quot;Yes.&quot; The man then said to him &quot;Do you do that?&quot; and he replied, &quot;Yes, I pray in one garment while my clothes are on the clothes-rack</span></td></tr>
+<tr class='grade' data-hadith='318'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='318'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 32</span></td></tr><tr id='h319' class='hadith-sep' data-hadith='319'><td colspan='2'><a class='permalink' href='#h319'>Hadith 319</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='319'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ جَابِرَ بْنَ عَبْدِ اللَّهِ، كَانَ يُصَلِّي فِي الثَّوْبِ الْوَاحِدِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='319'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Jabir ibn Abdullah used to pray in one garment</span></td></tr>
+<tr class='grade' data-hadith='319'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='319'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 33</span></td></tr><tr id='h320' class='hadith-sep' data-hadith='320'><td colspan='2'><a class='permalink' href='#h320'>Hadith 320</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='320'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ رَبِيعَةَ بْنِ أَبِي عَبْدِ الرَّحْمَنِ، أَنَّ مُحَمَّدَ بْنَ عَمْرِو بْنِ حَزْمٍ، كَانَ يُصَلِّي فِي الْقَمِيصِ الْوَاحِدِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='320'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Rabia ibn Abi Abd ar-Rahman that Muhammad ibn Amr ibn Hazm used to pray in a single long shirt</span></td></tr>
+<tr class='grade' data-hadith='320'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='320'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 34</span></td></tr><tr id='h321' class='hadith-sep' data-hadith='321'><td colspan='2'><a class='permalink' href='#h321'>Hadith 321</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='321'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ لَمْ يَجِدْ ثَوْبَيْنِ فَلْيُصَلِّي فِي ثَوْبٍ وَاحِدٍ مُلْتَحِفًا بِهِ فَإِنْ كَانَ الثَّوْبُ قَصِيرًا فَلْيَتَّزِرْ بِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='321'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard from Jabir ibn Abdullah that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Let anyone who cannot find two garments pray in one garment and wrap himself in it, and if the garment is short, let him wrap it around his waist.&quot; Malik said, &quot;In my view it is preferable for someone who prays in a single shirt to put a garment or a turban over his shoulders</span></td></tr>
+<tr class='grade' data-hadith='321'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='321'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 35</span></td></tr><tr id='h322' class='hadith-sep' data-hadith='322'><td colspan='2'><a class='permalink' href='#h322'>Hadith 322</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='322'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَائِشَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَانَتْ تُصَلِّي فِي الدِّرْعِ وَالْخِمَارِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='322'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, used to pray in a shift and head-covering</span></td></tr>
+<tr class='grade' data-hadith='322'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='322'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 36</span></td></tr><tr id='h323' class='hadith-sep' data-hadith='323'><td colspan='2'><a class='permalink' href='#h323'>Hadith 323</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='323'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ زَيْدِ بْنِ قُنْفُذٍ، عَنْ أُمِّهِ، أَنَّهَا سَأَلَتْ أُمَّ سَلَمَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم مَاذَا تُصَلِّي فِيهِ الْمَرْأَةُ مِنَ الثِّيَابِ فَقَالَتْ تُصَلِّي فِي الْخِمَارِ وَالدِّرْعِ السَّابِغِ إِذَا غَيَّبَ ظُهُورَ قَدَمَيْهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='323'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Muhammad ibn Zayd ibn Qunfudh that his mother asked Umm Salama, the wife of the Prophet, may Allah bless him and grant him peace, &quot;What clothes can a woman wear in prayer?&quot; She said, &quot;She can pray in a shift that reaches down and covers the top of her feet</span></td></tr>
+<tr class='grade' data-hadith='323'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='323'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 37</span></td></tr><tr id='h324' class='hadith-sep' data-hadith='324'><td colspan='2'><a class='permalink' href='#h324'>Hadith 324</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='324'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ الثِّقَةِ، عِنْدَهُ عَنْ بُكَيْرِ بْنِ عَبْدِ اللَّهِ بْنِ الأَشَجِّ، عَنْ بُسْرِ بْنِ سَعِيدٍ، عَنْ عُبَيْدِ اللَّهِ بْنِ الأَسْوَدِ الْخَوْلاَنِيِّ، وَكَانَ، فِي حَجْرِ مَيْمُونَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ مَيْمُونَةَ كَانَتْ تُصَلِّي فِي الدِّرْعِ وَالْخِمَارِ لَيْسَ عَلَيْهَا إِزَارٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='324'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from a reliable source from Bukayr ibn Abdullah ibn al-Ashajj from Busr ibn Said that when Ubaydullah ibn al-Aswad al-Khawlani was in the room of Maimuna, the wife of the Prophet, may Allah bless him and grant him peace, she used to pray in a shift and head-covering, without a waist-wrapper</span></td></tr>
+<tr class='grade' data-hadith='324'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='324'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 38</span></td></tr><tr id='h325' class='hadith-sep' data-hadith='325'><td colspan='2'><a class='permalink' href='#h325'>Hadith 325</a> — Prayer in Congregation</td></tr>
+<tr class='arabic' data-hadith='325'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ امْرَأَةً، اسْتَفْتَتْهُ فَقَالَتْ إِنَّ الْمِنْطَقَ يَشُقُّ عَلَىَّ أَفَأُصَلِّي فِي دِرْعٍ وَخِمَارٍ فَقَالَ نَعَمْ إِذَا كَانَ الدِّرْعُ سَابِغًا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='325'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that a woman asked him for a decision, saying, &quot;Waist-wrappers are painful to me. Can I pray in a shift and head-covering?&quot; He replied, &quot;Yes, if the shift is long</span></td></tr>
+<tr class='grade' data-hadith='325'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='325'><td class='label'>Reference</td><td><span class='ref-text'>Book 8, Hadith 39</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-007.html">← Tahajjud</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-009.html">Shortening the Prayer →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

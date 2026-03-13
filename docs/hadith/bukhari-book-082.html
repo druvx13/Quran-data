@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahih al-Bukhari — Divine Will (Al-Qadar) – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='bukhari.html'>Sahih al-Bukhari</a> › Divine Will (Al-Qadar)</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="bukhari-book-001.html">1. Revelation</option><option value="bukhari-book-002.html">2. Belief</option><option value="bukhari-book-003.html">3. Knowledge</option><option value="bukhari-book-004.html">4. Ablutions (Wudu&#x27;)</option><option value="bukhari-book-005.html">5. Bathing (Ghusl)</option><option value="bukhari-book-006.html">6. Menstrual Periods</option><option value="bukhari-book-007.html">7. Rubbing hands and feet with dust (Tayammum)</option><option value="bukhari-book-008.html">8. Prayers (Salat)</option><option value="bukhari-book-009.html">9. Times of the Prayers</option><option value="bukhari-book-010.html">10. Call to Prayers (Adhaan)</option><option value="bukhari-book-011.html">11. Friday Prayer</option><option value="bukhari-book-012.html">12. Fear Prayer</option><option value="bukhari-book-013.html">13. The Two Festivals (Eids)</option><option value="bukhari-book-014.html">14. Witr Prayer</option><option value="bukhari-book-015.html">15. Invoking Allah for Rain (Istisqaa)</option><option value="bukhari-book-016.html">16. Eclipses</option><option value="bukhari-book-017.html">17. Prostration During Recital of Qur&#x27;an</option><option value="bukhari-book-018.html">18. Shortening the Prayers (At-Taqseer)</option><option value="bukhari-book-019.html">19. Prayer at Night (Tahajjud)</option><option value="bukhari-book-020.html">20. Virtues of Prayer at Masjid Makkah and Madinah</option><option value="bukhari-book-021.html">21. Actions while Praying</option><option value="bukhari-book-022.html">22. Forgetfulness in Prayer</option><option value="bukhari-book-023.html">23. Funerals (Al-Janaa&#x27;iz)</option><option value="bukhari-book-024.html">24. Obligatory Charity Tax (Zakat)</option><option value="bukhari-book-025.html">25. Hajj (Pilgrimage)</option><option value="bukhari-book-026.html">26. `Umrah (Minor pilgrimage)</option><option value="bukhari-book-027.html">27. Pilgrims Prevented from Completing the Pilgrimage</option><option value="bukhari-book-028.html">28. Penalty of Hunting while on Pilgrimage</option><option value="bukhari-book-029.html">29. Virtues of Madinah</option><option value="bukhari-book-030.html">30. Fasting</option><option value="bukhari-book-031.html">31. Praying at Night in Ramadaan (Taraweeh)</option><option value="bukhari-book-032.html">32. Virtues of the Night of Qadr</option><option value="bukhari-book-033.html">33. Retiring to a Mosque for Remembrance of Allah…</option><option value="bukhari-book-034.html">34. Sales and Trade</option><option value="bukhari-book-035.html">35. Sales in which a Price is paid for Goods to be…</option><option value="bukhari-book-036.html">36. Shuf&#x27;a</option><option value="bukhari-book-037.html">37. Hiring</option><option value="bukhari-book-038.html">38. Transferance of a Debt from One Person to Another…</option><option value="bukhari-book-039.html">39. Kafalah</option><option value="bukhari-book-040.html">40. Representation, Authorization, Business by Proxy</option><option value="bukhari-book-041.html">41. Agriculture</option><option value="bukhari-book-042.html">42. Distribution of Water</option><option value="bukhari-book-043.html">43. Loans, Payment of Loans, Freezing of Property,…</option><option value="bukhari-book-044.html">44. Khusoomaat</option><option value="bukhari-book-045.html">45. Lost Things Picked up by Someone (Luqatah)</option><option value="bukhari-book-046.html">46. Oppressions</option><option value="bukhari-book-047.html">47. Partnership</option><option value="bukhari-book-048.html">48. Mortgaging</option><option value="bukhari-book-049.html">49. Manumission of Slaves</option><option value="bukhari-book-050.html">50. Makaatib</option><option value="bukhari-book-051.html">51. Gifts</option><option value="bukhari-book-052.html">52. Witnesses</option><option value="bukhari-book-053.html">53. Peacemaking</option><option value="bukhari-book-054.html">54. Conditions</option><option value="bukhari-book-055.html">55. Wills and Testaments (Wasaayaa)</option><option value="bukhari-book-056.html">56. Fighting for the Cause of Allah (Jihaad)</option><option value="bukhari-book-057.html">57. One-fifth of Booty to the Cause of Allah (Khumus)</option><option value="bukhari-book-058.html">58. Jizyah and Mawaada&#x27;ah</option><option value="bukhari-book-059.html">59. Beginning of Creation</option><option value="bukhari-book-060.html">60. Prophets</option><option value="bukhari-book-061.html">61. Virtues and Merits of the Prophet (pbuh) and his…</option><option value="bukhari-book-062.html">62. Companions of the Prophet</option><option value="bukhari-book-063.html">63. Merits of the Helpers in Madinah (Ansaar)</option><option value="bukhari-book-064.html">64. Military Expeditions led by the Prophet (pbuh)…</option><option value="bukhari-book-065.html">65. Prophetic Commentary on the Qur&#x27;an (Tafseer of…</option><option value="bukhari-book-066.html">66. Virtues of the Qur&#x27;an</option><option value="bukhari-book-067.html">67. Wedlock, Marriage (Nikaah)</option><option value="bukhari-book-068.html">68. Divorce</option><option value="bukhari-book-069.html">69. Supporting the Family</option><option value="bukhari-book-070.html">70. Food, Meals</option><option value="bukhari-book-071.html">71. Sacrifice on Occasion of Birth (`Aqiqa)</option><option value="bukhari-book-072.html">72. Hunting, Slaughtering</option><option value="bukhari-book-073.html">73. Al-Adha Festival Sacrifice (Adaahi)</option><option value="bukhari-book-074.html">74. Drinks</option><option value="bukhari-book-075.html">75. Patients</option><option value="bukhari-book-076.html">76. Medicine</option><option value="bukhari-book-077.html">77. Dress</option><option value="bukhari-book-078.html">78. Good Manners and Form (Al-Adab)</option><option value="bukhari-book-079.html">79. Asking Permission</option><option value="bukhari-book-080.html">80. Invocations</option><option value="bukhari-book-081.html">81. To make the Heart Tender (Ar-Riqaq)</option><option value="bukhari-book-082.html" selected>82. Divine Will (Al-Qadar)</option><option value="bukhari-book-083.html">83. Oaths and Vows</option><option value="bukhari-book-084.html">84. Expiation for Unfulfilled Oaths</option><option value="bukhari-book-085.html">85. Laws of Inheritance (Al-Faraa&#x27;id)</option><option value="bukhari-book-086.html">86. Limits and Punishments set by Allah (Hudood)</option><option value="bukhari-book-087.html">87. Blood Money (Ad-Diyat)</option><option value="bukhari-book-088.html">88. Apostates</option><option value="bukhari-book-089.html">89. (Statements made under) Coercion</option><option value="bukhari-book-090.html">90. Tricks</option><option value="bukhari-book-091.html">91. Interpretation of Dreams</option><option value="bukhari-book-092.html">92. Afflictions and the End of the World</option><option value="bukhari-book-093.html">93. Judgments (Ahkaam)</option><option value="bukhari-book-094.html">94. Wishes</option><option value="bukhari-book-095.html">95. Accepting Information Given by a Truthful Person</option><option value="bukhari-book-096.html">96. Holding Fast to the Qur&#x27;an and Sunnah</option><option value="bukhari-book-097.html">97. Oneness, Uniqueness of Allah (Tawheed)</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Sahih al-Bukhari</h1>
+<h2>Divine Will (Al-Qadar)</h2>
+<div class="meta-info">
+  Hadith 6594–6620 &nbsp;|&nbsp;
+  <a href="bukhari.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='6594' max='6620' value='6594'></label><label>To <input type='number' id='hvc-to' min='6594' max='6620' value='6620'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h6594' class='hadith-sep' data-hadith='6594'><td colspan='2'><a class='permalink' href='#h6594'>Hadith 6594</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6594'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو الْوَلِيدِ، هِشَامُ بْنُ عَبْدِ الْمَلِكِ حَدَّثَنَا شُعْبَةُ، أَنْبَأَنِي سُلَيْمَانُ الأَعْمَشُ، قَالَ سَمِعْتُ زَيْدَ بْنَ وَهْبٍ، عَنْ عَبْدِ اللَّهِ، قَالَ حَدَّثَنَا رَسُولُ اللَّهِ صلى الله عليه وسلم وَهْوَ الصَّادِقُ الْمَصْدُوقُ قَالَ ‏ &quot;‏ إِنَّ أَحَدَكُمْ يُجْمَعُ فِي بَطْنِ أُمِّهِ أَرْبَعِينَ يَوْمًا، ثُمَّ عَلَقَةً مِثْلَ ذَلِكَ، ثُمَّ يَكُونُ مُضْغَةً مِثْلَ ذَلِكَ، ثُمَّ يَبْعَثُ اللَّهُ مَلَكًا فَيُؤْمَرُ بِأَرْبَعٍ بِرِزْقِهِ، وَأَجَلِهِ، وَشَقِيٌّ، أَوْ سَعِيدٌ، فَوَاللَّهِ إِنَّ أَحَدَكُمْ ـ أَوِ الرَّجُلَ ـ يَعْمَلُ بِعَمَلِ أَهْلِ النَّارِ، حَتَّى مَا يَكُونُ بَيْنَهُ وَبَيْنَهَا غَيْرُ بَاعٍ أَوْ ذِرَاعٍ، فَيَسْبِقُ عَلَيْهِ الْكِتَابُ، فَيَعْمَلُ بِعَمَلِ أَهْلِ الْجَنَّةِ، فَيَدْخُلُهَا، وَإِنَّ الرَّجُلَ لَيَعْمَلُ بِعَمَلِ أَهْلِ الْجَنَّةِ، حَتَّى مَا يَكُونُ بَيْنَهُ وَبَيْنَهَا غَيْرُ ذِرَاعٍ أَوْ ذِرَاعَيْنِ، فَيَسْبِقُ عَلَيْهِ الْكِتَابُ، فَيَعْمَلُ بِعَمَلِ أَهْلِ النَّارِ، فَيَدْخُلُهَا ‏&quot;‏‏.‏ قَالَ آدَمُ إِلاَّ ذِرَاعٌ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6594'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated `Abdullah:Allah&#x27;s Messenger (ﷺ), the truthful and truly-inspired, said, &quot;Each one of you collected in the womb of his mother for forty days, and then turns into a clot for an equal period (of forty days) and turns into a piece of flesh for a similar period (of forty days) and then Allah sends an angel and orders him to write four things, i.e., his provision, his age, and whether he will be of the wretched or the blessed (in the Hereafter). Then the soul is breathed into him. And by Allah, a person among you (or a man) may do deeds of the people of the Fire till there is only a cubit or an arm-breadth distance between him and the Fire, but then that writing (which Allah has ordered the angel to write) precedes, and he does the deeds of the people of Paradise and enters it; and a man may do the deeds of the people of Paradise till there is only a cubit or two between him and Paradise, and then that writing precedes and he does the deeds of the people of the Fire and enters it</span></td></tr>
+<tr class='ref' data-hadith='6594'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 1</span></td></tr><tr id='h6595' class='hadith-sep' data-hadith='6595'><td colspan='2'><a class='permalink' href='#h6595'>Hadith 6595</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6595'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادٌ، عَنْ عُبَيْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ أَنَسٍ، عَنْ أَنَسِ بْنِ مَالِكٍ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ وَكَّلَ اللَّهُ بِالرَّحِمِ مَلَكًا فَيَقُولُ أَىْ رَبِّ نُطْفَةٌ، أَىْ رَبِّ عَلَقَةٌ، أَىْ رَبِّ مُضْغَةٌ‏.‏ فَإِذَا أَرَادَ اللَّهُ أَنْ يَقْضِيَ خَلْقَهَا قَالَ أَىْ رَبِّ ذَكَرٌ أَمْ أُنْثَى أَشَقِيٌّ أَمْ سَعِيدٌ فَمَا الرِّزْقُ فَمَا الأَجَلُ فَيُكْتَبُ كَذَلِكَ فِي بَطْنِ أُمِّهِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6595'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas bin Malik:The Prophet (ﷺ) said, &quot;Allah puts an angel in charge of the uterus and the angel says, &#x27;O Lord, (it is) semen! O Lord, (it is now ) a clot! O Lord, (it is now) a piece of flesh.&#x27; And then, if Allah wishes to complete its creation, the angel asks, &#x27;O Lord, (will it be) a male or a female? A wretched (an evil doer) or a blessed (doer of good)? How much will his provisions be? What will his age be?&#x27; So all that is written while the creature is still in the mother&#x27;s womb</span></td></tr>
+<tr class='ref' data-hadith='6595'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 2</span></td></tr><tr id='h6596' class='hadith-sep' data-hadith='6596'><td colspan='2'><a class='permalink' href='#h6596'>Hadith 6596</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6596'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا آدَمُ، حَدَّثَنَا شُعْبَةُ، حَدَّثَنَا يَزِيدُ الرِّشْكُ، قَالَ سَمِعْتُ مُطَرِّفَ بْنَ عَبْدِ اللَّهِ بْنِ الشِّخِّيرِ، يُحَدِّثُ عَنْ عِمْرَانَ بْنِ حُصَيْنٍ، قَالَ قَالَ رَجُلٌ يَا رَسُولَ اللَّهِ أَيُعْرَفُ أَهْلُ الْجَنَّةِ مِنْ أَهْلِ النَّارِ قَالَ ‏&quot;‏ نَعَمْ ‏&quot;‏‏.‏ قَالَ فَلِمَ يَعْمَلُ الْعَامِلُونَ قَالَ ‏&quot;‏كُلٌّ يَعْمَلُ لِمَا خُلِقَ لَهُ ـ أَوْ لِمَا يُسِّرَ لَهُ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6596'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated `Imran bin Husain:A man said, &quot;O Allah&#x27;s Messenger (ﷺ)! Can the people of Paradise be known (differentiated) from the people of the Fire; The Prophet (ﷺ) replied, &quot;Yes.&quot; The man said, &quot;Why do people (try to) do (good) deeds?&quot; The Prophet said, &quot;Everyone will do the deeds for which he has been created to do or he will do those deeds which will be made easy for him to do.&quot; (i.e. everybody will find easy to do such deeds as will lead him to his destined place for which he has been created)</span></td></tr>
+<tr class='ref' data-hadith='6596'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 3</span></td></tr><tr id='h6597' class='hadith-sep' data-hadith='6597'><td colspan='2'><a class='permalink' href='#h6597'>Hadith 6597</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6597'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا غُنْدَرٌ، حَدَّثَنَا شُعْبَةُ، عَنْ أَبِي بِشْرٍ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ قَالَ سُئِلَ النَّبِيُّ صلى الله عليه وسلم عَنْ أَوْلاَدِ الْمُشْرِكِينَ فَقَالَ ‏ &quot;‏ اللَّهُ أَعْلَمُ بِمَا كَانُوا عَامِلِينَ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6597'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn `Abbas:The Prophet (ﷺ) ; was asked about the offspring of the pagans. He said, &quot;Allah knows what they would have done (were they to live)</span></td></tr>
+<tr class='ref' data-hadith='6597'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 4</span></td></tr><tr id='h6598' class='hadith-sep' data-hadith='6598'><td colspan='2'><a class='permalink' href='#h6598'>Hadith 6598</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6598'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ يُونُسَ، عَنِ ابْنِ شِهَابٍ، قَالَ وَأَخْبَرَنِي عَطَاءُ بْنُ يَزِيدَ، أَنَّهُ سَمِعَ أَبَا هُرَيْرَةَ، يَقُولُ سُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم عَنْ ذَرَارِيِّ الْمُشْرِكِينَ فَقَالَ ‏{‏اللَّهُ أَعْلَمُ بِمَا كَانُوا عَامِلِينَ ‏}‏</span></td></tr>
+<tr class='eng' data-hadith='6598'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira: Allah&#x27;s Messenger (ﷺ) was asked about the offspring of the pagans. He said, &quot;Allah knows what they would have done (were they to live)</span></td></tr>
+<tr class='ref' data-hadith='6598'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 5</span></td></tr><tr id='h6599' class='hadith-sep' data-hadith='6599'><td colspan='2'><a class='permalink' href='#h6599'>Hadith 6599</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6599'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي إِسْحَاقُ، أَخْبَرَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنْ هَمَّامٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَا مِنْ مَوْلُودٍ إِلاَّ يُولَدُ عَلَى الْفِطْرَةِ، فَأَبَوَاهُ يُهَوِّدَانِهِ وَيُنَصِّرَانِهِ، كَمَا تُنْتِجُونَ الْبَهِيمَةَ، هَلْ تَجِدُونَ فِيهَا مِنْ جَدْعَاءَ حَتَّى تَكُونُوا أَنْتُمْ تَجْدَعُونَهَا ‏&quot;‏‏.‏ قَالُوا يَا رَسُولَ اللَّهِ أَفَرَأَيْتَ مَنْ يَمُوتُ وَهْوَ صَغِيرٌ قَالَ ‏{‏اللَّهُ أَعْلَمُ بِمَا كَانُوا عَامِلِينَ‏}‏</span></td></tr>
+<tr class='eng' data-hadith='6599'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:Allah&#x27;s Messenger (ﷺ) said, &quot;No child is born but has the Islamic Faith, but its parents turn it into a Jew or a Christian. It is as you help the animals give birth. Do you find among their offspring a mutilated one before you mutilate them yourself?&quot; The people said, &quot;O Allah&#x27;s Messenger (ﷺ)! What do you think about those (of them) who die young?&quot; The Prophet (ﷺ) said, &quot;Allah knows what they would have done (were they to live)</span></td></tr><tr id='h6600' class='hadith-sep' data-hadith='6600'><td colspan='2'><a class='permalink' href='#h6600'>Hadith 6600</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6600'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي إِسْحَاقُ، أَخْبَرَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنْ هَمَّامٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَا مِنْ مَوْلُودٍ إِلاَّ يُولَدُ عَلَى الْفِطْرَةِ، فَأَبَوَاهُ يُهَوِّدَانِهِ وَيُنَصِّرَانِهِ، كَمَا تُنْتِجُونَ الْبَهِيمَةَ، هَلْ تَجِدُونَ فِيهَا مِنْ جَدْعَاءَ حَتَّى تَكُونُوا أَنْتُمْ تَجْدَعُونَهَا ‏&quot;‏‏.‏ قَالُوا يَا رَسُولَ اللَّهِ أَفَرَأَيْتَ مَنْ يَمُوتُ وَهْوَ صَغِيرٌ قَالَ ‏{‏اللَّهُ أَعْلَمُ بِمَا كَانُوا عَامِلِينَ‏}‏</span></td></tr>
+<tr class='eng' data-hadith='6600'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:Allah&#x27;s Messenger (ﷺ) said, &quot;No child is born but has the Islamic Faith, but its parents turn it into a Jew or a Christian. It is as you help the animals give birth. Do you find among their offspring a mutilated one before you mutilate them yourself?&quot; The people said, &quot;O Allah&#x27;s Messenger (ﷺ)! What do you think about those (of them) who die young?&quot; The Prophet (ﷺ) said, &quot;Allah knows what they would have done (were they to live)</span></td></tr>
+<tr class='ref' data-hadith='6600'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 6</span></td></tr><tr id='h6601' class='hadith-sep' data-hadith='6601'><td colspan='2'><a class='permalink' href='#h6601'>Hadith 6601</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6601'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ، أَخْبَرَنَا مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ تَسْأَلِ الْمَرْأَةُ طَلاَقَ أُخْتِهَا لِتَسْتَفْرِغَ صَحْفَتَهَا، وَلْتَنْكِحْ، فَإِنَّ لَهَا مَا قُدِّرَ لَهَا ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6601'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:Allah&#x27;s Messenger (ﷺ) said, &quot;No woman should ask for the divorce of her sister (Muslim) so as to take her place, but she should marry the man (without compelling him to divorce his other wife), for she will have nothing but what Allah has written for her</span></td></tr>
+<tr class='ref' data-hadith='6601'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 7</span></td></tr><tr id='h6602' class='hadith-sep' data-hadith='6602'><td colspan='2'><a class='permalink' href='#h6602'>Hadith 6602</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6602'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مَالِكُ بْنُ إِسْمَاعِيلَ، حَدَّثَنَا إِسْرَائِيلُ، عَنْ عَاصِمٍ، عَنْ أَبِي عُثْمَانَ، عَنْ أُسَامَةَ، قَالَ كُنْتُ عِنْدَ النَّبِيِّ صلى الله عليه وسلم إِذْ جَاءَهُ رَسُولُ إِحْدَى بَنَاتِهِ وَعِنْدَهُ سَعْدٌ وَأُبَىُّ بْنُ كَعْبٍ وَمُعَاذٌ أَنَّ ابْنَهَا يَجُودُ بِنَفْسِهِ‏.‏ فَبَعَثَ إِلَيْهَا ‏ &quot;‏ لِلَّهِ مَا أَخَذَ، وَلِلَّهِ مَا أَعْطَى، كُلٌّ بِأَجَلٍ، فَلْتَصْبِرْ وَلْتَحْتَسِبْ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6602'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Usama:Once while I was with the Prophet (ﷺ) and Sa`d, Ubai bin Ka`b and Mu`adh were also sitting with him, there came to him a messenger from one of his daughters, telling him that her child was on the verge of death. The Prophet (ﷺ) told the messenger to tell her, &quot;It is for Allah what He takes, and it is for Allah what He gives, and everything has its fixed time (limit). So (she should) be patient and look for Allah&#x27;s reward</span></td></tr>
+<tr class='ref' data-hadith='6602'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 8</span></td></tr><tr id='h6603' class='hadith-sep' data-hadith='6603'><td colspan='2'><a class='permalink' href='#h6603'>Hadith 6603</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6603'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا حِبَّانُ بْنُ مُوسَى، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا يُونُسُ، عَنِ الزُّهْرِيِّ، قَالَ أَخْبَرَنِي عَبْدُ اللَّهِ بْنُ مُحَيْرِيزٍ الْجُمَحِيُّ، أَنَّ أَبَا سَعِيدٍ الْخُدْرِيَّ، أَخْبَرَهُ أَنَّهُ، بَيْنَمَا هُوَ جَالِسٌ عِنْدَ النَّبِيِّ صلى الله عليه وسلم جَاءَ رَجُلٌ مِنِ الأَنْصَارِ فَقَالَ يَا رَسُولَ اللَّهِ إِنَّا نُصِيبُ سَبْيًا وَنُحِبُّ الْمَالَ، كَيْفَ تَرَى فِي الْعَزْلِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ أَوَإِنَّكُمْ تَفْعَلُونَ ذَلِكَ، لاَ عَلَيْكُمْ أَنْ لاَ تَفْعَلُوا، فَإِنَّهُ لَيْسَتْ نَسَمَةٌ كَتَبَ اللَّهُ أَنْ تَخْرُجَ إِلاَّ هِيَ كَائِنَةٌ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6603'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Sa`id Al-Khudri:That while he was sitting with the Prophet (ﷺ) a man from the Ansar came and said, &quot;O Allah&#x27;s Messenger (ﷺ)! We get slave girls from the war captives and we love property; what do you think about coitus interruptus?&quot; Allah&#x27;s Messenger (ﷺ) said, &quot;Do you do that? It is better for you not to do it, for there is no soul which Allah has ordained to come into existence but will be created</span></td></tr>
+<tr class='ref' data-hadith='6603'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 9</span></td></tr><tr id='h6604' class='hadith-sep' data-hadith='6604'><td colspan='2'><a class='permalink' href='#h6604'>Hadith 6604</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6604'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ مَسْعُودٍ، حَدَّثَنَا سُفْيَانُ، عَنِ الأَعْمَشِ، عَنْ أَبِي وَائِلٍ، عَنْ حُذَيْفَةَ ـ رضى الله عنه ـ قَالَ لَقَدْ خَطَبَنَا النَّبِيُّ صلى الله عليه وسلم خُطْبَةً، مَا تَرَكَ فِيهَا شَيْئًا إِلَى قِيَامِ السَّاعَةِ إِلاَّ ذَكَرَهُ، عَلِمَهُ مَنْ عَلِمَهُ، وَجَهِلَهُ مَنْ جَهِلَهُ، إِنْ كُنْتُ لأَرَى الشَّىْءَ قَدْ نَسِيتُ، فَأَعْرِفُ مَا يَعْرِفُ الرَّجُلُ إِذَا غَابَ عَنْهُ فَرَآهُ فَعَرَفَهُ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6604'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Hudhaifa:The Prophet (ﷺ) once delivered a speech in front of us wherein he left nothing but mentioned (about) everything that would happen till the Hour. Some of us stored that our minds and some forgot it. (After that speech) I used to see events taking place (which had been referred to in that speech) but I had forgotten them (before their occurrence). Then I would recognize such events as a man recognizes another man who has been absent and then sees and recognizes him</span></td></tr>
+<tr class='ref' data-hadith='6604'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 10</span></td></tr><tr id='h6605' class='hadith-sep' data-hadith='6605'><td colspan='2'><a class='permalink' href='#h6605'>Hadith 6605</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6605'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدَانُ، عَنْ أَبِي حَمْزَةَ، عَنِ الأَعْمَشِ، عَنْ سَعْدِ بْنِ عُبَيْدَةَ، عَنْ أَبِي عَبْدِ الرَّحْمَنِ السُّلَمِيِّ، عَنْ عَلِيٍّ ـ رضى الله عنه ـ قَالَ كُنَّا جُلُوسًا مَعَ النَّبِيِّ صلى الله عليه وسلم وَمَعَهُ عُودٌ يَنْكُتُ فِي الأَرْضِ وَقَالَ ‏&quot;‏ مَا مِنْكُمْ مِنْ أَحَدٍ إِلاَّ قَدْ كُتِبَ مَقْعَدُهُ مِنَ النَّارِ أَوْ مِنَ الْجَنَّةِ ‏&quot;‏‏.‏ فَقَالَ رَجُلٌ مِنَ الْقَوْمِ أَلاَ نَتَّكِلُ يَا رَسُولَ اللَّهِ قَالَ ‏&quot;‏ لاَ اعْمَلُوا فَكُلٌّ مُيَسَّرٌ ‏&quot;‏ ثُمَّ قَرَأَ ‏{‏فَأَمَّا مَنْ أَعْطَى وَاتَّقَى‏}‏ الآيَةَ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6605'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated `Ali:While we were sitting with the Prophet (ﷺ) who had a stick with which he was scraping the earth, he lowered his head and said, &quot;There is none of you but has his place assigned either in the Fire or in Paradise.&quot; Thereupon a man from the people said, &quot;Shall we not depend upon this, O Allah&#x27;s Apostle?&quot; The Prophet (ﷺ) said, &quot;No, but carry on and do your deeds, for everybody finds it easy to do such deeds (as will lead him to his place).&quot; The Prophet (ﷺ) then recited the Verse: &#x27;As for him who gives (in charity) and keeps his duty to Allah</span></td></tr>
+<tr class='ref' data-hadith='6605'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 11</span></td></tr><tr id='h6606' class='hadith-sep' data-hadith='6606'><td colspan='2'><a class='permalink' href='#h6606'>Hadith 6606</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6606'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا حِبَّانُ بْنُ مُوسَى، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ قَالَ شَهِدْنَا مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم خَيْبَرَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم لِرَجُلٍ مِمَّنْ مَعَهُ يَدَّعِي الإِسْلاَمَ ‏&quot;‏ هَذَا مِنْ أَهْلِ النَّارِ ‏&quot;‏‏.‏ فَلَمَّا حَضَرَ الْقِتَالُ قَاتَلَ الرَّجُلُ مِنْ أَشَدِّ الْقِتَالِ، وَكَثُرَتْ بِهِ الْجِرَاحُ فَأَثْبَتَتْهُ، فَجَاءَ رَجُلٌ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ أَرَأَيْتَ الَّذِي تَحَدَّثْتَ أَنَّهُ مِنْ أَهْلِ النَّارِ قَدْ قَاتَلَ فِي سَبِيلِ اللَّهِ مِنْ أَشَدِّ الْقِتَالِ، فَكَثُرَتْ بِهِ الْجِرَاحُ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ أَمَا إِنَّهُ مِنْ أَهْلِ النَّارِ ‏&quot;‏‏.‏ فَكَادَ بَعْضُ الْمُسْلِمِينَ يَرْتَابُ فَبَيْنَمَا هُوَ عَلَى ذَلِكَ إِذْ وَجَدَ الرَّجُلُ أَلَمَ الْجِرَاحِ فَأَهْوَى بِيَدِهِ إِلَى كِنَانَتِهِ، فَانْتَزَعَ مِنْهَا سَهْمًا فَانْتَحَرَ بِهَا، فَاشْتَدَّ رِجَالٌ مِنَ الْمُسْلِمِينَ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالُوا يَا رَسُولَ اللَّهِ صَدَّقَ اللَّهُ حَدِيثَكَ، قَدِ انْتَحَرَ فُلاَنٌ فَقَتَلَ نَفْسَهُ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ يَا بِلاَلُ قُمْ فَأَذِّنْ، لاَ يَدْخُلُ الْجَنَّةَ إِلاَّ مُؤْمِنٌ، وَإِنَّ اللَّهَ لَيُؤَيِّدُ هَذَا الدِّينَ بِالرَّجُلِ الْفَاجِرِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6606'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:We witnessed along with Allah&#x27;s Messenger (ﷺ) the Khaibar (campaign). Allah&#x27;s Messenger (ﷺ) told his companions about a man who claimed to be a Muslim, &quot;This man is from the people of the Fire.&quot; When the battle started, the man fought very bravely and received a great number of wounds and got crippled. On that, a man from among the companions of the Prophet (ﷺ) came and said, &quot;O Allah&#x27;s Apostle! Do you know what the man you described as of the people of the Fire has done? He has fought very bravely for Allah&#x27;s Cause and he has received many wounds.&quot; The Prophet (ﷺ) said, &quot;But he is indeed one of the people of the Fire.&quot; Some of the Muslims were about to have some doubt about that statement. So while the man was in that state, the pain caused by the wounds troubled him so much that he put his hand into his quiver and took out an arrow and committed suicide with it. Off went some men from among the Muslims to Allah&#x27;s Messenger (ﷺ) and said, &quot;O Allah&#x27;s Messenger (ﷺ)! Allah has made your statement true. So-and-so has committed suicide.&quot; Allah&#x27;s Messenger (ﷺ) said, &quot;O Bilal! Get up and announce in public: None will enter Paradise but a believer, and Allah may support this religion (Islam) with a wicked man</span></td></tr>
+<tr class='ref' data-hadith='6606'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 12</span></td></tr><tr id='h6607' class='hadith-sep' data-hadith='6607'><td colspan='2'><a class='permalink' href='#h6607'>Hadith 6607</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6607'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا سَعِيدُ بْنُ أَبِي مَرْيَمَ، حَدَّثَنَا أَبُو غَسَّانَ، حَدَّثَنِي أَبُو حَازِمٍ، عَنْ سَهْلٍ، أَنَّ رَجُلاً، مِنْ أَعْظَمِ الْمُسْلِمِينَ غَنَاءً عَنِ الْمُسْلِمِينَ فِي غَزْوَةٍ غَزَاهَا مَعَ النَّبِيِّ صلى الله عليه وسلم فَنَظَرَ النَّبِيُّ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ مَنْ أَحَبَّ أَنْ يَنْظُرَ إِلَى الرَّجُلِ مِنْ أَهْلِ النَّارِ فَلْيَنْظُرْ إِلَى هَذَا ‏&quot;‏‏.‏ فَاتَّبَعَهُ رَجُلٌ مِنَ الْقَوْمِ، وَهْوَ عَلَى تِلْكَ الْحَالِ مِنْ أَشَدِّ النَّاسِ عَلَى الْمُشْرِكِينَ، حَتَّى جُرِحَ فَاسْتَعْجَلَ الْمَوْتَ، فَجَعَلَ ذُبَابَةَ سَيْفِهِ بَيْنَ ثَدْيَيْهِ حَتَّى خَرَجَ مِنْ بَيْنِ كَتِفَيْهِ فَأَقْبَلَ الرَّجُلُ إِلَى النَّبِيِّ صلى الله عليه وسلم مُسْرِعًا فَقَالَ أَشْهَدُ أَنَّكَ رَسُولُ اللَّهِ‏.‏ فَقَالَ ‏&quot;‏ وَمَا ذَاكَ ‏&quot;‏‏.‏ قَالَ قُلْتَ لِفُلاَنٍ ‏&quot;‏ مَنْ أَحَبَّ أَنْ يَنْظُرَ إِلَى رَجُلٍ مِنْ أَهْلِ النَّارِ فَلْيَنْظُرْ إِلَيْهِ ‏&quot;‏‏.‏ وَكَانَ مِنْ أَعْظَمِنَا غَنَاءً عَنِ الْمُسْلِمِينَ، فَعَرَفْتُ أَنَّهُ لاَ يَمُوتُ عَلَى ذَلِكَ فَلَمَّا جُرِحَ اسْتَعْجَلَ الْمَوْتَ فَقَتَلَ نَفْسَهُ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم عِنْدَ ذَلِكَ ‏&quot;‏ إِنَّ الْعَبْدَ لَيَعْمَلُ عَمَلَ أَهْلِ النَّارِ، وَإِنَّهُ مِنْ أَهْلِ الْجَنَّةِ، وَيَعْمَلُ عَمَلَ أَهْلِ الْجَنَّةِ، وَإِنَّهُ مِنْ أَهْلِ النَّارِ، وَإِنَّمَا الأَعْمَالُ بِالْخَوَاتِيمِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6607'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Sahl bin Sa`d:There was a man who fought most bravely of all the Muslims on behalf of the Muslims in a battle (Ghazwa) in the company of the Prophet. The Prophet (ﷺ) looked at him and said. &quot;If anyone would like to see a man from the people of the Fire, let him look at this (brave man).&quot; On that, a man from the People (Muslims) followed him, and he was in that state i.e., fighting fiercely against the pagans till he was wounded, and then he hastened to end his life by placing his sword between his breasts (and pressed it with great force) till it came out between his shoulders. Then the man (who was watching that person) went quickly to the Prophet (ﷺ) and said, &quot;I testify that you are Allah&#x27;s Messenger (ﷺ)!&quot; The Prophet (ﷺ) asked him, &quot;Why do you say that?&quot; He said, &quot;You said about so-and-so, &#x27;If anyone would like to see a man from the people of the Fire, he should look at him.&#x27; He fought most bravely of all of us on behalf of the Muslims and I knew that he would not die as a Muslim (Martyr). So when he got wounded, he hastened to die and committed suicide.&quot; There-upon the Prophet (ﷺ) said, &quot;A man may do the deeds of the people of the Fire while in fact he is one of the people of Paradise, and he may do the deeds of the people of Paradise while in fact he belongs to the people of Fire, and verily, (the rewards of) the deeds are decided by the last actions (deeds)</span></td></tr>
+<tr class='ref' data-hadith='6607'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 13</span></td></tr><tr id='h6608' class='hadith-sep' data-hadith='6608'><td colspan='2'><a class='permalink' href='#h6608'>Hadith 6608</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6608'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو نُعَيْمٍ، حَدَّثَنَا سُفْيَانُ، عَنْ مَنْصُورٍ، عَنْ عَبْدِ اللَّهِ بْنِ مُرَّةَ، عَنِ ابْنِ عُمَرَ ـ رضى الله عنهما ـ قَالَ نَهَى النَّبِيُّ صلى الله عليه وسلم عَنِ النَّذْرِ قَالَ ‏ &quot;‏ إِنَّهُ لاَ يَرُدُّ شَيْئًا، وَإِنَّمَا يُسْتَخْرَجُ بِهِ مِنَ الْبَخِيلِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6608'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn `Umar:The Prophet (ﷺ) forbade vowing and said, &quot;In fact, vowing does not prevent anything, but it makes a miser to spend his property</span></td></tr>
+<tr class='ref' data-hadith='6608'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 14</span></td></tr><tr id='h6609' class='hadith-sep' data-hadith='6609'><td colspan='2'><a class='permalink' href='#h6609'>Hadith 6609</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6609'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا بِشْرُ بْنُ مُحَمَّدٍ، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا مَعْمَرٌ، عَنْ هَمَّامِ بْنِ مُنَبِّهٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ يَأْتِي ابْنَ آدَمَ النَّذْرُ بِشَىْءٍ لَمْ يَكُنْ قَدْ قَدَّرْتُهُ، وَلَكِنْ يُلْقِيهِ الْقَدَرُ وَقَدْ قَدَّرْتُهُ لَهُ، أَسْتَخْرِجُ بِهِ مِنَ الْبَخِيلِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6609'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:The Prophet (ﷺ) said (that Allah said), &quot;Vowing does not bring to the son of Adam anything I have not already written in his fate, but vowing is imposed on him by way of fore ordainment. Through vowing I make a miser spend of his wealth</span></td></tr>
+<tr class='ref' data-hadith='6609'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 15</span></td></tr><tr id='h6610' class='hadith-sep' data-hadith='6610'><td colspan='2'><a class='permalink' href='#h6610'>Hadith 6610</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6610'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مُحَمَّدُ بْنُ مُقَاتِلٍ أَبُو الْحَسَنِ، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا خَالِدٌ الْحَذَّاءُ، عَنْ أَبِي عُثْمَانَ النَّهْدِيِّ، عَنْ أَبِي مُوسَى، قَالَ كُنَّا مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم فِي غَزَاةٍ فَجَعَلْنَا لاَ نَصْعَدُ شَرَفًا، وَلاَ نَعْلُو شَرَفًا، وَلاَ نَهْبِطُ فِي وَادٍ، إِلاَّ رَفَعْنَا أَصْوَاتَنَا بِالتَّكْبِيرِ ـ قَالَ ـ فَدَنَا مِنَّا رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ يَا أَيُّهَا النَّاسُ ارْبَعُوا عَلَى أَنْفُسِكُمْ فَإِنَّكُمْ لاَ تَدْعُونَ أَصَمَّ وَلاَ غَائِبًا إِنَّمَا تَدْعُونَ سَمِيعًا بَصِيرًا ‏&quot;‏‏.‏ ثُمَّ قَالَ ‏&quot;‏ يَا عَبْدَ اللَّهِ بْنَ قَيْسٍ، أَلاَ أُعَلِّمُكَ كَلِمَةً هِيَ مِنْ كُنُوزِ الْجَنَّةِ، لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6610'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Musa:While we were with Allah&#x27;s Messenger (ﷺ) in a holy battle, we never went up a hill or reached its peak or went down a valley but raised our voices with Takbir. Allah&#x27;s Messenger (ﷺ) came close to us and said, &quot;O people! Don&#x27;t exert yourselves, for you do not call a deaf or an absent one, but you call the All- Listener, the All-Seer.&quot; The Prophet (ﷺ) then said, &quot;O `Abdullah bin Qais! Shall I teach you a sentence which is from the treasures of Paradise? ( It is): &#x27;La haula wala quwata illa billah. (There is neither might nor power except with Allah)</span></td></tr>
+<tr class='ref' data-hadith='6610'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 16</span></td></tr><tr id='h6611' class='hadith-sep' data-hadith='6611'><td colspan='2'><a class='permalink' href='#h6611'>Hadith 6611</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6611'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدَانُ، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا يُونُسُ، عَنِ الزُّهْرِيِّ، قَالَ حَدَّثَنِي أَبُو سَلَمَةَ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَا اسْتُخْلِفَ خَلِيفَةٌ إِلاَّ لَهُ بِطَانَتَانِ بِطَانَةٌ تَأْمُرُهُ بِالْخَيْرِ وَتَحُضُّهُ عَلَيْهِ، وَبِطَانَةٌ تَأْمُرُهُ بِالشَّرِّ وَتَحُضُّهُ عَلَيْهِ، وَالْمَعْصُومُ مَنْ عَصَمَ اللَّهُ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6611'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Sa`id Al-Khudri:That the Prophet (ﷺ) said, &quot;No Caliph is appointed but has two groups of advisors: One group advises him to do good and urges him to adopt it, and the other group advises him to do bad and urges him to adopt it; and the protected is the one whom Allah protects</span></td></tr>
+<tr class='ref' data-hadith='6611'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 17</span></td></tr><tr id='h6612' class='hadith-sep' data-hadith='6612'><td colspan='2'><a class='permalink' href='#h6612'>Hadith 6612</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6612'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنِ ابْنِ طَاوُسٍ، عَنْ أَبِيهِ، عَنِ ابْنِ عَبَّاسٍ، قَالَ مَا رَأَيْتُ شَيْئًا أَشْبَهَ بِاللَّمَمِ مِمَّا قَالَ أَبُو هُرَيْرَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏ &quot;‏ إِنَّ اللَّهَ كَتَبَ عَلَى ابْنِ آدَمَ حَظَّهُ مِنَ الزِّنَا، أَدْرَكَ ذَلِكَ لاَ مَحَالَةَ، فَزِنَا الْعَيْنِ النَّظَرُ، وَزِنَا اللِّسَانِ الْمَنْطِقُ، وَالنَّفْسُ تَمَنَّى وَتَشْتَهِي، وَالْفَرْجُ يُصَدِّقُ ذَلِكَ، وَيُكَذِّبُهُ ‏&quot;‏‏.‏ وَقَالَ شَبَابَةُ حَدَّثَنَا وَرْقَاءُ، عَنِ ابْنِ طَاوُسٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6612'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn `Abbas:I did not see anything so resembling minor sins as what Abu Huraira said from the Prophet, who said, &quot;Allah has written for the son of Adam his inevitable share of adultery whether he is aware of it or not: The adultery of the eye is the looking (at something which is sinful to look at), and the adultery of the tongue is to utter (what it is unlawful to utter), and the innerself wishes and longs for (adultery) and the private parts turn that into reality or refrain from submitting to the temptation</span></td></tr>
+<tr class='ref' data-hadith='6612'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 18</span></td></tr><tr id='h6613' class='hadith-sep' data-hadith='6613'><td colspan='2'><a class='permalink' href='#h6613'>Hadith 6613</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6613'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحُمَيْدِيُّ، حَدَّثَنَا سُفْيَانُ، حَدَّثَنَا عَمْرٌو، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ ‏{‏وَمَا جَعَلْنَا الرُّؤْيَا الَّتِي أَرَيْنَاكَ إِلاَّ فِتْنَةً لِلنَّاسِ‏}‏ قَالَ هِيَ رُؤْيَا عَيْنٍ أُرِيهَا رَسُولُ اللَّهِ صلى الله عليه وسلم لَيْلَةَ أُسْرِيَ بِهِ إِلَى بَيْتِ الْمَقْدِسِ‏.‏ قَالَ ‏{‏وَالشَّجَرَةَ الْمَلْعُونَةَ فِي الْقُرْآنِ‏}‏ قَالَ هِيَ شَجَرَةُ الزَّقُّومِ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6613'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn `Abbas:(regarding the Verse) &quot;And We granted the vision (Ascension to the heavens &quot;Miraj&quot;) which We showed you (O Muhammad as an actual eye witness) but as a trial for mankind.&#x27; (17.60): Allah&#x27;s Apostle actually saw with his own eyes the vision (all the things which were shown to him) on the night of his Night Journey to Jerusalem (and then to the heavens). The cursed tree which is mentioned in the Qur&#x27;an is the tree of Az-Zaqqum</span></td></tr>
+<tr class='ref' data-hadith='6613'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 19</span></td></tr><tr id='h6614' class='hadith-sep' data-hadith='6614'><td colspan='2'><a class='permalink' href='#h6614'>Hadith 6614</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6614'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا سُفْيَانُ، قَالَ حَفِظْنَاهُ مِنْ عَمْرٍو عَنْ طَاوُسٍ، سَمِعْتُ أَبَا هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ احْتَجَّ آدَمُ وَمُوسَى، فَقَالَ لَهُ مُوسَى يَا آدَمُ أَنْتَ أَبُونَا خَيَّبْتَنَا وَأَخْرَجْتَنَا مِنَ الْجَنَّةِ‏.‏ قَالَ لَهُ آدَمُ يَا مُوسَى اصْطَفَاكَ اللَّهُ بِكَلاَمِهِ، وَخَطَّ لَكَ بِيَدِهِ، أَتَلُومُنِي عَلَى أَمْرٍ قَدَّرَ اللَّهُ عَلَىَّ قَبْلَ أَنْ يَخْلُقَنِي بِأَرْبَعِينَ سَنَةً‏.‏ فَحَجَّ آدَمُ مُوسَى، فَحَجَّ آدَمُ مُوسَى ‏&quot;‏ ثَلاَثًا‏.‏ قَالَ سُفْيَانُ حَدَّثَنَا أَبُو الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم مِثْلَهُ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6614'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:The Prophet (ﷺ) said, &quot;Adam and Moses argued with each other. Moses said to Adam. &#x27;O Adam! You are our father who disappointed us and turned us out of Paradise.&#x27; Then Adam said to him, &#x27;O Moses! Allah favored you with His talk (talked to you directly) and He wrote (the Torah) for you with His Own Hand. Do you blame me for action which Allah had written in my fate forty years before my creation?&#x27; So Adam confuted Moses, Adam confuted Moses,&quot; the Prophet (ﷺ) added, repeating the Statement three times</span></td></tr>
+<tr class='ref' data-hadith='6614'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 20</span></td></tr><tr id='h6615' class='hadith-sep' data-hadith='6615'><td colspan='2'><a class='permalink' href='#h6615'>Hadith 6615</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6615'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ سِنَانٍ، حَدَّثَنَا فُلَيْحٌ، حَدَّثَنَا عَبْدَةُ بْنُ أَبِي لُبَابَةَ، عَنْ وَرَّادٍ، مَوْلَى الْمُغِيرَةِ بْنِ شُعْبَةَ قَالَ كَتَبَ مُعَاوِيَةُ إِلَى الْمُغِيرَةِ اكْتُبْ إِلَىَّ مَا سَمِعْتَ النَّبِيَّ صلى الله عليه وسلم يَقُولُ خَلْفَ الصَّلاَةِ‏.‏ فَأَمْلَى عَلَىَّ الْمُغِيرَةُ قَالَ سَمِعْتُ النَّبِيَّ صلى الله عليه وسلم يَقُولُ خَلْفَ الصَّلاَةِ ‏ &quot;‏ لاَ إِلَهَ إِلاَّ اللَّهُ، وَحْدَهُ لاَ شَرِيكَ لَهُ، اللَّهُمَّ لاَ مَانِعَ لِمَا أَعْطَيْتَ، وَلاَ مُعْطِيَ لِمَا مَنَعْتَ، وَلاَ يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ ‏&quot;‏‏.‏ وَقَالَ ابْنُ جُرَيْجٍ أَخْبَرَنِي عَبْدَةُ أَنَّ وَرَّادًا أَخْبَرَهُ بِهَذَا‏.‏ ثُمَّ وَفَدْتُ بَعْدُ إِلَى مُعَاوِيَةَ فَسَمِعْتُهُ يَأْمُرُ النَّاسَ بِذَلِكَ الْقَوْلِ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6615'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Warrad:(the freed slave of Al-Mughira bin Shu`ba) Muawiya wrote to Mughira. &#x27;Write to me what you heard the Prophet (ﷺ) saying after his prayer.&#x27; So Al-Mughira dictated to me and said, &quot;I heard the Prophet (ﷺ) saying after the prayer, &#x27;None has the right to be worshipped but Allah Alone Who has no partner. O Allah! No-one can withhold what You give, and none can give what You withhold, and the fortune of a man of means is useless before You (i.e., only good deeds are of value)</span></td></tr>
+<tr class='ref' data-hadith='6615'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 21</span></td></tr><tr id='h6616' class='hadith-sep' data-hadith='6616'><td colspan='2'><a class='permalink' href='#h6616'>Hadith 6616</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6616'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا سُفْيَانُ، عَنْ سُمَىٍّ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ تَعَوَّذُوا بِاللَّهِ مِنْ جَهْدِ الْبَلاَءِ، وَدَرَكِ الشَّقَاءِ، وَسُوءِ الْقَضَاءِ، وَشَمَاتَةِ الأَعْدَاءِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6616'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:The Prophet (ﷺ) said, &quot;Take refuge with Allah from the difficulties of severe calamities, from having an evil end and a bad fate and from the malicious joy of your enemies</span></td></tr>
+<tr class='ref' data-hadith='6616'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 22</span></td></tr><tr id='h6617' class='hadith-sep' data-hadith='6617'><td colspan='2'><a class='permalink' href='#h6617'>Hadith 6617</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6617'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ مُقَاتِلٍ أَبُو الْحَسَنِ، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا مُوسَى بْنُ عُقْبَةَ، عَنْ سَالِمٍ، عَنْ عَبْدِ اللَّهِ، قَالَ كَثِيرًا مِمَّا كَانَ النَّبِيُّ صلى الله عليه وسلم يَحْلِفُ ‏(‏لاَ وَمُقَلِّبِ الْقُلُوبِ‏)‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6617'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated `Abdullah:When taking an oath, the Prophet (ﷺ) very often used to say, &quot;No, by Him Who turns the hearts</span></td></tr>
+<tr class='ref' data-hadith='6617'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 23</span></td></tr><tr id='h6618' class='hadith-sep' data-hadith='6618'><td colspan='2'><a class='permalink' href='#h6618'>Hadith 6618</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6618'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ حَفْصٍ، وَبِشْرُ بْنُ مُحَمَّدٍ، قَالاَ أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ سَالِمٍ، عَنِ ابْنِ عُمَرَ ـ رضى الله عنهما ـ قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم لاِبْنِ صَيَّادٍ ‏&quot;‏ خَبَأْتُ لَكَ خَبِيئًا ‏&quot;‏‏.‏ قَالَ الدُّخُّ‏.‏ قَالَ ‏&quot;‏ اخْسَأْ فَلَنْ تَعْدُوَ قَدْرَكَ ‏&quot;‏‏.‏ قَالَ عُمَرُ ائْذَنْ لِي فَأَضْرِبَ عُنُقَهُ‏.‏ قَالَ ‏&quot;‏ دَعْهُ، إِنْ يَكُنْ هُوَ فَلاَ تُطِيقُهُ، وَإِنْ لَمْ يَكُنْ هُوَ فَلاَ خَيْرَ لَكَ فِي قَتْلِهِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6618'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn `Umar:The Prophet (ﷺ) said to Ibn Saiyad, &quot;I have kept for you a secret.&quot; Ibn Saiyad said, &quot;Ad-Dukh.&quot; The Prophet said, &quot;Keep quiet, for you cannot go beyond your limits (or you cannot exceed what has been foreordained for you).&quot; On that, `Umar said (to the Prophet (ﷺ) ), &quot;Allow me to chop off his neck!&quot; The Prophet said, &quot;Leave him, for if he is he (i.e., Ad-Dajjal), then you will not be able to overcome him, and if he is not, then you gain no good by killing him</span></td></tr>
+<tr class='ref' data-hadith='6618'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 24</span></td></tr><tr id='h6619' class='hadith-sep' data-hadith='6619'><td colspan='2'><a class='permalink' href='#h6619'>Hadith 6619</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6619'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي إِسْحَاقُ بْنُ إِبْرَاهِيمَ الْحَنْظَلِيُّ، أَخْبَرَنَا النَّضْرُ، حَدَّثَنَا دَاوُدُ بْنُ أَبِي الْفُرَاتِ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ يَحْيَى بْنِ يَعْمَرَ، أَنَّ عَائِشَةَ ـ رضى الله عنها ـ أَخْبَرَتْهُ أَنَّهَا، سَأَلَتْ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنِ الطَّاعُونِ فَقَالَ ‏ &quot;‏ كَانَ عَذَابًا يَبْعَثُهُ اللَّهُ عَلَى مَنْ يَشَاءُ، فَجَعَلَهُ اللَّهُ رَحْمَةً لِلْمُؤْمِنِينَ، مَا مِنْ عَبْدٍ يَكُونُ فِي بَلَدٍ يَكُونُ فِيهِ، وَيَمْكُثُ فِيهِ، لاَ يَخْرُجُ مِنَ الْبَلَدِ، صَابِرًا مُحْتَسِبًا، يَعْلَمُ أَنَّهُ لاَ يُصِيبُهُ إِلاَّ مَا كَتَبَ اللَّهُ لَهُ، إِلاَّ كَانَ لَهُ مِثْلُ أَجْرِ شَهِيدٍ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6619'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated `Aisha:I asked Allah&#x27;s Messenger (ﷺ) about the plague. He said, &quot;That was a means of torture which Allah used to send upon whom-so-ever He wished, but He made it a source of mercy for the believers, for anyone who is residing in a town in which this disease is present, and remains there and does not leave that town, but has patience and hopes for Allah&#x27;s reward, and knows that nothing will befall him except what Allah has written for him, then he will get such reward as that of a martyr</span></td></tr>
+<tr class='ref' data-hadith='6619'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 25</span></td></tr><tr id='h6620' class='hadith-sep' data-hadith='6620'><td colspan='2'><a class='permalink' href='#h6620'>Hadith 6620</a> — Divine Will (Al-Qadar)</td></tr>
+<tr class='arabic' data-hadith='6620'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو النُّعْمَانِ، أَخْبَرَنَا جَرِيرٌ ـ هُوَ ابْنُ حَازِمٍ ـ عَنْ أَبِي إِسْحَاقَ، عَنِ الْبَرَاءِ بْنِ عَازِبٍ، قَالَ رَأَيْتُ النَّبِيَّ صلى الله عليه وسلم يَوْمَ الْخَنْدَقِ يَنْقُلُ مَعَنَا التُّرَابَ وَهْوَ يَقُولُ ‏ &quot;‏ وَاللَّهِ لَوْلاَ اللَّهُ مَا اهْتَدَيْنَا، وَلاَ صُمْنَا وَلاَ صَلَّيْنَا، فَأَنْزِلَنْ سَكِينَةً عَلَيْنَا، وَثَبِّتِ الأَقْدَامَ إِنْ لاَقَيْنَا، وَالْمُشْرِكُونَ قَدْ بَغَوْا عَلَيْنَا، إِذَا أَرَادُوا فِتْنَةً أَبَيْنَا‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6620'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Al-Bara&#x27; bin `Azib:I saw the Prophet (ﷺ) on the Day of (the battle of) Al-Khandaq, carrying earth with us and saying, &quot;By Allah, without Allah we would not have been guided, neither would we have fasted, nor would we have prayed. O Allah! Send down Sakina (calmness) upon us and make our feet firm when we meet (the enemy). The pagans have rebelled against us, but if they want to put us in affliction (i.e., fight us) we refuse (to flee).&quot; (See Hadith No. 430, Vol)</span></td></tr>
+<tr class='ref' data-hadith='6620'><td class='label'>Reference</td><td><span class='ref-text'>Book 82, Hadith 26</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="bukhari-book-081.html">← To make the Heart Tender (Ar-Riqaq)</a>
+  <a href="bukhari.html">📚 Book Index</a>
+  <a href="bukhari-book-083.html">Oaths and Vows →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

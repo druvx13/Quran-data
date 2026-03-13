@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — Wills and Testaments – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Wills and Testaments</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html">5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html">7. Tahajjud</option><option value="malik-book-008.html">8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-021.html">21. Jihad</option><option value="malik-book-022.html">22. Vows and Oaths</option><option value="malik-book-023.html">23. Sacrificial Animals</option><option value="malik-book-024.html">24. Slaughtering Animals</option><option value="malik-book-025.html">25. Game</option><option value="malik-book-026.html">26. The &#x27;Aqiqa</option><option value="malik-book-027.html">27. Fara&#x27;id</option><option value="malik-book-028.html">28. Marriage</option><option value="malik-book-029.html">29. Divorce</option><option value="malik-book-030.html">30. Suckling</option><option value="malik-book-031.html">31. Business Transactions</option><option value="malik-book-032.html">32. Qirad</option><option value="malik-book-033.html">33. Sharecropping</option><option value="malik-book-034.html">34. Renting Land</option><option value="malik-book-035.html">35. Pre-emption in Property</option><option value="malik-book-036.html">36. Judgements</option><option value="malik-book-037.html" selected>37. Wills and Testaments</option><option value="malik-book-038.html">38. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">39. The Mukatab</option><option value="malik-book-040.html">40. The Mudabbar</option><option value="malik-book-041.html">41. Hudud</option><option value="malik-book-042.html">42. Drinks</option><option value="malik-book-043.html">43. Blood-Money</option><option value="malik-book-044.html">44. The Oath of Qasama</option><option value="malik-book-045.html">45. Madina</option><option value="malik-book-046.html">46. The Decree</option><option value="malik-book-047.html">47. Good Character</option><option value="malik-book-048.html">48. Dress</option><option value="malik-book-049.html">49. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">50. The Evil Eye</option><option value="malik-book-051.html">51. Hair</option><option value="malik-book-052.html">52. Visions</option><option value="malik-book-053.html">53. Greetings</option><option value="malik-book-054.html">54. General Subjects</option><option value="malik-book-055.html">55. The Oath of Allegiance</option><option value="malik-book-056.html">56. Speech</option><option value="malik-book-057.html">57. Jahannam</option><option value="malik-book-058.html">58. Sadaqa</option><option value="malik-book-059.html">59. Knowledge</option><option value="malik-book-060.html">60. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">61. The Names of the Prophet, may Allah Bless Him and…</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>Wills and Testaments</h2>
+<div class="meta-info">
+  Hadith 1455–1463 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='1455' max='1463' value='1455'></label><label>To <input type='number' id='hvc-to' min='1455' max='1463' value='1463'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h1455' class='hadith-sep' data-hadith='1455'><td colspan='2'><a class='permalink' href='#h1455'>Hadith 1455</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1455'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مَالِكٌ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَا حَقُّ امْرِئٍ مُسْلِمٍ لَهُ شَىْءٌ يُوصَى فِيهِ يَبِيتُ لَيْلَتَيْنِ إِلاَّ وَوَصِيَّتُهُ عِنْدَهُ مَكْتُوبَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1455'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;It is the duty of a muslim man who has something to be given as a bequest not to spend two nights without writing a will about it.&quot; Malik said, &quot;The generally agreed-on way of doing things in our community is that when the testator writes something in health or illness as a bequest, and it has freeing slaves or things other than that in it, he can alter it in any way he chooses, until he is on his deathbed. If he prefers to abandon a bequest or change it, he can do so unless he has made a slave mudabbar (to be freed after his death). If he has made him mudabbar, there is no way to change what he has made mudabbar. He is allowed to change his testament because the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;It is the duty of a muslim man who has something to be given as a bequest not to spend two nights without writing a will about it.&quot; Malik explained, &quot;Had the testator not been able to change his will nor what was mentioned in it about freeing slaves, each testator might withhold making bequests from his property, whether in freeing slaves or other than it. A man gives a bequest in his health and in his travelling.&quot; (i.e. he does not wait till his death bed ) . Malik summed up, &quot;The way of doing things in our community about which there is no dispute is that he can change whatever he likes of that except for the mudabbar</span></td></tr>
+<tr class='grade' data-hadith='1455'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1455'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 1</span></td></tr><tr id='h1456' class='hadith-sep' data-hadith='1456'><td colspan='2'><a class='permalink' href='#h1456'>Hadith 1456</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1456'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ حَزْمٍ، عَنْ أَبِيهِ، أَنَّ عَمْرَو بْنَ سُلَيْمٍ الزُّرَقِيَّ، أَخْبَرَهُ أَنَّهُ، قِيلَ لِعُمَرَ بْنِ الْخَطَّابِ إِنَّ هَا هُنَا غُلاَمًا يَفَاعًا لَمْ يَحْتَلِمْ مِنْ غَسَّانَ وَوَارِثُهُ بِالشَّامِ وَهُوَ ذُو مَالٍ وَلَيْسَ لَهُ هَا هُنَا إِلاَّ ابْنَةُ عَمٍّ لَهُ ‏.‏ قَالَ عُمَرُ بْنُ الْخَطَّابِ فَلْيُوصِ لَهَا ‏.‏ قَالَ فَأَوْصَى لَهَا بِمَالٍ يُقَالُ لَهُ بِئْرُ جُشَمٍ قَالَ عَمْرُو بْنُ سُلَيْمٍ فَبِيعَ ذَلِكَ الْمَالُ بِثَلاَثِينَ أَلْفَ دِرْهَمٍ وَابْنَةُ عَمِّهِ الَّتِي أَوْصَى لَهَا هِيَ أُمُّ عَمْرِو بْنِ سُلَيْمٍ الزُّرَقِيِّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1456'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me from Abdullah ibn Abi Bakr ibn Hazm that Amr ibn Sulaym az-Zuraqi informed his father that it had been said to Umar ibn al-Khattab, &quot;There is here an adolescent boy who has not yet reached puberty. He is from the Ghassan tribe and his heir is in ash- Sham. He has property. Here he only has the daughter of one of his paternal uncles.&quot; Umar ibn al-Khattab instructed, &quot;Let him leave her a bequest.&quot; He willed her a property called the well of Jusham. Malik added, &quot;That property was sold for 30,000 dirhams, and the daughter of the paternal uncle to whom he willed it was the mother of Amr ibn Sulaym az-Zuraqi</span></td></tr>
+<tr class='grade' data-hadith='1456'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='1456'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 2</span></td></tr><tr id='h1457' class='hadith-sep' data-hadith='1457'><td colspan='2'><a class='permalink' href='#h1457'>Hadith 1457</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1457'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ أَبِي بَكْرِ بْنِ حَزْمٍ، أَنَّ غُلاَمًا، مِنْ غَسَّانَ حَضَرَتْهُ الْوَفَاةُ بِالْمَدِينَةِ وَوَارِثُهُ بِالشَّامِ فَذُكِرَ ذَلِكَ لِعُمَرَ بْنِ الْخَطَّابِ فَقِيلَ لَهُ إِنَّ فُلاَنًا يَمُوتُ أَفَيُوصِي قَالَ فَلْيُوصِ ‏.‏ قَالَ يَحْيَى بْنُ سَعِيدٍ قَالَ أَبُو بَكْرٍ وَكَانَ الْغُلاَمُ ابْنَ عَشْرِ سِنِينَ أَوِ اثْنَتَىْ عَشْرَةَ سَنَةً ‏.‏ قَالَ فَأَوْصَى بِبِئْرِ جُشَمٍ فَبَاعَهَا أَهْلُهَا بِثَلاَثِينَ أَلْفَ دِرْهَمٍ ‏.‏ قَالَ يَحْيَى سَمِعْتُ مَالِكًا يَقُولُ الأَمْرُ الْمُجْتَمَعُ عَلَيْهِ عِنْدَنَا أَنَّ الضَّعِيفَ فِي عَقْلِهِ وَالسَّفِيهَ وَالْمُصَابَ الَّذِي يُفِيقُ أَحْيَانًا تَجُوزُ وَصَايَاهُمْ إِذَا كَانَ مَعَهُمْ مِنْ عُقُولِهِمْ مَا يَعْرِفُونَ مَا يُوصُونَ بِهِ فَأَمَّا مَنْ لَيْسَ مَعَهُ مِنْ عَقْلِهِ مَا يَعْرِفُ بِذَلِكَ مَا يُوصِي بِهِ وَكَانَ مَغْلُوبًا عَلَى عَقْلِهِ فَلاَ وَصِيَّةَ لَهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1457'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me from Yahya ibn Said from Abu Bakr ibn Hazm that a boy from Ghassan was dying in Madina while his heir was in Syria. That was mentioned to Umar ibn al-Khattab. It was said to him, &quot;So-and-so is dying. Shall he make a bequest?&quot; He said, &quot;Let him make a bequest.&quot; Yahya ibn Said said that Abu Bakr had said, &quot;He was a boy of ten or twelve years.&quot; Yahya said, &quot;He willed the well of Jusham, and his people sold it for 30,000 dirhams.&quot; Yahya said that he heard Malik say, &quot;The generally agreed-on way of doing things in our community is that a simpleton, an idiot, or a lunatic who recovers at times, can make wills if they have enough of their wits about them to recognise what they will. Someone who has not enough wits to recognise what he wills, and is overcome in his intellect, cannot make a bequest</span></td></tr>
+<tr class='grade' data-hadith='1457'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='1457'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 3</span></td></tr><tr id='h1458' class='hadith-sep' data-hadith='1458'><td colspan='2'><a class='permalink' href='#h1458'>Hadith 1458</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1458'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ عَامِرِ بْنِ سَعْدِ بْنِ أَبِي وَقَّاصٍ، عَنْ أَبِيهِ، أَنَّهُ قَالَ جَاءَنِي رَسُولُ اللَّهِ صلى الله عليه وسلم يَعُودُنِي عَامَ حَجَّةِ الْوَدَاعِ مِنْ وَجَعٍ اشْتَدَّ بِي فَقُلْتُ يَا رَسُولَ اللَّهِ قَدْ بَلَغَ بِي مِنَ الْوَجَعِ مَا تَرَى وَأَنَا ذُو مَالٍ وَلاَ يَرِثُنِي إِلاَّ ابْنَةٌ لِي أَفَأَتَصَدَّقُ بِثُلُثَىْ مَالِي قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ ‏&quot;‏ ‏.‏ فَقُلْتُ فَالشَّطْرُ قَالَ ‏&quot;‏ لاَ ‏&quot;‏ ‏.‏ ثُمَّ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ الثُّلُثُ وَالثُّلُثُ كَثِيرٌ إِنَّكَ أَنْ تَذَرَ وَرَثَتَكَ أَغْنِيَاءَ خَيْرٌ مِنْ أَنْ تَذَرَهُمْ عَالَةً يَتَكَفَّفُونَ النَّاسَ وَإِنَّكَ لَنْ تُنْفِقَ نَفَقَةً تَبْتَغِي بِهَا وَجْهَ اللَّهِ إِلاَّ أُجِرْتَ حَتَّى مَا تَجْعَلُ فِي فِي امْرَأَتِكَ ‏&quot;‏ ‏.‏ قَالَ فَقُلْتُ يَا رَسُولَ اللَّهِ أَأُخَلَّفُ بَعْدَ أَصْحَابِي فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ إِنَّكَ لَنْ تُخَلَّفَ فَتَعْمَلَ عَمَلاً صَالِحًا إِلاَّ ازْدَدْتَ بِهِ دَرَجَةً وَرِفْعَةً وَلَعَلَّكَ أَنْ تُخَلَّفَ حَتَّى يَنْتَفِعَ بِكَ أَقْوَامٌ وَيُضَرَّ بِكَ آخَرُونَ اللَّهُمَّ أَمْضِ لأَصْحَابِي هِجْرَتَهُمْ وَلاَ تَرُدَّهُمْ عَلَى أَعْقَابِهِمْ لَكِنِ الْبَائِسُ سَعْدُ ابْنُ خَوْلَةَ يَرْثِي لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم أَنْ مَاتَ بِمَكَّةَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1458'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me from Ibn Shihab from Amir ibn Sad ibn Abi Waqqas that his father said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, came to me to treat me for a pain which became hard to bear in the year of the farewell hajj. I said, &#x27;Messenger of Allah, you can see how far the pain has reached me. I have property and only my daughter inherits from me. Shall I give two thirds of my property as sadaqa?&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;No.&#x27; I said, &#x27;Half?&#x27; He said, &#x27;No.&#x27; Then the Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;A third, and a third is a lot. Leaving your heirs rich is better than leaving them poor to beg from people. You never spend anything on maintenance desiring the Face of Allah by it, but that you are rewarded for it, even what you appoint for your wife.&#x27; Sad said, &#x27;Messenger of Allah, will I be left here in Makka after my companions have departed for Madina?&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;If you are left behind, and do sound deeds you will increase your degree and elevation by them. Perhaps you will be left behind so that some people may benefit by you and others may be harmed by you. O Allah! complete their hijra for my companions, and do not turn them back on their heels. The unfortunate one is Said ibn Khawla.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, was distressed on his account for he had died at Makka.&quot; Yahya said that he heard Malik speak about a man who willed a third of his property to a man and said as well, &quot;My slave will serve so-and-so (another man) for as long as he lives, then he is free,&quot; then that was looked into, and the slave was found to be a third of the property of the deceased. Malik said, &quot;The service of the slave is evaluated. Then the two of them divide it between them. The one who was willed a third takes his third, as a share, and the one who was willed the service of the slave takes what was evaluated for him of the slave&#x27;s service. Each of them takes, from the service of the slave or from his wage if he has a wage, according to his share. If the one who was given the service of the slave for as long as he lived dies, then the slave is freed.&quot; Yahya said that he heard Malik speak about someone who willed his third and said &quot;So-and-so has such- and-such, and so-and-so has such-and-such,&quot; naming some of his property, and his heirs protested that it was more than a third.&quot; Malik said, &quot;The heirs then have an option between giving the beneficiaries their full bequests and taking the rest of the property of the deceased, or between dividing among the beneficiaries the third of the property of the deceased and surrendering to them their third. If they wish, their rights in it reach as far as they reach</span></td></tr>
+<tr class='grade' data-hadith='1458'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1458'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 4</span></td></tr><tr id='h1459' class='hadith-sep' data-hadith='1459'><td colspan='2'><a class='permalink' href='#h1459'>Hadith 1459</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1459'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مَالِكٌ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ مُخَنَّثًا، كَانَ عِنْدَ أُمِّ سَلَمَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ فَقَالَ لِعَبْدِ اللَّهِ بْنِ أَبِي أُمَيَّةَ وَرَسُولُ اللَّهِ صلى الله عليه وسلم يَسْمَعُ يَا عَبْدَ اللَّهِ إِنْ فَتَحَ اللَّهُ عَلَيْكُمُ الطَّائِفَ غَدًا فَأَنَا أَدُلُّكَ عَلَى ابْنَةِ غَيْلاَنَ فَإِنَّهَا تُقْبِلُ بِأَرْبَعٍ وَتُدْبِرُ بِثَمَانٍ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ يَدْخُلَنَّ هَؤُلاَءِ عَلَيْكُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1459'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya said that he heard Malik say, &quot;The best of what I have heard about the testament of a pregnant woman and about what settlements she is permitted in her property is that the pregnant woman is like the sick person. When the illness is light, and one does not fear for the sick person, he does with his property what he likes. If the illness is such that his life is feared for, he can only dispose of a third of his estate.&quot; He said, &quot;It is the same with a woman who is pregnant. The beginning of pregnancy is good news and joy. It is not illness and no fear because Allah the Blessed, the Exalted, said in His Book, &#x27;We gave her good news of Ishaq and after Ishaq, Yaqub.&#x27; (Sura ll ayat 71). And He said, &#x27;She bore a light burden and passed by with it, but when she became heavy, they called upon Allah, their Lord, &quot;If you give us a good-doing son, we will be among the thankful.&quot; &#x27;(Sura 7 ayat 189). &quot;When a pregnant woman becomes heavy, she is only permitted to dispose of a third of her estate. The beginning of this restriction is after six months. Allah, the Blessed, the Exalted, said in His Book, &#x27;Mothers suckle their children for two complete years.&#x27; And He said, &#x27;his bearing and weaning are thirty months.&#x27; (Sura 2 ayat 233). &quot;When six months have passed for the pregnant woman from the day she conceived, she is only permitted to dispose of a third of her property.&quot; Yahya said that he heard Malik say, &quot;A man who is advancing in the row for battle, can only dispose of a third of his property. He is in the same position as a pregnant woman or an ill person who is feared for, as long as he is in that situation.&quot; Yahya said that he heard Malik say, &quot;This ayat is abrogated. It is the word of Allah, the Blessed, the Exalted, &#x27;If he leaves goods, the testament is for parents and kinsmen.&#x27; What came down about the division of the fixed shares of inheritance in the Book of Allah, the Mighty, the Exalted, abrogated it.&quot; Yahya said that he heard Malik say, &quot;The established sunna with us, in which there is no dispute, is that it is not permitted for a testator to make a bequest (in addition to the fixed share) in favour of an heir, unless the other heirs permit him. If some of them permit him and others refuse, he is allowed to diminish the share of those who have given their permission. Those who refuse take their full share from the inheritance. Yahya said that he heard Malik speak about an invalid who made a bequest and asked his heirs to give him permission to make a bequest when he was so ill that he only had command of a third of his property, and they gave him permission to leave some of his heirs more than his third. Malik said, &quot;They cannot revoke that. Had they been permitted to do so, every heir would have done that, and then, when the testator died, they would take that for themselves and prevent him from bequeathing his third and what was permitted to him with respect to his property.&quot; Malik said, &quot;If he asks permission of his heirs to grant a bequest to an heir while he is well and they give him permission, that is not binding on them. The heirs can rescind that if they wish. That is because when a man is well, he is entitled to all his property and can do what he wishes with it. If he wishes, he can spend all of it. He can spend it and give sadaqa with it or give it to whomever he likes. His asking permission of his heirs is permitted for the heirs, when they give him permission when authority over all his property is closed off from him and nothing outside of the third is permitted to him, and when they are more entitled to the two-thirds of his property than he is himself. That is when their permission becomes relevant. If he asks one of the heirs to give his inheritance to him when he is dying, and the heir agrees and then the dying man does not dispose of it at all, it is returned to the one who gave it unless the deceased said to him, &#x27;So-and-so - (one of his heirs) - is weak, and I would like you to give him your inheritance.&#x27; So he gives it to him. That is permitted when the deceased specified it for him.&quot; Malik said, &quot;When a man gives the dying man free use of his share of the inheritance, and the dying man distributes some of it and some remains, it is returned to the giver, after the man has died.&quot; Yahya said that he heard Malik speak about someone who made a bequest and mentioned that he had given one of his heirs something which he had not taken possession of, so the heirs refused to permit that. Malik said, &quot;That gift returns to the heirs as inheritance according to the Book of Allah because the deceased did not mean that to be taken out of the third and the heirs do not have a portion in the third (which the dying man is allowed to bequeath).&quot; Malik said from Hisham ibn Urwa from his father that an effeminate man was with Umm Salama, the wife of the Prophet, may Allah bless him and grant him peace. He said to Abdullah ibn Abi Umayya while the Messenger of Allah, may Allah bless him and grant him peace, was listening. &quot;Abdullah! If Allah grants you victory over Ta&#x27;if tomorrow, I will lead you to the daughter of Ghailan. She has four folds on her front and eight folds on her back.&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;This sort of man should not enter freely with you.&quot; (It was customary to allow men with no sexual inclination to enter freely where there were women)</span></td></tr>
+<tr class='grade' data-hadith='1459'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1459'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 5</span></td></tr><tr id='h1460' class='hadith-sep' data-hadith='1460'><td colspan='2'><a class='permalink' href='#h1460'>Hadith 1460</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1460'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ قَالَ سَمِعْتُ الْقَاسِمَ بْنَ مُحَمَّدٍ، يَقُولُ كَانَتْ عِنْدَ عُمَرَ بْنِ الْخَطَّابِ امْرَأَةٌ مِنَ الأَنْصَارِ فَوَلَدَتْ لَهُ عَاصِمَ بْنَ عُمَرَ ثُمَّ إِنَّهُ فَارَقَهَا فَجَاءَ عُمَرُ قُبَاءً فَوَجَدَ ابْنَهُ عَاصِمًا يَلْعَبُ بِفِنَاءِ الْمَسْجِدِ فَأَخَذَ بِعَضُدِهِ فَوَضَعَهُ بَيْنَ يَدَيْهِ عَلَى الدَّابَّةِ فَأَدْرَكَتْهُ جَدَّةُ الْغُلاَمِ فَنَازَعَتْهُ إِيَّاهُ حَتَّى أَتَيَا أَبَا بَكْرٍ الصِّدِّيقَ فَقَالَ عُمَرُ ابْنِي ‏.‏ وَقَالَتِ الْمَرْأَةُ ابْنِي ‏.‏ فَقَالَ أَبُو بَكْرٍ خَلِّ بَيْنَهَا وَبَيْنَهُ ‏.‏ قَالَ فَمَا رَاجَعَهُ عُمَرُ الْكَلاَمَ ‏.‏ قَالَ وَسَمِعْتُ مَالِكًا يَقُولُ وَهَذَا الأَمْرُ الَّذِي آخُذُ بِهِ فِي ذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1460'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me that Yahya ibn Said said that he heard al- Qasim ibn Muhammad say, &quot;A woman of the Ansar was married to Umar ibn al-Khattab. She bore Asim ibn Umar to him, and then he separated from her. Umar came to Quba and found his son Asim playing in the courtyard of the mosque. He took him by the arm and placed him before him on his mount. The grandmother of the child saw him and argued with Umar about the child so they went to Abu Bakr as-Siddiq. Umar said, &#x27;My son.&#x27; The woman said, &#x27;My son.&#x27; Abu Bakr said, &#x27;Do not interfere between a child and its mother.&#x27; Umar did not repeat his words.&quot; Yahya said that he heard Malik say, &quot;This is what I would have done in that situation</span></td></tr>
+<tr class='grade' data-hadith='1460'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='1460'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 6</span></td></tr><tr id='h1461' class='hadith-sep' data-hadith='1461'><td colspan='2'><a class='permalink' href='#h1461'>Hadith 1461</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1461'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مَالِكٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ أَبَا الدَّرْدَاءِ، كَتَبَ إِلَى سَلْمَانَ الْفَارِسِيِّ أَنْ هَلُمَّ إِلَى الأَرْضِ الْمُقَدَّسَةِ فَكَتَبَ إِلَيْهِ سَلْمَانُ إِنَّ الأَرْضَ لاَ تُقَدِّسُ أَحَدًا وَإِنَّمَا يُقَدِّسُ الإِنْسَانَ عَمَلُهُ وَقَدْ بَلَغَنِي أَنَّكَ جُعِلْتَ طَبِيبًا تُدَاوِي فَإِنْ كُنْتَ تُبْرِئُ فَنِعِمَّا لَكَ وَإِنْ كُنْتَ مُتَطَبِّبًا فَاحْذَرْ أَنْ تَقْتُلَ إِنْسَانًا فَتَدْخُلَ النَّارَ ‏.‏ فَكَانَ أَبُو الدَّرْدَاءِ إِذَا قَضَى بَيْنَ اثْنَيْنِ ثُمَّ أَدْبَرَا عَنْهُ نَظَرَ إِلَيْهِمَا وَقَالَ ارْجِعَا إِلَىَّ أَعِيدَا عَلَىَّ قِصَّتَكُمَا مُتَطَبِّبٌ وَاللَّهِ ‏.‏ قَالَ وَسَمِعْتُ مَالِكًا يَقُولُ مَنِ اسْتَعَانَ عَبْدًا بِغَيْرِ إِذْنِ سَيِّدِهِ فِي شَىْءٍ لَهُ بَالٌ وَلِمِثْلِهِ إِجَارَةٌ فَهُوَ ضَامِنٌ لِمَا أَصَابَ الْعَبْدَ إِنْ أُصِيبَ الْعَبْدُ بِشَىْءٍ وَإِنْ سَلِمَ الْعَبْدُ فَطَلَبَ سَيِّدُهُ إِجَارَتَهُ لِمَا عَمِلَ فَذَلِكَ لِسَيِّدِهِ وَهُوَ الأَمْرُ عِنْدَنَا ‏.‏ قَالَ وَسَمِعْتُ مَالِكًا يَقُولُ فِي الْعَبْدِ يَكُونُ بَعْضُهُ حُرًّا وَبَعْضُهُ مُسْتَرَقًّا إِنَّهُ يُوقَفُ مَالُهُ بِيَدِهِ وَلَيْسَ لَهُ أَنْ يُحْدِثَ فِيهِ شَيْئًا وَلَكِنَّهُ يَأْكُلُ فِيهِ وَيَكْتَسِي بِالْمَعْرُوفِ فَإِذَا هَلَكَ فَمَالُهُ لِلَّذِي بَقِيَ لَهُ فِيهِ الرِّقُّ ‏.‏ قَالَ وَسَمِعْتُ مَالِكًا يَقُولُ الأَمْرُ عِنْدَنَا أَنَّ الْوَالِدَ يُحَاسِبُ وَلَدَهُ بِمَا أَنْفَقَ عَلَيْهِ مِنْ يَوْمِ يَكُونُ لِلْوَلَدِ مَالٌ - نَاضًّا كَانَ أَوْ عَرْضًا - إِنْ أَرَادَ الْوَالِدُ ذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1461'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya said that he heard Malik speak about a man who bought goods - animals or clothes or wares, and the sale was found not to be permitted so it was revoked and the one who had taken the goods was ordered to return the owner his goods. Malik said, &quot;The owner of the goods only has their value on the day they were taken from him, and not on the day they are returned to him. That is because the man is liable for them from the day he took them and whatever loss is in them after that is against him. For that reason, their increase and growth are also his. A man may take the goods at a time when they are selling well and are in demand, and then have to return them at a time when they have fallen in price and no one wants them. For instance, the man may take the goods from the other man, and sell them for ten dinars or keep them while their price is that. Then he may have to return them while their price is only a dinar. He should not go off with nine dinars from the man&#x27;s property. Or perhaps they are taken by the man, and he sells them for a dinar or keeps them, while their price is only a dinar, then he has to return them, and their value on the day he returns them is ten dinars. The one who took them does not have to pay nine dinars from his property to the owner. He is only obliged to pay the value of what he took possession of on the day it was taken .&quot; He said, &quot;Part of what clarifies this is that when a thief steals goods, only their price on the day he stole them is looked at. If cutting off the hand is necessary because of it, that is done. If the cutting off is delayed, either because the thief is imprisoned until his situation is examined or he flees and then is caught, the delay of the cutting off of the hand does not make the hadd, which was obliged for him on the day he stole, fall from him even if those goods become cheap after that. Nor does delay oblige cutting off the hand if it was not obliged on the day he took those goods, even if they become expensive after that.&quot; Malik related to me from Yahya ibn Said that Abu&#x27;d-Darda wrote to Salman al-Farsi, &quot;Come immediately to the holy land.&quot; Salman wrote back to him, &quot;Land does not make anyone holy. Man&#x27;s deeds make him holy. I have heard that you were put up as a doctor to treat and cure people. If you are innocent, then may you have delight! If you are a quack, then beware lest you kill a man and enter the Fire!&quot; When Abu&#x27;d-Darda judged between two men, and they turned from him to go, he would look at them and say, &quot;Come back to me, and tell me your story again. A quack! By Allah!&quot; Yahya said that he heard Malik say, &quot;If someone makes use of a slave, without permission of its master, in anything important to him, whose like has a fee, he is liable for what befalls the slave if anything befalls him. If the slave is safe and his master asks for his wage for what he has done, that is the master&#x27;s right. This is what is done in our community.&quot; Yahya said that he heard Malik say about a slave who is part free and part enslaved, &quot;His property is suspended in his hand and he cannot begin anything with it. He eats from it and clothes himself in an approved fashion. If he dies, his property belongs to the one to whom he is in slavery.&quot; Yahya said that he heard Malik say, &quot;The way of doing things in our community is that a parent can take his child to account for what he spends on him from the day the child has property, cash or goods, if the parent wants that</span></td></tr>
+<tr class='grade' data-hadith='1461'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='1461'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 7</span></td></tr><tr id='h1462' class='hadith-sep' data-hadith='1462'><td colspan='2'><a class='permalink' href='#h1462'>Hadith 1462</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1462'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنْ عُمَرَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ دَلاَفٍ الْمُزَنِيِّ، عَنْ أَبِيهِ، أَنَّ رَجُلاً، مِنْ جُهَيْنَةَ كَانَ يَسْبِقُ الْحَاجَّ فَيَشْتَرِي الرَّوَاحِلَ فَيُغْلِي بِهَا ثُمَّ يُسْرِعُ السَّيْرَ فَيَسْبِقُ الْحَاجَّ فَأَفْلَسَ فَرُفِعَ أَمْرُهُ إِلَى عُمَرَ بْنِ الْخَطَّابِ فَقَالَ أَمَّا بَعْدُ أَيُّهَا النَّاسُ فَإِنَّ الأُسَيْفِعَ أُسَيْفِعَ جُهَيْنَةَ رَضِيَ مِنْ دِينِهِ وَأَمَانَتِهِ بِأَنْ يُقَالَ سَبَقَ الْحَاجَّ أَلاَ وَإِنَّهُ قَدْ دَانَ مُعْرِضًا فَأَصْبَحَ قَدْ رِينَ بِهِ فَمَنْ كَانَ لَهُ عَلَيْهِ دَيْنٌ فَلْيَأْتِنَا بِالْغَدَاةِ نَقْسِمُ مَالَهُ بَيْنَهُمْ وَإِيَّاكُمْ وَالدَّيْنَ فَإِنَّ أَوَّلَهُ هَمٌّ وَآخِرَهُ حَرْبٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1462'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me from Umar ibn Abd ar-Rahman ibn Dalaf al- Muzani from his father that a man from the Juhayna tribe used to buy camels before people set out for hajj and sell them at a higher price. Then he travelled quickly and used to arrive in Makka before the others who set out for hajj. He went bankrupt and his situation was put before Umar ibn al-Khattab, who said, &quot;O People! al-Usayfi, al- Usayfi of the Juhayna, was satisfied with his deen and his trust because it was said of him that he arrived before the others on hajj. He used to incur debts which he was not careful to repay, so all of his property has been eaten up by it. Whoever has a debt against him, let him come to us tomorrow and we will divide his property between his creditors. Beware of debts! Their beginning is a worry and their end is destitution</span></td></tr>
+<tr class='grade' data-hadith='1462'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='1462'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 8</span></td></tr><tr id='h1463' class='hadith-sep' data-hadith='1463'><td colspan='2'><a class='permalink' href='#h1463'>Hadith 1463</a> — Wills and Testaments</td></tr>
+<tr class='arabic' data-hadith='1463'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّ عُثْمَانَ بْنَ عَفَّانَ، قَالَ مَنْ نَحَلَ وَلَدًا لَهُ صَغِيرًا لَمْ يَبْلُغْ أَنْ يَحُوزَ نُحْلَهُ فَأَعْلَنَ ذَلِكَ لَهُ وَأَشْهَدَ عَلَيْهَا فَهِيَ جَائِزَةٌ وَإِنْ وَلِيَهَا أَبُوهُ ‏.‏ قَالَ مَالِكٌ الأَمْرُ عِنْدَنَا أَنَّ مَنْ نَحَلَ ابْنًا لَهُ صَغِيرًا ذَهَبًا أَوْ وَرِقًا ثُمَّ هَلَكَ وَهُوَ يَلِيهِ إِنَّهُ لاَ شَىْءَ لِلاِبْنِ مِنْ ذَلِكَ إِلاَّ أَنْ يَكُونَ الأَبُ عَزَلَهَا بِعَيْنِهَا أَوْ دَفَعَهَا إِلَى رَجُلٍ وَضَعَهَا لاِبْنِهِ عِنْدَ ذَلِكَ الرَّجُلِ فَإِنْ فَعَلَ ذَلِكَ فَهُوَ جَائِزٌ لِلاِبْنِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1463'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya said that he heard Malik say, &quot;The sunna with us about the crime of slaves is that the hand is not cut off for any harm that a slave causes a man, or something he pilfers, or something guarded which he steals, or hanging dates he cuts down or ruins, or steals. That is against the slave&#x27;s person and does not exceed the price of the slave whether it is little or much. If his master wishes to give the value of what the slave took or ruined, or pay the blood-price for the injury, he pays it and keeps his slave. If he wishes to surrender him, he surrenders him, and none of that is against him. The master has the option in that.&quot; Malik related to me from Ibn Shihab from Said ibn al-Musayyab that Uthman ibn Affan said, &quot;If someone gives something to his small child who is not old enough to look after it himself, and in order that his gift might be permitted he makes the gift public and has it witnessed, the gift is permitted, even if the father keeps charge of it.&quot; Malik said, &quot;What is done in our community is that if a man gives his small child some gold or silver and then dies and he has it in his own keeping, the child has none of it unless the father set it aside in coin or placed it with a man to keep for the son. If he does that, it is permitted for the son</span></td></tr>
+<tr class='grade' data-hadith='1463'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1463'><td class='label'>Reference</td><td><span class='ref-text'>Book 37, Hadith 9</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-036.html">← Judgements</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-038.html">Setting Free and Wala&#x27; →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

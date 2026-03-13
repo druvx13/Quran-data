@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muwatta Malik — Hair – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Hair</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html">5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html">7. Tahajjud</option><option value="malik-book-008.html">8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-021.html">21. Jihad</option><option value="malik-book-022.html">22. Vows and Oaths</option><option value="malik-book-023.html">23. Sacrificial Animals</option><option value="malik-book-024.html">24. Slaughtering Animals</option><option value="malik-book-025.html">25. Game</option><option value="malik-book-026.html">26. The &#x27;Aqiqa</option><option value="malik-book-027.html">27. Fara&#x27;id</option><option value="malik-book-028.html">28. Marriage</option><option value="malik-book-029.html">29. Divorce</option><option value="malik-book-030.html">30. Suckling</option><option value="malik-book-031.html">31. Business Transactions</option><option value="malik-book-032.html">32. Qirad</option><option value="malik-book-033.html">33. Sharecropping</option><option value="malik-book-034.html">34. Renting Land</option><option value="malik-book-035.html">35. Pre-emption in Property</option><option value="malik-book-036.html">36. Judgements</option><option value="malik-book-037.html">37. Wills and Testaments</option><option value="malik-book-038.html">38. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">39. The Mukatab</option><option value="malik-book-040.html">40. The Mudabbar</option><option value="malik-book-041.html">41. Hudud</option><option value="malik-book-042.html">42. Drinks</option><option value="malik-book-043.html">43. Blood-Money</option><option value="malik-book-044.html">44. The Oath of Qasama</option><option value="malik-book-045.html">45. Madina</option><option value="malik-book-046.html">46. The Decree</option><option value="malik-book-047.html">47. Good Character</option><option value="malik-book-048.html">48. Dress</option><option value="malik-book-049.html">49. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">50. The Evil Eye</option><option value="malik-book-051.html" selected>51. Hair</option><option value="malik-book-052.html">52. Visions</option><option value="malik-book-053.html">53. Greetings</option><option value="malik-book-054.html">54. General Subjects</option><option value="malik-book-055.html">55. The Oath of Allegiance</option><option value="malik-book-056.html">56. Speech</option><option value="malik-book-057.html">57. Jahannam</option><option value="malik-book-058.html">58. Sadaqa</option><option value="malik-book-059.html">59. Knowledge</option><option value="malik-book-060.html">60. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">61. The Names of the Prophet, may Allah Bless Him and…</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Muwatta Malik</h1>
+<h2>Hair</h2>
+<div class="meta-info">
+  Hadith 1730–1746 &nbsp;|&nbsp;
+  <a href="malik.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='1730' max='1746' value='1730'></label><label>To <input type='number' id='hvc-to' min='1730' max='1746' value='1746'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h1730' class='hadith-sep' data-hadith='1730'><td colspan='2'><a class='permalink' href='#h1730'>Hadith 1730</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1730'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي بَكْرِ بْنِ نَافِعٍ، عَنْ أَبِيهِ، نَافِعٍ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم أَمَرَ بِإِحْفَاءِ الشَّوَارِبِ وَإِعْفَاءِ اللِّحَى ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1730'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu Bakr ibn Nafi from his father Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, ordered the moustache to be trimmed and the beard to be left</span></td></tr>
+<tr class='grade' data-hadith='1730'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1730'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 1</span></td></tr><tr id='h1731' class='hadith-sep' data-hadith='1731'><td colspan='2'><a class='permalink' href='#h1731'>Hadith 1731</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1731'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، أَنَّهُ سَمِعَ مُعَاوِيَةَ بْنَ أَبِي سُفْيَانَ، عَامَ حَجَّ وَهُوَ عَلَى الْمِنْبَرِ وَتَنَاوَلَ قُصَّةً مِنْ شَعَرٍ كَانَتْ فِي يَدِ حَرَسِيٍّ يَقُولُ يَا أَهْلَ الْمَدِينَةِ أَيْنَ عُلَمَاؤُكُمْ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَنْهَى عَنْ مِثْلِ هَذِهِ وَيَقُولُ ‏ &quot;‏ إِنَّمَا هَلَكَتْ بَنُو إِسْرَائِيلَ حِينَ اتَّخَذَ هَذِهِ نِسَاؤُهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1731'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that Humay ibn Abd ar-Rahman ibn Awf heard Muawiya ibn Abi Sufyan say from the mimbar in the year that he performed the hajj, holding a lock of hair (i.e. a hairpiece) which he took from one of his guards, &quot;People of Madina! Where are your learned men? I heard the Messenger of Allah, may Allah bless him and grant him peace, forbid the like of this, saying, &#x27;The Banu Israil were destroyed when their women started to use this</span></td></tr>
+<tr class='grade' data-hadith='1731'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1731'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 2</span></td></tr><tr id='h1732' class='hadith-sep' data-hadith='1732'><td colspan='2'><a class='permalink' href='#h1732'>Hadith 1732</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1732'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زِيَادِ بْنِ سَعْدٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ سَمِعَهُ يَقُولُ سَدَلَ رَسُولُ اللَّهِ صلى الله عليه وسلم نَاصِيَتَهُ مَا شَاءَ اللَّهُ ثُمَّ فَرَقَ بَعْدَ ذَلِكَ ‏.‏ قَالَ مَالِكٌ لَيْسَ عَلَى الرَّجُلِ يَنْظُرُ إِلَى شَعَرِ امْرَأَةِ ابْنِهِ أَوْ شَعَرِ أُمِّ امْرَأَتِهِ بَأْسٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1732'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Ziyad ibn Sad heard Ibn Shihab say, &quot;The Messenger of Allah, may Allah bless him and grant him peace, let his hair hang down his forehead as Allah willed, and afterwards he parted it.&quot; Malik said, &quot;There is no harm in a man&#x27;s looking at the hair of his son&#x27;s wife or the hair of his wife&#x27;s mother</span></td></tr>
+<tr class='grade' data-hadith='1732'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1732'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 3</span></td></tr><tr id='h1733' class='hadith-sep' data-hadith='1733'><td colspan='2'><a class='permalink' href='#h1733'>Hadith 1733</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1733'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّهُ كَانَ يَكْرَهُ الإِخْصَاءَ وَيَقُولُ فِيهِ تَمَامُ الْخَلْقِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1733'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar disapproved of castration and said, &quot;The completeness of the created form is in the testicles</span></td></tr>
+<tr class='grade' data-hadith='1733'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1733'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 4</span></td></tr><tr id='h1734' class='hadith-sep' data-hadith='1734'><td colspan='2'><a class='permalink' href='#h1734'>Hadith 1734</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1734'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، أَنَّهُ بَلَغَهُ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ أَنَا وَكَافِلُ الْيَتِيمِ لَهُ أَوْ لِغَيْرِهِ فِي الْجَنَّةِ كَهَاتَيْنِ إِذَا اتَّقَى ‏&quot;‏ ‏.‏ وَأَشَارَ بِإِصْبُعَيْهِ الْوُسْطَى وَالَّتِي تَلِي الإِبْهَامَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1734'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Safwan ibn Sulaym heard that the Prophet, may Allah bless him and grant him peace, said, &quot;I and the one who guards the orphan, whether for himself or for someone else, will be like these two in the Garden, when he has taqwa,&quot; indicating his middle and index fingers</span></td></tr>
+<tr class='grade' data-hadith='1734'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1734'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 5</span></td></tr><tr id='h1735' class='hadith-sep' data-hadith='1735'><td colspan='2'><a class='permalink' href='#h1735'>Hadith 1735</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1735'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ أَبَا قَتَادَةَ الأَنْصَارِيَّ، قَالَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم إِنَّ لِي جُمَّةً أَفَأُرَجِّلُهَا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ نَعَمْ وَأَكْرِمْهَا ‏&quot;‏ فَكَانَ أَبُو قَتَادَةَ رُبَّمَا دَهَنَهَا فِي الْيَوْمِ مَرَّتَيْنِ لِمَا قَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ وَأَكْرِمْهَا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1735'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that Abu Qatada al-Ansari said to the Messenger of Allah, may Allah bless him and grant him peace, &quot;I have a lot of hair which comes down to my shoulders, shall I comb it?&#x27;&#x27; The Messenger of Allah. may Allah bless him and grant him peace, said, &quot;Yes, and honour it.&quot; Sometimes Abu Qatada oiled it twice in one day because the Messenger of Allah, may Allah bless him and grant him peace, said to him. &quot;Honour it</span></td></tr>
+<tr class='grade' data-hadith='1735'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='1735'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 6</span></td></tr><tr id='h1736' class='hadith-sep' data-hadith='1736'><td colspan='2'><a class='permalink' href='#h1736'>Hadith 1736</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1736'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، أَنَّ عَطَاءَ بْنَ يَسَارٍ، أَخْبَرَهُ قَالَ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم فِي الْمَسْجِدِ فَدَخَلَ رَجُلٌ ثَائِرَ الرَّأْسِ وَاللِّحْيَةِ فَأَشَارَ إِلَيْهِ رَسُولُ اللَّهِ صلى الله عليه وسلم بِيَدِهِ أَنِ اخْرُجْ كَأَنَّهُ يَعْنِي إِصْلاَحَ شَعَرِ رَأْسِهِ وَلِحْيَتِهِ فَفَعَلَ الرَّجُلُ ثُمَّ رَجَعَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ أَلَيْسَ هَذَا خَيْرًا مِنْ أَنْ يَأْتِيَ أَحَدُكُمْ ثَائِرَ الرَّأْسِ كَأَنَّهُ شَيْطَانٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1736'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam that Ata ibn Yasar told him that the Messenger of Allah, may Allah bless him and grant him peace, was in the mosque when a man came in with dishevelled hair and beard. The Messenger of Allah. may Allah bless him and grant him peace, motioned with his hand that he should be sent out to groom his hair and beard. The man did so and then returned. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Isn&#x27;t this better than that one of you should come with his head dishevelled, as if he were a shaytan?</span></td></tr>
+<tr class='grade' data-hadith='1736'><td class='label'>Grade</td><td><span class='grade-text'>Daif</span></td></tr>
+<tr class='ref' data-hadith='1736'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 7</span></td></tr><tr id='h1737' class='hadith-sep' data-hadith='1737'><td colspan='2'><a class='permalink' href='#h1737'>Hadith 1737</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1737'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، قَالَ أَخْبَرَنِي مُحَمَّدُ بْنُ إِبْرَاهِيمَ التَّيْمِيُّ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، أَنَّ عَبْدَ الرَّحْمَنِ بْنَ الأَسْوَدِ بْنِ عَبْدِ يَغُوثَ، قَالَ وَكَانَ جَلِيسًا لَهُمْ وَكَانَ أَبْيَضَ اللِّحْيَةِ وَالرَّأْسِ - قَالَ - فَغَدَا عَلَيْهِمْ ذَاتَ يَوْمٍ وَقَدْ حَمَّرَهُمَا - قَالَ - فَقَالَ لَهُ الْقَوْمُ هَذَا أَحْسَنُ فَقَالَ إِنَّ أُمِّي عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم أَرْسَلَتْ إِلَىَّ الْبَارِحَةَ جَارِيَتَهَا نُخَيْلَةَ فَأَقْسَمَتْ عَلَىَّ لأَصْبُغَنَّ وَأَخْبَرَتْنِي أَنَّ أَبَا بَكْرٍ الصِّدِّيقَ كَانَ يَصْبُغُ ‏.‏ قَالَ يَحْيَى سَمِعْتُ مَالِكًا يَقُولُ فِي صَبْغِ الشَّعَرِ بِالسَّوَادِ لَمْ أَسْمَعْ فِي ذَلِكَ شَيْئًا مَعْلُومًا وَغَيْرُ ذَلِكَ مِنَ الصِّبْغِ أَحَبُّ إِلَىَّ ‏.‏ قَالَ وَتَرْكُ الصَّبْغِ كُلِّهِ وَاسِعٌ إِنْ شَاءَ اللَّهُ لَيْسَ عَلَى النَّاسِ فِيهِ ضِيقٌ ‏.‏ قَالَ وَسَمِعْتُ مَالِكًا يَقُولُ فِي هَذَا الْحَدِيثِ بَيَانُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم لَمْ يَصْبُغْ وَلَوْ صَبَغَ رَسُولُ اللَّهِ صلى الله عليه وسلم لأَرْسَلَتْ بِذَلِكَ عَائِشَةُ إِلَى عَبْدِ الرَّحْمَنِ بْنِ الأَسْوَدِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1737'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said that Muhammad ibn Ibrahim at-Taymi had informed him that Abu Salama ibn Abd ar-Rahman said &quot;Abd ar-Rahman ibn al-Aswad ibn Abdal-Yaghuth used to sit with us and he had a white beard and hair. One day he came to us and he had dyed them red, and the people said to him, &#x27;This is better.&#x27; He said. &#x27;A&#x27;isha the wife of the Prophet, may Allah bless him and grant him peace, sent her slave girl Nukhayla to me yesterday. She swore that my hair would be dyed and she informed me that Abu Bakr as- Siddiq used to dye his hair.&#x27; &quot; Yahya said that he heard Malik say about dyeing the hair black, &#x27;I have not heard anything certain on that, and other colours than that are preferable to me.&quot; Yahya said, &quot;Not to dye at all is permitted, Allah willing, and there is no constraint on people concerning it.&quot; Yahya said that he had heard Malik say, &quot;There is no clear indication in this hadith that the Messenger of Allah, may Allah bless him and grant him peace, did not dye his hair. Had the Messenger of Allah, may Allah bless him and grant him peace, dyed his hair, A&#x27;isha would have sent a message to that effect to Abd ar-Rahman ibn al-Aswad</span></td></tr>
+<tr class='grade' data-hadith='1737'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1737'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 8</span></td></tr><tr id='h1738' class='hadith-sep' data-hadith='1738'><td colspan='2'><a class='permalink' href='#h1738'>Hadith 1738</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1738'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، قَالَ بَلَغَنِي أَنَّ خَالِدَ بْنَ الْوَلِيدِ، قَالَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم إِنِّي أُرَوَّعُ فِي مَنَامِي ‏.‏ فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ قُلْ أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ غَضَبِهِ وَعِقَابِهِ وَشَرِّ عِبَادِهِ وَمِنْ هَمَزَاتِ الشَّيَاطِينِ وَأَنْ يَحْضُرُونِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1738'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said that he had heard that Khalid ibn al-Walid said to the Messenger of Allah, may Allah bless him and grant him peace, &quot;I have nightmares.&quot; The Messenger of Allah, may Allah bless him and grant him peace, said to him, &quot;Say, &#x27;I seek refuge with the complete words of Allah from His anger and His punishment and the evil of His slaves, and from the evil suggestions of the shayatin and from their being present (at death).&#x27; &quot; Audhu bi kalimati&#x27; llahi&#x27;t-tammati min ghadabihi wa iqabihi wa sharri ibadihi wa min hamazati&#x27; sh-shayatin wa an yahdurun</span></td></tr>
+<tr class='grade' data-hadith='1738'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='1738'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 9</span></td></tr><tr id='h1739' class='hadith-sep' data-hadith='1739'><td colspan='2'><a class='permalink' href='#h1739'>Hadith 1739</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1739'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ قَالَ أُسْرِيَ بِرَسُولِ اللَّهِ صلى الله عليه وسلم فَرَأَى عِفْرِيتًا مِنَ الْجِنِّ يَطْلُبُهُ بِشُعْلَةٍ مِنْ نَارٍ كُلَّمَا الْتَفَتَ رَسُولُ اللَّهِ صلى الله عليه وسلم رَآهُ فَقَالَ لَهُ جِبْرِيلُ أَفَلاَ أُعَلِّمُكَ كَلِمَاتٍ تَقُولُهُنَّ إِذَا قُلْتَهُنَّ طَفِئَتْ شُعْلَتُهُ وَخَرَّ لِفِيهِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ بَلَى ‏&quot;‏ فَقَالَ جِبْرِيلُ فَقُلْ أَعُوذُ بِوَجْهِ اللَّهِ الْكَرِيمِ وَبِكَلِمَاتِ اللَّهِ التَّامَّاتِ اللاَّتِي لاَ يُجَاوِزُهُنَّ بَرٌّ وَلاَ فَاجِرٌ مِنْ شَرِّ مَا يَنْزِلُ مِنَ السَّمَاءِ وَشَرِّ مَا يَعْرُجُ فِيهَا وَشَرِّ مَا ذَرَأَ فِي الأَرْضِ وَشَرِّ مَا يَخْرُجُ مِنْهَا وَمِنْ فِتَنِ اللَّيْلِ وَالنَّهَارِ وَمِنْ طَوَارِقِ اللَّيْلِ وَالنَّهَارِ إِلاَّ طَارِقًا يَطْرُقُ بِخَيْرٍ يَا رَحْمَنُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1739'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said, &quot;When the Messenger of Allah, may Allah bless him and grant him peace, was taken on the Night Journey, he saw an evil jinn seeking him with a torch of fire. Whenever the Messenger of Allah, may Allah bless him and grant him peace, turned, he saw him. Jibril said to him, &#x27;Shall I teach you some words to say? When you say them, his torch will be put out and will fall from him.&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Yes, indeed.&#x27; Jibril said, &#x27;Say, &#x27;I seek refuge with the Noble Face of Allah and with the complete words of Allah which neither the good person nor the corrupt can exceed, from the evil of what descends from the sky and the evil of what ascends in it, and from the evil of what is created in the earth and the evil of what comes out of it, and from the trials of the night and day, and from the visitations of the night and day, except for one that knocks with good, O Merciful!&quot; &quot;&#x27; Audhu bi wajhi&#x27;llahi&#x27; l-karim wa bi kalimati&#x27;llahi&#x27;t-tammati. Allati la yujawazu hunna barra wa la fajir, min sharri ma yanzil min as-sama, wa sharri ma yaruju fiha, wa sham ma dhara&#x27; fi&#x27;l-ard, wa sharri ma yakhruju minha, wa min fitani&#x27;l-layli wa&#x27;n-nahar, wa min tawariqi&#x27;l-layli wa&#x27;n-nahar illa tariqan yatruq bikhayr ya Rahman</span></td></tr>
+<tr class='grade' data-hadith='1739'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='1739'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 10</span></td></tr><tr id='h1740' class='hadith-sep' data-hadith='1740'><td colspan='2'><a class='permalink' href='#h1740'>Hadith 1740</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1740'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنْ سُهَيْلِ بْنِ أَبِي صَالِحٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَجُلاً، مِنْ أَسْلَمَ قَالَ مَا نِمْتُ هَذِهِ اللَّيْلَةَ ‏.‏ فَقَالَ لَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مِنْ أَىِّ شَىْءٍ ‏&quot;‏ ‏.‏ فَقَالَ لَدَغَتْنِي عَقْرَبٌ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَمَا إِنَّكَ لَوْ قُلْتَ حِينَ أَمْسَيْتَ أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ ‏.‏ لَمْ تَضُرَّكَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1740'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Suhayl ibn Abi Salih from his father from Abu Hurayra that a man of the Aslam tribe said, &quot;I did not sleep last night.&quot; The Messenger of Allah, may Allah bless him and grant him peace, said to him, &quot;For what reason?&quot; He said, &quot;A scorpion bit me.&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Had you said in the evening, &#x27;I seek refuge with the complete words of Allah from the evil of what He has created, &#x27;it would not have happened.&quot; Audhu bi kalimati&#x27;llahi&#x27;t-tammati min sharri ma khalaq</span></td></tr>
+<tr class='grade' data-hadith='1740'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1740'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 11</span></td></tr><tr id='h1741' class='hadith-sep' data-hadith='1741'><td colspan='2'><a class='permalink' href='#h1741'>Hadith 1741</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1741'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سُمَىٍّ، مَوْلَى أَبِي بَكْرٍ عَنِ الْقَعْقَاعِ بْنِ حَكِيمٍ، أَنَّ كَعْبَ الأَحْبَارِ، قَالَ لَوْلاَ كَلِمَاتٌ أَقُولُهُنَّ لَجَعَلَتْنِي يَهُودُ حِمَارًا ‏.‏ فَقِيلَ لَهُ وَمَا هُنَّ فَقَالَ أَعُوذُ بِوَجْهِ اللَّهِ الْعَظِيمِ الَّذِي لَيْسَ شَىْءٌ أَعْظَمَ مِنْهُ وَبِكَلِمَاتِ اللَّهِ التَّامَّاتِ الَّتِي لاَ يُجَاوِزُهُنَّ بَرٌّ وَلاَ فَاجِرٌ وَبِأَسْمَاءِ اللَّهِ الْحُسْنَى كُلِّهَا مَا عَلِمْتُ مِنْهَا وَمَا لَمْ أَعْلَمْ مِنْ شَرِّ مَا خَلَقَ وَبَرَأَ وَذَرَأَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1741'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Summayy, the mawla of Abu Bakr from al-Qa&#x27;qa ibn Hakim that Kab al-Ahbar said, &quot;Had it not been for some words which I said, the jews would have made me into a donkey.&quot; Someone asked him what they were. He said, &quot;I seek refuge with the immense Face of Allah - there is nothing greater than it - and with the complete words of Allah which neither the good person nor the corrupt can exceed and with all the most beautiful names of Allah, what I know of them and what I do not know, from the evil of what He has created and originated and multiplied.&quot; Audhu bi wajhi&#x27;llahi l-adheem aladhee laysa shay&#x27;un adham minh, wa bi kalimati&#x27;llahi&#x27;t-tammati, alatee la yujawizu hunna barra wa la fajir, wa bi asma&#x27;illahi&#x27;l-husna kulliha ma alamtu minha wa ma lam alam, min sharri ma khalaqa wa bara&#x27;a wa dhara&#x27;a</span></td></tr>
+<tr class='grade' data-hadith='1741'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='1741'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 12</span></td></tr><tr id='h1742' class='hadith-sep' data-hadith='1742'><td colspan='2'><a class='permalink' href='#h1742'>Hadith 1742</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1742'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ مَعْمَرٍ، عَنْ أَبِي الْحُبَابِ، سَعِيدِ بْنِ يَسَارٍ عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ إِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى يَقُولُ يَوْمَ الْقِيَامَةِ أَيْنَ الْمُتَحَابُّونَ لِجَلاَلِي الْيَوْمَ أُظِلُّهُمْ فِي ظِلِّي يَوْمَ لاَ ظِلَّ إِلاَّ ظِلِّي ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1742'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abdullah ibn Abd ar-Rahman ibn Mamar from Abu&#x27;l-Hubab Said ibn Yasar that Abu Hurayra said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Allah, the Blessed, the Exalted, will say on the Day of Rising, &quot;Where are those who loved each other for My majesty? Today I will shade them in My shade on the day when there is no shade except My shade</span></td></tr>
+<tr class='grade' data-hadith='1742'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1742'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 13</span></td></tr><tr id='h1743' class='hadith-sep' data-hadith='1743'><td colspan='2'><a class='permalink' href='#h1743'>Hadith 1743</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1743'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ خُبَيْبِ بْنِ عَبْدِ الرَّحْمَنِ الأَنْصَارِيِّ، عَنْ حَفْصِ بْنِ عَاصِمٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، أَوْ عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ سَبْعَةٌ يُظِلُّهُمُ اللَّهُ فِي ظِلِّهِ يَوْمَ لاَ ظِلَّ إِلاَّ ظِلُّهُ إِمَامٌ عَادِلٌ وَشَابٌّ نَشَأَ فِي عِبَادَةِ اللَّهِ</span></td></tr>
+<tr class='eng' data-hadith='1743'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Khubayb ibn Abd ar-Rahman al- Ansari from Hafs ibn Asim that either Abu Said al-Khudri or Abu Hurayra said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;There are seven whom Allah will shade in His shade on the day on which there is no shade except His shade:a just imam, a youth who grows up worshipping Allah, a man whose heart is attached to the mosque when he leaves it until he returns to it, two men who love each other in Allah and meet for that and part for that, a man who remembers Allah when he is alone and his eyes overflow with tears, a man who refuses the approaches of a noble, beautiful woman, saying &quot;I fear Allah,&quot; and a man who gives sadaqa and conceals it so that his left hand does not know what his right hand gives</span></td></tr>
+<tr class='grade' data-hadith='1743'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1743'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 14</span></td></tr><tr id='h1744' class='hadith-sep' data-hadith='1744'><td colspan='2'><a class='permalink' href='#h1744'>Hadith 1744</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1744'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سُهَيْلِ بْنِ أَبِي صَالِحٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا أَحَبَّ اللَّهُ الْعَبْدَ قَالَ لِجِبْرِيلَ قَدْ أَحْبَبْتُ فُلاَنًا فَأَحِبَّهُ ‏.‏ فَيُحِبُّهُ جِبْرِيلُ ثُمَّ يُنَادِي فِي أَهْلِ السَّمَاءِ إِنَّ اللَّهَ قَدْ أَحَبَّ فُلاَنًا فَأَحِبُّوهُ ‏.‏ فَيُحِبُّهُ أَهْلُ السَّمَاءِ ثُمَّ يُوضَعُ لَهُ الْقَبُولُ فِي الأَرْضِ ‏.‏ وَإِذَا أَبْغَضَ اللَّهُ الْعَبْدَ ‏&quot;‏ ‏.‏ قَالَ مَالِكٌ لاَ أَحْسِبُهُ إِلاَّ أَنَّهُ قَالَ فِي الْبُغْضِ مِثْلَ ذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1744'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Suhayl ibn Abi Salih from his father from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If Allah loves a slave, he says to Jibril, &#x27;I love so-and-so, so love him,&#x27; so Jibril loves him and then calls out to the people of heaven, &#x27;Allah loves so-and-so, so love him,&#x27; and the people of heaven love him, and then acceptance is placed in the Earth for him.&quot; When Allah is angry with a slave, Malik said, &quot;I consider that he says the like of that about His anger</span></td></tr>
+<tr class='grade' data-hadith='1744'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1744'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 15</span></td></tr><tr id='h1745' class='hadith-sep' data-hadith='1745'><td colspan='2'><a class='permalink' href='#h1745'>Hadith 1745</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1745'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي حَازِمِ بْنِ دِينَارٍ، عَنْ أَبِي إِدْرِيسَ الْخَوْلاَنِيِّ، أَنَّهُ قَالَ دَخَلْتُ مَسْجِدَ دِمَشْقَ فَإِذَا فَتًى شَابٌّ بَرَّاقُ الثَّنَايَا وَإِذَا النَّاسُ مَعَهُ إِذَا اخْتَلَفُوا فِي شَىْءٍ أَسْنَدُوا إِلَيْهِ وَصَدَرُوا عَنْ قَوْلِهِ فَسَأَلْتُ عَنْهُ فَقِيلَ هَذَا مُعَاذُ بْنُ جَبَلٍ ‏.‏ فَلَمَّا كَانَ الْغَدُ هَجَّرْتُ فَوَجَدْتُهُ قَدْ سَبَقَنِي بِالتَّهْجِيرِ وَوَجَدْتُهُ يُصَلِّي - قَالَ - فَانْتَظَرْتُهُ حَتَّى قَضَى صَلاَتَهُ ثُمَّ جِئْتُهُ مِنْ قِبَلِ وَجْهِهِ فَسَلَّمْتُ عَلَيْهِ ثُمَّ قُلْتُ وَاللَّهِ إِنِّي لأُحِبُّكَ لِلَّهِ ‏.‏ فَقَالَ آللَّهِ فَقُلْتُ آللَّهِ ‏.‏ فَقَالَ آللَّهِ فَقُلْتُ آللَّهِ ‏.‏ فَقَالَ آللَّهِ فَقُلْتُ آللَّهِ ‏.‏ قَالَ فَأَخَذَ بِحُبْوَةِ رِدَائِي فَجَبَذَنِي إِلَيْهِ وَقَالَ أَبْشِرْ فَإِنِّي سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ قَالَ اللَّهُ تَبَارَكَ وَتَعَالَى وَجَبَتْ مَحَبَّتِي لِلْمُتَحَابِّينَ فِيَّ وَالْمُتَجَالِسِينَ فِيَّ وَالْمُتَزَاوِرِينَ فِيَّ وَالْمُتَبَاذِلِينَ فِيَّ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1745'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu Hazim ibn Dinar that Abu Idris al-Khawlani said, &quot;I entered the Damascus mosque and there was a young man with a beautiful mouth and white teeth sitting with some people. When they disagreed about something, they referred it to him and proceeded from his statement. I inquired about him, and it was said, &#x27;This is Muadh ibn Jabal.&#x27; The next day I went to the noon-prayer, and I found that he had preceded me to the noon prayer and I found him praying.&quot; Abu Idris continued, &quot;I waited for him until he had finished the prayer. Then I came to him from in front of him and greeted him and said, &#x27;By Allah! I love you for Allah!&#x27; He said, &#x27;By Allah?&#x27; I said, &#x27;By Allah.&#x27; He said, &#x27;By Allah?&#x27; I said, &#x27;By Allah.&#x27; He said, &#x27;By Allah?&#x27; I said, &#x27;By Allah.&#x27; &quot; He continued, &quot;He took me by the upper part of my cloak and pulled me to him and said, &#x27;Rejoice! I heard the Messenger of Allah, may Allah bless him and grant him peace, say, &quot;Allah, the Blessed and Exalted, said, &#x27;My love is obliged for those who love each other in Me, and those who sit with each other in Me, and those who visit each other in Me, and those who give to each other generously in Me</span></td></tr>
+<tr class='grade' data-hadith='1745'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1745'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 16</span></td></tr><tr id='h1746' class='hadith-sep' data-hadith='1746'><td colspan='2'><a class='permalink' href='#h1746'>Hadith 1746</a> — Hair</td></tr>
+<tr class='arabic' data-hadith='1746'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّهُ كَانَ يَقُولُ الْقَصْدُ وَالْتُّؤَدَةُ وَحُسْنُ السَّمْتِ جُزْءٌ مِنْ خَمْسَةٍ وَعِشْرِينَ جُزْءًا مِنَ النُّبُوَّةِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1746'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Abdullah ibn Abbas said, &quot;Equanimity, gentleness, and good behaviour are one twenty-fifth of prophecy</span></td></tr>
+<tr class='grade' data-hadith='1746'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='1746'><td class='label'>Reference</td><td><span class='ref-text'>Book 51, Hadith 17</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="malik-book-050.html">← The Evil Eye</a>
+  <a href="malik.html">📚 Book Index</a>
+  <a href="malik-book-052.html">Visions →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

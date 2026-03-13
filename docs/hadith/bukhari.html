@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahih al-Bukhari – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › Sahih al-Bukhari</span>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Sahih al-Bukhari</h1>
+<div class="meta-info">
+  <strong>Author:</strong> Imam Muhammad al-Bukhari (d. 256 AH) &nbsp;|&nbsp;
+  <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">صحيح البخاري</span> &nbsp;|&nbsp;
+  <strong>Total:</strong> 7,580 hadith
+</div>
+<div class="desc">The most authentic collection of hadith, compiled by Imam Bukhari. Contains over 7,500 hadith in 97 books.</div>
+<h2>Books / Chapters (97)</h2>
+<ul class="book-list">
+<li><a href="bukhari-book-001.html">Revelation<span class="bl-count">7 hadith (1–7)</span></a></li><li><a href="bukhari-book-002.html">Belief<span class="bl-count">51 hadith (8–58)</span></a></li><li><a href="bukhari-book-003.html">Knowledge<span class="bl-count">76 hadith (59–134)</span></a></li><li><a href="bukhari-book-004.html">Ablutions (Wudu&#x27;)<span class="bl-count">113 hadith (135–247)</span></a></li><li><a href="bukhari-book-005.html">Bathing (Ghusl)<span class="bl-count">46 hadith (248–293)</span></a></li><li><a href="bukhari-book-006.html">Menstrual Periods<span class="bl-count">40 hadith (294–333)</span></a></li><li><a href="bukhari-book-007.html">Rubbing hands and feet with dust (Tayammum)<span class="bl-count">15 hadith (334–348)</span></a></li><li><a href="bukhari-book-008.html">Prayers (Salat)<span class="bl-count">174 hadith (349–521)</span></a></li><li><a href="bukhari-book-009.html">Times of the Prayers<span class="bl-count">81 hadith (522–602)</span></a></li><li><a href="bukhari-book-010.html">Call to Prayers (Adhaan)<span class="bl-count">275 hadith (603–875)</span></a></li><li><a href="bukhari-book-011.html">Friday Prayer<span class="bl-count">66 hadith (876–941)</span></a></li><li><a href="bukhari-book-012.html">Fear Prayer<span class="bl-count">6 hadith (942–947)</span></a></li><li><a href="bukhari-book-013.html">The Two Festivals (Eids)<span class="bl-count">42 hadith (948–989)</span></a></li><li><a href="bukhari-book-014.html">Witr Prayer<span class="bl-count">15 hadith (990–1004)</span></a></li><li><a href="bukhari-book-015.html">Invoking Allah for Rain (Istisqaa)<span class="bl-count">35 hadith (1005–1039)</span></a></li><li><a href="bukhari-book-016.html">Eclipses<span class="bl-count">27 hadith (1040–1066)</span></a></li><li><a href="bukhari-book-017.html">Prostration During Recital of Qur&#x27;an<span class="bl-count">13 hadith (1067–1079)</span></a></li><li><a href="bukhari-book-018.html">Shortening the Prayers (At-Taqseer)<span class="bl-count">40 hadith (1080–1119)</span></a></li><li><a href="bukhari-book-019.html">Prayer at Night (Tahajjud)<span class="bl-count">69 hadith (1120–1187)</span></a></li><li><a href="bukhari-book-020.html">Virtues of Prayer at Masjid Makkah and Madinah<span class="bl-count">10 hadith (1188–1197)</span></a></li><li><a href="bukhari-book-021.html">Actions while Praying<span class="bl-count">27 hadith (1198–1223)</span></a></li><li><a href="bukhari-book-022.html">Forgetfulness in Prayer<span class="bl-count">14 hadith (1224–1236)</span></a></li><li><a href="bukhari-book-023.html">Funerals (Al-Janaa&#x27;iz)<span class="bl-count">160 hadith (1237–1394)</span></a></li><li><a href="bukhari-book-024.html">Obligatory Charity Tax (Zakat)<span class="bl-count">118 hadith (1395–1512)</span></a></li><li><a href="bukhari-book-025.html">Hajj (Pilgrimage)<span class="bl-count">260 hadith (1513–1772)</span></a></li><li><a href="bukhari-book-026.html">`Umrah (Minor pilgrimage)<span class="bl-count">33 hadith (1773–1805)</span></a></li><li><a href="bukhari-book-027.html">Pilgrims Prevented from Completing the Pilgrimage<span class="bl-count">15 hadith (1806–1820)</span></a></li><li><a href="bukhari-book-028.html">Penalty of Hunting while on Pilgrimage<span class="bl-count">46 hadith (1821–1866)</span></a></li><li><a href="bukhari-book-029.html">Virtues of Madinah<span class="bl-count">24 hadith (1867–1890)</span></a></li><li><a href="bukhari-book-030.html">Fasting<span class="bl-count">117 hadith (1891–2007)</span></a></li><li><a href="bukhari-book-031.html">Praying at Night in Ramadaan (Taraweeh)<span class="bl-count">6 hadith (2008–2013)</span></a></li><li><a href="bukhari-book-032.html">Virtues of the Night of Qadr<span class="bl-count">11 hadith (2014–2024)</span></a></li><li><a href="bukhari-book-033.html">Retiring to a Mosque for Remembrance of Allah (I&#x27;tikaf)<span class="bl-count">22 hadith (2025–2046)</span></a></li><li><a href="bukhari-book-034.html">Sales and Trade<span class="bl-count">193 hadith (2047–2238)</span></a></li><li><a href="bukhari-book-035.html">Sales in which a Price is paid for Goods to be Delivered Later (As-Salam)<span class="bl-count">20 hadith (2239–2256)</span></a></li><li><a href="bukhari-book-036.html">Shuf&#x27;a<span class="bl-count">3 hadith (2257–2259)</span></a></li><li><a href="bukhari-book-037.html">Hiring<span class="bl-count">27 hadith (2260–2286)</span></a></li><li><a href="bukhari-book-038.html">Transferance of a Debt from One Person to Another (Al-Hawaala)<span class="bl-count">3 hadith (2287–2289)</span></a></li><li><a href="bukhari-book-039.html">Kafalah<span class="bl-count">9 hadith (2290–2298)</span></a></li><li><a href="bukhari-book-040.html">Representation, Authorization, Business by Proxy<span class="bl-count">21 hadith (2299–2319)</span></a></li><li><a href="bukhari-book-041.html">Agriculture<span class="bl-count">31 hadith (2320–2350)</span></a></li><li><a href="bukhari-book-042.html">Distribution of Water<span class="bl-count">34 hadith (2351–2384)</span></a></li><li><a href="bukhari-book-043.html">Loans, Payment of Loans, Freezing of Property, Bankruptcy<span class="bl-count">25 hadith (2385–2409)</span></a></li><li><a href="bukhari-book-044.html">Khusoomaat<span class="bl-count">16 hadith (2410–2425)</span></a></li><li><a href="bukhari-book-045.html">Lost Things Picked up by Someone (Luqatah)<span class="bl-count">15 hadith (2426–2439)</span></a></li><li><a href="bukhari-book-046.html">Oppressions<span class="bl-count">43 hadith (2440–2482)</span></a></li><li><a href="bukhari-book-047.html">Partnership<span class="bl-count">25 hadith (2483–2507)</span></a></li><li><a href="bukhari-book-048.html">Mortgaging<span class="bl-count">9 hadith (2508–2516)</span></a></li><li><a href="bukhari-book-049.html">Manumission of Slaves<span class="bl-count">43 hadith (2517–2559)</span></a></li><li><a href="bukhari-book-050.html">Makaatib<span class="bl-count">6 hadith (2560–2565)</span></a></li><li><a href="bukhari-book-051.html">Gifts<span class="bl-count">71 hadith (2566–2636)</span></a></li><li><a href="bukhari-book-052.html">Witnesses<span class="bl-count">53 hadith (2637–2689)</span></a></li><li><a href="bukhari-book-053.html">Peacemaking<span class="bl-count">22 hadith (2690–2711)</span></a></li><li><a href="bukhari-book-054.html">Conditions<span class="bl-count">26 hadith (2712–2737)</span></a></li><li><a href="bukhari-book-055.html">Wills and Testaments (Wasaayaa)<span class="bl-count">44 hadith (2738–2781)</span></a></li><li><a href="bukhari-book-056.html">Fighting for the Cause of Allah (Jihaad)<span class="bl-count">309 hadith (2782–3090)</span></a></li><li><a href="bukhari-book-057.html">One-fifth of Booty to the Cause of Allah (Khumus)<span class="bl-count">66 hadith (3091–3156)</span></a></li><li><a href="bukhari-book-058.html">Jizyah and Mawaada&#x27;ah<span class="bl-count">33 hadith (3157–3189)</span></a></li><li><a href="bukhari-book-059.html">Beginning of Creation<span class="bl-count">136 hadith (3190–3325)</span></a></li><li><a href="bukhari-book-060.html">Prophets<span class="bl-count">163 hadith (3326–3488)</span></a></li><li><a href="bukhari-book-061.html">Virtues and Merits of the Prophet (pbuh) and his Companions<span class="bl-count">162 hadith (3489–3648)</span></a></li><li><a href="bukhari-book-062.html">Companions of the Prophet<span class="bl-count">128 hadith (3649–3775)</span></a></li><li><a href="bukhari-book-063.html">Merits of the Helpers in Madinah (Ansaar)<span class="bl-count">173 hadith (3776–3948)</span></a></li><li><a href="bukhari-book-064.html">Military Expeditions led by the Prophet (pbuh) (Al-Maghaazi)<span class="bl-count">526 hadith (3949–4473)</span></a></li><li><a href="bukhari-book-065.html">Prophetic Commentary on the Qur&#x27;an (Tafseer of the Prophet (pbuh))<span class="bl-count">507 hadith (4474–4978)</span></a></li><li><a href="bukhari-book-066.html">Virtues of the Qur&#x27;an<span class="bl-count">87 hadith (4979–5062)</span></a></li><li><a href="bukhari-book-067.html">Wedlock, Marriage (Nikaah)<span class="bl-count">188 hadith (5063–5250)</span></a></li><li><a href="bukhari-book-068.html">Divorce<span class="bl-count">100 hadith (5251–5350)</span></a></li><li><a href="bukhari-book-069.html">Supporting the Family<span class="bl-count">22 hadith (5351–5372)</span></a></li><li><a href="bukhari-book-070.html">Food, Meals<span class="bl-count">95 hadith (5373–5466)</span></a></li><li><a href="bukhari-book-071.html">Sacrifice on Occasion of Birth (`Aqiqa)<span class="bl-count">9 hadith (5467–5474)</span></a></li><li><a href="bukhari-book-072.html">Hunting, Slaughtering<span class="bl-count">70 hadith (5475–5544)</span></a></li><li><a href="bukhari-book-073.html">Al-Adha Festival Sacrifice (Adaahi)<span class="bl-count">30 hadith (5545–5574)</span></a></li><li><a href="bukhari-book-074.html">Drinks<span class="bl-count">65 hadith (5575–5639)</span></a></li><li><a href="bukhari-book-075.html">Patients<span class="bl-count">38 hadith (5640–5677)</span></a></li><li><a href="bukhari-book-076.html">Medicine<span class="bl-count">100 hadith (5678–5782)</span></a></li><li><a href="bukhari-book-077.html">Dress<span class="bl-count">188 hadith (5783–5969)</span></a></li><li><a href="bukhari-book-078.html">Good Manners and Form (Al-Adab)<span class="bl-count">253 hadith (5970–6226)</span></a></li><li><a href="bukhari-book-079.html">Asking Permission<span class="bl-count">77 hadith (6227–6303)</span></a></li><li><a href="bukhari-book-080.html">Invocations<span class="bl-count">108 hadith (6304–6411)</span></a></li><li><a href="bukhari-book-081.html">To make the Heart Tender (Ar-Riqaq)<span class="bl-count">182 hadith (6412–6593)</span></a></li><li><a href="bukhari-book-082.html">Divine Will (Al-Qadar)<span class="bl-count">27 hadith (6594–6620)</span></a></li><li><a href="bukhari-book-083.html">Oaths and Vows<span class="bl-count">87 hadith (6621–6707)</span></a></li><li><a href="bukhari-book-084.html">Expiation for Unfulfilled Oaths<span class="bl-count">15 hadith (6708–6722)</span></a></li><li><a href="bukhari-book-085.html">Laws of Inheritance (Al-Faraa&#x27;id)<span class="bl-count">49 hadith (6723–6771)</span></a></li><li><a href="bukhari-book-086.html">Limits and Punishments set by Allah (Hudood)<span class="bl-count">89 hadith (6772–6860)</span></a></li><li><a href="bukhari-book-087.html">Blood Money (Ad-Diyat)<span class="bl-count">59 hadith (6861–6917)</span></a></li><li><a href="bukhari-book-088.html">Apostates<span class="bl-count">22 hadith (6918–6939)</span></a></li><li><a href="bukhari-book-089.html">(Statements made under) Coercion<span class="bl-count">13 hadith (6940–6952)</span></a></li><li><a href="bukhari-book-090.html">Tricks<span class="bl-count">29 hadith (6953–6981)</span></a></li><li><a href="bukhari-book-091.html">Interpretation of Dreams<span class="bl-count">66 hadith (6982–7047)</span></a></li><li><a href="bukhari-book-092.html">Afflictions and the End of the World<span class="bl-count">89 hadith (7048–7136)</span></a></li><li><a href="bukhari-book-093.html">Judgments (Ahkaam)<span class="bl-count">89 hadith (7137–7225)</span></a></li><li><a href="bukhari-book-094.html">Wishes<span class="bl-count">20 hadith (7226–7245)</span></a></li><li><a href="bukhari-book-095.html">Accepting Information Given by a Truthful Person<span class="bl-count">22 hadith (7246–7267)</span></a></li><li><a href="bukhari-book-096.html">Holding Fast to the Qur&#x27;an and Sunnah<span class="bl-count">103 hadith (7268–7370)</span></a></li><li><a href="bukhari-book-097.html">Oneness, Uniqueness of Allah (Tawheed)<span class="bl-count">193 hadith (7371–7563)</span></a></li>
+</ul>
+<nav class="chapter-nav">
+  <a href="index.html">← All Collections</a>
+  <a href="../index.html">Qur'an Home</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+
+</body>
+</html>

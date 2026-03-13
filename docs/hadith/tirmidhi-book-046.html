@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jami At-Tirmidhi — Chapters on Recitation – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='tirmidhi.html'>Jami At-Tirmidhi</a> › Chapters on Recitation</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="tirmidhi-book-001.html">1. The Book on Purification</option><option value="tirmidhi-book-002.html">2. The Book on Salat (Prayer)</option><option value="tirmidhi-book-003.html">3. The Book on Al-Witr</option><option value="tirmidhi-book-004.html">4. The Book on the Day of Friday</option><option value="tirmidhi-book-005.html">5. The Book on the Two Eids</option><option value="tirmidhi-book-006.html">6. The Book on Traveling</option><option value="tirmidhi-book-007.html">7. The Book on Zakat</option><option value="tirmidhi-book-008.html">8. The Book on Fasting</option><option value="tirmidhi-book-009.html">9. The Book on Hajj</option><option value="tirmidhi-book-010.html">10. The Book on Jana&#x27;&#x27;iz (Funerals)</option><option value="tirmidhi-book-011.html">11. The Book on Marriage</option><option value="tirmidhi-book-012.html">12. The Book on Suckling</option><option value="tirmidhi-book-013.html">13. The Book on Divorce and Li&#x27;an</option><option value="tirmidhi-book-014.html">14. The Book on Business</option><option value="tirmidhi-book-015.html">15. The Chapters On Judgements From The Messenger of…</option><option value="tirmidhi-book-016.html">16. The Book on Blood Money</option><option value="tirmidhi-book-017.html">17. The Book on Legal Punishments (Al-Hudud)</option><option value="tirmidhi-book-018.html">18. The Book on Hunting</option><option value="tirmidhi-book-019.html">19. The Book on Sacrifices</option><option value="tirmidhi-book-020.html">20. The Book on Vows and Oaths</option><option value="tirmidhi-book-021.html">21. The Book on Military Expeditions</option><option value="tirmidhi-book-022.html">22. The Book on Virtues of Jihad</option><option value="tirmidhi-book-023.html">23. The Book on Jihad</option><option value="tirmidhi-book-024.html">24. The Book on Clothing</option><option value="tirmidhi-book-025.html">25. The Book on Food</option><option value="tirmidhi-book-026.html">26. The Book on Drinks</option><option value="tirmidhi-book-027.html">27. Chapters on Righteousness And Maintaining Good…</option><option value="tirmidhi-book-028.html">28. Chapters on Medicine</option><option value="tirmidhi-book-029.html">29. Chapters On Inheritance</option><option value="tirmidhi-book-030.html">30. Chapters On Wasaya (Wills and Testament)</option><option value="tirmidhi-book-031.html">31. Chapters On Wala&#x27; And Gifts</option><option value="tirmidhi-book-032.html">32. Chapters On Al-Qadar</option><option value="tirmidhi-book-033.html">33. Chapters On Al-Fitan</option><option value="tirmidhi-book-034.html">34. Chapters On Dreams</option><option value="tirmidhi-book-035.html">35. Chapters On Witnesses</option><option value="tirmidhi-book-036.html">36. Chapters On Zuhd</option><option value="tirmidhi-book-037.html">37. Chapters on the description of the Day of…</option><option value="tirmidhi-book-038.html">38. Chapters on the description of Paradise</option><option value="tirmidhi-book-039.html">39. The Book on the Description of Hellfire</option><option value="tirmidhi-book-040.html">40. The Book on Faith</option><option value="tirmidhi-book-041.html">41. Chapters on Knowledge</option><option value="tirmidhi-book-042.html">42. Chapters on Seeking Permission</option><option value="tirmidhi-book-043.html">43. Chapters on Manners</option><option value="tirmidhi-book-044.html">44. Chapters on Parables</option><option value="tirmidhi-book-045.html">45. Chapters on The Virtues of the Qur&#x27;an</option><option value="tirmidhi-book-046.html" selected>46. Chapters on Recitation</option><option value="tirmidhi-book-047.html">47. Chapters on Tafsir</option><option value="tirmidhi-book-048.html">48. Chapters on Supplication</option><option value="tirmidhi-book-049.html">49. Chapters on Virtues</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Jami At-Tirmidhi</h1>
+<h2>Chapters on Recitation</h2>
+<div class="meta-info">
+  Hadith 2927–2949 &nbsp;|&nbsp;
+  <a href="tirmidhi.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='2927' max='2949' value='2927'></label><label>To <input type='number' id='hvc-to' min='2927' max='2949' value='2949'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h2927' class='hadith-sep' data-hadith='2927'><td colspan='2'><a class='permalink' href='#h2927'>Hadith 2927</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2927'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ حُجْرٍ، قَالَ أَخْبَرَنَا يَحْيَى بْنُ سَعِيدٍ الأُمَوِيُّ، عَنِ ابْنِ جُرَيْجٍ، عَنِ ابْنِ أَبِي مُلَيْكَةَ، عَنْ أُمِّ سَلَمَةَ، قَالَتْ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يُقَطِّعُ قِرَاءَتَهُ يَقْرَأُ ‏(‏الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ‏)‏ ثُمَّ يَقِفُ ‏(‏ الرَّحْمَنِ الرَّحِيمِ ‏)‏ ثُمَّ يَقِفُ وَكَانَ يَقْرَؤُهَا ‏(‏مَلِكِ يَوْمِ الدِّينِ ‏)‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ وَبِهِ يَقْرَأُ أَبُو عُبَيْدٍ وَيَخْتَارُهُ هَكَذَا رَوَى يَحْيَى بْنُ سَعِيدٍ الأُمَوِيُّ وَغَيْرُهُ عَنِ ابْنِ جُرَيْجٍ عَنِ ابْنِ أَبِي مُلَيْكَةَ عَنْ أُمِّ سَلَمَةَ وَلَيْسَ إِسْنَادُهُ بِمُتَّصِلٍ لأَنَّ اللَّيْثَ بْنَ سَعْدٍ رَوَى هَذَا الْحَدِيثَ عَنِ ابْنِ أَبِي مُلَيْكَةَ عَنْ يَعْلَى بْنِ مَمْلَكٍ عَنْ أُمِّ سَلَمَةَ أَنَّهَا وَصَفَتْ قِرَاءَةَ النَّبِيِّ صلى الله عليه وسلم حَرْفًا حَرْفًا وَحَدِيثُ اللَّيْثِ أَصَحُّ وَلَيْسَ فِي حَدِيثِ اللَّيْثِ وَكَانَ يَقْرَأُ ‏(‏مَلِكِ يَوْمِ الدِّينِ ‏)‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2927'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn Abi Mulaikah:that Umm Salamah said: &quot;The Messenger of Allah (ﷺ) would separate recitation reciting: &#x27;Al-Hamdulillahi Rabbil-&#x27;Alamin&#x27; then he would stop. &#x27;Ar-Rahmanir-Rahim&#x27; then he would stop. And he would recite it: &#x27;Maliki Yawmid-Din</span></td></tr>
+<tr class='grade' data-hadith='2927'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Daif</span></td></tr>
+<tr class='ref' data-hadith='2927'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 1</span></td></tr><tr id='h2928' class='hadith-sep' data-hadith='2928'><td colspan='2'><a class='permalink' href='#h2928'>Hadith 2928</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2928'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو بَكْرٍ، مُحَمَّدُ بْنُ أَبَانَ قَالَ حَدَّثَنَا أَيُّوبُ بْنُ سُوَيْدٍ الرَّمْلِيُّ، عَنْ يُونُسَ بْنِ يَزِيدَ، عَنِ الزُّهْرِيِّ، عَنْ أَنَسٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم وَأَبَا بَكْرٍ وَعُمَرَ - وَأُرَاهُ قَالَ - وَعُثْمَانَ كَانُوا يَقْرَءُونَ ‏(‏مَالِكِ يَوْمِ الدِّينِ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ لاَ نَعْرِفُهُ مِنْ حَدِيثِ الزُّهْرِيِّ عَنْ أَنَسِ بْنِ مَالِكٍ إِلاَّ مِنْ حَدِيثِ هَذَا الشَّيْخِ أَيُّوبَ بْنِ سُوَيْدٍ الرَّمْلِيِّ ‏.‏ وَقَدْ رَوَى بَعْضُ أَصْحَابِ الزُّهْرِيِّ هَذَا الْحَدِيثَ عَنِ الزُّهْرِيِّ أَنَّ النَّبِيَّ صلى الله عليه وسلم وَأَبَا بَكْرٍ وَعُمَرَ كَانُوا يَقْرَءُونَ ‏(‏مَالِكِ يَوْمِ الدِّينِ ‏)‏ ‏.‏ وَقَدْ رَوَى عَبْدُ الرَّزَّاقِ عَنْ مَعْمَرٍ عَنِ الزُّهْرِيِّ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ أَنَّ النَّبِيَّ صلى الله عليه وسلم وَأَبَا بَكْرٍ وَعُمَرَ كَانُوا يَقْرَءُونَ ‏(‏مَالِكِ يَوْمِ الدِّينِ ‏)‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2928'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas:that the Prophet (ﷺ), Abu Bakr, and &#x27;Umar - and I think he said - and &#x27;Uthman would recite: &quot;Maaliki Yawmid-Din (1:)</span></td></tr>
+<tr class='grade' data-hadith='2928'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Daif</span></td></tr>
+<tr class='ref' data-hadith='2928'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 2</span></td></tr><tr id='h2929' class='hadith-sep' data-hadith='2929'><td colspan='2'><a class='permalink' href='#h2929'>Hadith 2929</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2929'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو كُرَيْبٍ، قَالَ حَدَّثَنَا ابْنُ الْمُبَارَكِ، عَنْ يُونُسَ بْنِ يَزِيدَ، عَنْ أَبِي عَلِيِّ ابْنِ يَزِيدَ، عَنِ الزُّهْرِيِّ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَرَأَ‏(‏أَنَّ النَّفْسَ بِالنَّفْسِ وَالْعَيْنُ بِالْعَيْنِ ‏)‏ حَدَّثَنَا سُوَيْدُ بْنُ نَصْرٍ، قَالَ حَدَّثَنَا عَبْدُ اللَّهِ بْنُ الْمُبَارَكِ، عَنْ يُونُسَ بْنِ يَزِيدَ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏ وَأَبُو عَلِيِّ بْنُ يَزِيدَ هُوَ أَخُو يُونُسَ بْنِ يَزِيدَ وَهَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏ قَالَ مُحَمَّدٌ تَفَرَّدَ ابْنُ الْمُبَارَكِ بِهَذَا الْحَدِيثِ عَنْ يُونُسَ بْنِ يَزِيدَ وَهَكَذَا قَرَأَ أَبُو عُبَيْدٍ ‏(‏ وَالْعَيْنُ بِالْعَيْنِ ‏)‏ اتِّبَاعًا لِهَذَا الْحَدِيثِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2929'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas bin Malik:&quot;The Prophet (ﷺ) would recite: &#x27;Anin-nafsu Bin-Nafsi Wal-&#x27;Ainu Bil-&#x27;Aini&#x27;&quot; (From 5:)</span></td></tr>
+<tr class='grade' data-hadith='2929'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Daif</span></td></tr>
+<tr class='ref' data-hadith='2929'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 3</span></td></tr><tr id='h2930' class='hadith-sep' data-hadith='2930'><td colspan='2'><a class='permalink' href='#h2930'>Hadith 2930</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2930'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو كُرَيْبٍ، قَالَ حَدَّثَنَا رِشْدِينُ بْنُ سَعْدٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ زِيَادِ بْنِ أَنْعُمَ، عَنْ عُتْبَةَ بْنِ حُمَيْدٍ، عَنْ عُبَادَةَ بْنِ نُسَىٍّ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ غَنْمٍ، عَنْ مُعَاذِ بْنِ جَبَلٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَرَأَْ ‏(‏هَلْ تَسْتَطِيعُ رَبَّكَ ‏)‏ هَذَا حَدِيثٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ حَدِيثِ رِشْدِينَ وَلَيْسَ إِسْنَادُهُ بِالْقَوِيِّ ‏.‏ وَرِشْدِينُ بْنُ سَعْدٍ وَالإِفْرِيقِيُّ يُضَعَّفَانِ فِي الْحَدِيثِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2930'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Mu&#x27;adh bin Jabal:&quot;The Prophet (ﷺ) would recite: &#x27;Hal Tastati&#x27;u Rabbak</span></td></tr>
+<tr class='grade' data-hadith='2930'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='2930'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 4</span></td></tr><tr id='h2931' class='hadith-sep' data-hadith='2931'><td colspan='2'><a class='permalink' href='#h2931'>Hadith 2931</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2931'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحُسَيْنُ بْنُ مُحَمَّدٍ الْبَصْرِيُّ، قَالَ حَدَّثَنَا عَبْدُ اللَّهِ بْنُ حَفْصٍ، قَالَ حَدَّثَنَا ثَابِتٌ الْبُنَانِيُّ، عَنْ شَهْرِ بْنِ حَوْشَبٍ، عَنْ أُمِّ سَلَمَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَقْرَؤُهَا ‏(‏إِنَّهُ عَمِلَ غَيْرَ صَالِحٍ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ قَدْ رَوَاهُ غَيْرُ وَاحِدٍ عَنْ ثَابِتٍ الْبُنَانِيِّ نَحْوَ هَذَا وَهُوَ حَدِيثُ ثَابِتٍ الْبُنَانِيِّ وَرُوِيَ هَذَا الْحَدِيثُ أَيْضًا عَنْ شَهْرِ بْنِ حَوْشَبٍ عَنْ أَسْمَاءَ بِنْتِ يَزِيدَ ‏.‏ وَسَمِعْتُ عَبْدَ بْنَ حُمَيْدٍ يَقُولُ أَسْمَاءُ بِنْتُ يَزِيدَ هِيَ أُمُّ سَلَمَةَ الأَنْصَارِيَّةُ ‏.‏ قَالَ أَبُو عِيسَى كِلاَ الْحَدِيثَيْنِ عِنْدِي وَاحِدٌ وَقَدْ رَوَى شَهْرُ بْنُ حَوْشَبٍ غَيْرَ حَدِيثٍ عَنْ أُمِّ سَلَمَةَ الأَنْصَارِيَّةِ وَهِيَ أَسْمَاءُ بِنْتُ يَزِيدَ وَقَدْ رُوِيَ عَنْ عَائِشَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم نَحْوُ هَذَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2931'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Umm Salamah:&quot;The Prophet (ﷺ) would recite: &#x27;Innahu &#x27;Amila Ghaira Salih</span></td></tr>
+<tr class='grade' data-hadith='2931'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2931'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 5</span></td></tr><tr id='h2932' class='hadith-sep' data-hadith='2932'><td colspan='2'><a class='permalink' href='#h2932'>Hadith 2932</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2932'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ مُوسَى، قَالَ حَدَّثَنَا وَكِيعٌ وَحَبَّانُ بْنُ هِلاَلٍ، قَالاَ حَدَّثَنَا هَارُونُ النَّحْوِيُّ، عَنْ ثَابِتٍ الْبُنَانِيِّ، عَنْ شَهْرِ بْنِ حَوْشَبٍ، عَنْ أُمِّ سَلَمَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَرَأَ هَذِهِ الآيَةَ ‏:‏ ‏(‏إِنَّهُ عَمِلَ غَيْرَ صَالِحٍ ‏)‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2932'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Umm Salamah:&quot;The Messenger of Allah (ﷺ) recited this Ayah: &#x27;Innahu &#x27;Amalun Ghairu Salih&#x27;&quot; (11:)</span></td></tr>
+<tr class='grade' data-hadith='2932'><td class='label'>Grade</td><td><span class='grade-text'>Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2932'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 6</span></td></tr><tr id='h2933' class='hadith-sep' data-hadith='2933'><td colspan='2'><a class='permalink' href='#h2933'>Hadith 2933</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2933'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو بَكْرِ بْنُ نَافِعٍ، - الْبَصْرِيٌّ - قَالَ حَدَّثَنَا أُمَيَّةُ بْنُ خَالِدٍ، قَالَ حَدَّثَنَا أَبُو الْجَارِيَةِ الْعَبْدِيُّ، عَنْ شُعْبَةَ، عَنْ أَبِي إِسْحَاقَ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنِ ابْنِ عَبَّاسٍ، عَنْ أُبَىِّ بْنِ كَعْبٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ قَرَأَْ ‏(قَد ‏بَلَغْتَ مِنْ لَدُنِّي عُذْرًا‏)‏ مُثَقَّلَةً ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ هَذَا الْوَجْهِ ‏.‏ وَأُمَيَّةُ بْنُ خَالِدٍ ثِقَةٌ وَأَبُو الْجَارِيَةِ الْعَبْدِيُّ شَيْخٌ مَجْهُولٌ وَ لاَ يُعْرَفُ اسْمُهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2933'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn &#x27;Abbas:from &#x27;Ubayy bin Ka&#x27;b, that the Prophet (ﷺ) would recite: &quot;Qad Balaghta Min Ladunni &#x27;Udhra&quot; (18:76) with heaviness (Muthaqqalah - meaning with Tashdid on the Nun in &quot;Ladunni)</span></td></tr>
+<tr class='grade' data-hadith='2933'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Daif</span></td></tr>
+<tr class='ref' data-hadith='2933'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 7</span></td></tr><tr id='h2934' class='hadith-sep' data-hadith='2934'><td colspan='2'><a class='permalink' href='#h2934'>Hadith 2934</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2934'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ مُوسَى، قَالَ حَدَّثَنَا مُعَلَّى بْنُ مَنْصُورٍ، قَالَ حَدَّثَنَا مُحَمَّدُ بْنُ دِينَارٍ، عَنْ سَعْدِ بْنِ أَوْسٍ، عَنْ مِصْدَعٍ أَبِي يَحْيَى، عَنِ ابْنِ عَبَّاسٍ، عَنْ أُبَىِّ بْنِ كَعْبٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَرَأَ ‏(‏فِي عَيْنٍ حَمِئَةٍ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ هَذَا الْوَجْهِ وَالصَّحِيحُ مَا رُوِيَ عَنِ ابْنِ عَبَّاسٍ قِرَاءَتُهُ ‏.‏ وَيُرْوَى أَنَّ ابْنَ عَبَّاسٍ وَعَمْرَو بْنَ الْعَاصِي اخْتَلَفَا فِي قِرَاءَةِ هَذِهِ الآيَةِ وَارْتَفَعَا إِلَى كَعْبِ الأَحْبَارِ فِي ذَلِكَ فَلَوْ كَانَتْ عِنْدَهُ رِوَايَةٌ عَنِ النَّبِيِّ صلى الله عليه وسلم لاَسْتَغْنَى بِرِوَايَتِهِ وَلَمْ يَحْتَجْ إِلَى كَعْبٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2934'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn &#x27;Abbas:from Ubay bin Ka&#x27;b that the Prophet (ﷺ) recited: &quot;Fi &#x27;Ainin Hami&#x27;ah&quot; (18:)</span></td></tr>
+<tr class='grade' data-hadith='2934'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Matn; Sahih Matn; Sahih; Daif</span></td></tr>
+<tr class='ref' data-hadith='2934'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 8</span></td></tr><tr id='h2935' class='hadith-sep' data-hadith='2935'><td colspan='2'><a class='permalink' href='#h2935'>Hadith 2935</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2935'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ الْجَهْضَمِيُّ، قَالَ حَدَّثَنَا الْمُعْتَمِرُ بْنُ سُلَيْمَانَ، عَنْ أَبِيهِ، عَنْ سُلَيْمَانَ الأَعْمَشِ، عَنْ عَطِيَّةَ، عَنْ أَبِي سَعِيدٍ، قَالَ لَمَّا كَانَ يَوْمُ بَدْرٍ ظَهَرَتِ الرُّومُ عَلَى فَارِسَ فَأَعْجَبَ ذَلِكَ الْمُؤْمِنِينَ فَنَزَلَتْ ‏(‏ الم * غُلِبَتِ الرُّومُ ‏)‏ إِلَى قَوْلِهِ ‏(‏يَفْرَحُ الْمُؤْمِنُونَ ‏)‏ قَالَ فَفْرَحَ الْمُؤْمِنُونَ بِظُهُورِ الرُّومِ عَلَى فَارِسَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ مِنْ هَذَا الْوَجْهِ ‏.‏ وَيُقْرَأُ غَلَبَتْ وَغُلِبَتْ يَقُولُ كَانَتْ غُلِبَتْ ثُمَّ غَلَبَتْ هَكَذَا قَرَأَ نَصْرُ بْنُ عَلِيٍّ غَلَبَتْ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2935'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Sa&#x27;eed:&quot;On the Day of (the battle of) Badr, the Romans had a victory over the Persians. So the believers were pleased with that, then the following was revealed: Alif Lam Mim. The Romans have been defeated...&quot; up to His saying: &#x27;...the believers will rejoice. (30:1-4)&quot; He said: &quot;So the believers were happy with the victory of the Romans over the Persians</span></td></tr>
+<tr class='grade' data-hadith='2935'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Daif</span></td></tr>
+<tr class='ref' data-hadith='2935'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 9</span></td></tr><tr id='h2936' class='hadith-sep' data-hadith='2936'><td colspan='2'><a class='permalink' href='#h2936'>Hadith 2936</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2936'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ حُمَيْدٍ الرَّازِيُّ، قَالَ حَدَّثَنَا نُعَيْمُ بْنُ مَيْسَرَةَ النَّحْوِيُّ، عَنْ فُضَيْلِ بْنِ مَرْزُوقٍ، عَنْ عَطِيَّةَ الْعَوْفِيِّ، عَنِ ابْنِ عُمَرَ، أَنَّهُ قَرَأَ عَلَى النَّبِيِّ صلى الله عليه وسلمَ ‏(‏خَلَقَكُمْ مِنْ ضعْفٍ ‏)‏ فَقَالَ مِنْ ضُعْفٍ ‏.‏ حَدَّثَنَا عَبْدُ بْنُ حُمَيْدٍ، قَالَ حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ، عَنْ فُضَيْلِ بْنِ مَرْزُوقٍ، عَنْ عَطِيَّةَ، عَنِ ابْنِ عُمَرَ، عَنِ النَّبِيِّ صلى الله عليه وسلم نَحْوَهُ ‏.‏ هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ حَدِيثِ فُضَيْلِ بْنِ مَرْزُوقٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2936'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn &#x27;Umar:that he recited the following to the Prophet (ﷺ): &quot;Who created you in the weakness (Min Da&#x27;f)&quot; So he said: &quot;Min Du&#x27;f&quot; (Another chain) with similar in meaning</span></td></tr>
+<tr class='grade' data-hadith='2936'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='2936'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 10</span></td></tr><tr id='h2937' class='hadith-sep' data-hadith='2937'><td colspan='2'><a class='permalink' href='#h2937'>Hadith 2937</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2937'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، قَالَ حَدَّثَنَا أَبُو أَحْمَدَ الزُّبَيْرِيُّ، قَالَ حَدَّثَنَا سُفْيَانُ، عَنْ أَبِي إِسْحَاقَ، عَنِ الأَسْوَدِ بْنِ يَزِيدَ، عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَقْرَأُ ‏(‏فَهَلْ مِنْ مُدَّكِرٍ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2937'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Abdullah bin Mas&#x27;ud:that the Messenger of Allah (ﷺ) would recite: &quot;Then is there anyone who would remember? (54:)</span></td></tr>
+<tr class='grade' data-hadith='2937'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='2937'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 11</span></td></tr><tr id='h2938' class='hadith-sep' data-hadith='2938'><td colspan='2'><a class='permalink' href='#h2938'>Hadith 2938</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2938'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا بِشْرُ بْنُ هِلاَلٍ الصَّوَّافُ الْبَصْرِيُّ ، قَالَ حَدَّثَنَا جَعْفَرُ بْنُ سُلَيْمَانَ الضُّبَعِيُّ، عَنْ هَارُونَ الأَعْوَرِ، عَنْ بُدَيْلِ بْنِ مَيْسَرَةَ، عَنْ عَبْدِ اللَّهِ بْنِ شَقِيقٍ، عَنْ عَائِشَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَقْرَأُ ‏(‏فَرُوحٌ وَ رَيْحَانٌ وَ جَنَّةُ نَعِيمٍ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ حَدِيثِ هَارُونَ الأَعْوَرِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2938'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Aishah:that the Prophet (ﷺ) would recite: &quot;Furuhun Wa Raihanun Wa Jannatu Na&#x27;im (56:)</span></td></tr>
+<tr class='grade' data-hadith='2938'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2938'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 12</span></td></tr><tr id='h2939' class='hadith-sep' data-hadith='2939'><td colspan='2'><a class='permalink' href='#h2939'>Hadith 2939</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2939'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، قَالَ حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ إِبْرَاهِيمَ، عَنْ عَلْقَمَةَ، قَالَ قَدِمْنَا الشَّامَ فَأَتَانَا أَبُو الدَّرْدَاءِ فَقَالَ أَفِيكُمْ أَحَدٌ يَقْرَأُ عَلَىَّ قِرَاءَةَ عَبْدِ اللَّهِ قَالَ فَأَشَارُوا إِلَىَّ فَقُلْتُ نَعَمْ أَنَا ‏.‏ قَالَ كَيْفَ سَمِعْتَ عَبْدَ اللَّهِ يَقْرَأُ هَذِهِ الآيَةَ ‏(وَاللَّيْلِ إِذَا يَغْشَى ‏)‏ قَالَ قُلْتُ سَمِعْتُهُ يَقْرَؤُهَا ‏(‏‏وَاللَّيْلِ إِذَا يَغْشَى ‏)‏ ‏(‏وَالذَّكَر وَالأُنْثَى ‏)‏ فَقَالَ أَبُو الدَّرْدَاءِ وَأَنَا وَاللَّهِ هَكَذَا سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقْرَؤُهَا وَهَؤُلاَءِ يُرِيدُونَنِي أَنْ أَقْرَأَهَا‏(‏وَمَا خَلَقَ ‏)‏ فَلاَ أُتَابِعُهُمْ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَهَكَذَا قِرَاءَةُ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ ‏(‏ وَاللَّيْلِ إِذَا يَغْشَى * وَالنَّهَارِ إِذَا تَجَلَّى * وَالذَّكَرِ وَالأُنْثَى ‏)‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2939'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Alqamah:&quot;We arrived in Ash-Sham and we went to Abu Ad-Darda. So he said: &#x27;Is there any among you who can recite for me according to the recitation of &#x27;Abdullah?&#x27;&quot; He said: &quot;They pointed to me, so I said: &#x27;Yes, [I (can recite)].&#x27; He said: &#x27;How did you hear &#x27;Abdullah recite this Ayah: By the night as it envelopes?&#x27;&quot; He said: &quot;I said: &#x27;I heard him recite it: &quot;Wal-Laili Idha Yaghsha, Wadh-Dhakari Wal-Untha&quot; Abu Ad-Darda said: &#x27;Me too, By Allah, this is how I heard the Messenger of Allah (ﷺ) reciting it. But these people want me to recite it: Wa Ma Khalaqa but I will not follow them</span></td></tr>
+<tr class='grade' data-hadith='2939'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='2939'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 13</span></td></tr><tr id='h2940' class='hadith-sep' data-hadith='2940'><td colspan='2'><a class='permalink' href='#h2940'>Hadith 2940</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2940'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ بْنُ حُمَيْدٍ، قَالَ حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُوسَى، عَنْ إِسْرَائِيلَ، عَنْ أَبِي إِسْحَاقَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ يَزِيدَ، عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، قَالَ أَقْرَأَنِي رَسُولُ اللَّهِ صلى الله عليه وسلم‏:‏‏(‏ إِنِّي أَنَا الرَّزَّاقُ ذُو الْقُوَّةِ الْمَتِينُ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2940'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Abdullah:&quot;The Messenger of Allah (ﷺ) recited to me: &quot;Indeed Allah is the Provider, The Possessor of power, the Firm.&quot; (51:)</span></td></tr>
+<tr class='grade' data-hadith='2940'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Matn; Sahih Matn; Hasan Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='2940'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 14</span></td></tr><tr id='h2941' class='hadith-sep' data-hadith='2941'><td colspan='2'><a class='permalink' href='#h2941'>Hadith 2941</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2941'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو زُرْعَةَ، وَالْفَضْلُ بْنُ أَبِي طَالِبٍ، وَغَيْرُ، وَاحِدٍ، قَالُوا حَدَّثَنَا الْحَسَنُ بْنُ بِشْرٍ، عَنِ الْحَكَمِ بْنِ عَبْدِ الْمَلِكِ، عَنْ قَتَادَةَ، عَنْ عِمْرَانَ بْنِ حُصَيْنٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَرَأَ‏:‏ ‏(‏وَتَرَى النَّاسَ سُكَارَى وَمَا هُمْ بِسُكَارَى ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ وَهَكَذَا رَوَى الْحَكَمُ بْنُ عَبْدِ الْمَلِكِ عَنْ قَتَادَةَ ‏.‏ وَلاَ نَعْرِفُ لِقَتَادَةَ سَمَاعًا مِنْ أَحَدٍ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم إِلاَّ مِنْ أَنَسٍ وَأَبِي الطُّفَيْلِ ‏.‏ وَهَذَا عِنْدِي حَدِيثٌ مُخْتَصَرٌ إِنَّمَا يُرْوَى عَنْ قَتَادَةَ عَنِ الْحَسَنِ عَنْ عِمْرَانَ بْنِ حُصَيْنٍ قَالَ كُنَّا مَعَ النَّبِيِّ صلى الله عليه وسلم فِي السَّفَرِ فَقَرَأَ ‏:‏ ‏(‏يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمْ ‏)‏ الْحَدِيثَ بِطُولِهِ وَحَدِيثُ الْحَكَمِ بْنِ عَبْدِ الْمَلِكِ عِنْدِي مُخْتَصَرٌ مِنْ هَذَا الْحَدِيثِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2941'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Imran bin Husain:&quot;The Prophet (ﷺ) recited: You shall see mankind as if in a drunken state, yet they will not be in a drunken state. (22:)</span></td></tr>
+<tr class='grade' data-hadith='2941'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='2941'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 15</span></td></tr><tr id='h2942' class='hadith-sep' data-hadith='2942'><td colspan='2'><a class='permalink' href='#h2942'>Hadith 2942</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2942'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، قَالَ حَدَّثَنَا أَبُو دَاوُدَ، قَالَ أَخْبَرَنَا شُعْبَةُ، عَنْ مَنْصُورٍ، قَالَ سَمِعْتُ أَبَا وَائِلٍ، عَنْ عَبْدِ اللَّهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ بِئْسَمَا لأَحَدِهِمْ أَوْ لأَحَدِكُمْ أَنْ يَقُولَ نَسِيتُ آيَةَ كَيْتَ وَكَيْتَ بَلْ هُوَ نُسِّيَ فَاسْتَذْكِرُوا الْقُرْآنَ فَوَالَّذِي نَفْسِي بِيَدِهِ لَهُوَ أَشَدُّ تَفَصِّيًا مِنْ صُدُورِ الرِّجَالِ مِنَ النَّعَمِ مِنْ عُقُلِهِ ‏&quot;‏ ‏.‏ هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2942'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Abdullah:that the Prophet (ﷺ) said: &quot;How horrible it is for one of them - or - one of you to say: &quot;I have forgotten such and such Ayah,&#x27; rather he was made to forget. So be mindful of the Qur&#x27;an, for - by the One in Whose Hand is my soul - it escapes from men&#x27;s hearts faster than a camel from its fetter</span></td></tr>
+<tr class='grade' data-hadith='2942'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='2942'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 16</span></td></tr><tr id='h2943' class='hadith-sep' data-hadith='2943'><td colspan='2'><a class='permalink' href='#h2943'>Hadith 2943</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2943'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ الْخَلاَّلُ، وَغَيْرُ، وَاحِدٍ، قَالُوا حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنِ الْمِسْوَرِ بْنِ مَخْرَمَةَ، وَعَبْدِ الرَّحْمَنِ بْنِ عَبْدٍ الْقَارِيِّ، أَخْبَرَاهُ أَنَّهُمَا، سَمِعَا عُمَرَ بْنَ الْخَطَّابِ، يَقُولُ مَرَرْتُ بِهِشَامِ بْنِ حَكِيمِ بْنِ حِزَامٍ وَهُوَ يَقْرَأُ سُورَةَ الْفُرْقَانِ فِي حَيَاةِ رَسُولِ اللَّهِ صلى الله عليه وسلم فَاسْتَمَعْتُ قِرَاءَتَهُ فَإِذَا هُوَ يَقْرَأُ عَلَى حُرُوفٍ كَثِيرَةٍ لَمْ يُقْرِئْنِيهَا رَسُولُ اللَّهِ صلى الله عليه وسلم فَكِدْتُ أُسَاوِرُهُ فِي الصَّلاَةِ فَنَظَرْتُهُ حَتَّى سَلَّمَ فَلَمَّا سَلَّمَ لَبَّبْتُهُ بِرِدَائِهِ فَقُلْتُ مَنْ أَقْرَأَكَ هَذِهِ السُّورَةَ الَّتِي سَمِعْتُكَ تَقْرَؤُهَا فَقَالَ أَقْرَأَنِيهَا رَسُولُ اللَّهِ صلى الله عليه وسلم قَالَ ‏.‏ قُلْتُ لَهُ كَذَبْتَ وَاللَّهِ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم لَهُوَ أَقْرَأَنِي هَذِهِ السُّورَةَ الَّتِي تَقْرَؤُهَا ‏.‏ فَانْطَلَقْتُ أَقُودُهُ إِلَى النَّبِيِّ صلى الله عليه وسلم فَقُلْتُ يَا رَسُولَ اللَّهِ إِنِّي سَمِعْتُ هَذَا يَقْرَأُ سُورَةَ الْفُرْقَانِ عَلَى حُرُوفٍ لَمْ تُقْرِئْنِيهَا وَأَنْتَ أَقْرَأْتَنِي سُورَةَ الْفُرْقَانِ ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ أَرْسِلْهُ يَا عُمَرُ اقْرَأْ يَا هِشَامُ ‏&quot;‏ ‏.‏ فَقَرَأَ عَلَيْهِ الْقِرَاءَةَ الَّتِي سَمِعْتُهُ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ هَكَذَا أُنْزِلَتْ ‏&quot;‏ ‏.‏ ثُمَّ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ اقْرَأْ يَا عُمَرُ ‏&quot;‏ ‏.‏ فَقَرَأْتُ بِالْقِرَاءَةَ الَّتِي أَقْرَأَنِي النَّبِيُّ صلى الله عليه وسلم فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ هَكَذَا أُنْزِلَتْ ‏&quot;‏ ‏.‏ ثُمَّ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ إِنَّ هَذَا الْقُرْآنَ أُنْزِلَ عَلَى سَبْعَةِ أَحْرُفٍ فَاقْرَءُوا مَا تَيَسَّرَ مِنْهُ ‏&quot;‏ ‏.‏ هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَقَدْ رَوَى مَالِكُ بْنُ أَنَسٍ عَنِ الزُّهْرِيِّ بِهَذَا الإِسْنَادِ نَحْوَهُ إِلاَّ أَنَّهُ لَمْ يَذْكُرْ فِيهِ الْمِسْوَرَ بْنَ مَخْرَمَةَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2943'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Umar bin Al-Khattab:&quot;I passed by Hisham bin Hakim bin Hizam while he was reciting Surat Al-Furqan during the lifetime of the Messenger of Allah (ﷺ). I listened to his recitation and noticed that he recited it in several different ways, which the Messenger of Allah (ﷺ) had not taught me. I was about to jump over him during his Salat, but waited until he said the Salam. When he had said the Salam, I strangled him with his upper-garment and said: &#x27;Who taught you this Surah which I heard you reciting?&#x27; He said: &#x27;The Messenger of Allah (ﷺ) taught it to me.&#x27; I said to him: &#x27;You lie! By Allah! The Messenger of Allah (ﷺ) taught me this Surah which you were reciting.&#x27; I dragged him to the Messenger of Allah (ﷺ) and said: &#x27;O Messenger of Allah! I heard this one reciting Surat Al-Furqan in a manner different from how you taught me, and you taught me Surat Al-Furqan.&#x27; The Prophet (ﷺ) said: &#x27;Release him O &#x27;Umar! Recite O Hisham.&#x27; So he recited it for him as I had heard him reciting. Then the Prophet (ﷺ) said to me: &#x27;This is how it was revealed.&#x27; Then the Prophet (ﷺ) said to me, &#x27;Recite O &#x27;Umar.&#x27; So I recited the recitation which the Prophet (ﷺ) taught me. The Prophet (ﷺ) said: &#x27;This is how it was revealed.&#x27; Then the Prophet (ﷺ) said &#x27;Indeed this Qur&#x27;an was revealed in seven modes, so recite of it what is easier for you</span></td></tr>
+<tr class='grade' data-hadith='2943'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='2943'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 17</span></td></tr><tr id='h2944' class='hadith-sep' data-hadith='2944'><td colspan='2'><a class='permalink' href='#h2944'>Hadith 2944</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2944'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، قَالَ حَدَّثَنَا الْحَسَنُ بْنُ مُوسَى، قَالَ حَدَّثَنَا شَيْبَانُ، عَنْ عَاصِمٍ، عَنْ زِرِّ بْنِ حُبَيْشٍ، عَنْ أُبَىِّ بْنِ كَعْبٍ، قَالَ لَقِيَ رَسُولُ اللَّهِ صلى الله عليه وسلم جِبْرِيلَ فَقَالَ ‏ &quot;‏ يَا جِبْرِيلُ إِنِّي بُعِثْتُ إِلَى أُمَّةٍ أُمِّيِّينَ مِنْهُمُ الْعَجُوزُ وَالشَّيْخُ الْكَبِيرُ وَالْغُلاَمُ وَالْجَارِيَةُ وَالرَّجُلُ الَّذِي لَمْ يَقْرَأْ كِتَابًا قَطُّ ‏&quot;‏ ‏.‏ قَالَ يَا مُحَمَّدُ إِنَّ الْقُرْآنَ أُنْزِلَ عَلَى سَبْعَةِ أَحْرُفٍ ‏.‏ وَفِي الْبَابِ عَنْ عُمَرَ وَحُذَيْفَةَ بْنِ الْيَمَانِ وَأُمِّ أَيُّوبَ وَهِيَ امْرَأَةُ أَبِي أَيُّوبَ الأَنْصَارِيِّ وَسَمُرَةَ وَابْنِ عَبَّاسٍ وَأَبِي هُرَيْرَةَ وَأَبِي جُهَيْمِ بْنِ الْحَارِثِ بْنِ الصِّمَّةِ وَعَمْرِو بْنِ الْعَاصِ وَأَبِي بَكْرَةَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ وَقَدْ رُوِيَ مِنْ غَيْرِ وَجْهٍ عَنْ أُبَىِّ بْنِ كَعْبٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2944'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ubayy bin Ka&#x27;b:&quot;The Messenger of Allah (ﷺ) met Jibra&#x27;il and said: &#x27;O Jibra&#x27;il! I have been sent to an illiterate nation among whom are the elderly woman, the old man, the boy and the girl, and the man who cannot read a book at all.&#x27; He said: &#x27;O Muhammad! Indeed the Qur&#x27;an was revealed in seven modes</span></td></tr>
+<tr class='grade' data-hadith='2944'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2944'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 18</span></td></tr><tr id='h2945' class='hadith-sep' data-hadith='2945'><td colspan='2'><a class='permalink' href='#h2945'>Hadith 2945</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2945'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، قَالَ حَدَّثَنَا أَبُو أُسَامَةَ، قَالَ حَدَّثَنَا الأَعْمَشُ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنْ نَفَّسَ عَنْ أَخِيهِ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالآخِرَةِ وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالآخِرَةِ وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ وَمَا قَعَدَ قَوْمٌ فِي مَسْجِدٍ يَتْلُونَ كِتَابَ اللَّهِ وَيَتَدَارَسُونَهُ بَيْنَهُمْ إِلاَّ نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ وَغَشِيَتْهُمُ الرَّحْمَةُ وَحَفَّتْهُمُ الْمَلاَئِكَةُ وَمَنْ أَبْطَأَ بِهِ عَمَلُهُ لَمْ يُسْرِعْ بِهِ نَسَبُهُ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى هَكَذَا رَوَى غَيْرُ وَاحِدٍ عَنِ الأَعْمَشِ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم مِثْلَ هَذَا الْحَدِيثِ وَرَوَى أَسْبَاطُ بْنُ مُحَمَّدٍ عَنِ الأَعْمَشِ قَالَ حُدِّثْتُ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ فَذَكَرَ بَعْضَ هَذَا الْحَدِيثِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2945'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Hurairah:that the Messenger of Allah (ﷺ) said: &quot;Whoever alleviates a burden among the burdens of the world for his brother, Allah alleviates a burden among the burdens of the Day of Judgement for him. And whoever covers (the faults) of a Muslim, Allah covers him in the world and in the Hereafter. And whoever makes things easy for one in dire straits, Allah makes things easy for him in the world and the Hereafter. Allah is helping as long as the (His) Slave is helping his brother. And whoever takes a path to gain knowledge, Allah makes a path to Paradise easy for him. And no people sit in a Masjid reciting Allah&#x27;s Book, studying it among themselves, except that tranquility descends upon them and they are enveloped in the mercy, and surrounded by the angels. And whoever is slow in his deeds, his lineage shall not speed him up</span></td></tr>
+<tr class='grade' data-hadith='2945'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim</span></td></tr>
+<tr class='ref' data-hadith='2945'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 19</span></td></tr><tr id='h2946' class='hadith-sep' data-hadith='2946'><td colspan='2'><a class='permalink' href='#h2946'>Hadith 2946</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2946'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عُبَيْدُ بْنُ أَسْبَاطِ بْنِ مُحَمَّدٍ الْقُرَشِيُّ، قَالَ حَدَّثَنَا أَبِي، عَنْ مُطَرِّفٍ، عَنْ أَبِي إِسْحَاقَ، عَنْ أَبِي بُرْدَةَ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ فِي كَمْ أَقْرَأُ الْقُرْآنَ قَالَ ‏&quot;‏ اخْتِمْهُ فِي شَهْرٍ ‏&quot;‏ ‏.‏ قُلْتُ إِنِّي أُطِيقُ أَفْضَلَ مِنْ ذَلِكَ ‏.‏ قَالَ ‏&quot;‏ اخْتِمْهُ فِي عِشْرِينَ ‏&quot;‏ ‏.‏ قُلْتُ إِنِّي أُطِيقُ أَفْضَلَ مِنْ ذَلِكَ ‏.‏ قَالَ ‏&quot;‏ اخْتِمْهُ فِي خَمْسَةَ عَشَرَ ‏&quot;‏ ‏.‏ قُلْتُ إِنِّي أُطِيقُ أَفْضَلَ مِنْ ذَلِكَ ‏.‏ قَالَ ‏&quot;‏ اخْتِمْهُ فِي عَشْرٍ ‏&quot;‏ ‏.‏ قُلْتُ إِنِّي أُطِيقُ أَفْضَلَ مِنْ ذَلِكَ ‏.‏ قَالَ ‏&quot;‏ اخْتِمْهُ فِي خَمْسٍ ‏&quot;‏ ‏.‏ قُلْتُ إِنِّي أُطِيقُ أَفْضَلَ مِنْ ذَلِكَ ‏.‏ قَالَ فَمَا رَخَّصَ لِي ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ غَرِيبٌ يُسْتَغْرَبُ مِنْ حَدِيثِ أَبِي بُرْدَةَ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو ‏.‏ وَقَدْ رُوِيَ هَذَا الْحَدِيثُ مِنْ غَيْرِ وَجْهٍ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو وَرُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏&quot;‏ لَمْ يَفْقَهْ مَنْ قَرَأَ الْقُرْآنَ فِي أَقَلَّ مِنْ ثَلاَثٍ ‏&quot;‏ ‏.‏ وَرُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ لَهُ ‏&quot;‏ اقْرَإِ الْقُرْآنَ فِي أَرْبَعِينَ ‏&quot;‏ ‏.‏ قَالَ إِسْحَاقُ بْنُ إِبْرَاهِيمَ وَلاَ نُحِبُّ لِلرَّجُلِ أَنْ يَأْتِيَ عَلَيْهِ أَكْثَرُ مِنْ أَرْبَعِينَ يَوْمًا وَلَمْ يَقْرَإِ الْقُرْآنَ لِهَذَا الْحَدِيثِ ‏.‏ وَقَالَ بَعْضُ أَهْلِ الْعِلْمِ لاَ يُقْرَأُ الْقُرْآنُ فِي أَقَلَّ مِنْ ثَلاَثٍ لِلْحَدِيثِ الَّذِي رُوِيَ عَنِ النَّبِيِّ صلى الله عليه وسلم وَرَخَّصَ فِيهِ بَعْضُ أَهْلِ الْعِلْمِ وَرُوِيَ عَنْ عُثْمَانَ بْنِ عَفَّانَ أَنَّهُ كَانَ يَقْرَأُ الْقُرْآنَ فِي رَكْعَةٍ يُوتِرُ بِهَا وَرُوِيَ عَنْ سَعِيدِ بْنِ جُبَيْرٍ أَنَّهُ قَرَأَ الْقُرْآنَ فِي رَكْعَةٍ فِي الْكَعْبَةِ وَالتَّرْتِيلُ فِي الْقِرَاءَةِ أَحَبُّ إِلَى أَهْلِ الْعِلْمِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2946'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Abdullah bin &#x27;Amr :&quot;I said: &#x27;O Messenger of Allah! In how much time may I recite the Qur&#x27;an?&#x27; He said: &#x27;Complete it in one month.&#x27; I said: &#x27;I am able to do more than that.&#x27; He said: &#x27;Then complete it in twenty (days).&#x27; I said: &#x27;I am able to do more than that.&#x27; He said: &#x27;Then finish it in fifteen (days).&#x27; I said: &#x27;I am able to do more than that.&#x27; He said: &#x27;Finish it in ten (days).&#x27; I said: &#x27;I am able to do more than that.&#x27; He said: &#x27;Finish it in five (days).&#x27; I said: &#x27;I am able to do more than that.&#x27;&quot; He (&#x27;Abdullah bin &#x27;Amr) said: &quot;But he did not permit me</span></td></tr>
+<tr class='grade' data-hadith='2946'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Daif</span></td></tr>
+<tr class='ref' data-hadith='2946'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 20</span></td></tr><tr id='h2947' class='hadith-sep' data-hadith='2947'><td colspan='2'><a class='permalink' href='#h2947'>Hadith 2947</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2947'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي النَّضْرِ الْبَغْدَادِيُّ، قَالَ حَدَّثَنَا عَلِيُّ بْنُ الْحَسَنِ، هُوَ ابْنُ شَقِيقٍ عَنْ عَبْدِ اللَّهِ بْنِ الْمُبَارَكِ، عَنْ مَعْمَرٍ، عَنْ سِمَاكِ بْنِ الْفَضْلِ، عَنْ وَهْبِ بْنِ مُنَبِّهٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ لَهُ ‏ &quot;‏ اقْرَإِ الْقُرْآنَ فِي أَرْبَعِينَ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏ وَ قَدْ رَوَى بَعْضُهُمْ عَنْ مَعْمَرٍ عَنْ سِمَاكِ بْنِ الْفَضْلِ عَنْ وَهْبِ بْنِ مُنَبِّهٍ أَنَّ النَّبِيَّ صلى الله عليه وسلم أَمَرَ عَبْدَ اللَّهِ بْنَ عَمْرٍو أَنْ يَقْرَأَ الْقُرْآنَ فِي أَرْبَعِينَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2947'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Abdullah bin &#x27;Amr:that the Prophet (ﷺ) said: &quot;Recite the Qur&#x27;an in forty (days)</span></td></tr>
+<tr class='grade' data-hadith='2947'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2947'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 21</span></td></tr><tr id='h2948' class='hadith-sep' data-hadith='2948'><td colspan='2'><a class='permalink' href='#h2948'>Hadith 2948</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2948'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ الْجَهْضَمِيُّ، قَالَ حَدَّثَنَا الْهَيْثَمُ بْنُ الرَّبِيعِ، قَالَ حَدَّثَنَا صَالِحٌ الْمُرِّيُّ، عَنْ قَتَادَةَ، عَنْ زُرَارَةَ بْنِ أَوْفَى، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَجُلٌ يَا رَسُولَ اللَّهِ أَىُّ الْعَمَلِ أَحَبُّ إِلَى اللَّهِ قَالَ ‏&quot;‏ الْحَالُّ الْمُرْتَحِلُ ‏&quot;‏ ‏.‏ قَالَ وَمَا الْحَالُّ الْمُرْتَحِلُ قَالَ ‏&quot;‏ الَّذِي يَضْرِبُ مِنْ أَوَّلِ الْقُرْآنِ إِلَى آخِرِهِ كُلَّمَا حَلَّ ارْتَحَلَ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ لاَ نَعْرِفُهُ مِنْ حَدِيثِ ابْنِ عَبَّاسٍ إِلاَّ مِنْ هَذَا الْوَجْهِ وَإِسْنَادُهُ لَيْسَ بِالْقَوِيِّ ‏.‏ حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، قَالَ حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ، قَالَ حَدَّثَنَا صَالِحٌ الْمُرِّيُّ، عَنْ قَتَادَةَ، عَنْ زُرَارَةَ بْنِ أَوْفَى، عَنِ النَّبِيِّ صلى الله عليه وسلم نَحْوَهُ بِمَعْنَاهُ وَلَمْ يَذْكُرْ فِيهِ عَنِ ابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى وَهَذَا عِنْدِي أَصَحُّ مِنْ حَدِيثِ نَصْرِ بْنِ عَلِيٍّ عَنِ الْهَيْثَمِ بْنِ الرَّبِيعِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2948'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn &#x27;Abbas:&quot;A man said &#x27;O Messenger of Allah! Which deed is most virtuous to Allah?&#x27; He said: &#x27;Al-Hallul-Murtahil&#x27;&#x27; He said: &#x27;What is Al-Hallul-Murtahil?&#x27; He said: &#x27;The one who recites from the beginning of the Qur&#x27;an to the end of it, every time he sets out (on a trip)</span></td></tr>
+<tr class='grade' data-hadith='2948'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif</span></td></tr>
+<tr class='ref' data-hadith='2948'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 22</span></td></tr><tr id='h2949' class='hadith-sep' data-hadith='2949'><td colspan='2'><a class='permalink' href='#h2949'>Hadith 2949</a> — Chapters on Recitation</td></tr>
+<tr class='arabic' data-hadith='2949'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، قَالَ حَدَّثَنَا النَّضْرُ بْنُ شُمَيْلٍ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ قَتَادَةَ، عَنْ يَزِيدَ بْنِ عَبْدِ اللَّهِ بْنِ الشِّخِّيرِ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لَمْ يَفْقَهْ مَنْ قَرَأَ الْقُرْآنَ فِي أَقَلَّ مِنْ ثَلاَثٍ ‏&quot;‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، قَالَ حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، قَالَ حَدَّثَنَا شُعْبَةُ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2949'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Abdullah bin &#x27;Amr:that the Prophet (ﷺ) said: &quot;He who recites the Qur&#x27;an in less than three (days), he does not understand it</span></td></tr>
+<tr class='grade' data-hadith='2949'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='2949'><td class='label'>Reference</td><td><span class='ref-text'>Book 46, Hadith 23</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="tirmidhi-book-045.html">← Chapters on The Virtues of the Qur&#x27;an</a>
+  <a href="tirmidhi.html">📚 Book Index</a>
+  <a href="tirmidhi-book-047.html">Chapters on Tafsir →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

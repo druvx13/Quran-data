@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunan Abu Dawud — Game (Kitab Al-Said) – Hadith Reader</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.breadcrumb{font-size:.9em;color:#aad4f5}
+.breadcrumb a{color:#ffd54f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px;color:#1a3a5c}
+h2{font-size:1.15em;color:#1a3a5c;margin:20px 0 8px}
+.desc{background:#f0f4f8;border-left:4px solid #1a3a5c;padding:10px 14px;
+  margin-bottom:16px;font-size:.95em;line-height:1.7;border-radius:0 4px 4px 0}
+.meta-info{font-size:.88em;color:#555;margin-bottom:16px}
+.hadith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:8px;margin-top:16px}
+.hadith-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.hadith-grid a:hover{background:#dde8f2}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;margin-top:16px}
+.coll-card{display:flex;flex-direction:column;padding:14px 16px;
+  background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;
+  text-decoration:none;color:#111}
+.coll-card:hover{background:#dde8f2;border-color:#aac0d6}
+.coll-card .cc-name{font-weight:bold;font-size:1em;color:#1a3a5c;margin-bottom:4px}
+.coll-card .cc-name-ar{font-family:'Scheherazade New','Amiri',serif;
+  font-size:1.15em;direction:rtl;color:#7c5533;margin-bottom:6px}
+.coll-card .cc-author{font-size:.82em;color:#666;margin-bottom:4px}
+.coll-card .cc-desc{font-size:.85em;color:#444;line-height:1.55}
+.coll-card .cc-count{font-size:.8em;font-weight:bold;color:#1a3a5c;margin-top:8px}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;
+  font-size:.92em;padding:7px 12px;border-color:#1a3a5c}
+.label{color:#777;font-size:.82em;white-space:nowrap;width:100px;vertical-align:top}
+.arabic td{background:#fff8e1}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.5em;direction:rtl;text-align:right;line-height:2.1}
+.eng td{background:#e3f2fd}
+.eng-text{color:#1a237e;line-height:1.7}
+.hindi td{background:#f5f0ff}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c;line-height:1.8}
+.narrator td{background:#f0f4f8}
+.narrator-text{font-style:italic;color:#555}
+.grade td{background:#e8f5e9}
+.grade-text{font-size:.85em;color:#2e7d32}
+.ref td{background:#f9fbe7}
+.ref-text{font-size:.82em;color:#558b2f}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:14px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;
+  border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.book-list{list-style:none;padding:0;margin:0}
+.book-list li{border-bottom:1px solid #eee}
+.book-list a{display:block;padding:9px 12px;color:#1a3a5c;text-decoration:none;
+  font-size:.95em}
+.book-list a:hover{background:#f0f4f8}
+.book-list .bl-count{float:right;font-size:.82em;color:#888;margin-top:2px}
+.search-box{margin-bottom:16px;display:flex;gap:8px}
+.search-box input{flex:1;padding:8px 12px;border:1px solid #ccd6e0;border-radius:4px;
+  font-size:.95em;color:#111;background:#fff}
+.search-box input:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.search-box button{padding:8px 18px;background:#1a3a5c;color:#fff;border:none;
+  border-radius:4px;cursor:pointer;font-size:.95em;min-height:44px}
+.search-box button:hover{background:#2a5a8c}
+.header-search{margin-left:auto;font-size:.95em!important}
+.search-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  margin-bottom:16px;padding:12px 14px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px}
+.sc-group{display:flex;flex-direction:column;gap:4px}
+.sc-label{font-size:.78em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em}
+.sc-select{padding:7px 10px;border:1px solid #ccd6e0;border-radius:4px;font-size:.9em;
+  color:#111;background:#fff;cursor:pointer;min-width:200px}
+.sc-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.field-pills{display:flex;flex-wrap:wrap;gap:6px}
+.fp-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.fp-item label{display:inline-flex;align-items:center;padding:5px 12px;
+  background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;
+  font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap;min-height:36px}
+.fp-item label:hover{background:#dde8f2}
+.fp-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.fp-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.fp-item input:disabled+label{opacity:.45;cursor:not-allowed}
+#search-status{font-size:.92em;color:#555;margin-bottom:10px;min-height:1.2em}
+.result-card{border:1px solid #ccd6e0;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.result-header{background:#1a3a5c;color:#fff;padding:7px 12px;font-size:.88em;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.result-header a{color:#ffd54f;text-decoration:none;font-weight:bold;white-space:nowrap}
+.result-header a:hover{text-decoration:underline}
+.result-field{padding:7px 12px;font-size:.95em;line-height:1.65}
+.result-en{background:#e3f2fd;color:#1a237e}
+.result-ar{background:#fff8e1;font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;
+  font-size:1.3em;direction:rtl;text-align:right;line-height:2}
+.result-hi{background:#f5f0ff;font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  color:#3a2a6c;line-height:1.8}
+mark.hl{background:#fff176;border-radius:2px;color:inherit}
+.pagination{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:16px 0;justify-content:center}
+.pagination button{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;
+  background:#1a3a5c;color:#fff;font-size:.9em;min-width:36px;min-height:40px}
+.pagination button:hover:not(:disabled){background:#2a5a8c}
+.pagination button:disabled{background:#ccd6e0;color:#888;cursor:default}
+.pagination .pg-cur{background:#ffd54f;color:#1a3a5c;font-weight:bold}
+.pg-ellipsis{font-size:.9em;color:#555;padding:0 4px}
+.data-size-note{font-size:.82em;color:#888;margin-top:6px}
+@media(prefers-color-scheme:dark){
+  .search-controls{background:#1e2a3a;border-color:#334}
+  .sc-label{color:#aaa}
+  .sc-select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .fp-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .fp-item label:hover{background:#263650}
+  .fp-item input:checked+label{background:#1a3a5c;color:#fff}
+  .search-box input{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .result-card{border-color:#334}
+  .result-header{background:#0d2136}
+  .result-en{background:#132030;color:#90caf9}
+  .result-ar{background:#2a2010}
+  .result-hi{background:#1e1530}
+  .pagination button{background:#1a3a5c}
+  .pagination button:disabled{background:#333;color:#888}
+  #search-status{color:#aaa}
+  .data-size-note{color:#888}
+}
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="../index.html">📖 Qur'an</a>
+  <a href="index.html">📜 Hadith</a>
+  <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='abudawud.html'>Sunan Abu Dawud</a> › Game (Kitab Al-Said)</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="abudawud-book-001.html">1. Purification (Kitab Al-Taharah)</option><option value="abudawud-book-002.html">2. Prayer (Kitab Al-Salat)</option><option value="abudawud-book-003.html">3. The Book Of The Prayer For Rain (Kitab…</option><option value="abudawud-book-004.html">4. Prayer (Kitab Al-Salat): Detailed Rules of Law…</option><option value="abudawud-book-005.html">5. Prayer (Kitab Al-Salat): Voluntary Prayers</option><option value="abudawud-book-006.html">6. Prayer (Kitab Al-Salat): Detailed Injunctions…</option><option value="abudawud-book-007.html">7. Prayer (Kitab Al-Salat): Prostration while…</option><option value="abudawud-book-008.html">8. Prayer (Kitab Al-Salat): Detailed Injunctions…</option><option value="abudawud-book-009.html">9. Zakat (Kitab Al-Zakat)</option><option value="abudawud-book-010.html">10. The Book of Lost and Found Items</option><option value="abudawud-book-011.html">11. The Rites of Hajj (Kitab Al-Manasik Wa&#x27;l-Hajj)</option><option value="abudawud-book-012.html">12. Marriage (Kitab Al-Nikah)</option><option value="abudawud-book-013.html">13. Divorce (Kitab Al-Talaq)</option><option value="abudawud-book-014.html">14. Fasting (Kitab Al-Siyam)</option><option value="abudawud-book-015.html">15. Jihad (Kitab Al-Jihad)</option><option value="abudawud-book-016.html">16. Sacrifice (Kitab Al-Dahaya)</option><option value="abudawud-book-017.html" selected>17. Game (Kitab Al-Said)</option><option value="abudawud-book-018.html">18. Wills (Kitab Al-Wasaya)</option><option value="abudawud-book-019.html">19. Shares of Inheritance (Kitab Al-Fara&#x27;id)</option><option value="abudawud-book-020.html">20. Tribute, Spoils, and Rulership (Kitab Al-Kharaj,…</option><option value="abudawud-book-021.html">21. Funerals (Kitab Al-Jana&#x27;iz)</option><option value="abudawud-book-022.html">22. Oaths and Vows (Kitab Al-Aiman Wa Al-Nudhur)</option><option value="abudawud-book-023.html">23. Commercial Transactions (Kitab Al-Buyu)</option><option value="abudawud-book-024.html">24. Wages (Kitab Al-Ijarah)</option><option value="abudawud-book-025.html">25. The Office of the Judge (Kitab Al-Aqdiyah)</option><option value="abudawud-book-026.html">26. Knowledge (Kitab Al-Ilm)</option><option value="abudawud-book-027.html">27. Drinks (Kitab Al-Ashribah)</option><option value="abudawud-book-028.html">28. Foods (Kitab Al-At&#x27;imah)</option><option value="abudawud-book-029.html">29. Medicine (Kitab Al-Tibb)</option><option value="abudawud-book-030.html">30. Divination and Omens (Kitab Al-Kahanah Wa…</option><option value="abudawud-book-031.html">31. The Book of Manumission of Slaves</option><option value="abudawud-book-032.html">32. Dialects and Readings of the Qur&#x27;an (Kitab…</option><option value="abudawud-book-033.html">33. Hot Baths (Kitab Al-Hammam)</option><option value="abudawud-book-034.html">34. Clothing (Kitab Al-Libas)</option><option value="abudawud-book-035.html">35. Combing the Hair (Kitab Al-Tarajjul)</option><option value="abudawud-book-036.html">36. Signet-Rings (Kitab Al-Khatam)</option><option value="abudawud-book-037.html">37. Trials and Fierce Battles (Kitab Al-Fitan Wa…</option><option value="abudawud-book-038.html">38. The Promised Deliverer (Kitab Al-Mahdi)</option><option value="abudawud-book-039.html">39. Battles (Kitab Al-Malahim)</option><option value="abudawud-book-040.html">40. Prescribed Punishments (Kitab Al-Hudud)</option><option value="abudawud-book-041.html">41. Types of Blood-Wit (Kitab Al-Diyat)</option><option value="abudawud-book-042.html">42. Model Behavior of the Prophet (Kitab Al-Sunnah)</option><option value="abudawud-book-043.html">43. General Behavior (Kitab Al-Adab)</option></select>
+  <a href="search.html" class="header-search">🔍 Search</a>
+</header>
+<main>
+<h1>Sunan Abu Dawud</h1>
+<h2>Game (Kitab Al-Said)</h2>
+<div class="meta-info">
+  Hadith 2844–2861 &nbsp;|&nbsp;
+  <a href="abudawud.html">📚 Book Index</a>
+</div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='2844' max='2861' value='2844'></label><label>To <input type='number' id='hvc-to' min='2844' max='2861' value='2861'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
+<tbody>
+<tr id='h2844' class='hadith-sep' data-hadith='2844'><td colspan='2'><a class='permalink' href='#h2844'>Hadith 2844</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2844'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ، حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنِ اتَّخَذَ كَلْبًا إِلاَّ كَلْبَ مَاشِيَةٍ أَوْ صَيْدٍ أَوْ زَرْعٍ انْتَقَصَ مِنْ أَجْرِهِ كُلَّ يَوْمٍ قِيرَاطٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2844'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Hurairah:The Prophet (ﷺ) as saying: If anyone gets a dog, except a sheeping or hunting or a farm dog, a qirat of his reward will be deducted daily</span></td></tr>
+<tr class='grade' data-hadith='2844'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih Muslim (1575)</span></td></tr>
+<tr class='ref' data-hadith='2844'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 1</span></td></tr><tr id='h2845' class='hadith-sep' data-hadith='2845'><td colspan='2'><a class='permalink' href='#h2845'>Hadith 2845</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2845'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَزِيدُ، حَدَّثَنَا يُونُسُ، عَنِ الْحَسَنِ، عَنْ عَبْدِ اللَّهِ بْنِ مُغَفَّلٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لَوْلاَ أَنَّ الْكِلاَبَ أُمَّةٌ مِنَ الأُمَمِ لأَمَرْتُ بِقَتْلِهَا فَاقْتُلُوا مِنْهَا الأَسْوَدَ الْبَهِيمَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2845'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abdullah ibn Mughaffal: The Prophet (ﷺ) said: Were dogs not a species of creature I should command that they all be killed; but kill every pure black one</span></td></tr>
+<tr class='grade' data-hadith='2845'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Daif</span></td></tr>
+<tr class='ref' data-hadith='2845'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 2</span></td></tr><tr id='h2846' class='hadith-sep' data-hadith='2846'><td colspan='2'><a class='permalink' href='#h2846'>Hadith 2846</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2846'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ خَلَفٍ، حَدَّثَنَا أَبُو عَاصِمٍ، عَنِ ابْنِ جُرَيْجٍ، قَالَ أَخْبَرَنِي أَبُو الزُّبَيْرِ، عَنْ جَابِرٍ، قَالَ أَمَرَ نَبِيُّ اللَّهِ صلى الله عليه وسلم بِقَتْلِ الْكِلاَبِ حَتَّى إِنْ كَانَتِ الْمَرْأَةُ تَقْدَمُ مِنَ الْبَادِيَةِ - يَعْنِي بِالْكَلْبِ - فَنَقْتُلُهُ ثُمَّ نَهَانَا عَنْ قَتْلِهَا وَقَالَ ‏ &quot;‏ عَلَيْكُمْ بِالأَسْوَدِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2846'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Jabir ibn Abdullah: The Prophet of Allah (ﷺ) ordered to kill dogs, and we were even killing a dog which a woman brought with her from the desert. Afterwards he forbade to kill them, saying: Confine yourselves to the type which is black</span></td></tr>
+<tr class='grade' data-hadith='2846'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Muslim (1572)</span></td></tr>
+<tr class='ref' data-hadith='2846'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 3</span></td></tr><tr id='h2847' class='hadith-sep' data-hadith='2847'><td colspan='2'><a class='permalink' href='#h2847'>Hadith 2847</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2847'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عِيسَى، حَدَّثَنَا جَرِيرٌ، عَنْ مَنْصُورٍ، عَنْ إِبْرَاهِيمَ، عَنْ هَمَّامٍ، عَنْ عَدِيِّ بْنِ حَاتِمٍ، قَالَ سَأَلْتُ النَّبِيَّ صلى الله عليه وسلم قُلْتُ إِنِّي أُرْسِلُ الْكِلاَبَ الْمُعَلَّمَةَ فَتُمْسِكُ عَلَىَّ أَفَآكُلُ قَالَ ‏&quot;‏ إِذَا أَرْسَلْتَ الْكِلاَبَ الْمُعَلَّمَةَ وَذَكَرْتَ اسْمَ اللَّهِ فَكُلْ مِمَّا أَمْسَكْنَ عَلَيْكَ ‏&quot;‏ ‏.‏ قُلْتُ وَإِنْ قَتَلْنَ قَالَ ‏&quot;‏ وَإِنْ قَتَلْنَ مَا لَمْ يَشْرَكْهَا كَلْبٌ لَيْسَ مِنْهَا ‏&quot;‏ ‏.‏ قُلْتُ أَرْمِي بِالْمِعْرَاضِ فَأُصِيبُ أَفَآكُلُ قَالَ ‏&quot;‏ إِذَا رَمَيْتَ بِالْمِعْرَاضِ وَذَكَرْتَ اسْمَ اللَّهِ فَأَصَابَ فَخَزَقَ فَكُلْ وَإِنْ أَصَابَ بِعَرْضِهِ فَلاَ تَأْكُلْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2847'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Abi b. Hatim:I asked the Prophet (ﷺ) ,and said: I set off my trained dogs, and they catch (something) for me: may I eat (it)? He said: When you set off trained dogs and mention Allah&#x27;s name, eat what they catch for you. I said: Even if they killed (the game)? He said: Even if they killed (the game) as long as another dog does not join it. I said: I shoot with a featherless arrow, and it strikes the target, may I eat (it) ? He said: If you shoot with a featherless arrow and mention Allah&#x27;s name, and it strikes the aim, and pierce it, eat it ; and if it strikes with its middle, do not eat (it)</span></td></tr>
+<tr class='grade' data-hadith='2847'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (5477) Sahih Muslim (1929)</span></td></tr>
+<tr class='ref' data-hadith='2847'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 4</span></td></tr><tr id='h2848' class='hadith-sep' data-hadith='2848'><td colspan='2'><a class='permalink' href='#h2848'>Hadith 2848</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2848'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادُ بْنُ السَّرِيِّ، حَدَّثَنَا ابْنُ فُضَيْلٍ، عَنْ بَيَانٍ، عَنْ عَامِرٍ، عَنْ عَدِيِّ بْنِ حَاتِمٍ، قَالَ سَأَلْتُ النَّبِيَّ صلى الله عليه وسلم قُلْتُ إِنَّا نَصِيدُ بِهَذِهِ الْكِلاَبِ فَقَالَ لِي ‏ &quot;‏ إِذَا أَرْسَلْتَ كِلاَبَكَ الْمُعَلَّمَةَ وَذَكَرْتَ اسْمَ اللَّهِ عَلَيْهَا فَكُلْ مِمَّا أَمْسَكْنَ عَلَيْكَ وَإِنْ قَتَلَ إِلاَّ أَنْ يَأْكُلَ الْكَلْبُ فَإِنْ أَكَلَ الْكَلْبُ فَلاَ تَأْكُلْ فَإِنِّي أَخَافُ أَنْ يَكُونَ إِنَّمَا أَمْسَكَهُ عَلَى نَفْسِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2848'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Adi b. Hatim:I asked the Messenger of Allah. I said: We hunt with these dogs. He replied: When you set off your dog and mention Allah&#x27;s name over it, eat what it catches for you, even if it kills it, except that the dog has eaten (any of it); if the dog has eaten (any of it), do not eat, for Im afraid it has caught it only for itself</span></td></tr>
+<tr class='grade' data-hadith='2848'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (5484) Sahih Muslim (1929)</span></td></tr>
+<tr class='ref' data-hadith='2848'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 5</span></td></tr><tr id='h2849' class='hadith-sep' data-hadith='2849'><td colspan='2'><a class='permalink' href='#h2849'>Hadith 2849</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2849'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا حَمَّادٌ، عَنْ عَاصِمٍ الأَحْوَلِ، عَنِ الشَّعْبِيِّ، عَنْ عَدِيِّ بْنِ حَاتِمٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا رَمَيْتَ بِسَهْمِكَ وَذَكَرْتَ اسْمَ اللَّهِ فَوَجَدْتَهُ مِنَ الْغَدِ وَلَمْ تَجِدْهُ فِي مَاءٍ وَلاَ فِيهِ أَثَرٌ غَيْرَ سَهْمِكَ فَكُلْ وَإِذَا اخْتَلَطَ بِكِلاَبِكَ كَلْبٌ مِنْ غَيْرِهَا فَلاَ تَأْكُلْ لاَ تَدْرِي لَعَلَّهُ قَتَلَهُ الَّذِي لَيْسَ مِنْهَا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2849'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Adi b. Hatim:The Prophet (ﷺ) as saying: When you shoot your arrow and mention Allah&#x27;s name, and you find it (the game) after a day, and you do not find it in water, and you find in it only the mark of you arrow, eat (it). But if another dog joins your dogs, do not eat it, for you do not know maybe the one which was not yours has killed it</span></td></tr>
+<tr class='grade' data-hadith='2849'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari (5484) Sahih Muslim (1929)</span></td></tr>
+<tr class='ref' data-hadith='2849'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 6</span></td></tr><tr id='h2850' class='hadith-sep' data-hadith='2850'><td colspan='2'><a class='permalink' href='#h2850'>Hadith 2850</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2850'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى بْنِ فَارِسٍ، حَدَّثَنَا أَحْمَدُ بْنُ حَنْبَلٍ، حَدَّثَنَا يَحْيَى بْنُ زَكَرِيَّا بْنِ أَبِي زَائِدَةَ، أَخْبَرَنِي عَاصِمٌ الأَحْوَلُ، عَنِ الشَّعْبِيِّ، عَنْ عَدِيِّ بْنِ حَاتِمٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا وَقَعَتْ رَمِيَّتُكَ فِي مَاءٍ فَغَرِقَ فَمَاتَ فَلاَ تَأْكُلْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2850'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Adi b. Hatim:The Prophet (ﷺ) as saying: When the animal at which you shot falls in water, is drowned, and dies, do not eat</span></td></tr>
+<tr class='grade' data-hadith='2850'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari (5484) Sahih Muslim (1929)</span></td></tr>
+<tr class='ref' data-hadith='2850'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 7</span></td></tr><tr id='h2851' class='hadith-sep' data-hadith='2851'><td colspan='2'><a class='permalink' href='#h2851'>Hadith 2851</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2851'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نُمَيْرٍ، حَدَّثَنَا مُجَالِدٌ، عَنِ الشَّعْبِيِّ، عَنْ عَدِيِّ بْنِ حَاتِمٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏&quot;‏ مَا عَلَّمْتَ مِنْ كَلْبٍ أَوْ بَازٍ ثُمَّ أَرْسَلْتَهُ وَذَكَرْتَ اسْمَ اللَّهِ فَكُلْ مِمَّا أَمْسَكَ عَلَيْكَ ‏&quot;‏ ‏.‏ قُلْتُ وَإِنْ قَتَلَ قَالَ ‏&quot;‏ إِذَا قَتَلَهُ وَلَمْ يَأْكُلْ مِنْهُ شَيْئًا فَإِنَّمَا أَمْسَكَهُ عَلَيْكَ ‏&quot;‏ ‏.‏ قَالَ أَبُو دَاوُدَ الْبَازُ إِذَا أَكَلَ فَلاَ بَأْسَ بِهِ وَالْكَلْبُ إِذَا أَكَلَ كُرِهَ وَإِنْ شَرِبَ الدَّمَ فَلاَ بَأْسَ بِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2851'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Adi ibn Hatim: The Prophet (ﷺ) said: Eat what ever is caught for you by a dog or a hawk you have trained and set off when you have mentioned Allah&#x27;s name. I said: (Does this apply) if it killed (the animal)? He said: When it kills it without eating any of it, for it caught it only for you. Abu Dawud said: If a hawk eats any of it, there is no harm (in eating it). If a dog eats it, it is disapproved (to eat the meat). If it drinks blood, there is no harm (in eating it)</span></td></tr>
+<tr class='grade' data-hadith='2851'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Munkar; Daif</span></td></tr>
+<tr class='ref' data-hadith='2851'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 8</span></td></tr><tr id='h2852' class='hadith-sep' data-hadith='2852'><td colspan='2'><a class='permalink' href='#h2852'>Hadith 2852</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2852'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عِيسَى، حَدَّثَنَا هُشَيْمٌ، حَدَّثَنَا دَاوُدُ بْنُ عَمْرٍو، عَنْ بُسْرِ بْنِ عُبَيْدِ اللَّهِ، عَنْ أَبِي إِدْرِيسَ الْخَوْلاَنِيِّ، عَنْ أَبِي ثَعْلَبَةَ الْخُشَنِيِّ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم فِي صَيْدِ الْكَلْبِ ‏ &quot;‏ إِذَا أَرْسَلْتَ كَلْبَكَ وَذَكَرْتَ اسْمَ اللَّهِ فَكُلْ وَإِنْ أَكَلَ مِنْهُ وَكُلْ مَا رَدَّتْ عَلَيْكَ يَدَاكَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2852'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuTha&#x27;labah al-Khushani: The Messenger of Allah (ﷺ) said about the game hunted by a dog: If you set off your dog and have mentioned Allah&#x27;s name, eat (it), even if it eats any of it; and eat what your hands return you</span></td></tr>
+<tr class='grade' data-hadith='2852'><td class='label'>Grade</td><td><span class='grade-text'>Munkar; Munkar; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2852'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 9</span></td></tr><tr id='h2853' class='hadith-sep' data-hadith='2853'><td colspan='2'><a class='permalink' href='#h2853'>Hadith 2853</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2853'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحُسَيْنُ بْنُ مُعَاذِ بْنِ خُلَيْفٍ، حَدَّثَنَا عَبْدُ الأَعْلَى، حَدَّثَنَا دَاوُدُ، عَنْ عَامِرٍ، عَنْ عَدِيِّ بْنِ حَاتِمٍ، أَنَّهُ قَالَ يَا رَسُولَ اللَّهِ أَحَدُنَا يَرْمِي الصَّيْدَ فَيَقْتَفِي أَثَرَهُ الْيَوْمَيْنِ وَالثَّلاَثَةَ ثُمَّ يَجِدُهُ مَيِّتًا وَفِيهِ سَهْمُهُ أَيَأْكُلُ قَالَ ‏&quot;‏ نَعَمْ إِنْ شَاءَ ‏&quot;‏ ‏.‏ أَوْ قَالَ ‏&quot;‏ يَأْكُلُ إِنْ شَاءَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2853'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Adi ibn Hatim: Messenger of Allah, one of us shoots at the game, and follows its mark for two or three days, and then finds it dead, and there is his arrow (pierced) in it, may he eat it? He said: Yes, if he wishes, or he said: he may eat if he wishes</span></td></tr>
+<tr class='grade' data-hadith='2853'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='2853'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 10</span></td></tr><tr id='h2854' class='hadith-sep' data-hadith='2854'><td colspan='2'><a class='permalink' href='#h2854'>Hadith 2854</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2854'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ كَثِيرٍ، حَدَّثَنَا شُعْبَةُ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي السَّفَرِ، عَنِ الشَّعْبِيِّ، قَالَ قَالَ عَدِيُّ بْنُ حَاتِمٍ سَأَلْتُ النَّبِيَّ صلى الله عليه وسلم عَنِ الْمِعْرَاضِ فَقَالَ ‏&quot;‏ إِذَا أَصَابَ بِحَدِّهِ فَكُلْ وَإِذَا أَصَابَ بِعَرْضِهِ فَلاَ تَأْكُلْ فَإِنَّهُ وَقِيذٌ ‏&quot;‏ ‏.‏ قُلْتُ أُرْسِلُ كَلْبِي ‏.‏ قَالَ ‏&quot;‏ إِذَا سَمَّيْتَ فَكُلْ وَإِلاَّ فَلاَ تَأْكُلْ وَإِنْ أَكَلَ مِنْهُ فَلاَ تَأْكُلْ فَإِنَّمَا أَمْسَكَ لِنَفْسِهِ ‏&quot;‏ ‏.‏ فَقَالَ أُرْسِلُ كَلْبِي فَأَجِدُ عَلَيْهِ كَلْبًا آخَرَ فَقَالَ ‏&quot;‏ لاَ تَأْكُلْ لأَنَّكَ إِنَّمَا سَمَّيْتَ عَلَى كَلْبِكَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2854'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Adi b. Hatim:I asked Prophet (ﷺ) about featherless arrow. He said: If it strikes with its end, eat, and if it strikes with the middle part of it, do not eat, for it died by a violent blow. I said: I set off my dog? He replies: If you mention Allah&#x27;s name, eat, otherwise do not eat. If it eats any of it, do not eat, for it caught for itself. He asked: I set off my dog, and I find with it another dog ? He replied: Do not eat, because you mentioned Allah&#x27;s name on your dog</span></td></tr>
+<tr class='grade' data-hadith='2854'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (175) Sahih Muslim (1929)</span></td></tr>
+<tr class='ref' data-hadith='2854'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 11</span></td></tr><tr id='h2855' class='hadith-sep' data-hadith='2855'><td colspan='2'><a class='permalink' href='#h2855'>Hadith 2855</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2855'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادُ بْنُ السَّرِيِّ، عَنِ ابْنِ الْمُبَارَكِ، عَنْ حَيْوَةَ بْنِ شُرَيْحٍ، قَالَ سَمِعْتُ رَبِيعَةَ بْنَ يَزِيدَ الدِّمَشْقِيَّ، يَقُولُ أَخْبَرَنِي أَبُو إِدْرِيسَ الْخَوْلاَنِيُّ، عَائِذُ اللَّهِ قَالَ سَمِعْتُ أَبَا ثَعْلَبَةَ الْخُشَنِيَّ، يَقُولُ قُلْتُ يَا رَسُولَ اللَّهِ إِنِّي أَصِيدُ بِكَلْبِي الْمُعَلَّمِ وَبِكَلْبِي الَّذِي لَيْسَ بِمُعَلَّمٍ قَالَ ‏ &quot;‏ مَا صِدْتَ بِكَلْبِكَ الْمُعَلَّمِ فَاذْكُرِ اسْمَ اللَّهِ وَكُلْ وَمَا اصَّدْتَ بِكَلْبِكَ الَّذِي لَيْسَ بِمُعَلَّمٍ فَأَدْرَكْتَ ذَكَاتَهُ فَكُلْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2855'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Taa&#x27;labat b. al-Khushani:I said: Messenger of Allah, I hunt with my trained dog, and with my untrained dog? He said: &#x27;What you hunt with your trained dog, mention Allah&#x27;s names (on it) and eat; and what you hunt with your untrained dog, and you find in a position that you slaughter it, then eat</span></td></tr>
+<tr class='grade' data-hadith='2855'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (5488) Sahih Muslim (1930)</span></td></tr>
+<tr class='ref' data-hadith='2855'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 12</span></td></tr><tr id='h2856' class='hadith-sep' data-hadith='2856'><td colspan='2'><a class='permalink' href='#h2856'>Hadith 2856</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2856'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُصَفَّى، حَدَّثَنَا مُحَمَّدُ بْنُ حَرْبٍ، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ الْمُصَفَّى، حَدَّثَنَا بَقِيَّةُ، عَنِ الزُّبَيْدِيِّ، حَدَّثَنَا يُونُسُ بْنُ سَيْفٍ، حَدَّثَنَا أَبُو إِدْرِيسَ الْخَوْلاَنِيُّ، حَدَّثَنِي أَبُو ثَعْلَبَةَ الْخُشَنِيُّ، قَالَ قَالَ لِي رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ يَا أَبَا ثَعْلَبَةَ كُلْ مَا رَدَّتْ عَلَيْكَ قَوْسُكَ وَكَلْبُكَ ‏&quot;‏ ‏.‏ زَادَ عَنِ ابْنِ حَرْبٍ ‏&quot;‏ الْمُعَلَّمُ وَيَدُكَ فَكُلْ ذَكِيًّا وَغَيْرَ ذَكِيٍّ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2856'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuTha&#x27;labah al-Khushani: The Messenger of Allah (ﷺ) said to me: AbuTha&#x27;labah, eat what returns to you by your bow and your dog. Ibn Harb&#x27;s version adds: &quot;The trained (dog), and your hand, then eat, whether it has been slaughtered or not slaughtered</span></td></tr>
+<tr class='grade' data-hadith='2856'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='2856'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 13</span></td></tr><tr id='h2857' class='hadith-sep' data-hadith='2857'><td colspan='2'><a class='permalink' href='#h2857'>Hadith 2857</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2857'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمِنْهَالِ الضَّرِيرِ، حَدَّثَنَا يَزِيدُ بْنُ زُرَيْعٍ، حَدَّثَنَا حَبِيبٌ الْمُعَلِّمُ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، أَنَّ أَعْرَابِيًّا، يُقَالُ لَهُ أَبُو ثَعْلَبَةَ قَالَ يَا رَسُولَ اللَّهِ إِنَّ لِي كِلاَبًا مُكَلَّبَةً فَأَفْتِنِي فِي صَيْدِهَا ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ إِنْ كَانَ لَكَ كِلاَبٌ مُكَلَّبَةٌ فَكُلْ مِمَّا أَمْسَكْنَ عَلَيْكَ ‏&quot;‏ ‏.‏ قَالَ ذَكِيًّا أَوْ غَيْرَ ذَكِيٍّ قَالَ ‏&quot;‏ نَعَمْ ‏&quot;‏ ‏.‏ قَالَ فَإِنْ أَكَلَ مِنْهُ قَالَ ‏&quot;‏ وَإِنْ أَكَلَ مِنْهُ ‏&quot;‏ ‏.‏ فَقَالَ يَا رَسُولَ اللَّهِ أَفْتِنِي فِي قَوْسِي ‏.‏ قَالَ ‏&quot;‏ كُلْ مَا رَدَّتْ عَلَيْكَ قَوْسُكَ ‏&quot;‏ ‏.‏ قَالَ ‏&quot;‏ ذَكِيًّا أَوْ غَيْرَ ذَكِيٍّ ‏&quot;‏ ‏.‏ قَالَ وَإِنْ تَغَيَّبَ عَنِّي قَالَ ‏&quot;‏ وَإِنْ تَغَيَّبَ عَنْكَ مَا لَمْ يَصِلَّ أَوْ تَجِدَ فِيهِ أَثَرًا غَيْرَ سَهْمِكَ ‏&quot;‏ ‏.‏ قَالَ أَفْتِنِي فِي آنِيَةِ الْمَجُوسِ إِنِ اضْطُرِرْنَا إِلَيْهَا ‏.‏ قَالَ ‏&quot;‏ اغْسِلْهَا وَكُلْ فِيهَا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2857'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abdullah ibn Amr ibn al-&#x27;As: There was a bedouin called AbuTha&#x27;labah. He said: Messenger of Allah, I have trained dogs, so tell me your opinion about (eating) the animal they hunt. The Prophet (ﷺ) said: If you have trained dogs, then eat what they catch for you. He asked: Whether it is slaughtered or not? He replied: Yes. He asked: Does it apply even if it eats any of it? He replied: Even if it eats any of it. He again asked: Messenger of Allah, tell me your opinion about my bow (i.e. the game hunted by arrow). He said: Eat what your bow returns to you, whether it is slaughtered or not. He asked: If it goes out of my sight? He replied: Even if it goes out of your sight, provided it has no stench, or you find a mark on it other than the mark of your arrow. He asked: Tell me about the use of the vessels of the Magians when we are forced to use them. He replied: Wash them and eat in them</span></td></tr>
+<tr class='grade' data-hadith='2857'><td class='label'>Grade</td><td><span class='grade-text'>Munkar; Munkar; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2857'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 14</span></td></tr><tr id='h2858' class='hadith-sep' data-hadith='2858'><td colspan='2'><a class='permalink' href='#h2858'>Hadith 2858</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2858'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا هَاشِمُ بْنُ الْقَاسِمِ، حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ أَبِي وَاقِدٍ، قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ &quot;‏ مَا قُطِعَ مِنَ الْبَهِيمَةِ وَهِيَ حَيَّةٌ فَهِيَ مَيْتَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2858'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuWaqid: The Prophet (ﷺ) said: Whatever is cut off of an animal when it is alive is dead</span></td></tr>
+<tr class='grade' data-hadith='2858'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='2858'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 15</span></td></tr><tr id='h2859' class='hadith-sep' data-hadith='2859'><td colspan='2'><a class='permalink' href='#h2859'>Hadith 2859</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2859'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنْ سُفْيَانَ، حَدَّثَنِي أَبُو مُوسَى، عَنْ وَهْبِ بْنِ مُنَبِّهٍ، عَنِ ابْنِ عَبَّاسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم - وَقَالَ مَرَّةً سُفْيَانُ وَلاَ أَعْلَمُهُ إِلاَّ عَنِ النَّبِيِّ صلى الله عليه وسلم - وَقَالَ ‏ &quot;‏ مَنْ سَكَنَ الْبَادِيَةَ جَفَا وَمَنِ اتَّبَعَ الصَّيْدَ غَفَلَ وَمَنْ أَتَى السُّلْطَانَ افْتُتِنَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2859'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abdullah ibn Abbas: The Prophet (ﷺ) said: (the narrator Sufyan said: I do not know but that it [the tradition] has been transmitted from the Prophet (ﷺ): He who lives in the desert will become rude; he who pursues the game will be negligent, and he who visits a king will be perverted</span></td></tr>
+<tr class='grade' data-hadith='2859'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='2859'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 16</span></td></tr><tr id='h2860' class='hadith-sep' data-hadith='2860'><td colspan='2'><a class='permalink' href='#h2860'>Hadith 2860</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2860'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عِيسَى، حَدَّثَنَا مُحَمَّدُ بْنُ عُبَيْدٍ، حَدَّثَنَا الْحَسَنُ بْنُ الْحَكَمِ النَّخَعِيُّ، عَنْ عَدِيِّ بْنِ ثَابِتٍ، عَنْ شَيْخٍ، مِنَ الأَنْصَارِ عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم بِمَعْنَى مُسَدَّدٍ قَالَ ‏&quot;‏ وَمَنْ لَزِمَ السُّلْطَانَ افْتُتِنَ ‏&quot;‏ ‏.‏ زَادَ ‏&quot;‏ وَمَا ازْدَادَ عَبْدٌ مِنَ السُّلْطَانِ دُنُوًّا إِلاَّ ازْدَادَ مِنَ اللَّهِ بُعْدًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2860'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuHurayrah: The Prophet (ﷺ) said: He said: He who sticks to a king is perverted. This version adds: The nearer a servant (of Allah) goes to a king, the farther he keeps away from Allah</span></td></tr>
+<tr class='grade' data-hadith='2860'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='2860'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 17</span></td></tr><tr id='h2861' class='hadith-sep' data-hadith='2861'><td colspan='2'><a class='permalink' href='#h2861'>Hadith 2861</a> — Game (Kitab Al-Said)</td></tr>
+<tr class='arabic' data-hadith='2861'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ مَعِينٍ، حَدَّثَنَا حَمَّادُ بْنُ خَالِدٍ الْخَيَّاطُ، عَنْ مُعَاوِيَةَ بْنِ صَالِحٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ جُبَيْرِ بْنِ نُفَيْرٍ، عَنْ أَبِيهِ، عَنْ أَبِي ثَعْلَبَةَ الْخُشَنِيِّ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا رَمَيْتَ الصَّيْدَ فَأَدْرَكْتَهُ بَعْدَ ثَلاَثِ لَيَالٍ وَسَهْمُكَ فِيهِ فَكُلْهُ مَا لَمْ يُنْتِنْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='2861'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuTha&#x27;labah al-Khushani: The Prophet (ﷺ) said: When you shoot your arrow (and the animal goes out of your sight) and you come three days later on it, and in it there is your arrow, then eat provided it has not stench</span></td></tr>
+<tr class='grade' data-hadith='2861'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Muslim (1931)</span></td></tr>
+<tr class='ref' data-hadith='2861'><td class='label'>Reference</td><td><span class='ref-text'>Book 17, Hadith 18</span></td></tr>
+</tbody>
+</table>
+</div>
+<nav class="chapter-nav">
+  <a href="abudawud-book-016.html">← Sacrifice (Kitab Al-Dahaya)</a>
+  <a href="abudawud.html">📚 Book Index</a>
+  <a href="abudawud-book-018.html">Wills (Kitab Al-Wasaya) →</a>
+</nav>
+</main>
+<footer>
+  <a href="../index.html">Qur'an Home</a> &nbsp;|&nbsp;
+  <a href="index.html">Hadith Home</a> &nbsp;|&nbsp;
+  <a href="../sources.html">Sources</a> &nbsp;|&nbsp;
+  <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a>
+  <br>Hadith data sourced from
+  <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
+  (public domain). Hindi translations for Nawawi 40 are hand-curated.
+</footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
