@@ -44,11 +44,10 @@ def write_collection(data, out_file, collection_name):
     sections = data['metadata'].get('sections', {})
     hadiths = data['hadiths']
 
-    # Build book-number → name mapping (skip entry '0' which is blank)
-    book_names = {
-        int(k): v for k, v in sections.items()
-        if k != '0' and v
-    }
+    # Build book-number → name mapping; include section '0' when it has a name.
+    # (Bukhari/Nasai leave section '0' blank; Muslim has "Introduction";
+    #  Ibn Majah has "The Book of the Sunnah".)
+    book_names = {int(k): v for k, v in sections.items() if v}
 
     with open(out_file, 'w', encoding='utf-8') as out:
         # Header
@@ -64,7 +63,7 @@ def write_collection(data, out_file, collection_name):
             books[book_num].append(h)
 
         for book_num in sorted(books.keys()):
-            book_title = book_names.get(book_num, 'Book %d' % book_num)
+            book_title = book_names.get(book_num, 'Additional Narrations' if book_num == 0 else 'Book %d' % book_num)
             out.write('Book %d: %s\n' % (book_num, book_title))
             out.write('-' * 40 + '\n')
             for h in books[book_num]:
