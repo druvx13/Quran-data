@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Tahajjud</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html">5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html" selected>7. Tahajjud</option><option value="malik-book-008.html">8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-000.html">21. General</option><option value="malik-book-021.html">22. Jihad</option><option value="malik-book-022.html">23. Vows and Oaths</option><option value="malik-book-023.html">24. Sacrificial Animals</option><option value="malik-book-024.html">25. Slaughtering Animals</option><option value="malik-book-025.html">26. Game</option><option value="malik-book-026.html">27. The &#x27;Aqiqa</option><option value="malik-book-027.html">28. Fara&#x27;id</option><option value="malik-book-028.html">29. Marriage</option><option value="malik-book-029.html">30. Divorce</option><option value="malik-book-030.html">31. Suckling</option><option value="malik-book-031.html">32. Business Transactions</option><option value="malik-book-032.html">33. Qirad</option><option value="malik-book-033.html">34. Sharecropping</option><option value="malik-book-034.html">35. Renting Land</option><option value="malik-book-035.html">36. Pre-emption in Property</option><option value="malik-book-036.html">37. Judgements</option><option value="malik-book-037.html">38. Wills and Testaments</option><option value="malik-book-038.html">39. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">40. The Mukatab</option><option value="malik-book-040.html">41. The Mudabbar</option><option value="malik-book-041.html">42. Hudud</option><option value="malik-book-042.html">43. Drinks</option><option value="malik-book-043.html">44. Blood-Money</option><option value="malik-book-044.html">45. The Oath of Qasama</option><option value="malik-book-045.html">46. Madina</option><option value="malik-book-046.html">47. The Decree</option><option value="malik-book-047.html">48. Good Character</option><option value="malik-book-048.html">49. Dress</option><option value="malik-book-049.html">50. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">51. The Evil Eye</option><option value="malik-book-051.html">52. Hair</option><option value="malik-book-052.html">53. Visions</option><option value="malik-book-053.html">54. Greetings</option><option value="malik-book-054.html">55. General Subjects</option><option value="malik-book-055.html">56. The Oath of Allegiance</option><option value="malik-book-056.html">57. Speech</option><option value="malik-book-057.html">58. Jahannam</option><option value="malik-book-058.html">59. Sadaqa</option><option value="malik-book-059.html">60. Knowledge</option><option value="malik-book-060.html">61. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">62. The Names of the Prophet, may Allah Bless Him and…</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,143 +294,145 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 254–286 &nbsp;|&nbsp;
   <a href="malik.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='254' max='286' value='254'></label><label>To <input type='number' id='hvc-to' min='254' max='286' value='286'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h254' class='hadith-sep'><td colspan='2'>Hadith 254 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ الْمُنْكَدِرِ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنْ رَجُلٍ، عِنْدَهُ رِضًا أَنَّهُ أَخْبَرَهُ أَنَّ عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم أَخْبَرَتْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَا مِنِ امْرِئٍ تَكُونُ لَهُ صَلاَةٌ بِلَيْلٍ يَغْلِبُهُ عَلَيْهَا نَوْمٌ إِلاَّ كَتَبَ اللَّهُ لَهُ أَجْرَ صَلاَتِهِ وَكَانَ نَوْمُهُ عَلَيْهِ صَدَقَةً ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Muhammad ibn al-Munkadir from Said ibn al-Jubayr that a man who has approval (as a relater of hadith), told him that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;If a man prays in the night and sleep overcomes him during it, Allah writes for him the reward of his prayer, and his sleep is sadaqa for him</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 1</span></td></tr><tr id='h255' class='hadith-sep'><td colspan='2'>Hadith 255 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي النَّضْرِ، مَوْلَى عُمَرَ بْنِ عُبَيْدِ اللَّهِ عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ كُنْتُ أَنَامُ بَيْنَ يَدَىْ رَسُولِ اللَّهِ صلى الله عليه وسلم وَرِجْلاَىَ فِي قِبْلَتِهِ فَإِذَا سَجَدَ غَمَزَنِي فَقَبَضْتُ رِجْلَىَّ فَإِذَا قَامَ بَسَطْتُهُمَا ‏.‏ قَالَتْ وَالْبُيُوتُ يَوْمَئِذٍ لَيْسَ فِيهَا مَصَابِيحُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu&#x27;nNadr, the mawla of Umar ibn &#x27;Ubaydullah, from Abu Salama ibn Abd ar-Rahman that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;I was sleeping in front of the Messenger of Allah, may Allah bless him and grant him peace, and my feet were in his qibla. When he prostrated, he nudged me and I pulled up my feet,and when he stood up I spread them out.&quot; She added, &quot;There were no lamps in the house at that time</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 2</span></td></tr><tr id='h256' class='hadith-sep'><td colspan='2'>Hadith 256 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا نَعَسَ أَحَدُكُمْ فِي صَلاَتِهِ فَلْيَرْقُدْ حَتَّى يَذْهَبَ عَنْهُ النَّوْمُ فَإِنَّ أَحَدَكُمْ إِذَا صَلَّى وَهُوَ نَاعِسٌ لاَ يَدْرِي لَعَلَّهُ يَذْهَبُ يَسْتَغْفِرُ فَيَسُبُّ نَفْسَهُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father from A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If you are drowsy in prayer, sleep until sleep leaves you, because if you pray while you are drowsy, you do not know whether you may intend to ask for forgiveness but (in fact) ask for harm</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 3</span></td></tr><tr id='h257' class='hadith-sep'><td colspan='2'>Hadith 257 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْمَاعِيلَ بْنِ أَبِي حَكِيمٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سَمِعَ امْرَأَةً مِنَ اللَّيْلِ تُصَلِّي فَقَالَ ‏&quot;‏ مَنْ هَذِهِ ‏&quot;‏ ‏.‏ فَقِيلَ لَهُ هَذِهِ الْحَوْلاَءُ بِنْتُ تُوَيْتٍ لاَ تَنَامُ اللَّيْلَ ‏.‏ فَكَرِهَ ذَلِكَ رَسُولُ اللَّهِ صلى الله عليه وسلم حَتَّى عُرِفَتِ الْكَرَاهِيَةُ فِي وَجْهِهِ ثُمَّ قَالَ ‏&quot;‏ إِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى لاَ يَمَلُّ حَتَّى تَمَلُّوا اكْلَفُوا مِنَ الْعَمَلِ مَا لَكُمْ بِهِ طَاقَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ismail from Ibn Abi Hakim that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, heard a woman praying at night. He said, &quot;Who is that?&quot; and someone said to him,&quot;It is al-Hawla bint Tuwayt, she does not sleep in the night.&quot; The Messenger of Allah, may Allah bless him and grant him peace, disapproved of that and his disapproval showed in his face. Then he said, &quot;Allah, the Blessed and Exalted, does not become weary, but you become weary. Take on whatever is within your capability</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 4</span></td></tr><tr id='h258' class='hadith-sep'><td colspan='2'>Hadith 258 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ أَبِيهِ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، كَانَ يُصَلِّي مِنَ اللَّيْلِ مَا شَاءَ اللَّهُ حَتَّى إِذَا كَانَ مِنْ آخِرِ اللَّيْلِ أَيْقَظَ أَهْلَهُ لِلصَّلاَةِ يَقُولُ لَهُمُ الصَّلاَةَ الصَّلاَةَ ثُمَّ يَتْلُو هَذِهِ الآيَةَ ‏{‏وَأْمُرْ أَهْلَكَ بِالصَّلاَةِ وَاصْطَبِرْ عَلَيْهَا لاَ نَسْأَلُكَ رِزْقًا نَحْنُ نَرْزُقُكَ وَالْعَاقِبَةُ لِلتَّقْوَى‏}‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Zayd ibn Aslam from his father that Umar ibn al-Khattab used to pray as much as Allah willed in the night until at the end of the night he would wake his family for the prayer. He used to say to them, &quot;The prayer, the prayer.&quot; Then he would recite the ayat, &quot;Enjoin prayer on your family and be constant in it. We do not ask you for your provision. We provide for you. And the end result is for taqwa.&quot; (Sura 20 ayat)</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 5</span></td></tr><tr id='h259' class='hadith-sep'><td colspan='2'>Hadith 259 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ سَعِيدَ بْنَ الْمُسَيَّبِ، كَانَ يَقُولُ يُكْرَهُ النَّوْمُ قَبْلَ الْعِشَاءِ وَالْحَدِيثُ بَعْدَهَا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that Said ibn al-Musayyab used to say, &quot;Sleep is disapproved of before isha and conversation after it</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 6</span></td></tr><tr id='h260' class='hadith-sep'><td colspan='2'>Hadith 260 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يَقُولُ صَلاَةُ اللَّيْلِ وَالنَّهَارِ مَثْنَى مَثْنَى يُسَلِّمُ مِنْ كُلِّ رَكْعَتَيْنِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that Abdullah ibn Umar used to say, &quot;(Voluntary) prayer in both the day and night is two at a time with a taslim after every 2 raka&#x27;ahs.&quot; Malik said, &quot;That is the custom among us</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 7</span></td></tr><tr id='h261' class='hadith-sep'><td colspan='2'>Hadith 261 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُصَلِّي مِنَ اللَّيْلِ إِحْدَى عَشْرَةَ رَكْعَةً يُوتِرُ مِنْهَا بِوَاحِدَةٍ فَإِذَا فَرَغَ اضْطَجَعَ عَلَى شِقِّهِ الأَيْمَنِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab from Urwa ibn az- Zubayr from A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, that the Messenger of Allah, may Allah bless him and grant him peace, used to pray eleven rakas in the night, making them odd by a single one, and when he had finished he lay down on his right side</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 8</span></td></tr><tr id='h262' class='hadith-sep'><td colspan='2'>Hadith 262 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ الْمَقْبُرِيِّ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، أَنَّهُ سَأَلَ عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَيْفَ كَانَتْ صَلاَةُ رَسُولِ اللَّهِ صلى الله عليه وسلم فِي رَمَضَانَ فَقَالَتْ مَا كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَزِيدُ فِي رَمَضَانَ وَلاَ فِي غَيْرِهِ عَلَى إِحْدَى عَشْرَةَ رَكْعَةً يُصَلِّي أَرْبَعًا فَلاَ تَسْأَلْ عَنْ حُسْنِهِنَّ وَطُولِهِنَّ ثُمَّ يُصَلِّي أَرْبَعًا فَلاَ تَسْأَلْ عَنْ حُسْنِهِنَّ وَطُولِهِنَّ ثُمَّ يُصَلِّي ثَلاَثًا فَقَالَتْ عَائِشَةُ فَقُلْتُ يَا رَسُولَ اللَّهِ أَتَنَامُ قَبْلَ أَنْ تُوتِرَ فَقَالَ ‏ &quot;‏ يَا عَائِشَةُ إِنَّ عَيْنَىَّ تَنَامَانِ وَلاَ يَنَامُ قَلْبِي ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Said ibn Abi Said al-Maqburi from Abu Salama ibn Abd ar-Rahman ibn Awf that he asked A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, what the prayer of the Messenger of Allah, may Allah bless him and grant him peace, was like during Ramadan. She said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, did not go above eleven rakas in Ramadan or at any other time. He prayed four - do not ask me about their beauty or length. Then he prayed another four - do not ask me about their beauty and length. Then he prayed three.&quot; A&#x27;isha continued, &quot;I said, &#x27;Messenger of Allah, are you sleeping before you do the witr?&#x27; He said, A&#x27;isha, my eyes sleep but my heart does not sleep</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 9</span></td></tr><tr id='h263' class='hadith-sep'><td colspan='2'>Hadith 263 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، قَالَتْ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يُصَلِّي بِاللَّيْلِ ثَلاَثَ عَشْرَةَ رَكْعَةً ثُمَّ يُصَلِّي إِذَا سَمِعَ النِّدَاءَ بِالصُّبْحِ رَكْعَتَيْنِ خَفِيفَتَيْنِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father that A&#x27;isha, umm al-muminin said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, used to pray thirteen rakas in the night and then would pray two rakas when he heard the adhan for the subh prayer</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 10</span></td></tr><tr id='h264' class='hadith-sep'><td colspan='2'>Hadith 264 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ مَخْرَمَةَ بْنِ سُلَيْمَانَ، عَنْ كُرَيْبٍ، مَوْلَى ابْنِ عَبَّاسٍ أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، أَخْبَرَهُ أَنَّهُ، بَاتَ لَيْلَةً عِنْدَ مَيْمُونَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم - وَهِيَ خَالَتُهُ - قَالَ فَاضْطَجَعْتُ فِي عَرْضِ الْوِسَادَةِ وَاضْطَجَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَهْلُهُ فِي طُولِهَا فَنَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم حَتَّى إِذَا انْتَصَفَ اللَّيْلُ - أَوْ قَبْلَهُ بِقَلِيلٍ أَوْ بَعْدَهُ بِقَلِيلٍ - اسْتَيْقَظَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَجَلَسَ يَمْسَحُ النَّوْمَ عَنْ وَجْهِهِ بِيَدِهِ ثُمَّ قَرَأَ الْعَشْرَ الآيَاتِ الْخَوَاتِمَ مِنْ سُورَةِ آلِ عِمْرَانَ ثُمَّ قَامَ إِلَى شَنٍّ مُعَلَّقٍ فَتَوَضَّأَ مِنْهُ فَأَحْسَنَ وُضُوءَهُ ثُمَّ قَامَ يُصَلِّي - قَالَ ابْنُ عَبَّاسٍ - فَقُمْتُ فَصَنَعْتُ مِثْلَ مَا صَنَعَ ثُمَّ ذَهَبْتُ فَقُمْتُ إِلَى جَنْبِهِ فَوَضَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَدَهُ الْيُمْنَى عَلَى رَأْسِي وَأَخَذَ بِأُذُنِي الْيُمْنَى يَفْتِلُهَا فَصَلَّى رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ أَوْتَرَ ثُمَّ اضْطَجَعَ حَتَّى أَتَاهُ الْمُؤَذِّنُ فَصَلَّى رَكْعَتَيْنِ خَفِيفَتَيْنِ ثُمَّ خَرَجَ فَصَلَّى الصُّبْحَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Makhrama ibn Sulayman from Kurayb, the mawla of Ibn Abbas, that Abdullah ibn Abbas told him that he had spent a night at the house of Maimuna, the wife of the Prophet, may Allah bless him and grant him peace, who was also Ibn Abbas&#x27; mother&#x27;s sister. Ibn Abbas said, &quot;I lay down with my head on the breadth of the cushion, and the Messenger of Allah, may Allah bless him and grant him peace, and his wife lay down with their heads on its length. The Messenger of Allah, may Allah bless him and grant him peace, slept, until, halfway through the night or a little before or after it, he awoke and sat up and wiped the sleep away from his face with his hand. Then he recited the last ten ayats of sura Ali Imran (Sura3). Then he got up and went over to a water-skin which was hanging up and did wudu from it, doing his wudu thoroughly, and then he stood in prayer.&quot; Ibn Abbas continued, &quot;I stood up and did the same and then went and stood by his side. The Messenger of Allah, may Allah bless him and grant him peace, put his right hand on my head and took my right ear and tweaked it. He prayed two rakas, then two rakas, then two rakas, then two rakas, then two rakas, then two rakas, and then prayed an odd raka. Then he lay down until the muadhdhin came to him, and then prayed two quick rakas, and went out and prayed subh</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 11</span></td></tr><tr id='h265' class='hadith-sep'><td colspan='2'>Hadith 265 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرٍ، عَنْ أَبِيهِ، أَنَّ عَبْدَ اللَّهِ بْنَ قَيْسِ بْنِ مَخْرَمَةَ، أَخْبَرَهُ عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّهُ قَالَ لأَرْمُقَنَّ اللَّيْلَةَ صَلاَةَ رَسُولِ اللَّهِ صلى الله عليه وسلم - قَالَ - فَتَوَسَّدْتُ عَتَبَتَهُ - أَوْ فُسْطَاطَهُ - فَقَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَصَلَّى رَكْعَتَيْنِ طَوِيلَتَيْنِ طَوِيلَتَيْنِ طَوِيلَتَيْنِ ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ أَوْتَرَ فَتِلْكَ ثَلاَثَ عَشْرَةَ رَكْعَةً ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Abi Bakr from his father that Abdullah ibn Qays ibn Makhrama told him that Zayd ibn Khalid al-Juhani said one night that he was going to observe the prayer of the Messenger of Allah, may Allah bless him and grant him peace. He said, &quot;I rested my head on his threshold. The Messenger of Allah, may Allah bless him and grant him peace, got up and prayed two long, long, long rakas. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed an odd raka, making thirteen rakas in all</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 12</span></td></tr><tr id='h266' class='hadith-sep'><td colspan='2'>Hadith 266 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، وَعَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَجُلاً، سَأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنْ صَلاَةِ اللَّيْلِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ صَلاَةُ اللَّيْلِ مَثْنَى مَثْنَى فَإِذَا خَشِيَ أَحَدُكُمُ الصُّبْحَ صَلَّى رَكْعَةً وَاحِدَةً تُوتِرُ لَهُ مَا قَدْ صَلَّى ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi and Abdullah ibn Umar that a man asked the Messenger of Allah, may Allah bless him and grant him peace, about night prayers. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Night prayers are two by two, and when you are afraid that dawn is approaching, pray one raka to make what you have prayed odd</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 13</span></td></tr><tr id='h267' class='hadith-sep'><td colspan='2'>Hadith 267 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ يَحْيَى بْنِ حَبَّانَ، عَنِ ابْنِ مُحَيْرِيزٍ، أَنَّ رَجُلاً، مِنْ بَنِي كِنَانَةَ يُدْعَى الْمُخْدَجِيَّ سَمِعَ رَجُلاً، بِالشَّامِ يُكَنَّى أَبَا مُحَمَّدٍ يَقُولُ إِنَّ الْوِتْرَ وَاجِبٌ ‏.‏ فَقَالَ الْمُخْدَجِيُّ فَرُحْتُ إِلَى عُبَادَةَ بْنِ الصَّامِتِ فَاعْتَرَضْتُ لَهُ وَهُوَ رَائِحٌ إِلَى الْمَسْجِدِ فَأَخْبَرْتُهُ بِالَّذِي قَالَ أَبُو مُحَمَّدٍ فَقَالَ عُبَادَةُ كَذَبَ أَبُو مُحَمَّدٍ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ خَمْسُ صَلَوَاتٍ كَتَبَهُنَّ اللَّهُ عَزَّ وَجَلَّ عَلَى الْعِبَادِ فَمَنْ جَاءَ بِهِنَّ لَمْ يُضَيِّعْ مِنْهُنَّ شَيْئًا اسْتِخْفَافًا بِحَقِّهِنَّ كَانَ لَهُ عِنْدَ اللَّهِ عَهْدٌ أَنْ يُدْخِلَهُ الْجَنَّةَ وَمَنْ لَمْ يَأْتِ بِهِنَّ فَلَيْسَ لَهُ عِنْدَ اللَّهِ عَهْدٌ إِنْ شَاءَ عَذَّبَهُ وَإِنْ شَاءَ أَدْخَلَهُ الْجَنَّةَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said from Muhammad ibn Yahya ibn Habban from Ibn Muhayriz that a man from the Kinana tribe called al-Mukhdaji heard a man in Syria known as Abu Muhammad saying, &quot;The witr is obligatory (fard).&quot; Al-Mukhdaji said, &quot;I went to Ubada ibn as-Samit and presented myself to him as he was going to the mosque, and told him what Abu Muhammad had said. Ubada said that Abu Muhammad had lied and that he had heard the Messenger of Allah, may Allah bless him and grant him peace, say, &#x27;Allah the Majestic and Mighty has written five prayers for mankind, and whoever does them and does not waste anything of them by making light of what is due to them, there is a pact for him with Allah that He will admit him into the Garden.Whoever does not do them, there is no pact for him with Allah. If He wishes, He punishes him, and if He wishes, He admits him into the Garden</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 14</span></td></tr><tr id='h268' class='hadith-sep'><td colspan='2'>Hadith 268 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي بَكْرِ بْنِ عُمَرَ، عَنْ سَعِيدِ بْنِ يَسَارٍ، قَالَ كُنْتُ أَسِيرُ مَعَ عَبْدِ اللَّهِ بْنِ عُمَرَ بِطَرِيقِ مَكَّةَ - قَالَ سَعِيدٌ - فَلَمَّا خَشِيتُ الصُّبْحَ نَزَلْتُ فَأَوْتَرْتُ ثُمَّ أَدْرَكْتُهُ فَقَالَ لِي عَبْدُ اللَّهِ بْنُ عُمَرَ أَيْنَ كُنْتَ فَقُلْتُ لَهُ خَشِيتُ الصُّبْحَ فَنَزَلْتُ فَأَوْتَرْتُ ‏.‏ فَقَالَ عَبْدُ اللَّهِ أَلَيْسَ لَكَ فِي رَسُولِ اللَّهِ أُسْوَةٌ ‏.‏ فَقُلْتُ بَلَى وَاللَّهِ ‏.‏ فَقَالَ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُوتِرُ عَلَى الْبَعِيرِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu Bakr ibn Umar that Said ibn Yasar said, &#x27;&#x27;I was travelling with Abdullah ibn Umar on the road to Makka, and fearing that it was nearly dawn. I dismounted and prayed witr. Abdullah said, &#x27;Is there not a model for you in the Messenger of Allah, may Allah bless him and grant him peace?&#x27; I said, &#x27;Of course, by Allah!&#x27; He said, &#x27;The Messenger of Allah, may Allah bless him and grant him peace, used to pray witr on his camel</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 15</span></td></tr><tr id='h269' class='hadith-sep'><td colspan='2'>Hadith 269 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ قَالَ كَانَ أَبُو بَكْرٍ الصِّدِّيقُ إِذَا أَرَادَ أَنْ يَأْتِيَ، فِرَاشَهُ أَوْتَرَ وَكَانَ عُمَرُ بْنُ الْخَطَّابِ يُوتِرُ آخِرَ اللَّيْلِ قَالَ سَعِيدُ بْنُ الْمُسَيَّبِ فَأَمَّا أَنَا فَإِذَا جِئْتُ فِرَاشِي أَوْتَرْتُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that Said ibn al-Musayyab said, &quot;Abu Bakr as-Siddiq used to pray witr when he wished to go to bed, and Umar ibn al-Khattab used to pray witr at the end of the night. As for me, I pray witr when I go to bed</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 16</span></td></tr><tr id='h270' class='hadith-sep'><td colspan='2'>Hadith 270 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَجُلاً، سَأَلَ عَبْدَ اللَّهِ بْنَ عُمَرَ عَنِ الْوِتْرِ أَوَاجِبٌ هُوَ فَقَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ قَدْ أَوْتَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَوْتَرَ الْمُسْلِمُونَ ‏.‏ فَجَعَلَ الرَّجُلُ يُرَدِّدُ عَلَيْهِ وَعَبْدُ اللَّهِ بْنُ عُمَرَ يَقُولُ أَوْتَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَوْتَرَ الْمُسْلِمُونَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that a man asked Abdullah ibn Umar whether the witr was obligatory and Abdullah ibn Umar said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, prayed witr, and the muslims prayed witr.&quot; The man began repeating his question, and Abdullah ibn Umar kept saying, &quot;The Messenger of Allah, may Allah bless him and grant him peace, prayed witr, and the muslims prayed witr</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 17</span></td></tr><tr id='h271' class='hadith-sep'><td colspan='2'>Hadith 271 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَائِشَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَانَتْ تَقُولُ مَنْ خَشِيَ أَنْ يَنَامَ حَتَّى يُصْبِحَ فَلْيُوتِرْ قَبْلَ أَنْ يَنَامَ وَمَنْ رَجَا أَنْ يَسْتَيْقِظَ آخِرَ اللَّيْلِ فَلْيُؤَخِّرْ وِتْرَهُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, used to say, &quot;If someone fears that he will sleep through till the morning, let him pray the witr before he sleeps, and if some one hopes to wake for the last part of the night, let him delay his witr</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 18</span></td></tr><tr id='h272' class='hadith-sep'><td colspan='2'>Hadith 272 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّهُ قَالَ كُنْتُ مَعَ عَبْدِ اللَّهِ بْنِ عُمَرَ بِمَكَّةَ وَالسَّمَاءُ مُغِيمَةٌ فَخَشِيَ عَبْدُ اللَّهِ الصُّبْحَ فَأَوْتَرَ بِوَاحِدَةٍ ثُمَّ انْكَشَفَ الْغَيْمُ فَرَأَى أَنَّ عَلَيْهِ لَيْلاً فَشَفَعَ بِوَاحِدَةٍ ثُمَّ صَلَّى بَعْدَ ذَلِكَ رَكْعَتَيْنِ رَكْعَتَيْنِ فَلَمَّا خَشِيَ الصُّبْحَ أَوْتَرَ بِوَاحِدَةٍ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Nafi said, &quot;I was with Abdullah ibn Umar in Makka. The sky was clouded over and Abdullah feared that dawn was approaching so he prayed one raka for witr. Then the clouds cleared and he saw that it was still night, so he made his prayers even with one raka. Then he continued to pray two rakas at a time, until when he feared the approach of dawn, he prayed one raka for witr</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 19</span></td></tr><tr id='h273' class='hadith-sep'><td colspan='2'>Hadith 273 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يُسَلِّمُ بَيْنَ الرَّكْعَتَيْنِ وَالرَّكْعَةِ فِي الْوِتْرِ حَتَّى يَأْمُرَ بِبَعْضِ حَاجَتِهِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar used to say the taslim between the two rakas and the one raka of witr so that he could order something he needed</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 20</span></td></tr><tr id='h274' class='hadith-sep'><td colspan='2'>Hadith 274 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّ سَعْدَ بْنَ أَبِي وَقَّاصٍ، كَانَ يُوتِرُ بَعْدَ الْعَتَمَةِ بِوَاحِدَةٍ ‏.‏ قَالَ مَالِكٌ وَلَيْسَ عَلَى هَذَا الْعَمَلُ عِنْدَنَا وَلَكِنْ أَدْنَى الْوِتْرِ ثَلاَثٌ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab that Sad ibn Abi Waqqas used to pray witr after isha with one raka. Malik said, &quot;This is not the situation with us. Rather three is the minimum for witr</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 21</span></td></tr><tr id='h275' class='hadith-sep'><td colspan='2'>Hadith 275 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يَقُولُ صَلاَةُالمغرب وتر صلاة النهار ‏.‏ قال مالك من أوتر أول الليل ثم نام ثم قام فبدا له أن يصلي فليصل مثنى مثنى فهو أحب ما سمعت إلى ‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Dinar that Abdullah ibn Umar used to say, &quot;The maghrib prayer is the witr of the daytime prayers.&quot; Malik said, &quot;If someone prays witr at the beginning of the night, and goes to sleep, and then wakes up and it seems good to him to pray, let him pray, two rakas at a time. That is what I like most of what I have heard</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 22</span></td></tr><tr id='h276' class='hadith-sep'><td colspan='2'>Hadith 276 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ الْكَرِيمِ بْنِ أَبِي الْمُخَارِقِ الْبَصْرِيِّ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، رَقَدَ ثُمَّ اسْتَيْقَظَ فَقَالَ لِخَادِمِهِ انْظُرْ مَا صَنَعَ النَّاسُ ‏.‏ وَهُوَ يَوْمَئِذٍ قَدْ ذَهَبَ بَصَرُهُ ‏.‏ فَذَهَبَ الْخَادِمُ ثُمَّ رَجَعَ فَقَالَ قَدِ انْصَرَفَ النَّاسُ مِنَ الصُّبْحِ ‏.‏ فَقَامَ عَبْدُ اللَّهِ بْنُ عَبَّاسٍ فَأَوْتَرَ ثُمَّ صَلَّى الصُّبْحَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abd al Karim ibn Abi&#x27;l-Mukhariq al-Basri from Said ibn Jubayr that Abdullah ibn Abbas slept, and when he woke up, he said to his servant, &quot;Go and see what the people have done,&quot; (by that time his sight had gone.) The servant went out and returned saying, &quot;The people have left from subh,&quot; so Abdullah ibn Abbas got up and prayed witr and then prayed subh</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 23</span></td></tr><tr id='h277' class='hadith-sep'><td colspan='2'>Hadith 277 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، وَعُبَادَةَ بْنَ الصَّامِتِ، وَالْقَاسِمَ بْنَ مُحَمَّدٍ، وَعَبْدَ اللَّهِ بْنَ عَامِرِ بْنِ رَبِيعَةَ، قَدْ أَوْتَرُوا بَعْدَ الْفَجْرِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that Abdullah ibn Abbas and Ubada ibn as-Samit and al-Qasim ibn Muhammad and Abdullah ibn Amir ibn Rabia had all prayed witr after the break of dawn</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 24</span></td></tr><tr id='h278' class='hadith-sep'><td colspan='2'>Hadith 278 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ عَبْدَ اللَّهِ بْنَ مَسْعُودٍ، قَالَ مَا أُبَالِي لَوْ أُقِيمَتْ صَلاَةُ الصُّبْحِ وَأَنَا أُوتِرُ، ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father that Abdullah ibn Masud said, &quot;I do not mind if the iqama for the subh prayer is called while I am still praying witr</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 25</span></td></tr><tr id='h279' class='hadith-sep'><td colspan='2'>Hadith 279 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ قَالَ كَانَ عُبَادَةُ بْنُ الصَّامِتِ يَؤُمُّ قَوْمًا فَخَرَجَ يَوْمًا إِلَى الصُّبْحِ فَأَقَامَ الْمُؤَذِّنُ صَلاَةَ الصُّبْحِ فَأَسْكَتَهُ عُبَادَةُ حَتَّى أَوْتَرَ ثُمَّ صَلَّى بِهِمُ الصُّبْحَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Yahya ibn Said said, &#x27;&#x27;Ubada ibn as-Samit used to lead the people in prayer. One day he came out for subh and the muadhdhin began to give the iqama for the subh prayer Ubada silenced him, prayed witr and then led them in subh</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 26</span></td></tr><tr id='h280' class='hadith-sep'><td colspan='2'>Hadith 280 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، أَنَّهُ قَالَ سَمِعْتُ عَبْدَ اللَّهِ بْنَ عَامِرِ بْنِ رَبِيعَةَ، يَقُولُ إِنِّي لأُوتِرُ وَأَنَا أَسْمَعُ الإِقَامَةَ، أَوْ بَعْدَ الْفَجْرِ ‏.‏ يَشُكُّ عَبْدُ الرَّحْمَنِ أَىَّ ذَلِكَ قَالَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Abd ar-Rahman ibn al-Qasim said, &quot;I heard Abdullah ibn Amir ibn Rabia say, &#x27;I sometimes pray witr while hearing the iqama, or after the break of dawn.&#x27; &quot; Abd ar-Rahman was not certain which he said</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 27</span></td></tr><tr id='h281' class='hadith-sep'><td colspan='2'>Hadith 281 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، أَنَّهُ سَمِعَ أَبَاهُ الْقَاسِمَ بْنَ مُحَمَّدٍ، يَقُولُ إِنِّي لأُوتِرُ بَعْدَ الْفَجْرِ ‏.‏ قَالَ مَالِكٌ وَإِنَّمَا يُوتِرُ بَعْدَ الْفَجْرِ مَنْ نَامَ عَنِ الْوِتْرِ وَلاَ يَنْبَغِي لأَحَدٍ أَنْ يَتَعَمَّدَ ذَلِكَ حَتَّى يَضَعَ وِتْرَهُ بَعْدَ الْفَجْرِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me that Abd ar-Rahman ibn al-Qasim heard his father al-Qasim ibn Muhammad say, &quot;I have prayed witr after dawn.&quot; Malik said, &quot;Only a person who oversleeps so that he does not do the witr prays it after dawn. No one should intentionally make his witr after dawn</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 28</span></td></tr><tr id='h282' class='hadith-sep'><td colspan='2'>Hadith 282 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ حَفْصَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم أَخْبَرَتْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ إِذَا سَكَتَ الْمُؤَذِّنُ عَنِ الأَذَانِ لِصَلاَةِ الصُّبْحِ صَلَّى رَكْعَتَيْنِ خَفِيفَتَيْنِ قَبْلَ أَنْ تُقَامَ الصَّلاَةُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that Hafsa, the wife of the Prophet, may Allah bless him and grant him peace, told him that the Messenger of Allah, may Allah bless him and grant him peace, used to pray two quick rakas when the muadhdhin had finished the adhan for the subh prayer, before the iqama was said for the prayer</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 29</span></td></tr><tr id='h283' class='hadith-sep'><td colspan='2'>Hadith 283 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي مَالِكٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ عَائِشَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم قَالَتْ إِنْ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم لَيُخَفِّفُ رَكْعَتَىِ الْفَجْرِ حَتَّى إِنِّي لأَقُولُ أَقَرَأَ بِأُمِّ الْقُرْآنِ أَمْ لاَ</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik related to me from Yahya ibn Said that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, used to pray the two rakas of the dawn (fajr) so quickly that I would say to myself &#x27;Has he recited the umm al-Qur&#x27;an or not?</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 30</span></td></tr><tr id='h284' class='hadith-sep'><td colspan='2'>Hadith 284 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ شَرِيكِ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي نَمِرٍ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، أَنَّهُ قَالَ سَمِعَ قَوْمٌ الإِقَامَةَ، فَقَامُوا يُصَلُّونَ فَخَرَجَ عَلَيْهِمْ رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏ &quot;‏ أَصَلاَتَانِ مَعًا أَصَلاَتَانِ مَعًا ‏&quot;‏ ‏.‏ وَذَلِكَ فِي صَلاَةِ الصُّبْحِ فِي الرَّكْعَتَيْنِ اللَّتَيْنِ قَبْلَ الصُّبْحِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Sharik ibn Abdullah ibn Abi Namir that Abu Salama ibn Abd ar-Rahman said, &quot;Some people heard the iqama and started to pray. The Messenger of Allah, may Allah bless him and grant him peace, came out and said, &#x27;Are you doing two prayers at the same time? Are you doing two prayers at the same time?&#x27; That was about the subh prayer and the two rakas before subh</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 31</span></td></tr><tr id='h285' class='hadith-sep'><td colspan='2'>Hadith 285 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، فَاتَتْهُ رَكْعَتَا الْفَجْرِ فَقَضَاهُمَا بَعْدَ أَنْ طَلَعَتِ الشَّمْسُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that Abdullah ibn Umar missed the two rakas of dawn, and then did them after the sun rose</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 32</span></td></tr><tr id='h286' class='hadith-sep'><td colspan='2'>Hadith 286 — Tahajjud</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، عَنِ الْقَاسِمِ بْنِ مُحَمَّدٍ، أَنَّهُ صَنَعَ مِثْلَ الَّذِي صَنَعَ ابْنُ عُمَرَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abd ar-Rahman ibn al-Qasim that al-Qasim ibn Muhammad had done the same as Ibn Umar</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 33</span></td></tr>
+<tr id='h254' class='hadith-sep' data-hadith='254'><td colspan='2'><a class='permalink' href='#h254'>Hadith 254</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='254'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ الْمُنْكَدِرِ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنْ رَجُلٍ، عِنْدَهُ رِضًا أَنَّهُ أَخْبَرَهُ أَنَّ عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم أَخْبَرَتْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَا مِنِ امْرِئٍ تَكُونُ لَهُ صَلاَةٌ بِلَيْلٍ يَغْلِبُهُ عَلَيْهَا نَوْمٌ إِلاَّ كَتَبَ اللَّهُ لَهُ أَجْرَ صَلاَتِهِ وَكَانَ نَوْمُهُ عَلَيْهِ صَدَقَةً ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='254'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Muhammad ibn al-Munkadir from Said ibn al-Jubayr that a man who has approval (as a relater of hadith), told him that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;If a man prays in the night and sleep overcomes him during it, Allah writes for him the reward of his prayer, and his sleep is sadaqa for him</span></td></tr>
+<tr class='grade' data-hadith='254'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='254'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 1</span></td></tr><tr id='h255' class='hadith-sep' data-hadith='255'><td colspan='2'><a class='permalink' href='#h255'>Hadith 255</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='255'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي النَّضْرِ، مَوْلَى عُمَرَ بْنِ عُبَيْدِ اللَّهِ عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ كُنْتُ أَنَامُ بَيْنَ يَدَىْ رَسُولِ اللَّهِ صلى الله عليه وسلم وَرِجْلاَىَ فِي قِبْلَتِهِ فَإِذَا سَجَدَ غَمَزَنِي فَقَبَضْتُ رِجْلَىَّ فَإِذَا قَامَ بَسَطْتُهُمَا ‏.‏ قَالَتْ وَالْبُيُوتُ يَوْمَئِذٍ لَيْسَ فِيهَا مَصَابِيحُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='255'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;nNadr, the mawla of Umar ibn &#x27;Ubaydullah, from Abu Salama ibn Abd ar-Rahman that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;I was sleeping in front of the Messenger of Allah, may Allah bless him and grant him peace, and my feet were in his qibla. When he prostrated, he nudged me and I pulled up my feet,and when he stood up I spread them out.&quot; She added, &quot;There were no lamps in the house at that time</span></td></tr>
+<tr class='grade' data-hadith='255'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='255'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 2</span></td></tr><tr id='h256' class='hadith-sep' data-hadith='256'><td colspan='2'><a class='permalink' href='#h256'>Hadith 256</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='256'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا نَعَسَ أَحَدُكُمْ فِي صَلاَتِهِ فَلْيَرْقُدْ حَتَّى يَذْهَبَ عَنْهُ النَّوْمُ فَإِنَّ أَحَدَكُمْ إِذَا صَلَّى وَهُوَ نَاعِسٌ لاَ يَدْرِي لَعَلَّهُ يَذْهَبُ يَسْتَغْفِرُ فَيَسُبُّ نَفْسَهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='256'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father from A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If you are drowsy in prayer, sleep until sleep leaves you, because if you pray while you are drowsy, you do not know whether you may intend to ask for forgiveness but (in fact) ask for harm</span></td></tr>
+<tr class='grade' data-hadith='256'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='256'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 3</span></td></tr><tr id='h257' class='hadith-sep' data-hadith='257'><td colspan='2'><a class='permalink' href='#h257'>Hadith 257</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='257'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِسْمَاعِيلَ بْنِ أَبِي حَكِيمٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سَمِعَ امْرَأَةً مِنَ اللَّيْلِ تُصَلِّي فَقَالَ ‏&quot;‏ مَنْ هَذِهِ ‏&quot;‏ ‏.‏ فَقِيلَ لَهُ هَذِهِ الْحَوْلاَءُ بِنْتُ تُوَيْتٍ لاَ تَنَامُ اللَّيْلَ ‏.‏ فَكَرِهَ ذَلِكَ رَسُولُ اللَّهِ صلى الله عليه وسلم حَتَّى عُرِفَتِ الْكَرَاهِيَةُ فِي وَجْهِهِ ثُمَّ قَالَ ‏&quot;‏ إِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى لاَ يَمَلُّ حَتَّى تَمَلُّوا اكْلَفُوا مِنَ الْعَمَلِ مَا لَكُمْ بِهِ طَاقَةٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='257'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ismail from Ibn Abi Hakim that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, heard a woman praying at night. He said, &quot;Who is that?&quot; and someone said to him,&quot;It is al-Hawla bint Tuwayt, she does not sleep in the night.&quot; The Messenger of Allah, may Allah bless him and grant him peace, disapproved of that and his disapproval showed in his face. Then he said, &quot;Allah, the Blessed and Exalted, does not become weary, but you become weary. Take on whatever is within your capability</span></td></tr>
+<tr class='grade' data-hadith='257'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='257'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 4</span></td></tr><tr id='h258' class='hadith-sep' data-hadith='258'><td colspan='2'><a class='permalink' href='#h258'>Hadith 258</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='258'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ أَبِيهِ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، كَانَ يُصَلِّي مِنَ اللَّيْلِ مَا شَاءَ اللَّهُ حَتَّى إِذَا كَانَ مِنْ آخِرِ اللَّيْلِ أَيْقَظَ أَهْلَهُ لِلصَّلاَةِ يَقُولُ لَهُمُ الصَّلاَةَ الصَّلاَةَ ثُمَّ يَتْلُو هَذِهِ الآيَةَ ‏{‏وَأْمُرْ أَهْلَكَ بِالصَّلاَةِ وَاصْطَبِرْ عَلَيْهَا لاَ نَسْأَلُكَ رِزْقًا نَحْنُ نَرْزُقُكَ وَالْعَاقِبَةُ لِلتَّقْوَى‏}‏</span></td></tr>
+<tr class='eng' data-hadith='258'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Zayd ibn Aslam from his father that Umar ibn al-Khattab used to pray as much as Allah willed in the night until at the end of the night he would wake his family for the prayer. He used to say to them, &quot;The prayer, the prayer.&quot; Then he would recite the ayat, &quot;Enjoin prayer on your family and be constant in it. We do not ask you for your provision. We provide for you. And the end result is for taqwa.&quot; (Sura 20 ayat)</span></td></tr>
+<tr class='grade' data-hadith='258'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='258'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 5</span></td></tr><tr id='h259' class='hadith-sep' data-hadith='259'><td colspan='2'><a class='permalink' href='#h259'>Hadith 259</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='259'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ سَعِيدَ بْنَ الْمُسَيَّبِ، كَانَ يَقُولُ يُكْرَهُ النَّوْمُ قَبْلَ الْعِشَاءِ وَالْحَدِيثُ بَعْدَهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='259'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Said ibn al-Musayyab used to say, &quot;Sleep is disapproved of before isha and conversation after it</span></td></tr>
+<tr class='grade' data-hadith='259'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Daif</span></td></tr>
+<tr class='ref' data-hadith='259'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 6</span></td></tr><tr id='h260' class='hadith-sep' data-hadith='260'><td colspan='2'><a class='permalink' href='#h260'>Hadith 260</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='260'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يَقُولُ صَلاَةُ اللَّيْلِ وَالنَّهَارِ مَثْنَى مَثْنَى يُسَلِّمُ مِنْ كُلِّ رَكْعَتَيْنِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='260'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Abdullah ibn Umar used to say, &quot;(Voluntary) prayer in both the day and night is two at a time with a taslim after every 2 raka&#x27;ahs.&quot; Malik said, &quot;That is the custom among us</span></td></tr>
+<tr class='grade' data-hadith='260'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='260'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 7</span></td></tr><tr id='h261' class='hadith-sep' data-hadith='261'><td colspan='2'><a class='permalink' href='#h261'>Hadith 261</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='261'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُصَلِّي مِنَ اللَّيْلِ إِحْدَى عَشْرَةَ رَكْعَةً يُوتِرُ مِنْهَا بِوَاحِدَةٍ فَإِذَا فَرَغَ اضْطَجَعَ عَلَى شِقِّهِ الأَيْمَنِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='261'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Urwa ibn az- Zubayr from A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, that the Messenger of Allah, may Allah bless him and grant him peace, used to pray eleven rakas in the night, making them odd by a single one, and when he had finished he lay down on his right side</span></td></tr>
+<tr class='grade' data-hadith='261'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='261'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 8</span></td></tr><tr id='h262' class='hadith-sep' data-hadith='262'><td colspan='2'><a class='permalink' href='#h262'>Hadith 262</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='262'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ الْمَقْبُرِيِّ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، أَنَّهُ سَأَلَ عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَيْفَ كَانَتْ صَلاَةُ رَسُولِ اللَّهِ صلى الله عليه وسلم فِي رَمَضَانَ فَقَالَتْ مَا كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَزِيدُ فِي رَمَضَانَ وَلاَ فِي غَيْرِهِ عَلَى إِحْدَى عَشْرَةَ رَكْعَةً يُصَلِّي أَرْبَعًا فَلاَ تَسْأَلْ عَنْ حُسْنِهِنَّ وَطُولِهِنَّ ثُمَّ يُصَلِّي أَرْبَعًا فَلاَ تَسْأَلْ عَنْ حُسْنِهِنَّ وَطُولِهِنَّ ثُمَّ يُصَلِّي ثَلاَثًا فَقَالَتْ عَائِشَةُ فَقُلْتُ يَا رَسُولَ اللَّهِ أَتَنَامُ قَبْلَ أَنْ تُوتِرَ فَقَالَ ‏ &quot;‏ يَا عَائِشَةُ إِنَّ عَيْنَىَّ تَنَامَانِ وَلاَ يَنَامُ قَلْبِي ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='262'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Said ibn Abi Said al-Maqburi from Abu Salama ibn Abd ar-Rahman ibn Awf that he asked A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, what the prayer of the Messenger of Allah, may Allah bless him and grant him peace, was like during Ramadan. She said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, did not go above eleven rakas in Ramadan or at any other time. He prayed four - do not ask me about their beauty or length. Then he prayed another four - do not ask me about their beauty and length. Then he prayed three.&quot; A&#x27;isha continued, &quot;I said, &#x27;Messenger of Allah, are you sleeping before you do the witr?&#x27; He said, A&#x27;isha, my eyes sleep but my heart does not sleep</span></td></tr>
+<tr class='grade' data-hadith='262'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='262'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 9</span></td></tr><tr id='h263' class='hadith-sep' data-hadith='263'><td colspan='2'><a class='permalink' href='#h263'>Hadith 263</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='263'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، قَالَتْ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يُصَلِّي بِاللَّيْلِ ثَلاَثَ عَشْرَةَ رَكْعَةً ثُمَّ يُصَلِّي إِذَا سَمِعَ النِّدَاءَ بِالصُّبْحِ رَكْعَتَيْنِ خَفِيفَتَيْنِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='263'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that A&#x27;isha, umm al-muminin said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, used to pray thirteen rakas in the night and then would pray two rakas when he heard the adhan for the subh prayer</span></td></tr>
+<tr class='grade' data-hadith='263'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='263'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 10</span></td></tr><tr id='h264' class='hadith-sep' data-hadith='264'><td colspan='2'><a class='permalink' href='#h264'>Hadith 264</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='264'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ مَخْرَمَةَ بْنِ سُلَيْمَانَ، عَنْ كُرَيْبٍ، مَوْلَى ابْنِ عَبَّاسٍ أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، أَخْبَرَهُ أَنَّهُ، بَاتَ لَيْلَةً عِنْدَ مَيْمُونَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم - وَهِيَ خَالَتُهُ - قَالَ فَاضْطَجَعْتُ فِي عَرْضِ الْوِسَادَةِ وَاضْطَجَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَهْلُهُ فِي طُولِهَا فَنَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم حَتَّى إِذَا انْتَصَفَ اللَّيْلُ - أَوْ قَبْلَهُ بِقَلِيلٍ أَوْ بَعْدَهُ بِقَلِيلٍ - اسْتَيْقَظَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَجَلَسَ يَمْسَحُ النَّوْمَ عَنْ وَجْهِهِ بِيَدِهِ ثُمَّ قَرَأَ الْعَشْرَ الآيَاتِ الْخَوَاتِمَ مِنْ سُورَةِ آلِ عِمْرَانَ ثُمَّ قَامَ إِلَى شَنٍّ مُعَلَّقٍ فَتَوَضَّأَ مِنْهُ فَأَحْسَنَ وُضُوءَهُ ثُمَّ قَامَ يُصَلِّي - قَالَ ابْنُ عَبَّاسٍ - فَقُمْتُ فَصَنَعْتُ مِثْلَ مَا صَنَعَ ثُمَّ ذَهَبْتُ فَقُمْتُ إِلَى جَنْبِهِ فَوَضَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَدَهُ الْيُمْنَى عَلَى رَأْسِي وَأَخَذَ بِأُذُنِي الْيُمْنَى يَفْتِلُهَا فَصَلَّى رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ رَكْعَتَيْنِ ثُمَّ أَوْتَرَ ثُمَّ اضْطَجَعَ حَتَّى أَتَاهُ الْمُؤَذِّنُ فَصَلَّى رَكْعَتَيْنِ خَفِيفَتَيْنِ ثُمَّ خَرَجَ فَصَلَّى الصُّبْحَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='264'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Makhrama ibn Sulayman from Kurayb, the mawla of Ibn Abbas, that Abdullah ibn Abbas told him that he had spent a night at the house of Maimuna, the wife of the Prophet, may Allah bless him and grant him peace, who was also Ibn Abbas&#x27; mother&#x27;s sister. Ibn Abbas said, &quot;I lay down with my head on the breadth of the cushion, and the Messenger of Allah, may Allah bless him and grant him peace, and his wife lay down with their heads on its length. The Messenger of Allah, may Allah bless him and grant him peace, slept, until, halfway through the night or a little before or after it, he awoke and sat up and wiped the sleep away from his face with his hand. Then he recited the last ten ayats of sura Ali Imran (Sura3). Then he got up and went over to a water-skin which was hanging up and did wudu from it, doing his wudu thoroughly, and then he stood in prayer.&quot; Ibn Abbas continued, &quot;I stood up and did the same and then went and stood by his side. The Messenger of Allah, may Allah bless him and grant him peace, put his right hand on my head and took my right ear and tweaked it. He prayed two rakas, then two rakas, then two rakas, then two rakas, then two rakas, then two rakas, and then prayed an odd raka. Then he lay down until the muadhdhin came to him, and then prayed two quick rakas, and went out and prayed subh</span></td></tr>
+<tr class='grade' data-hadith='264'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='264'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 11</span></td></tr><tr id='h265' class='hadith-sep' data-hadith='265'><td colspan='2'><a class='permalink' href='#h265'>Hadith 265</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='265'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرٍ، عَنْ أَبِيهِ، أَنَّ عَبْدَ اللَّهِ بْنَ قَيْسِ بْنِ مَخْرَمَةَ، أَخْبَرَهُ عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّهُ قَالَ لأَرْمُقَنَّ اللَّيْلَةَ صَلاَةَ رَسُولِ اللَّهِ صلى الله عليه وسلم - قَالَ - فَتَوَسَّدْتُ عَتَبَتَهُ - أَوْ فُسْطَاطَهُ - فَقَامَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَصَلَّى رَكْعَتَيْنِ طَوِيلَتَيْنِ طَوِيلَتَيْنِ طَوِيلَتَيْنِ ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ صَلَّى رَكْعَتَيْنِ وَهُمَا دُونَ اللَّتَيْنِ قَبْلَهُمَا ثُمَّ أَوْتَرَ فَتِلْكَ ثَلاَثَ عَشْرَةَ رَكْعَةً ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='265'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abdullah ibn Abi Bakr from his father that Abdullah ibn Qays ibn Makhrama told him that Zayd ibn Khalid al-Juhani said one night that he was going to observe the prayer of the Messenger of Allah, may Allah bless him and grant him peace. He said, &quot;I rested my head on his threshold. The Messenger of Allah, may Allah bless him and grant him peace, got up and prayed two long, long, long rakas. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed two rakas which were slightly less long than the two before them. Then he prayed an odd raka, making thirteen rakas in all</span></td></tr>
+<tr class='grade' data-hadith='265'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='265'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 12</span></td></tr><tr id='h266' class='hadith-sep' data-hadith='266'><td colspan='2'><a class='permalink' href='#h266'>Hadith 266</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='266'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، وَعَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَجُلاً، سَأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنْ صَلاَةِ اللَّيْلِ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ صَلاَةُ اللَّيْلِ مَثْنَى مَثْنَى فَإِذَا خَشِيَ أَحَدُكُمُ الصُّبْحَ صَلَّى رَكْعَةً وَاحِدَةً تُوتِرُ لَهُ مَا قَدْ صَلَّى ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='266'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi and Abdullah ibn Umar that a man asked the Messenger of Allah, may Allah bless him and grant him peace, about night prayers. The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Night prayers are two by two, and when you are afraid that dawn is approaching, pray one raka to make what you have prayed odd</span></td></tr>
+<tr class='grade' data-hadith='266'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='266'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 13</span></td></tr><tr id='h267' class='hadith-sep' data-hadith='267'><td colspan='2'><a class='permalink' href='#h267'>Hadith 267</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='267'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ يَحْيَى بْنِ حَبَّانَ، عَنِ ابْنِ مُحَيْرِيزٍ، أَنَّ رَجُلاً، مِنْ بَنِي كِنَانَةَ يُدْعَى الْمُخْدَجِيَّ سَمِعَ رَجُلاً، بِالشَّامِ يُكَنَّى أَبَا مُحَمَّدٍ يَقُولُ إِنَّ الْوِتْرَ وَاجِبٌ ‏.‏ فَقَالَ الْمُخْدَجِيُّ فَرُحْتُ إِلَى عُبَادَةَ بْنِ الصَّامِتِ فَاعْتَرَضْتُ لَهُ وَهُوَ رَائِحٌ إِلَى الْمَسْجِدِ فَأَخْبَرْتُهُ بِالَّذِي قَالَ أَبُو مُحَمَّدٍ فَقَالَ عُبَادَةُ كَذَبَ أَبُو مُحَمَّدٍ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ خَمْسُ صَلَوَاتٍ كَتَبَهُنَّ اللَّهُ عَزَّ وَجَلَّ عَلَى الْعِبَادِ فَمَنْ جَاءَ بِهِنَّ لَمْ يُضَيِّعْ مِنْهُنَّ شَيْئًا اسْتِخْفَافًا بِحَقِّهِنَّ كَانَ لَهُ عِنْدَ اللَّهِ عَهْدٌ أَنْ يُدْخِلَهُ الْجَنَّةَ وَمَنْ لَمْ يَأْتِ بِهِنَّ فَلَيْسَ لَهُ عِنْدَ اللَّهِ عَهْدٌ إِنْ شَاءَ عَذَّبَهُ وَإِنْ شَاءَ أَدْخَلَهُ الْجَنَّةَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='267'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said from Muhammad ibn Yahya ibn Habban from Ibn Muhayriz that a man from the Kinana tribe called al-Mukhdaji heard a man in Syria known as Abu Muhammad saying, &quot;The witr is obligatory (fard).&quot; Al-Mukhdaji said, &quot;I went to Ubada ibn as-Samit and presented myself to him as he was going to the mosque, and told him what Abu Muhammad had said. Ubada said that Abu Muhammad had lied and that he had heard the Messenger of Allah, may Allah bless him and grant him peace, say, &#x27;Allah the Majestic and Mighty has written five prayers for mankind, and whoever does them and does not waste anything of them by making light of what is due to them, there is a pact for him with Allah that He will admit him into the Garden.Whoever does not do them, there is no pact for him with Allah. If He wishes, He punishes him, and if He wishes, He admits him into the Garden</span></td></tr>
+<tr class='grade' data-hadith='267'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='267'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 14</span></td></tr><tr id='h268' class='hadith-sep' data-hadith='268'><td colspan='2'><a class='permalink' href='#h268'>Hadith 268</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='268'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي بَكْرِ بْنِ عُمَرَ، عَنْ سَعِيدِ بْنِ يَسَارٍ، قَالَ كُنْتُ أَسِيرُ مَعَ عَبْدِ اللَّهِ بْنِ عُمَرَ بِطَرِيقِ مَكَّةَ - قَالَ سَعِيدٌ - فَلَمَّا خَشِيتُ الصُّبْحَ نَزَلْتُ فَأَوْتَرْتُ ثُمَّ أَدْرَكْتُهُ فَقَالَ لِي عَبْدُ اللَّهِ بْنُ عُمَرَ أَيْنَ كُنْتَ فَقُلْتُ لَهُ خَشِيتُ الصُّبْحَ فَنَزَلْتُ فَأَوْتَرْتُ ‏.‏ فَقَالَ عَبْدُ اللَّهِ أَلَيْسَ لَكَ فِي رَسُولِ اللَّهِ أُسْوَةٌ ‏.‏ فَقُلْتُ بَلَى وَاللَّهِ ‏.‏ فَقَالَ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُوتِرُ عَلَى الْبَعِيرِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='268'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu Bakr ibn Umar that Said ibn Yasar said, &#x27;&#x27;I was travelling with Abdullah ibn Umar on the road to Makka, and fearing that it was nearly dawn. I dismounted and prayed witr. Abdullah said, &#x27;Is there not a model for you in the Messenger of Allah, may Allah bless him and grant him peace?&#x27; I said, &#x27;Of course, by Allah!&#x27; He said, &#x27;The Messenger of Allah, may Allah bless him and grant him peace, used to pray witr on his camel</span></td></tr>
+<tr class='grade' data-hadith='268'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='268'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 15</span></td></tr><tr id='h269' class='hadith-sep' data-hadith='269'><td colspan='2'><a class='permalink' href='#h269'>Hadith 269</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='269'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ قَالَ كَانَ أَبُو بَكْرٍ الصِّدِّيقُ إِذَا أَرَادَ أَنْ يَأْتِيَ، فِرَاشَهُ أَوْتَرَ وَكَانَ عُمَرُ بْنُ الْخَطَّابِ يُوتِرُ آخِرَ اللَّيْلِ قَالَ سَعِيدُ بْنُ الْمُسَيَّبِ فَأَمَّا أَنَا فَإِذَا جِئْتُ فِرَاشِي أَوْتَرْتُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='269'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that Said ibn al-Musayyab said, &quot;Abu Bakr as-Siddiq used to pray witr when he wished to go to bed, and Umar ibn al-Khattab used to pray witr at the end of the night. As for me, I pray witr when I go to bed</span></td></tr>
+<tr class='grade' data-hadith='269'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='269'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 16</span></td></tr><tr id='h270' class='hadith-sep' data-hadith='270'><td colspan='2'><a class='permalink' href='#h270'>Hadith 270</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='270'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَجُلاً، سَأَلَ عَبْدَ اللَّهِ بْنَ عُمَرَ عَنِ الْوِتْرِ أَوَاجِبٌ هُوَ فَقَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ قَدْ أَوْتَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَوْتَرَ الْمُسْلِمُونَ ‏.‏ فَجَعَلَ الرَّجُلُ يُرَدِّدُ عَلَيْهِ وَعَبْدُ اللَّهِ بْنُ عُمَرَ يَقُولُ أَوْتَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَوْتَرَ الْمُسْلِمُونَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='270'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that a man asked Abdullah ibn Umar whether the witr was obligatory and Abdullah ibn Umar said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, prayed witr, and the muslims prayed witr.&quot; The man began repeating his question, and Abdullah ibn Umar kept saying, &quot;The Messenger of Allah, may Allah bless him and grant him peace, prayed witr, and the muslims prayed witr</span></td></tr>
+<tr class='grade' data-hadith='270'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='270'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 17</span></td></tr><tr id='h271' class='hadith-sep' data-hadith='271'><td colspan='2'><a class='permalink' href='#h271'>Hadith 271</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='271'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَائِشَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَانَتْ تَقُولُ مَنْ خَشِيَ أَنْ يَنَامَ حَتَّى يُصْبِحَ فَلْيُوتِرْ قَبْلَ أَنْ يَنَامَ وَمَنْ رَجَا أَنْ يَسْتَيْقِظَ آخِرَ اللَّيْلِ فَلْيُؤَخِّرْ وِتْرَهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='271'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, used to say, &quot;If someone fears that he will sleep through till the morning, let him pray the witr before he sleeps, and if some one hopes to wake for the last part of the night, let him delay his witr</span></td></tr>
+<tr class='grade' data-hadith='271'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='271'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 18</span></td></tr><tr id='h272' class='hadith-sep' data-hadith='272'><td colspan='2'><a class='permalink' href='#h272'>Hadith 272</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='272'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّهُ قَالَ كُنْتُ مَعَ عَبْدِ اللَّهِ بْنِ عُمَرَ بِمَكَّةَ وَالسَّمَاءُ مُغِيمَةٌ فَخَشِيَ عَبْدُ اللَّهِ الصُّبْحَ فَأَوْتَرَ بِوَاحِدَةٍ ثُمَّ انْكَشَفَ الْغَيْمُ فَرَأَى أَنَّ عَلَيْهِ لَيْلاً فَشَفَعَ بِوَاحِدَةٍ ثُمَّ صَلَّى بَعْدَ ذَلِكَ رَكْعَتَيْنِ رَكْعَتَيْنِ فَلَمَّا خَشِيَ الصُّبْحَ أَوْتَرَ بِوَاحِدَةٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='272'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Nafi said, &quot;I was with Abdullah ibn Umar in Makka. The sky was clouded over and Abdullah feared that dawn was approaching so he prayed one raka for witr. Then the clouds cleared and he saw that it was still night, so he made his prayers even with one raka. Then he continued to pray two rakas at a time, until when he feared the approach of dawn, he prayed one raka for witr</span></td></tr>
+<tr class='grade' data-hadith='272'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='272'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 19</span></td></tr><tr id='h273' class='hadith-sep' data-hadith='273'><td colspan='2'><a class='permalink' href='#h273'>Hadith 273</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='273'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يُسَلِّمُ بَيْنَ الرَّكْعَتَيْنِ وَالرَّكْعَةِ فِي الْوِتْرِ حَتَّى يَأْمُرَ بِبَعْضِ حَاجَتِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='273'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar used to say the taslim between the two rakas and the one raka of witr so that he could order something he needed</span></td></tr>
+<tr class='grade' data-hadith='273'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='273'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 20</span></td></tr><tr id='h274' class='hadith-sep' data-hadith='274'><td colspan='2'><a class='permalink' href='#h274'>Hadith 274</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='274'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّ سَعْدَ بْنَ أَبِي وَقَّاصٍ، كَانَ يُوتِرُ بَعْدَ الْعَتَمَةِ بِوَاحِدَةٍ ‏.‏ قَالَ مَالِكٌ وَلَيْسَ عَلَى هَذَا الْعَمَلُ عِنْدَنَا وَلَكِنْ أَدْنَى الْوِتْرِ ثَلاَثٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='274'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that Sad ibn Abi Waqqas used to pray witr after isha with one raka. Malik said, &quot;This is not the situation with us. Rather three is the minimum for witr</span></td></tr>
+<tr class='grade' data-hadith='274'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='274'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 21</span></td></tr><tr id='h275' class='hadith-sep' data-hadith='275'><td colspan='2'><a class='permalink' href='#h275'>Hadith 275</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='275'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يَقُولُ صَلاَةُالمغرب وتر صلاة النهار ‏.‏ قال مالك من أوتر أول الليل ثم نام ثم قام فبدا له أن يصلي فليصل مثنى مثنى فهو أحب ما سمعت إلى ‏</span></td></tr>
+<tr class='eng' data-hadith='275'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abdullah ibn Dinar that Abdullah ibn Umar used to say, &quot;The maghrib prayer is the witr of the daytime prayers.&quot; Malik said, &quot;If someone prays witr at the beginning of the night, and goes to sleep, and then wakes up and it seems good to him to pray, let him pray, two rakas at a time. That is what I like most of what I have heard</span></td></tr>
+<tr class='grade' data-hadith='275'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='275'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 22</span></td></tr><tr id='h276' class='hadith-sep' data-hadith='276'><td colspan='2'><a class='permalink' href='#h276'>Hadith 276</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='276'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ الْكَرِيمِ بْنِ أَبِي الْمُخَارِقِ الْبَصْرِيِّ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، رَقَدَ ثُمَّ اسْتَيْقَظَ فَقَالَ لِخَادِمِهِ انْظُرْ مَا صَنَعَ النَّاسُ ‏.‏ وَهُوَ يَوْمَئِذٍ قَدْ ذَهَبَ بَصَرُهُ ‏.‏ فَذَهَبَ الْخَادِمُ ثُمَّ رَجَعَ فَقَالَ قَدِ انْصَرَفَ النَّاسُ مِنَ الصُّبْحِ ‏.‏ فَقَامَ عَبْدُ اللَّهِ بْنُ عَبَّاسٍ فَأَوْتَرَ ثُمَّ صَلَّى الصُّبْحَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='276'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abd al Karim ibn Abi&#x27;l-Mukhariq al-Basri from Said ibn Jubayr that Abdullah ibn Abbas slept, and when he woke up, he said to his servant, &quot;Go and see what the people have done,&quot; (by that time his sight had gone.) The servant went out and returned saying, &quot;The people have left from subh,&quot; so Abdullah ibn Abbas got up and prayed witr and then prayed subh</span></td></tr>
+<tr class='grade' data-hadith='276'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='276'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 23</span></td></tr><tr id='h277' class='hadith-sep' data-hadith='277'><td colspan='2'><a class='permalink' href='#h277'>Hadith 277</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='277'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، وَعُبَادَةَ بْنَ الصَّامِتِ، وَالْقَاسِمَ بْنَ مُحَمَّدٍ، وَعَبْدَ اللَّهِ بْنَ عَامِرِ بْنِ رَبِيعَةَ، قَدْ أَوْتَرُوا بَعْدَ الْفَجْرِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='277'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Abdullah ibn Abbas and Ubada ibn as-Samit and al-Qasim ibn Muhammad and Abdullah ibn Amir ibn Rabia had all prayed witr after the break of dawn</span></td></tr>
+<tr class='grade' data-hadith='277'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='277'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 24</span></td></tr><tr id='h278' class='hadith-sep' data-hadith='278'><td colspan='2'><a class='permalink' href='#h278'>Hadith 278</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='278'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّ عَبْدَ اللَّهِ بْنَ مَسْعُودٍ، قَالَ مَا أُبَالِي لَوْ أُقِيمَتْ صَلاَةُ الصُّبْحِ وَأَنَا أُوتِرُ، ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='278'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that Abdullah ibn Masud said, &quot;I do not mind if the iqama for the subh prayer is called while I am still praying witr</span></td></tr>
+<tr class='grade' data-hadith='278'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='278'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 25</span></td></tr><tr id='h279' class='hadith-sep' data-hadith='279'><td colspan='2'><a class='permalink' href='#h279'>Hadith 279</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='279'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ قَالَ كَانَ عُبَادَةُ بْنُ الصَّامِتِ يَؤُمُّ قَوْمًا فَخَرَجَ يَوْمًا إِلَى الصُّبْحِ فَأَقَامَ الْمُؤَذِّنُ صَلاَةَ الصُّبْحِ فَأَسْكَتَهُ عُبَادَةُ حَتَّى أَوْتَرَ ثُمَّ صَلَّى بِهِمُ الصُّبْحَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='279'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said, &#x27;&#x27;Ubada ibn as-Samit used to lead the people in prayer. One day he came out for subh and the muadhdhin began to give the iqama for the subh prayer Ubada silenced him, prayed witr and then led them in subh</span></td></tr>
+<tr class='grade' data-hadith='279'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='279'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 26</span></td></tr><tr id='h280' class='hadith-sep' data-hadith='280'><td colspan='2'><a class='permalink' href='#h280'>Hadith 280</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='280'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، أَنَّهُ قَالَ سَمِعْتُ عَبْدَ اللَّهِ بْنَ عَامِرِ بْنِ رَبِيعَةَ، يَقُولُ إِنِّي لأُوتِرُ وَأَنَا أَسْمَعُ الإِقَامَةَ، أَوْ بَعْدَ الْفَجْرِ ‏.‏ يَشُكُّ عَبْدُ الرَّحْمَنِ أَىَّ ذَلِكَ قَالَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='280'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Abd ar-Rahman ibn al-Qasim said, &quot;I heard Abdullah ibn Amir ibn Rabia say, &#x27;I sometimes pray witr while hearing the iqama, or after the break of dawn.&#x27; &quot; Abd ar-Rahman was not certain which he said</span></td></tr>
+<tr class='grade' data-hadith='280'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='280'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 27</span></td></tr><tr id='h281' class='hadith-sep' data-hadith='281'><td colspan='2'><a class='permalink' href='#h281'>Hadith 281</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='281'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، أَنَّهُ سَمِعَ أَبَاهُ الْقَاسِمَ بْنَ مُحَمَّدٍ، يَقُولُ إِنِّي لأُوتِرُ بَعْدَ الْفَجْرِ ‏.‏ قَالَ مَالِكٌ وَإِنَّمَا يُوتِرُ بَعْدَ الْفَجْرِ مَنْ نَامَ عَنِ الْوِتْرِ وَلاَ يَنْبَغِي لأَحَدٍ أَنْ يَتَعَمَّدَ ذَلِكَ حَتَّى يَضَعَ وِتْرَهُ بَعْدَ الْفَجْرِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='281'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me that Abd ar-Rahman ibn al-Qasim heard his father al-Qasim ibn Muhammad say, &quot;I have prayed witr after dawn.&quot; Malik said, &quot;Only a person who oversleeps so that he does not do the witr prays it after dawn. No one should intentionally make his witr after dawn</span></td></tr>
+<tr class='grade' data-hadith='281'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='281'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 28</span></td></tr><tr id='h282' class='hadith-sep' data-hadith='282'><td colspan='2'><a class='permalink' href='#h282'>Hadith 282</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='282'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ حَفْصَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم أَخْبَرَتْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ إِذَا سَكَتَ الْمُؤَذِّنُ عَنِ الأَذَانِ لِصَلاَةِ الصُّبْحِ صَلَّى رَكْعَتَيْنِ خَفِيفَتَيْنِ قَبْلَ أَنْ تُقَامَ الصَّلاَةُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='282'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that Hafsa, the wife of the Prophet, may Allah bless him and grant him peace, told him that the Messenger of Allah, may Allah bless him and grant him peace, used to pray two quick rakas when the muadhdhin had finished the adhan for the subh prayer, before the iqama was said for the prayer</span></td></tr>
+<tr class='grade' data-hadith='282'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='282'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 29</span></td></tr><tr id='h283' class='hadith-sep' data-hadith='283'><td colspan='2'><a class='permalink' href='#h283'>Hadith 283</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='283'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ عَائِشَةَ، زَوْجَ النَّبِيِّ صلى الله عليه وسلم قَالَتْ إِنْ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم لَيُخَفِّفُ رَكْعَتَىِ الْفَجْرِ حَتَّى إِنِّي لأَقُولُ أَقَرَأَ بِأُمِّ الْقُرْآنِ أَمْ لاَ</span></td></tr>
+<tr class='eng' data-hadith='283'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik related to me from Yahya ibn Said that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;The Messenger of Allah, may Allah bless him and grant him peace, used to pray the two rakas of the dawn (fajr) so quickly that I would say to myself &#x27;Has he recited the umm al-Qur&#x27;an or not?</span></td></tr>
+<tr class='grade' data-hadith='283'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='283'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 30</span></td></tr><tr id='h284' class='hadith-sep' data-hadith='284'><td colspan='2'><a class='permalink' href='#h284'>Hadith 284</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='284'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ شَرِيكِ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي نَمِرٍ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، أَنَّهُ قَالَ سَمِعَ قَوْمٌ الإِقَامَةَ، فَقَامُوا يُصَلُّونَ فَخَرَجَ عَلَيْهِمْ رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏ &quot;‏ أَصَلاَتَانِ مَعًا أَصَلاَتَانِ مَعًا ‏&quot;‏ ‏.‏ وَذَلِكَ فِي صَلاَةِ الصُّبْحِ فِي الرَّكْعَتَيْنِ اللَّتَيْنِ قَبْلَ الصُّبْحِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='284'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Sharik ibn Abdullah ibn Abi Namir that Abu Salama ibn Abd ar-Rahman said, &quot;Some people heard the iqama and started to pray. The Messenger of Allah, may Allah bless him and grant him peace, came out and said, &#x27;Are you doing two prayers at the same time? Are you doing two prayers at the same time?&#x27; That was about the subh prayer and the two rakas before subh</span></td></tr>
+<tr class='grade' data-hadith='284'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='284'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 31</span></td></tr><tr id='h285' class='hadith-sep' data-hadith='285'><td colspan='2'><a class='permalink' href='#h285'>Hadith 285</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='285'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، فَاتَتْهُ رَكْعَتَا الْفَجْرِ فَقَضَاهُمَا بَعْدَ أَنْ طَلَعَتِ الشَّمْسُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='285'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that Abdullah ibn Umar missed the two rakas of dawn, and then did them after the sun rose</span></td></tr>
+<tr class='grade' data-hadith='285'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='285'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 32</span></td></tr><tr id='h286' class='hadith-sep' data-hadith='286'><td colspan='2'><a class='permalink' href='#h286'>Hadith 286</a> — Tahajjud</td></tr>
+<tr class='arabic' data-hadith='286'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، عَنِ الْقَاسِمِ بْنِ مُحَمَّدٍ، أَنَّهُ صَنَعَ مِثْلَ الَّذِي صَنَعَ ابْنُ عُمَرَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='286'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abd ar-Rahman ibn al-Qasim that al-Qasim ibn Muhammad had done the same as Ibn Umar</span></td></tr>
+<tr class='grade' data-hadith='286'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='286'><td class='label'>Reference</td><td><span class='ref-text'>Book 7, Hadith 33</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -317,5 +451,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>

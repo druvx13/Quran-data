@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Jumu&#x27;a</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html" selected>5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html">7. Tahajjud</option><option value="malik-book-008.html">8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-000.html">21. General</option><option value="malik-book-021.html">22. Jihad</option><option value="malik-book-022.html">23. Vows and Oaths</option><option value="malik-book-023.html">24. Sacrificial Animals</option><option value="malik-book-024.html">25. Slaughtering Animals</option><option value="malik-book-025.html">26. Game</option><option value="malik-book-026.html">27. The &#x27;Aqiqa</option><option value="malik-book-027.html">28. Fara&#x27;id</option><option value="malik-book-028.html">29. Marriage</option><option value="malik-book-029.html">30. Divorce</option><option value="malik-book-030.html">31. Suckling</option><option value="malik-book-031.html">32. Business Transactions</option><option value="malik-book-032.html">33. Qirad</option><option value="malik-book-033.html">34. Sharecropping</option><option value="malik-book-034.html">35. Renting Land</option><option value="malik-book-035.html">36. Pre-emption in Property</option><option value="malik-book-036.html">37. Judgements</option><option value="malik-book-037.html">38. Wills and Testaments</option><option value="malik-book-038.html">39. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">40. The Mukatab</option><option value="malik-book-040.html">41. The Mudabbar</option><option value="malik-book-041.html">42. Hudud</option><option value="malik-book-042.html">43. Drinks</option><option value="malik-book-043.html">44. Blood-Money</option><option value="malik-book-044.html">45. The Oath of Qasama</option><option value="malik-book-045.html">46. Madina</option><option value="malik-book-046.html">47. The Decree</option><option value="malik-book-047.html">48. Good Character</option><option value="malik-book-048.html">49. Dress</option><option value="malik-book-049.html">50. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">51. The Evil Eye</option><option value="malik-book-051.html">52. Hair</option><option value="malik-book-052.html">53. Visions</option><option value="malik-book-053.html">54. Greetings</option><option value="malik-book-054.html">55. General Subjects</option><option value="malik-book-055.html">56. The Oath of Allegiance</option><option value="malik-book-056.html">57. Speech</option><option value="malik-book-057.html">58. Jahannam</option><option value="malik-book-058.html">59. Sadaqa</option><option value="malik-book-059.html">60. Knowledge</option><option value="malik-book-060.html">61. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">62. The Names of the Prophet, may Allah Bless Him and…</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,95 +294,97 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 225–245 &nbsp;|&nbsp;
   <a href="malik.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='225' max='245' value='225'></label><label>To <input type='number' id='hvc-to' min='225' max='245' value='245'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h225' class='hadith-sep'><td colspan='2'>Hadith 225 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ سُمَىٍّ، مَوْلَى أَبِي بَكْرِ بْنِ عَبْدِ الرَّحْمَنِ عَنْ أَبِي صَالِحٍ السَّمَّانِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنِ اغْتَسَلَ يَوْمَ الْجُمُعَةِ غُسْلَ الْجَنَابَةِ ثُمَّ رَاحَ فِي السَّاعَةِ الأُولَى فَكَأَنَّمَا قَرَّبَ بَدَنَةً وَمَنْ رَاحَ فِي السَّاعَةِ الثَّانِيَةِ فَكَأَنَّمَا قَرَّبَ بَقَرَةً وَمَنْ رَاحَ فِي السَّاعَةِ الثَّالِثَةِ فَكَأَنَّمَا قَرَّبَ كَبْشًا أَقْرَنَ وَمَنْ رَاحَ فِي السَّاعَةِ الرَّابِعَةِ فَكَأَنَّمَا قَرَّبَ دَجَاجَةً وَمَنْ رَاحَ فِي السَّاعَةِ الْخَامِسَةِ فَكَأَنَّمَا قَرَّبَ بَيْضَةً فَإِذَا خَرَجَ الإِمَامُ حَضَرَتِ الْمَلاَئِكَةُ يَسْتَمِعُونَ الذِّكْرَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Sumayy, the mawla of Abu Bakr ibn Abd ar-Rahman, from Abu Salih as-Sammani from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If someone does ghusl for major ritual impurity on the day of jumua and then goes in the first part of the time, it is as if he had offered up a camel. If he goes in the second part of the time, it is as if he had offered up a cow. If he goes in the third part of the time, it is as if he had offered up a horned ram. If he goes in the fourth part of the time, it is as if he had offered up a hen. If he goes in the fifth part of the time, it is as if he had offered up an egg. And when the imam comes out, the angels settle down listening to the dhikr (remembrance of Allah)</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 1</span></td></tr><tr id='h226' class='hadith-sep'><td colspan='2'>Hadith 226 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ الْمَقْبُرِيِّ، عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ كَانَ يَقُولُ غُسْلُ يَوْمِ الْجُمُعَةِ وَاجِبٌ عَلَى كُلِّ مُحْتَلِمٍ كَغُسْلِ الْجَنَابَةِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Said ibn Abi Said al-Maqburi that Abu Hurayra used to say, &quot;Doing ghusl as prescribed for major ritual impurity is incumbent (wajib) on the day of jumua on every male who has reached puberty</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 2</span></td></tr><tr id='h227' class='hadith-sep'><td colspan='2'>Hadith 227 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَالِمِ بْنِ عَبْدِ اللَّهِ، أَنَّهُ قَالَ دَخَلَ رَجُلٌ مِنْ أَصْحَابِ رَسُولِ اللَّهِ صلى الله عليه وسلم الْمَسْجِدَ يَوْمَ الْجُمُعَةِ وَعُمَرُ بْنُ الْخَطَّابِ يَخْطُبُ فَقَالَ عُمَرُ أَيَّةُ سَاعَةٍ هَذِهِ فَقَالَ يَا أَمِيرَ الْمُؤْمِنِينَ انْقَلَبْتُ مِنَ السُّوقِ فَسَمِعْتُ النِّدَاءَ فَمَا زِدْتُ عَلَى أَنْ تَوَضَّأْتُ ‏.‏ فَقَالَ عُمَرُ وَالْوُضُوءَ أَيْضًا وَقَدْ عَلِمْتَ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَأْمُرُ بِالْغُسْلِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab that Salim ibn Abdullah said, &quot;One of the companions of the Messenger of Allah, may Allah bless him and grant him peace, came into the mosque on the day of jumua and Umar ibn al Khattab was already giving the khutba. Umar said, &#x27;What (kind of) time is this (to arrive)?&#x27; He said, Amir al- muminin, I returned from the market and heard the call to prayer, so I did no more than do wudu.&#x27; Umar said, &#x27;You only did wudu as well? You know that the Messenger of Allah, may Allah bless him and grant him peace, used to tell people to do ghusl</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 3</span></td></tr><tr id='h228' class='hadith-sep'><td colspan='2'>Hadith 228 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ غُسْلُ يَوْمِ الْجُمُعَةِ وَاجِبٌ عَلَى كُلِّ مُحْتَلِمٍ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Safwan ibn Sulaym from Ata ibn Yasar from Abu Said al-Khudri that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Ghusl on the day of jumua is incumbent on every male who has reached puberty</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 4</span></td></tr><tr id='h229' class='hadith-sep'><td colspan='2'>Hadith 229 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا جَاءَ أَحَدُكُمُ الْجُمُعَةَ فَلْيَغْتَسِلْ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from Ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When you come to jumua, do ghusl.&quot; Malik said, &quot;It is not enough for someone to do a ghusl on the day of jumua and intend by it the ghusl for jumua unless he does the ghusl and then sets off. That is because the Messenger of Allah, may Allah bless him and grant him peace, said in the hadith related by Ibn Umar, &#x27;When you come to jumua, do ghusl .&#x27; &quot; Malik said, &quot;If someone does ghusl on the day of jumua and intends by it the ghusl of the day of jumua and then sets out, whether early or late, and does something which breaks his wudu, he only has to do wudu and his ghusl remains valid for him</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 5</span></td></tr><tr id='h230' class='hadith-sep'><td colspan='2'>Hadith 230 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا قُلْتَ لِصَاحِبِكَ أَنْصِتْ وَالإِمَامُ يَخْطُبُ يَوْمَ الْجُمُعَةِ فَقَدْ لَغَوْتَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu&#x27;z Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Even saying to your companion &#x27;Listen&#x27; while the imam is giving the khutba on the day of jumua, is to speak foolishly</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 6</span></td></tr><tr id='h231' class='hadith-sep'><td colspan='2'>Hadith 231 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ ثَعْلَبَةَ بْنِ أَبِي مَالِكٍ الْقُرَظِيِّ، أَنَّهُ أَخْبَرَهُ أَنَّهُمْ، كَانُوا فِي زَمَانِ عُمَرَ بْنِ الْخَطَّابِ يُصَلُّونَ يَوْمَ الْجُمُعَةِ حَتَّى يَخْرُجَ عُمَرُ فَإِذَا خَرَجَ عُمَرُ وَجَلَسَ عَلَى الْمِنْبَرِ وَأَذَّنَ الْمُؤَذِّنُونَ - قَالَ ثَعْلَبَةُ - جَلَسْنَا نَتَحَدَّثُ فَإِذَا سَكَتَ الْمُؤَذِّنُونَ وَقَامَ عُمَرُ يَخْطُبُ أَنْصَتْنَا فَلَمْ يَتَكَلَّمْ مِنَّا أَحَدٌ ‏.‏ قَالَ ابْنُ شِهَابٍ فَخُرُوجُ الإِمَامِ يَقْطَعُ الصَّلاَةَ وَكَلاَمُهُ يَقْطَعُ الْكَلاَمَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab that Thalaba ibn Abi Malik al Quradhi informed him that in the time of Umar ibn al Khattab they used to pray on the day of jumua until Umar came out, and when Umar came out and sat on the mimbar and the muadhdhins called the adhan, they would sit and talk, and then when the muadhdhins were silent and Umar stood to give the khutba, they would pay attention and no-one would speak . Ibn Shihab said, &quot;The imam coming out stops prayer and his speaking stops conversation</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 7</span></td></tr><tr id='h232' class='hadith-sep'><td colspan='2'>Hadith 232 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي النَّضْرِ، مَوْلَى عُمَرَ بْنِ عُبَيْدِ اللَّهِ عَنْ مَالِكِ بْنِ أَبِي عَامِرٍ، أَنَّ عُثْمَانَ بْنَ عَفَّانَ، كَانَ يَقُولُ فِي خُطْبَتِهِ قَلَّمَا يَدَعُ ذَلِكَ إِذَا خَطَبَ إِذَا قَامَ الإِمَامُ يَخْطُبُ يَوْمَ الْجُمُعَةِ فَاسْتَمِعُوا وَأَنْصِتُوا فَإِنَّ لِلْمُنْصِتِ الَّذِي لاَ يَسْمَعُ مِنَ الْحَظِّ مِثْلَ مَا لِلْمُنْصِتِ السَّامِعِ فَإِذَا قَامَتِ الصَّلاَةُ فَاعْدِلُوا الصُّفُوفَ وَحَاذُوا بِالْمَنَاكِبِ فَإِنَّ اعْتِدَالَ الصُّفُوفِ مِنْ تَمَامِ الصَّلاَةِ ‏.‏ ثُمَّ لاَ يُكَبِّرُ حَتَّى يَأْتِيَهُ رِجَالٌ قَدْ وَكَّلَهُمْ بِتَسْوِيَةِ الصُّفُوفِ فَيُخْبِرُونَهُ أَنْ قَدِ اسْتَوَتْ فَيُكَبِّرُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abu&#x27;n Nadr, the mawla of Umar ibn Ubaydullah, from Malik ibn Abi Amir that Uthman ibn Affan used to say in khutbas, and he would seldom omit it if he was giving the khutba, &quot;When the imam stands delivering the khutba on the day of jumua, listen and pay attention, for there is the same portion for someone who pays attention but cannot hear as for someone who pays attention and hears. And when the iqama of the prayer is called, straighten your rows and make your shoulders adjacent to each other, because the straightening of the rows is part of the completion of the prayer.&quot; Then he would not say the takbir until some men who had been entrusted with straightening the rows came and told him that they were straight. Then he would say the takbir</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 8</span></td></tr><tr id='h233' class='hadith-sep'><td colspan='2'>Hadith 233 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، رَأَى رَجُلَيْنِ يَتَحَدَّثَانِ وَالإِمَامُ يَخْطُبُ يَوْمَ الْجُمُعَةِ فَحَصَبَهُمَا أَنِ اصْمُتَا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar saw two men talking while the imam was giving the khutba on the day of jumua and he threw pebbles at them to tell them to be quiet</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 9</span></td></tr><tr id='h234' class='hadith-sep'><td colspan='2'>Hadith 234 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَجُلاً، عَطَسَ يَوْمَ الْجُمُعَةِ وَالإِمَامُ يَخْطُبُ فَشَمَّتَهُ إِنْسَانٌ إِلَى جَنْبِهِ فَسَأَلَ عَنْ ذَلِكَ سَعِيدَ بْنَ الْمُسَيَّبِ فَنَهَاهُ عَنْ ذَلِكَ وَقَالَ لاَ تَعُدْ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he had heard that a man sneezed on the day of jumua while the imam was giving the khutba, and a man by his side asked Allah to bless him. Said ibn al Musayyab was asked about it and he forbade the man to do what he had done and said, &quot;Don&#x27;t do it again</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 10</span></td></tr><tr id='h235' class='hadith-sep'><td colspan='2'>Hadith 235 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ سَأَلَ ابْنَ شِهَابٍ عَنِ الْكَلاَمِ، يَوْمَ الْجُمُعَةِ إِذَا نَزَلَ الإِمَامُ عَنِ الْمِنْبَرِ، قَبْلَ أَنْ يُكَبِّرَ، ‏.‏ فَقَالَ ابْنُ شِهَابٍ لاَ بَأْسَ بِذَلِكَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that he asked Ibn Shihab about talking in the jumua after the imam had come down from the mimbar but before he had said the takbir. Ibn Shihab said, &quot;There is no harm in that</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 11</span></td></tr><tr id='h236' class='hadith-sep'><td colspan='2'>Hadith 236 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ كَانَ يَقُولُ مَنْ أَدْرَكَ مِنْ صَلاَةِ الْجُمُعَةِ رَكْعَةً فَلْيُصَلِّ إِلَيْهَا أُخْرَى ‏.‏ قَالَ ابْنُ شِهَابٍ وَهِيَ السُّنَّةُ ‏.‏ قَالَ مَالِكٌ وَعَلَى ذَلِكَ أَدْرَكْتُ أَهْلَ الْعِلْمِ بِبَلَدِنَا وَذَلِكَ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ أَدْرَكَ مِنَ الصَّلاَةِ رَكْعَةً فَقَدْ أَدْرَكَ الصَّلاَةَ ‏&quot;‏ ‏.‏ قَالَ مَالِكٌ فِي الَّذِي يُصِيبُهُ زِحَامٌ يَوْمَ الْجُمُعَةِ فَيَرْكَعُ وَلاَ يَقْدِرُ عَلَى أَنْ يَسْجُدَ حَتَّى يَقُومَ الإِمَامُ أَوْ يَفْرُغَ الإِمَامُ مِنْ صَلاَتِهِ إِنَّهُ إِنْ قَدَرَ عَلَى أَنْ يَسْجُدَ إِنْ كَانَ قَدْ رَكَعَ فَلْيَسْجُدْ إِذَا قَامَ النَّاسُ وَإِنْ لَمْ يَقْدِرْ عَلَى أَنْ يَسْجُدَ حَتَّى يَفْرُغَ الإِمَامُ مِنْ صَلاَتِهِ فَإِنَّهُ أَحَبُّ إِلَىَّ أَنْ يَبْتَدِئَ صَلاَتَهُ ظُهْرًا أَرْبَعًا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Ibn Shihab used to say, &quot;Some one who catches a raka of the jumua prayer should pray another one with it.&quot; Ibn Shihab said, &quot;That is the sunna.&quot; Malik said, &quot;I saw the people of knowledge in our city doing that. That is because the Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Whoever catches a raka of the prayer has caught the prayer.&#x27; &quot; Malik said, concerning some one who was in a crowd on the day of jumua and did the ruku but was not able to go into sajda until the imam had risen or finished his prayer, &quot;If he is able to do the sajda and has already done the ruku then he should do the sajda when the people stand up. If he is unable to do thesajda until after the imam has finished the prayer, then I prefer that he begins the prayeragain and does the four rakas of dhuhr</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 12</span></td></tr><tr id='h237' class='hadith-sep'><td colspan='2'>Hadith 237 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، أَنَّهُ سَأَلَ ابْنَ شِهَابٍ عَنْ قَوْلِ اللَّهِ، عَزَّ وَجَلَّ ‏{‏يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا نُودِيَ لِلصَّلاَةِ مِنْ يَوْمِ الْجُمُعَةِ فَاسْعَوْا إِلَى ذِكْرِ اللَّهِ‏}‏ فَقَالَ ابْنُ شِهَابٍ كَانَ عُمَرُ بْنُ الْخَطَّابِ يَقْرَؤُهَا إِذَا نُودِيَ لِلصَّلاَةِ مِنْ يَوْمِ الْجُمُعَةِ فَامْضُوا إِلَى ذِكْرِ اللَّهِ ‏.‏ قَالَ مَالِكٌ وَإِنَّمَا السَّعْىُ فِي كِتَابِ اللَّهِ الْعَمَلُ وَالْفِعْلُ يَقُولُ اللَّهُ تَبَارَكَ وَتَعَالَى ‏{‏وَإِذَا تَوَلَّى سَعَى فِي الأَرْضِ‏}‏ وَقَالَ تَعَالَى ‏{‏وَأَمَّا مَنْ جَاءَكَ يَسْعَى وَهُوَ يَخْشَى‏}‏ وَقَالَ ‏{‏ثُمَّ أَدْبَرَ يَسْعَى‏}‏ وَقَالَ ‏{‏إِنَّ سَعْيَكُمْ لَشَتَّى‏}‏ قَالَ مَالِكٌ فَلَيْسَ السَّعْىُ الَّذِي ذَكَرَ اللَّهُ فِي كِتَابِهِ بِالسَّعْىِ عَلَى الأَقْدَامِ وَلاَ الاِشْتِدَادَ وَإِنَّمَا عَنَى الْعَمَلَ وَالْفِعْلَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik said, &quot;Someone who has a nosebleed on the day of jumua while the imam is giving the khutba and he leaves and does not come back until the imam has finished the prayer, should pray four rakas.&#x27;&#x27; Malik said that someone who prayed a raka with the imam on the day of jumua, then had a nosebleed and left and came back and the imam had prayed both rakas, should complete the prayer with another raka as long as he had not spoken. Malik said, &quot;If some one has a nosebleed, or something happens to him and he has no alternative but to leave, he does not have to ask permission of the imam if he wants to leave on the day of jumua.&quot; Yahya related to me from Malik that he had asked Ibn Shihab about the word of Allah, the Majestic, the Mighty, &quot;O you who accept, when the call is made for the prayer on the day of jumua, make haste to the remembrance of Allah.&quot;(Sura 62 ayat 9). Ibn Shihab said, &#x27;&#x27;Umar ibn al-Khattab used to recite, &#x27;When the call is made for the prayer on the day of jumua, go to the remembrance of Allah.&#x27; &quot; Malik said, &quot;Making haste in the Book of Allah is only deed and action. Allah the Blessed, the Exalted, says &#x27;and when he turns away, he acts in the land&#x27; (Sura 2 ayat 205), and He, the Exalted, said, &#x27;and as for the one who comes to you acting with fear&#x27; (Sura 80 ayat 8), and He said, &#x27;then he turned his back, and acted&#x27; (Sura 79 ayat 22),and He said, &#x27;Your deeds are diverse&#x27; &quot; (Sura 92 ayat 4). Malik said, &quot;Thus making haste which Allah mentions in His Book is not running on the feet or exertion. It only means deed and actions</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 13</span></td></tr><tr id='h238' class='hadith-sep'><td colspan='2'>Hadith 238 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم ذَكَرَ يَوْمَ الْجُمُعَةِ فَقَالَ ‏ &quot;‏ فِيهِ سَاعَةٌ لاَ يُوَافِقُهَا عَبْدٌ مُسْلِمٌ وَهُوَ قَائِمٌ يُصَلِّي يَسْأَلُ اللَّهَ شَيْئًا إِلاَّ أَعْطَاهُ إِيَّاهُ ‏&quot;‏ ‏.‏ وَأَشَارَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِيَدِهِ يُقَلِّلُهَا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Malik said, &quot;If the imam stops off on a journey in a town where jumua is obligatory and he gives a khutba and takes the jumua prayer for them, then the people of the town and any other people present do the jumua prayer with him.&quot; Malik said, &quot;If the imam gathers people for prayer while he is travelling in a town where the jumua prayer is not obligatory, then there is no jumua for him, nor for the people of the town, nor for anyone else who joins them for the prayer in congregation, and the people of the town and anyone else who is not travelling should complete the prayer.&quot; Malik added, &quot;A traveller does not have to do jumua &quot; Yahya related to me from Malik from Abu&#x27;z Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, mentioned the day of jumua and said, &quot;There is a time in it when Allah gives to a muslim slave standing in prayer whatever he asks for,&quot; and the Messenger of Allah, may Allah bless him and grant him peace, indicated with his hand how small it was</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 14</span></td></tr><tr id='h239' class='hadith-sep'><td colspan='2'>Hadith 239 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ عَبْدِ اللَّهِ بْنِ الْهَادِ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ بْنِ الْحَارِثِ التَّيْمِيِّ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ قَالَ خَرَجْتُ إِلَى الطُّورِ فَلَقِيتُ كَعْبَ الأَحْبَارِ فَجَلَسْتُ مَعَهُ فَحَدَّثَنِي عَنِ التَّوْرَاةِ وَحَدَّثْتُهُ عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم فَكَانَ فِيمَا حَدَّثْتُهُ أَنْ قُلْتُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ فِيهِ خُلِقَ آدَمُ وَفِيهِ أُهْبِطَ مِنَ الْجَنَّةِ وَفِيهِ تِيبَ عَلَيْهِ وَفِيهِ مَاتَ وَفِيهِ تَقُومُ السَّاعَةُ وَمَا مِنْ دَابَّةٍ إِلاَّ وَهِيَ مُصِيخَةٌ يَوْمَ الْجُمُعَةِ مِنْ حِينِ تُصْبِحُ حَتَّى تَطْلُعَ الشَّمْسُ شَفَقًا مِنَ السَّاعَةِ إِلاَّ الْجِنَّ وَالإِنْسَ وَفِيهِ سَاعَةٌ لاَ يُصَادِفُهَا عَبْدٌ مُسْلِمٌ وَهُوَ يُصَلِّي يَسْأَلُ اللَّهَ شَيْئًا إِلاَّ أَعْطَاهُ إِيَّاهُ ‏&quot;‏ ‏.‏ قَالَ كَعْبٌ ذَلِكَ فِي كُلِّ سَنَةٍ يَوْمٌ ‏.‏ فَقُلْتُ بَلْ فِي كُلِّ جُمُعَةٍ ‏.‏ فَقَرَأَ كَعْبٌ التَّوْرَاةَ فَقَالَ صَدَقَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَلَقِيتُ بَصْرَةَ بْنَ أَبِي بَصْرَةَ الْغِفَارِيَّ فَقَالَ مِنْ أَيْنَ أَقْبَلْتَ فَقُلْتُ مِنَ الطُّورِ ‏.‏ فَقَالَ لَوْ أَدْرَكْتُكَ قَبْلَ أَنْ تَخْرُجَ إِلَيْهِ مَا خَرَجْتَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏&quot;‏ لاَ تُعْمَلُ الْمَطِيُّ إِلاَّ إِلَى ثَلاَثَةِ مَسَاجِدَ إِلَى الْمَسْجِدِ الْحَرَامِ وَإِلَى مَسْجِدِي هَذَا وَإِلَى مَسْجِدِ إِيلْيَاءَ أَوْ بَيْتِ الْمَقْدِسِ ‏&quot;‏ ‏.‏ يَشُكُّ ‏.‏ قَالَ أَبُو هُرَيْرَةَ ثُمَّ لَقِيتُ عَبْدَ اللَّهِ بْنَ سَلاَمٍ فَحَدَّثْتُهُ بِمَجْلِسِي مَعَ كَعْبِ الأَحْبَارِ وَمَا حَدَّثْتُهُ بِهِ فِي يَوْمِ الْجُمُعَةِ فَقُلْتُ قَالَ كَعْبٌ ذَلِكَ فِي كُلِّ سَنَةٍ يَوْمٌ ‏.‏ قَالَ قَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ كَذَبَ كَعْبٌ ‏.‏ فَقُلْتُ ثُمَّ قَرَأَ كَعْبٌ التَّوْرَاةَ فَقَالَ بَلْ هِيَ فِي كُلِّ جُمُعَةٍ ‏.‏ فَقَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ صَدَقَ كَعْبٌ ‏.‏ ثُمَّ قَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ قَدْ عَلِمْتُ أَيَّةَ سَاعَةٍ هِيَ ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَقُلْتُ لَهُ أَخْبِرْنِي بِهَا وَلاَ تَضِنَّ عَلَىَّ ‏.‏ فَقَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ هِيَ آخِرُ سَاعَةٍ فِي يَوْمِ الْجُمُعَةِ ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَقُلْتُ وَكَيْفَ تَكُونُ آخِرُ سَاعَةٍ فِي يَوْمِ الْجُمُعَةِ وَقَدْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ يُصَادِفُهَا عَبْدٌ مُسْلِمٌ وَهُوَ يُصَلِّي ‏&quot;‏ ‏.‏ وَتِلْكَ السَّاعَةُ سَاعَةٌ لاَ يُصَلَّى فِيهَا فَقَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ أَلَمْ يَقُلْ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مَنْ جَلَسَ مَجْلِسًا يَنْتَظِرُ الصَّلاَةَ فَهُوَ فِي صَلاَةٍ حَتَّى يُصَلِّيَ ‏&quot;‏ ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَقُلْتُ بَلَى ‏.‏ قَالَ فَهُوَ ذَلِكَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yazid ibn Abdullah ibn al-Had from Muhammad ibn Ibrahim ibn al-Harith at-Taymi from Abu Salama ibn Abd ar-Rahman ibn Awf that Abu Hurayra said, &quot;I went out to at-Tur (Mount Sinai) and met Kab al Ahbar and sat with him. He related to me things from the Tawrah and I related to him things from the Messenger of Allah, may Allah bless him and grant him peace. Among the things I related to him was that the Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;The best of days on which the sun rises is the day of jumua. In it Adam was created, and in it he fell from the Garden. In it he was forgiven, and in it he died. In it the Hour occurs, and every moving thing listens from morning till sunset in apprehension of the Hour except jinn and men. In it is a time when Allah gives toa muslim slave standing in prayer whatever he asks for.&#x27; Kab said, &#x27;That is one day in every year.&#x27; I said, &#x27;No, in every jumua.&#x27; Then Kab recited the Tawrah and said, &#x27;The Messenger of Allah has spoken the truth.&#x27; &quot; Abu Hurayra continued, &quot;I met Basra ibn Abi Basra al-Ghiffari and he said, &#x27;Where have you come from?&#x27; I said, &#x27;From at-Tur.&#x27; He said, &#x27;If I had seen you before you left, you would not have gone. I heard the Messenger of Allah, may Allah bless him and grant him peace, say, &quot;Only make a special journey to three mosques:the mosque of the Haram (Makka), this mosque (Madina), and the mosque of Ilya or the Bait al-Maqdis (two names of Jerusalem).&quot; &#x27; &quot; (He was not sure which expression was used.) Abu Hurayra continued, &quot;Then I met Abdullah ibn Salam and I told him that I had sat with Kabal-Ahbar, and I mentioned what I had related to him about the day of jumua, and told him that Kab had said, &#x27;That is one day in every year.&#x27; Abdullah ibn Salam said, &#x27;Kab lied,&#x27; and I added, &#x27;Kab then recited the Tawrah and said, &quot;No, it is in every jumua.&#x27;&#x27; &#x27; Abdullah ibn Salam said, &#x27;Kab spoke the truth. &#x27;Then Abdullah ibn Salam said, &#x27;I know what time that is.&#x27; &quot; Abu Hurayra continued, &quot;I said to him, &#x27;Let me know it - don&#x27;t keep it from me.&#x27; Abdullah ibn Salam said, &#x27;It is the last period of time in the dayof jumua.&#x27; &quot; Abu Hurayra continued, &quot;I said, &#x27;How can it be the last period of time in the day of jumua, when the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;a muslim slave standing in prayer&quot;, and that is a time when there is no prayer?&#x27; Abdullah ibn Salam replied, &#x27;Didn&#x27;t the Messenger of Allah, may Allah bless him and grant him peace, say, &quot;Whoever sits waiting for the prayer is in prayer until he prays?&quot; &quot;&#x27; Abu Hurayra added, &quot;I said, &#x27;Of course.&#x27; He said, &#x27;Then it is that</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 15</span></td></tr><tr id='h240' class='hadith-sep'><td colspan='2'>Hadith 240 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ قَالَ ‏ &quot;‏ مَا عَلَى أَحَدِكُمْ لَوِ اتَّخَذَ ثَوْبَيْنِ لِجُمُعَتِهِ سِوَى ثَوْبَىْ مَهْنَتِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;There is nothing wrong in wearing two garments which are not work-clothes for jumua</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 16</span></td></tr><tr id='h241' class='hadith-sep'><td colspan='2'>Hadith 241 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ لاَ يَرُوحُ إِلَى الْجُمُعَةِ إِلاَّ ادَّهَنَ وَتَطَيَّبَ إِلاَّ أَنْ يَكُونَ حَرَامًا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar would never go to jumua without wearing oil and perfume except when it was forbidden (i.e. when he was muhrim)</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 17</span></td></tr><tr id='h242' class='hadith-sep'><td colspan='2'>Hadith 242 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ حَزْمٍ، عَمَّنْ حَدَّثَهُ عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ كَانَ يَقُولُ لأَنْ يُصَلِّيَ أَحَدُكُمْ بِظَهْرِ الْحَرَّةِ خَيْرٌ لَهُ مِنْ أَنْ يَقْعُدَ حَتَّى إِذَا قَامَ الإِمَامُ يَخْطُبُ جَاءَ يَتَخَطَّى رِقَابَ النَّاسِ يَوْمَ الْجُمُعَةِ ‏.‏ قَالَ مَالِكٌ السُّنَّةُ عِنْدَنَا أَنْ يَسْتَقْبِلَ النَّاسُ الإِمَامَ يَوْمَ الْجُمُعَةِ إِذَا أَرَادَ أَنْ يَخْطُبَ مَنْ كَانَ مِنْهُمْ يَلِي الْقِبْلَةَ وَغَيْرَهَا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi from Abdullah ibn Abi Bakr ibn Hazm from whoever related it to him that Abu Hurayra used to say, &quot;It is better for a man to pray on the surface of al Harra (a rocky area in Madina) than for him to wait until the imam stands to give the khutba and then come and step over people&#x27;s necks.&quot; Malik said, &quot;The sunna with us is that the people face the imam on the day of jumua when he intends to give the khutba, whether they are near the qibla or elsewhere</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 18</span></td></tr><tr id='h243' class='hadith-sep'><td colspan='2'>Hadith 243 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ ضَمْرَةَ بْنِ سَعِيدٍ الْمَازِنِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ بْنِ مَسْعُودٍ، أَنَّ الضَّحَّاكَ بْنَ قَيْسٍ، سَأَلَ النُّعْمَانَ بْنَ بَشِيرٍ مَاذَا كَانَ يَقْرَأُ بِهِ رَسُولُ اللَّهِ صلى الله عليه وسلم يَوْمَ الْجُمُعَةِ عَلَى إِثْرِ سُورَةِ الْجُمُعَةِ قَالَ كَانَ يَقْرَأُ ‏{‏هَلْ أَتَاكَ حَدِيثُ الْغَاشِيَةِ‏}‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Damra ibn Said al-Mazini from Ubaydullah ibn Abdullah ibn Utba ibn Masud that ad-Dahhak ibn Qays asked an-Numan ibn Bashir, &quot;What did the Messenger of Allah, may Allah bless him and grant him peace, use to recite on the day of jumua after suratal-Jumua (Sura 62)?&quot; He said, &quot;He used to recite al-Ghashiya (Sura)</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 19</span></td></tr><tr id='h244' class='hadith-sep'><td colspan='2'>Hadith 244 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، - قَالَ مَالِكٌ لاَ أَدْرِي أَعَنِ النَّبِيِّ صلى الله عليه وسلم أَمْ لاَ - أَنَّهُ قَالَ ‏ &quot;‏ مَنْ تَرَكَ الْجُمُعَةَ ثَلاَثَ مَرَّاتٍ مِنْ غَيْرِ عُذْرٍ وَلاَ عِلَّةٍ طَبَعَ اللَّهُ عَلَى قَلْبِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Safwan ibn Sulaym said, &quot;If anyone omits jumua three times without reason or illness, Allah will set a seal on his heart.&quot; (Malik said, &quot;I don&#x27;t know if it was from the Messenger of Allah, may Allah bless him and grant him peace, or not)</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 20</span></td></tr><tr id='h245' class='hadith-sep'><td colspan='2'>Hadith 245 — Jumu&#x27;a</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ جَعْفَرِ بْنِ مُحَمَّدٍ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم خَطَبَ خُطْبَتَيْنِ يَوْمَ الْجُمُعَةِ وَجَلَسَ بَيْنَهُمَا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Jafar ibn Muhammad from his father that the Messenger of Allah, may Allah bless him and grant him peace, gave two khutbas on the day of jumua and sat down between them</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 21</span></td></tr>
+<tr id='h225' class='hadith-sep' data-hadith='225'><td colspan='2'><a class='permalink' href='#h225'>Hadith 225</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='225'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ سُمَىٍّ، مَوْلَى أَبِي بَكْرِ بْنِ عَبْدِ الرَّحْمَنِ عَنْ أَبِي صَالِحٍ السَّمَّانِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنِ اغْتَسَلَ يَوْمَ الْجُمُعَةِ غُسْلَ الْجَنَابَةِ ثُمَّ رَاحَ فِي السَّاعَةِ الأُولَى فَكَأَنَّمَا قَرَّبَ بَدَنَةً وَمَنْ رَاحَ فِي السَّاعَةِ الثَّانِيَةِ فَكَأَنَّمَا قَرَّبَ بَقَرَةً وَمَنْ رَاحَ فِي السَّاعَةِ الثَّالِثَةِ فَكَأَنَّمَا قَرَّبَ كَبْشًا أَقْرَنَ وَمَنْ رَاحَ فِي السَّاعَةِ الرَّابِعَةِ فَكَأَنَّمَا قَرَّبَ دَجَاجَةً وَمَنْ رَاحَ فِي السَّاعَةِ الْخَامِسَةِ فَكَأَنَّمَا قَرَّبَ بَيْضَةً فَإِذَا خَرَجَ الإِمَامُ حَضَرَتِ الْمَلاَئِكَةُ يَسْتَمِعُونَ الذِّكْرَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='225'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Sumayy, the mawla of Abu Bakr ibn Abd ar-Rahman, from Abu Salih as-Sammani from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;If someone does ghusl for major ritual impurity on the day of jumua and then goes in the first part of the time, it is as if he had offered up a camel. If he goes in the second part of the time, it is as if he had offered up a cow. If he goes in the third part of the time, it is as if he had offered up a horned ram. If he goes in the fourth part of the time, it is as if he had offered up a hen. If he goes in the fifth part of the time, it is as if he had offered up an egg. And when the imam comes out, the angels settle down listening to the dhikr (remembrance of Allah)</span></td></tr>
+<tr class='grade' data-hadith='225'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='225'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 1</span></td></tr><tr id='h226' class='hadith-sep' data-hadith='226'><td colspan='2'><a class='permalink' href='#h226'>Hadith 226</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='226'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ الْمَقْبُرِيِّ، عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ كَانَ يَقُولُ غُسْلُ يَوْمِ الْجُمُعَةِ وَاجِبٌ عَلَى كُلِّ مُحْتَلِمٍ كَغُسْلِ الْجَنَابَةِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='226'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Said ibn Abi Said al-Maqburi that Abu Hurayra used to say, &quot;Doing ghusl as prescribed for major ritual impurity is incumbent (wajib) on the day of jumua on every male who has reached puberty</span></td></tr>
+<tr class='grade' data-hadith='226'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='226'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 2</span></td></tr><tr id='h227' class='hadith-sep' data-hadith='227'><td colspan='2'><a class='permalink' href='#h227'>Hadith 227</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='227'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَالِمِ بْنِ عَبْدِ اللَّهِ، أَنَّهُ قَالَ دَخَلَ رَجُلٌ مِنْ أَصْحَابِ رَسُولِ اللَّهِ صلى الله عليه وسلم الْمَسْجِدَ يَوْمَ الْجُمُعَةِ وَعُمَرُ بْنُ الْخَطَّابِ يَخْطُبُ فَقَالَ عُمَرُ أَيَّةُ سَاعَةٍ هَذِهِ فَقَالَ يَا أَمِيرَ الْمُؤْمِنِينَ انْقَلَبْتُ مِنَ السُّوقِ فَسَمِعْتُ النِّدَاءَ فَمَا زِدْتُ عَلَى أَنْ تَوَضَّأْتُ ‏.‏ فَقَالَ عُمَرُ وَالْوُضُوءَ أَيْضًا وَقَدْ عَلِمْتَ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَأْمُرُ بِالْغُسْلِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='227'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that Salim ibn Abdullah said, &quot;One of the companions of the Messenger of Allah, may Allah bless him and grant him peace, came into the mosque on the day of jumua and Umar ibn al Khattab was already giving the khutba. Umar said, &#x27;What (kind of) time is this (to arrive)?&#x27; He said, Amir al- muminin, I returned from the market and heard the call to prayer, so I did no more than do wudu.&#x27; Umar said, &#x27;You only did wudu as well? You know that the Messenger of Allah, may Allah bless him and grant him peace, used to tell people to do ghusl</span></td></tr>
+<tr class='grade' data-hadith='227'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='227'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 3</span></td></tr><tr id='h228' class='hadith-sep' data-hadith='228'><td colspan='2'><a class='permalink' href='#h228'>Hadith 228</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='228'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ غُسْلُ يَوْمِ الْجُمُعَةِ وَاجِبٌ عَلَى كُلِّ مُحْتَلِمٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='228'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Safwan ibn Sulaym from Ata ibn Yasar from Abu Said al-Khudri that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Ghusl on the day of jumua is incumbent on every male who has reached puberty</span></td></tr>
+<tr class='grade' data-hadith='228'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='228'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 4</span></td></tr><tr id='h229' class='hadith-sep' data-hadith='229'><td colspan='2'><a class='permalink' href='#h229'>Hadith 229</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='229'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا جَاءَ أَحَدُكُمُ الْجُمُعَةَ فَلْيَغْتَسِلْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='229'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;When you come to jumua, do ghusl.&quot; Malik said, &quot;It is not enough for someone to do a ghusl on the day of jumua and intend by it the ghusl for jumua unless he does the ghusl and then sets off. That is because the Messenger of Allah, may Allah bless him and grant him peace, said in the hadith related by Ibn Umar, &#x27;When you come to jumua, do ghusl .&#x27; &quot; Malik said, &quot;If someone does ghusl on the day of jumua and intends by it the ghusl of the day of jumua and then sets out, whether early or late, and does something which breaks his wudu, he only has to do wudu and his ghusl remains valid for him</span></td></tr>
+<tr class='grade' data-hadith='229'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='229'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 5</span></td></tr><tr id='h230' class='hadith-sep' data-hadith='230'><td colspan='2'><a class='permalink' href='#h230'>Hadith 230</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='230'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ إِذَا قُلْتَ لِصَاحِبِكَ أَنْصِتْ وَالإِمَامُ يَخْطُبُ يَوْمَ الْجُمُعَةِ فَقَدْ لَغَوْتَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='230'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;z Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Even saying to your companion &#x27;Listen&#x27; while the imam is giving the khutba on the day of jumua, is to speak foolishly</span></td></tr>
+<tr class='grade' data-hadith='230'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='230'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 6</span></td></tr><tr id='h231' class='hadith-sep' data-hadith='231'><td colspan='2'><a class='permalink' href='#h231'>Hadith 231</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='231'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ ثَعْلَبَةَ بْنِ أَبِي مَالِكٍ الْقُرَظِيِّ، أَنَّهُ أَخْبَرَهُ أَنَّهُمْ، كَانُوا فِي زَمَانِ عُمَرَ بْنِ الْخَطَّابِ يُصَلُّونَ يَوْمَ الْجُمُعَةِ حَتَّى يَخْرُجَ عُمَرُ فَإِذَا خَرَجَ عُمَرُ وَجَلَسَ عَلَى الْمِنْبَرِ وَأَذَّنَ الْمُؤَذِّنُونَ - قَالَ ثَعْلَبَةُ - جَلَسْنَا نَتَحَدَّثُ فَإِذَا سَكَتَ الْمُؤَذِّنُونَ وَقَامَ عُمَرُ يَخْطُبُ أَنْصَتْنَا فَلَمْ يَتَكَلَّمْ مِنَّا أَحَدٌ ‏.‏ قَالَ ابْنُ شِهَابٍ فَخُرُوجُ الإِمَامِ يَقْطَعُ الصَّلاَةَ وَكَلاَمُهُ يَقْطَعُ الْكَلاَمَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='231'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that Thalaba ibn Abi Malik al Quradhi informed him that in the time of Umar ibn al Khattab they used to pray on the day of jumua until Umar came out, and when Umar came out and sat on the mimbar and the muadhdhins called the adhan, they would sit and talk, and then when the muadhdhins were silent and Umar stood to give the khutba, they would pay attention and no-one would speak . Ibn Shihab said, &quot;The imam coming out stops prayer and his speaking stops conversation</span></td></tr>
+<tr class='grade' data-hadith='231'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='231'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 7</span></td></tr><tr id='h232' class='hadith-sep' data-hadith='232'><td colspan='2'><a class='permalink' href='#h232'>Hadith 232</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='232'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي النَّضْرِ، مَوْلَى عُمَرَ بْنِ عُبَيْدِ اللَّهِ عَنْ مَالِكِ بْنِ أَبِي عَامِرٍ، أَنَّ عُثْمَانَ بْنَ عَفَّانَ، كَانَ يَقُولُ فِي خُطْبَتِهِ قَلَّمَا يَدَعُ ذَلِكَ إِذَا خَطَبَ إِذَا قَامَ الإِمَامُ يَخْطُبُ يَوْمَ الْجُمُعَةِ فَاسْتَمِعُوا وَأَنْصِتُوا فَإِنَّ لِلْمُنْصِتِ الَّذِي لاَ يَسْمَعُ مِنَ الْحَظِّ مِثْلَ مَا لِلْمُنْصِتِ السَّامِعِ فَإِذَا قَامَتِ الصَّلاَةُ فَاعْدِلُوا الصُّفُوفَ وَحَاذُوا بِالْمَنَاكِبِ فَإِنَّ اعْتِدَالَ الصُّفُوفِ مِنْ تَمَامِ الصَّلاَةِ ‏.‏ ثُمَّ لاَ يُكَبِّرُ حَتَّى يَأْتِيَهُ رِجَالٌ قَدْ وَكَّلَهُمْ بِتَسْوِيَةِ الصُّفُوفِ فَيُخْبِرُونَهُ أَنْ قَدِ اسْتَوَتْ فَيُكَبِّرُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='232'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abu&#x27;n Nadr, the mawla of Umar ibn Ubaydullah, from Malik ibn Abi Amir that Uthman ibn Affan used to say in khutbas, and he would seldom omit it if he was giving the khutba, &quot;When the imam stands delivering the khutba on the day of jumua, listen and pay attention, for there is the same portion for someone who pays attention but cannot hear as for someone who pays attention and hears. And when the iqama of the prayer is called, straighten your rows and make your shoulders adjacent to each other, because the straightening of the rows is part of the completion of the prayer.&quot; Then he would not say the takbir until some men who had been entrusted with straightening the rows came and told him that they were straight. Then he would say the takbir</span></td></tr>
+<tr class='grade' data-hadith='232'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='232'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 8</span></td></tr><tr id='h233' class='hadith-sep' data-hadith='233'><td colspan='2'><a class='permalink' href='#h233'>Hadith 233</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='233'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، رَأَى رَجُلَيْنِ يَتَحَدَّثَانِ وَالإِمَامُ يَخْطُبُ يَوْمَ الْجُمُعَةِ فَحَصَبَهُمَا أَنِ اصْمُتَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='233'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar saw two men talking while the imam was giving the khutba on the day of jumua and he threw pebbles at them to tell them to be quiet</span></td></tr>
+<tr class='grade' data-hadith='233'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='233'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 9</span></td></tr><tr id='h234' class='hadith-sep' data-hadith='234'><td colspan='2'><a class='permalink' href='#h234'>Hadith 234</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='234'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَجُلاً، عَطَسَ يَوْمَ الْجُمُعَةِ وَالإِمَامُ يَخْطُبُ فَشَمَّتَهُ إِنْسَانٌ إِلَى جَنْبِهِ فَسَأَلَ عَنْ ذَلِكَ سَعِيدَ بْنَ الْمُسَيَّبِ فَنَهَاهُ عَنْ ذَلِكَ وَقَالَ لاَ تَعُدْ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='234'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he had heard that a man sneezed on the day of jumua while the imam was giving the khutba, and a man by his side asked Allah to bless him. Said ibn al Musayyab was asked about it and he forbade the man to do what he had done and said, &quot;Don&#x27;t do it again</span></td></tr>
+<tr class='grade' data-hadith='234'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='234'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 10</span></td></tr><tr id='h235' class='hadith-sep' data-hadith='235'><td colspan='2'><a class='permalink' href='#h235'>Hadith 235</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='235'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ سَأَلَ ابْنَ شِهَابٍ عَنِ الْكَلاَمِ، يَوْمَ الْجُمُعَةِ إِذَا نَزَلَ الإِمَامُ عَنِ الْمِنْبَرِ، قَبْلَ أَنْ يُكَبِّرَ، ‏.‏ فَقَالَ ابْنُ شِهَابٍ لاَ بَأْسَ بِذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='235'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that he asked Ibn Shihab about talking in the jumua after the imam had come down from the mimbar but before he had said the takbir. Ibn Shihab said, &quot;There is no harm in that</span></td></tr>
+<tr class='grade' data-hadith='235'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='235'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 11</span></td></tr><tr id='h236' class='hadith-sep' data-hadith='236'><td colspan='2'><a class='permalink' href='#h236'>Hadith 236</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='236'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ كَانَ يَقُولُ مَنْ أَدْرَكَ مِنْ صَلاَةِ الْجُمُعَةِ رَكْعَةً فَلْيُصَلِّ إِلَيْهَا أُخْرَى ‏.‏ قَالَ ابْنُ شِهَابٍ وَهِيَ السُّنَّةُ ‏.‏ قَالَ مَالِكٌ وَعَلَى ذَلِكَ أَدْرَكْتُ أَهْلَ الْعِلْمِ بِبَلَدِنَا وَذَلِكَ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ أَدْرَكَ مِنَ الصَّلاَةِ رَكْعَةً فَقَدْ أَدْرَكَ الصَّلاَةَ ‏&quot;‏ ‏.‏ قَالَ مَالِكٌ فِي الَّذِي يُصِيبُهُ زِحَامٌ يَوْمَ الْجُمُعَةِ فَيَرْكَعُ وَلاَ يَقْدِرُ عَلَى أَنْ يَسْجُدَ حَتَّى يَقُومَ الإِمَامُ أَوْ يَفْرُغَ الإِمَامُ مِنْ صَلاَتِهِ إِنَّهُ إِنْ قَدَرَ عَلَى أَنْ يَسْجُدَ إِنْ كَانَ قَدْ رَكَعَ فَلْيَسْجُدْ إِذَا قَامَ النَّاسُ وَإِنْ لَمْ يَقْدِرْ عَلَى أَنْ يَسْجُدَ حَتَّى يَفْرُغَ الإِمَامُ مِنْ صَلاَتِهِ فَإِنَّهُ أَحَبُّ إِلَىَّ أَنْ يَبْتَدِئَ صَلاَتَهُ ظُهْرًا أَرْبَعًا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='236'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Ibn Shihab used to say, &quot;Some one who catches a raka of the jumua prayer should pray another one with it.&quot; Ibn Shihab said, &quot;That is the sunna.&quot; Malik said, &quot;I saw the people of knowledge in our city doing that. That is because the Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Whoever catches a raka of the prayer has caught the prayer.&#x27; &quot; Malik said, concerning some one who was in a crowd on the day of jumua and did the ruku but was not able to go into sajda until the imam had risen or finished his prayer, &quot;If he is able to do the sajda and has already done the ruku then he should do the sajda when the people stand up. If he is unable to do thesajda until after the imam has finished the prayer, then I prefer that he begins the prayeragain and does the four rakas of dhuhr</span></td></tr>
+<tr class='grade' data-hadith='236'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='236'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 12</span></td></tr><tr id='h237' class='hadith-sep' data-hadith='237'><td colspan='2'><a class='permalink' href='#h237'>Hadith 237</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='237'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، أَنَّهُ سَأَلَ ابْنَ شِهَابٍ عَنْ قَوْلِ اللَّهِ، عَزَّ وَجَلَّ ‏{‏يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا نُودِيَ لِلصَّلاَةِ مِنْ يَوْمِ الْجُمُعَةِ فَاسْعَوْا إِلَى ذِكْرِ اللَّهِ‏}‏ فَقَالَ ابْنُ شِهَابٍ كَانَ عُمَرُ بْنُ الْخَطَّابِ يَقْرَؤُهَا إِذَا نُودِيَ لِلصَّلاَةِ مِنْ يَوْمِ الْجُمُعَةِ فَامْضُوا إِلَى ذِكْرِ اللَّهِ ‏.‏ قَالَ مَالِكٌ وَإِنَّمَا السَّعْىُ فِي كِتَابِ اللَّهِ الْعَمَلُ وَالْفِعْلُ يَقُولُ اللَّهُ تَبَارَكَ وَتَعَالَى ‏{‏وَإِذَا تَوَلَّى سَعَى فِي الأَرْضِ‏}‏ وَقَالَ تَعَالَى ‏{‏وَأَمَّا مَنْ جَاءَكَ يَسْعَى وَهُوَ يَخْشَى‏}‏ وَقَالَ ‏{‏ثُمَّ أَدْبَرَ يَسْعَى‏}‏ وَقَالَ ‏{‏إِنَّ سَعْيَكُمْ لَشَتَّى‏}‏ قَالَ مَالِكٌ فَلَيْسَ السَّعْىُ الَّذِي ذَكَرَ اللَّهُ فِي كِتَابِهِ بِالسَّعْىِ عَلَى الأَقْدَامِ وَلاَ الاِشْتِدَادَ وَإِنَّمَا عَنَى الْعَمَلَ وَالْفِعْلَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='237'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik said, &quot;Someone who has a nosebleed on the day of jumua while the imam is giving the khutba and he leaves and does not come back until the imam has finished the prayer, should pray four rakas.&#x27;&#x27; Malik said that someone who prayed a raka with the imam on the day of jumua, then had a nosebleed and left and came back and the imam had prayed both rakas, should complete the prayer with another raka as long as he had not spoken. Malik said, &quot;If some one has a nosebleed, or something happens to him and he has no alternative but to leave, he does not have to ask permission of the imam if he wants to leave on the day of jumua.&quot; Yahya related to me from Malik that he had asked Ibn Shihab about the word of Allah, the Majestic, the Mighty, &quot;O you who accept, when the call is made for the prayer on the day of jumua, make haste to the remembrance of Allah.&quot;(Sura 62 ayat 9). Ibn Shihab said, &#x27;&#x27;Umar ibn al-Khattab used to recite, &#x27;When the call is made for the prayer on the day of jumua, go to the remembrance of Allah.&#x27; &quot; Malik said, &quot;Making haste in the Book of Allah is only deed and action. Allah the Blessed, the Exalted, says &#x27;and when he turns away, he acts in the land&#x27; (Sura 2 ayat 205), and He, the Exalted, said, &#x27;and as for the one who comes to you acting with fear&#x27; (Sura 80 ayat 8), and He said, &#x27;then he turned his back, and acted&#x27; (Sura 79 ayat 22),and He said, &#x27;Your deeds are diverse&#x27; &quot; (Sura 92 ayat 4). Malik said, &quot;Thus making haste which Allah mentions in His Book is not running on the feet or exertion. It only means deed and actions</span></td></tr>
+<tr class='grade' data-hadith='237'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='237'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 13</span></td></tr><tr id='h238' class='hadith-sep' data-hadith='238'><td colspan='2'><a class='permalink' href='#h238'>Hadith 238</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='238'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم ذَكَرَ يَوْمَ الْجُمُعَةِ فَقَالَ ‏ &quot;‏ فِيهِ سَاعَةٌ لاَ يُوَافِقُهَا عَبْدٌ مُسْلِمٌ وَهُوَ قَائِمٌ يُصَلِّي يَسْأَلُ اللَّهَ شَيْئًا إِلاَّ أَعْطَاهُ إِيَّاهُ ‏&quot;‏ ‏.‏ وَأَشَارَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِيَدِهِ يُقَلِّلُهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='238'><td class='label'>English</td><td><span class='eng-text' lang='en'>Malik said, &quot;If the imam stops off on a journey in a town where jumua is obligatory and he gives a khutba and takes the jumua prayer for them, then the people of the town and any other people present do the jumua prayer with him.&quot; Malik said, &quot;If the imam gathers people for prayer while he is travelling in a town where the jumua prayer is not obligatory, then there is no jumua for him, nor for the people of the town, nor for anyone else who joins them for the prayer in congregation, and the people of the town and anyone else who is not travelling should complete the prayer.&quot; Malik added, &quot;A traveller does not have to do jumua &quot; Yahya related to me from Malik from Abu&#x27;z Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, mentioned the day of jumua and said, &quot;There is a time in it when Allah gives to a muslim slave standing in prayer whatever he asks for,&quot; and the Messenger of Allah, may Allah bless him and grant him peace, indicated with his hand how small it was</span></td></tr>
+<tr class='grade' data-hadith='238'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='238'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 14</span></td></tr><tr id='h239' class='hadith-sep' data-hadith='239'><td colspan='2'><a class='permalink' href='#h239'>Hadith 239</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='239'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَزِيدَ بْنِ عَبْدِ اللَّهِ بْنِ الْهَادِ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ بْنِ الْحَارِثِ التَّيْمِيِّ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ قَالَ خَرَجْتُ إِلَى الطُّورِ فَلَقِيتُ كَعْبَ الأَحْبَارِ فَجَلَسْتُ مَعَهُ فَحَدَّثَنِي عَنِ التَّوْرَاةِ وَحَدَّثْتُهُ عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم فَكَانَ فِيمَا حَدَّثْتُهُ أَنْ قُلْتُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ فِيهِ خُلِقَ آدَمُ وَفِيهِ أُهْبِطَ مِنَ الْجَنَّةِ وَفِيهِ تِيبَ عَلَيْهِ وَفِيهِ مَاتَ وَفِيهِ تَقُومُ السَّاعَةُ وَمَا مِنْ دَابَّةٍ إِلاَّ وَهِيَ مُصِيخَةٌ يَوْمَ الْجُمُعَةِ مِنْ حِينِ تُصْبِحُ حَتَّى تَطْلُعَ الشَّمْسُ شَفَقًا مِنَ السَّاعَةِ إِلاَّ الْجِنَّ وَالإِنْسَ وَفِيهِ سَاعَةٌ لاَ يُصَادِفُهَا عَبْدٌ مُسْلِمٌ وَهُوَ يُصَلِّي يَسْأَلُ اللَّهَ شَيْئًا إِلاَّ أَعْطَاهُ إِيَّاهُ ‏&quot;‏ ‏.‏ قَالَ كَعْبٌ ذَلِكَ فِي كُلِّ سَنَةٍ يَوْمٌ ‏.‏ فَقُلْتُ بَلْ فِي كُلِّ جُمُعَةٍ ‏.‏ فَقَرَأَ كَعْبٌ التَّوْرَاةَ فَقَالَ صَدَقَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَلَقِيتُ بَصْرَةَ بْنَ أَبِي بَصْرَةَ الْغِفَارِيَّ فَقَالَ مِنْ أَيْنَ أَقْبَلْتَ فَقُلْتُ مِنَ الطُّورِ ‏.‏ فَقَالَ لَوْ أَدْرَكْتُكَ قَبْلَ أَنْ تَخْرُجَ إِلَيْهِ مَا خَرَجْتَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏&quot;‏ لاَ تُعْمَلُ الْمَطِيُّ إِلاَّ إِلَى ثَلاَثَةِ مَسَاجِدَ إِلَى الْمَسْجِدِ الْحَرَامِ وَإِلَى مَسْجِدِي هَذَا وَإِلَى مَسْجِدِ إِيلْيَاءَ أَوْ بَيْتِ الْمَقْدِسِ ‏&quot;‏ ‏.‏ يَشُكُّ ‏.‏ قَالَ أَبُو هُرَيْرَةَ ثُمَّ لَقِيتُ عَبْدَ اللَّهِ بْنَ سَلاَمٍ فَحَدَّثْتُهُ بِمَجْلِسِي مَعَ كَعْبِ الأَحْبَارِ وَمَا حَدَّثْتُهُ بِهِ فِي يَوْمِ الْجُمُعَةِ فَقُلْتُ قَالَ كَعْبٌ ذَلِكَ فِي كُلِّ سَنَةٍ يَوْمٌ ‏.‏ قَالَ قَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ كَذَبَ كَعْبٌ ‏.‏ فَقُلْتُ ثُمَّ قَرَأَ كَعْبٌ التَّوْرَاةَ فَقَالَ بَلْ هِيَ فِي كُلِّ جُمُعَةٍ ‏.‏ فَقَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ صَدَقَ كَعْبٌ ‏.‏ ثُمَّ قَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ قَدْ عَلِمْتُ أَيَّةَ سَاعَةٍ هِيَ ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَقُلْتُ لَهُ أَخْبِرْنِي بِهَا وَلاَ تَضِنَّ عَلَىَّ ‏.‏ فَقَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ هِيَ آخِرُ سَاعَةٍ فِي يَوْمِ الْجُمُعَةِ ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَقُلْتُ وَكَيْفَ تَكُونُ آخِرُ سَاعَةٍ فِي يَوْمِ الْجُمُعَةِ وَقَدْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ يُصَادِفُهَا عَبْدٌ مُسْلِمٌ وَهُوَ يُصَلِّي ‏&quot;‏ ‏.‏ وَتِلْكَ السَّاعَةُ سَاعَةٌ لاَ يُصَلَّى فِيهَا فَقَالَ عَبْدُ اللَّهِ بْنُ سَلاَمٍ أَلَمْ يَقُلْ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ مَنْ جَلَسَ مَجْلِسًا يَنْتَظِرُ الصَّلاَةَ فَهُوَ فِي صَلاَةٍ حَتَّى يُصَلِّيَ ‏&quot;‏ ‏.‏ قَالَ أَبُو هُرَيْرَةَ فَقُلْتُ بَلَى ‏.‏ قَالَ فَهُوَ ذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='239'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yazid ibn Abdullah ibn al-Had from Muhammad ibn Ibrahim ibn al-Harith at-Taymi from Abu Salama ibn Abd ar-Rahman ibn Awf that Abu Hurayra said, &quot;I went out to at-Tur (Mount Sinai) and met Kab al Ahbar and sat with him. He related to me things from the Tawrah and I related to him things from the Messenger of Allah, may Allah bless him and grant him peace. Among the things I related to him was that the Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;The best of days on which the sun rises is the day of jumua. In it Adam was created, and in it he fell from the Garden. In it he was forgiven, and in it he died. In it the Hour occurs, and every moving thing listens from morning till sunset in apprehension of the Hour except jinn and men. In it is a time when Allah gives toa muslim slave standing in prayer whatever he asks for.&#x27; Kab said, &#x27;That is one day in every year.&#x27; I said, &#x27;No, in every jumua.&#x27; Then Kab recited the Tawrah and said, &#x27;The Messenger of Allah has spoken the truth.&#x27; &quot; Abu Hurayra continued, &quot;I met Basra ibn Abi Basra al-Ghiffari and he said, &#x27;Where have you come from?&#x27; I said, &#x27;From at-Tur.&#x27; He said, &#x27;If I had seen you before you left, you would not have gone. I heard the Messenger of Allah, may Allah bless him and grant him peace, say, &quot;Only make a special journey to three mosques:the mosque of the Haram (Makka), this mosque (Madina), and the mosque of Ilya or the Bait al-Maqdis (two names of Jerusalem).&quot; &#x27; &quot; (He was not sure which expression was used.) Abu Hurayra continued, &quot;Then I met Abdullah ibn Salam and I told him that I had sat with Kabal-Ahbar, and I mentioned what I had related to him about the day of jumua, and told him that Kab had said, &#x27;That is one day in every year.&#x27; Abdullah ibn Salam said, &#x27;Kab lied,&#x27; and I added, &#x27;Kab then recited the Tawrah and said, &quot;No, it is in every jumua.&#x27;&#x27; &#x27; Abdullah ibn Salam said, &#x27;Kab spoke the truth. &#x27;Then Abdullah ibn Salam said, &#x27;I know what time that is.&#x27; &quot; Abu Hurayra continued, &quot;I said to him, &#x27;Let me know it - don&#x27;t keep it from me.&#x27; Abdullah ibn Salam said, &#x27;It is the last period of time in the dayof jumua.&#x27; &quot; Abu Hurayra continued, &quot;I said, &#x27;How can it be the last period of time in the day of jumua, when the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;a muslim slave standing in prayer&quot;, and that is a time when there is no prayer?&#x27; Abdullah ibn Salam replied, &#x27;Didn&#x27;t the Messenger of Allah, may Allah bless him and grant him peace, say, &quot;Whoever sits waiting for the prayer is in prayer until he prays?&quot; &quot;&#x27; Abu Hurayra added, &quot;I said, &#x27;Of course.&#x27; He said, &#x27;Then it is that</span></td></tr>
+<tr class='grade' data-hadith='239'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='239'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 15</span></td></tr><tr id='h240' class='hadith-sep' data-hadith='240'><td colspan='2'><a class='permalink' href='#h240'>Hadith 240</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='240'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ قَالَ ‏ &quot;‏ مَا عَلَى أَحَدِكُمْ لَوِ اتَّخَذَ ثَوْبَيْنِ لِجُمُعَتِهِ سِوَى ثَوْبَىْ مَهْنَتِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='240'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot;There is nothing wrong in wearing two garments which are not work-clothes for jumua</span></td></tr>
+<tr class='grade' data-hadith='240'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='240'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 16</span></td></tr><tr id='h241' class='hadith-sep' data-hadith='241'><td colspan='2'><a class='permalink' href='#h241'>Hadith 241</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='241'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ لاَ يَرُوحُ إِلَى الْجُمُعَةِ إِلاَّ ادَّهَنَ وَتَطَيَّبَ إِلاَّ أَنْ يَكُونَ حَرَامًا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='241'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar would never go to jumua without wearing oil and perfume except when it was forbidden (i.e. when he was muhrim)</span></td></tr>
+<tr class='grade' data-hadith='241'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='241'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 17</span></td></tr><tr id='h242' class='hadith-sep' data-hadith='242'><td colspan='2'><a class='permalink' href='#h242'>Hadith 242</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='242'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ حَزْمٍ، عَمَّنْ حَدَّثَهُ عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ كَانَ يَقُولُ لأَنْ يُصَلِّيَ أَحَدُكُمْ بِظَهْرِ الْحَرَّةِ خَيْرٌ لَهُ مِنْ أَنْ يَقْعُدَ حَتَّى إِذَا قَامَ الإِمَامُ يَخْطُبُ جَاءَ يَتَخَطَّى رِقَابَ النَّاسِ يَوْمَ الْجُمُعَةِ ‏.‏ قَالَ مَالِكٌ السُّنَّةُ عِنْدَنَا أَنْ يَسْتَقْبِلَ النَّاسُ الإِمَامَ يَوْمَ الْجُمُعَةِ إِذَا أَرَادَ أَنْ يَخْطُبَ مَنْ كَانَ مِنْهُمْ يَلِي الْقِبْلَةَ وَغَيْرَهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='242'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Abi Bakr ibn Hazm from whoever related it to him that Abu Hurayra used to say, &quot;It is better for a man to pray on the surface of al Harra (a rocky area in Madina) than for him to wait until the imam stands to give the khutba and then come and step over people&#x27;s necks.&quot; Malik said, &quot;The sunna with us is that the people face the imam on the day of jumua when he intends to give the khutba, whether they are near the qibla or elsewhere</span></td></tr>
+<tr class='grade' data-hadith='242'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='242'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 18</span></td></tr><tr id='h243' class='hadith-sep' data-hadith='243'><td colspan='2'><a class='permalink' href='#h243'>Hadith 243</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='243'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ ضَمْرَةَ بْنِ سَعِيدٍ الْمَازِنِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ بْنِ مَسْعُودٍ، أَنَّ الضَّحَّاكَ بْنَ قَيْسٍ، سَأَلَ النُّعْمَانَ بْنَ بَشِيرٍ مَاذَا كَانَ يَقْرَأُ بِهِ رَسُولُ اللَّهِ صلى الله عليه وسلم يَوْمَ الْجُمُعَةِ عَلَى إِثْرِ سُورَةِ الْجُمُعَةِ قَالَ كَانَ يَقْرَأُ ‏{‏هَلْ أَتَاكَ حَدِيثُ الْغَاشِيَةِ‏}‏</span></td></tr>
+<tr class='eng' data-hadith='243'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Damra ibn Said al-Mazini from Ubaydullah ibn Abdullah ibn Utba ibn Masud that ad-Dahhak ibn Qays asked an-Numan ibn Bashir, &quot;What did the Messenger of Allah, may Allah bless him and grant him peace, use to recite on the day of jumua after suratal-Jumua (Sura 62)?&quot; He said, &quot;He used to recite al-Ghashiya (Sura)</span></td></tr>
+<tr class='grade' data-hadith='243'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='243'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 19</span></td></tr><tr id='h244' class='hadith-sep' data-hadith='244'><td colspan='2'><a class='permalink' href='#h244'>Hadith 244</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='244'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ صَفْوَانَ بْنِ سُلَيْمٍ، - قَالَ مَالِكٌ لاَ أَدْرِي أَعَنِ النَّبِيِّ صلى الله عليه وسلم أَمْ لاَ - أَنَّهُ قَالَ ‏ &quot;‏ مَنْ تَرَكَ الْجُمُعَةَ ثَلاَثَ مَرَّاتٍ مِنْ غَيْرِ عُذْرٍ وَلاَ عِلَّةٍ طَبَعَ اللَّهُ عَلَى قَلْبِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='244'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Safwan ibn Sulaym said, &quot;If anyone omits jumua three times without reason or illness, Allah will set a seal on his heart.&quot; (Malik said, &quot;I don&#x27;t know if it was from the Messenger of Allah, may Allah bless him and grant him peace, or not)</span></td></tr>
+<tr class='grade' data-hadith='244'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='244'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 20</span></td></tr><tr id='h245' class='hadith-sep' data-hadith='245'><td colspan='2'><a class='permalink' href='#h245'>Hadith 245</a> — Jumu&#x27;a</td></tr>
+<tr class='arabic' data-hadith='245'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ جَعْفَرِ بْنِ مُحَمَّدٍ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم خَطَبَ خُطْبَتَيْنِ يَوْمَ الْجُمُعَةِ وَجَلَسَ بَيْنَهُمَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='245'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Jafar ibn Muhammad from his father that the Messenger of Allah, may Allah bless him and grant him peace, gave two khutbas on the day of jumua and sat down between them</span></td></tr>
+<tr class='grade' data-hadith='245'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi</span></td></tr>
+<tr class='ref' data-hadith='245'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 21</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -269,5 +403,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>

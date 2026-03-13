@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='nasai.html'>Sunan an-Nasai</a> › The Book of Gifts</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="nasai-book-001.html">1. The Book of Purification</option><option value="nasai-book-002.html">2. The Book of Water</option><option value="nasai-book-003.html">3. The Book of Menstruation and Istihadah</option><option value="nasai-book-000.html">4. General</option><option value="nasai-book-004.html">5. The Book of Ghusl and Tayammum</option><option value="nasai-book-005.html">6. The Book of Salah</option><option value="nasai-book-006.html">7. The Book of the Times (of Prayer)</option><option value="nasai-book-007.html">8. The Book of the Adhan (The Call to Prayer)</option><option value="nasai-book-008.html">9. The Book of the Masjids</option><option value="nasai-book-009.html">10. The Book of the Qiblah</option><option value="nasai-book-010.html">11. The Book of Leading the Prayer (Al-Imamah)</option><option value="nasai-book-011.html">12. The Book of the Commencement of the Prayer</option><option value="nasai-book-012.html">13. The Book of The At-Tatbiq (Clasping One&#x27;s Hands…</option><option value="nasai-book-013.html">14. The Book of Forgetfulness (In Prayer)</option><option value="nasai-book-014.html">15. The Book of Jumu&#x27;ah (Friday Prayer)</option><option value="nasai-book-015.html">16. The Book of Shortening the Prayer When Traveling</option><option value="nasai-book-016.html">17. The Book of Eclipses</option><option value="nasai-book-017.html">18. The Book of Praying for Rain (Al-Istisqa&#x27;)</option><option value="nasai-book-018.html">19. The Book of the Fear Prayer</option><option value="nasai-book-019.html">20. The Book of the Prayer for the Two &#x27;Eids</option><option value="nasai-book-020.html">21. The Book of Qiyam Al-Lail (The Night Prayer) and…</option><option value="nasai-book-021.html">22. The Book of Funerals</option><option value="nasai-book-022.html">23. The Book of Fasting</option><option value="nasai-book-023.html">24. The Book of Zakah</option><option value="nasai-book-024.html">25. The Book of Hajj</option><option value="nasai-book-025.html">26. The Book of Jihad</option><option value="nasai-book-026.html">27. The Book of Marriage</option><option value="nasai-book-027.html">28. The Book of Divorce</option><option value="nasai-book-028.html">29. The Book of Horses, Races and Shooting</option><option value="nasai-book-029.html">30. The Book of Endowments</option><option value="nasai-book-030.html">31. The Book of Wills</option><option value="nasai-book-031.html">32. The Book of Presents</option><option value="nasai-book-032.html" selected>33. The Book of Gifts</option><option value="nasai-book-033.html">34. The Book of ar-Ruqba</option><option value="nasai-book-034.html">35. The Book of &#x27;Umra</option><option value="nasai-book-035.html">36. The Book of Agriculture</option><option value="nasai-book-036.html">37. The Book of the Kind Treatment of Women</option><option value="nasai-book-037.html">38. The Book of Fighting [The Prohibition of…</option><option value="nasai-book-038.html">39. The Book of Distribution of Al-Fay&#x27;</option><option value="nasai-book-039.html">40. The Book of al-Bay&#x27;ah</option><option value="nasai-book-040.html">41. The Book of al-&#x27;Aqiqah</option><option value="nasai-book-041.html">42. The Book of al-Fara&#x27; and al-&#x27;Atirah</option><option value="nasai-book-042.html">43. The Book of Hunting and Slaughtering</option><option value="nasai-book-043.html">44. The Book of ad-Dahaya (Sacrifices)</option><option value="nasai-book-044.html">45. The Book of Financial Transactions</option><option value="nasai-book-045.html">46. The Book of Oaths (qasamah), Retaliation and…</option><option value="nasai-book-046.html">47. The Book of Cutting off the Hand of the Thief</option><option value="nasai-book-047.html">48. The Book Of Faith and its Signs</option><option value="nasai-book-048.html">49. The Book of Adornment</option><option value="nasai-book-049.html">50. The Book of the Etiquette of Judges</option><option value="nasai-book-050.html">51. The Book of Seeking Refuge with Allah</option><option value="nasai-book-051.html">52. The Book of Drinks</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,83 +294,85 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 3688–3705 &nbsp;|&nbsp;
   <a href="nasai.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='3688' max='3705' value='3688'></label><label>To <input type='number' id='hvc-to' min='3688' max='3705' value='3705'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h3688' class='hadith-sep'><td colspan='2'>Hadith 3688 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَمْرُو بْنُ يَزِيدَ، قَالَ حَدَّثَنَا ابْنُ أَبِي عَدِيٍّ، قَالَ حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ كُنَّا عِنْدَ رَسُولِ اللَّهِ صلى الله عليه وسلم إِذْ أَتَتْهُ وَفْدُ هَوَازِنَ فَقَالُوا يَا مُحَمَّدُ إِنَّا أَصْلٌ وَعَشِيرَةٌ وَقَدْ نَزَلَ بِنَا مِنَ الْبَلاَءِ مَا لاَ يَخْفَى عَلَيْكَ فَامْنُنْ عَلَيْنَا مَنَّ اللَّهُ عَلَيْكَ ‏.‏ فَقَالَ ‏&quot;‏ اخْتَارُوا مِنْ أَمْوَالِكُمْ أَوْ مِنْ نِسَائِكُمْ وَأَبْنَائِكُمْ ‏&quot;‏ ‏.‏ فَقَالُوا قَدْ خَيَّرْتَنَا بَيْنَ أَحْسَابِنَا وَأَمْوَالِنَا بَلْ نَخْتَارُ نِسَاءَنَا وَأَبْنَاءَنَا ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَمَّا مَا كَانَ لِي وَلِبَنِي عَبْدِ الْمُطَّلِبِ فَهُوَ لَكُمْ فَإِذَا صَلَّيْتُ الظُّهْرَ فَقُومُوا فَقُولُوا إِنَّا نَسْتَعِينُ بِرَسُولِ اللَّهِ عَلَى الْمُؤْمِنِينَ أَوِ الْمُسْلِمِينَ فِي نِسَائِنَا وَأَبْنَائِنَا ‏&quot;‏ ‏.‏ فَلَمَّا صَلَّوُا الظُّهْرَ قَامُوا فَقَالُوا ذَلِكَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ فَمَا كَانَ لِي وَلِبَنِي عَبْدِ الْمُطَّلِبِ فَهُوَ لَكُمْ ‏&quot;‏ ‏.‏ فَقَالَ الْمُهَاجِرُونَ وَمَا كَانَ لَنَا فَهُوَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ وَقَالَتِ الأَنْصَارُ مَا كَانَ لَنَا فَهُوَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ فَقَالَ الأَقْرَعُ بْنُ حَابِسٍ أَمَّا أَنَا وَبَنُو تَمِيمٍ فَلاَ ‏.‏ وَقَالَ عُيَيْنَةُ بْنُ حِصْنٍ أَمَّا أَنَا وَبَنُو فَزَارَةَ فَلاَ ‏.‏ وَقَالَ الْعَبَّاسُ بْنُ مِرْدَاسٍ أَمَّا أَنَا وَبَنُو سُلَيْمٍ فَلاَ ‏.‏ فَقَامَتْ بَنُو سُلَيْمٍ فَقَالُوا كَذَبْتَ مَا كَانَ لَنَا فَهُوَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ يَا أَيُّهَا النَّاسُ رُدُّوا عَلَيْهِمْ نِسَاءَهُمْ وَأَبْنَاءَهُمْ فَمَنْ تَمَسَّكَ مِنْ هَذَا الْفَىْءِ بِشَىْءٍ فَلَهُ سِتُّ فَرَائِضَ مِنْ أَوَّلِ شَىْءٍ يُفِيئُهُ اللَّهُ عَزَّ وَجَلَّ عَلَيْنَا ‏&quot;‏ ‏.‏ وَرَكِبَ رَاحِلَتَهُ وَرَكِبَ النَّاسُ اقْسِمْ عَلَيْنَا فَيْأَنَا فَأَلْجَئُوهُ إِلَى شَجَرَةٍ فَخَطِفَتْ رِدَاءَهُ فَقَالَ ‏&quot;‏ يَا أَيُّهَا النَّاسُ رُدُّوا عَلَىَّ رِدَائِي فَوَاللَّهِ لَوْ أَنَّ لَكُمْ شَجَرَ تِهَامَةَ نَعَمًا قَسَمْتُهُ عَلَيْكُمْ ثُمَّ لَمْ تَلْقَوْنِي بَخِيلاً وَلاَ جَبَانًا وَلاَ كَذُوبًا ‏&quot;‏ ‏.‏ ثُمَّ أَتَى بَعِيرًا فَأَخَذَ مِنْ سَنَامِهِ وَبَرَةً بَيْنَ أُصْبُعَيْهِ ثُمَّ يَقُولُ ‏&quot;‏ هَا إِنَّهُ لَيْسَ لِي مِنَ الْفَىْءِ شَىْءٌ وَلاَ هَذِهِ إِلاَّ خُمُسٌ وَالْخُمُسُ مَرْدُودٌ فِيكُمْ ‏&quot;‏ ‏.‏ فَقَامَ إِلَيْهِ رَجُلٌ بِكُبَّةٍ مِنْ شَعْرٍ فَقَالَ يَا رَسُولَ اللَّهِ أَخَذْتُ هَذِهِ لأُصْلِحَ بِهَا بَرْدَعَةَ بَعِيرٍ لِي ‏.‏ فَقَالَ ‏&quot;‏ أَمَّا مَا كَانَ لِي وَلِبَنِي عَبْدِ الْمُطَّلِبِ فَهُوَ لَكَ ‏&quot;‏ ‏.‏ فَقَالَ أَوَبَلَغَتْ هَذِهِ فَلاَ أَرَبَ لِي فِيهَا ‏.‏ فَنَبَذَهَا ‏.‏ وَقَالَ ‏&quot;‏ يَا أَيُّهَا النَّاسُ أَدُّوا الْخِيَاطَ وَالْمِخْيَطَ فَإِنَّ الْغُلُولَ يَكُونُ عَلَى أَهْلِهِ عَارًا وَشَنَارًا يَوْمَ الْقِيَامَةِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Amr bin Shu&#x27;aib, from his father, that his grandfather said:&quot;We were with the Messenger of Allah when the delegation of Hawazin came to him and said: &#x27;O Muhammad! We are one of the &#x27;Arab tribes and a calamity has befallen us of which you are well aware. Do us a favor, may Allah bless you.&#x27; He said: &#x27;Choose between your wealth or your women and children.&#x27; They said: &#x27;You have given us a choice between our families and our wealth; we choose our women and children.&#x27; The Messenger of Allah said: &#x27;As for that which was allocated to myself and to Banu &#x27;Abdul-Muttalib, it is yours. When I have prayed Zuhr, stand up and say: &quot;We seek the help of the Messenger of Allah in dealing with the believers, or the Muslims, with regard to our women and children.&quot;&#x27; So when they prayed Zuhr, they stood up and said that. The Messenger of Allah said: &#x27;As for that which was allocated to myself and to Banu &#x27;Abdul-Muttalib, it is yours.&#x27; The Muhajirun said: &#x27;That which was allocated to us is for the Messenger of Allah.&#x27; The Ansar said: &#x27;That which was allocated to us is for the Messenger of Allah.&#x27; Al-Aqra&#x27; bin Habis said: &#x27;As for myself and Banu Tamim, then no (we will not give it up).&#x27; &#x27;Uyaynah bin Hisn said: &#x27;As for myself and Banu Fazarah, then no (we will not give it up).&#x27; Al-&#x27;Abbas bin Mirdas said: &#x27;As for myself and Banu Sulaim, then no (we will not give it up).&#x27; Banu Sulaim stood up and said: &#x27;You lied; whatever was allocated to us, it is for the Messenger of Allah.&#x27; The Messenger of Allah said: &#x27;O people, give their women and children back to them. Whoever gives back anything of these spoils of war, he will have six camels from the spoils of war that Allah grants us next.&#x27; Then he mounted his riding-animal and the people surrounded him, saying: &#x27;Distribute our spoils of war among us.&#x27; They made him go back toward a tree on which his Rida&#x27; (upper-wrap) got caught. He said: &#x27;O people! Give me back my Rida&#x27;. By Allah! If there were cattle as many in number as the trees of Tihamah I would distribute them among you, then you would not find me a miser, a coward or a liar.&#x27; Then he went to a camel and took a hair from its hump between two of his fingers and said: &#x27;Look! I do not have any of the spoils of war. All I have is the Khums, and the Khums will be given back to you.&#x27; A man stood up holding a ball of yarn made from goat hair and said: &#x27;O Messenger of Allah, I took this to fix my camel-saddle.&#x27; He said: &#x27;What was allocated to myself and to Banu &#x27;Abdul-Muttalib is for you.&#x27; He said: &#x27;Is this so important? I don&#x27;t need it!&#x27; And he threw it down. He said: &#x27;O people! Give back even needles large and small, for Al-Ghulul will be (a source of) shame and disgrace for those who took it on the Day of Resurrection</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 1</span></td></tr><tr id='h3689' class='hadith-sep'><td colspan='2'>Hadith 3689 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَحْمَدُ بْنُ حَفْصٍ، قَالَ حَدَّثَنِي أَبِي قَالَ، حَدَّثَنِي إِبْرَاهِيمُ، عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، عَنْ عَامِرٍ الأَحْوَلِ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لا يَرْجِعُ أَحَدٌ فِي هِبَتِهِ إِلاَّ وَالِدٌ مِنْ وَلَدِهِ وَالْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Amr bin Shu&#x27;aib, from his father, that his grandfather said:&quot;The Messenger of Allah said: &#x27;No one should take back his gift except a father (taking back a gift) from his son. The one who takes back his gift is like one who goes back to his vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 2</span></td></tr><tr id='h3690' class='hadith-sep'><td colspan='2'>Hadith 3690 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، قَالَ حَدَّثَنَا ابْنُ أَبِي عَدِيٍّ، عَنْ حُسَيْنٍ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، قَالَ حَدَّثَنِي طَاوُسٌ، عَنِ ابْنِ عُمَرَ، وَابْنِ، عَبَّاسٍ يَرْفَعَانِ الْحَدِيثَ إِلَى النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ يَحِلُّ لِرَجُلٍ يُعْطِي عَطِيَّةً ثُمَّ يَرْجِعُ فِيهَا إِلاَّ الْوَالِدَ فِيمَا يُعْطِي وَلَدَهُ وَمَثَلُ الَّذِي يُعْطِي عَطِيَّةً ثُمَّ يَرْجِعُ فِيهَا كَمَثَلِ الْكَلْبِ أَكَلَ حَتَّى إِذَا شَبِعَ قَاءَ ثُمَّ عَادَ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn &#x27;Umar and Ibn &#x27;Abbas, who attributed the Hadith to the Prophet:&quot;It is not permissible for a man to give a gift and then take it back except a father taking back what he gave to his son. The likeness of the one who gives a gift then takes it back is that of the dog which eats until it is full, then it vomits, and goes back to its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 3</span></td></tr><tr id='h3691' class='hadith-sep'><td colspan='2'>Hadith 3691 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ الْخَلَنْجِيُّ الْمَقْدِسِيُّ، قَالَ حَدَّثَنَا أَبُو سَعِيدٍ، - وَهُوَ مَوْلَى بَنِي هَاشِمٍ - عَنْ وُهَيْبٍ، قَالَ حَدَّثَنَا ابْنُ طَاوُسٍ، عَنْ أَبِيهِ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْكَلْبِ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;The one who takes back his gift is like the dog which vomits then goes back to its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 4</span></td></tr><tr id='h3692' class='hadith-sep'><td colspan='2'>Hadith 3692 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمٍ، قَالَ حَدَّثَنَا حِبَّانُ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ إِبْرَاهِيمَ بْنِ نَافِعٍ، عَنِ الْحَسَنِ بْنِ مُسْلِمٍ، عَنْ طَاوُسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ يَحِلُّ لأَحَدٍ أَنْ يَهَبَ هِبَةً ثُمَّ يَرْجِعَ فِيهَا إِلاَّ مِنْ وَلَدِهِ ‏&quot;‏ ‏.‏ قَالَ طَاوُسٌ كُنْتُ أَسْمَعُ وَأَنَا صَغِيرٌ عَائِدٌ فِي قَيْئِهِ فَلَمْ نَدْرِ أَنَّهُ ضَرَبَ لَهُ مَثَلاً قَالَ ‏&quot;‏ فَمَنْ فَعَلَ ذَلِكَ فَمَثَلُهُ كَمَثَلِ الْكَلْبِ يَأْكُلُ ثُمَّ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Tawus said:&quot;The Messenger of Allah said: &#x27;It is not permissible for anyone to give a gift then take it back, except from one&#x27;s son.&#x27;&quot; Tawus said: &quot;When I was young I used to hear (the phrase), &#x27;The one who goes back to his vomit,&#x27; but we did not realize that this was a similitude.&quot; He said: &quot;The likeness of the one who does that is that of a dog which eats then vomits, then goes back to its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 5</span></td></tr><tr id='h3693' class='hadith-sep'><td colspan='2'>Hadith 3693 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مَحْمُودُ بْنُ خَالِدٍ، قَالَ حَدَّثَنَا عُمَرُ، عَنِ الأَوْزَاعِيِّ، قَالَ حَدَّثَنِي مُحَمَّدُ بْنُ عَلِيِّ بْنِ حُسَيْنٍ، قَالَ حَدَّثَنِي سَعِيدُ بْنُ الْمُسَيَّبِ، قَالَ حَدَّثَنِي عَبْدُ اللَّهِ بْنُ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَثَلُ الَّذِي يَرْجِعُ فِي صَدَقَتِهِ كَمَثَلِ الْكَلْبِ يَرْجِعُ فِي قَيْئِهِ فَيَأْكُلُهُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abdullah bin &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;The likeness of the one who takes back his gift, is that of a dog which goes back to its vomit and eats it</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 6</span></td></tr><tr id='h3694' class='hadith-sep'><td colspan='2'>Hadith 3694 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا إِسْحَاقُ بْنُ مَنْصُورٍ، قَالَ حَدَّثَنَا عَبْدُ الصَّمَدِ، قَالَ حَدَّثَنَا حَرْبٌ، - وَهُوَ ابْنُ شَدَّادٍ - قَالَ حَدَّثَنِي يَحْيَى، - هُوَ ابْنُ أَبِي كَثِيرٍ - قَالَ حَدَّثَنِي عَبْدُ الرَّحْمَنِ بْنُ عَمْرٍو، - وَهُوَ الأَوْزَاعِيُّ - أَنَّ مُحَمَّدَ بْنَ عَلِيِّ بْنِ حُسَيْنِ بْنِ فَاطِمَةَ بِنْتِ رَسُولِ اللَّهِ، صلى الله عليه وسلم حَدَّثَهُ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنِ ابْنِ عَبَّاسٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَثَلُ الَّذِي يَتَصَدَّقُ بِالصَّدَقَةِ ثُمَّ يَرْجِعُ فِيهَا كَمَثَلِ الْكَلْبِ قَاءَ ثُمَّ عَادَ فِي قَيْئِهِ فَأَكَلَهُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn &#x27;Abbas that the Prophet said:&quot;The likeness of the one who gives a gift then takes it back, is that of a dog which vomits, then goes back to its vomit and eats it</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 7</span></td></tr><tr id='h3695' class='hadith-sep'><td colspan='2'>Hadith 3695 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا الْهَيْثَمُ بْنُ مَرْوَانَ بْنِ الْهَيْثَمِ بْنِ عِمْرَانَ، قَالَ حَدَّثَنَا مُحَمَّدٌ، - وَهُوَ ابْنُ بَكَّارِ بْنِ بِلاَلٍ - قَالَ حَدَّثَنَا يَحْيَى، عَنِ الأَوْزَاعِيِّ، أَنَّ مُحَمَّدَ بْنَ عَلِيِّ بْنِ الْحُسَيْنِ، حَدَّثَهُ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَثَلُ الَّذِي يَرْجِعُ فِي صَدَقَتِهِ كَمَثَلِ الْكَلْبِ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏ قَالَ الأَوْزَاعِيُّ سَمِعْتُهُ يُحَدِّثُ عَطَاءَ بْنَ أَبِي رَبَاحٍ بِهَذَا الْحَدِيثِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Abdullah bin &#x27;Abbas that the Messenger of Allah said:&quot;The likeness of the one who takes back his gift is that of a dog which vomits, then goes back to its vomit.&quot; (One of the narrators) Al-Awza&#x27;i said: &quot;I heard him narrating this Hadith to &#x27;Ata bin Abi Rabah</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 8</span></td></tr><tr id='h3696' class='hadith-sep'><td colspan='2'>Hadith 3696 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، قَالَ حَدَّثَنَا عَبْدُ الرَّحْمَنِ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ قَتَادَةَ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنِ ابْنِ عَبَّاسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn &#x27;Abbas that the Prophet said:&quot;The one who takes back his gift is like the one who goes back to his vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 9</span></td></tr><tr id='h3697' class='hadith-sep'><td colspan='2'>Hadith 3697 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَبُو الأَشْعَثِ، قَالَ حَدَّثَنَا خَالِدٌ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ قَتَادَةَ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn &#x27;Abbas said:&quot;The one who takes back his gift is like the one who goes back to his vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 10</span></td></tr><tr id='h3698' class='hadith-sep'><td colspan='2'>Hadith 3698 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْعَلاَءِ، قَالَ حَدَّثَنَا أَبُو خَالِدٍ، - وَهُوَ سُلَيْمَانُ بْنُ حَيَّانَ - عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، عَنْ أَيُّوبَ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لَيْسَ لَنَا مَثَلُ السَّوْءِ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;It does not befit us to leave bad examples. The one who takes back his gift is like the one who goes back to his vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 11</span></td></tr><tr id='h3699' class='hadith-sep'><td colspan='2'>Hadith 3699 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَمْرُو بْنُ زُرَارَةَ، قَالَ حَدَّثَنَا إِسْمَاعِيلُ، عَنْ أَيُّوبَ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لَيْسَ لَنَا مَثَلُ السَّوْءِ الْعَائِدُ فِي هِبَتِهِ كَالْكَلْبِ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;It does not befit us to leave bad examples. The one who takes back his gift is like the dog which goes back to its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 12</span></td></tr><tr id='h3700' class='hadith-sep'><td colspan='2'>Hadith 3700 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمِ بْنِ نُعَيْمٍ، قَالَ حَدَّثَنَا حِبَّانُ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ خَالِدٍ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لَيْسَ لَنَا مَثَلُ السَّوْءِ الرَّاجِعُ فِي هِبَتِهِ كَالْكَلْبِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;It does not befit us to leave bad examples. The one who takes back his gift is like a dog with its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 13</span></td></tr><tr id='h3701' class='hadith-sep'><td colspan='2'>Hadith 3701 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنِي زَكَرِيَّا بْنُ يَحْيَى، قَالَ حَدَّثَنَا إِسْحَاقُ، قَالَ حَدَّثَنَا الْمَخْزُومِيُّ، قَالَ حَدَّثَنَا وُهَيْبٌ، قَالَ حَدَّثَنَا عَبْدُ اللَّهِ بْنُ طَاوُسٍ، عَنْ أَبِيهِ، عَنِ ابْنِ عَبَّاسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْكَلْبِ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Abdullah bin Tawus, from his father, from Ibn &#x27;Abbas, that the Messenger of Allah said:&quot;The one who takes back his gift, is like the dog which vomits then goes back to its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 14</span></td></tr><tr id='h3702' class='hadith-sep'><td colspan='2'>Hadith 3702 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا أَحْمَدُ بْنُ حَرْبٍ، قَالَ حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنْ حَجَّاجٍ، عَنْ أَبِي الزُّبَيْرِ، عَنْ طَاوُسٍ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Abu Az-Zubair, from Tawus, that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;The one who takes back his gift, is like the one who goes back to his vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 15</span></td></tr><tr id='h3703' class='hadith-sep'><td colspan='2'>Hadith 3703 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَبْدُ الرَّحْمَنِ بْنُ مُحَمَّدِ بْنِ سَلاَّمٍ، قَالَ حَدَّثَنَا إِسْحَاقُ الأَزْرَقُ، قَالَ حَدَّثَنَا بِهِ، حُسَيْنٌ الْمُعَلِّمُ عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ طَاوُسٍ، عَنِ ابْنِ عُمَرَ، وَابْنِ، عَبَّاسٍ قَالاَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ يَحِلُّ لأَحَدٍ أَنْ يُعْطِيَ الْعَطِيَّةَ فَيَرْجِعَ فِيهَا إِلاَّ الْوَالِدَ فِيمَا يُعْطِي وَلَدَهُ وَمَثَلُ الَّذِي يُعْطِي الْعَطِيَّةَ فَيَرْجِعُ فِيهَا كَالْكَلْبِ يَأْكُلُ حَتَّى إِذَا شَبِعَ قَاءَ ثُمَّ عَادَ فَرَجَعَ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Amr bin Shu&#x27;aib, from Tawus, from Ibn &#x27;Umar and Ibn &#x27;Abbas, that they said:&quot;The Messenger of Allah said: &#x27;It is not permissible for anyone to give a gift then take it back, except a father with regard to what he gives to his son. The likeness of the one who gives a gift then takes it back, is that of the dog which eats then when it is full it vomits, then it goes back to its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 16</span></td></tr><tr id='h3704' class='hadith-sep'><td colspan='2'>Hadith 3704 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا عَبْدُ الْحَمِيدِ بْنُ مُحَمَّدٍ، قَالَ حَدَّثَنَا مَخْلَدٌ، قَالَ حَدَّثَنَا ابْنُ جُرَيْجٍ، عَنِ الْحَسَنِ بْنِ مُسْلِمٍ، عَنْ طَاوُسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ لاَ يَحِلُّ لأَحَدٍ يَهَبُ هِبَةً ثُمَّ يَعُودُ فِيهَا إِلاَّ الْوَالِدَ ‏&quot;‏ ‏.‏ قَالَ طَاوُسٌ كُنْتُ أَسْمَعُ الصِّبْيَانَ يَقُولُونَ يَا عَائِدًا فِي قَيْئِهِ وَلَمْ أَشْعُرْ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم ضَرَبَ ذَلِكَ مَثَلاً حَتَّى بَلَغَنَا أَنَّهُ كَانَ يَقُولُ ‏&quot;‏ مَثَلُ الَّذِي يَهَبُ الْهِبَةَ ثُمَّ يَعُودُ فِيهَا ‏&quot;‏ ‏.‏ وَذَكَرَ كَلِمَةً مَعْنَاهَا ‏&quot;‏ كَمَثَلِ الْكَلْبِ يَأْكُلُ قَيْئَهُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Ibn Juraij, from Al-Hasan bin Muslim, from Tawus that the Messenger of Allah said:&quot;It is not permissible for anyone to give a gift then take it back, except a father.&quot; Tawus said: &quot;I used to hear the boys say: &#x27;O you who goes back to his vomit!&#x27; But I did not realize that the Messenger of Allah had said this as a parable, until we heard that he used to say: &#x27;The likeness of the one who gives a gift then takes it back, is that of the dog which eats its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 17</span></td></tr><tr id='h3705' class='hadith-sep'><td colspan='2'>Hadith 3705 — The Book of Gifts</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمِ بْنِ نُعَيْمٍ، قَالَ حَدَّثَنَا حِبَّانُ، أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ حَنْظَلَةَ، أَنَّهُ سَمِعَ طَاوُسًا، يَقُولُ أَخْبَرَنَا بَعْضُ، مَنْ أَدْرَكَ النَّبِيَّ صلى الله عليه وسلم أَنَّهُ قَالَ ‏ &quot;‏ مَثَلُ الَّذِي يَهَبُ فَيَرْجِعُ فِي هِبَتِهِ كَمَثَلِ الْكَلْبِ يَأْكُلُ فَيَقِيءُ ثُمَّ يَأْكُلُ قَيْئَهُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from Hanzalah that he heard Tawus say:&quot;Some of those who met the Prophet told us that he said: &#x27;The likeness of the one who gives (something), then takes back his gift, is that of a dog which eats, then vomits, then eats its vomit</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 18</span></td></tr>
+<tr id='h3688' class='hadith-sep' data-hadith='3688'><td colspan='2'><a class='permalink' href='#h3688'>Hadith 3688</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3688'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا عَمْرُو بْنُ يَزِيدَ، قَالَ حَدَّثَنَا ابْنُ أَبِي عَدِيٍّ، قَالَ حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ كُنَّا عِنْدَ رَسُولِ اللَّهِ صلى الله عليه وسلم إِذْ أَتَتْهُ وَفْدُ هَوَازِنَ فَقَالُوا يَا مُحَمَّدُ إِنَّا أَصْلٌ وَعَشِيرَةٌ وَقَدْ نَزَلَ بِنَا مِنَ الْبَلاَءِ مَا لاَ يَخْفَى عَلَيْكَ فَامْنُنْ عَلَيْنَا مَنَّ اللَّهُ عَلَيْكَ ‏.‏ فَقَالَ ‏&quot;‏ اخْتَارُوا مِنْ أَمْوَالِكُمْ أَوْ مِنْ نِسَائِكُمْ وَأَبْنَائِكُمْ ‏&quot;‏ ‏.‏ فَقَالُوا قَدْ خَيَّرْتَنَا بَيْنَ أَحْسَابِنَا وَأَمْوَالِنَا بَلْ نَخْتَارُ نِسَاءَنَا وَأَبْنَاءَنَا ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَمَّا مَا كَانَ لِي وَلِبَنِي عَبْدِ الْمُطَّلِبِ فَهُوَ لَكُمْ فَإِذَا صَلَّيْتُ الظُّهْرَ فَقُومُوا فَقُولُوا إِنَّا نَسْتَعِينُ بِرَسُولِ اللَّهِ عَلَى الْمُؤْمِنِينَ أَوِ الْمُسْلِمِينَ فِي نِسَائِنَا وَأَبْنَائِنَا ‏&quot;‏ ‏.‏ فَلَمَّا صَلَّوُا الظُّهْرَ قَامُوا فَقَالُوا ذَلِكَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ فَمَا كَانَ لِي وَلِبَنِي عَبْدِ الْمُطَّلِبِ فَهُوَ لَكُمْ ‏&quot;‏ ‏.‏ فَقَالَ الْمُهَاجِرُونَ وَمَا كَانَ لَنَا فَهُوَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ وَقَالَتِ الأَنْصَارُ مَا كَانَ لَنَا فَهُوَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ فَقَالَ الأَقْرَعُ بْنُ حَابِسٍ أَمَّا أَنَا وَبَنُو تَمِيمٍ فَلاَ ‏.‏ وَقَالَ عُيَيْنَةُ بْنُ حِصْنٍ أَمَّا أَنَا وَبَنُو فَزَارَةَ فَلاَ ‏.‏ وَقَالَ الْعَبَّاسُ بْنُ مِرْدَاسٍ أَمَّا أَنَا وَبَنُو سُلَيْمٍ فَلاَ ‏.‏ فَقَامَتْ بَنُو سُلَيْمٍ فَقَالُوا كَذَبْتَ مَا كَانَ لَنَا فَهُوَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ يَا أَيُّهَا النَّاسُ رُدُّوا عَلَيْهِمْ نِسَاءَهُمْ وَأَبْنَاءَهُمْ فَمَنْ تَمَسَّكَ مِنْ هَذَا الْفَىْءِ بِشَىْءٍ فَلَهُ سِتُّ فَرَائِضَ مِنْ أَوَّلِ شَىْءٍ يُفِيئُهُ اللَّهُ عَزَّ وَجَلَّ عَلَيْنَا ‏&quot;‏ ‏.‏ وَرَكِبَ رَاحِلَتَهُ وَرَكِبَ النَّاسُ اقْسِمْ عَلَيْنَا فَيْأَنَا فَأَلْجَئُوهُ إِلَى شَجَرَةٍ فَخَطِفَتْ رِدَاءَهُ فَقَالَ ‏&quot;‏ يَا أَيُّهَا النَّاسُ رُدُّوا عَلَىَّ رِدَائِي فَوَاللَّهِ لَوْ أَنَّ لَكُمْ شَجَرَ تِهَامَةَ نَعَمًا قَسَمْتُهُ عَلَيْكُمْ ثُمَّ لَمْ تَلْقَوْنِي بَخِيلاً وَلاَ جَبَانًا وَلاَ كَذُوبًا ‏&quot;‏ ‏.‏ ثُمَّ أَتَى بَعِيرًا فَأَخَذَ مِنْ سَنَامِهِ وَبَرَةً بَيْنَ أُصْبُعَيْهِ ثُمَّ يَقُولُ ‏&quot;‏ هَا إِنَّهُ لَيْسَ لِي مِنَ الْفَىْءِ شَىْءٌ وَلاَ هَذِهِ إِلاَّ خُمُسٌ وَالْخُمُسُ مَرْدُودٌ فِيكُمْ ‏&quot;‏ ‏.‏ فَقَامَ إِلَيْهِ رَجُلٌ بِكُبَّةٍ مِنْ شَعْرٍ فَقَالَ يَا رَسُولَ اللَّهِ أَخَذْتُ هَذِهِ لأُصْلِحَ بِهَا بَرْدَعَةَ بَعِيرٍ لِي ‏.‏ فَقَالَ ‏&quot;‏ أَمَّا مَا كَانَ لِي وَلِبَنِي عَبْدِ الْمُطَّلِبِ فَهُوَ لَكَ ‏&quot;‏ ‏.‏ فَقَالَ أَوَبَلَغَتْ هَذِهِ فَلاَ أَرَبَ لِي فِيهَا ‏.‏ فَنَبَذَهَا ‏.‏ وَقَالَ ‏&quot;‏ يَا أَيُّهَا النَّاسُ أَدُّوا الْخِيَاطَ وَالْمِخْيَطَ فَإِنَّ الْغُلُولَ يَكُونُ عَلَى أَهْلِهِ عَارًا وَشَنَارًا يَوْمَ الْقِيَامَةِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3688'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from &#x27;Amr bin Shu&#x27;aib, from his father, that his grandfather said:&quot;We were with the Messenger of Allah when the delegation of Hawazin came to him and said: &#x27;O Muhammad! We are one of the &#x27;Arab tribes and a calamity has befallen us of which you are well aware. Do us a favor, may Allah bless you.&#x27; He said: &#x27;Choose between your wealth or your women and children.&#x27; They said: &#x27;You have given us a choice between our families and our wealth; we choose our women and children.&#x27; The Messenger of Allah said: &#x27;As for that which was allocated to myself and to Banu &#x27;Abdul-Muttalib, it is yours. When I have prayed Zuhr, stand up and say: &quot;We seek the help of the Messenger of Allah in dealing with the believers, or the Muslims, with regard to our women and children.&quot;&#x27; So when they prayed Zuhr, they stood up and said that. The Messenger of Allah said: &#x27;As for that which was allocated to myself and to Banu &#x27;Abdul-Muttalib, it is yours.&#x27; The Muhajirun said: &#x27;That which was allocated to us is for the Messenger of Allah.&#x27; The Ansar said: &#x27;That which was allocated to us is for the Messenger of Allah.&#x27; Al-Aqra&#x27; bin Habis said: &#x27;As for myself and Banu Tamim, then no (we will not give it up).&#x27; &#x27;Uyaynah bin Hisn said: &#x27;As for myself and Banu Fazarah, then no (we will not give it up).&#x27; Al-&#x27;Abbas bin Mirdas said: &#x27;As for myself and Banu Sulaim, then no (we will not give it up).&#x27; Banu Sulaim stood up and said: &#x27;You lied; whatever was allocated to us, it is for the Messenger of Allah.&#x27; The Messenger of Allah said: &#x27;O people, give their women and children back to them. Whoever gives back anything of these spoils of war, he will have six camels from the spoils of war that Allah grants us next.&#x27; Then he mounted his riding-animal and the people surrounded him, saying: &#x27;Distribute our spoils of war among us.&#x27; They made him go back toward a tree on which his Rida&#x27; (upper-wrap) got caught. He said: &#x27;O people! Give me back my Rida&#x27;. By Allah! If there were cattle as many in number as the trees of Tihamah I would distribute them among you, then you would not find me a miser, a coward or a liar.&#x27; Then he went to a camel and took a hair from its hump between two of his fingers and said: &#x27;Look! I do not have any of the spoils of war. All I have is the Khums, and the Khums will be given back to you.&#x27; A man stood up holding a ball of yarn made from goat hair and said: &#x27;O Messenger of Allah, I took this to fix my camel-saddle.&#x27; He said: &#x27;What was allocated to myself and to Banu &#x27;Abdul-Muttalib is for you.&#x27; He said: &#x27;Is this so important? I don&#x27;t need it!&#x27; And he threw it down. He said: &#x27;O people! Give back even needles large and small, for Al-Ghulul will be (a source of) shame and disgrace for those who took it on the Day of Resurrection</span></td></tr>
+<tr class='grade' data-hadith='3688'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='3688'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 1</span></td></tr><tr id='h3689' class='hadith-sep' data-hadith='3689'><td colspan='2'><a class='permalink' href='#h3689'>Hadith 3689</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3689'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا أَحْمَدُ بْنُ حَفْصٍ، قَالَ حَدَّثَنِي أَبِي قَالَ، حَدَّثَنِي إِبْرَاهِيمُ، عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، عَنْ عَامِرٍ الأَحْوَلِ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لا يَرْجِعُ أَحَدٌ فِي هِبَتِهِ إِلاَّ وَالِدٌ مِنْ وَلَدِهِ وَالْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3689'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from &#x27;Amr bin Shu&#x27;aib, from his father, that his grandfather said:&quot;The Messenger of Allah said: &#x27;No one should take back his gift except a father (taking back a gift) from his son. The one who takes back his gift is like one who goes back to his vomit</span></td></tr>
+<tr class='grade' data-hadith='3689'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='3689'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 2</span></td></tr><tr id='h3690' class='hadith-sep' data-hadith='3690'><td colspan='2'><a class='permalink' href='#h3690'>Hadith 3690</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3690'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، قَالَ حَدَّثَنَا ابْنُ أَبِي عَدِيٍّ، عَنْ حُسَيْنٍ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، قَالَ حَدَّثَنِي طَاوُسٌ، عَنِ ابْنِ عُمَرَ، وَابْنِ، عَبَّاسٍ يَرْفَعَانِ الْحَدِيثَ إِلَى النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ يَحِلُّ لِرَجُلٍ يُعْطِي عَطِيَّةً ثُمَّ يَرْجِعُ فِيهَا إِلاَّ الْوَالِدَ فِيمَا يُعْطِي وَلَدَهُ وَمَثَلُ الَّذِي يُعْطِي عَطِيَّةً ثُمَّ يَرْجِعُ فِيهَا كَمَثَلِ الْكَلْبِ أَكَلَ حَتَّى إِذَا شَبِعَ قَاءَ ثُمَّ عَادَ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3690'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from Ibn &#x27;Umar and Ibn &#x27;Abbas, who attributed the Hadith to the Prophet:&quot;It is not permissible for a man to give a gift and then take it back except a father taking back what he gave to his son. The likeness of the one who gives a gift then takes it back is that of the dog which eats until it is full, then it vomits, and goes back to its vomit</span></td></tr>
+<tr class='grade' data-hadith='3690'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='3690'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 3</span></td></tr><tr id='h3691' class='hadith-sep' data-hadith='3691'><td colspan='2'><a class='permalink' href='#h3691'>Hadith 3691</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3691'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ الْخَلَنْجِيُّ الْمَقْدِسِيُّ، قَالَ حَدَّثَنَا أَبُو سَعِيدٍ، - وَهُوَ مَوْلَى بَنِي هَاشِمٍ - عَنْ وُهَيْبٍ، قَالَ حَدَّثَنَا ابْنُ طَاوُسٍ، عَنْ أَبِيهِ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْكَلْبِ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3691'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;The one who takes back his gift is like the dog which vomits then goes back to its vomit</span></td></tr>
+<tr class='grade' data-hadith='3691'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='3691'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 4</span></td></tr><tr id='h3692' class='hadith-sep' data-hadith='3692'><td colspan='2'><a class='permalink' href='#h3692'>Hadith 3692</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3692'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمٍ، قَالَ حَدَّثَنَا حِبَّانُ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ إِبْرَاهِيمَ بْنِ نَافِعٍ، عَنِ الْحَسَنِ بْنِ مُسْلِمٍ، عَنْ طَاوُسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ يَحِلُّ لأَحَدٍ أَنْ يَهَبَ هِبَةً ثُمَّ يَرْجِعَ فِيهَا إِلاَّ مِنْ وَلَدِهِ ‏&quot;‏ ‏.‏ قَالَ طَاوُسٌ كُنْتُ أَسْمَعُ وَأَنَا صَغِيرٌ عَائِدٌ فِي قَيْئِهِ فَلَمْ نَدْرِ أَنَّهُ ضَرَبَ لَهُ مَثَلاً قَالَ ‏&quot;‏ فَمَنْ فَعَلَ ذَلِكَ فَمَثَلُهُ كَمَثَلِ الْكَلْبِ يَأْكُلُ ثُمَّ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3692'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated that Tawus said:&quot;The Messenger of Allah said: &#x27;It is not permissible for anyone to give a gift then take it back, except from one&#x27;s son.&#x27;&quot; Tawus said: &quot;When I was young I used to hear (the phrase), &#x27;The one who goes back to his vomit,&#x27; but we did not realize that this was a similitude.&quot; He said: &quot;The likeness of the one who does that is that of a dog which eats then vomits, then goes back to its vomit</span></td></tr>
+<tr class='grade' data-hadith='3692'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='3692'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 5</span></td></tr><tr id='h3693' class='hadith-sep' data-hadith='3693'><td colspan='2'><a class='permalink' href='#h3693'>Hadith 3693</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3693'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مَحْمُودُ بْنُ خَالِدٍ، قَالَ حَدَّثَنَا عُمَرُ، عَنِ الأَوْزَاعِيِّ، قَالَ حَدَّثَنِي مُحَمَّدُ بْنُ عَلِيِّ بْنِ حُسَيْنٍ، قَالَ حَدَّثَنِي سَعِيدُ بْنُ الْمُسَيَّبِ، قَالَ حَدَّثَنِي عَبْدُ اللَّهِ بْنُ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَثَلُ الَّذِي يَرْجِعُ فِي صَدَقَتِهِ كَمَثَلِ الْكَلْبِ يَرْجِعُ فِي قَيْئِهِ فَيَأْكُلُهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3693'><td class='label'>English</td><td><span class='eng-text' lang='en'>Abdullah bin &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;The likeness of the one who takes back his gift, is that of a dog which goes back to its vomit and eats it</span></td></tr>
+<tr class='grade' data-hadith='3693'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='3693'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 6</span></td></tr><tr id='h3694' class='hadith-sep' data-hadith='3694'><td colspan='2'><a class='permalink' href='#h3694'>Hadith 3694</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3694'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا إِسْحَاقُ بْنُ مَنْصُورٍ، قَالَ حَدَّثَنَا عَبْدُ الصَّمَدِ، قَالَ حَدَّثَنَا حَرْبٌ، - وَهُوَ ابْنُ شَدَّادٍ - قَالَ حَدَّثَنِي يَحْيَى، - هُوَ ابْنُ أَبِي كَثِيرٍ - قَالَ حَدَّثَنِي عَبْدُ الرَّحْمَنِ بْنُ عَمْرٍو، - وَهُوَ الأَوْزَاعِيُّ - أَنَّ مُحَمَّدَ بْنَ عَلِيِّ بْنِ حُسَيْنِ بْنِ فَاطِمَةَ بِنْتِ رَسُولِ اللَّهِ، صلى الله عليه وسلم حَدَّثَهُ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنِ ابْنِ عَبَّاسٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَثَلُ الَّذِي يَتَصَدَّقُ بِالصَّدَقَةِ ثُمَّ يَرْجِعُ فِيهَا كَمَثَلِ الْكَلْبِ قَاءَ ثُمَّ عَادَ فِي قَيْئِهِ فَأَكَلَهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3694'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from Ibn &#x27;Abbas that the Prophet said:&quot;The likeness of the one who gives a gift then takes it back, is that of a dog which vomits, then goes back to its vomit and eats it</span></td></tr>
+<tr class='grade' data-hadith='3694'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3694'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 7</span></td></tr><tr id='h3695' class='hadith-sep' data-hadith='3695'><td colspan='2'><a class='permalink' href='#h3695'>Hadith 3695</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3695'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا الْهَيْثَمُ بْنُ مَرْوَانَ بْنِ الْهَيْثَمِ بْنِ عِمْرَانَ، قَالَ حَدَّثَنَا مُحَمَّدٌ، - وَهُوَ ابْنُ بَكَّارِ بْنِ بِلاَلٍ - قَالَ حَدَّثَنَا يَحْيَى، عَنِ الأَوْزَاعِيِّ، أَنَّ مُحَمَّدَ بْنَ عَلِيِّ بْنِ الْحُسَيْنِ، حَدَّثَهُ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَثَلُ الَّذِي يَرْجِعُ فِي صَدَقَتِهِ كَمَثَلِ الْكَلْبِ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏ قَالَ الأَوْزَاعِيُّ سَمِعْتُهُ يُحَدِّثُ عَطَاءَ بْنَ أَبِي رَبَاحٍ بِهَذَا الْحَدِيثِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3695'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from &#x27;Abdullah bin &#x27;Abbas that the Messenger of Allah said:&quot;The likeness of the one who takes back his gift is that of a dog which vomits, then goes back to its vomit.&quot; (One of the narrators) Al-Awza&#x27;i said: &quot;I heard him narrating this Hadith to &#x27;Ata bin Abi Rabah</span></td></tr>
+<tr class='grade' data-hadith='3695'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3695'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 8</span></td></tr><tr id='h3696' class='hadith-sep' data-hadith='3696'><td colspan='2'><a class='permalink' href='#h3696'>Hadith 3696</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3696'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، قَالَ حَدَّثَنَا عَبْدُ الرَّحْمَنِ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ قَتَادَةَ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنِ ابْنِ عَبَّاسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3696'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from Ibn &#x27;Abbas that the Prophet said:&quot;The one who takes back his gift is like the one who goes back to his vomit</span></td></tr>
+<tr class='grade' data-hadith='3696'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3696'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 9</span></td></tr><tr id='h3697' class='hadith-sep' data-hadith='3697'><td colspan='2'><a class='permalink' href='#h3697'>Hadith 3697</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3697'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا أَبُو الأَشْعَثِ، قَالَ حَدَّثَنَا خَالِدٌ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ قَتَادَةَ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3697'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated that Ibn &#x27;Abbas said:&quot;The one who takes back his gift is like the one who goes back to his vomit</span></td></tr>
+<tr class='grade' data-hadith='3697'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3697'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 10</span></td></tr><tr id='h3698' class='hadith-sep' data-hadith='3698'><td colspan='2'><a class='permalink' href='#h3698'>Hadith 3698</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3698'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ الْعَلاَءِ، قَالَ حَدَّثَنَا أَبُو خَالِدٍ، - وَهُوَ سُلَيْمَانُ بْنُ حَيَّانَ - عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، عَنْ أَيُّوبَ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لَيْسَ لَنَا مَثَلُ السَّوْءِ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3698'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;It does not befit us to leave bad examples. The one who takes back his gift is like the one who goes back to his vomit</span></td></tr>
+<tr class='grade' data-hadith='3698'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari</span></td></tr>
+<tr class='ref' data-hadith='3698'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 11</span></td></tr><tr id='h3699' class='hadith-sep' data-hadith='3699'><td colspan='2'><a class='permalink' href='#h3699'>Hadith 3699</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3699'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا عَمْرُو بْنُ زُرَارَةَ، قَالَ حَدَّثَنَا إِسْمَاعِيلُ، عَنْ أَيُّوبَ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لَيْسَ لَنَا مَثَلُ السَّوْءِ الْعَائِدُ فِي هِبَتِهِ كَالْكَلْبِ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3699'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;It does not befit us to leave bad examples. The one who takes back his gift is like the dog which goes back to its vomit</span></td></tr>
+<tr class='grade' data-hadith='3699'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3699'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 12</span></td></tr><tr id='h3700' class='hadith-sep' data-hadith='3700'><td colspan='2'><a class='permalink' href='#h3700'>Hadith 3700</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3700'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمِ بْنِ نُعَيْمٍ، قَالَ حَدَّثَنَا حِبَّانُ، قَالَ أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ خَالِدٍ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لَيْسَ لَنَا مَثَلُ السَّوْءِ الرَّاجِعُ فِي هِبَتِهِ كَالْكَلْبِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3700'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;It does not befit us to leave bad examples. The one who takes back his gift is like a dog with its vomit</span></td></tr>
+<tr class='grade' data-hadith='3700'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='3700'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 13</span></td></tr><tr id='h3701' class='hadith-sep' data-hadith='3701'><td colspan='2'><a class='permalink' href='#h3701'>Hadith 3701</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3701'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنِي زَكَرِيَّا بْنُ يَحْيَى، قَالَ حَدَّثَنَا إِسْحَاقُ، قَالَ حَدَّثَنَا الْمَخْزُومِيُّ، قَالَ حَدَّثَنَا وُهَيْبٌ، قَالَ حَدَّثَنَا عَبْدُ اللَّهِ بْنُ طَاوُسٍ، عَنْ أَبِيهِ، عَنِ ابْنِ عَبَّاسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْكَلْبِ يَقِيءُ ثُمَّ يَعُودُ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3701'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from &#x27;Abdullah bin Tawus, from his father, from Ibn &#x27;Abbas, that the Messenger of Allah said:&quot;The one who takes back his gift, is like the dog which vomits then goes back to its vomit</span></td></tr>
+<tr class='grade' data-hadith='3701'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3701'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 14</span></td></tr><tr id='h3702' class='hadith-sep' data-hadith='3702'><td colspan='2'><a class='permalink' href='#h3702'>Hadith 3702</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3702'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا أَحْمَدُ بْنُ حَرْبٍ، قَالَ حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنْ حَجَّاجٍ، عَنْ أَبِي الزُّبَيْرِ، عَنْ طَاوُسٍ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ الْعَائِدُ فِي هِبَتِهِ كَالْعَائِدِ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3702'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from Abu Az-Zubair, from Tawus, that Ibn &#x27;Abbas said:&quot;The Messenger of Allah said: &#x27;The one who takes back his gift, is like the one who goes back to his vomit</span></td></tr>
+<tr class='grade' data-hadith='3702'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3702'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 15</span></td></tr><tr id='h3703' class='hadith-sep' data-hadith='3703'><td colspan='2'><a class='permalink' href='#h3703'>Hadith 3703</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3703'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا عَبْدُ الرَّحْمَنِ بْنُ مُحَمَّدِ بْنِ سَلاَّمٍ، قَالَ حَدَّثَنَا إِسْحَاقُ الأَزْرَقُ، قَالَ حَدَّثَنَا بِهِ، حُسَيْنٌ الْمُعَلِّمُ عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ طَاوُسٍ، عَنِ ابْنِ عُمَرَ، وَابْنِ، عَبَّاسٍ قَالاَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ يَحِلُّ لأَحَدٍ أَنْ يُعْطِيَ الْعَطِيَّةَ فَيَرْجِعَ فِيهَا إِلاَّ الْوَالِدَ فِيمَا يُعْطِي وَلَدَهُ وَمَثَلُ الَّذِي يُعْطِي الْعَطِيَّةَ فَيَرْجِعُ فِيهَا كَالْكَلْبِ يَأْكُلُ حَتَّى إِذَا شَبِعَ قَاءَ ثُمَّ عَادَ فَرَجَعَ فِي قَيْئِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3703'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from &#x27;Amr bin Shu&#x27;aib, from Tawus, from Ibn &#x27;Umar and Ibn &#x27;Abbas, that they said:&quot;The Messenger of Allah said: &#x27;It is not permissible for anyone to give a gift then take it back, except a father with regard to what he gives to his son. The likeness of the one who gives a gift then takes it back, is that of the dog which eats then when it is full it vomits, then it goes back to its vomit</span></td></tr>
+<tr class='grade' data-hadith='3703'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3703'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 16</span></td></tr><tr id='h3704' class='hadith-sep' data-hadith='3704'><td colspan='2'><a class='permalink' href='#h3704'>Hadith 3704</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3704'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا عَبْدُ الْحَمِيدِ بْنُ مُحَمَّدٍ، قَالَ حَدَّثَنَا مَخْلَدٌ، قَالَ حَدَّثَنَا ابْنُ جُرَيْجٍ، عَنِ الْحَسَنِ بْنِ مُسْلِمٍ، عَنْ طَاوُسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ لاَ يَحِلُّ لأَحَدٍ يَهَبُ هِبَةً ثُمَّ يَعُودُ فِيهَا إِلاَّ الْوَالِدَ ‏&quot;‏ ‏.‏ قَالَ طَاوُسٌ كُنْتُ أَسْمَعُ الصِّبْيَانَ يَقُولُونَ يَا عَائِدًا فِي قَيْئِهِ وَلَمْ أَشْعُرْ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم ضَرَبَ ذَلِكَ مَثَلاً حَتَّى بَلَغَنَا أَنَّهُ كَانَ يَقُولُ ‏&quot;‏ مَثَلُ الَّذِي يَهَبُ الْهِبَةَ ثُمَّ يَعُودُ فِيهَا ‏&quot;‏ ‏.‏ وَذَكَرَ كَلِمَةً مَعْنَاهَا ‏&quot;‏ كَمَثَلِ الْكَلْبِ يَأْكُلُ قَيْئَهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3704'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from Ibn Juraij, from Al-Hasan bin Muslim, from Tawus that the Messenger of Allah said:&quot;It is not permissible for anyone to give a gift then take it back, except a father.&quot; Tawus said: &quot;I used to hear the boys say: &#x27;O you who goes back to his vomit!&#x27; But I did not realize that the Messenger of Allah had said this as a parable, until we heard that he used to say: &#x27;The likeness of the one who gives a gift then takes it back, is that of the dog which eats its vomit</span></td></tr>
+<tr class='grade' data-hadith='3704'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Lighairihi; Sahih; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3704'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 17</span></td></tr><tr id='h3705' class='hadith-sep' data-hadith='3705'><td colspan='2'><a class='permalink' href='#h3705'>Hadith 3705</a> — The Book of Gifts</td></tr>
+<tr class='arabic' data-hadith='3705'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>أَخْبَرَنَا مُحَمَّدُ بْنُ حَاتِمِ بْنِ نُعَيْمٍ، قَالَ حَدَّثَنَا حِبَّانُ، أَنْبَأَنَا عَبْدُ اللَّهِ، عَنْ حَنْظَلَةَ، أَنَّهُ سَمِعَ طَاوُسًا، يَقُولُ أَخْبَرَنَا بَعْضُ، مَنْ أَدْرَكَ النَّبِيَّ صلى الله عليه وسلم أَنَّهُ قَالَ ‏ &quot;‏ مَثَلُ الَّذِي يَهَبُ فَيَرْجِعُ فِي هِبَتِهِ كَمَثَلِ الْكَلْبِ يَأْكُلُ فَيَقِيءُ ثُمَّ يَأْكُلُ قَيْئَهُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3705'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from Hanzalah that he heard Tawus say:&quot;Some of those who met the Prophet told us that he said: &#x27;The likeness of the one who gives (something), then takes back his gift, is that of a dog which eats, then vomits, then eats its vomit</span></td></tr>
+<tr class='grade' data-hadith='3705'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3705'><td class='label'>Reference</td><td><span class='ref-text'>Book 32, Hadith 18</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -257,5 +391,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>

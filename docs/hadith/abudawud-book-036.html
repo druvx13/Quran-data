@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='abudawud.html'>Sunan Abu Dawud</a> › Signet-Rings (Kitab Al-Khatam)</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="abudawud-book-001.html">1. Purification (Kitab Al-Taharah)</option><option value="abudawud-book-002.html">2. Prayer (Kitab Al-Salat)</option><option value="abudawud-book-003.html">3. The Book Of The Prayer For Rain (Kitab…</option><option value="abudawud-book-004.html">4. Prayer (Kitab Al-Salat): Detailed Rules of Law…</option><option value="abudawud-book-005.html">5. Prayer (Kitab Al-Salat): Voluntary Prayers</option><option value="abudawud-book-006.html">6. Prayer (Kitab Al-Salat): Detailed Injunctions…</option><option value="abudawud-book-007.html">7. Prayer (Kitab Al-Salat): Prostration while…</option><option value="abudawud-book-008.html">8. Prayer (Kitab Al-Salat): Detailed Injunctions…</option><option value="abudawud-book-009.html">9. Zakat (Kitab Al-Zakat)</option><option value="abudawud-book-010.html">10. The Book of Lost and Found Items</option><option value="abudawud-book-011.html">11. The Rites of Hajj (Kitab Al-Manasik Wa&#x27;l-Hajj)</option><option value="abudawud-book-012.html">12. Marriage (Kitab Al-Nikah)</option><option value="abudawud-book-013.html">13. Divorce (Kitab Al-Talaq)</option><option value="abudawud-book-014.html">14. Fasting (Kitab Al-Siyam)</option><option value="abudawud-book-015.html">15. Jihad (Kitab Al-Jihad)</option><option value="abudawud-book-016.html">16. Sacrifice (Kitab Al-Dahaya)</option><option value="abudawud-book-017.html">17. Game (Kitab Al-Said)</option><option value="abudawud-book-018.html">18. Wills (Kitab Al-Wasaya)</option><option value="abudawud-book-019.html">19. Shares of Inheritance (Kitab Al-Fara&#x27;id)</option><option value="abudawud-book-020.html">20. Tribute, Spoils, and Rulership (Kitab Al-Kharaj,…</option><option value="abudawud-book-021.html">21. Funerals (Kitab Al-Jana&#x27;iz)</option><option value="abudawud-book-022.html">22. Oaths and Vows (Kitab Al-Aiman Wa Al-Nudhur)</option><option value="abudawud-book-023.html">23. Commercial Transactions (Kitab Al-Buyu)</option><option value="abudawud-book-024.html">24. Wages (Kitab Al-Ijarah)</option><option value="abudawud-book-025.html">25. The Office of the Judge (Kitab Al-Aqdiyah)</option><option value="abudawud-book-026.html">26. Knowledge (Kitab Al-Ilm)</option><option value="abudawud-book-027.html">27. Drinks (Kitab Al-Ashribah)</option><option value="abudawud-book-028.html">28. Foods (Kitab Al-At&#x27;imah)</option><option value="abudawud-book-029.html">29. Medicine (Kitab Al-Tibb)</option><option value="abudawud-book-030.html">30. Divination and Omens (Kitab Al-Kahanah Wa…</option><option value="abudawud-book-031.html">31. The Book of Manumission of Slaves</option><option value="abudawud-book-032.html">32. Dialects and Readings of the Qur&#x27;an (Kitab…</option><option value="abudawud-book-033.html">33. Hot Baths (Kitab Al-Hammam)</option><option value="abudawud-book-034.html">34. Clothing (Kitab Al-Libas)</option><option value="abudawud-book-035.html">35. Combing the Hair (Kitab Al-Tarajjul)</option><option value="abudawud-book-036.html" selected>36. Signet-Rings (Kitab Al-Khatam)</option><option value="abudawud-book-037.html">37. Trials and Fierce Battles (Kitab Al-Fitan Wa…</option><option value="abudawud-book-038.html">38. The Promised Deliverer (Kitab Al-Mahdi)</option><option value="abudawud-book-039.html">39. Battles (Kitab Al-Malahim)</option><option value="abudawud-book-040.html">40. Prescribed Punishments (Kitab Al-Hudud)</option><option value="abudawud-book-041.html">41. Types of Blood-Wit (Kitab Al-Diyat)</option><option value="abudawud-book-042.html">42. Model Behavior of the Prophet (Kitab Al-Sunnah)</option><option value="abudawud-book-043.html">43. General Behavior (Kitab Al-Adab)</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,115 +294,117 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 4214–4239 &nbsp;|&nbsp;
   <a href="abudawud.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='4214' max='4239' value='4214'></label><label>To <input type='number' id='hvc-to' min='4214' max='4239' value='4239'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h4214' class='hadith-sep'><td colspan='2'>Hadith 4214 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ الرَّحِيمِ بْنُ مُطَرِّفٍ الرُّؤَاسِيُّ، حَدَّثَنَا عِيسَى، عَنْ سَعِيدٍ، عَنْ قَتَادَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ أَرَادَ رَسُولُ اللَّهِ صلى الله عليه وسلم أَنْ يَكْتُبَ إِلَى بَعْضِ الأَعَاجِمِ فَقِيلَ لَهُ إِنَّهُمْ لاَ يَقْرَءُونَ كِتَابًا إِلاَّ بِخَاتَمٍ فَاتَّخَذَ خَاتَمًا مِنْ فِضَّةٍ وَنَقَشَ فِيهِ ‏ &quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas bin Malik:The Messenger of Allah (ﷺ) wanted to write to some persian rulers. He was told that they would not read a letter without a seal in the form of a silver ring on which he engraved &quot;Muhammad the Messenger of Allah</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (5872)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 1</span></td></tr><tr id='h4215' class='hadith-sep'><td colspan='2'>Hadith 4215 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا وَهْبُ بْنُ بَقِيَّةَ، عَنْ خَالِدٍ، عَنْ سَعِيدٍ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ، بِمَعْنَى حَدِيثِ عِيسَى بْنِ يُونُسَ زَادَ فَكَانَ فِي يَدِهِ حَتَّى قُبِضَ وَفِي يَدِ أَبِي بَكْرٍ حَتَّى قُبِضَ وَفِي يَدِ عُمَرَ حَتَّى قُبِضَ وَفِي يَدِ عُثْمَانَ فَبَيْنَمَا هُوَ عِنْدَ بِئْرٍ إِذْ سَقَطَ فِي الْبِئْرِ فَأَمَرَ بِهَا فَنُزِحَتْ فَلَمْ يُقْدَرْ عَلَيْهِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The tradition mentioned above has also been transmitted by Anas through a different chain of narrators. This version as transmitted by &#x27;Isa b. Yunus adds:It remained in his hand until he died, in the hand of &#x27;Abu Bakr until he died, in the hand of &#x27;Umar until he died, and in the hand of &#x27;Uthman. When he was near a well, it fell down in it. He ordered to take it out, but it could not be found</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 2</span></td></tr><tr id='h4216' class='hadith-sep'><td colspan='2'>Hadith 4216 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، وَأَحْمَدُ بْنُ صَالِحٍ، قَالاَ حَدَّثَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي يُونُسُ بْنُ يَزِيدَ، عَنِ ابْنِ شِهَابٍ، قَالَ حَدَّثَنِي أَنَسٌ، قَالَ كَانَ خَاتَمُ النَّبِيِّ صلى الله عليه وسلم مِنْ وَرِقٍ فَصُّهُ حَبَشِيٌّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas:The signet-ring of the Prophet (ﷺ) was of silver with an Abyssinian stone</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (5868) Sahih Muslim (2094)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 3</span></td></tr><tr id='h4217' class='hadith-sep'><td colspan='2'>Hadith 4217 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ يُونُسَ، حَدَّثَنَا زُهَيْرٌ، حَدَّثَنَا حُمَيْدٌ الطَّوِيلُ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ كَانَ خَاتَمُ النَّبِيِّ صلى الله عليه وسلم مِنْ فِضَّةٍ كُلُّهُ فَصُّهُ مِنْهُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas:The signet-ring of the Prophet (ﷺ) was all of silver as was also its stone</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 4</span></td></tr><tr id='h4218' class='hadith-sep'><td colspan='2'>Hadith 4218 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا نُصَيْرُ بْنُ الْفَرَجِ، حَدَّثَنَا أَبُو أُسَامَةَ، عَنْ عُبَيْدِ اللَّهِ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ اتَّخَذَ رَسُولُ اللَّهِ صلى الله عليه وسلم خَاتَمًا مِنْ ذَهَبٍ وَجَعَلَ فَصَّهُ مِمَّا يَلِي بَطْنَ كَفِّهِ وَنَقَشَ فِيهِ ‏&quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ فَاتَّخَذَ النَّاسُ خَوَاتِمَ الذَّهَبِ فَلَمَّا رَآهُمْ قَدِ اتَّخَذُوهَا رَمَى بِهِ وَقَالَ ‏&quot;‏ لاَ أَلْبَسُهُ أَبَدًا ‏&quot;‏ ‏.‏ ثُمَّ اتَّخَذَ خَاتَمًا مِنْ فِضَّةٍ نَقَشَ فِيهِ ‏&quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ ثُمَّ لَبِسَ الْخَاتَمَ بَعْدَهُ أَبُو بَكْرٍ ثُمَّ لَبِسَهُ بَعْدَ أَبِي بَكْرٍ عُمَرُ ثُمَّ لَبِسَهُ بَعْدَهُ عُثْمَانُ حَتَّى وَقَعَ فِي بِئْرِ أَرِيسَ ‏.‏ قَالَ أَبُو دَاوُدَ وَلَمْ يَخْتَلِفِ النَّاسُ عَلَى عُثْمَانَ حَتَّى سَقَطَ الْخَاتَمُ مِنْ يَدِهِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn &#x27;Umar: The Messenger of Allah (ﷺ) took a signet-ring of gold, and put the stone next the palm of his hand. He engraved on it &quot;Muhammad, the Messenger of Allah&quot;. The people then took signet-rings of gold. When he saw that they had taken them (like his ring) he threw it away and said: I shall never wear it. He then fashioned a silver ring and engraved on it &quot;Muhammad, the Messenger of Allah&quot;. Then Abu Bakr wore it after him, then &#x27;Umar wore it after Abu Bakr, and the &#x27;Uthman wore it after &#x27;Umar till it fell down in a well called Aris. Abu Dawud said: The people did not disagree on &#x27;Uthman till the signet-rin fell down from his hand</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari (5866) Sahih Muslim (2091)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 5</span></td></tr><tr id='h4219' class='hadith-sep'><td colspan='2'>Hadith 4219 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ أَيُّوبَ بْنِ مُوسَى، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، فِي هَذَا الْخَبَرِ عَنِ النَّبِيِّ صلى الله عليه وسلم فَنَقَشَ فِيهِ ‏&quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ وَقَالَ ‏&quot;‏ لاَ يَنْقُشْ أَحَدٌ عَلَى نَقْشِ خَاتَمِي هَذَا ‏&quot;‏ ‏.‏ ثُمَّ سَاقَ الْحَدِيثَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The tradition mentioned above has also been transmitted by Ibn &#x27;Umar through a different chain of narrators from the Prophet (ﷺ). This version adds:He engraved on it &quot;Muhammad, the Messenger of Allah.&quot; and said: &quot;No one must engrave anything in the manner of this signet-ring of mine. He then transmitted the rest of the tradition</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Muslim (2091)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 6</span></td></tr><tr id='h4220' class='hadith-sep'><td colspan='2'>Hadith 4220 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى بْنِ فَارِسٍ، حَدَّثَنَا أَبُو عَاصِمٍ، عَنِ الْمُغِيرَةِ بْنِ زِيَادٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، بِهَذَا الْخَبَرِ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ فَالْتَمَسُوهُ فَلَمْ يَجِدُوهُ فَاتَّخَذَ عُثْمَانُ خَاتَمًا وَنَقَشَ فِيهِ ‏ &quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ قَالَ فَكَانَ يَخْتِمُ بِهِ أَوْ يَتَخَتَّمُ بِهِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The tradition mentioned above has also been transmitted by Ibn &#x27;Umar through different chain of narrators from the Prophet (ﷺ). This version adds:They searched for it but could not find it. &#x27;Uthman then fashioned a signet-ring and engraved on it &quot;Muhammad, the Messenger of Allah&quot;. He used to wear it or stamp with it</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 7</span></td></tr><tr id='h4221' class='hadith-sep'><td colspan='2'>Hadith 4221 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ سُلَيْمَانَ، لُوَيْنٌ عَنْ إِبْرَاهِيمَ بْنِ سَعْدٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّهُ رَأَى فِي يَدِ النَّبِيِّ صلى الله عليه وسلم خَاتَمًا مِنْ وَرِقٍ يَوْمًا وَاحِدًا فَصَنَعَ النَّاسُ فَلَبِسُوا وَطَرَحَ النَّبِيُّ صلى الله عليه وسلم فَطَرَحَ النَّاسُ ‏.‏ قَالَ أَبُو دَاوُدَ رَوَاهُ عَنِ الزُّهْرِيِّ زِيَادُ بْنُ سَعْدٍ وَشُعَيْبٌ وَابْنُ مُسَافِرٍ كُلُّهُمْ قَالَ مِنْ وَرِقٍ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Anas b. Malik said that he saw a silver signet-ring on the hand of the Prophet (ﷺ) only for a day. The people then fashioned and wore (rings). The Prophet (ﷺ) then threw it away and the people also threw (them.) Abu Dawud said:Ziyad b. Sa&#x27;d, Shu&#x27;aib and Ibn Musafir transmitted it from al-Zuhri. &#x27;Ali said in their versions: &quot;of silver</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (2094) Sahih Muslim (5868)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 8</span></td></tr><tr id='h4222' class='hadith-sep'><td colspan='2'>Hadith 4222 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا الْمُعْتَمِرُ، قَالَ سَمِعْتُ الرُّكَيْنَ بْنَ الرَّبِيعِ، يُحَدِّثُ عَنِ الْقَاسِمِ بْنِ حَسَّانَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ حَرْمَلَةَ، أَنَّ ابْنَ مَسْعُودٍ، كَانَ يَقُولُ كَانَ نَبِيُّ اللَّهِ صلى الله عليه وسلم يَكْرَهُ عَشْرَ خِلاَلٍ الصُّفْرَةَ - يَعْنِي الْخَلُوقَ - وَتَغْيِيرَ الشَّيْبِ وَجَرَّ الإِزَارِ وَالتَّخَتُّمَ بِالذَّهَبِ وَالتَّبَرُّجَ بِالزِّينَةِ لِغَيْرِ مَحِلِّهَا وَالضَّرْبَ بِالْكِعَابِ وَالرُّقَى إِلاَّ بِالْمُعَوِّذَاتِ وَعَقْدَ التَّمَائِمِ وَعَزْلَ الْمَاءِ لِغَيْرِ أَوْ غَيْرِ مَحِلِّهِ أَوْ عَنْ مَحِلِّهِ وَفَسَادَ الصَّبِيِّ غَيْرَ مُحَرِّمِهِ ‏.‏ قَالَ أَبُو دَاوُدَ انْفَرَدَ بِإِسْنَادِ هَذَا الْحَدِيثِ أَهْلُ الْبَصْرَةِ وَاللَّهُ أَعْلَمُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abdullah ibn Mas&#x27;ud: The Prophet of Allah (ﷺ) disliked ten things: Yellow colouring, meaning khaluq, dyeing grey hair, trailing the lower garment, wearing a gold signet-ring, a woman decking herself before people who are not within the prohibited degrees, throwing dice, using spells except with the Mu&#x27;awwidhatan, wearing amulets, withdrawing the penis before the semen is discharged, in the case of a woman who is wife or not a wife, and having intercourse with a woman who is suckling a child; but he did not declare them to be prohibited. Abu Dawud said: Only the transmitters of Basrah have transmitted this tradition</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Munkar; Munkar; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 9</span></td></tr><tr id='h4223' class='hadith-sep'><td colspan='2'>Hadith 4223 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ، وَمُحَمَّدُ بْنُ عَبْدِ الْعَزِيزِ بْنِ أَبِي رِزْمَةَ، - الْمَعْنَى - أَنَّ زَيْدَ بْنَ حُبَابٍ، أَخْبَرَهُمْ عَنْ عَبْدِ اللَّهِ بْنِ مُسْلِمٍ السُّلَمِيِّ الْمَرْوَزِيِّ أَبِي طَيْبَةَ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ أَبِيهِ، أَنَّ رَجُلاً، جَاءَ إِلَى النَّبِيِّ صلى الله عليه وسلم وَعَلَيْهِ خَاتَمٌ مِنْ شَبَهٍ فَقَالَ لَهُ ‏&quot;‏ مَا لِي أَجِدُ مِنْكَ رِيحَ الأَصْنَامِ ‏&quot;‏ ‏.‏ فَطَرَحَهُ ثُمَّ جَاءَ وَعَلَيْهِ خَاتَمٌ مِنْ حَدِيدٍ فَقَالَ ‏&quot;‏ مَا لِي أَرَى عَلَيْكَ حِلْيَةَ أَهْلِ النَّارِ ‏&quot;‏ ‏.‏ فَطَرَحَهُ فَقَالَ يَا رَسُولَ اللَّهِ مِنْ أَىِّ شَىْءٍ أَتَّخِذُهُ قَالَ ‏&quot;‏ اتَّخِذْهُ مِنْ وَرِقٍ وَلاَ تُتِمَّهُ مِثْقَالاً ‏&quot;‏ ‏.‏ وَلَمْ يَقُلْ مُحَمَّدٌ عَبْدِ اللَّهِ بْنِ مُسْلِمٍ ‏.‏ وَلَمْ يَقُلِ الْحَسَنُ السُّلَمِيِّ الْمَرْوَزِيِّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Buraydah ibn al-Hasib: A man came to the Prophet (ﷺ) and he was wearing a signet-ring of yellow copper. He said to him: How is it that I notice the odour of idols in you? So he threw it away, and came wearing an iron signet ring. He (the Prophet) said: What is it that I see you wearing the adornment of the inhabitants of Hell? So he threw it away. He asked: Messenger of Allah, what material I must use? He said: Make it of silver, but do not weigh it as much as a mithqal, The narrator Muhammad did not say: &quot; &#x27;Abd Allah b. Muslim,&quot; and al-Hasan did not say: &quot;al-Sulami al-Marwazi</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 10</span></td></tr><tr id='h4224' class='hadith-sep'><td colspan='2'>Hadith 4224 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا ابْنُ الْمُثَنَّى، وَزِيَادُ بْنُ يَحْيَى، وَالْحَسَنُ بْنُ عَلِيٍّ، قَالُوا حَدَّثَنَا سَهْلُ بْنُ حَمَّادٍ أَبُو عَتَّابٍ، حَدَّثَنَا أَبُو مَكِينٍ، نُوحُ بْنُ رَبِيعَةَ حَدَّثَنِي إِيَاسُ بْنُ الْحَارِثِ بْنِ الْمُعَيْقِيبِ، وَجَدُّهُ، مِنْ قِبَلِ أُمِّهِ أَبُو ذُبَابٍ عَنْ جَدِّهِ، قَالَ كَانَ خَاتَمُ النَّبِيِّ صلى الله عليه وسلم مِنْ حَدِيدٍ مَلْوِيٌّ عَلَيْهِ فِضَّةٌ ‏.‏ قَالَ فَرُبَّمَا كَانَ فِي يَدِهِ قَالَ وَكَانَ الْمُعَيْقِيبُ عَلَى خَاتَمِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Iyas b. al-Harith b. al-Mu&#x27;aiqib quoting his grandfather said and his grandfather from his mother&#x27;s side was Abu Dhubab:The signet-ring of the Prophet (ﷺ) was of iron polished with silver. Sometimes it remained in my possession. Al-Mu&#x27;ayqib was in charge of the signet-ring of the Prophet (ﷺ)</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 11</span></td></tr><tr id='h4225' class='hadith-sep'><td colspan='2'>Hadith 4225 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا بِشْرُ بْنُ الْمُفَضَّلِ، حَدَّثَنَا عَاصِمُ بْنُ كُلَيْبٍ، عَنْ أَبِي بُرْدَةَ، عَنْ عَلِيٍّ، - رضى الله عنه - قَالَ قَالَ لِي رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ قُلِ اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي وَاذْكُرْ بِالْهِدَايَةِ هِدَايَةَ الطَّرِيقِ وَاذْكُرْ بِالسَّدَادِ تَسْدِيدَكَ السَّهْمَ ‏&quot;‏ ‏.‏ قَالَ وَنَهَانِي أَنْ أَضَعَ الْخَاتَمَ فِي هَذِهِ أَوْ فِي هَذِهِ لِلسَّبَّابَةِ وَالْوُسْطَى - شَكَّ عَاصِمٌ - وَنَهَانِي عَنِ الْقَسِّيَّةِ وَالْمِيثَرَةِ ‏.‏ قَالَ أَبُو بُرْدَةَ فَقُلْنَا لِعَلِيٍّ مَا الْقَسِّيَّةُ قَالَ ثِيَابٌ تَأْتِينَا مِنَ الشَّامِ أَوْ مِنْ مِصْرَ مُضَلَّعَةٌ فِيهَا أَمْثَالُ الأُتْرُجِّ قَالَ وَالْمِيثَرَةُ شَىْءٌ كَانَتْ تَصْنَعُهُ النِّسَاءُ لِبُعُولَتِهِنَّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ali:The Messenger of Allah (ﷺ) said to me: Say: O Allah, guide me, and set me right. Remember by guidance (hidayah) the showing of the straight path, and remember by setting right (sadad) the setting right of an arrow. Then pointing to the middle finger and the one next to it, he said: He forbade me to wear a signet-ring on this finger of mine or on this (Asim was doubtful). He forbade me to wear qassiyyah (qasi garments) and mitharah. Abu Burdah said: We asked &#x27;Ali: What is qasiyyah ? He said: These are garments imported to us from Syria or Egypt. They are stripped and marked like citrons. And mitharah was a thing made by women for their husbands</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim (2078 After 2095)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 12</span></td></tr><tr id='h4226' class='hadith-sep'><td colspan='2'>Hadith 4226 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ صَالِحٍ، حَدَّثَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي سُلَيْمَانُ بْنُ بِلاَلٍ، عَنْ شَرِيكِ بْنِ أَبِي نَمِرٍ، عَنْ إِبْرَاهِيمَ بْنِ عَبْدِ اللَّهِ بْنِ حُنَيْنٍ، عَنْ أَبِيهِ، عَنْ عَلِيٍّ، - رضى الله تعالى عنه - عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ قَالَ شَرِيكٌ وَأَخْبَرَنِي أَبُو سَلَمَةَ بْنُ عَبْدِ الرَّحْمَنِ أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَتَخَتَّمُ فِي يَمِينِهِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ali ibn AbuTalib: The Prophet (ﷺ) used to wear the signet-ring on his right hand</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 13</span></td></tr><tr id='h4227' class='hadith-sep'><td colspan='2'>Hadith 4227 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ، حَدَّثَنِي أَبِي، حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ أَبِي رَوَّادٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَتَخَتَّمُ فِي يَسَارِهِ وَكَانَ فَصُّهُ فِي بَاطِنِ كَفِّهِ ‏.‏ قَالَ أَبُو دَاوُدَ قَالَ ابْنُ إِسْحَاقَ وَأُسَامَةَ - يَعْنِي ابْنَ زَيْدٍ - عَنْ نَافِعٍ بِإِسْنَادِهِ فِي يَمِينِهِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abdullah ibn Umar: The Prophet (ﷺ) used to wear the signet-ring on his left hand, and put its stone next the palm of his hand. Abu Dawud said: Ibn Ishaq and Usamah b. Zaid transmitted from Nafi&#x27;: &quot;On his right hand</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Shadh; Shadh; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 14</span></td></tr><tr id='h4228' class='hadith-sep'><td colspan='2'>Hadith 4228 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا هَنَّادٌ، عَنْ عَبْدَةَ، عَنْ عُبَيْدِ اللَّهِ، عَنْ نَافِعٍ، أَنَّ ابْنَ عُمَرَ، كَانَ يَلْبَسُ خَاتَمَهُ فِي يَدِهِ الْيُسْرَى ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Nafi&#x27; said that Ibn &#x27;Umar used to wear his signet-ring on his left hand</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 15</span></td></tr><tr id='h4229' class='hadith-sep'><td colspan='2'>Hadith 4229 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ سَعِيدٍ، حَدَّثَنَا يُونُسُ بْنُ بُكَيْرٍ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، قَالَ رَأَيْتُ عَلَى الصَّلْتِ بْنِ عَبْدِ اللَّهِ بْنِ نَوْفَلِ بْنِ عَبْدِ الْمُطَّلِبِ خَاتَمًا فِي خِنْصَرِهِ الْيُمْنَى فَقُلْتُ مَا هَذَا قَالَ رَأَيْتُ ابْنَ عَبَّاسٍ يَلْبَسُ خَاتَمَهُ هَكَذَا وَجَعَلَ فَصَّهُ عَلَى ظَهْرِهَا ‏.‏ قَالَ وَلاَ يَخَالُ ابْنَ عَبَّاسٍ إِلاَّ قَدْ كَانَ يَذْكُرُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَلْبَسُ خَاتَمَهُ كَذَلِكَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Muhammad ibn Ishaq said:I saw as-Salt ibn Abdullah ibn Nawfal ibn AbdulMuttalib wearing the signet-ring on his right small finger. I asked: What is this? He replied: I saw Ibn Abbas wearing his ring in this manner. He put its stone towards the upper part of his palm. Ibn Abbas also mentioned that the Messenger of Allah (ﷺ) used to wear his signet-ring in his manner</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 16</span></td></tr><tr id='h4230' class='hadith-sep'><td colspan='2'>Hadith 4230 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَلِيُّ بْنُ سَهْلٍ، وَإِبْرَاهِيمُ بْنُ الْحَسَنِ، قَالاَ حَدَّثَنَا حَجَّاجٌ، عَنِ ابْنِ جُرَيْجٍ، أَخْبَرَنِي عُمَرُ بْنُ حَفْصٍ، أَنَّ عَامِرَ بْنَ عَبْدِ اللَّهِ، - قَالَ عَلِيُّ بْنُ سَهْلٍ ابْنِ الزُّبَيْرِ - أَخْبَرَهُ أَنَّ مَوْلاَةً لَهُمْ ذَهَبَتْ بِابْنَةِ الزُّبَيْرِ إِلَى عُمَرَ بْنِ الْخَطَّابِ وَفِي رِجْلِهَا أَجْرَاسٌ فَقَطَعَهَا عُمَرُ ثُمَّ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ إِنَّ مَعَ كُلِّ جَرَسٍ شَيْطَانًا ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ibn az-Zubayr told that a woman client of theirs took az-Zubayr&#x27;s daughter to Umar ibn al-Khattab wearing bells on her legs. Umar cut them off and said that he had heard the Messenger of Allah (ﷺ) say:There is a devil along with each bell</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 17</span></td></tr><tr id='h4231' class='hadith-sep'><td colspan='2'>Hadith 4231 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الرَّحِيمِ، حَدَّثَنَا رَوْحٌ، حَدَّثَنَا ابْنُ جُرَيْجٍ، عَنْ بُنَانَةَ، مَوْلاَةِ عَبْدِ الرَّحْمَنِ بْنِ حَسَّانَ الأَنْصَارِيِّ عَنْ عَائِشَةَ، قَالَتْ بَيْنَمَا هِيَ عِنْدَهَا إِذْ دُخِلَ عَلَيْهَا بِجَارِيَةٍ وَعَلَيْهَا جَلاَجِلُ يُصَوِّتْنَ فَقَالَتْ لاَ تُدْخِلْنَهَا عَلَىَّ إِلاَّ أَنْ تَقْطَعُوا جَلاَجِلَهَا وَقَالَتْ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ لاَ تَدْخُلُ الْمَلاَئِكَةُ بَيْتًا فِيهِ جَرَسٌ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Bunanah, female client of &#x27;Abd al-Rahman b. Hayyan al-Ansari told that when she was with &#x27;Aishah a girl wearing little tinkling bells was brought in to her. She ordered that they were not to bring her in where she was unless they cut off her little bells. She said:I heard the Messenger of Allah (ﷺ) say: The angels do not enter a house in which there is a bell</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 18</span></td></tr><tr id='h4232' class='hadith-sep'><td colspan='2'>Hadith 4232 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، وَمُحَمَّدُ بْنُ عَبْدِ اللَّهِ الْخُزَاعِيُّ، - الْمَعْنَى - قَالاَ حَدَّثَنَا أَبُو الأَشْهَبِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ طَرَفَةَ، أَنَّ جَدَّهُ، عَرْفَجَةَ بْنَ أَسْعَدَ قُطِعَ أَنْفُهُ يَوْمَ الْكُلاَبِ فَاتَّخَذَ أَنْفًا مِنْ وَرِقٍ فَأَنْتَنَ عَلَيْهِ فَأَمَرَهُ النَّبِيُّ صلى الله عليه وسلم فَاتَّخَذَ أَنْفًا مِنْ ذَهَبٍ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>AbdurRahman ibn Tarafah said that his grandfather Arfajah ibn As&#x27;ad who had his nose cut off at the battle of al-Kilab got a silver nose, but it developed a stench, so the Prophet (ﷺ) ordered him to get a gold nose</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 19</span></td></tr><tr id='h4233' class='hadith-sep'><td colspan='2'>Hadith 4233 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ، حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ، وَأَبُو عَاصِمٍ قَالاَ حَدَّثَنَا أَبُو الأَشْهَبِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ طَرَفَةَ، عَنْ عَرْفَجَةَ بْنِ أَسْعَدَ، بِمَعْنَاهُ ‏.‏ قَالَ يَزِيدُ قُلْتُ لأَبِي الأَشْهَبِ أَدْرَكَ عَبْدُ الرَّحْمَنِ بْنُ طَرَفَةَ جَدَّهُ عَرْفَجَةَ قَالَ نَعَمْ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The tradition mentioned above (No. 4220) has also been transmitted by Arfajah ibn As&#x27;ad through a different chain to the same effect. Yazid said:I asked AbulAshhab: Did AbdurRahman ibn Tarafah meet his grandfather Arfajah? He replied: Yes</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 20</span></td></tr><tr id='h4234' class='hadith-sep'><td colspan='2'>Hadith 4234 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُؤَمَّلُ بْنُ هِشَامٍ، حَدَّثَنَا إِسْمَاعِيلُ، عَنْ أَبِي الأَشْهَبِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ طَرَفَةَ بْنِ عَرْفَجَةَ بْنِ أَسْعَدَ، عَنْ أَبِيهِ، أَنَّ عَرْفَجَةَ، بِمَعْنَاهُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>The tradition mentioned above has also been transmitted by &#x27;Arfajah through a different chain of narrators to the same effect</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 21</span></td></tr><tr id='h4235' class='hadith-sep'><td colspan='2'>Hadith 4235 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا ابْنُ نُفَيْلٍ، حَدَّثَنَا مُحَمَّدُ بْنُ سَلَمَةَ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، قَالَ حَدَّثَنِي يَحْيَى بْنُ عَبَّادٍ، عَنْ أَبِيهِ، عَبَّادِ بْنِ عَبْدِ اللَّهِ عَنْ عَائِشَةَ، رضى الله عنها قَالَتْ قَدِمَتْ عَلَى النَّبِيِّ صلى الله عليه وسلم حِلْيَةٌ مِنْ عِنْدِ النَّجَاشِيِّ أَهْدَاهَا لَهُ فِيهَا خَاتَمٌ مِنْ ذَهَبٍ فِيهِ فَصٌّ حَبَشِيٌّ - قَالَتْ - فَأَخَذَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم بِعُودٍ مُعْرِضًا عَنْهُ أَوْ بِبَعْضِ أَصَابِعِهِ ثُمَّ دَعَى أُمَامَةَ ابْنَةَ أَبِي الْعَاصِ ابْنَةَ ابْنَتِهِ زَيْنَبَ فَقَالَ ‏ &quot;‏ تَحَلَّىْ بِهَذَا يَا بُنَيَّةُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Aisha, Ummul Mu&#x27;minin: The Prophet (ﷺ) got some ornaments presented by Negus as a gift to him. They contained a gold ring with an Abyssinian stone. The Messenger of Allah (ﷺ) turning his attention from it took it by means of a stick or his finger, then called Umamah, daughter of Abul&#x27;As and daughter of his daughter Zaynab, and said: Wear it, my dear daughter</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Isnaad; Hasan Isnaad; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 22</span></td></tr><tr id='h4236' class='hadith-sep'><td colspan='2'>Hadith 4236 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، حَدَّثَنَا عَبْدُ الْعَزِيزِ، - يَعْنِي ابْنَ مُحَمَّدٍ - عَنْ أَسِيدِ بْنِ أَبِي أَسِيدٍ الْبَرَّادِ، عَنْ نَافِعِ بْنِ عَيَّاشٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ أَحَبَّ أَنْ يُحَلِّقَ حَبِيبَهُ حَلْقَةً مِنْ نَارٍ فَلْيُحَلِّقْهُ حَلْقَةً مِنْ ذَهَبٍ وَمَنْ أَحَبَّ أَنْ يُطَوِّقَ حَبِيبَهُ طَوْقًا مِنْ نَارٍ فَلْيُطَوِّقْهُ طَوْقًا مِنْ ذَهَبٍ وَمَنْ أَحَبَّ أَنْ يُسَوِّرَ حَبِيبَهُ سِوَارًا مِنْ نَارٍ فَلْيُسَوِّرْهُ سِوَارًا مِنْ ذَهَبٍ وَلَكِنْ عَلَيْكُمْ بِالْفِضَّةِ فَالْعَبُوا بِهَا ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated AbuHurayrah: The Prophet (ﷺ) said: If anyone wants to put a ring of fire on one he loves, let him put a gold ring on him: if anyone wants to put a necklace of fire on one he loves, let him put a gold necklace on him, and if anyone wants to put a bracelet of fire on one he loves let him put a gold bracelet on him. Keep to silver and amuse yourselves with it</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 23</span></td></tr><tr id='h4237' class='hadith-sep'><td colspan='2'>Hadith 4237 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ مَنْصُورٍ، عَنْ رِبْعِيِّ بْنِ حِرَاشٍ، عَنِ امْرَأَتِهِ، عَنْ أُخْتٍ، لِحُذَيْفَةَ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ يَا مَعْشَرَ النِّسَاءِ أَمَا لَكُنَّ فِي الْفِضَّةِ مَا تَحَلَّيْنَ بِهِ أَمَا إِنَّهُ لَيْسَ مِنْكُنَّ امْرَأَةٌ تَحَلَّى ذَهَبًا تُظْهِرُهُ إِلاَّ عُذِّبَتْ بِهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated A sister of Hudhayfah: The Prophet (ﷺ) as saying : You women folk, have in silver something with which you adorn yourselves. I assure you that any woman of you who adorns herself with gold which she displays will be punished for it</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 24</span></td></tr><tr id='h4238' class='hadith-sep'><td colspan='2'>Hadith 4238 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا أَبَانُ بْنُ يَزِيدَ الْعَطَّارُ، حَدَّثَنَا يَحْيَى، أَنَّ مَحْمُودَ بْنَ عَمْرٍو الأَنْصَارِيَّ، حَدَّثَهُ أَنَّ أَسْمَاءَ بِنْتَ يَزِيدَ حَدَّثَتْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ أَيُّمَا امْرَأَةٍ تَقَلَّدَتْ قِلاَدَةً مِنْ ذَهَبٍ قُلِّدَتْ فِي عُنُقِهَا مِثْلَهُ مِنَ النَّارِ يَوْمَ الْقِيَامَةِ وَأَيُّمَا امْرَأَةٍ جَعَلَتْ فِي أُذُنِهَا خُرْصًا مِنْ ذَهَبٍ جُعِلَ فِي أُذُنِهَا مِثْلُهُ مِنَ النَّارِ يَوْمَ الْقِيَامَةِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Asma&#x27; daughter of Yazid: The Prophet (ﷺ) as saying: Any woman who wears a gold necklace will have a similar one of fire put on her neck on the Day of Resurrection, and any woman who puts a gold earring in her ear will have a similar one of fire put in her ear on the Day of Resurrection</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 25</span></td></tr><tr id='h4239' class='hadith-sep'><td colspan='2'>Hadith 4239 — Signet-Rings (Kitab Al-Khatam)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا حُمَيْدُ بْنُ مَسْعَدَةَ، حَدَّثَنَا إِسْمَاعِيلُ، حَدَّثَنَا خَالِدٌ، عَنْ مَيْمُونٍ الْقَنَّادِ، عَنْ أَبِي قِلاَبَةَ، عَنْ مُعَاوِيَةَ بْنِ أَبِي سُفْيَانَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى عَنْ رُكُوبِ النِّمَارِ وَعَنْ لُبْسِ الذَّهَبِ إِلاَّ مُقَطَّعًا ‏.‏ قَالَ أَبُو دَاوُدَ أَبُو قِلاَبَةَ لَمْ يَلْقَ مُعَاوِيَةَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Mu&#x27;awiyah ibn AbuSufyan: The Messenger of Allah (ﷺ) forbade to ride on panther skins and to wear gold except a little. Abu Dawud said: The narrator Abu Qilabah did not meet Mu&#x27;awiyah</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 26</span></td></tr>
+<tr id='h4214' class='hadith-sep' data-hadith='4214'><td colspan='2'><a class='permalink' href='#h4214'>Hadith 4214</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4214'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ الرَّحِيمِ بْنُ مُطَرِّفٍ الرُّؤَاسِيُّ، حَدَّثَنَا عِيسَى، عَنْ سَعِيدٍ، عَنْ قَتَادَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ أَرَادَ رَسُولُ اللَّهِ صلى الله عليه وسلم أَنْ يَكْتُبَ إِلَى بَعْضِ الأَعَاجِمِ فَقِيلَ لَهُ إِنَّهُمْ لاَ يَقْرَءُونَ كِتَابًا إِلاَّ بِخَاتَمٍ فَاتَّخَذَ خَاتَمًا مِنْ فِضَّةٍ وَنَقَشَ فِيهِ ‏ &quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4214'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas bin Malik:The Messenger of Allah (ﷺ) wanted to write to some persian rulers. He was told that they would not read a letter without a seal in the form of a silver ring on which he engraved &quot;Muhammad the Messenger of Allah</span></td></tr>
+<tr class='grade' data-hadith='4214'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (5872)</span></td></tr>
+<tr class='ref' data-hadith='4214'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 1</span></td></tr><tr id='h4215' class='hadith-sep' data-hadith='4215'><td colspan='2'><a class='permalink' href='#h4215'>Hadith 4215</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4215'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا وَهْبُ بْنُ بَقِيَّةَ، عَنْ خَالِدٍ، عَنْ سَعِيدٍ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ، بِمَعْنَى حَدِيثِ عِيسَى بْنِ يُونُسَ زَادَ فَكَانَ فِي يَدِهِ حَتَّى قُبِضَ وَفِي يَدِ أَبِي بَكْرٍ حَتَّى قُبِضَ وَفِي يَدِ عُمَرَ حَتَّى قُبِضَ وَفِي يَدِ عُثْمَانَ فَبَيْنَمَا هُوَ عِنْدَ بِئْرٍ إِذْ سَقَطَ فِي الْبِئْرِ فَأَمَرَ بِهَا فَنُزِحَتْ فَلَمْ يُقْدَرْ عَلَيْهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4215'><td class='label'>English</td><td><span class='eng-text' lang='en'>The tradition mentioned above has also been transmitted by Anas through a different chain of narrators. This version as transmitted by &#x27;Isa b. Yunus adds:It remained in his hand until he died, in the hand of &#x27;Abu Bakr until he died, in the hand of &#x27;Umar until he died, and in the hand of &#x27;Uthman. When he was near a well, it fell down in it. He ordered to take it out, but it could not be found</span></td></tr>
+<tr class='grade' data-hadith='4215'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='4215'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 2</span></td></tr><tr id='h4216' class='hadith-sep' data-hadith='4216'><td colspan='2'><a class='permalink' href='#h4216'>Hadith 4216</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4216'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، وَأَحْمَدُ بْنُ صَالِحٍ، قَالاَ حَدَّثَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي يُونُسُ بْنُ يَزِيدَ، عَنِ ابْنِ شِهَابٍ، قَالَ حَدَّثَنِي أَنَسٌ، قَالَ كَانَ خَاتَمُ النَّبِيِّ صلى الله عليه وسلم مِنْ وَرِقٍ فَصُّهُ حَبَشِيٌّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4216'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas:The signet-ring of the Prophet (ﷺ) was of silver with an Abyssinian stone</span></td></tr>
+<tr class='grade' data-hadith='4216'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (5868) Sahih Muslim (2094)</span></td></tr>
+<tr class='ref' data-hadith='4216'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 3</span></td></tr><tr id='h4217' class='hadith-sep' data-hadith='4217'><td colspan='2'><a class='permalink' href='#h4217'>Hadith 4217</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4217'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ يُونُسَ، حَدَّثَنَا زُهَيْرٌ، حَدَّثَنَا حُمَيْدٌ الطَّوِيلُ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ كَانَ خَاتَمُ النَّبِيِّ صلى الله عليه وسلم مِنْ فِضَّةٍ كُلُّهُ فَصُّهُ مِنْهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4217'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas:The signet-ring of the Prophet (ﷺ) was all of silver as was also its stone</span></td></tr>
+<tr class='grade' data-hadith='4217'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='4217'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 4</span></td></tr><tr id='h4218' class='hadith-sep' data-hadith='4218'><td colspan='2'><a class='permalink' href='#h4218'>Hadith 4218</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4218'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا نُصَيْرُ بْنُ الْفَرَجِ، حَدَّثَنَا أَبُو أُسَامَةَ، عَنْ عُبَيْدِ اللَّهِ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ اتَّخَذَ رَسُولُ اللَّهِ صلى الله عليه وسلم خَاتَمًا مِنْ ذَهَبٍ وَجَعَلَ فَصَّهُ مِمَّا يَلِي بَطْنَ كَفِّهِ وَنَقَشَ فِيهِ ‏&quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ فَاتَّخَذَ النَّاسُ خَوَاتِمَ الذَّهَبِ فَلَمَّا رَآهُمْ قَدِ اتَّخَذُوهَا رَمَى بِهِ وَقَالَ ‏&quot;‏ لاَ أَلْبَسُهُ أَبَدًا ‏&quot;‏ ‏.‏ ثُمَّ اتَّخَذَ خَاتَمًا مِنْ فِضَّةٍ نَقَشَ فِيهِ ‏&quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ ثُمَّ لَبِسَ الْخَاتَمَ بَعْدَهُ أَبُو بَكْرٍ ثُمَّ لَبِسَهُ بَعْدَ أَبِي بَكْرٍ عُمَرُ ثُمَّ لَبِسَهُ بَعْدَهُ عُثْمَانُ حَتَّى وَقَعَ فِي بِئْرِ أَرِيسَ ‏.‏ قَالَ أَبُو دَاوُدَ وَلَمْ يَخْتَلِفِ النَّاسُ عَلَى عُثْمَانَ حَتَّى سَقَطَ الْخَاتَمُ مِنْ يَدِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4218'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn &#x27;Umar: The Messenger of Allah (ﷺ) took a signet-ring of gold, and put the stone next the palm of his hand. He engraved on it &quot;Muhammad, the Messenger of Allah&quot;. The people then took signet-rings of gold. When he saw that they had taken them (like his ring) he threw it away and said: I shall never wear it. He then fashioned a silver ring and engraved on it &quot;Muhammad, the Messenger of Allah&quot;. Then Abu Bakr wore it after him, then &#x27;Umar wore it after Abu Bakr, and the &#x27;Uthman wore it after &#x27;Umar till it fell down in a well called Aris. Abu Dawud said: The people did not disagree on &#x27;Uthman till the signet-rin fell down from his hand</span></td></tr>
+<tr class='grade' data-hadith='4218'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari (5866) Sahih Muslim (2091)</span></td></tr>
+<tr class='ref' data-hadith='4218'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 5</span></td></tr><tr id='h4219' class='hadith-sep' data-hadith='4219'><td colspan='2'><a class='permalink' href='#h4219'>Hadith 4219</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4219'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ أَيُّوبَ بْنِ مُوسَى، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، فِي هَذَا الْخَبَرِ عَنِ النَّبِيِّ صلى الله عليه وسلم فَنَقَشَ فِيهِ ‏&quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ وَقَالَ ‏&quot;‏ لاَ يَنْقُشْ أَحَدٌ عَلَى نَقْشِ خَاتَمِي هَذَا ‏&quot;‏ ‏.‏ ثُمَّ سَاقَ الْحَدِيثَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4219'><td class='label'>English</td><td><span class='eng-text' lang='en'>The tradition mentioned above has also been transmitted by Ibn &#x27;Umar through a different chain of narrators from the Prophet (ﷺ). This version adds:He engraved on it &quot;Muhammad, the Messenger of Allah.&quot; and said: &quot;No one must engrave anything in the manner of this signet-ring of mine. He then transmitted the rest of the tradition</span></td></tr>
+<tr class='grade' data-hadith='4219'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Muslim (2091)</span></td></tr>
+<tr class='ref' data-hadith='4219'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 6</span></td></tr><tr id='h4220' class='hadith-sep' data-hadith='4220'><td colspan='2'><a class='permalink' href='#h4220'>Hadith 4220</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4220'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ يَحْيَى بْنِ فَارِسٍ، حَدَّثَنَا أَبُو عَاصِمٍ، عَنِ الْمُغِيرَةِ بْنِ زِيَادٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، بِهَذَا الْخَبَرِ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ فَالْتَمَسُوهُ فَلَمْ يَجِدُوهُ فَاتَّخَذَ عُثْمَانُ خَاتَمًا وَنَقَشَ فِيهِ ‏ &quot;‏ مُحَمَّدٌ رَسُولُ اللَّهِ ‏&quot;‏ ‏.‏ قَالَ فَكَانَ يَخْتِمُ بِهِ أَوْ يَتَخَتَّمُ بِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4220'><td class='label'>English</td><td><span class='eng-text' lang='en'>The tradition mentioned above has also been transmitted by Ibn &#x27;Umar through different chain of narrators from the Prophet (ﷺ). This version adds:They searched for it but could not find it. &#x27;Uthman then fashioned a signet-ring and engraved on it &quot;Muhammad, the Messenger of Allah&quot;. He used to wear it or stamp with it</span></td></tr>
+<tr class='grade' data-hadith='4220'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='4220'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 7</span></td></tr><tr id='h4221' class='hadith-sep' data-hadith='4221'><td colspan='2'><a class='permalink' href='#h4221'>Hadith 4221</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4221'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ سُلَيْمَانَ، لُوَيْنٌ عَنْ إِبْرَاهِيمَ بْنِ سَعْدٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّهُ رَأَى فِي يَدِ النَّبِيِّ صلى الله عليه وسلم خَاتَمًا مِنْ وَرِقٍ يَوْمًا وَاحِدًا فَصَنَعَ النَّاسُ فَلَبِسُوا وَطَرَحَ النَّبِيُّ صلى الله عليه وسلم فَطَرَحَ النَّاسُ ‏.‏ قَالَ أَبُو دَاوُدَ رَوَاهُ عَنِ الزُّهْرِيِّ زِيَادُ بْنُ سَعْدٍ وَشُعَيْبٌ وَابْنُ مُسَافِرٍ كُلُّهُمْ قَالَ مِنْ وَرِقٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4221'><td class='label'>English</td><td><span class='eng-text' lang='en'>Anas b. Malik said that he saw a silver signet-ring on the hand of the Prophet (ﷺ) only for a day. The people then fashioned and wore (rings). The Prophet (ﷺ) then threw it away and the people also threw (them.) Abu Dawud said:Ziyad b. Sa&#x27;d, Shu&#x27;aib and Ibn Musafir transmitted it from al-Zuhri. &#x27;Ali said in their versions: &quot;of silver</span></td></tr>
+<tr class='grade' data-hadith='4221'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (2094) Sahih Muslim (5868)</span></td></tr>
+<tr class='ref' data-hadith='4221'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 8</span></td></tr><tr id='h4222' class='hadith-sep' data-hadith='4222'><td colspan='2'><a class='permalink' href='#h4222'>Hadith 4222</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4222'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا الْمُعْتَمِرُ، قَالَ سَمِعْتُ الرُّكَيْنَ بْنَ الرَّبِيعِ، يُحَدِّثُ عَنِ الْقَاسِمِ بْنِ حَسَّانَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ حَرْمَلَةَ، أَنَّ ابْنَ مَسْعُودٍ، كَانَ يَقُولُ كَانَ نَبِيُّ اللَّهِ صلى الله عليه وسلم يَكْرَهُ عَشْرَ خِلاَلٍ الصُّفْرَةَ - يَعْنِي الْخَلُوقَ - وَتَغْيِيرَ الشَّيْبِ وَجَرَّ الإِزَارِ وَالتَّخَتُّمَ بِالذَّهَبِ وَالتَّبَرُّجَ بِالزِّينَةِ لِغَيْرِ مَحِلِّهَا وَالضَّرْبَ بِالْكِعَابِ وَالرُّقَى إِلاَّ بِالْمُعَوِّذَاتِ وَعَقْدَ التَّمَائِمِ وَعَزْلَ الْمَاءِ لِغَيْرِ أَوْ غَيْرِ مَحِلِّهِ أَوْ عَنْ مَحِلِّهِ وَفَسَادَ الصَّبِيِّ غَيْرَ مُحَرِّمِهِ ‏.‏ قَالَ أَبُو دَاوُدَ انْفَرَدَ بِإِسْنَادِ هَذَا الْحَدِيثِ أَهْلُ الْبَصْرَةِ وَاللَّهُ أَعْلَمُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4222'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abdullah ibn Mas&#x27;ud: The Prophet of Allah (ﷺ) disliked ten things: Yellow colouring, meaning khaluq, dyeing grey hair, trailing the lower garment, wearing a gold signet-ring, a woman decking herself before people who are not within the prohibited degrees, throwing dice, using spells except with the Mu&#x27;awwidhatan, wearing amulets, withdrawing the penis before the semen is discharged, in the case of a woman who is wife or not a wife, and having intercourse with a woman who is suckling a child; but he did not declare them to be prohibited. Abu Dawud said: Only the transmitters of Basrah have transmitted this tradition</span></td></tr>
+<tr class='grade' data-hadith='4222'><td class='label'>Grade</td><td><span class='grade-text'>Munkar; Munkar; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='4222'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 9</span></td></tr><tr id='h4223' class='hadith-sep' data-hadith='4223'><td colspan='2'><a class='permalink' href='#h4223'>Hadith 4223</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4223'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ، وَمُحَمَّدُ بْنُ عَبْدِ الْعَزِيزِ بْنِ أَبِي رِزْمَةَ، - الْمَعْنَى - أَنَّ زَيْدَ بْنَ حُبَابٍ، أَخْبَرَهُمْ عَنْ عَبْدِ اللَّهِ بْنِ مُسْلِمٍ السُّلَمِيِّ الْمَرْوَزِيِّ أَبِي طَيْبَةَ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ أَبِيهِ، أَنَّ رَجُلاً، جَاءَ إِلَى النَّبِيِّ صلى الله عليه وسلم وَعَلَيْهِ خَاتَمٌ مِنْ شَبَهٍ فَقَالَ لَهُ ‏&quot;‏ مَا لِي أَجِدُ مِنْكَ رِيحَ الأَصْنَامِ ‏&quot;‏ ‏.‏ فَطَرَحَهُ ثُمَّ جَاءَ وَعَلَيْهِ خَاتَمٌ مِنْ حَدِيدٍ فَقَالَ ‏&quot;‏ مَا لِي أَرَى عَلَيْكَ حِلْيَةَ أَهْلِ النَّارِ ‏&quot;‏ ‏.‏ فَطَرَحَهُ فَقَالَ يَا رَسُولَ اللَّهِ مِنْ أَىِّ شَىْءٍ أَتَّخِذُهُ قَالَ ‏&quot;‏ اتَّخِذْهُ مِنْ وَرِقٍ وَلاَ تُتِمَّهُ مِثْقَالاً ‏&quot;‏ ‏.‏ وَلَمْ يَقُلْ مُحَمَّدٌ عَبْدِ اللَّهِ بْنِ مُسْلِمٍ ‏.‏ وَلَمْ يَقُلِ الْحَسَنُ السُّلَمِيِّ الْمَرْوَزِيِّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4223'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Buraydah ibn al-Hasib: A man came to the Prophet (ﷺ) and he was wearing a signet-ring of yellow copper. He said to him: How is it that I notice the odour of idols in you? So he threw it away, and came wearing an iron signet ring. He (the Prophet) said: What is it that I see you wearing the adornment of the inhabitants of Hell? So he threw it away. He asked: Messenger of Allah, what material I must use? He said: Make it of silver, but do not weigh it as much as a mithqal, The narrator Muhammad did not say: &quot; &#x27;Abd Allah b. Muslim,&quot; and al-Hasan did not say: &quot;al-Sulami al-Marwazi</span></td></tr>
+<tr class='grade' data-hadith='4223'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Hasan</span></td></tr>
+<tr class='ref' data-hadith='4223'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 10</span></td></tr><tr id='h4224' class='hadith-sep' data-hadith='4224'><td colspan='2'><a class='permalink' href='#h4224'>Hadith 4224</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4224'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ الْمُثَنَّى، وَزِيَادُ بْنُ يَحْيَى، وَالْحَسَنُ بْنُ عَلِيٍّ، قَالُوا حَدَّثَنَا سَهْلُ بْنُ حَمَّادٍ أَبُو عَتَّابٍ، حَدَّثَنَا أَبُو مَكِينٍ، نُوحُ بْنُ رَبِيعَةَ حَدَّثَنِي إِيَاسُ بْنُ الْحَارِثِ بْنِ الْمُعَيْقِيبِ، وَجَدُّهُ، مِنْ قِبَلِ أُمِّهِ أَبُو ذُبَابٍ عَنْ جَدِّهِ، قَالَ كَانَ خَاتَمُ النَّبِيِّ صلى الله عليه وسلم مِنْ حَدِيدٍ مَلْوِيٌّ عَلَيْهِ فِضَّةٌ ‏.‏ قَالَ فَرُبَّمَا كَانَ فِي يَدِهِ قَالَ وَكَانَ الْمُعَيْقِيبُ عَلَى خَاتَمِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4224'><td class='label'>English</td><td><span class='eng-text' lang='en'>Iyas b. al-Harith b. al-Mu&#x27;aiqib quoting his grandfather said and his grandfather from his mother&#x27;s side was Abu Dhubab:The signet-ring of the Prophet (ﷺ) was of iron polished with silver. Sometimes it remained in my possession. Al-Mu&#x27;ayqib was in charge of the signet-ring of the Prophet (ﷺ)</span></td></tr>
+<tr class='grade' data-hadith='4224'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='4224'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 11</span></td></tr><tr id='h4225' class='hadith-sep' data-hadith='4225'><td colspan='2'><a class='permalink' href='#h4225'>Hadith 4225</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4225'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا بِشْرُ بْنُ الْمُفَضَّلِ، حَدَّثَنَا عَاصِمُ بْنُ كُلَيْبٍ، عَنْ أَبِي بُرْدَةَ، عَنْ عَلِيٍّ، - رضى الله عنه - قَالَ قَالَ لِي رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ قُلِ اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي وَاذْكُرْ بِالْهِدَايَةِ هِدَايَةَ الطَّرِيقِ وَاذْكُرْ بِالسَّدَادِ تَسْدِيدَكَ السَّهْمَ ‏&quot;‏ ‏.‏ قَالَ وَنَهَانِي أَنْ أَضَعَ الْخَاتَمَ فِي هَذِهِ أَوْ فِي هَذِهِ لِلسَّبَّابَةِ وَالْوُسْطَى - شَكَّ عَاصِمٌ - وَنَهَانِي عَنِ الْقَسِّيَّةِ وَالْمِيثَرَةِ ‏.‏ قَالَ أَبُو بُرْدَةَ فَقُلْنَا لِعَلِيٍّ مَا الْقَسِّيَّةُ قَالَ ثِيَابٌ تَأْتِينَا مِنَ الشَّامِ أَوْ مِنْ مِصْرَ مُضَلَّعَةٌ فِيهَا أَمْثَالُ الأُتْرُجِّ قَالَ وَالْمِيثَرَةُ شَىْءٌ كَانَتْ تَصْنَعُهُ النِّسَاءُ لِبُعُولَتِهِنَّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4225'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ali:The Messenger of Allah (ﷺ) said to me: Say: O Allah, guide me, and set me right. Remember by guidance (hidayah) the showing of the straight path, and remember by setting right (sadad) the setting right of an arrow. Then pointing to the middle finger and the one next to it, he said: He forbade me to wear a signet-ring on this finger of mine or on this (Asim was doubtful). He forbade me to wear qassiyyah (qasi garments) and mitharah. Abu Burdah said: We asked &#x27;Ali: What is qasiyyah ? He said: These are garments imported to us from Syria or Egypt. They are stripped and marked like citrons. And mitharah was a thing made by women for their husbands</span></td></tr>
+<tr class='grade' data-hadith='4225'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim (2078 After 2095)</span></td></tr>
+<tr class='ref' data-hadith='4225'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 12</span></td></tr><tr id='h4226' class='hadith-sep' data-hadith='4226'><td colspan='2'><a class='permalink' href='#h4226'>Hadith 4226</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4226'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ صَالِحٍ، حَدَّثَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي سُلَيْمَانُ بْنُ بِلاَلٍ، عَنْ شَرِيكِ بْنِ أَبِي نَمِرٍ، عَنْ إِبْرَاهِيمَ بْنِ عَبْدِ اللَّهِ بْنِ حُنَيْنٍ، عَنْ أَبِيهِ، عَنْ عَلِيٍّ، - رضى الله تعالى عنه - عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ قَالَ شَرِيكٌ وَأَخْبَرَنِي أَبُو سَلَمَةَ بْنُ عَبْدِ الرَّحْمَنِ أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَتَخَتَّمُ فِي يَمِينِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4226'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ali ibn AbuTalib: The Prophet (ﷺ) used to wear the signet-ring on his right hand</span></td></tr>
+<tr class='grade' data-hadith='4226'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='4226'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 13</span></td></tr><tr id='h4227' class='hadith-sep' data-hadith='4227'><td colspan='2'><a class='permalink' href='#h4227'>Hadith 4227</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4227'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ، حَدَّثَنِي أَبِي، حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ أَبِي رَوَّادٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَتَخَتَّمُ فِي يَسَارِهِ وَكَانَ فَصُّهُ فِي بَاطِنِ كَفِّهِ ‏.‏ قَالَ أَبُو دَاوُدَ قَالَ ابْنُ إِسْحَاقَ وَأُسَامَةَ - يَعْنِي ابْنَ زَيْدٍ - عَنْ نَافِعٍ بِإِسْنَادِهِ فِي يَمِينِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4227'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abdullah ibn Umar: The Prophet (ﷺ) used to wear the signet-ring on his left hand, and put its stone next the palm of his hand. Abu Dawud said: Ibn Ishaq and Usamah b. Zaid transmitted from Nafi&#x27;: &quot;On his right hand</span></td></tr>
+<tr class='grade' data-hadith='4227'><td class='label'>Grade</td><td><span class='grade-text'>Shadh; Shadh; Daif</span></td></tr>
+<tr class='ref' data-hadith='4227'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 14</span></td></tr><tr id='h4228' class='hadith-sep' data-hadith='4228'><td colspan='2'><a class='permalink' href='#h4228'>Hadith 4228</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4228'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، عَنْ عَبْدَةَ، عَنْ عُبَيْدِ اللَّهِ، عَنْ نَافِعٍ، أَنَّ ابْنَ عُمَرَ، كَانَ يَلْبَسُ خَاتَمَهُ فِي يَدِهِ الْيُسْرَى ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4228'><td class='label'>English</td><td><span class='eng-text' lang='en'>Nafi&#x27; said that Ibn &#x27;Umar used to wear his signet-ring on his left hand</span></td></tr>
+<tr class='grade' data-hadith='4228'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Isnaad; Sahih Isnaad; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='4228'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 15</span></td></tr><tr id='h4229' class='hadith-sep' data-hadith='4229'><td colspan='2'><a class='permalink' href='#h4229'>Hadith 4229</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4229'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ سَعِيدٍ، حَدَّثَنَا يُونُسُ بْنُ بُكَيْرٍ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، قَالَ رَأَيْتُ عَلَى الصَّلْتِ بْنِ عَبْدِ اللَّهِ بْنِ نَوْفَلِ بْنِ عَبْدِ الْمُطَّلِبِ خَاتَمًا فِي خِنْصَرِهِ الْيُمْنَى فَقُلْتُ مَا هَذَا قَالَ رَأَيْتُ ابْنَ عَبَّاسٍ يَلْبَسُ خَاتَمَهُ هَكَذَا وَجَعَلَ فَصَّهُ عَلَى ظَهْرِهَا ‏.‏ قَالَ وَلاَ يَخَالُ ابْنَ عَبَّاسٍ إِلاَّ قَدْ كَانَ يَذْكُرُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَلْبَسُ خَاتَمَهُ كَذَلِكَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4229'><td class='label'>English</td><td><span class='eng-text' lang='en'>Muhammad ibn Ishaq said:I saw as-Salt ibn Abdullah ibn Nawfal ibn AbdulMuttalib wearing the signet-ring on his right small finger. I asked: What is this? He replied: I saw Ibn Abbas wearing his ring in this manner. He put its stone towards the upper part of his palm. Ibn Abbas also mentioned that the Messenger of Allah (ﷺ) used to wear his signet-ring in his manner</span></td></tr>
+<tr class='grade' data-hadith='4229'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='4229'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 16</span></td></tr><tr id='h4230' class='hadith-sep' data-hadith='4230'><td colspan='2'><a class='permalink' href='#h4230'>Hadith 4230</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4230'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ سَهْلٍ، وَإِبْرَاهِيمُ بْنُ الْحَسَنِ، قَالاَ حَدَّثَنَا حَجَّاجٌ، عَنِ ابْنِ جُرَيْجٍ، أَخْبَرَنِي عُمَرُ بْنُ حَفْصٍ، أَنَّ عَامِرَ بْنَ عَبْدِ اللَّهِ، - قَالَ عَلِيُّ بْنُ سَهْلٍ ابْنِ الزُّبَيْرِ - أَخْبَرَهُ أَنَّ مَوْلاَةً لَهُمْ ذَهَبَتْ بِابْنَةِ الزُّبَيْرِ إِلَى عُمَرَ بْنِ الْخَطَّابِ وَفِي رِجْلِهَا أَجْرَاسٌ فَقَطَعَهَا عُمَرُ ثُمَّ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ إِنَّ مَعَ كُلِّ جَرَسٍ شَيْطَانًا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4230'><td class='label'>English</td><td><span class='eng-text' lang='en'>Ibn az-Zubayr told that a woman client of theirs took az-Zubayr&#x27;s daughter to Umar ibn al-Khattab wearing bells on her legs. Umar cut them off and said that he had heard the Messenger of Allah (ﷺ) say:There is a devil along with each bell</span></td></tr>
+<tr class='grade' data-hadith='4230'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='4230'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 17</span></td></tr><tr id='h4231' class='hadith-sep' data-hadith='4231'><td colspan='2'><a class='permalink' href='#h4231'>Hadith 4231</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4231'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الرَّحِيمِ، حَدَّثَنَا رَوْحٌ، حَدَّثَنَا ابْنُ جُرَيْجٍ، عَنْ بُنَانَةَ، مَوْلاَةِ عَبْدِ الرَّحْمَنِ بْنِ حَسَّانَ الأَنْصَارِيِّ عَنْ عَائِشَةَ، قَالَتْ بَيْنَمَا هِيَ عِنْدَهَا إِذْ دُخِلَ عَلَيْهَا بِجَارِيَةٍ وَعَلَيْهَا جَلاَجِلُ يُصَوِّتْنَ فَقَالَتْ لاَ تُدْخِلْنَهَا عَلَىَّ إِلاَّ أَنْ تَقْطَعُوا جَلاَجِلَهَا وَقَالَتْ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ لاَ تَدْخُلُ الْمَلاَئِكَةُ بَيْتًا فِيهِ جَرَسٌ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4231'><td class='label'>English</td><td><span class='eng-text' lang='en'>Bunanah, female client of &#x27;Abd al-Rahman b. Hayyan al-Ansari told that when she was with &#x27;Aishah a girl wearing little tinkling bells was brought in to her. She ordered that they were not to bring her in where she was unless they cut off her little bells. She said:I heard the Messenger of Allah (ﷺ) say: The angels do not enter a house in which there is a bell</span></td></tr>
+<tr class='grade' data-hadith='4231'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Daif</span></td></tr>
+<tr class='ref' data-hadith='4231'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 18</span></td></tr><tr id='h4232' class='hadith-sep' data-hadith='4232'><td colspan='2'><a class='permalink' href='#h4232'>Hadith 4232</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4232'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، وَمُحَمَّدُ بْنُ عَبْدِ اللَّهِ الْخُزَاعِيُّ، - الْمَعْنَى - قَالاَ حَدَّثَنَا أَبُو الأَشْهَبِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ طَرَفَةَ، أَنَّ جَدَّهُ، عَرْفَجَةَ بْنَ أَسْعَدَ قُطِعَ أَنْفُهُ يَوْمَ الْكُلاَبِ فَاتَّخَذَ أَنْفًا مِنْ وَرِقٍ فَأَنْتَنَ عَلَيْهِ فَأَمَرَهُ النَّبِيُّ صلى الله عليه وسلم فَاتَّخَذَ أَنْفًا مِنْ ذَهَبٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4232'><td class='label'>English</td><td><span class='eng-text' lang='en'>AbdurRahman ibn Tarafah said that his grandfather Arfajah ibn As&#x27;ad who had his nose cut off at the battle of al-Kilab got a silver nose, but it developed a stench, so the Prophet (ﷺ) ordered him to get a gold nose</span></td></tr>
+<tr class='grade' data-hadith='4232'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='4232'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 19</span></td></tr><tr id='h4233' class='hadith-sep' data-hadith='4233'><td colspan='2'><a class='permalink' href='#h4233'>Hadith 4233</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4233'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ، حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ، وَأَبُو عَاصِمٍ قَالاَ حَدَّثَنَا أَبُو الأَشْهَبِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ طَرَفَةَ، عَنْ عَرْفَجَةَ بْنِ أَسْعَدَ، بِمَعْنَاهُ ‏.‏ قَالَ يَزِيدُ قُلْتُ لأَبِي الأَشْهَبِ أَدْرَكَ عَبْدُ الرَّحْمَنِ بْنُ طَرَفَةَ جَدَّهُ عَرْفَجَةَ قَالَ نَعَمْ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4233'><td class='label'>English</td><td><span class='eng-text' lang='en'>The tradition mentioned above (No. 4220) has also been transmitted by Arfajah ibn As&#x27;ad through a different chain to the same effect. Yazid said:I asked AbulAshhab: Did AbdurRahman ibn Tarafah meet his grandfather Arfajah? He replied: Yes</span></td></tr>
+<tr class='grade' data-hadith='4233'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Hasan</span></td></tr>
+<tr class='ref' data-hadith='4233'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 20</span></td></tr><tr id='h4234' class='hadith-sep' data-hadith='4234'><td colspan='2'><a class='permalink' href='#h4234'>Hadith 4234</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4234'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُؤَمَّلُ بْنُ هِشَامٍ، حَدَّثَنَا إِسْمَاعِيلُ، عَنْ أَبِي الأَشْهَبِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ طَرَفَةَ بْنِ عَرْفَجَةَ بْنِ أَسْعَدَ، عَنْ أَبِيهِ، أَنَّ عَرْفَجَةَ، بِمَعْنَاهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4234'><td class='label'>English</td><td><span class='eng-text' lang='en'>The tradition mentioned above has also been transmitted by &#x27;Arfajah through a different chain of narrators to the same effect</span></td></tr>
+<tr class='grade' data-hadith='4234'><td class='label'>Grade</td><td><span class='grade-text'>Hasan</span></td></tr>
+<tr class='ref' data-hadith='4234'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 21</span></td></tr><tr id='h4235' class='hadith-sep' data-hadith='4235'><td colspan='2'><a class='permalink' href='#h4235'>Hadith 4235</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4235'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ نُفَيْلٍ، حَدَّثَنَا مُحَمَّدُ بْنُ سَلَمَةَ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، قَالَ حَدَّثَنِي يَحْيَى بْنُ عَبَّادٍ، عَنْ أَبِيهِ، عَبَّادِ بْنِ عَبْدِ اللَّهِ عَنْ عَائِشَةَ، رضى الله عنها قَالَتْ قَدِمَتْ عَلَى النَّبِيِّ صلى الله عليه وسلم حِلْيَةٌ مِنْ عِنْدِ النَّجَاشِيِّ أَهْدَاهَا لَهُ فِيهَا خَاتَمٌ مِنْ ذَهَبٍ فِيهِ فَصٌّ حَبَشِيٌّ - قَالَتْ - فَأَخَذَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم بِعُودٍ مُعْرِضًا عَنْهُ أَوْ بِبَعْضِ أَصَابِعِهِ ثُمَّ دَعَى أُمَامَةَ ابْنَةَ أَبِي الْعَاصِ ابْنَةَ ابْنَتِهِ زَيْنَبَ فَقَالَ ‏ &quot;‏ تَحَلَّىْ بِهَذَا يَا بُنَيَّةُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4235'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Aisha, Ummul Mu&#x27;minin: The Prophet (ﷺ) got some ornaments presented by Negus as a gift to him. They contained a gold ring with an Abyssinian stone. The Messenger of Allah (ﷺ) turning his attention from it took it by means of a stick or his finger, then called Umamah, daughter of Abul&#x27;As and daughter of his daughter Zaynab, and said: Wear it, my dear daughter</span></td></tr>
+<tr class='grade' data-hadith='4235'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Isnaad; Hasan Isnaad; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='4235'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 22</span></td></tr><tr id='h4236' class='hadith-sep' data-hadith='4236'><td colspan='2'><a class='permalink' href='#h4236'>Hadith 4236</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4236'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، حَدَّثَنَا عَبْدُ الْعَزِيزِ، - يَعْنِي ابْنَ مُحَمَّدٍ - عَنْ أَسِيدِ بْنِ أَبِي أَسِيدٍ الْبَرَّادِ، عَنْ نَافِعِ بْنِ عَيَّاشٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ مَنْ أَحَبَّ أَنْ يُحَلِّقَ حَبِيبَهُ حَلْقَةً مِنْ نَارٍ فَلْيُحَلِّقْهُ حَلْقَةً مِنْ ذَهَبٍ وَمَنْ أَحَبَّ أَنْ يُطَوِّقَ حَبِيبَهُ طَوْقًا مِنْ نَارٍ فَلْيُطَوِّقْهُ طَوْقًا مِنْ ذَهَبٍ وَمَنْ أَحَبَّ أَنْ يُسَوِّرَ حَبِيبَهُ سِوَارًا مِنْ نَارٍ فَلْيُسَوِّرْهُ سِوَارًا مِنْ ذَهَبٍ وَلَكِنْ عَلَيْكُمْ بِالْفِضَّةِ فَالْعَبُوا بِهَا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4236'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuHurayrah: The Prophet (ﷺ) said: If anyone wants to put a ring of fire on one he loves, let him put a gold ring on him: if anyone wants to put a necklace of fire on one he loves, let him put a gold necklace on him, and if anyone wants to put a bracelet of fire on one he loves let him put a gold bracelet on him. Keep to silver and amuse yourselves with it</span></td></tr>
+<tr class='grade' data-hadith='4236'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='4236'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 23</span></td></tr><tr id='h4237' class='hadith-sep' data-hadith='4237'><td colspan='2'><a class='permalink' href='#h4237'>Hadith 4237</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4237'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ مَنْصُورٍ، عَنْ رِبْعِيِّ بْنِ حِرَاشٍ، عَنِ امْرَأَتِهِ، عَنْ أُخْتٍ، لِحُذَيْفَةَ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ يَا مَعْشَرَ النِّسَاءِ أَمَا لَكُنَّ فِي الْفِضَّةِ مَا تَحَلَّيْنَ بِهِ أَمَا إِنَّهُ لَيْسَ مِنْكُنَّ امْرَأَةٌ تَحَلَّى ذَهَبًا تُظْهِرُهُ إِلاَّ عُذِّبَتْ بِهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4237'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated A sister of Hudhayfah: The Prophet (ﷺ) as saying : You women folk, have in silver something with which you adorn yourselves. I assure you that any woman of you who adorns herself with gold which she displays will be punished for it</span></td></tr>
+<tr class='grade' data-hadith='4237'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='4237'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 24</span></td></tr><tr id='h4238' class='hadith-sep' data-hadith='4238'><td colspan='2'><a class='permalink' href='#h4238'>Hadith 4238</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4238'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا أَبَانُ بْنُ يَزِيدَ الْعَطَّارُ، حَدَّثَنَا يَحْيَى، أَنَّ مَحْمُودَ بْنَ عَمْرٍو الأَنْصَارِيَّ، حَدَّثَهُ أَنَّ أَسْمَاءَ بِنْتَ يَزِيدَ حَدَّثَتْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ أَيُّمَا امْرَأَةٍ تَقَلَّدَتْ قِلاَدَةً مِنْ ذَهَبٍ قُلِّدَتْ فِي عُنُقِهَا مِثْلَهُ مِنَ النَّارِ يَوْمَ الْقِيَامَةِ وَأَيُّمَا امْرَأَةٍ جَعَلَتْ فِي أُذُنِهَا خُرْصًا مِنْ ذَهَبٍ جُعِلَ فِي أُذُنِهَا مِثْلُهُ مِنَ النَّارِ يَوْمَ الْقِيَامَةِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4238'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Asma&#x27; daughter of Yazid: The Prophet (ﷺ) as saying: Any woman who wears a gold necklace will have a similar one of fire put on her neck on the Day of Resurrection, and any woman who puts a gold earring in her ear will have a similar one of fire put in her ear on the Day of Resurrection</span></td></tr>
+<tr class='grade' data-hadith='4238'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='4238'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 25</span></td></tr><tr id='h4239' class='hadith-sep' data-hadith='4239'><td colspan='2'><a class='permalink' href='#h4239'>Hadith 4239</a> — Signet-Rings (Kitab Al-Khatam)</td></tr>
+<tr class='arabic' data-hadith='4239'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا حُمَيْدُ بْنُ مَسْعَدَةَ، حَدَّثَنَا إِسْمَاعِيلُ، حَدَّثَنَا خَالِدٌ، عَنْ مَيْمُونٍ الْقَنَّادِ، عَنْ أَبِي قِلاَبَةَ، عَنْ مُعَاوِيَةَ بْنِ أَبِي سُفْيَانَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى عَنْ رُكُوبِ النِّمَارِ وَعَنْ لُبْسِ الذَّهَبِ إِلاَّ مُقَطَّعًا ‏.‏ قَالَ أَبُو دَاوُدَ أَبُو قِلاَبَةَ لَمْ يَلْقَ مُعَاوِيَةَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='4239'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Mu&#x27;awiyah ibn AbuSufyan: The Messenger of Allah (ﷺ) forbade to ride on panther skins and to wear gold except a little. Abu Dawud said: The narrator Abu Qilabah did not meet Mu&#x27;awiyah</span></td></tr>
+<tr class='grade' data-hadith='4239'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='4239'><td class='label'>Reference</td><td><span class='ref-text'>Book 36, Hadith 26</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -289,5 +423,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>

@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='bukhari.html'>Sahih al-Bukhari</a> › (Statements made under) Coercion</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="bukhari-book-001.html">1. Revelation</option><option value="bukhari-book-002.html">2. Belief</option><option value="bukhari-book-003.html">3. Knowledge</option><option value="bukhari-book-004.html">4. Ablutions (Wudu&#x27;)</option><option value="bukhari-book-005.html">5. Bathing (Ghusl)</option><option value="bukhari-book-006.html">6. Menstrual Periods</option><option value="bukhari-book-007.html">7. Rubbing hands and feet with dust (Tayammum)</option><option value="bukhari-book-008.html">8. Prayers (Salat)</option><option value="bukhari-book-000.html">9. General</option><option value="bukhari-book-009.html">10. Times of the Prayers</option><option value="bukhari-book-010.html">11. Call to Prayers (Adhaan)</option><option value="bukhari-book-011.html">12. Friday Prayer</option><option value="bukhari-book-012.html">13. Fear Prayer</option><option value="bukhari-book-013.html">14. The Two Festivals (Eids)</option><option value="bukhari-book-014.html">15. Witr Prayer</option><option value="bukhari-book-015.html">16. Invoking Allah for Rain (Istisqaa)</option><option value="bukhari-book-016.html">17. Eclipses</option><option value="bukhari-book-017.html">18. Prostration During Recital of Qur&#x27;an</option><option value="bukhari-book-018.html">19. Shortening the Prayers (At-Taqseer)</option><option value="bukhari-book-019.html">20. Prayer at Night (Tahajjud)</option><option value="bukhari-book-020.html">21. Virtues of Prayer at Masjid Makkah and Madinah</option><option value="bukhari-book-021.html">22. Actions while Praying</option><option value="bukhari-book-022.html">23. Forgetfulness in Prayer</option><option value="bukhari-book-023.html">24. Funerals (Al-Janaa&#x27;iz)</option><option value="bukhari-book-024.html">25. Obligatory Charity Tax (Zakat)</option><option value="bukhari-book-025.html">26. Hajj (Pilgrimage)</option><option value="bukhari-book-026.html">27. `Umrah (Minor pilgrimage)</option><option value="bukhari-book-027.html">28. Pilgrims Prevented from Completing the Pilgrimage</option><option value="bukhari-book-028.html">29. Penalty of Hunting while on Pilgrimage</option><option value="bukhari-book-029.html">30. Virtues of Madinah</option><option value="bukhari-book-030.html">31. Fasting</option><option value="bukhari-book-031.html">32. Praying at Night in Ramadaan (Taraweeh)</option><option value="bukhari-book-032.html">33. Virtues of the Night of Qadr</option><option value="bukhari-book-033.html">34. Retiring to a Mosque for Remembrance of Allah…</option><option value="bukhari-book-034.html">35. Sales and Trade</option><option value="bukhari-book-035.html">36. Sales in which a Price is paid for Goods to be…</option><option value="bukhari-book-036.html">37. Shuf&#x27;a</option><option value="bukhari-book-037.html">38. Hiring</option><option value="bukhari-book-038.html">39. Transferance of a Debt from One Person to Another…</option><option value="bukhari-book-039.html">40. Kafalah</option><option value="bukhari-book-040.html">41. Representation, Authorization, Business by Proxy</option><option value="bukhari-book-041.html">42. Agriculture</option><option value="bukhari-book-042.html">43. Distribution of Water</option><option value="bukhari-book-043.html">44. Loans, Payment of Loans, Freezing of Property,…</option><option value="bukhari-book-044.html">45. Khusoomaat</option><option value="bukhari-book-045.html">46. Lost Things Picked up by Someone (Luqatah)</option><option value="bukhari-book-046.html">47. Oppressions</option><option value="bukhari-book-047.html">48. Partnership</option><option value="bukhari-book-048.html">49. Mortgaging</option><option value="bukhari-book-049.html">50. Manumission of Slaves</option><option value="bukhari-book-050.html">51. Makaatib</option><option value="bukhari-book-051.html">52. Gifts</option><option value="bukhari-book-052.html">53. Witnesses</option><option value="bukhari-book-053.html">54. Peacemaking</option><option value="bukhari-book-054.html">55. Conditions</option><option value="bukhari-book-055.html">56. Wills and Testaments (Wasaayaa)</option><option value="bukhari-book-056.html">57. Fighting for the Cause of Allah (Jihaad)</option><option value="bukhari-book-057.html">58. One-fifth of Booty to the Cause of Allah (Khumus)</option><option value="bukhari-book-058.html">59. Jizyah and Mawaada&#x27;ah</option><option value="bukhari-book-059.html">60. Beginning of Creation</option><option value="bukhari-book-060.html">61. Prophets</option><option value="bukhari-book-061.html">62. Virtues and Merits of the Prophet (pbuh) and his…</option><option value="bukhari-book-062.html">63. Companions of the Prophet</option><option value="bukhari-book-063.html">64. Merits of the Helpers in Madinah (Ansaar)</option><option value="bukhari-book-064.html">65. Military Expeditions led by the Prophet (pbuh)…</option><option value="bukhari-book-065.html">66. Prophetic Commentary on the Qur&#x27;an (Tafseer of…</option><option value="bukhari-book-066.html">67. Virtues of the Qur&#x27;an</option><option value="bukhari-book-067.html">68. Wedlock, Marriage (Nikaah)</option><option value="bukhari-book-068.html">69. Divorce</option><option value="bukhari-book-069.html">70. Supporting the Family</option><option value="bukhari-book-070.html">71. Food, Meals</option><option value="bukhari-book-071.html">72. Sacrifice on Occasion of Birth (`Aqiqa)</option><option value="bukhari-book-072.html">73. Hunting, Slaughtering</option><option value="bukhari-book-073.html">74. Al-Adha Festival Sacrifice (Adaahi)</option><option value="bukhari-book-074.html">75. Drinks</option><option value="bukhari-book-075.html">76. Patients</option><option value="bukhari-book-076.html">77. Medicine</option><option value="bukhari-book-077.html">78. Dress</option><option value="bukhari-book-078.html">79. Good Manners and Form (Al-Adab)</option><option value="bukhari-book-079.html">80. Asking Permission</option><option value="bukhari-book-080.html">81. Invocations</option><option value="bukhari-book-081.html">82. To make the Heart Tender (Ar-Riqaq)</option><option value="bukhari-book-082.html">83. Divine Will (Al-Qadar)</option><option value="bukhari-book-083.html">84. Oaths and Vows</option><option value="bukhari-book-084.html">85. Expiation for Unfulfilled Oaths</option><option value="bukhari-book-085.html">86. Laws of Inheritance (Al-Faraa&#x27;id)</option><option value="bukhari-book-086.html">87. Limits and Punishments set by Allah (Hudood)</option><option value="bukhari-book-087.html">88. Blood Money (Ad-Diyat)</option><option value="bukhari-book-088.html">89. Apostates</option><option value="bukhari-book-089.html" selected>90. (Statements made under) Coercion</option><option value="bukhari-book-090.html">91. Tricks</option><option value="bukhari-book-091.html">92. Interpretation of Dreams</option><option value="bukhari-book-092.html">93. Afflictions and the End of the World</option><option value="bukhari-book-093.html">94. Judgments (Ahkaam)</option><option value="bukhari-book-094.html">95. Wishes</option><option value="bukhari-book-095.html">96. Accepting Information Given by a Truthful Person</option><option value="bukhari-book-096.html">97. Holding Fast to the Qur&#x27;an and Sunnah</option><option value="bukhari-book-097.html">98. Oneness, Uniqueness of Allah (Tawheed)</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,50 +294,52 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 6940–6952 &nbsp;|&nbsp;
   <a href="bukhari.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='6940' max='6952' value='6940'></label><label>To <input type='number' id='hvc-to' min='6940' max='6952' value='6952'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h6940' class='hadith-sep'><td colspan='2'>Hadith 6940 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ خَالِدِ بْنِ يَزِيدَ، عَنْ سَعِيدِ بْنِ أَبِي هِلاَلٍ، عَنْ هِلاَلِ بْنِ أُسَامَةَ، أَنَّ أَبَا سَلَمَةَ بْنَ عَبْدِ الرَّحْمَنِ، أَخْبَرَهُ عَنْ أَبِي هُرَيْرَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَدْعُو فِي الصَّلاَةِ ‏ &quot;‏ اللَّهُمَّ أَنْجِ عَيَّاشَ بْنَ أَبِي رَبِيعَةَ، وَسَلَمَةَ بْنَ هِشَامٍ، وَالْوَلِيدَ بْنَ الْوَلِيدِ، اللَّهُمَّ أَنْجِ الْمُسْتَضْعَفِينَ مِنَ الْمُؤْمِنِينَ، اللَّهُمَّ اشْدُدْ وَطْأَتَكَ عَلَى مُضَرَ، وَابْعَثْ عَلَيْهِمْ سِنِينَ كَسِنِي يُوسُفَ ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abi Huraira:The Prophet (ﷺ) used to invoke Allah in his prayer, &quot;O Allah! Save `Aiyash bin Abi Rabi`a and Salama bin Hisham and Al-Walid bin Al-Walid; O Allah! Save the weak among the believers; O Allah! Be hard upon the tribe of Mudar and inflict years (of famine) upon them like the (famine) years of Joseph</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 1</span></td></tr><tr id='h6941' class='hadith-sep'><td colspan='2'>Hadith 6941 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ حَوْشَبٍ الطَّائِفِيُّ، حَدَّثَنَا عَبْدُ الْوَهَّابِ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلاَبَةَ، عَنْ أَنَسٍ ـ رضى الله عنه ـ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ ثَلاَثٌ مَنْ كُنَّ فِيهِ وَجَدَ حَلاَوَةَ الإِيمَانِ أَنْ يَكُونَ اللَّهُ وَرَسُولُهُ أَحَبَّ إِلَيْهِ مِمَّا سِوَاهُمَا، وَأَنْ يُحِبَّ الْمَرْءَ لاَ يُحِبُّهُ إِلاَّ لِلَّهِ، وَأَنْ يَكْرَهَ أَنْ يَعُودَ فِي الْكُفْرِ، كَمَا يَكْرَهُ أَنْ يُقْذَفَ فِي النَّارِ ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas:Allah&#x27;s Messenger (ﷺ) said, &quot;Whoever possesses the (following) three qualities will have the sweetness of faith (1): The one to whom Allah and His Apostle becomes dearer than anything else; (2) Who loves a person and he loves him only for Allah&#x27;s Sake; (3) who hates to revert to atheism (disbelief) as he hates to be thrown into the Fire</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 2</span></td></tr><tr id='h6942' class='hadith-sep'><td colspan='2'>Hadith 6942 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا سَعِيدُ بْنُ سُلَيْمَانَ، حَدَّثَنَا عَبَّادٌ، عَنْ إِسْمَاعِيلَ، سَمِعْتُ قَيْسًا، سَمِعْتُ سَعِيدَ بْنَ زَيْدٍ، يَقُولُ لَقَدْ رَأَيْتُنِي وَإِنَّ عُمَرَ مُوثِقِي عَلَى الإِسْلاَمِ، وَلَوِ انْقَضَّ أُحُدٌ مِمَّا فَعَلْتُمْ بِعُثْمَانَ كَانَ مَحْقُوقًا أَنْ يَنْقَضَّ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Qais:I heard Sa`id bin Zaid saying, &quot;I have seen myself tied and forced by `Umar to leave Islam (Before `Umar himself embraced Islam). And if the mountain of Uhud were to collapse for the evil which you people had done to `Uthman, then Uhud would have the right to do so.&quot; (See Hadith No. 202, Vol)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 3</span></td></tr><tr id='h6943' class='hadith-sep'><td colspan='2'>Hadith 6943 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنْ إِسْمَاعِيلَ، حَدَّثَنَا قَيْسٌ، عَنْ خَبَّابِ بْنِ الأَرَتِّ، قَالَ شَكَوْنَا إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم وَهْوَ مُتَوَسِّدٌ بُرْدَةً لَهُ فِي ظِلِّ الْكَعْبَةِ فَقُلْنَا أَلاَ تَسْتَنْصِرُ لَنَا أَلاَ تَدْعُو لَنَا‏.‏ فَقَالَ ‏ &quot;‏ قَدْ كَانَ مَنْ قَبْلَكُمْ يُؤْخَذُ الرَّجُلُ فَيُحْفَرُ لَهُ فِي الأَرْضِ فَيُجْعَلُ فِيهَا، فَيُجَاءُ بِالْمِنْشَارِ فَيُوضَعُ عَلَى رَأْسِهِ فَيُجْعَلُ نِصْفَيْنِ، وَيُمَشَّطُ بِأَمْشَاطِ الْحَدِيدِ مَا دُونَ لَحْمِهِ وَعَظْمِهِ، فَمَا يَصُدُّهُ ذَلِكَ عَنْ دِينِهِ، وَاللَّهِ لَيَتِمَّنَّ هَذَا الأَمْرُ، حَتَّى يَسِيرَ الرَّاكِبُ مِنْ صَنْعَاءَ إِلَى حَضْرَمَوْتَ لاَ يَخَافُ إِلاَّ اللَّهَ وَالذِّئْبَ عَلَى غَنَمِهِ، وَلَكِنَّكُمْ تَسْتَعْجِلُونَ ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Khabbab bin Al-Art:We complained to Allah&#x27;s Messenger (ﷺ) (about our state) while he was leaning against his sheet cloak in the shade of the Ka`ba. We said, &quot;Will you ask Allah to help us? Will you invoke Allah for us?&quot; He said, &quot;Among those who were before you a (believer) used to be seized and, a pit used to be dug for him and then he used to be placed in it. Then a saw used to be brought and put on his head which would be split into two halves. His flesh might be combed with iron combs and removed from his bones, yet, all that did not cause him to revert from his religion. By Allah! This religion (Islam) will be completed (and triumph) till a rider (traveler) goes from San`a&#x27; (the capital of Yemen) to Hadramout fearing nobody except Allah and the wolf lest it should trouble his sheep, but you are impatient.&quot; (See Hadith No. 191, Vol)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 4</span></td></tr><tr id='h6944' class='hadith-sep'><td colspan='2'>Hadith 6944 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا اللَّيْثُ، عَنْ سَعِيدٍ الْمَقْبُرِيِّ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ قَالَ بَيْنَمَا نَحْنُ فِي الْمَسْجِدِ إِذْ خَرَجَ عَلَيْنَا رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ انْطَلِقُوا إِلَى يَهُودَ ‏&quot;‏‏.‏ فَخَرَجْنَا مَعَهُ حَتَّى جِئْنَا بَيْتَ الْمِدْرَاسِ فَقَامَ النَّبِيُّ صلى الله عليه وسلم فَنَادَاهُمْ ‏&quot;‏ يَا مَعْشَرَ يَهُودَ أَسْلِمُوا تَسْلَمُوا ‏&quot;‏‏.‏ فَقَالُوا قَدْ بَلَّغْتَ يَا أَبَا الْقَاسِمِ‏.‏ فَقَالَ ‏&quot;‏ ذَلِكَ أُرِيدُ ‏&quot;‏، ثُمَّ قَالَهَا الثَّانِيَةَ‏.‏ فَقَالُوا قَدْ بَلَّغْتَ يَا أَبَا الْقَاسِمِ‏.‏ ثُمَّ قَالَ الثَّالِثَةَ فَقَالَ ‏&quot;‏ اعْلَمُوا أَنَّ الأَرْضَ لِلَّهِ وَرَسُولِهِ، وَإِنِّي أُرِيدُ أَنْ أُجْلِيَكُمْ، فَمَنْ وَجَدَ مِنْكُمْ بِمَالِهِ شَيْئًا فَلْيَبِعْهُ، وَإِلاَّ فَاعْلَمُوا أَنَّمَا الأَرْضُ لِلَّهِ وَرَسُولِهِ ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abu Huraira:While we were in the mosque, Allah&#x27;s Messenger (ﷺ) came out to us and said, &quot;Let us proceed to the Jews.&quot; So we went along with him till we reached Bait-al-Midras (a place where the Torah used to be recited and all the Jews of the town used to gather). The Prophet (ﷺ) stood up and addressed them, &quot;O Assembly of Jews! Embrace Islam and you will be safe!&quot; The Jews replied, &quot;O Aba-l-Qasim! You have conveyed Allah&#x27;s message to us.&quot; The Prophet (ﷺ) said, &quot;That is what I want (from you).&quot; He repeated his first statement for the second time, and they said, &quot;You have conveyed Allah&#x27;s message, O Aba-l- Qasim.&quot; Then he said it for the third time and added, &quot;You should Know that the earth belongs to Allah and His Apostle, and I want to exile you fro,,, this land, so whoever among you owns some property, can sell it, otherwise you should know that the Earth belongs to Allah and His Apostle.&quot; (See Hadith No. 392, Vol)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 5</span></td></tr><tr id='h6945' class='hadith-sep'><td colspan='2'>Hadith 6945 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ قَزَعَةَ، حَدَّثَنَا مَالِكٌ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، عَنْ أَبِيهِ، عَنْ عَبْدِ الرَّحْمَنِ، وَمُجَمِّعٍ، ابْنَىْ يَزِيدَ بْنِ جَارِيَةَ الأَنْصَارِيِّ عَنْ خَنْسَاءَ بِنْتِ خِذَامٍ الأَنْصَارِيَّةِ، أَنَّ أَبَاهَا، زَوَّجَهَا وَهْىَ ثَيِّبٌ، فَكَرِهَتْ ذَلِكَ، فَأَتَتِ النَّبِيَّ صلى الله عليه وسلم فَرَدَّ نِكَاحَهَا‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Khansa&#x27; bint Khidam Al-Ansariya:That her father gave her in marriage when she was a matron and she disliked that marriage. So she came and (complained) to the Prophets and he declared that marriage invalid. (See Hadith No. 69, Vol)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 6</span></td></tr><tr id='h6946' class='hadith-sep'><td colspan='2'>Hadith 6946 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ يُوسُفَ، حَدَّثَنَا سُفْيَانُ، عَنِ ابْنِ جُرَيْجٍ، عَنِ ابْنِ أَبِي مُلَيْكَةَ، عَنْ أَبِي عَمْرٍو ـ هُوَ ذَكْوَانُ ـ عَنْ عَائِشَةَ ـ رضى الله عنها ـ قَالَتْ قُلْتُ يَا رَسُولَ اللَّهِ يُسْتَأْمَرُ النِّسَاءُ فِي أَبْضَاعِهِنَّ قَالَ ‏&quot;‏ نَعَمْ ‏&quot;‏‏.‏ قُلْتُ فَإِنَّ الْبِكْرَ تُسْتَأْمَرُ فَتَسْتَحِي فَتَسْكُتُ‏.‏ قَالَ ‏&quot;‏ سُكَاتُهَا إِذْنُهَا ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Aisha:I asked the Prophet, &quot;O Allah&#x27;s Messenger (ﷺ)! Should the women be asked for their consent to their marriage?&quot; He said, &quot;Yes.&quot; I said, &quot;A virgin, if asked, feels shy and keeps quiet.&quot; He said, &quot;Her silence means her consent</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 7</span></td></tr><tr id='h6947' class='hadith-sep'><td colspan='2'>Hadith 6947 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو النُّعْمَانِ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ عَمْرِو بْنِ دِينَارٍ، عَنْ جَابِرٍ ـ رضى الله عنه ـ أَنَّ رَجُلاً، مِنَ الأَنْصَارِ دَبَّرَ مَمْلُوكًا، وَلَمْ يَكُنْ لَهُ مَالٌ غَيْرُهُ، فَبَلَغَ ذَلِكَ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏ &quot;‏ مَنْ يَشْتَرِيهِ مِنِّي ‏&quot;‏‏.‏ فَاشْتَرَاهُ نُعَيْمُ بْنُ النَّحَّامِ بِثَمَانِمِائَةِ دِرْهَمٍ‏.‏ قَالَ فَسَمِعْتُ جَابِرًا يَقُولُ عَبْدًا قِبْطِيًّا مَاتَ عَامَ أَوَّلَ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Jabir:A man from the Ansar made his slave, a Mudabbar. And apart from that slave he did not have any other property. This news reached Allah&#x27;s Messenger (ﷺ) and he said, &quot;Who will buy that slave from me?&quot; So Nu&#x27;aim bin An-Nahham bought him for 800 Dirham. Jabir added: It was a coptic (Egyptian) slave who died that year</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 8</span></td></tr><tr id='h6948' class='hadith-sep'><td colspan='2'>Hadith 6948 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا حُسَيْنُ بْنُ مَنْصُورٍ، حَدَّثَنَا أَسْبَاطُ بْنُ مُحَمَّدٍ، حَدَّثَنَا الشَّيْبَانِيُّ، سُلَيْمَانُ بْنُ فَيْرُوزَ عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ،‏.‏ قَالَ الشَّيْبَانِيُّ وَحَدَّثَنِي عَطَاءٌ أَبُو الْحَسَنِ السُّوَائِيُّ،، وَلاَ أَظُنُّهُ إِلاَّ ذَكَرَهُ عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ ‏{‏يَا أَيُّهَا الَّذِينَ آمَنُوا لاَ يَحِلُّ لَكُمْ أَنْ تَرِثُوا النِّسَاءَ كَرْهًا‏}‏ الآيَةَ قَالَ كَانُوا إِذَا مَاتَ الرَّجُلُ كَانَ أَوْلِيَاؤُهُ أَحَقَّ بِامْرَأَتِهِ، إِنْ شَاءَ بَعْضُهُمْ تَزَوَّجَهَا، وَإِنْ شَاءُوا زَوَّجَهَا، وَإِنْ شَاءُوا لَمْ يُزَوِّجْهَا، فَهُمْ أَحَقُّ بِهَا مِنْ أَهْلِهَا، فَنَزَلَتْ هَذِهِ الآيَةُ فِي ذَلِكَ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Ibn `Abbas:Regarding the Qur&#x27;anic Verse: &#x27;O you who believe! You are forbidden to inherit women against their will.&#x27; (4.19) The custom (in the Pre-Islamic Period) was that if a man died, his relatives used to have the right to inherit his wife, and if one of them wished, he could marry her, or they could marry her to somebody else, or prevent her from marrying if they wished, for they had more right to dispose of her than her own relatives. Therefore this Verse was revealed concerning this matter</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 9</span></td></tr><tr id='h6949' class='hadith-sep'><td colspan='2'>Hadith 6949 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَقَالَ اللَّيْثُ حَدَّثَنِي نَافِعٌ، أَنَّ صَفِيَّةَ ابْنَةَ أَبِي عُبَيْدٍ، أَخْبَرَتْهُ أَنَّ عَبْدًا مِنْ رَقِيقِ الإِمَارَةِ وَقَعَ عَلَى وَلِيدَةٍ مِنَ الْخُمُسِ، فَاسْتَكْرَهَهَا حَتَّى افْتَضَّهَا، فَجَلَدَهُ عُمَرُ الْحَدَّ وَنَفَاهُ، وَلَمْ يَجْلِدِ الْوَلِيدَةَ مِنْ أَجْلِ أَنَّهُ اسْتَكْرَهَهَا‏.‏ قَالَ الزُّهْرِيُّ فِي الأَمَةِ الْبِكْرِ، يَفْتَرِعُهَا الْحُرُّ، يُقِيمُ ذَلِكَ الْحَكَمُ مِنَ الأَمَةِ الْعَذْرَاءِ بِقَدْرِ قِيمَتِهَا، وَيُجْلَدُ، وَلَيْسَ فِي الأَمَةِ الثَّيِّبِ فِي قَضَاءِ الأَئِمَّةِ غُرْمٌ، وَلَكِنْ عَلَيْهِ الْحَدُّ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>And Safiyya bint &#x27;Ubaid said:&quot;A governmental male-slave tried to seduce a slave-girl from the Khumus of the war booty till he deflowered her by force against her will; therefore &#x27;Umar flogged him according to the law, and exiled him, but he did not flog the female slave because the male-slave had committed illegal sexual intercourse by force, against her will.&quot; Az-Zuhri said regarding a virgin slave-girl raped by a free man: The judge has to fine the adulterer as much money as is equal to the price of the female slave and the adulterer has to be flogged (according to the Islamic Law); but if the slave woman is a matron, then, according to the verdict of the Imam, the adulterer is not fined but he has to receive the legal punishment (according to the Islamic Law)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 10</span></td></tr><tr id='h6950' class='hadith-sep'><td colspan='2'>Hadith 6950 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو الْيَمَانِ، حَدَّثَنَا شُعَيْبٌ، حَدَّثَنَا أَبُو الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ هَاجَرَ إِبْرَاهِيمُ بِسَارَةَ، دَخَلَ بِهَا قَرْيَةً فِيهَا مَلِكٌ مِنَ الْمُلُوكِ أَوْ جَبَّارٌ مِنَ الْجَبَابِرَةِ، فَأَرْسَلَ إِلَيْهِ أَنْ أَرْسِلْ إِلَىَّ بِهَا‏.‏ فَأَرْسَلَ بِهَا، فَقَامَ إِلَيْهَا فَقَامَتْ تَوَضَّأُ وَتُصَلِّي فَقَالَتِ اللَّهُمَّ إِنْ كُنْتُ آمَنْتُ بِكَ وَبِرَسُولِكَ فَلاَ تُسَلِّطْ عَلَىَّ الْكَافِرَ، فَغُطَّ حَتَّى رَكَضَ بِرِجْلِهِ ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abu Huraira:Allah&#x27;s Messenger (ﷺ) said, &quot;(The Prophet) Abraham migrated with his wife Sarah till he reached a town where there was a king or a tyrant who sent a message, to Abraham, ordering him to send Sarah to him. So when Abraham had sent Sarah, the tyrant got up, intending to do evil with her, but she got up and performed ablution and prayed and said, &#x27;O Allah ! If I have believed in You and in Your Apostle, then do not empower this oppressor over me.&#x27; So he (the king) had an epileptic fit and started moving his legs violently</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 11</span></td></tr><tr id='h6951' class='hadith-sep'><td colspan='2'>Hadith 6951 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ بُكَيْرِ، حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، أَنَّ سَالِمًا، أَخْبَرَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ ـ رضى الله عنهما ـ أَخْبَرَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْمُسْلِمُ أَخُو الْمُسْلِمِ، لاَ يَظْلِمُهُ، وَلاَ يُسْلِمُهُ، وَمَنْ كَانَ فِي حَاجَةِ أَخِيهِ، كَانَ اللَّهُ فِي حَاجَتِهِ ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated `Abdullah bin `Umar:Allah&#x27;s Messenger (ﷺ) said, &quot;A Muslim is a brother of another Muslim. So he should neither oppress him nor hand him over to an oppressor. And whoever fulfilled the needs of his brother, Allah will fulfill his needs</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 12</span></td></tr><tr id='h6952' class='hadith-sep'><td colspan='2'>Hadith 6952 — (Statements made under) Coercion</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الرَّحِيمِ، حَدَّثَنَا سَعِيدُ بْنُ سُلَيْمَانَ، حَدَّثَنَا هُشَيْمٌ، أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ أَبِي بَكْرِ بْنِ أَنَسٍ، عَنْ أَنَسٍ ـ رضى الله عنه ـ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ انْصُرْ أَخَاكَ ظَالِمًا أَوْ مَظْلُومًا ‏&quot;‏‏.‏ فَقَالَ رَجُلٌ يَا رَسُولَ اللَّهِ أَنْصُرُهُ إِذَا كَانَ مَظْلُومًا، أَفَرَأَيْتَ إِذَا كَانَ ظَالِمًا كَيْفَ أَنْصُرُهُ قَالَ ‏&quot;‏ تَحْجُزُهُ أَوْ تَمْنَعُهُ مِنَ الظُّلْمِ، فَإِنَّ ذَلِكَ نَصْرُهُ ‏&quot;‏‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas:Allah&#x27;s Messenger (ﷺ) said, &quot;Help your brother whether he is an oppressor or an oppressed,&quot; A man said, &quot;O Allah&#x27;s Messenger (ﷺ)! I will help him if he is oppressed, but if he is an oppressor, how shall I help him?&quot; The Prophet (ﷺ) said, &quot;By preventing him from oppressing (others), for that is how to help him</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 13</span></td></tr>
+<tr id='h6940' class='hadith-sep' data-hadith='6940'><td colspan='2'><a class='permalink' href='#h6940'>Hadith 6940</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6940'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ خَالِدِ بْنِ يَزِيدَ، عَنْ سَعِيدِ بْنِ أَبِي هِلاَلٍ، عَنْ هِلاَلِ بْنِ أُسَامَةَ، أَنَّ أَبَا سَلَمَةَ بْنَ عَبْدِ الرَّحْمَنِ، أَخْبَرَهُ عَنْ أَبِي هُرَيْرَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يَدْعُو فِي الصَّلاَةِ ‏ &quot;‏ اللَّهُمَّ أَنْجِ عَيَّاشَ بْنَ أَبِي رَبِيعَةَ، وَسَلَمَةَ بْنَ هِشَامٍ، وَالْوَلِيدَ بْنَ الْوَلِيدِ، اللَّهُمَّ أَنْجِ الْمُسْتَضْعَفِينَ مِنَ الْمُؤْمِنِينَ، اللَّهُمَّ اشْدُدْ وَطْأَتَكَ عَلَى مُضَرَ، وَابْعَثْ عَلَيْهِمْ سِنِينَ كَسِنِي يُوسُفَ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6940'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abi Huraira:The Prophet (ﷺ) used to invoke Allah in his prayer, &quot;O Allah! Save `Aiyash bin Abi Rabi`a and Salama bin Hisham and Al-Walid bin Al-Walid; O Allah! Save the weak among the believers; O Allah! Be hard upon the tribe of Mudar and inflict years (of famine) upon them like the (famine) years of Joseph</span></td></tr>
+<tr class='ref' data-hadith='6940'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 1</span></td></tr><tr id='h6941' class='hadith-sep' data-hadith='6941'><td colspan='2'><a class='permalink' href='#h6941'>Hadith 6941</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6941'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ حَوْشَبٍ الطَّائِفِيُّ، حَدَّثَنَا عَبْدُ الْوَهَّابِ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلاَبَةَ، عَنْ أَنَسٍ ـ رضى الله عنه ـ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ ثَلاَثٌ مَنْ كُنَّ فِيهِ وَجَدَ حَلاَوَةَ الإِيمَانِ أَنْ يَكُونَ اللَّهُ وَرَسُولُهُ أَحَبَّ إِلَيْهِ مِمَّا سِوَاهُمَا، وَأَنْ يُحِبَّ الْمَرْءَ لاَ يُحِبُّهُ إِلاَّ لِلَّهِ، وَأَنْ يَكْرَهَ أَنْ يَعُودَ فِي الْكُفْرِ، كَمَا يَكْرَهُ أَنْ يُقْذَفَ فِي النَّارِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6941'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas:Allah&#x27;s Messenger (ﷺ) said, &quot;Whoever possesses the (following) three qualities will have the sweetness of faith (1): The one to whom Allah and His Apostle becomes dearer than anything else; (2) Who loves a person and he loves him only for Allah&#x27;s Sake; (3) who hates to revert to atheism (disbelief) as he hates to be thrown into the Fire</span></td></tr>
+<tr class='ref' data-hadith='6941'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 2</span></td></tr><tr id='h6942' class='hadith-sep' data-hadith='6942'><td colspan='2'><a class='permalink' href='#h6942'>Hadith 6942</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6942'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا سَعِيدُ بْنُ سُلَيْمَانَ، حَدَّثَنَا عَبَّادٌ، عَنْ إِسْمَاعِيلَ، سَمِعْتُ قَيْسًا، سَمِعْتُ سَعِيدَ بْنَ زَيْدٍ، يَقُولُ لَقَدْ رَأَيْتُنِي وَإِنَّ عُمَرَ مُوثِقِي عَلَى الإِسْلاَمِ، وَلَوِ انْقَضَّ أُحُدٌ مِمَّا فَعَلْتُمْ بِعُثْمَانَ كَانَ مَحْقُوقًا أَنْ يَنْقَضَّ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6942'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Qais:I heard Sa`id bin Zaid saying, &quot;I have seen myself tied and forced by `Umar to leave Islam (Before `Umar himself embraced Islam). And if the mountain of Uhud were to collapse for the evil which you people had done to `Uthman, then Uhud would have the right to do so.&quot; (See Hadith No. 202, Vol)</span></td></tr>
+<tr class='ref' data-hadith='6942'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 3</span></td></tr><tr id='h6943' class='hadith-sep' data-hadith='6943'><td colspan='2'><a class='permalink' href='#h6943'>Hadith 6943</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6943'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنْ إِسْمَاعِيلَ، حَدَّثَنَا قَيْسٌ، عَنْ خَبَّابِ بْنِ الأَرَتِّ، قَالَ شَكَوْنَا إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم وَهْوَ مُتَوَسِّدٌ بُرْدَةً لَهُ فِي ظِلِّ الْكَعْبَةِ فَقُلْنَا أَلاَ تَسْتَنْصِرُ لَنَا أَلاَ تَدْعُو لَنَا‏.‏ فَقَالَ ‏ &quot;‏ قَدْ كَانَ مَنْ قَبْلَكُمْ يُؤْخَذُ الرَّجُلُ فَيُحْفَرُ لَهُ فِي الأَرْضِ فَيُجْعَلُ فِيهَا، فَيُجَاءُ بِالْمِنْشَارِ فَيُوضَعُ عَلَى رَأْسِهِ فَيُجْعَلُ نِصْفَيْنِ، وَيُمَشَّطُ بِأَمْشَاطِ الْحَدِيدِ مَا دُونَ لَحْمِهِ وَعَظْمِهِ، فَمَا يَصُدُّهُ ذَلِكَ عَنْ دِينِهِ، وَاللَّهِ لَيَتِمَّنَّ هَذَا الأَمْرُ، حَتَّى يَسِيرَ الرَّاكِبُ مِنْ صَنْعَاءَ إِلَى حَضْرَمَوْتَ لاَ يَخَافُ إِلاَّ اللَّهَ وَالذِّئْبَ عَلَى غَنَمِهِ، وَلَكِنَّكُمْ تَسْتَعْجِلُونَ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6943'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Khabbab bin Al-Art:We complained to Allah&#x27;s Messenger (ﷺ) (about our state) while he was leaning against his sheet cloak in the shade of the Ka`ba. We said, &quot;Will you ask Allah to help us? Will you invoke Allah for us?&quot; He said, &quot;Among those who were before you a (believer) used to be seized and, a pit used to be dug for him and then he used to be placed in it. Then a saw used to be brought and put on his head which would be split into two halves. His flesh might be combed with iron combs and removed from his bones, yet, all that did not cause him to revert from his religion. By Allah! This religion (Islam) will be completed (and triumph) till a rider (traveler) goes from San`a&#x27; (the capital of Yemen) to Hadramout fearing nobody except Allah and the wolf lest it should trouble his sheep, but you are impatient.&quot; (See Hadith No. 191, Vol)</span></td></tr>
+<tr class='ref' data-hadith='6943'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 4</span></td></tr><tr id='h6944' class='hadith-sep' data-hadith='6944'><td colspan='2'><a class='permalink' href='#h6944'>Hadith 6944</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6944'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا اللَّيْثُ، عَنْ سَعِيدٍ الْمَقْبُرِيِّ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ قَالَ بَيْنَمَا نَحْنُ فِي الْمَسْجِدِ إِذْ خَرَجَ عَلَيْنَا رَسُولُ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏&quot;‏ انْطَلِقُوا إِلَى يَهُودَ ‏&quot;‏‏.‏ فَخَرَجْنَا مَعَهُ حَتَّى جِئْنَا بَيْتَ الْمِدْرَاسِ فَقَامَ النَّبِيُّ صلى الله عليه وسلم فَنَادَاهُمْ ‏&quot;‏ يَا مَعْشَرَ يَهُودَ أَسْلِمُوا تَسْلَمُوا ‏&quot;‏‏.‏ فَقَالُوا قَدْ بَلَّغْتَ يَا أَبَا الْقَاسِمِ‏.‏ فَقَالَ ‏&quot;‏ ذَلِكَ أُرِيدُ ‏&quot;‏، ثُمَّ قَالَهَا الثَّانِيَةَ‏.‏ فَقَالُوا قَدْ بَلَّغْتَ يَا أَبَا الْقَاسِمِ‏.‏ ثُمَّ قَالَ الثَّالِثَةَ فَقَالَ ‏&quot;‏ اعْلَمُوا أَنَّ الأَرْضَ لِلَّهِ وَرَسُولِهِ، وَإِنِّي أُرِيدُ أَنْ أُجْلِيَكُمْ، فَمَنْ وَجَدَ مِنْكُمْ بِمَالِهِ شَيْئًا فَلْيَبِعْهُ، وَإِلاَّ فَاعْلَمُوا أَنَّمَا الأَرْضُ لِلَّهِ وَرَسُولِهِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6944'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:While we were in the mosque, Allah&#x27;s Messenger (ﷺ) came out to us and said, &quot;Let us proceed to the Jews.&quot; So we went along with him till we reached Bait-al-Midras (a place where the Torah used to be recited and all the Jews of the town used to gather). The Prophet (ﷺ) stood up and addressed them, &quot;O Assembly of Jews! Embrace Islam and you will be safe!&quot; The Jews replied, &quot;O Aba-l-Qasim! You have conveyed Allah&#x27;s message to us.&quot; The Prophet (ﷺ) said, &quot;That is what I want (from you).&quot; He repeated his first statement for the second time, and they said, &quot;You have conveyed Allah&#x27;s message, O Aba-l- Qasim.&quot; Then he said it for the third time and added, &quot;You should Know that the earth belongs to Allah and His Apostle, and I want to exile you fro,,, this land, so whoever among you owns some property, can sell it, otherwise you should know that the Earth belongs to Allah and His Apostle.&quot; (See Hadith No. 392, Vol)</span></td></tr>
+<tr class='ref' data-hadith='6944'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 5</span></td></tr><tr id='h6945' class='hadith-sep' data-hadith='6945'><td colspan='2'><a class='permalink' href='#h6945'>Hadith 6945</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6945'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ قَزَعَةَ، حَدَّثَنَا مَالِكٌ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، عَنْ أَبِيهِ، عَنْ عَبْدِ الرَّحْمَنِ، وَمُجَمِّعٍ، ابْنَىْ يَزِيدَ بْنِ جَارِيَةَ الأَنْصَارِيِّ عَنْ خَنْسَاءَ بِنْتِ خِذَامٍ الأَنْصَارِيَّةِ، أَنَّ أَبَاهَا، زَوَّجَهَا وَهْىَ ثَيِّبٌ، فَكَرِهَتْ ذَلِكَ، فَأَتَتِ النَّبِيَّ صلى الله عليه وسلم فَرَدَّ نِكَاحَهَا‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6945'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Khansa&#x27; bint Khidam Al-Ansariya:That her father gave her in marriage when she was a matron and she disliked that marriage. So she came and (complained) to the Prophets and he declared that marriage invalid. (See Hadith No. 69, Vol)</span></td></tr>
+<tr class='ref' data-hadith='6945'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 6</span></td></tr><tr id='h6946' class='hadith-sep' data-hadith='6946'><td colspan='2'><a class='permalink' href='#h6946'>Hadith 6946</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6946'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ يُوسُفَ، حَدَّثَنَا سُفْيَانُ، عَنِ ابْنِ جُرَيْجٍ، عَنِ ابْنِ أَبِي مُلَيْكَةَ، عَنْ أَبِي عَمْرٍو ـ هُوَ ذَكْوَانُ ـ عَنْ عَائِشَةَ ـ رضى الله عنها ـ قَالَتْ قُلْتُ يَا رَسُولَ اللَّهِ يُسْتَأْمَرُ النِّسَاءُ فِي أَبْضَاعِهِنَّ قَالَ ‏&quot;‏ نَعَمْ ‏&quot;‏‏.‏ قُلْتُ فَإِنَّ الْبِكْرَ تُسْتَأْمَرُ فَتَسْتَحِي فَتَسْكُتُ‏.‏ قَالَ ‏&quot;‏ سُكَاتُهَا إِذْنُهَا ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6946'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated `Aisha:I asked the Prophet, &quot;O Allah&#x27;s Messenger (ﷺ)! Should the women be asked for their consent to their marriage?&quot; He said, &quot;Yes.&quot; I said, &quot;A virgin, if asked, feels shy and keeps quiet.&quot; He said, &quot;Her silence means her consent</span></td></tr>
+<tr class='ref' data-hadith='6946'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 7</span></td></tr><tr id='h6947' class='hadith-sep' data-hadith='6947'><td colspan='2'><a class='permalink' href='#h6947'>Hadith 6947</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6947'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو النُّعْمَانِ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ عَمْرِو بْنِ دِينَارٍ، عَنْ جَابِرٍ ـ رضى الله عنه ـ أَنَّ رَجُلاً، مِنَ الأَنْصَارِ دَبَّرَ مَمْلُوكًا، وَلَمْ يَكُنْ لَهُ مَالٌ غَيْرُهُ، فَبَلَغَ ذَلِكَ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏ &quot;‏ مَنْ يَشْتَرِيهِ مِنِّي ‏&quot;‏‏.‏ فَاشْتَرَاهُ نُعَيْمُ بْنُ النَّحَّامِ بِثَمَانِمِائَةِ دِرْهَمٍ‏.‏ قَالَ فَسَمِعْتُ جَابِرًا يَقُولُ عَبْدًا قِبْطِيًّا مَاتَ عَامَ أَوَّلَ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6947'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Jabir:A man from the Ansar made his slave, a Mudabbar. And apart from that slave he did not have any other property. This news reached Allah&#x27;s Messenger (ﷺ) and he said, &quot;Who will buy that slave from me?&quot; So Nu&#x27;aim bin An-Nahham bought him for 800 Dirham. Jabir added: It was a coptic (Egyptian) slave who died that year</span></td></tr>
+<tr class='ref' data-hadith='6947'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 8</span></td></tr><tr id='h6948' class='hadith-sep' data-hadith='6948'><td colspan='2'><a class='permalink' href='#h6948'>Hadith 6948</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6948'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا حُسَيْنُ بْنُ مَنْصُورٍ، حَدَّثَنَا أَسْبَاطُ بْنُ مُحَمَّدٍ، حَدَّثَنَا الشَّيْبَانِيُّ، سُلَيْمَانُ بْنُ فَيْرُوزَ عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ،‏.‏ قَالَ الشَّيْبَانِيُّ وَحَدَّثَنِي عَطَاءٌ أَبُو الْحَسَنِ السُّوَائِيُّ،، وَلاَ أَظُنُّهُ إِلاَّ ذَكَرَهُ عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ ‏{‏يَا أَيُّهَا الَّذِينَ آمَنُوا لاَ يَحِلُّ لَكُمْ أَنْ تَرِثُوا النِّسَاءَ كَرْهًا‏}‏ الآيَةَ قَالَ كَانُوا إِذَا مَاتَ الرَّجُلُ كَانَ أَوْلِيَاؤُهُ أَحَقَّ بِامْرَأَتِهِ، إِنْ شَاءَ بَعْضُهُمْ تَزَوَّجَهَا، وَإِنْ شَاءُوا زَوَّجَهَا، وَإِنْ شَاءُوا لَمْ يُزَوِّجْهَا، فَهُمْ أَحَقُّ بِهَا مِنْ أَهْلِهَا، فَنَزَلَتْ هَذِهِ الآيَةُ فِي ذَلِكَ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6948'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Ibn `Abbas:Regarding the Qur&#x27;anic Verse: &#x27;O you who believe! You are forbidden to inherit women against their will.&#x27; (4.19) The custom (in the Pre-Islamic Period) was that if a man died, his relatives used to have the right to inherit his wife, and if one of them wished, he could marry her, or they could marry her to somebody else, or prevent her from marrying if they wished, for they had more right to dispose of her than her own relatives. Therefore this Verse was revealed concerning this matter</span></td></tr>
+<tr class='ref' data-hadith='6948'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 9</span></td></tr><tr id='h6949' class='hadith-sep' data-hadith='6949'><td colspan='2'><a class='permalink' href='#h6949'>Hadith 6949</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6949'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَقَالَ اللَّيْثُ حَدَّثَنِي نَافِعٌ، أَنَّ صَفِيَّةَ ابْنَةَ أَبِي عُبَيْدٍ، أَخْبَرَتْهُ أَنَّ عَبْدًا مِنْ رَقِيقِ الإِمَارَةِ وَقَعَ عَلَى وَلِيدَةٍ مِنَ الْخُمُسِ، فَاسْتَكْرَهَهَا حَتَّى افْتَضَّهَا، فَجَلَدَهُ عُمَرُ الْحَدَّ وَنَفَاهُ، وَلَمْ يَجْلِدِ الْوَلِيدَةَ مِنْ أَجْلِ أَنَّهُ اسْتَكْرَهَهَا‏.‏ قَالَ الزُّهْرِيُّ فِي الأَمَةِ الْبِكْرِ، يَفْتَرِعُهَا الْحُرُّ، يُقِيمُ ذَلِكَ الْحَكَمُ مِنَ الأَمَةِ الْعَذْرَاءِ بِقَدْرِ قِيمَتِهَا، وَيُجْلَدُ، وَلَيْسَ فِي الأَمَةِ الثَّيِّبِ فِي قَضَاءِ الأَئِمَّةِ غُرْمٌ، وَلَكِنْ عَلَيْهِ الْحَدُّ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6949'><td class='label'>English</td><td><span class='eng-text' lang='en'>And Safiyya bint &#x27;Ubaid said:&quot;A governmental male-slave tried to seduce a slave-girl from the Khumus of the war booty till he deflowered her by force against her will; therefore &#x27;Umar flogged him according to the law, and exiled him, but he did not flog the female slave because the male-slave had committed illegal sexual intercourse by force, against her will.&quot; Az-Zuhri said regarding a virgin slave-girl raped by a free man: The judge has to fine the adulterer as much money as is equal to the price of the female slave and the adulterer has to be flogged (according to the Islamic Law); but if the slave woman is a matron, then, according to the verdict of the Imam, the adulterer is not fined but he has to receive the legal punishment (according to the Islamic Law)</span></td></tr>
+<tr class='ref' data-hadith='6949'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 10</span></td></tr><tr id='h6950' class='hadith-sep' data-hadith='6950'><td colspan='2'><a class='permalink' href='#h6950'>Hadith 6950</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6950'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو الْيَمَانِ، حَدَّثَنَا شُعَيْبٌ، حَدَّثَنَا أَبُو الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ هَاجَرَ إِبْرَاهِيمُ بِسَارَةَ، دَخَلَ بِهَا قَرْيَةً فِيهَا مَلِكٌ مِنَ الْمُلُوكِ أَوْ جَبَّارٌ مِنَ الْجَبَابِرَةِ، فَأَرْسَلَ إِلَيْهِ أَنْ أَرْسِلْ إِلَىَّ بِهَا‏.‏ فَأَرْسَلَ بِهَا، فَقَامَ إِلَيْهَا فَقَامَتْ تَوَضَّأُ وَتُصَلِّي فَقَالَتِ اللَّهُمَّ إِنْ كُنْتُ آمَنْتُ بِكَ وَبِرَسُولِكَ فَلاَ تُسَلِّطْ عَلَىَّ الْكَافِرَ، فَغُطَّ حَتَّى رَكَضَ بِرِجْلِهِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6950'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Huraira:Allah&#x27;s Messenger (ﷺ) said, &quot;(The Prophet) Abraham migrated with his wife Sarah till he reached a town where there was a king or a tyrant who sent a message, to Abraham, ordering him to send Sarah to him. So when Abraham had sent Sarah, the tyrant got up, intending to do evil with her, but she got up and performed ablution and prayed and said, &#x27;O Allah ! If I have believed in You and in Your Apostle, then do not empower this oppressor over me.&#x27; So he (the king) had an epileptic fit and started moving his legs violently</span></td></tr>
+<tr class='ref' data-hadith='6950'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 11</span></td></tr><tr id='h6951' class='hadith-sep' data-hadith='6951'><td colspan='2'><a class='permalink' href='#h6951'>Hadith 6951</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6951'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ بُكَيْرِ، حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، أَنَّ سَالِمًا، أَخْبَرَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ ـ رضى الله عنهما ـ أَخْبَرَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الْمُسْلِمُ أَخُو الْمُسْلِمِ، لاَ يَظْلِمُهُ، وَلاَ يُسْلِمُهُ، وَمَنْ كَانَ فِي حَاجَةِ أَخِيهِ، كَانَ اللَّهُ فِي حَاجَتِهِ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6951'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated `Abdullah bin `Umar:Allah&#x27;s Messenger (ﷺ) said, &quot;A Muslim is a brother of another Muslim. So he should neither oppress him nor hand him over to an oppressor. And whoever fulfilled the needs of his brother, Allah will fulfill his needs</span></td></tr>
+<tr class='ref' data-hadith='6951'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 12</span></td></tr><tr id='h6952' class='hadith-sep' data-hadith='6952'><td colspan='2'><a class='permalink' href='#h6952'>Hadith 6952</a> — (Statements made under) Coercion</td></tr>
+<tr class='arabic' data-hadith='6952'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الرَّحِيمِ، حَدَّثَنَا سَعِيدُ بْنُ سُلَيْمَانَ، حَدَّثَنَا هُشَيْمٌ، أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ أَبِي بَكْرِ بْنِ أَنَسٍ، عَنْ أَنَسٍ ـ رضى الله عنه ـ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ انْصُرْ أَخَاكَ ظَالِمًا أَوْ مَظْلُومًا ‏&quot;‏‏.‏ فَقَالَ رَجُلٌ يَا رَسُولَ اللَّهِ أَنْصُرُهُ إِذَا كَانَ مَظْلُومًا، أَفَرَأَيْتَ إِذَا كَانَ ظَالِمًا كَيْفَ أَنْصُرُهُ قَالَ ‏&quot;‏ تَحْجُزُهُ أَوْ تَمْنَعُهُ مِنَ الظُّلْمِ، فَإِنَّ ذَلِكَ نَصْرُهُ ‏&quot;‏‏.‏</span></td></tr>
+<tr class='eng' data-hadith='6952'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas:Allah&#x27;s Messenger (ﷺ) said, &quot;Help your brother whether he is an oppressor or an oppressed,&quot; A man said, &quot;O Allah&#x27;s Messenger (ﷺ)! I will help him if he is oppressed, but if he is an oppressor, how shall I help him?&quot; The Prophet (ﷺ) said, &quot;By preventing him from oppressing (others), for that is how to help him</span></td></tr>
+<tr class='ref' data-hadith='6952'><td class='label'>Reference</td><td><span class='ref-text'>Book 89, Hadith 13</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -224,5 +358,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>

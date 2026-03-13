@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='tirmidhi.html'>Jami At-Tirmidhi</a> › The Book on the Two Eids</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="tirmidhi-book-001.html">1. The Book on Purification</option><option value="tirmidhi-book-002.html">2. The Book on Salat (Prayer)</option><option value="tirmidhi-book-000.html">3. General</option><option value="tirmidhi-book-003.html">4. The Book on Al-Witr</option><option value="tirmidhi-book-004.html">5. The Book on the Day of Friday</option><option value="tirmidhi-book-005.html" selected>6. The Book on the Two Eids</option><option value="tirmidhi-book-006.html">7. The Book on Traveling</option><option value="tirmidhi-book-007.html">8. The Book on Zakat</option><option value="tirmidhi-book-008.html">9. The Book on Fasting</option><option value="tirmidhi-book-009.html">10. The Book on Hajj</option><option value="tirmidhi-book-010.html">11. The Book on Jana&#x27;&#x27;iz (Funerals)</option><option value="tirmidhi-book-011.html">12. The Book on Marriage</option><option value="tirmidhi-book-012.html">13. The Book on Suckling</option><option value="tirmidhi-book-013.html">14. The Book on Divorce and Li&#x27;an</option><option value="tirmidhi-book-014.html">15. The Book on Business</option><option value="tirmidhi-book-015.html">16. The Chapters On Judgements From The Messenger of…</option><option value="tirmidhi-book-016.html">17. The Book on Blood Money</option><option value="tirmidhi-book-017.html">18. The Book on Legal Punishments (Al-Hudud)</option><option value="tirmidhi-book-018.html">19. The Book on Hunting</option><option value="tirmidhi-book-019.html">20. The Book on Sacrifices</option><option value="tirmidhi-book-020.html">21. The Book on Vows and Oaths</option><option value="tirmidhi-book-021.html">22. The Book on Military Expeditions</option><option value="tirmidhi-book-022.html">23. The Book on Virtues of Jihad</option><option value="tirmidhi-book-023.html">24. The Book on Jihad</option><option value="tirmidhi-book-024.html">25. The Book on Clothing</option><option value="tirmidhi-book-025.html">26. The Book on Food</option><option value="tirmidhi-book-026.html">27. The Book on Drinks</option><option value="tirmidhi-book-027.html">28. Chapters on Righteousness And Maintaining Good…</option><option value="tirmidhi-book-028.html">29. Chapters on Medicine</option><option value="tirmidhi-book-029.html">30. Chapters On Inheritance</option><option value="tirmidhi-book-030.html">31. Chapters On Wasaya (Wills and Testament)</option><option value="tirmidhi-book-031.html">32. Chapters On Wala&#x27; And Gifts</option><option value="tirmidhi-book-032.html">33. Chapters On Al-Qadar</option><option value="tirmidhi-book-033.html">34. Chapters On Al-Fitan</option><option value="tirmidhi-book-034.html">35. Chapters On Dreams</option><option value="tirmidhi-book-035.html">36. Chapters On Witnesses</option><option value="tirmidhi-book-036.html">37. Chapters On Zuhd</option><option value="tirmidhi-book-037.html">38. Chapters on the description of the Day of…</option><option value="tirmidhi-book-038.html">39. Chapters on the description of Paradise</option><option value="tirmidhi-book-039.html">40. The Book on the Description of Hellfire</option><option value="tirmidhi-book-040.html">41. The Book on Faith</option><option value="tirmidhi-book-041.html">42. Chapters on Knowledge</option><option value="tirmidhi-book-042.html">43. Chapters on Seeking Permission</option><option value="tirmidhi-book-043.html">44. Chapters on Manners</option><option value="tirmidhi-book-044.html">45. Chapters on Parables</option><option value="tirmidhi-book-045.html">46. Chapters on The Virtues of the Qur&#x27;an</option><option value="tirmidhi-book-046.html">47. Chapters on Recitation</option><option value="tirmidhi-book-047.html">48. Chapters on Tafsir</option><option value="tirmidhi-book-048.html">49. Chapters on Supplication</option><option value="tirmidhi-book-049.html">50. Chapters on Virtues</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,67 +294,69 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 530–543 &nbsp;|&nbsp;
   <a href="tirmidhi.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='530' max='543' value='530'></label><label>To <input type='number' id='hvc-to' min='530' max='543' value='543'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h530' class='hadith-sep'><td colspan='2'>Hadith 530 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا إِسْمَاعِيلُ بْنُ مُوسَى الْفَزَارِيُّ، حَدَّثَنَا شَرِيكٌ، عَنْ أَبِي إِسْحَاقَ، عَنِ الْحَارِثِ، عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ، قَالَ مِنَ السُّنَّةِ أَنْ تَخْرُجَ، إِلَى الْعِيدِ مَاشِيًا وَأَنْ تَأْكُلَ شَيْئًا قَبْلَ أَنْ تَخْرُجَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا الْحَدِيثِ عِنْدَ أَكْثَرِ أَهْلِ الْعِلْمِ يَسْتَحِبُّونَ أَنْ يَخْرُجَ الرَّجُلُ إِلَى الْعِيدِ مَاشِيًا وَأَنْ يَأْكُلَ شَيْئًا قَبْلَ أَنْ يَخْرُجَ لِصَلاَةِ الْفِطْرِ ‏.‏ قَالَ أَبُو عِيسَى وَيُسْتَحَبُّ أَنْ لاَ يَرْكَبَ إِلاَّ مِنْ عُذْرٍ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ali bin Abi Talib narrated:&quot;It is from the SUnnah to leave for the Eid walking, and to eat something before leaving</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Hasan; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 1</span></td></tr><tr id='h531' class='hadith-sep'><td colspan='2'>Hadith 531 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا أَبُو أُسَامَةَ، عَنْ عُبَيْدِ اللَّهِ، هُوَ ابْنُ عُمَرَ بْنِ حَفْصِ بْنِ عَاصِمِ بْنِ عُمَرَ بْنِ الْخَطَّابِ عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَبُو بَكْرٍ وَعُمَرُ يُصَلُّونَ فِي الْعِيدَيْنِ قَبْلَ الْخُطْبَةِ ثُمَّ يَخْطُبُونَ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ جَابِرٍ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ ابْنِ عُمَرَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ أَنَّ صَلاَةَ الْعِيدَيْنِ قَبْلَ الْخُطْبَةِ ‏.‏ وَيُقَالُ إِنَّ أَوَّلَ مَنْ خَطَبَ قَبْلَ الصَّلاَةِ مَرْوَانُ بْنُ الْحَكَمِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ibn Umar narrated:&quot;Allah&#x27;s Messenger, Abu Bakr, and Umar would pray during the two Eid before the Khutbah, then they would give the Khutbah</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 2</span></td></tr><tr id='h532' class='hadith-sep'><td colspan='2'>Hadith 532 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا أَبُو الأَحْوَصِ، عَنْ سِمَاكِ بْنِ حَرْبٍ، عَنْ جَابِرِ بْنِ سَمُرَةَ، قَالَ صَلَّيْتُ مَعَ النَّبِيِّ صلى الله عليه وسلم الْعِيدَيْنِ غَيْرَ مَرَّةٍ وَلاَ مَرَّتَيْنِ بِغَيْرِ أَذَانٍ وَلاَ إِقَامَةٍ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى وَحَدِيثُ جَابِرِ بْنِ سَمُرَةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَيْهِ عِنْدَ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ أَنَّهُ لاَ يُؤَذَّنُ لِصَلاَةِ الْعِيدَيْنِ وَلاَ لِشَيْءٍ مِنَ النَّوَافِلِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Jabir bin Samurah narrated:&quot;I prayed the two Eid prayers with the Prophet - not one time, not two times - without and Adhan nor an Iqamah</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan Sahih; Sahih - Bukhari And Muslim</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 3</span></td></tr><tr id='h533' class='hadith-sep'><td colspan='2'>Hadith 533 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ، عَنْ أَبِيهِ، عَنْ حَبِيبِ بْنِ سَالِمٍ، عَنِ النُّعْمَانِ بْنِ بَشِيرٍ، قَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم يَقْرَأُ فِي الْعِيدَيْنِ وَفِي الْجُمُعَةِ بِـ ‏(‏ سَبِّحِ اسْمَ رَبِّكَ الأَعْلَى ‏)‏ وَ ‏(‏هَلْ أَتَاكَ حَدِيثُ الْغَاشِيَةِ ‏)‏ وَرُبَّمَا اجْتَمَعَا فِي يَوْمٍ وَاحِدٍ فَيَقْرَأُ بِهِمَا ‏.‏ قَالَ وَفِي الْبَابِ عَنْ أَبِي وَاقِدٍ وَسَمُرَةَ بْنِ جُنْدَبٍ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ النُّعْمَانِ بْنِ بَشِيرٍ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَهَكَذَا رَوَى سُفْيَانُ الثَّوْرِيُّ وَمِسْعَرٌ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ نَحْوَ حَدِيثِ أَبِي عَوَانَةَ ‏.‏ وَأَمَّا سُفْيَانُ بْنُ عُيَيْنَةَ فَيُخْتَلَفُ عَلَيْهِ فِي الرِّوَايَةِ يُرْوَى عَنْهُ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ عَنْ أَبِيهِ عَنْ حَبِيبِ بْنِ سَالِمٍ عَنْ أَبِيهِ عَنِ النُّعْمَانِ بْنِ بَشِيرٍ ‏.‏ وَلاَ نَعْرِفُ لِحَبِيبِ بْنِ سَالِمٍ رِوَايَةً عَنْ أَبِيهِ ‏.‏ وَحَبِيبُ بْنُ سَالِمٍ هُوَ مَوْلَى النُّعْمَانِ بْنِ بَشِيرٍ وَرَوَى عَنِ النُّعْمَانِ بْنِ بَشِيرٍ أَحَادِيثَ ‏.‏ وَقَدْ رُوِيَ عَنِ ابْنِ عُيَيْنَةَ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ نَحْوُ رِوَايَةِ هَؤُلاَءِ ‏.‏ وَرُوِيَ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ كَانَ يَقْرَأُ فِي صَلاَةِ الْعِيدَيْنِ بِـ ‏(‏اقْتَرَبَتِ السَّاعَةُ ‏)‏ وَبِهِ يَقُولُ الشَّافِعِيُّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>An-Numan bin Bashir narrated:&quot;For the two Eid and the Friday prayer, the Prophet would recite: Glorify the Name of your Lord, the Most High, and Has there come to you the narration of the overwhelming? And sometimes they would occur on he same day, so he would recite the two of them</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih Muslim</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 4</span></td></tr><tr id='h534' class='hadith-sep'><td colspan='2'>Hadith 534 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا إِسْحَاقُ بْنُ مُوسَى الأَنْصَارِيُّ، حَدَّثَنَا مَعْنُ بْنُ عِيسَى، حَدَّثَنَا مَالِكُ بْنُ أَنَسٍ، عَنْ ضَمْرَةَ بْنِ سَعِيدٍ الْمَازِنِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، سَأَلَ أَبَا وَاقِدٍ اللَّيْثِيَّ مَا كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَقْرَأُ بِهِ فِي الْفِطْرِ وَالأَضْحَى قَالَ كَانَ يَقْرَأُ بـــ‏(‏ق والقرآنِ الْمَجِيدِ ‏)‏ ‏(‏اقْتَرَبَتِ السَّاعَةُ وَانْشَقَّ الْقَمَرُ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ubaidullah bin Abdullah bin Utbah narrated:&quot;Umar bin Al-Khattab asked Abu Waqid Al-Laithi what Allah&#x27;s Messenger would recite during Al-Fitr and Al-Adha, so he said: &#x27;He would recite: Qaf, By the Glorious Quran and the Hour has drawn near, and the moon has been cleft asunder</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih Muslim</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 5</span></td></tr><tr id='h535' class='hadith-sep'><td colspan='2'>Hadith 535 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ ضَمْرَةَ بْنِ سَعِيدٍ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏ قَالَ أَبُو عِيسَى وَأَبُو وَاقِدٍ اللَّيْثِيُّ اسْمُهُ الْحَارِثُ بْنُ عَوْفٍ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ubaidullah bin Abdullah bin Utbah:There is a another chain with similar narration</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 6</span></td></tr><tr id='h536' class='hadith-sep'><td colspan='2'>Hadith 536 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسْلِمُ بْنُ عَمْرٍو أَبُو عَمْرٍو الْحَذَّاءُ الْمَدِينِيُّ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نَافِعٍ الصَّائِغُ، عَنْ كَثِيرِ بْنِ عَبْدِ اللَّهِ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَبَّرَ فِي الْعِيدَيْنِ فِي الأُولَى سَبْعًا قَبْلَ الْقِرَاءَةِ وَفِي الآخِرَةِ خَمْسًا قَبْلَ الْقِرَاءَةِ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَائِشَةَ وَابْنِ عُمَرَ وَعَبْدِ اللَّهِ بْنِ عَمْرٍو ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ جَدِّ كَثِيرٍ حَدِيثٌ حَسَنٌ وَهُوَ أَحْسَنُ شَيْءٍ رُوِيَ فِي هَذَا الْبَابِ عَنِ النَّبِيِّ عَلَيْهِ السَّلاَمُ وَاسْمُهُ عَمْرُو بْنُ عَوْفٍ الْمُزَنِيُّ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ ‏.‏ وَهَكَذَا رُوِيَ عَنْ أَبِي هُرَيْرَةَ أَنَّهُ صَلَّى بِالْمَدِينَةِ نَحْوَ هَذِهِ الصَّلاَةِ وَهُوَ قَوْلُ أَهْلِ الْمَدِينَةِ ‏.‏ وَبِهِ يَقُولُ مَالِكُ بْنُ أَنَسٍ وَالشَّافِعِيُّ وَأَحْمَدُ وَإِسْحَاقُ ‏.‏ وَرُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ أَنَّهُ قَالَ فِي التَّكْبِيرِ فِي الْعِيدَيْنِ تِسْعَ تَكْبِيرَاتٍ فِي الرَّكْعَةِ الأُولَى خَمْسًا قَبْلَ الْقِرَاءَةِ وَفِي الرَّكْعَةِ الثَّانِيَةِ يَبْدَأُ بِالْقِرَاءَةِ ثُمَّ يُكَبِّرُ أَرْبَعًا مَعَ تَكْبِيرَةِ الرُّكُوعِ ‏.‏ وَقَدْ رُوِيَ عَنْ غَيْرِ وَاحِدٍ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم نَحْوُ هَذَا وَهُوَ قَوْلُ أَهْلِ الْكُوفَةِ وَبِهِ يَقُولُ سُفْيَانُ الثَّوْرِيُّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Kathir bin Abdullah narrated from this father, from his grandfather:&quot;The Prophet said the Takbir in the first (Rak&#x27;ah) sever (times) before the recitation, and in the last, five (times) before the recitation</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 7</span></td></tr><tr id='h537' class='hadith-sep'><td colspan='2'>Hadith 537 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا أَبُو دَاوُدَ الطَّيَالِسِيُّ، قَالَ أَنْبَأَنَا شُعْبَةُ، عَنْ عَدِيِّ بْنِ ثَابِتٍ، قَالَ سَمِعْتُ سَعِيدَ بْنَ جُبَيْرٍ، يُحَدِّثُ عَنِ ابْنِ عَبَّاسٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم خَرَجَ يَوْمَ الْفِطْرِ فَصَلَّى رَكْعَتَيْنِ ثُمَّ لَمْ يُصَلِّ قَبْلَهَا وَلاَ بَعْدَهَا ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ وَعَبْدِ اللَّهِ بْنِ عَمْرٍو وَأَبِي سَعِيدٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ ابْنِ عَبَّاسٍ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَيْهِ عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ وَبِهِ يَقُولُ الشَّافِعِيُّ وَأَحْمَدُ وَإِسْحَاقُ ‏.‏ وَقَدْ رَأَى طَائِفَةٌ مِنْ أَهْلِ الْعِلْمِ الصَّلاَةَ بَعْدَ صَلاَةِ الْعِيدَيْنِ وَقَبْلَهَا مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ ‏.‏ وَالْقَوْلُ الأَوَّلُ أَصَحُّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Ibn Abbas narrated:&quot;The Prophet went out on the day of Al-Fitr, so he prayed two Rak&#x27;ah, then he did not pray before it nor after it</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 8</span></td></tr><tr id='h538' class='hadith-sep'><td colspan='2'>Hadith 538 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو عَمَّارٍ الْحُسَيْنُ بْنُ حُرَيْثٍ، حَدَّثَنَا وَكِيعٌ، عَنْ أَبَانَ بْنِ عَبْدِ اللَّهِ الْبَجَلِيِّ، عَنْ أَبِي بَكْرِ بْنِ حَفْصٍ، وَهُوَ ابْنُ عُمَرَ بْنِ سَعْدِ بْنِ أَبِي وَقَّاصٍ عَنِ ابْنِ عُمَرَ، أَنَّهُ خَرَجَ فِي يَوْمِ عِيدٍ فَلَمْ يُصَلِّ قَبْلَهَا وَلاَ بَعْدَهَا وَذَكَرَ أَنَّ النَّبِيَّ صلى الله عليه وسلم فَعَلَهُ ‏.‏ قَالَ أَبُو عِيسَى وَهَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Bakr bin Hafs - and he is Ibn Umar bin Sa&#x27;d bin Abi Waqas - narrated about Ibn Umar, that:&quot;He went out on the day of Eid, and he did not pray before it nor after it. He mentioned that the Prophet did so</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan Sahih; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 9</span></td></tr><tr id='h539' class='hadith-sep'><td colspan='2'>Hadith 539 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا هُشَيْمٌ، أَخْبَرَنَا مَنْصُورٌ، وَهُوَ ابْنُ زَاذَانَ عَنِ ابْنِ سِيرِينَ، عَنْ أُمِّ عَطِيَّةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُخْرِجُ الأَبْكَارَ وَالْعَوَاتِقَ وَذَوَاتِ الْخُدُورِ وَالْحُيَّضَ فِي الْعِيدَيْنِ فَأَمَّا الْحُيَّضُ فَيَعْتَزِلْنَ الْمُصَلَّى وَيَشْهَدْنَ دَعْوَةَ الْمُسْلِمِينَ قَالَتْ إِحْدَاهُنَّ يَا رَسُولَ اللَّهِ إِنْ لَمْ يَكُنْ لَهَا جِلْبَابٌ قَالَ ‏ &quot;‏ فَلْتُعِرْهَا أُخْتُهَا مِنْ جَلاَبِيبِهَا ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Umm Atiyyah narrated:&quot;Allah&#x27;s Messenger would order the virgins, the mature women, the secluded and the menstruating to go out for the two Eid. As for the menstruating women, they were to stay away from the Musalla and participate in the Muslims supplications.&quot; One of them said: &#x27;O Messenger of Allah! What if she does not have a Jilbab? He said: &#x27;Then let her sis lend her a Jilbab</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 10</span></td></tr><tr id='h540' class='hadith-sep'><td colspan='2'>Hadith 540 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا هُشَيْمٌ، عَنْ هِشَامِ بْنِ حَسَّانَ، عَنْ حَفْصَةَ بِنْتِ سِيرِينَ، عَنْ أُمِّ عَطِيَّةَ، بِنَحْوِهِ ‏.‏ قَالَ وَفِي الْبَابِ عَنِ ابْنِ عَبَّاسٍ، وَجَابِرٍ، ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أُمِّ عَطِيَّةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَقَدْ ذَهَبَ بَعْضُ أَهْلِ الْعِلْمِ إِلَى هَذَا الْحَدِيثِ وَرَخَّصَ لِلنِّسَاءِ فِي الْخُرُوجِ إِلَى الْعِيدَيْنِ وَكَرِهَهُ بَعْضُهُمْ وَرُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ الْمُبَارَكِ أَنَّهُ قَالَ أَكْرَهُ الْيَوْمَ الْخُرُوجَ لِلنِّسَاءِ فِي الْعِيدَيْنِ فَإِنْ أَبَتِ الْمَرْأَةُ إِلاَّ أَنْ تَخْرُجَ فَلْيَأْذَنْ لَهَا زَوْجُهَا أَنْ تَخْرُجَ فِي أَطْمَارِهَا الْخُلْقَانِ وَلاَ تَتَزَيَّنْ فَإِنْ أَبَتْ أَنْ تَخْرُجَ كَذَلِكَ فَلِلزَّوْجِ أَنْ يَمْنَعَهَا عَنِ الْخُرُوجِ ‏.‏ وَيُرْوَى عَنْ عَائِشَةَ رضى الله عنها قَالَتْ لَوْ رَأَى رَسُولُ اللَّهِ صلى الله عليه وسلم مَا أَحْدَثَ النِّسَاءُ لَمَنَعَهُنَّ الْمَسْجِدَ كَمَا مُنِعَتْ نِسَاءُ بَنِي إِسْرَائِيلَ ‏.‏ وَيُرْوَى عَنْ سُفْيَانَ الثَّوْرِيِّ أَنَّهُ كَرِهَ الْيَوْمَ الْخُرُوجَ لِلنِّسَاءِ إِلَى الْعِيدِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>There is a similar narration from Umm Atiyyah :with another chain</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 11</span></td></tr><tr id='h541' class='hadith-sep'><td colspan='2'>Hadith 541 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عَبْدُ الأَعْلَى بْنُ وَاصِلِ بْنِ عَبْدِ الأَعْلَى الْكُوفِيُّ، وَأَبُو زُرْعَةَ قَالاَ حَدَّثَنَا مُحَمَّدُ بْنُ الصَّلْتِ، عَنْ فُلَيْحِ بْنِ سُلَيْمَانَ، عَنْ سَعِيدِ بْنِ الْحَارِثِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم إِذَا خَرَجَ يَوْمَ الْعِيدِ فِي طَرِيقٍ رَجَعَ فِي غَيْرِهِ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ وَأَبِي رَافِعٍ ‏.‏ قَالَ أَبُو عِيسَى وَحَدِيثُ أَبِي هُرَيْرَةَ حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏ وَرَوَى أَبُو تُمَيْلَةَ وَيُونُسُ بْنُ مُحَمَّدٍ هَذَا الْحَدِيثَ عَنْ فُلَيْحِ بْنِ سُلَيْمَانَ عَنْ سَعِيدِ بْنِ الْحَارِثِ عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ ‏.‏ قَالَ وَقَدِ اسْتَحَبَّ بَعْضُ أَهْلِ الْعِلْمِ لِلإِمَامِ إِذَا خَرَجَ فِي طَرِيقٍ أَنْ يَرْجِعَ فِي غَيْرِهِ اتِّبَاعًا لِهَذَا الْحَدِيثِ وَهُوَ قَوْلُ الشَّافِعِيِّ ‏.‏ وَحَدِيثُ جَابِرٍ كَأَنَّهُ أَصَحُّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Hurairah narrated:&quot;When Allah&#x27;s Messenger would go out on the day of Eid by one route, he would return by another</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 12</span></td></tr><tr id='h542' class='hadith-sep'><td colspan='2'>Hadith 542 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الْحَسَنُ بْنُ الصَّبَّاحِ الْبَزَّارُ الْبَغْدَادِيُّ، حَدَّثَنَا عَبْدُ الصَّمَدِ بْنُ عَبْدِ الْوَارِثِ، عَنْ ثَوَابِ بْنِ عُتْبَةَ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ أَبِيهِ، قَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم لاَ يَخْرُجُ يَوْمَ الْفِطْرِ حَتَّى يَطْعَمَ وَلاَ يَطْعَمُ يَوْمَ الأَضْحَى حَتَّى يُصَلِّيَ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَلِيٍّ وَأَنَسٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ بُرَيْدَةَ بْنِ حُصَيْبٍ الأَسْلَمِيِّ حَدِيثٌ غَرِيبٌ ‏.‏ وَقَالَ مُحَمَّدٌ لاَ أَعْرِفُ لِثَوَابِ بْنِ عُتْبَةَ غَيْرَ هَذَا الْحَدِيثِ ‏.‏ وَقَدِ اسْتَحَبَّ قَوْمٌ مِنْ أَهْلِ الْعِلْمِ أَنْ لاَ يَخْرُجَ يَوْمَ الْفِطْرِ حَتَّى يَطْعَمَ شَيْئًا وَيُسْتَحَبُّ لَهُ أَنْ يُفْطِرَ عَلَى تَمْرٍ وَلاَ يَطْعَمَ يَوْمَ الأَضْحَى حَتَّى يَرْجِعَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abdullah bin Buraidah narrated from his father:&quot;The Prophet would not leave on the Day of Fitr until he ate, and he would not eat on the day of Adha until he prayed</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 13</span></td></tr><tr id='h543' class='hadith-sep'><td colspan='2'>Hadith 543 — The Book on the Two Eids</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا هُشَيْمٌ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، عَنْ حَفْصِ بْنِ عُبَيْدِ اللَّهِ بْنِ أَنَسٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يُفْطِرُ عَلَى تَمَرَاتٍ يَوْمَ الْفِطْرِ قَبْلَ أَنْ يَخْرُجَ إِلَى الْمُصَلَّى ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ صَحِيحٌ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Anas bin Malik narrated:&quot;The Prophet would have a breakfast of dates on the Day of Fitr before leaving for the Musalla</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 14</span></td></tr>
+<tr id='h530' class='hadith-sep' data-hadith='530'><td colspan='2'><a class='permalink' href='#h530'>Hadith 530</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='530'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا إِسْمَاعِيلُ بْنُ مُوسَى الْفَزَارِيُّ، حَدَّثَنَا شَرِيكٌ، عَنْ أَبِي إِسْحَاقَ، عَنِ الْحَارِثِ، عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ، قَالَ مِنَ السُّنَّةِ أَنْ تَخْرُجَ، إِلَى الْعِيدِ مَاشِيًا وَأَنْ تَأْكُلَ شَيْئًا قَبْلَ أَنْ تَخْرُجَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا الْحَدِيثِ عِنْدَ أَكْثَرِ أَهْلِ الْعِلْمِ يَسْتَحِبُّونَ أَنْ يَخْرُجَ الرَّجُلُ إِلَى الْعِيدِ مَاشِيًا وَأَنْ يَأْكُلَ شَيْئًا قَبْلَ أَنْ يَخْرُجَ لِصَلاَةِ الْفِطْرِ ‏.‏ قَالَ أَبُو عِيسَى وَيُسْتَحَبُّ أَنْ لاَ يَرْكَبَ إِلاَّ مِنْ عُذْرٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='530'><td class='label'>English</td><td><span class='eng-text' lang='en'>Ali bin Abi Talib narrated:&quot;It is from the SUnnah to leave for the Eid walking, and to eat something before leaving</span></td></tr>
+<tr class='grade' data-hadith='530'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Hasan; Daif</span></td></tr>
+<tr class='ref' data-hadith='530'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 1</span></td></tr><tr id='h531' class='hadith-sep' data-hadith='531'><td colspan='2'><a class='permalink' href='#h531'>Hadith 531</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='531'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا أَبُو أُسَامَةَ، عَنْ عُبَيْدِ اللَّهِ، هُوَ ابْنُ عُمَرَ بْنِ حَفْصِ بْنِ عَاصِمِ بْنِ عُمَرَ بْنِ الْخَطَّابِ عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَبُو بَكْرٍ وَعُمَرُ يُصَلُّونَ فِي الْعِيدَيْنِ قَبْلَ الْخُطْبَةِ ثُمَّ يَخْطُبُونَ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ جَابِرٍ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ ابْنِ عُمَرَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ أَنَّ صَلاَةَ الْعِيدَيْنِ قَبْلَ الْخُطْبَةِ ‏.‏ وَيُقَالُ إِنَّ أَوَّلَ مَنْ خَطَبَ قَبْلَ الصَّلاَةِ مَرْوَانُ بْنُ الْحَكَمِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='531'><td class='label'>English</td><td><span class='eng-text' lang='en'>Ibn Umar narrated:&quot;Allah&#x27;s Messenger, Abu Bakr, and Umar would pray during the two Eid before the Khutbah, then they would give the Khutbah</span></td></tr>
+<tr class='grade' data-hadith='531'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='531'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 2</span></td></tr><tr id='h532' class='hadith-sep' data-hadith='532'><td colspan='2'><a class='permalink' href='#h532'>Hadith 532</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='532'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا أَبُو الأَحْوَصِ، عَنْ سِمَاكِ بْنِ حَرْبٍ، عَنْ جَابِرِ بْنِ سَمُرَةَ، قَالَ صَلَّيْتُ مَعَ النَّبِيِّ صلى الله عليه وسلم الْعِيدَيْنِ غَيْرَ مَرَّةٍ وَلاَ مَرَّتَيْنِ بِغَيْرِ أَذَانٍ وَلاَ إِقَامَةٍ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى وَحَدِيثُ جَابِرِ بْنِ سَمُرَةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَيْهِ عِنْدَ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ أَنَّهُ لاَ يُؤَذَّنُ لِصَلاَةِ الْعِيدَيْنِ وَلاَ لِشَيْءٍ مِنَ النَّوَافِلِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='532'><td class='label'>English</td><td><span class='eng-text' lang='en'>Jabir bin Samurah narrated:&quot;I prayed the two Eid prayers with the Prophet - not one time, not two times - without and Adhan nor an Iqamah</span></td></tr>
+<tr class='grade' data-hadith='532'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan Sahih; Sahih - Bukhari And Muslim</span></td></tr>
+<tr class='ref' data-hadith='532'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 3</span></td></tr><tr id='h533' class='hadith-sep' data-hadith='533'><td colspan='2'><a class='permalink' href='#h533'>Hadith 533</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='533'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ، عَنْ أَبِيهِ، عَنْ حَبِيبِ بْنِ سَالِمٍ، عَنِ النُّعْمَانِ بْنِ بَشِيرٍ، قَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم يَقْرَأُ فِي الْعِيدَيْنِ وَفِي الْجُمُعَةِ بِـ ‏(‏ سَبِّحِ اسْمَ رَبِّكَ الأَعْلَى ‏)‏ وَ ‏(‏هَلْ أَتَاكَ حَدِيثُ الْغَاشِيَةِ ‏)‏ وَرُبَّمَا اجْتَمَعَا فِي يَوْمٍ وَاحِدٍ فَيَقْرَأُ بِهِمَا ‏.‏ قَالَ وَفِي الْبَابِ عَنْ أَبِي وَاقِدٍ وَسَمُرَةَ بْنِ جُنْدَبٍ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ النُّعْمَانِ بْنِ بَشِيرٍ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَهَكَذَا رَوَى سُفْيَانُ الثَّوْرِيُّ وَمِسْعَرٌ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ نَحْوَ حَدِيثِ أَبِي عَوَانَةَ ‏.‏ وَأَمَّا سُفْيَانُ بْنُ عُيَيْنَةَ فَيُخْتَلَفُ عَلَيْهِ فِي الرِّوَايَةِ يُرْوَى عَنْهُ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ عَنْ أَبِيهِ عَنْ حَبِيبِ بْنِ سَالِمٍ عَنْ أَبِيهِ عَنِ النُّعْمَانِ بْنِ بَشِيرٍ ‏.‏ وَلاَ نَعْرِفُ لِحَبِيبِ بْنِ سَالِمٍ رِوَايَةً عَنْ أَبِيهِ ‏.‏ وَحَبِيبُ بْنُ سَالِمٍ هُوَ مَوْلَى النُّعْمَانِ بْنِ بَشِيرٍ وَرَوَى عَنِ النُّعْمَانِ بْنِ بَشِيرٍ أَحَادِيثَ ‏.‏ وَقَدْ رُوِيَ عَنِ ابْنِ عُيَيْنَةَ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدِ بْنِ الْمُنْتَشِرِ نَحْوُ رِوَايَةِ هَؤُلاَءِ ‏.‏ وَرُوِيَ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ كَانَ يَقْرَأُ فِي صَلاَةِ الْعِيدَيْنِ بِـ ‏(‏اقْتَرَبَتِ السَّاعَةُ ‏)‏ وَبِهِ يَقُولُ الشَّافِعِيُّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='533'><td class='label'>English</td><td><span class='eng-text' lang='en'>An-Numan bin Bashir narrated:&quot;For the two Eid and the Friday prayer, the Prophet would recite: Glorify the Name of your Lord, the Most High, and Has there come to you the narration of the overwhelming? And sometimes they would occur on he same day, so he would recite the two of them</span></td></tr>
+<tr class='grade' data-hadith='533'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih Muslim</span></td></tr>
+<tr class='ref' data-hadith='533'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 4</span></td></tr><tr id='h534' class='hadith-sep' data-hadith='534'><td colspan='2'><a class='permalink' href='#h534'>Hadith 534</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='534'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا إِسْحَاقُ بْنُ مُوسَى الأَنْصَارِيُّ، حَدَّثَنَا مَعْنُ بْنُ عِيسَى، حَدَّثَنَا مَالِكُ بْنُ أَنَسٍ، عَنْ ضَمْرَةَ بْنِ سَعِيدٍ الْمَازِنِيِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُتْبَةَ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، سَأَلَ أَبَا وَاقِدٍ اللَّيْثِيَّ مَا كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَقْرَأُ بِهِ فِي الْفِطْرِ وَالأَضْحَى قَالَ كَانَ يَقْرَأُ بـــ‏(‏ق والقرآنِ الْمَجِيدِ ‏)‏ ‏(‏اقْتَرَبَتِ السَّاعَةُ وَانْشَقَّ الْقَمَرُ ‏)‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='534'><td class='label'>English</td><td><span class='eng-text' lang='en'>Ubaidullah bin Abdullah bin Utbah narrated:&quot;Umar bin Al-Khattab asked Abu Waqid Al-Laithi what Allah&#x27;s Messenger would recite during Al-Fitr and Al-Adha, so he said: &#x27;He would recite: Qaf, By the Glorious Quran and the Hour has drawn near, and the moon has been cleft asunder</span></td></tr>
+<tr class='grade' data-hadith='534'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih Muslim</span></td></tr>
+<tr class='ref' data-hadith='534'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 5</span></td></tr><tr id='h535' class='hadith-sep' data-hadith='535'><td colspan='2'><a class='permalink' href='#h535'>Hadith 535</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='535'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنْ ضَمْرَةَ بْنِ سَعِيدٍ، بِهَذَا الإِسْنَادِ نَحْوَهُ ‏.‏ قَالَ أَبُو عِيسَى وَأَبُو وَاقِدٍ اللَّيْثِيُّ اسْمُهُ الْحَارِثُ بْنُ عَوْفٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='535'><td class='label'>English</td><td><span class='eng-text' lang='en'>Ubaidullah bin Abdullah bin Utbah:There is a another chain with similar narration</span></td></tr>
+<tr class='grade' data-hadith='535'><td class='label'>Grade</td><td><span class='grade-text'>Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='535'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 6</span></td></tr><tr id='h536' class='hadith-sep' data-hadith='536'><td colspan='2'><a class='permalink' href='#h536'>Hadith 536</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='536'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسْلِمُ بْنُ عَمْرٍو أَبُو عَمْرٍو الْحَذَّاءُ الْمَدِينِيُّ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نَافِعٍ الصَّائِغُ، عَنْ كَثِيرِ بْنِ عَبْدِ اللَّهِ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَبَّرَ فِي الْعِيدَيْنِ فِي الأُولَى سَبْعًا قَبْلَ الْقِرَاءَةِ وَفِي الآخِرَةِ خَمْسًا قَبْلَ الْقِرَاءَةِ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَائِشَةَ وَابْنِ عُمَرَ وَعَبْدِ اللَّهِ بْنِ عَمْرٍو ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ جَدِّ كَثِيرٍ حَدِيثٌ حَسَنٌ وَهُوَ أَحْسَنُ شَيْءٍ رُوِيَ فِي هَذَا الْبَابِ عَنِ النَّبِيِّ عَلَيْهِ السَّلاَمُ وَاسْمُهُ عَمْرُو بْنُ عَوْفٍ الْمُزَنِيُّ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ ‏.‏ وَهَكَذَا رُوِيَ عَنْ أَبِي هُرَيْرَةَ أَنَّهُ صَلَّى بِالْمَدِينَةِ نَحْوَ هَذِهِ الصَّلاَةِ وَهُوَ قَوْلُ أَهْلِ الْمَدِينَةِ ‏.‏ وَبِهِ يَقُولُ مَالِكُ بْنُ أَنَسٍ وَالشَّافِعِيُّ وَأَحْمَدُ وَإِسْحَاقُ ‏.‏ وَرُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ أَنَّهُ قَالَ فِي التَّكْبِيرِ فِي الْعِيدَيْنِ تِسْعَ تَكْبِيرَاتٍ فِي الرَّكْعَةِ الأُولَى خَمْسًا قَبْلَ الْقِرَاءَةِ وَفِي الرَّكْعَةِ الثَّانِيَةِ يَبْدَأُ بِالْقِرَاءَةِ ثُمَّ يُكَبِّرُ أَرْبَعًا مَعَ تَكْبِيرَةِ الرُّكُوعِ ‏.‏ وَقَدْ رُوِيَ عَنْ غَيْرِ وَاحِدٍ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم نَحْوُ هَذَا وَهُوَ قَوْلُ أَهْلِ الْكُوفَةِ وَبِهِ يَقُولُ سُفْيَانُ الثَّوْرِيُّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='536'><td class='label'>English</td><td><span class='eng-text' lang='en'>Kathir bin Abdullah narrated from this father, from his grandfather:&quot;The Prophet said the Takbir in the first (Rak&#x27;ah) sever (times) before the recitation, and in the last, five (times) before the recitation</span></td></tr>
+<tr class='grade' data-hadith='536'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Hasan</span></td></tr>
+<tr class='ref' data-hadith='536'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 7</span></td></tr><tr id='h537' class='hadith-sep' data-hadith='537'><td colspan='2'><a class='permalink' href='#h537'>Hadith 537</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='537'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا أَبُو دَاوُدَ الطَّيَالِسِيُّ، قَالَ أَنْبَأَنَا شُعْبَةُ، عَنْ عَدِيِّ بْنِ ثَابِتٍ، قَالَ سَمِعْتُ سَعِيدَ بْنَ جُبَيْرٍ، يُحَدِّثُ عَنِ ابْنِ عَبَّاسٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم خَرَجَ يَوْمَ الْفِطْرِ فَصَلَّى رَكْعَتَيْنِ ثُمَّ لَمْ يُصَلِّ قَبْلَهَا وَلاَ بَعْدَهَا ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ وَعَبْدِ اللَّهِ بْنِ عَمْرٍو وَأَبِي سَعِيدٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ ابْنِ عَبَّاسٍ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَيْهِ عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ وَبِهِ يَقُولُ الشَّافِعِيُّ وَأَحْمَدُ وَإِسْحَاقُ ‏.‏ وَقَدْ رَأَى طَائِفَةٌ مِنْ أَهْلِ الْعِلْمِ الصَّلاَةَ بَعْدَ صَلاَةِ الْعِيدَيْنِ وَقَبْلَهَا مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ ‏.‏ وَالْقَوْلُ الأَوَّلُ أَصَحُّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='537'><td class='label'>English</td><td><span class='eng-text' lang='en'>Ibn Abbas narrated:&quot;The Prophet went out on the day of Al-Fitr, so he prayed two Rak&#x27;ah, then he did not pray before it nor after it</span></td></tr>
+<tr class='grade' data-hadith='537'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='537'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 8</span></td></tr><tr id='h538' class='hadith-sep' data-hadith='538'><td colspan='2'><a class='permalink' href='#h538'>Hadith 538</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='538'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو عَمَّارٍ الْحُسَيْنُ بْنُ حُرَيْثٍ، حَدَّثَنَا وَكِيعٌ، عَنْ أَبَانَ بْنِ عَبْدِ اللَّهِ الْبَجَلِيِّ، عَنْ أَبِي بَكْرِ بْنِ حَفْصٍ، وَهُوَ ابْنُ عُمَرَ بْنِ سَعْدِ بْنِ أَبِي وَقَّاصٍ عَنِ ابْنِ عُمَرَ، أَنَّهُ خَرَجَ فِي يَوْمِ عِيدٍ فَلَمْ يُصَلِّ قَبْلَهَا وَلاَ بَعْدَهَا وَذَكَرَ أَنَّ النَّبِيَّ صلى الله عليه وسلم فَعَلَهُ ‏.‏ قَالَ أَبُو عِيسَى وَهَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='538'><td class='label'>English</td><td><span class='eng-text' lang='en'>Abu Bakr bin Hafs - and he is Ibn Umar bin Sa&#x27;d bin Abi Waqas - narrated about Ibn Umar, that:&quot;He went out on the day of Eid, and he did not pray before it nor after it. He mentioned that the Prophet did so</span></td></tr>
+<tr class='grade' data-hadith='538'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Hasan Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='538'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 9</span></td></tr><tr id='h539' class='hadith-sep' data-hadith='539'><td colspan='2'><a class='permalink' href='#h539'>Hadith 539</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='539'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا هُشَيْمٌ، أَخْبَرَنَا مَنْصُورٌ، وَهُوَ ابْنُ زَاذَانَ عَنِ ابْنِ سِيرِينَ، عَنْ أُمِّ عَطِيَّةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُخْرِجُ الأَبْكَارَ وَالْعَوَاتِقَ وَذَوَاتِ الْخُدُورِ وَالْحُيَّضَ فِي الْعِيدَيْنِ فَأَمَّا الْحُيَّضُ فَيَعْتَزِلْنَ الْمُصَلَّى وَيَشْهَدْنَ دَعْوَةَ الْمُسْلِمِينَ قَالَتْ إِحْدَاهُنَّ يَا رَسُولَ اللَّهِ إِنْ لَمْ يَكُنْ لَهَا جِلْبَابٌ قَالَ ‏ &quot;‏ فَلْتُعِرْهَا أُخْتُهَا مِنْ جَلاَبِيبِهَا ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='539'><td class='label'>English</td><td><span class='eng-text' lang='en'>Umm Atiyyah narrated:&quot;Allah&#x27;s Messenger would order the virgins, the mature women, the secluded and the menstruating to go out for the two Eid. As for the menstruating women, they were to stay away from the Musalla and participate in the Muslims supplications.&quot; One of them said: &#x27;O Messenger of Allah! What if she does not have a Jilbab? He said: &#x27;Then let her sis lend her a Jilbab</span></td></tr>
+<tr class='grade' data-hadith='539'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='539'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 10</span></td></tr><tr id='h540' class='hadith-sep' data-hadith='540'><td colspan='2'><a class='permalink' href='#h540'>Hadith 540</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='540'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا هُشَيْمٌ، عَنْ هِشَامِ بْنِ حَسَّانَ، عَنْ حَفْصَةَ بِنْتِ سِيرِينَ، عَنْ أُمِّ عَطِيَّةَ، بِنَحْوِهِ ‏.‏ قَالَ وَفِي الْبَابِ عَنِ ابْنِ عَبَّاسٍ، وَجَابِرٍ، ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أُمِّ عَطِيَّةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَقَدْ ذَهَبَ بَعْضُ أَهْلِ الْعِلْمِ إِلَى هَذَا الْحَدِيثِ وَرَخَّصَ لِلنِّسَاءِ فِي الْخُرُوجِ إِلَى الْعِيدَيْنِ وَكَرِهَهُ بَعْضُهُمْ وَرُوِيَ عَنْ عَبْدِ اللَّهِ بْنِ الْمُبَارَكِ أَنَّهُ قَالَ أَكْرَهُ الْيَوْمَ الْخُرُوجَ لِلنِّسَاءِ فِي الْعِيدَيْنِ فَإِنْ أَبَتِ الْمَرْأَةُ إِلاَّ أَنْ تَخْرُجَ فَلْيَأْذَنْ لَهَا زَوْجُهَا أَنْ تَخْرُجَ فِي أَطْمَارِهَا الْخُلْقَانِ وَلاَ تَتَزَيَّنْ فَإِنْ أَبَتْ أَنْ تَخْرُجَ كَذَلِكَ فَلِلزَّوْجِ أَنْ يَمْنَعَهَا عَنِ الْخُرُوجِ ‏.‏ وَيُرْوَى عَنْ عَائِشَةَ رضى الله عنها قَالَتْ لَوْ رَأَى رَسُولُ اللَّهِ صلى الله عليه وسلم مَا أَحْدَثَ النِّسَاءُ لَمَنَعَهُنَّ الْمَسْجِدَ كَمَا مُنِعَتْ نِسَاءُ بَنِي إِسْرَائِيلَ ‏.‏ وَيُرْوَى عَنْ سُفْيَانَ الثَّوْرِيِّ أَنَّهُ كَرِهَ الْيَوْمَ الْخُرُوجَ لِلنِّسَاءِ إِلَى الْعِيدِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='540'><td class='label'>English</td><td><span class='eng-text' lang='en'>There is a similar narration from Umm Atiyyah :with another chain</span></td></tr>
+<tr class='grade' data-hadith='540'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Sahih - Agreed Upon</span></td></tr>
+<tr class='ref' data-hadith='540'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 11</span></td></tr><tr id='h541' class='hadith-sep' data-hadith='541'><td colspan='2'><a class='permalink' href='#h541'>Hadith 541</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='541'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عَبْدُ الأَعْلَى بْنُ وَاصِلِ بْنِ عَبْدِ الأَعْلَى الْكُوفِيُّ، وَأَبُو زُرْعَةَ قَالاَ حَدَّثَنَا مُحَمَّدُ بْنُ الصَّلْتِ، عَنْ فُلَيْحِ بْنِ سُلَيْمَانَ، عَنْ سَعِيدِ بْنِ الْحَارِثِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم إِذَا خَرَجَ يَوْمَ الْعِيدِ فِي طَرِيقٍ رَجَعَ فِي غَيْرِهِ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ وَأَبِي رَافِعٍ ‏.‏ قَالَ أَبُو عِيسَى وَحَدِيثُ أَبِي هُرَيْرَةَ حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏ وَرَوَى أَبُو تُمَيْلَةَ وَيُونُسُ بْنُ مُحَمَّدٍ هَذَا الْحَدِيثَ عَنْ فُلَيْحِ بْنِ سُلَيْمَانَ عَنْ سَعِيدِ بْنِ الْحَارِثِ عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ ‏.‏ قَالَ وَقَدِ اسْتَحَبَّ بَعْضُ أَهْلِ الْعِلْمِ لِلإِمَامِ إِذَا خَرَجَ فِي طَرِيقٍ أَنْ يَرْجِعَ فِي غَيْرِهِ اتِّبَاعًا لِهَذَا الْحَدِيثِ وَهُوَ قَوْلُ الشَّافِعِيِّ ‏.‏ وَحَدِيثُ جَابِرٍ كَأَنَّهُ أَصَحُّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='541'><td class='label'>English</td><td><span class='eng-text' lang='en'>Abu Hurairah narrated:&quot;When Allah&#x27;s Messenger would go out on the day of Eid by one route, he would return by another</span></td></tr>
+<tr class='grade' data-hadith='541'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='541'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 12</span></td></tr><tr id='h542' class='hadith-sep' data-hadith='542'><td colspan='2'><a class='permalink' href='#h542'>Hadith 542</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='542'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ الصَّبَّاحِ الْبَزَّارُ الْبَغْدَادِيُّ، حَدَّثَنَا عَبْدُ الصَّمَدِ بْنُ عَبْدِ الْوَارِثِ، عَنْ ثَوَابِ بْنِ عُتْبَةَ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ أَبِيهِ، قَالَ كَانَ النَّبِيُّ صلى الله عليه وسلم لاَ يَخْرُجُ يَوْمَ الْفِطْرِ حَتَّى يَطْعَمَ وَلاَ يَطْعَمُ يَوْمَ الأَضْحَى حَتَّى يُصَلِّيَ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَلِيٍّ وَأَنَسٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ بُرَيْدَةَ بْنِ حُصَيْبٍ الأَسْلَمِيِّ حَدِيثٌ غَرِيبٌ ‏.‏ وَقَالَ مُحَمَّدٌ لاَ أَعْرِفُ لِثَوَابِ بْنِ عُتْبَةَ غَيْرَ هَذَا الْحَدِيثِ ‏.‏ وَقَدِ اسْتَحَبَّ قَوْمٌ مِنْ أَهْلِ الْعِلْمِ أَنْ لاَ يَخْرُجَ يَوْمَ الْفِطْرِ حَتَّى يَطْعَمَ شَيْئًا وَيُسْتَحَبُّ لَهُ أَنْ يُفْطِرَ عَلَى تَمْرٍ وَلاَ يَطْعَمَ يَوْمَ الأَضْحَى حَتَّى يَرْجِعَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='542'><td class='label'>English</td><td><span class='eng-text' lang='en'>Abdullah bin Buraidah narrated from his father:&quot;The Prophet would not leave on the Day of Fitr until he ate, and he would not eat on the day of Adha until he prayed</span></td></tr>
+<tr class='grade' data-hadith='542'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='542'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 13</span></td></tr><tr id='h543' class='hadith-sep' data-hadith='543'><td colspan='2'><a class='permalink' href='#h543'>Hadith 543</a> — The Book on the Two Eids</td></tr>
+<tr class='arabic' data-hadith='543'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا هُشَيْمٌ، عَنْ مُحَمَّدِ بْنِ إِسْحَاقَ، عَنْ حَفْصِ بْنِ عُبَيْدِ اللَّهِ بْنِ أَنَسٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يُفْطِرُ عَلَى تَمَرَاتٍ يَوْمَ الْفِطْرِ قَبْلَ أَنْ يَخْرُجَ إِلَى الْمُصَلَّى ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ صَحِيحٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='543'><td class='label'>English</td><td><span class='eng-text' lang='en'>Anas bin Malik narrated:&quot;The Prophet would have a breakfast of dates on the Day of Fitr before leaving for the Musalla</span></td></tr>
+<tr class='grade' data-hadith='543'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='543'><td class='label'>Reference</td><td><span class='ref-text'>Book 5, Hadith 14</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -241,5 +375,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>

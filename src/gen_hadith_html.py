@@ -415,12 +415,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 """
 
@@ -434,12 +565,130 @@ FOOTER_HTML = """<footer>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>"""
 
-def make_header(title, breadcrumb_extra=""):
+HADITH_VC_JS = """\
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>"""
+
+def make_header(title, breadcrumb_extra="", book_nav_html=""):
     bc = f'<span class="breadcrumb"><a href="../index.html">Qur\'an</a> › <a href="index.html">Hadith</a>{breadcrumb_extra}</span>'
+    nav = f'\n  {book_nav_html}' if book_nav_html else ""
     return f"""<header>
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
-  {bc}
+  {bc}{nav}
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>"""
 
@@ -451,7 +700,60 @@ def truncate_words(text, max_chars=40):
     return trunc + "…"
 
 
-def page_wrap(title, body, breadcrumb_extra="", lang="en"):
+def gen_filter_panel(min_n, max_n, show_hindi=False):
+    """Return the Hadith & Content Filter <details> panel HTML."""
+    if show_hindi:
+        cf_pills = (
+            "<span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'>"
+            "<label for='hcf-0'>Arabic</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'>"
+            "<label for='hcf-1'>English</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-2' data-rowclass='hindi'>"
+            "<label for='hcf-2'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-3' data-rowclass='narrator'>"
+            "<label for='hcf-3'>Narrator</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'>"
+            "<label for='hcf-4'>Grade</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'>"
+            "<label for='hcf-5'>Reference</label></span>"
+        )
+    else:
+        cf_pills = (
+            "<span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'>"
+            "<label for='hcf-0'>Arabic</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'>"
+            "<label for='hcf-1'>English</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'>"
+            "<label for='hcf-4'>Grade</label></span>"
+            "<span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'>"
+            "<label for='hcf-5'>Reference</label></span>"
+        )
+    return (
+        "<noscript><p class=\"noscript-warn\">&#9888; The Hadith &amp; Content Filter requires "
+        "JavaScript. All hadith are shown below.</p></noscript>\n"
+        "<details class='verse-chooser'>"
+        "<summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span>"
+        "<span class='vc-arrow'>&#x25BC;</span></summary>"
+        "<div class='vc-body'>"
+        "<div class='vc-font-ctrl'><span>Font Size:</span>"
+        "<button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button>"
+        "<button onclick='fsReset()' title='Reset font size'>A</button>"
+        "<button onclick='fsIncrease()' title='Increase font size'>A+</button></div>"
+        "<div class='vc-section-title'>Hadith Range</div>"
+        "<div class='vc-controls'>"
+        "<button onclick='hvcSelectAll()'>Show All</button>"
+        "<button onclick='hvcClearAll()'>Hide All</button></div>"
+        f"<div class='vc-range'>"
+        f"<label>From <input type='number' id='hvc-from' min='{min_n}' max='{max_n}' value='{min_n}'></label>"
+        f"<label>To <input type='number' id='hvc-to' min='{min_n}' max='{max_n}' value='{max_n}'></label>"
+        f"<button onclick='hvcApplyRange()'>Apply Range</button></div>"
+        "<div class='vc-section-title' style='margin-top:12px'>Content</div>"
+        f"<div class='cf-list' id='hcf-list'>{cf_pills}</div>"
+        "</div></details>"
+    )
+
+
+def page_wrap(title, body, breadcrumb_extra="", lang="en", scripts="", book_nav_html=""):
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -461,11 +763,12 @@ def page_wrap(title, body, breadcrumb_extra="", lang="en"):
 <style>{SHARED_CSS}</style>
 </head>
 <body>
-{make_header(title, breadcrumb_extra)}
+{make_header(title, breadcrumb_extra, book_nav_html)}
 <main>
 {body}
 </main>
 {FOOTER_HTML}
+{scripts}
 </body>
 </html>"""
 
@@ -604,31 +907,34 @@ def render_hadith_rows(h, show_hindi=False):
     if ref:
         ref_str = f"Book {ref.get('book', '')}, Hadith {ref.get('hadith', num)}"
 
+    dn = f"data-hadith='{num}'"
     rows = []
-    rows.append(f"<tr id='h{num}' class='hadith-sep'><td colspan='2'>Hadith {num}{(' — '+sec) if sec else ''}</td></tr>")
+    rows.append(f"<tr id='h{num}' class='hadith-sep' {dn}>"
+                f"<td colspan='2'><a class='permalink' href='#h{num}'>Hadith {num}</a>"
+                f"{(' — ' + sec) if sec else ''}</td></tr>")
 
     if ar:
-        rows.append(f"<tr class='arabic'><td class='label'>Arabic</td>"
-                    f"<td><span class='arabic-text'>{ar}</span></td></tr>")
+        rows.append(f"<tr class='arabic' {dn}><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td>"
+                    f"<td><span class='arabic-text' lang='ar'>{ar}</span></td></tr>")
 
-    rows.append(f"<tr class='eng'><td class='label'>English</td>"
-                f"<td><span class='eng-text'>{en}</span></td></tr>")
+    rows.append(f"<tr class='eng' {dn}><td class='label'>English</td>"
+                f"<td><span class='eng-text' lang='en'>{en}</span></td></tr>")
 
     if show_hindi:
         hi = NAWAWI_HINDI.get(num)
         if hi:
             narrator, text = hi
-            rows.append(f"<tr class='narrator'><td class='label'>Narrator</td>"
+            rows.append(f"<tr class='narrator' {dn}><td class='label'>Narrator</td>"
                         f"<td><span class='narrator-text'>{html_module.escape(narrator)}</span></td></tr>")
-            rows.append(f"<tr class='hindi'><td class='label'>हिन्दी</td>"
-                        f"<td><span class='hindi-text'>{html_module.escape(text)}</span></td></tr>")
+            rows.append(f"<tr class='hindi' {dn}><td class='label'>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</td>"
+                        f"<td><span class='hindi-text' lang='hi'>{html_module.escape(text)}</span></td></tr>")
 
     if grades_str:
-        rows.append(f"<tr class='grade'><td class='label'>Grade</td>"
+        rows.append(f"<tr class='grade' {dn}><td class='label'>Grade</td>"
                     f"<td><span class='grade-text'>{html_module.escape(grades_str)}</span></td></tr>")
 
     if ref_str and ref.get("book", 0) and ref.get("hadith", 0):
-        rows.append(f"<tr class='ref'><td class='label'>Reference</td>"
+        rows.append(f"<tr class='ref' {dn}><td class='label'>Reference</td>"
                     f"<td><span class='ref-text'>{html_module.escape(ref_str)}</span></td></tr>")
 
     return "\n".join(rows)
@@ -646,14 +952,20 @@ def gen_small_collection_page(coll_info, data):
     for h in data["hadiths"]:
         rows_html.append(render_hadith_rows(h, show_hindi=show_hindi))
 
+    hadiths = data["hadiths"]
+    min_n = hadiths[0]["n"]
+    max_n = hadiths[-1]["n"]
+    filter_panel = gen_filter_panel(min_n, max_n, show_hindi)
+
     body = f"""<h1>{html_module.escape(name)}</h1>
 <div class="meta-info">
   <strong>Author:</strong> {html_module.escape(author)} &nbsp;|&nbsp;
   <strong>Arabic:</strong> <span style="font-family:'Scheherazade New',serif;font-size:1.1em">{html_module.escape(name_ar)}</span> &nbsp;|&nbsp;
-  <strong>Total:</strong> {len(data['hadiths'])} hadith
+  <strong>Total:</strong> {len(hadiths)} hadith
 </div>
 <div class="desc">{html_module.escape(desc)}</div>
 {"<div class='desc' style='background:#f5f0ff;border-color:#6a4c93'>🇮🇳 <strong>Hindi translation available</strong> for this collection.</div>" if show_hindi else ""}
+{filter_panel}
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
@@ -669,7 +981,9 @@ def gen_small_collection_page(coll_info, data):
 
     out_path = os.path.join(DOCS_DIR, f"{cid}.html")
     with open(out_path, "w", encoding="utf-8") as f:
-        f.write(page_wrap(name, body, breadcrumb_extra=f" › {html_module.escape(name)}"))
+        f.write(page_wrap(name, body,
+                          breadcrumb_extra=f" › {html_module.escape(name)}",
+                          scripts=HADITH_VC_JS))
     print(f"  [html] docs/hadith/{cid}.html")
 
 
@@ -696,6 +1010,20 @@ def gen_large_collection_pages(coll_info, data):
         sections_data[sid]["hadiths"].append(h)
 
     total = len(data["hadiths"])
+
+    # Build book nav options (shared across all book pages)
+    def _book_nav_opts(current_sid):
+        opts = ['<option value="">\u2601 Jump to Book\u2026</option>']
+        for s_idx2, s_id2 in enumerate(sections_order):
+            s_name2 = sections_data[s_id2]["name"]
+            s_file2 = f"{cid}-book-{int(s_id2):03d}.html"
+            sel = " selected" if s_id2 == current_sid else ""
+            opts.append(
+                f'<option value="{s_file2}"{sel}>'
+                f'{s_idx2 + 1}. {html_module.escape(truncate_words(s_name2, 50))}'
+                f'</option>'
+            )
+        return "".join(opts)
 
     # Build per-book pages
     book_links = []
@@ -724,12 +1052,19 @@ def gen_large_collection_pages(coll_info, data):
             next_name = sections_data[next_sid]["name"]
             next_link = f'<a href="{next_file}">{html_module.escape(truncate_words(next_name))} →</a>'
 
+        book_nav_html = (
+            f"<select class='book-nav-select' onchange='location.href=this.value' "
+            f"aria-label='Jump to Book'>{_book_nav_opts(sid)}</select>"
+        )
+        filter_panel = gen_filter_panel(first_n, last_n, False)
+
         body = f"""<h1>{html_module.escape(name)}</h1>
 <h2>{html_module.escape(sname)}</h2>
 <div class="meta-info">
   Hadith {first_n}–{last_n} &nbsp;|&nbsp;
   <a href="{cid}.html">📚 Book Index</a>
 </div>
+{filter_panel}
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
@@ -747,7 +1082,9 @@ def gen_large_collection_pages(coll_info, data):
         out_path = os.path.join(DOCS_DIR, page_file)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(page_wrap(f"{name} — {sname}", body,
-                              breadcrumb_extra=f" › <a href='{cid}.html'>{html_module.escape(name)}</a> › {html_module.escape(truncate_words(sname, 35))}"))
+                              breadcrumb_extra=f" › <a href='{cid}.html'>{html_module.escape(name)}</a> › {html_module.escape(truncate_words(sname, 35))}",
+                              scripts=HADITH_VC_JS,
+                              book_nav_html=book_nav_html))
 
         book_links.append((page_file, sname, len(hadiths), first_n, last_n))
 

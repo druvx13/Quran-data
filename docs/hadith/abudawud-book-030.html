@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='abudawud.html'>Sunan Abu Dawud</a> › Divination and Omens (Kitab…</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="abudawud-book-001.html">1. Purification (Kitab Al-Taharah)</option><option value="abudawud-book-002.html">2. Prayer (Kitab Al-Salat)</option><option value="abudawud-book-003.html">3. The Book Of The Prayer For Rain (Kitab…</option><option value="abudawud-book-004.html">4. Prayer (Kitab Al-Salat): Detailed Rules of Law…</option><option value="abudawud-book-005.html">5. Prayer (Kitab Al-Salat): Voluntary Prayers</option><option value="abudawud-book-006.html">6. Prayer (Kitab Al-Salat): Detailed Injunctions…</option><option value="abudawud-book-007.html">7. Prayer (Kitab Al-Salat): Prostration while…</option><option value="abudawud-book-008.html">8. Prayer (Kitab Al-Salat): Detailed Injunctions…</option><option value="abudawud-book-009.html">9. Zakat (Kitab Al-Zakat)</option><option value="abudawud-book-010.html">10. The Book of Lost and Found Items</option><option value="abudawud-book-011.html">11. The Rites of Hajj (Kitab Al-Manasik Wa&#x27;l-Hajj)</option><option value="abudawud-book-012.html">12. Marriage (Kitab Al-Nikah)</option><option value="abudawud-book-013.html">13. Divorce (Kitab Al-Talaq)</option><option value="abudawud-book-014.html">14. Fasting (Kitab Al-Siyam)</option><option value="abudawud-book-015.html">15. Jihad (Kitab Al-Jihad)</option><option value="abudawud-book-016.html">16. Sacrifice (Kitab Al-Dahaya)</option><option value="abudawud-book-017.html">17. Game (Kitab Al-Said)</option><option value="abudawud-book-018.html">18. Wills (Kitab Al-Wasaya)</option><option value="abudawud-book-019.html">19. Shares of Inheritance (Kitab Al-Fara&#x27;id)</option><option value="abudawud-book-020.html">20. Tribute, Spoils, and Rulership (Kitab Al-Kharaj,…</option><option value="abudawud-book-021.html">21. Funerals (Kitab Al-Jana&#x27;iz)</option><option value="abudawud-book-022.html">22. Oaths and Vows (Kitab Al-Aiman Wa Al-Nudhur)</option><option value="abudawud-book-023.html">23. Commercial Transactions (Kitab Al-Buyu)</option><option value="abudawud-book-024.html">24. Wages (Kitab Al-Ijarah)</option><option value="abudawud-book-025.html">25. The Office of the Judge (Kitab Al-Aqdiyah)</option><option value="abudawud-book-026.html">26. Knowledge (Kitab Al-Ilm)</option><option value="abudawud-book-027.html">27. Drinks (Kitab Al-Ashribah)</option><option value="abudawud-book-028.html">28. Foods (Kitab Al-At&#x27;imah)</option><option value="abudawud-book-029.html">29. Medicine (Kitab Al-Tibb)</option><option value="abudawud-book-030.html" selected>30. Divination and Omens (Kitab Al-Kahanah Wa…</option><option value="abudawud-book-031.html">31. The Book of Manumission of Slaves</option><option value="abudawud-book-032.html">32. Dialects and Readings of the Qur&#x27;an (Kitab…</option><option value="abudawud-book-033.html">33. Hot Baths (Kitab Al-Hammam)</option><option value="abudawud-book-034.html">34. Clothing (Kitab Al-Libas)</option><option value="abudawud-book-035.html">35. Combing the Hair (Kitab Al-Tarajjul)</option><option value="abudawud-book-036.html">36. Signet-Rings (Kitab Al-Khatam)</option><option value="abudawud-book-037.html">37. Trials and Fierce Battles (Kitab Al-Fitan Wa…</option><option value="abudawud-book-038.html">38. The Promised Deliverer (Kitab Al-Mahdi)</option><option value="abudawud-book-039.html">39. Battles (Kitab Al-Malahim)</option><option value="abudawud-book-040.html">40. Prescribed Punishments (Kitab Al-Hudud)</option><option value="abudawud-book-041.html">41. Types of Blood-Wit (Kitab Al-Diyat)</option><option value="abudawud-book-042.html">42. Model Behavior of the Prophet (Kitab Al-Sunnah)</option><option value="abudawud-book-043.html">43. General Behavior (Kitab Al-Adab)</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,99 +294,101 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 3904–3925 &nbsp;|&nbsp;
   <a href="abudawud.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='3904' max='3925' value='3904'></label><label>To <input type='number' id='hvc-to' min='3904' max='3925' value='3925'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h3904' class='hadith-sep'><td colspan='2'>Hadith 3904 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا حَمَّادٌ، ح وَحَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنْ حَمَّادِ بْنِ سَلَمَةَ، عَنْ حَكِيمٍ الأَثْرَمِ، عَنْ أَبِي تَمِيمَةَ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ مَنْ أَتَى كَاهِنًا ‏&quot;‏ ‏.‏ قَالَ مُوسَى فِي حَدِيثِهِ ‏&quot;‏ فَصَدَّقَهُ بِمَا يَقُولُ ‏&quot;‏ ‏.‏ ثُمَّ اتَّفَقَا ‏&quot;‏ أَوْ أَتَى امْرَأَةً ‏&quot;‏ ‏.‏ قَالَ مُسَدَّدٌ ‏&quot;‏ امْرَأَتَهُ حَائِضًا أَوْ أَتَى امْرَأَةً ‏&quot;‏ ‏.‏ قَالَ مُسَدَّدٌ ‏&quot;‏ امْرَأَتَهُ فِي دُبُرِهَا فَقَدْ بَرِئَ مِمَّا أَنْزَلَ اللَّهُ عَلَى مُحَمَّدٍ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated AbuHurayrah: The Prophet (ﷺ) said: If anyone resorts to a diviner and believes in what he says (according) to the version of Musa), or has intercourse with his wife (according to the agreed version) when she is menstruating, or has intercourse with his wife through her anus, he has nothing to do with what has been sent down to Muhammad (ﷺ) - according to the version of Musaddad</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Lighairihi; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 1</span></td></tr><tr id='h3905' class='hadith-sep'><td colspan='2'>Hadith 3905 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَمُسَدَّدٌ، - الْمَعْنَى - قَالاَ حَدَّثَنَا يَحْيَى، عَنْ عُبَيْدِ اللَّهِ بْنِ الأَخْنَسِ، عَنِ الْوَلِيدِ بْنِ عَبْدِ اللَّهِ، عَنْ يُوسُفَ بْنِ مَاهَكَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنِ اقْتَبَسَ عِلْمًا مِنَ النُّجُومِ اقْتَبَسَ شُعْبَةً مِنَ السِّحْرِ زَادَ مَا زَادَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abdullah ibn Abbas: The Prophet (ﷺ) said: If anyone acquires any knowledge of astrology, he acquires a branch of magic of which he gets more as long as he continues to do so</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 2</span></td></tr><tr id='h3906' class='hadith-sep'><td colspan='2'>Hadith 3906 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الْقَعْنَبِيُّ، عَنْ مَالِكٍ، عَنْ صَالِحِ بْنِ كَيْسَانَ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّهُ قَالَ صَلَّى لَنَا رَسُولُ اللَّهِ صلى الله عليه وسلم صَلاَةَ الصُّبْحِ بِالْحُدَيْبِيَةِ فِي إِثْرِ سَمَاءٍ كَانَتْ مِنَ اللَّيْلِ فَلَمَّا انْصَرَفَ أَقْبَلَ عَلَى النَّاسِ فَقَالَ ‏&quot;‏ هَلْ تَدْرُونَ مَاذَا قَالَ رَبُّكُمْ ‏&quot;‏ ‏.‏ قَالُوا اللَّهُ وَرَسُولُهُ أَعْلَمُ ‏.‏ قَالَ ‏&quot;‏ قَالَ أَصْبَحَ مِنْ عِبَادِي مُؤْمِنٌ بِي وَكَافِرٌ فَأَمَّا مَنْ قَالَ مُطِرْنَا بِفَضْلِ اللَّهِ وَبِرَحْمَتِهِ فَذَلِكَ مُؤْمِنٌ بِي كَافِرٌ بِالْكَوْكَبِ وَأَمَّا مَنْ قَالَ مُطِرْنَا بِنَوْءِ كَذَا وَكَذَا فَذَلِكَ كَافِرٌ بِي مُؤْمِنٌ بِالْكَوْكَبِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Zaid bin Khalid Al-Juhani:The Messenger of Allah (ﷺ) led us in the morning prayer at al-Hudaibiyyah after rain which has fallen during the night, and when he finished, he turned to the people and said: Do you know what your Lord has said ? They said: Allah and His Apostle know best. He said: This morning there were among mt servants one who believes in me and one who disbelieves. The one who said: &quot;We have been given rain by Allah&#x27;s grace and mercy&quot; is the one who believes in me and disbelieves in the star ; but the one who said: &quot;We have been given rain by such and such a rain star,&quot; is the one who disbelieves in me and believes in the star</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (846) Sahih Muslim (71)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 3</span></td></tr><tr id='h3907' class='hadith-sep'><td colspan='2'>Hadith 3907 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، حَدَّثَنَا عَوْفٌ، حَدَّثَنَا حَيَّانُ، - قَالَ غَيْرُ مُسَدَّدٍ حَيَّانُ بْنُ الْعَلاَءِ - حَدَّثَنَا قَطَنُ بْنُ قَبِيصَةَ، عَنْ أَبِيهِ، قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ الْعِيَافَةُ وَالطِّيَرَةُ وَالطَّرْقُ مِنَ الْجِبْتِ ‏&quot;‏ ‏.‏ الطَّرْقُ الزَّجْرُ وَالْعِيَافَةُ الْخَطُّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Qabisah: I heard the Messenger of Allah (ﷺ) say: Augury from the flight of birds, taking evil omens and the practice of pressomancy pertain to divination. Tarq: It is used in the sense of divination in which women threw stones. &#x27;Iyafah: It means geomancy by drawing lines</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 4</span></td></tr><tr id='h3908' class='hadith-sep'><td colspan='2'>Hadith 3908 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا ابْنُ بَشَّارٍ، قَالَ قَالَ مُحَمَّدُ بْنُ جَعْفَرٍ قَالَ عَوْفٌ الْعِيَافَةُ زَجْرُ الطَّيْرِ وَالطَّرْقُ الْخَطُّ يُخَطُّ فِي الأَرْضِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Muhammed b. Ja&#x27;far:On the authority of &#x27;Awf: &#x27;Iyafah means to makes the birds fly by threatening them. Tarq means lines drawn on the earth</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 5</span></td></tr><tr id='h3909' class='hadith-sep'><td colspan='2'>Hadith 3909 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنِ الْحَجَّاجِ الصَّوَّافِ، حَدَّثَنِي يَحْيَى بْنُ أَبِي كَثِيرٍ، عَنْ هِلاَلِ بْنِ أَبِي مَيْمُونَةَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ مُعَاوِيَةَ بْنِ الْحَكَمِ السُّلَمِيِّ، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ وَمِنَّا رِجَالٌ يَخُطُّونَ ‏.‏ قَالَ ‏ &quot;‏ كَانَ نَبِيٌّ مِنَ الأَنْبِيَاءِ يَخُطُّ فَمَنْ وَافَقَ خَطَّهُ فَذَاكَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Mu&#x27;awiyah b. al-Hakam al-Sulami:I said: Messenger of Allah! among us there are men who practice divination by drawing lines. He said: There was a Prophet who drew lines, so if anyone does it as he drew lines, that is right</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim (537)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 6</span></td></tr><tr id='h3910' class='hadith-sep'><td colspan='2'>Hadith 3910 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ كَثِيرٍ، أَخْبَرَنَا سُفْيَانُ، عَنْ سَلَمَةَ بْنِ كُهَيْلٍ، عَنْ عِيسَى بْنِ عَاَصِمٍ، عَنْ زِرِّ بْنِ حُبَيْشٍ، عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ الطِّيَرَةُ شِرْكٌ الطِّيَرَةُ شِرْكٌ ‏&quot;‏ ‏.‏ ثَلاَثًا ‏&quot;‏ وَمَا مِنَّا إِلاَّ وَلَكِنَّ اللَّهَ يُذْهِبُهُ بِالتَّوَكُّلِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abdullah ibn Mas&#x27;ud: The Prophet (ﷺ) said: Taking omens is polytheism; taking omens is polytheism. He said it three times. Every one of us has some, but Allah removes it by trust (in Him)</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 7</span></td></tr><tr id='h3911' class='hadith-sep'><td colspan='2'>Hadith 3911 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُتَوَكِّلِ الْعَسْقَلاَنِيُّ، وَالْحَسَنُ بْنُ عَلِيٍّ، قَالاَ حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ عَدْوَى وَلاَ طِيَرَةَ وَلاَ صَفَرَ وَلاَ هَامَةَ ‏&quot;‏ ‏.‏ فَقَالَ أَعْرَابِيٌّ مَا بَالُ الإِبِلِ تَكُونُ فِي الرَّمْلِ كَأَنَّهَا الظِّبَاءُ فَيُخَالِطُهَا الْبَعِيرُ الأَجْرَبُ فَيُجْرِبُهَا قَالَ ‏&quot;‏ فَمَنْ أَعْدَى الأَوَّلَ ‏&quot;‏ ‏.‏ قَالَ مَعْمَرٌ قَالَ الزُّهْرِيُّ فَحَدَّثَنِي رَجُلٌ عَنْ أَبِي هُرَيْرَةَ أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏&quot;‏ لاَ يُورِدَنَّ مُمْرِضٌ عَلَى مُصِحٍّ ‏&quot;‏ ‏.‏ قَالَ فَرَاجَعَهُ الرَّجُلُ فَقَالَ أَلَيْسَ قَدْ حَدَّثْتَنَا أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏&quot;‏ لاَ عَدْوَى وَلاَ صَفَرَ وَلاَ هَامَةَ ‏&quot;‏ ‏.‏ قَالَ لَمْ أُحَدِّثْكُمُوهُ ‏.‏ قَالَ الزُّهْرِيُّ قَالَ أَبُو سَلَمَةَ قَدْ حَدَّثَ بِهِ وَمَا سَمِعْتُ أَبَا هُرَيْرَةَ نَسِيَ حَدِيثًا قَطُّ غَيْرَهُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abu Hurairah: The Messenger of Allah (ﷺ) as saying : There is no infection, no evil, omen or serpent, in a hungry belly and no hamah. A nomadic Arab asked: How is it that when camels are in the sand as if they were gazelles and a mangy camel comes among them and it gives them mange ? He replied: Who infected the first one ? Ma&#x27;mar, quoting al-Zuhri said: A man told me that Abu Hurairah narrated to him saying that he heard the Prophet (ﷺ) say: A diseased camel should not be brought with a healthy camel to drink water. He said: The man then consulted him and said: Did you not tell us that Prophet (ﷺ) had said: There is no infection, no serpent in a hungry belly and no hamah? He replied: I did not transmit it to you. Al-Zuhri said: Abu Salamah said: He had narrated it and I did not hear that Abu Hurairah had ever forgotten any tradition except this one. Note: The majority of scholars interpret this to mean that these things in and of themselves do not transmit or cause harm through supernatural or hidden means but that Allah is ultimately in control and any fearful superstition around these is false</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari (5770) Sahih Muslim (2220)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 8</span></td></tr><tr id='h3912' class='hadith-sep'><td colspan='2'>Hadith 3912 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الْقَعْنَبِيُّ، حَدَّثَنَا عَبْدُ الْعَزِيزِ، - يَعْنِي ابْنَ مُحَمَّدٍ - عَنِ الْعَلاَءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ عَدْوَى وَلاَ هَامَةَ وَلاَ نَوْءَ وَلاَ صَفَرَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Abu Hurairah:The Messenger of Allah (ﷺ) as saying: There is no infection, no hamah, no other promising rain, and no serpent in a hungry belly</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim (2220 After  2221)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 9</span></td></tr><tr id='h3913' class='hadith-sep'><td colspan='2'>Hadith 3913 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الرَّحِيمِ بْنِ الْبَرْقِيِّ، أَنَّ سَعِيدَ بْنَ الْحَكَمِ، حَدَّثَهُمْ قَالَ أَخْبَرَنَا يَحْيَى بْنُ أَيُّوبَ، حَدَّثَنِي ابْنُ عَجْلاَنَ، حَدَّثَنِي الْقَعْقَاعُ بْنُ حَكِيمٍ، وَعُبَيْدُ اللَّهِ بْنُ مِقْسَمٍ، وَزَيْدُ بْنُ أَسْلَمَ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ غُولَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated AbuHurayrah: The Prophet (ﷺ) said: There is no ghoul</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 10</span></td></tr><tr id='h3914' class='hadith-sep'><td colspan='2'>Hadith 3914 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>قَالَ أَبُو دَاوُدَ قُرِئَ عَلَى الْحَارِثِ بْنِ مِسْكِينٍ وَأَنَا شَاهِدٌ، أَخْبَرَكُمْ أَشْهَبُ، قَالَ سُئِلَ مَالِكٌ عَنْ قَوْلِهِ ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏ قَالَ إِنَّ أَهْلَ الْجَاهِلِيَّةِ كَانُوا يُحِلُّونَ صَفَرَ يُحِلُّونَهُ عَامًا وَيُحَرِّمُونَهُ عَامًا فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Abu Dawud said:Malik was asked about the meaning of his saying: There is no safar. He replied: The people of pre-Islamic Arabia used to make the month of safar lawful (for war). They made it lawful in one year and unlawful in another year. The Prophet (ﷺ) said: There is no safar</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 11</span></td></tr><tr id='h3915' class='hadith-sep'><td colspan='2'>Hadith 3915 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُصَفَّى، حَدَّثَنَا بَقِيَّةُ، قَالَ قُلْتُ لِمُحَمَّدٍ - يَعْنِي ابْنَ رَاشِدٍ - قَوْلُهُ ‏&quot;‏ هَامَ ‏&quot;‏ ‏.‏ قَالَ كَانَتِ الْجَاهِلِيَّةُ تَقُولُ لَيْسَ أَحَدٌ يَمُوتُ فَيُدْفَنُ إِلاَّ خَرَجَ مِنْ قَبْرِهِ هَامَةٌ ‏.‏ قُلْتُ فَقَوْلُهُ صَفَرَ ‏.‏ قَالَ سَمِعْتُ أَنَّ أَهْلَ الْجَاهِلِيَّةِ يَسْتَشْئِمُونَ بِصَفَرَ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏ قَالَ مُحَمَّدٌ وَقَدْ سَمِعْنَا مَنْ يَقُولُ هُوَ وَجَعٌ يَأْخُذُ فِي الْبَطْنِ فَكَانُوا يَقُولُونَ هُوَ يُعْدِي فَقَالَ ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Muhammad b. al-Musaffa said to us on the authority of Baqiyyah. He said:I asked Muhammad b. Rashid about the meaning of the word hamah. He replied: The pre-Islamic Arabs used to say: When anyone dies and is buried, a bird comes forth from his grave. I asked: What did he mean by safar ? He said: I heard that the pre-Islamic Arabs used to take evil omen from safar. So the Prophet (ﷺ) said: There is no safar. Muhammad (b. Rashid) said: We heard someone say: It is a pain in the stomach. They said that it was infection. Hence he said: There is no safar</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Sahih Bukhari (5756) Sahih Muslim (2224)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 12</span></td></tr><tr id='h3916' class='hadith-sep'><td colspan='2'>Hadith 3916 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا هِشَامٌ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ عَدْوَى وَلاَ طِيَرَةَ وَيُعْجِبُنِي الْفَأْلُ الصَّالِحُ وَالْفَأْلُ الصَّالِحُ الْكَلِمَةُ الْحَسَنَةُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas:The Prophet (ﷺ) as saying: There is no infection* and no evil omen, and I like a good omen. Good omen means a good word. * The majority of scholars interpret this to mean that these things in and of themselves do not transmit or cause harm through supernatural or hidden means but that Allah is ultimately in control and any fearful superstition around these is false</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 13</span></td></tr><tr id='h3917' class='hadith-sep'><td colspan='2'>Hadith 3917 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا وُهَيْبٌ، عَنْ سُهَيْلٍ، عَنْ رَجُلٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سَمِعَ كَلِمَةً فَأَعْجَبَتْهُ فَقَالَ ‏ &quot;‏ أَخَذْنَا فَأْلَكَ مِنْ فِيكَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated AbuHurayrah: When the Messenger of Allah (ﷺ) heard a word, and he liked it, he said: We took your omen from your mouth</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Lighairihi; Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 14</span></td></tr><tr id='h3918' class='hadith-sep'><td colspan='2'>Hadith 3918 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا يَحْيَى بْنُ خَلَفٍ، حَدَّثَنَا أَبُو عَاصِمٍ، حَدَّثَنَا ابْنُ جُرَيْجٍ، عَنْ عَطَاءٍ، قَالَ يَقُولُ النَّاسُ الصَّفَرُ وَجَعٌ يَأْخُذُ فِي الْبَطْنِ ‏.‏ قُلْتُ فَمَا الْهَامَةُ قَالَ يَقُولُ النَّاسُ الْهَامَةُ الَّتِي تَصْرُخُ هَامَةُ النَّاسِ وَلَيْسَتْ بِهَامَةِ الإِنْسَانِ إِنَّمَا هِيَ دَابَّةٌ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated &#x27;Ata:People said: safar is a pain within the belly. I asked: What is hamah ? He said: People said (believed) that hamah which is an owl or a nightbird and which shrieks is the spirit of men. It is not the spirit of men. It is an animal</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Isnaad Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 15</span></td></tr><tr id='h3919' class='hadith-sep'><td colspan='2'>Hadith 3919 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا أَحْمَدُ بْنُ حَنْبَلٍ، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ الْمَعْنَى قَالاَ حَدَّثَنَا وَكِيعٌ، عَنْ سُفْيَانَ، عَنْ حَبِيبِ بْنِ أَبِي ثَابِتٍ، عَنْ عُرْوَةَ بْنِ عَامِرٍ، - قَالَ أَحْمَدُ الْقُرَشِيُّ - قَالَ ذُكِرَتِ الطِّيَرَةُ عِنْدَ النَّبِيِّ صلى الله عليه وسلم فَقَالَ ‏ &quot;‏ أَحْسَنُهَا الْفَأْلُ وَلاَ تَرُدُّ مُسْلِمًا فَإِذَا رَأَى أَحَدُكُمْ مَا يَكْرَهُ فَلْيَقُلِ اللَّهُمَّ لاَ يَأْتِي بِالْحَسَنَاتِ إِلاَّ أَنْتَ وَلاَ يَدْفَعُ السَّيِّئَاتِ إِلاَّ أَنْتَ وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِكَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Urwah ibn Amir al-Qurashi: When taking omens was mentioned in the presence of the Prophet (ﷺ), he said: The best type is the good omen, and it does not turn back a Muslim. If one of you sees anything he dislikes, he should say: O Allah, no one brings good things except Thee, and no one averts evil things except Thee and there is no might and power but in Allah</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 16</span></td></tr><tr id='h3920' class='hadith-sep'><td colspan='2'>Hadith 3920 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا هِشَامٌ، عَنْ قَتَادَةَ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ أَبِيهِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ لاَ يَتَطَيَّرُ مِنْ شَىْءٍ وَكَانَ إِذَا بَعَثَ عَامِلاً سَأَلَ عَنِ اسْمِهِ فَإِذَا أَعْجَبَهُ اسْمُهُ فَرِحَ بِهِ وَرُئِيَ بِشْرُ ذَلِكَ فِي وَجْهِهِ وَإِنْ كَرِهَ اسْمَهُ رُئِيَ كَرَاهِيَةُ ذَلِكَ فِي وَجْهِهِ وَإِذَا دَخَلَ قَرْيَةً سَأَلَ عَنِ اسْمِهَا فَإِنْ أَعْجَبَهُ اسْمُهَا فَرِحَ بِهَا وَرُئِيَ بِشْرُ ذَلِكَ فِي وَجْهِهِ وَإِنْ كَرِهَ اسْمَهَا رُئِيَ كَرَاهِيَةُ ذَلِكَ فِي وَجْهِهِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Buraydah ibn al-Hasib: The Prophet (ﷺ) did not take omens from anything, but when he sent out an agent he asked about his name. If it pleased him, he was glad about it, and his cheerfulness on that account was visible in his face. If he disliked his name, his displeasure on that account was visible in his face. When he entered a village, he asked about its name, and if it pleased him, he was glad about it, and his cheerfulness on that account was visible in his face. But if he disliked its name, his displeasure on that account was visible in his face</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 17</span></td></tr><tr id='h3921' class='hadith-sep'><td colspan='2'>Hadith 3921 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا أَبَانُ، حَدَّثَنِي يَحْيَى، أَنَّ الْحَضْرَمِيَّ بْنَ لاَحِقٍ، حَدَّثَهُ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ سَعْدِ بْنِ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَقُولُ ‏ &quot;‏ لاَ هَامَةَ وَلاَ عَدْوَى وَلاَ طِيَرَةَ وَإِنْ تَكُنِ الطِّيَرَةُ فِي شَىْءٍ فَفِي الْفَرَسِ وَالْمَرْأَةِ وَالدَّارِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Sa&#x27;d ibn Malik: The Prophet (ﷺ) said: There is no hamah, no infection and no evil omen; if there is in anything an evil omen, it is a house, a horse, and a woman</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Lighairihi; Isnaad Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 18</span></td></tr><tr id='h3922' class='hadith-sep'><td colspan='2'>Hadith 3922 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الْقَعْنَبِيُّ، حَدَّثَنَا مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ حَمْزَةَ، وَسَالِمِ، ابْنَىْ عَبْدِ اللَّهِ بْنِ عُمَرَ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الشُّؤْمُ فِي الدَّارِ وَالْمَرْأَةِ وَالْفَرَسِ ‏&quot;‏ ‏.‏ قَالَ أَبُو دَاوُدَ قُرِئَ عَلَى الْحَارِثِ بْنِ مِسْكِينٍ وَأَنَا شَاهِدٌ أَخْبَرَكَ ابْنُ الْقَاسِمِ قَالَ سُئِلَ مَالِكٌ عَنِ الشُّؤْمِ فِي الْفَرَسِ وَالدَّارِ قَالَ كَمْ مِنْ دَارٍ سَكَنَهَا نَاسٌ فَهَلَكُوا ثُمَّ سَكَنَهَا آخَرُونَ فَهَلَكُوا فَهَذَا تَفْسِيرُهُ فِيمَا نَرَى وَاللَّهُ أَعْلَمُ ‏.‏ قَالَ أَبُو دَاوُدَ قَالَ عُمَرُ رضى الله عنه حَصِيرٌ فِي الْبَيْتِ خَيْرٌ مِنَ امْرَأَةٍ لاَ تَلِدُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>It was narrated from &#x27;Abdullah bin &#x27;Umar that the Messenger of Allah (ﷺ) said:&quot;An omen is in a dwelling, a woman or a horse.&quot; Abu Dawud said: This tradition was read out to al-Harith b. Miskin and I was witness. It was said to him that Ibn Qasim told him that Malik was asked about evil omen in a horse and in a house. He replied: There are many houses in which people lived and perished and again others lived therein and they also perished. This is its explanation so far as we know. Allah knows best. Abu Dawud said: &#x27;Umar (ra) said: A mat in a house better than a woman who does not give birth to a child</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Shadh; Sahih Bukhari (5093) Sahih Muslim (2225)</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 19</span></td></tr><tr id='h3923' class='hadith-sep'><td colspan='2'>Hadith 3923 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا مَخْلَدُ بْنُ خَالِدٍ، وَعَبَّاسٌ الْعَنْبَرِيُّ، قَالاَ حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنْ يَحْيَى بْنِ عَبْدِ اللَّهِ بْنِ بَحِيرٍ، قَالَ أَخْبَرَنِي مَنْ، سَمِعَ فَرْوَةَ بْنَ مُسَيْكٍ، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ أَرْضٌ عِنْدَنَا يُقَالُ لَهَا أَرْضُ أَبْيَنَ هِيَ أَرْضُ رِيفِنَا وَمِيرَتِنَا وَإِنَّهَا وَبِئَةٌ أَوْ قَالَ وَبَاؤُهَا شَدِيدٌ ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏ &quot;‏ دَعْهَا عَنْكَ فَإِنَّ مِنَ الْقَرَفِ التَّلَفَ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya ibn Abdullah ibn Buhayr said that he was informed by one who had heard Farwah ibn Musayk tell that he said:Messenger of Allah! we have land called Abyan, which is the land where we have our fields and grow our crops, but it is very unhealthy. The Prophet (ﷺ) said: Leave it, for destruction comes from being near disease</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 20</span></td></tr><tr id='h3924' class='hadith-sep'><td colspan='2'>Hadith 3924 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا الْحَسَنُ بْنُ يَحْيَى، حَدَّثَنَا بِشْرُ بْنُ عُمَرَ، عَنْ عِكْرِمَةَ بْنِ عَمَّارٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ قَالَ رَجُلٌ يَا رَسُولَ اللَّهِ إِنَّا كُنَّا فِي دَارٍ كَثِيرٌ فِيهَا عَدَدُنَا وَكَثِيرٌ فِيهَا أَمْوَالُنَا فَتَحَوَّلْنَا إِلَى دَارٍ أُخْرَى فَقَلَّ فِيهَا عَدَدُنَا وَقَلَّتْ فِيهَا أَمْوَالُنَا ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ ذَرُوهَا ذَمِيمَةً ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Anas ibn Malik: A man said: Messenger of Allah! we were in an abode in which our numbers and our goods were many and changed to an abode in which our numbers and our goods became few. The Messenger of Allah (ﷺ) said: Leave it, for it is reprehensible</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 21</span></td></tr><tr id='h3925' class='hadith-sep'><td colspan='2'>Hadith 3925 — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا يُونُسُ بْنُ مُحَمَّدٍ، حَدَّثَنَا مُفَضَّلُ بْنُ فَضَالَةَ، عَنْ حَبِيبِ بْنِ الشَّهِيدِ، عَنْ مُحَمَّدِ بْنِ الْمُنْكَدِرِ، عَنْ جَابِرٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم أَخَذَ بِيَدِ مَجْذُومٍ فَوَضَعَهَا مَعَهُ فِي الْقَصْعَةِ وَقَالَ ‏ &quot;‏ كُلْ ثِقَةً بِاللَّهِ وَتَوَكُّلاً عَلَيْهِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Narrated Jabir ibn Abdullah: The Messenger of Allah (ﷺ) took a man who was suffering from tubercular leprosy by the hand; he then put it along with his own hand in the dish and said: Eat with confidence in Allah and trust in Him</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 22</span></td></tr>
+<tr id='h3904' class='hadith-sep' data-hadith='3904'><td colspan='2'><a class='permalink' href='#h3904'>Hadith 3904</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3904'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا حَمَّادٌ، ح وَحَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنْ حَمَّادِ بْنِ سَلَمَةَ، عَنْ حَكِيمٍ الأَثْرَمِ، عَنْ أَبِي تَمِيمَةَ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ مَنْ أَتَى كَاهِنًا ‏&quot;‏ ‏.‏ قَالَ مُوسَى فِي حَدِيثِهِ ‏&quot;‏ فَصَدَّقَهُ بِمَا يَقُولُ ‏&quot;‏ ‏.‏ ثُمَّ اتَّفَقَا ‏&quot;‏ أَوْ أَتَى امْرَأَةً ‏&quot;‏ ‏.‏ قَالَ مُسَدَّدٌ ‏&quot;‏ امْرَأَتَهُ حَائِضًا أَوْ أَتَى امْرَأَةً ‏&quot;‏ ‏.‏ قَالَ مُسَدَّدٌ ‏&quot;‏ امْرَأَتَهُ فِي دُبُرِهَا فَقَدْ بَرِئَ مِمَّا أَنْزَلَ اللَّهُ عَلَى مُحَمَّدٍ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3904'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuHurayrah: The Prophet (ﷺ) said: If anyone resorts to a diviner and believes in what he says (according) to the version of Musa), or has intercourse with his wife (according to the agreed version) when she is menstruating, or has intercourse with his wife through her anus, he has nothing to do with what has been sent down to Muhammad (ﷺ) - according to the version of Musaddad</span></td></tr>
+<tr class='grade' data-hadith='3904'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Lighairihi; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3904'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 1</span></td></tr><tr id='h3905' class='hadith-sep' data-hadith='3905'><td colspan='2'><a class='permalink' href='#h3905'>Hadith 3905</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3905'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَمُسَدَّدٌ، - الْمَعْنَى - قَالاَ حَدَّثَنَا يَحْيَى، عَنْ عُبَيْدِ اللَّهِ بْنِ الأَخْنَسِ، عَنِ الْوَلِيدِ بْنِ عَبْدِ اللَّهِ، عَنْ يُوسُفَ بْنِ مَاهَكَ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ مَنِ اقْتَبَسَ عِلْمًا مِنَ النُّجُومِ اقْتَبَسَ شُعْبَةً مِنَ السِّحْرِ زَادَ مَا زَادَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3905'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abdullah ibn Abbas: The Prophet (ﷺ) said: If anyone acquires any knowledge of astrology, he acquires a branch of magic of which he gets more as long as he continues to do so</span></td></tr>
+<tr class='grade' data-hadith='3905'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='3905'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 2</span></td></tr><tr id='h3906' class='hadith-sep' data-hadith='3906'><td colspan='2'><a class='permalink' href='#h3906'>Hadith 3906</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3906'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْقَعْنَبِيُّ، عَنْ مَالِكٍ، عَنْ صَالِحِ بْنِ كَيْسَانَ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ، عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّهُ قَالَ صَلَّى لَنَا رَسُولُ اللَّهِ صلى الله عليه وسلم صَلاَةَ الصُّبْحِ بِالْحُدَيْبِيَةِ فِي إِثْرِ سَمَاءٍ كَانَتْ مِنَ اللَّيْلِ فَلَمَّا انْصَرَفَ أَقْبَلَ عَلَى النَّاسِ فَقَالَ ‏&quot;‏ هَلْ تَدْرُونَ مَاذَا قَالَ رَبُّكُمْ ‏&quot;‏ ‏.‏ قَالُوا اللَّهُ وَرَسُولُهُ أَعْلَمُ ‏.‏ قَالَ ‏&quot;‏ قَالَ أَصْبَحَ مِنْ عِبَادِي مُؤْمِنٌ بِي وَكَافِرٌ فَأَمَّا مَنْ قَالَ مُطِرْنَا بِفَضْلِ اللَّهِ وَبِرَحْمَتِهِ فَذَلِكَ مُؤْمِنٌ بِي كَافِرٌ بِالْكَوْكَبِ وَأَمَّا مَنْ قَالَ مُطِرْنَا بِنَوْءِ كَذَا وَكَذَا فَذَلِكَ كَافِرٌ بِي مُؤْمِنٌ بِالْكَوْكَبِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3906'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Zaid bin Khalid Al-Juhani:The Messenger of Allah (ﷺ) led us in the morning prayer at al-Hudaibiyyah after rain which has fallen during the night, and when he finished, he turned to the people and said: Do you know what your Lord has said ? They said: Allah and His Apostle know best. He said: This morning there were among mt servants one who believes in me and one who disbelieves. The one who said: &quot;We have been given rain by Allah&#x27;s grace and mercy&quot; is the one who believes in me and disbelieves in the star ; but the one who said: &quot;We have been given rain by such and such a rain star,&quot; is the one who disbelieves in me and believes in the star</span></td></tr>
+<tr class='grade' data-hadith='3906'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Sahih Bukhari (846) Sahih Muslim (71)</span></td></tr>
+<tr class='ref' data-hadith='3906'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 3</span></td></tr><tr id='h3907' class='hadith-sep' data-hadith='3907'><td colspan='2'><a class='permalink' href='#h3907'>Hadith 3907</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3907'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، حَدَّثَنَا عَوْفٌ، حَدَّثَنَا حَيَّانُ، - قَالَ غَيْرُ مُسَدَّدٍ حَيَّانُ بْنُ الْعَلاَءِ - حَدَّثَنَا قَطَنُ بْنُ قَبِيصَةَ، عَنْ أَبِيهِ، قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ الْعِيَافَةُ وَالطِّيَرَةُ وَالطَّرْقُ مِنَ الْجِبْتِ ‏&quot;‏ ‏.‏ الطَّرْقُ الزَّجْرُ وَالْعِيَافَةُ الْخَطُّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3907'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Qabisah: I heard the Messenger of Allah (ﷺ) say: Augury from the flight of birds, taking evil omens and the practice of pressomancy pertain to divination. Tarq: It is used in the sense of divination in which women threw stones. &#x27;Iyafah: It means geomancy by drawing lines</span></td></tr>
+<tr class='grade' data-hadith='3907'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='3907'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 4</span></td></tr><tr id='h3908' class='hadith-sep' data-hadith='3908'><td colspan='2'><a class='permalink' href='#h3908'>Hadith 3908</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3908'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ بَشَّارٍ، قَالَ قَالَ مُحَمَّدُ بْنُ جَعْفَرٍ قَالَ عَوْفٌ الْعِيَافَةُ زَجْرُ الطَّيْرِ وَالطَّرْقُ الْخَطُّ يُخَطُّ فِي الأَرْضِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3908'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Muhammed b. Ja&#x27;far:On the authority of &#x27;Awf: &#x27;Iyafah means to makes the birds fly by threatening them. Tarq means lines drawn on the earth</span></td></tr>
+<tr class='grade' data-hadith='3908'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='3908'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 5</span></td></tr><tr id='h3909' class='hadith-sep' data-hadith='3909'><td colspan='2'><a class='permalink' href='#h3909'>Hadith 3909</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3909'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنِ الْحَجَّاجِ الصَّوَّافِ، حَدَّثَنِي يَحْيَى بْنُ أَبِي كَثِيرٍ، عَنْ هِلاَلِ بْنِ أَبِي مَيْمُونَةَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ مُعَاوِيَةَ بْنِ الْحَكَمِ السُّلَمِيِّ، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ وَمِنَّا رِجَالٌ يَخُطُّونَ ‏.‏ قَالَ ‏ &quot;‏ كَانَ نَبِيٌّ مِنَ الأَنْبِيَاءِ يَخُطُّ فَمَنْ وَافَقَ خَطَّهُ فَذَاكَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3909'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Mu&#x27;awiyah b. al-Hakam al-Sulami:I said: Messenger of Allah! among us there are men who practice divination by drawing lines. He said: There was a Prophet who drew lines, so if anyone does it as he drew lines, that is right</span></td></tr>
+<tr class='grade' data-hadith='3909'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim (537)</span></td></tr>
+<tr class='ref' data-hadith='3909'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 6</span></td></tr><tr id='h3910' class='hadith-sep' data-hadith='3910'><td colspan='2'><a class='permalink' href='#h3910'>Hadith 3910</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3910'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ كَثِيرٍ، أَخْبَرَنَا سُفْيَانُ، عَنْ سَلَمَةَ بْنِ كُهَيْلٍ، عَنْ عِيسَى بْنِ عَاَصِمٍ، عَنْ زِرِّ بْنِ حُبَيْشٍ، عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم قَالَ ‏&quot;‏ الطِّيَرَةُ شِرْكٌ الطِّيَرَةُ شِرْكٌ ‏&quot;‏ ‏.‏ ثَلاَثًا ‏&quot;‏ وَمَا مِنَّا إِلاَّ وَلَكِنَّ اللَّهَ يُذْهِبُهُ بِالتَّوَكُّلِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3910'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abdullah ibn Mas&#x27;ud: The Prophet (ﷺ) said: Taking omens is polytheism; taking omens is polytheism. He said it three times. Every one of us has some, but Allah removes it by trust (in Him)</span></td></tr>
+<tr class='grade' data-hadith='3910'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih</span></td></tr>
+<tr class='ref' data-hadith='3910'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 7</span></td></tr><tr id='h3911' class='hadith-sep' data-hadith='3911'><td colspan='2'><a class='permalink' href='#h3911'>Hadith 3911</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3911'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُتَوَكِّلِ الْعَسْقَلاَنِيُّ، وَالْحَسَنُ بْنُ عَلِيٍّ، قَالاَ حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ لاَ عَدْوَى وَلاَ طِيَرَةَ وَلاَ صَفَرَ وَلاَ هَامَةَ ‏&quot;‏ ‏.‏ فَقَالَ أَعْرَابِيٌّ مَا بَالُ الإِبِلِ تَكُونُ فِي الرَّمْلِ كَأَنَّهَا الظِّبَاءُ فَيُخَالِطُهَا الْبَعِيرُ الأَجْرَبُ فَيُجْرِبُهَا قَالَ ‏&quot;‏ فَمَنْ أَعْدَى الأَوَّلَ ‏&quot;‏ ‏.‏ قَالَ مَعْمَرٌ قَالَ الزُّهْرِيُّ فَحَدَّثَنِي رَجُلٌ عَنْ أَبِي هُرَيْرَةَ أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏&quot;‏ لاَ يُورِدَنَّ مُمْرِضٌ عَلَى مُصِحٍّ ‏&quot;‏ ‏.‏ قَالَ فَرَاجَعَهُ الرَّجُلُ فَقَالَ أَلَيْسَ قَدْ حَدَّثْتَنَا أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏&quot;‏ لاَ عَدْوَى وَلاَ صَفَرَ وَلاَ هَامَةَ ‏&quot;‏ ‏.‏ قَالَ لَمْ أُحَدِّثْكُمُوهُ ‏.‏ قَالَ الزُّهْرِيُّ قَالَ أَبُو سَلَمَةَ قَدْ حَدَّثَ بِهِ وَمَا سَمِعْتُ أَبَا هُرَيْرَةَ نَسِيَ حَدِيثًا قَطُّ غَيْرَهُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3911'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Hurairah: The Messenger of Allah (ﷺ) as saying : There is no infection, no evil, omen or serpent, in a hungry belly and no hamah. A nomadic Arab asked: How is it that when camels are in the sand as if they were gazelles and a mangy camel comes among them and it gives them mange ? He replied: Who infected the first one ? Ma&#x27;mar, quoting al-Zuhri said: A man told me that Abu Hurairah narrated to him saying that he heard the Prophet (ﷺ) say: A diseased camel should not be brought with a healthy camel to drink water. He said: The man then consulted him and said: Did you not tell us that Prophet (ﷺ) had said: There is no infection, no serpent in a hungry belly and no hamah? He replied: I did not transmit it to you. Al-Zuhri said: Abu Salamah said: He had narrated it and I did not hear that Abu Hurairah had ever forgotten any tradition except this one. Note: The majority of scholars interpret this to mean that these things in and of themselves do not transmit or cause harm through supernatural or hidden means but that Allah is ultimately in control and any fearful superstition around these is false</span></td></tr>
+<tr class='grade' data-hadith='3911'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Bukhari (5770) Sahih Muslim (2220)</span></td></tr>
+<tr class='ref' data-hadith='3911'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 8</span></td></tr><tr id='h3912' class='hadith-sep' data-hadith='3912'><td colspan='2'><a class='permalink' href='#h3912'>Hadith 3912</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3912'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْقَعْنَبِيُّ، حَدَّثَنَا عَبْدُ الْعَزِيزِ، - يَعْنِي ابْنَ مُحَمَّدٍ - عَنِ الْعَلاَءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ لاَ عَدْوَى وَلاَ هَامَةَ وَلاَ نَوْءَ وَلاَ صَفَرَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3912'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Abu Hurairah:The Messenger of Allah (ﷺ) as saying: There is no infection, no hamah, no other promising rain, and no serpent in a hungry belly</span></td></tr>
+<tr class='grade' data-hadith='3912'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Muslim (2220 After  2221)</span></td></tr>
+<tr class='ref' data-hadith='3912'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 9</span></td></tr><tr id='h3913' class='hadith-sep' data-hadith='3913'><td colspan='2'><a class='permalink' href='#h3913'>Hadith 3913</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3913'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الرَّحِيمِ بْنِ الْبَرْقِيِّ، أَنَّ سَعِيدَ بْنَ الْحَكَمِ، حَدَّثَهُمْ قَالَ أَخْبَرَنَا يَحْيَى بْنُ أَيُّوبَ، حَدَّثَنِي ابْنُ عَجْلاَنَ، حَدَّثَنِي الْقَعْقَاعُ بْنُ حَكِيمٍ، وَعُبَيْدُ اللَّهِ بْنُ مِقْسَمٍ، وَزَيْدُ بْنُ أَسْلَمَ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ غُولَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3913'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuHurayrah: The Prophet (ﷺ) said: There is no ghoul</span></td></tr>
+<tr class='grade' data-hadith='3913'><td class='label'>Grade</td><td><span class='grade-text'>Hasan Sahih; Hasan Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='3913'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 10</span></td></tr><tr id='h3914' class='hadith-sep' data-hadith='3914'><td colspan='2'><a class='permalink' href='#h3914'>Hadith 3914</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3914'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>قَالَ أَبُو دَاوُدَ قُرِئَ عَلَى الْحَارِثِ بْنِ مِسْكِينٍ وَأَنَا شَاهِدٌ، أَخْبَرَكُمْ أَشْهَبُ، قَالَ سُئِلَ مَالِكٌ عَنْ قَوْلِهِ ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏ قَالَ إِنَّ أَهْلَ الْجَاهِلِيَّةِ كَانُوا يُحِلُّونَ صَفَرَ يُحِلُّونَهُ عَامًا وَيُحَرِّمُونَهُ عَامًا فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3914'><td class='label'>English</td><td><span class='eng-text' lang='en'>Abu Dawud said:Malik was asked about the meaning of his saying: There is no safar. He replied: The people of pre-Islamic Arabia used to make the month of safar lawful (for war). They made it lawful in one year and unlawful in another year. The Prophet (ﷺ) said: There is no safar</span></td></tr>
+<tr class='grade' data-hadith='3914'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='3914'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 11</span></td></tr><tr id='h3915' class='hadith-sep' data-hadith='3915'><td colspan='2'><a class='permalink' href='#h3915'>Hadith 3915</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3915'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الْمُصَفَّى، حَدَّثَنَا بَقِيَّةُ، قَالَ قُلْتُ لِمُحَمَّدٍ - يَعْنِي ابْنَ رَاشِدٍ - قَوْلُهُ ‏&quot;‏ هَامَ ‏&quot;‏ ‏.‏ قَالَ كَانَتِ الْجَاهِلِيَّةُ تَقُولُ لَيْسَ أَحَدٌ يَمُوتُ فَيُدْفَنُ إِلاَّ خَرَجَ مِنْ قَبْرِهِ هَامَةٌ ‏.‏ قُلْتُ فَقَوْلُهُ صَفَرَ ‏.‏ قَالَ سَمِعْتُ أَنَّ أَهْلَ الْجَاهِلِيَّةِ يَسْتَشْئِمُونَ بِصَفَرَ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏ قَالَ مُحَمَّدٌ وَقَدْ سَمِعْنَا مَنْ يَقُولُ هُوَ وَجَعٌ يَأْخُذُ فِي الْبَطْنِ فَكَانُوا يَقُولُونَ هُوَ يُعْدِي فَقَالَ ‏&quot;‏ لاَ صَفَرَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3915'><td class='label'>English</td><td><span class='eng-text' lang='en'>Muhammad b. al-Musaffa said to us on the authority of Baqiyyah. He said:I asked Muhammad b. Rashid about the meaning of the word hamah. He replied: The pre-Islamic Arabs used to say: When anyone dies and is buried, a bird comes forth from his grave. I asked: What did he mean by safar ? He said: I heard that the pre-Islamic Arabs used to take evil omen from safar. So the Prophet (ﷺ) said: There is no safar. Muhammad (b. Rashid) said: We heard someone say: It is a pain in the stomach. They said that it was infection. Hence he said: There is no safar</span></td></tr>
+<tr class='grade' data-hadith='3915'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Sahih Bukhari (5756) Sahih Muslim (2224)</span></td></tr>
+<tr class='ref' data-hadith='3915'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 12</span></td></tr><tr id='h3916' class='hadith-sep' data-hadith='3916'><td colspan='2'><a class='permalink' href='#h3916'>Hadith 3916</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3916'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا هِشَامٌ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ &quot;‏ لاَ عَدْوَى وَلاَ طِيَرَةَ وَيُعْجِبُنِي الْفَأْلُ الصَّالِحُ وَالْفَأْلُ الصَّالِحُ الْكَلِمَةُ الْحَسَنَةُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3916'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas:The Prophet (ﷺ) as saying: There is no infection* and no evil omen, and I like a good omen. Good omen means a good word. * The majority of scholars interpret this to mean that these things in and of themselves do not transmit or cause harm through supernatural or hidden means but that Allah is ultimately in control and any fearful superstition around these is false</span></td></tr>
+<tr class='grade' data-hadith='3916'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='3916'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 13</span></td></tr><tr id='h3917' class='hadith-sep' data-hadith='3917'><td colspan='2'><a class='permalink' href='#h3917'>Hadith 3917</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3917'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا وُهَيْبٌ، عَنْ سُهَيْلٍ، عَنْ رَجُلٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سَمِعَ كَلِمَةً فَأَعْجَبَتْهُ فَقَالَ ‏ &quot;‏ أَخَذْنَا فَأْلَكَ مِنْ فِيكَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3917'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated AbuHurayrah: When the Messenger of Allah (ﷺ) heard a word, and he liked it, he said: We took your omen from your mouth</span></td></tr>
+<tr class='grade' data-hadith='3917'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Hasan Lighairihi; Hasan</span></td></tr>
+<tr class='ref' data-hadith='3917'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 14</span></td></tr><tr id='h3918' class='hadith-sep' data-hadith='3918'><td colspan='2'><a class='permalink' href='#h3918'>Hadith 3918</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3918'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا يَحْيَى بْنُ خَلَفٍ، حَدَّثَنَا أَبُو عَاصِمٍ، حَدَّثَنَا ابْنُ جُرَيْجٍ، عَنْ عَطَاءٍ، قَالَ يَقُولُ النَّاسُ الصَّفَرُ وَجَعٌ يَأْخُذُ فِي الْبَطْنِ ‏.‏ قُلْتُ فَمَا الْهَامَةُ قَالَ يَقُولُ النَّاسُ الْهَامَةُ الَّتِي تَصْرُخُ هَامَةُ النَّاسِ وَلَيْسَتْ بِهَامَةِ الإِنْسَانِ إِنَّمَا هِيَ دَابَّةٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3918'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated &#x27;Ata:People said: safar is a pain within the belly. I asked: What is hamah ? He said: People said (believed) that hamah which is an owl or a nightbird and which shrieks is the spirit of men. It is not the spirit of men. It is an animal</span></td></tr>
+<tr class='grade' data-hadith='3918'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Sahih Maqtu; Isnaad Sahih</span></td></tr>
+<tr class='ref' data-hadith='3918'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 15</span></td></tr><tr id='h3919' class='hadith-sep' data-hadith='3919'><td colspan='2'><a class='permalink' href='#h3919'>Hadith 3919</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3919'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ حَنْبَلٍ، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ الْمَعْنَى قَالاَ حَدَّثَنَا وَكِيعٌ، عَنْ سُفْيَانَ، عَنْ حَبِيبِ بْنِ أَبِي ثَابِتٍ، عَنْ عُرْوَةَ بْنِ عَامِرٍ، - قَالَ أَحْمَدُ الْقُرَشِيُّ - قَالَ ذُكِرَتِ الطِّيَرَةُ عِنْدَ النَّبِيِّ صلى الله عليه وسلم فَقَالَ ‏ &quot;‏ أَحْسَنُهَا الْفَأْلُ وَلاَ تَرُدُّ مُسْلِمًا فَإِذَا رَأَى أَحَدُكُمْ مَا يَكْرَهُ فَلْيَقُلِ اللَّهُمَّ لاَ يَأْتِي بِالْحَسَنَاتِ إِلاَّ أَنْتَ وَلاَ يَدْفَعُ السَّيِّئَاتِ إِلاَّ أَنْتَ وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِكَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3919'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Urwah ibn Amir al-Qurashi: When taking omens was mentioned in the presence of the Prophet (ﷺ), he said: The best type is the good omen, and it does not turn back a Muslim. If one of you sees anything he dislikes, he should say: O Allah, no one brings good things except Thee, and no one averts evil things except Thee and there is no might and power but in Allah</span></td></tr>
+<tr class='grade' data-hadith='3919'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='3919'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 16</span></td></tr><tr id='h3920' class='hadith-sep' data-hadith='3920'><td colspan='2'><a class='permalink' href='#h3920'>Hadith 3920</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3920'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا هِشَامٌ، عَنْ قَتَادَةَ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ أَبِيهِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ لاَ يَتَطَيَّرُ مِنْ شَىْءٍ وَكَانَ إِذَا بَعَثَ عَامِلاً سَأَلَ عَنِ اسْمِهِ فَإِذَا أَعْجَبَهُ اسْمُهُ فَرِحَ بِهِ وَرُئِيَ بِشْرُ ذَلِكَ فِي وَجْهِهِ وَإِنْ كَرِهَ اسْمَهُ رُئِيَ كَرَاهِيَةُ ذَلِكَ فِي وَجْهِهِ وَإِذَا دَخَلَ قَرْيَةً سَأَلَ عَنِ اسْمِهَا فَإِنْ أَعْجَبَهُ اسْمُهَا فَرِحَ بِهَا وَرُئِيَ بِشْرُ ذَلِكَ فِي وَجْهِهِ وَإِنْ كَرِهَ اسْمَهَا رُئِيَ كَرَاهِيَةُ ذَلِكَ فِي وَجْهِهِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3920'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Buraydah ibn al-Hasib: The Prophet (ﷺ) did not take omens from anything, but when he sent out an agent he asked about his name. If it pleased him, he was glad about it, and his cheerfulness on that account was visible in his face. If he disliked his name, his displeasure on that account was visible in his face. When he entered a village, he asked about its name, and if it pleased him, he was glad about it, and his cheerfulness on that account was visible in his face. But if he disliked its name, his displeasure on that account was visible in his face</span></td></tr>
+<tr class='grade' data-hadith='3920'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Daif</span></td></tr>
+<tr class='ref' data-hadith='3920'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 17</span></td></tr><tr id='h3921' class='hadith-sep' data-hadith='3921'><td colspan='2'><a class='permalink' href='#h3921'>Hadith 3921</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3921'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا أَبَانُ، حَدَّثَنِي يَحْيَى، أَنَّ الْحَضْرَمِيَّ بْنَ لاَحِقٍ، حَدَّثَهُ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ سَعْدِ بْنِ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَقُولُ ‏ &quot;‏ لاَ هَامَةَ وَلاَ عَدْوَى وَلاَ طِيَرَةَ وَإِنْ تَكُنِ الطِّيَرَةُ فِي شَىْءٍ فَفِي الْفَرَسِ وَالْمَرْأَةِ وَالدَّارِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3921'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Sa&#x27;d ibn Malik: The Prophet (ﷺ) said: There is no hamah, no infection and no evil omen; if there is in anything an evil omen, it is a house, a horse, and a woman</span></td></tr>
+<tr class='grade' data-hadith='3921'><td class='label'>Grade</td><td><span class='grade-text'>Sahih; Sahih; Sahih Lighairihi; Isnaad Hasan</span></td></tr>
+<tr class='ref' data-hadith='3921'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 18</span></td></tr><tr id='h3922' class='hadith-sep' data-hadith='3922'><td colspan='2'><a class='permalink' href='#h3922'>Hadith 3922</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3922'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْقَعْنَبِيُّ، حَدَّثَنَا مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ حَمْزَةَ، وَسَالِمِ، ابْنَىْ عَبْدِ اللَّهِ بْنِ عُمَرَ عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ الشُّؤْمُ فِي الدَّارِ وَالْمَرْأَةِ وَالْفَرَسِ ‏&quot;‏ ‏.‏ قَالَ أَبُو دَاوُدَ قُرِئَ عَلَى الْحَارِثِ بْنِ مِسْكِينٍ وَأَنَا شَاهِدٌ أَخْبَرَكَ ابْنُ الْقَاسِمِ قَالَ سُئِلَ مَالِكٌ عَنِ الشُّؤْمِ فِي الْفَرَسِ وَالدَّارِ قَالَ كَمْ مِنْ دَارٍ سَكَنَهَا نَاسٌ فَهَلَكُوا ثُمَّ سَكَنَهَا آخَرُونَ فَهَلَكُوا فَهَذَا تَفْسِيرُهُ فِيمَا نَرَى وَاللَّهُ أَعْلَمُ ‏.‏ قَالَ أَبُو دَاوُدَ قَالَ عُمَرُ رضى الله عنه حَصِيرٌ فِي الْبَيْتِ خَيْرٌ مِنَ امْرَأَةٍ لاَ تَلِدُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3922'><td class='label'>English</td><td><span class='eng-text' lang='en'>It was narrated from &#x27;Abdullah bin &#x27;Umar that the Messenger of Allah (ﷺ) said:&quot;An omen is in a dwelling, a woman or a horse.&quot; Abu Dawud said: This tradition was read out to al-Harith b. Miskin and I was witness. It was said to him that Ibn Qasim told him that Malik was asked about evil omen in a horse and in a house. He replied: There are many houses in which people lived and perished and again others lived therein and they also perished. This is its explanation so far as we know. Allah knows best. Abu Dawud said: &#x27;Umar (ra) said: A mat in a house better than a woman who does not give birth to a child</span></td></tr>
+<tr class='grade' data-hadith='3922'><td class='label'>Grade</td><td><span class='grade-text'>Sahih Maqtu; Shadh; Sahih Bukhari (5093) Sahih Muslim (2225)</span></td></tr>
+<tr class='ref' data-hadith='3922'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 19</span></td></tr><tr id='h3923' class='hadith-sep' data-hadith='3923'><td colspan='2'><a class='permalink' href='#h3923'>Hadith 3923</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3923'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا مَخْلَدُ بْنُ خَالِدٍ، وَعَبَّاسٌ الْعَنْبَرِيُّ، قَالاَ حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنْ يَحْيَى بْنِ عَبْدِ اللَّهِ بْنِ بَحِيرٍ، قَالَ أَخْبَرَنِي مَنْ، سَمِعَ فَرْوَةَ بْنَ مُسَيْكٍ، قَالَ قُلْتُ يَا رَسُولَ اللَّهِ أَرْضٌ عِنْدَنَا يُقَالُ لَهَا أَرْضُ أَبْيَنَ هِيَ أَرْضُ رِيفِنَا وَمِيرَتِنَا وَإِنَّهَا وَبِئَةٌ أَوْ قَالَ وَبَاؤُهَا شَدِيدٌ ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏ &quot;‏ دَعْهَا عَنْكَ فَإِنَّ مِنَ الْقَرَفِ التَّلَفَ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3923'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya ibn Abdullah ibn Buhayr said that he was informed by one who had heard Farwah ibn Musayk tell that he said:Messenger of Allah! we have land called Abyan, which is the land where we have our fields and grow our crops, but it is very unhealthy. The Prophet (ﷺ) said: Leave it, for destruction comes from being near disease</span></td></tr>
+<tr class='grade' data-hadith='3923'><td class='label'>Grade</td><td><span class='grade-text'>Daif Isnaad; Daif Isnaad; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='3923'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 20</span></td></tr><tr id='h3924' class='hadith-sep' data-hadith='3924'><td colspan='2'><a class='permalink' href='#h3924'>Hadith 3924</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3924'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ يَحْيَى، حَدَّثَنَا بِشْرُ بْنُ عُمَرَ، عَنْ عِكْرِمَةَ بْنِ عَمَّارٍ، عَنْ إِسْحَاقَ بْنِ عَبْدِ اللَّهِ بْنِ أَبِي طَلْحَةَ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ قَالَ رَجُلٌ يَا رَسُولَ اللَّهِ إِنَّا كُنَّا فِي دَارٍ كَثِيرٌ فِيهَا عَدَدُنَا وَكَثِيرٌ فِيهَا أَمْوَالُنَا فَتَحَوَّلْنَا إِلَى دَارٍ أُخْرَى فَقَلَّ فِيهَا عَدَدُنَا وَقَلَّتْ فِيهَا أَمْوَالُنَا ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ &quot;‏ ذَرُوهَا ذَمِيمَةً ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3924'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Anas ibn Malik: A man said: Messenger of Allah! we were in an abode in which our numbers and our goods were many and changed to an abode in which our numbers and our goods became few. The Messenger of Allah (ﷺ) said: Leave it, for it is reprehensible</span></td></tr>
+<tr class='grade' data-hadith='3924'><td class='label'>Grade</td><td><span class='grade-text'>Hasan; Hasan; Daif</span></td></tr>
+<tr class='ref' data-hadith='3924'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 21</span></td></tr><tr id='h3925' class='hadith-sep' data-hadith='3925'><td colspan='2'><a class='permalink' href='#h3925'>Hadith 3925</a> — Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</td></tr>
+<tr class='arabic' data-hadith='3925'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا يُونُسُ بْنُ مُحَمَّدٍ، حَدَّثَنَا مُفَضَّلُ بْنُ فَضَالَةَ، عَنْ حَبِيبِ بْنِ الشَّهِيدِ، عَنْ مُحَمَّدِ بْنِ الْمُنْكَدِرِ، عَنْ جَابِرٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم أَخَذَ بِيَدِ مَجْذُومٍ فَوَضَعَهَا مَعَهُ فِي الْقَصْعَةِ وَقَالَ ‏ &quot;‏ كُلْ ثِقَةً بِاللَّهِ وَتَوَكُّلاً عَلَيْهِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='3925'><td class='label'>English</td><td><span class='eng-text' lang='en'>Narrated Jabir ibn Abdullah: The Messenger of Allah (ﷺ) took a man who was suffering from tubercular leprosy by the hand; he then put it along with his own hand in the dish and said: Eat with confidence in Allah and trust in Him</span></td></tr>
+<tr class='grade' data-hadith='3925'><td class='label'>Grade</td><td><span class='grade-text'>Daif; Daif; Daif; Daif</span></td></tr>
+<tr class='ref' data-hadith='3925'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 22</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -273,5 +407,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>

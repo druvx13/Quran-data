@@ -139,12 +139,143 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   #search-status{color:#aaa}
   .data-size-note{color:#888}
 }
+/* --- Hadith & Content Filter Panel (verse-chooser style) --- */
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;
+  font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;
+  border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;
+  letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;
+  border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;
+  color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+/* Book navigation select */
+.book-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;
+  background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:220px}
+.book-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+/* Permalink */
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+/* Scroll-to-top */
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+/* noscript */
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;
+  margin-bottom:12px;font-size:.93em;color:#856404}
+/* Anchor highlight */
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-sep.hadith-anchor-hl td{animation:hadith-pulse .8s ease-in-out 3}
 @media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  .book-nav-select{max-width:160px;font-size:.82em}
   main{padding:10px 8px}
   h1{font-size:1.15em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td{border:none;padding:7px 10px}
   .arabic-text{font-size:1.25em}
   nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
   footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  header{padding:8px 10px;gap:8px}
+}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  th{background:#0d2136}
+  .hadith-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .arabic td{background:#2a2010}
+  .eng td{background:#132030}
+  .hindi td{background:#1e1530}
+  .narrator td{background:#1e2a3a}
+  .grade td{background:#0a1e10}
+  .ref td{background:#1a2000}
+  .arabic-text{color:#f5e6c8}
+  .eng-text{color:#90caf9}
+  .hindi-text{color:#b39ddb}
+  .narrator-text{color:#90a0b0}
+  .grade-text{color:#a5d6a7}
+  .ref-text{color:#aed581}
+  .desc{background:#1e2a3a;border-left-color:#90caf9}
+  .meta-info{color:#aaa}
+  .book-list li{border-bottom-color:#333}
+  .book-list a{color:#90caf9}
+  .book-list a:hover{background:#1e2a3a}
+  .book-list .bl-count{color:#aaa}
+  .hadith-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .hadith-grid a:hover{background:#263650}
+  .coll-card{background:#1e2a3a;border-color:#334;color:#e8e8e8}
+  .coll-card:hover{background:#263650;border-color:#aac0d6}
+  .coll-card .cc-name{color:#90caf9}
+  .coll-card .cc-author,.coll-card .cc-desc{color:#aaa}
+  .coll-card .cc-count{color:#90caf9}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+  .vc-section-title{color:#aaa}
+  .vc-controls button{background:#1a3a5c}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer,.scroll-top-btn{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:100px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
 }
 </style>
 </head>
@@ -153,6 +284,7 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="../index.html">📖 Qur'an</a>
   <a href="index.html">📜 Hadith</a>
   <span class="breadcrumb"><a href="../index.html">Qur'an</a> › <a href="index.html">Hadith</a> › <a href='malik.html'>Muwatta Malik</a> › Suckling</span>
+  <select class='book-nav-select' onchange='location.href=this.value' aria-label='Jump to Book'><option value="">☁ Jump to Book…</option><option value="malik-book-001.html">1. The Times of Prayer</option><option value="malik-book-002.html">2. Purity</option><option value="malik-book-003.html">3. Prayer</option><option value="malik-book-004.html">4. Forgetfulness in Prayer</option><option value="malik-book-005.html">5. Jumu&#x27;a</option><option value="malik-book-006.html">6. Prayer in Ramadan</option><option value="malik-book-007.html">7. Tahajjud</option><option value="malik-book-008.html">8. Prayer in Congregation</option><option value="malik-book-009.html">9. Shortening the Prayer</option><option value="malik-book-010.html">10. The Two &#x27;Ids</option><option value="malik-book-011.html">11. The Fear Prayer</option><option value="malik-book-012.html">12. The Eclipse Prayer</option><option value="malik-book-013.html">13. Asking for Rain</option><option value="malik-book-014.html">14. The Qibla</option><option value="malik-book-015.html">15. The Qur&#x27;an</option><option value="malik-book-016.html">16. Burials</option><option value="malik-book-017.html">17. Zakat</option><option value="malik-book-018.html">18. Fasting</option><option value="malik-book-019.html">19. I&#x27;tikaf in Ramadan</option><option value="malik-book-020.html">20. Hajj</option><option value="malik-book-000.html">21. General</option><option value="malik-book-021.html">22. Jihad</option><option value="malik-book-022.html">23. Vows and Oaths</option><option value="malik-book-023.html">24. Sacrificial Animals</option><option value="malik-book-024.html">25. Slaughtering Animals</option><option value="malik-book-025.html">26. Game</option><option value="malik-book-026.html">27. The &#x27;Aqiqa</option><option value="malik-book-027.html">28. Fara&#x27;id</option><option value="malik-book-028.html">29. Marriage</option><option value="malik-book-029.html">30. Divorce</option><option value="malik-book-030.html" selected>31. Suckling</option><option value="malik-book-031.html">32. Business Transactions</option><option value="malik-book-032.html">33. Qirad</option><option value="malik-book-033.html">34. Sharecropping</option><option value="malik-book-034.html">35. Renting Land</option><option value="malik-book-035.html">36. Pre-emption in Property</option><option value="malik-book-036.html">37. Judgements</option><option value="malik-book-037.html">38. Wills and Testaments</option><option value="malik-book-038.html">39. Setting Free and Wala&#x27;</option><option value="malik-book-039.html">40. The Mukatab</option><option value="malik-book-040.html">41. The Mudabbar</option><option value="malik-book-041.html">42. Hudud</option><option value="malik-book-042.html">43. Drinks</option><option value="malik-book-043.html">44. Blood-Money</option><option value="malik-book-044.html">45. The Oath of Qasama</option><option value="malik-book-045.html">46. Madina</option><option value="malik-book-046.html">47. The Decree</option><option value="malik-book-047.html">48. Good Character</option><option value="malik-book-048.html">49. Dress</option><option value="malik-book-049.html">50. The Description of the Prophet, may Allah Bless…</option><option value="malik-book-050.html">51. The Evil Eye</option><option value="malik-book-051.html">52. Hair</option><option value="malik-book-052.html">53. Visions</option><option value="malik-book-053.html">54. Greetings</option><option value="malik-book-054.html">55. General Subjects</option><option value="malik-book-055.html">56. The Oath of Allegiance</option><option value="malik-book-056.html">57. Speech</option><option value="malik-book-057.html">58. Jahannam</option><option value="malik-book-058.html">59. Sadaqa</option><option value="malik-book-059.html">60. Knowledge</option><option value="malik-book-060.html">61. The Supplication of the Unjustly Wronged</option><option value="malik-book-061.html">62. The Names of the Prophet, may Allah Bless Him and…</option></select>
   <a href="search.html" class="header-search">🔍 Search</a>
 </header>
 <main>
@@ -162,83 +294,85 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   Hadith 1272–1289 &nbsp;|&nbsp;
   <a href="malik.html">📚 Book Index</a>
 </div>
+<noscript><p class="noscript-warn">&#9888; The Hadith &amp; Content Filter requires JavaScript. All hadith are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='hvcSelectAll()'>Show All</button><button onclick='hvcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='hvc-from' min='1272' max='1289' value='1272'></label><label>To <input type='number' id='hvc-to' min='1272' max='1289' value='1289'></label><button onclick='hvcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='hcf-list'><span class='cf-item'><input type='checkbox' id='hcf-0' data-rowclass='arabic'><label for='hcf-0'>Arabic</label></span><span class='cf-item'><input type='checkbox' id='hcf-1' data-rowclass='eng'><label for='hcf-1'>English</label></span><span class='cf-item'><input type='checkbox' id='hcf-4' data-rowclass='grade'><label for='hcf-4'>Grade</label></span><span class='cf-item'><input type='checkbox' id='hcf-5' data-rowclass='ref'><label for='hcf-5'>Reference</label></span></div></div></details>
 <div class="table-wrap">
 <table>
 <thead><tr><th style="width:100px">Field</th><th>Content</th></tr></thead>
 <tbody>
-<tr id='h1272' class='hadith-sep'><td colspan='2'>Hadith 1272 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرٍ، عَنْ عَمْرَةَ بِنْتِ عَبْدِ الرَّحْمَنِ، أَنَّ عَائِشَةَ أُمَّ الْمُؤْمِنِينَ، أَخْبَرَتْهَا أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ عِنْدَهَا وَأَنَّهَا سَمِعَتْ صَوْتَ رَجُلٍ يَسْتَأْذِنُ فِي بَيْتِ حَفْصَةَ قَالَتْ عَائِشَةُ فَقُلْتُ يَا رَسُولَ اللَّهِ هَذَا رَجُلٌ يَسْتَأْذِنُ فِي بَيْتِكَ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أُرَاهُ فُلاَنًا ‏&quot;‏ ‏.‏ لِعَمٍّ لِحَفْصَةَ مِنَ الرَّضَاعَةِ ‏.‏ فَقَالَتْ عَائِشَةُ يَا رَسُولَ اللَّهِ لَوْ كَانَ فُلاَنٌ حَيًّا - لِعَمِّهَا مِنَ الرَّضَاعَةِ - دَخَلَ عَلَىَّ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ نَعَمْ إِنَّ الرَّضَاعَةَ تُحَرِّمُ مَا تُحَرِّمُ الْوِلاَدَةُ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Abi Bakr from Amra bint Abd ar-Rahman that A&#x27;isha, umm al-muminin informed her that the Messenger of Allah, may Allah bless him and grant him peace, was with her and she heard the voice of a man asking permission to enter the room of Hafsa. A&#x27;isha said that she had said, &quot;Messenger of Allah! There is a man asking permission to enter your house!&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;I think it is so-and-so&quot; (referring to a paternal uncle of Hafsa by suckling). A&#x27;isha said, &quot;Messenger of Allah! If so-and-so were alive (referring to her paternal uncle by suckling) could he enter where I am?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Yes. Suckling makes haram as birth makes haram</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 1</span></td></tr><tr id='h1273' class='hadith-sep'><td colspan='2'>Hadith 1273 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّهَا قَالَتْ جَاءَ عَمِّي مِنَ الرَّضَاعَةِ يَسْتَأْذِنُ عَلَىَّ فَأَبَيْتُ أَنْ آذَنَ لَهُ عَلَىَّ حَتَّى أَسْأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنْ ذَلِكَ فَجَاءَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَسَأَلْتُهُ عَنْ ذَلِكَ فَقَالَ ‏&quot;‏ إِنَّهُ عَمُّكِ فَأْذَنِي لَهُ ‏&quot;‏ ‏.‏ قَالَتْ فَقُلْتُ يَا رَسُولَ اللَّهِ إِنَّمَا أَرْضَعَتْنِي الْمَرْأَةُ وَلَمْ يُرْضِعْنِي الرَّجُلُ ‏.‏ فَقَالَ ‏&quot;‏ إِنَّهُ عَمُّكِ فَلْيَلِجْ عَلَيْكِ ‏&quot;‏ ‏.‏ قَالَتْ عَائِشَةُ وَذَلِكَ بَعْدَ مَا ضُرِبَ عَلَيْنَا الْحِجَابُ ‏.‏ وَقَالَتْ عَائِشَةُ يَحْرُمُ مِنَ الرَّضَاعَةِ مَا يَحْرُمُ مِنَ الْوِلاَدَةِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Hisham ibn Urwa from his father that A&#x27;isha, umm al-muminin said, &quot;My paternal uncle by suckling came to me and I refused to give him permission to enter until I had asked the Messenger of Allah, may Allah bless him and grant him peace, about it. The Messenger of Allah, may Allah bless him and grant him peace, came and I asked him about it. He said, &#x27;He is your paternal uncle, so give him permission.&#x27; So I said, &#x27;Messenger of Allah! The woman nursed me not the man.&#x27; He said, &#x27;He is your paternal uncle, so let him enter.&#x27; &quot; A&#x27;isha said, &quot;That was after the veil had been imposed on us.&quot; A&#x27;isha added, &quot;What is haram by birth is made haram by suckling</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 2</span></td></tr><tr id='h1274' class='hadith-sep'><td colspan='2'>Hadith 1274 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّهَا أَخْبَرَتْهُ أَنَّ أَفْلَحَ أَخَا أَبِي الْقُعَيْسِ جَاءَ يَسْتَأْذِنُ عَلَيْهَا وَهُوَ عَمُّهَا مِنَ الرَّضَاعَةِ بَعْدَ أَنْ أُنْزِلَ الْحِجَابُ قَالَتْ فَأَبَيْتُ أَنْ آذَنَ لَهُ عَلَىَّ فَلَمَّا جَاءَ رَسُولُ اللَّهِ صلى الله عليه وسلم أَخْبَرْتُهُ بِالَّذِي صَنَعْتُ فَأَمَرَنِي أَنْ آذَنَ لَهُ عَلَىَّ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab from Urwa ibn az- Zubayr that A&#x27;isha umm al-muminin told him that Aflah, the brother of Abu&#x27;l-Quays came and asked permission to visit her after the veil had been lowered, and he was her paternal uncle by suckling. She said, &quot;I refusedto give him permission to enter. When the Messenger of Allah, may Allah bless him and grant him peace, came, I told him about what I had done, and he ordered me to give him permission to enter</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 3</span></td></tr><tr id='h1275' class='hadith-sep'><td colspan='2'>Hadith 1275 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ ثَوْرِ بْنِ زَيْدٍ الدِّيلِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّهُ كَانَ يَقُولُ مَا كَانَ فِي الْحَوْلَيْنِ وَإِنْ كَانَ مَصَّةً وَاحِدَةً فَهُوَ يُحَرِّمُ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Thawr ibn Zayd ad-Dili that Abdullah ibn Abbas said, &quot;The milk which a child under two years old sucks, even if it is only one suck, makes the foster relatives haram</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 4</span></td></tr><tr id='h1276' class='hadith-sep'><td colspan='2'>Hadith 1276 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عَمْرِو بْنِ الشَّرِيدِ، أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، سُئِلَ عَنْ رَجُلٍ، كَانَتْ لَهُ امْرَأَتَانِ فَأَرْضَعَتْ إِحْدَاهُمَا غُلاَمًا وَأَرْضَعَتِ الأُخْرَى جَارِيَةً فَقِيلَ لَهُ هَلْ يَتَزَوَّجُ الْغُلاَمُ الْجَارِيَةَ فَقَالَ لاَ اللِّقَاحُ وَاحِدٌ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab from Amr ibn ash- Sharid that Abdullah ibn Abbas was asked whether, if a man had two wives, and one of them nursed a slave-boy, and the other had nursed a slave-girl, could the slave-boy marry the slave-girl. He said, &quot;No. The husband is the same</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 5</span></td></tr><tr id='h1277' class='hadith-sep'><td colspan='2'>Hadith 1277 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يَقُولُ لاَ رَضَاعَةَ إِلاَّ لِمَنْ أُرْضِعَ فِي الصِّغَرِ وَلاَ رَضَاعَةَ لِكَبِيرٍ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar said, &quot;There is no kinship by suckling except for a person who is nursed when he is small. There is no kinship by suckling over the age of two years</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 6</span></td></tr><tr id='h1278' class='hadith-sep'><td colspan='2'>Hadith 1278 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ سَالِمَ بْنَ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَخْبَرَهُ أَنَّ عَائِشَةَ أُمَّ الْمُؤْمِنِينَ أَرْسَلَتْ بِهِ وَهُوَ يَرْضَعُ إِلَى أُخْتِهَا أُمِّ كُلْثُومٍ بِنْتِ أَبِي بَكْرٍ الصِّدِّيقِ فَقَالَتْ أَرْضِعِيهِ عَشْرَ رَضَعَاتٍ حَتَّى يَدْخُلَ عَلَىَّ ‏.‏ قَالَ سَالِمٌ فَأَرْضَعَتْنِي أُمُّ كُلْثُومٍ ثَلاَثَ رَضَعَاتٍ ثُمَّ مَرِضَتْ فَلَمْ تُرْضِعْنِي غَيْرَ ثَلاَثِ رَضَعَاتٍ فَلَمْ أَكُنْ أَدْخُلُ عَلَى عَائِشَةَ مِنْ أَجْلِ أَنَّ أُمَّ كُلْثُومٍ لَمْ تُتِمَّ لِي عَشْرَ رَضَعَاتٍ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Salim ibn Abdullah ibn Umar informed him that A&#x27;isha umm al-muminin sent him away while he was being nursed to her sister Umm Kulthum bint Abi Bakr as-Siddiq and said, &quot;Suckle him ten times so that he can come in to see me.&quot; Salim said, &quot;Umm Kulthum nursed me three times and then fell ill, so that she only nursed me three times. I could not go in to see A&#x27;isha because Umm Kulthum did not finish for me the ten times</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 7</span></td></tr><tr id='h1279' class='hadith-sep'><td colspan='2'>Hadith 1279 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ صَفِيَّةَ بِنْتَ أَبِي عُبَيْدٍ، أَخْبَرَتْهُ أَنَّ حَفْصَةَ أُمَّ الْمُؤْمِنِينَ أَرْسَلَتْ بِعَاصِمِ بْنِ عَبْدِ اللَّهِ بْنِ سَعْدٍ إِلَى أُخْتِهَا فَاطِمَةَ بِنْتِ عُمَرَ بْنِ الْخَطَّابِ تُرْضِعُهُ عَشْرَ رَضَعَاتٍ لِيَدْخُلَ عَلَيْهَا وَهُوَ صَغِيرٌ يَرْضَعُ فَفَعَلَتْ فَكَانَ يَدْخُلُ عَلَيْهَا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Nafi that Safiyya bint Abi Ubayd told him that Hafsa, umm al-muminin, sent Asim ibn Abdullah ibn Sad to her sister Fatima bint Umar ibn al-Khattab for her to suckle him ten times so that he could come in to see her. She did it, so he used to come in to see her</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 8</span></td></tr><tr id='h1280' class='hadith-sep'><td colspan='2'>Hadith 1280 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، عَنْ أَبِيهِ، أَنَّهُ أَخْبَرَهُ أَنَّ عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَانَ يَدْخُلُ عَلَيْهَا مَنْ أَرْضَعَتْهُ أَخَوَاتُهَا وَبَنَاتُ أَخِيهَا وَلاَ يَدْخُلُ عَلَيْهَا مَنْ أَرْضَعَهُ نِسَاءُ إِخْوَتِهَا ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abd ar-Rahman ibn al-Qasim that his father told him that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, admitted those whom her sisters and the daughters of her brother had nursed, and she did not admit those who were nursed by the wives of her brothers</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 9</span></td></tr><tr id='h1281' class='hadith-sep'><td colspan='2'>Hadith 1281 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِبْرَاهِيمَ بْنِ عُقْبَةَ، أَنَّهُ سَأَلَ سَعِيدَ بْنَ الْمُسَيَّبِ عَنِ الرَّضَاعَةِ، فَقَالَ سَعِيدٌ كُلُّ مَا كَانَ فِي الْحَوْلَيْنِ وَإِنْ كَانَتْ قَطْرَةً وَاحِدَةً فَهُوَ يُحَرِّمُ وَمَا كَانَ بَعْدَ الْحَوْلَيْنِ فَإِنَّمَا هُوَ طَعَامٌ يَأْكُلُهُ ‏.‏ قَالَ إِبْرَاهِيمُ بْنُ عُقْبَةَ ثُمَّ سَأَلْتُ عُرْوَةَ بْنَ الزُّبَيْرِ فَقَالَ مِثْلَ مَا قَالَ سَعِيدُ بْنُ الْمُسَيَّبِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Ibrahim ibn Uqba asked Said ibn al-Musayyab about suckling. Said said, &quot;All that occurs in the first two years, even if it is only a drop, makes haram. Whatever is after two years, is only food that is eaten.&quot; Ibrahim ibn Uqba said, &#x27;&#x27;Then I asked Urwa ibn az-Zubayr and he told me the same as what Said ibn al-Musayyab said</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 10</span></td></tr><tr id='h1282' class='hadith-sep'><td colspan='2'>Hadith 1282 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ قَالَ سَمِعْتُ سَعِيدَ بْنَ الْمُسَيَّبِ، يَقُولُ لاَ رَضَاعَةَ إِلاَّ مَا كَانَ فِي الْمَهْدِ وَإِلاَّ مَا أَنْبَتَ اللَّحْمَ وَالدَّمَ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Yahya ibn Said said that he heard Said ibn al-Musayyab say, &quot;Suckling is only while the child is in the cradle. If not, it does not cause flesh and blood relations</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 11</span></td></tr><tr id='h1283' class='hadith-sep'><td colspan='2'>Hadith 1283 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ كَانَ يَقُولُ الرَّضَاعَةُ قَلِيلُهَا وَكَثِيرُهَا تُحَرِّمُ وَالرَّضَاعَةُ مِنْ قِبَلِ الرِّجَالِ تُحَرِّمُ ‏.‏ قَالَ يَحْيَى وَسَمِعْتُ مَالِكًا يَقُولُ الرَّضَاعَةُ قَلِيلُهَا وَكَثِيرُهَا إِذَا كَانَ فِي الْحَوْلَيْنِ تُحَرِّمُ فَأَمَّا مَا كَانَ بَعْدَ الْحَوْلَيْنِ فَإِنَّ قَلِيلَهُ وَكَثِيرَهُ لاَ يُحَرِّمُ شَيْئًا وَإِنَّمَا هُوَ بِمَنْزِلَةِ الطَّعَامِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab that he said, &quot;Suckling however little or much, makes haram. Kinship by suckling makes men mahram.&quot; Yahya said that he had heard Malik say, &quot;Suckling, however little or much when it is in the first two years, makes haram. As for what is after the first two years, little or much, it does not make anything haram. It is like food</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 12</span></td></tr><tr id='h1284' class='hadith-sep'><td colspan='2'>Hadith 1284 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ سُئِلَ عَنْ رَضَاعَةِ الْكَبِيرِ، فَقَالَ أَخْبَرَنِي عُرْوَةُ بْنُ الزُّبَيْرِ، أَنَّ أَبَا حُذَيْفَةَ بْنَ عُتْبَةَ بْنِ رَبِيعَةَ، وَكَانَ، مِنْ أَصْحَابِ رَسُولِ اللَّهِ صلى الله عليه وسلم وَكَانَ قَدْ شَهِدَ بَدْرًا وَكَانَ تَبَنَّى سَالِمًا الَّذِي يُقَالُ لَهُ سَالِمٌ مَوْلَى أَبِي حُذَيْفَةَ كَمَا تَبَنَّى رَسُولُ اللَّهِ صلى الله عليه وسلم زَيْدَ بْنَ حَارِثَةَ وَأَنْكَحَ أَبُو حُذَيْفَةَ سَالِمًا وَهُوَ يَرَى أَنَّهُ ابْنُهُ أَنْكَحَهُ بِنْتَ أَخِيهِ فَاطِمَةَ بِنْتَ الْوَلِيدِ بْنِ عُتْبَةَ بْنِ رَبِيعَةَ وَهِيَ يَوْمَئِذٍ مِنَ الْمُهَاجِرَاتِ الأُوَلِ وَهِيَ مِنْ أَفْضَلِ أَيَامَى قُرَيْشٍ فَلَمَّا أَنْزَلَ اللَّهُ تَعَالَى فِي كِتَابِهِ فِي زَيْدِ بْنِ حَارِثَةَ مَا أَنْزَلَ فَقَالَ ‏{‏ادْعُوهُمْ لآبَائِهِمْ هُوَ أَقْسَطُ عِنْدَ اللَّهِ فَإِنْ لَمْ تَعْلَمُوا آبَاءَهُمْ فَإِخْوَانُكُمْ فِي الدِّينِ وَمَوَالِيكُمْ‏}‏ رُدَّ كُلُّ وَاحِدٍ مِنْ أُولَئِكَ إِلَى أَبِيهِ فَإِنْ لَمْ يُعْلَمْ أَبُوهُ رُدَّ إِلَى مَوْلاَهُ فَجَاءَتْ سَهْلَةُ بِنْتُ سُهَيْلٍ وَهِيَ امْرَأَةُ أَبِي حُذَيْفَةَ وَهِيَ مِنْ بَنِي عَامِرِ بْنِ لُؤَىٍّ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَتْ يَا رَسُولَ اللَّهِ كُنَّا نَرَى سَالِمًا وَلَدًا وَكَانَ يَدْخُلُ عَلَىَّ وَأَنَا فُضُلٌ وَلَيْسَ لَنَا إِلاَّ بَيْتٌ وَاحِدٌ فَمَاذَا تَرَى فِي شَأْنِهِ فَقَالَ لَهَا رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَرْضِعِيهِ خَمْسَ رَضَعَاتٍ فَيَحْرُمُ بِلَبَنِهَا ‏&quot;‏ ‏.‏ وَكَانَتْ تَرَاهُ ابْنًا مِنَ الرَّضَاعَةِ فَأَخَذَتْ بِذَلِكَ عَائِشَةُ أُمُّ الْمُؤْمِنِينَ فِيمَنْ كَانَتْ تُحِبُّ أَنْ يَدْخُلَ عَلَيْهَا مِنَ الرِّجَالِ فَكَانَتْ تَأْمُرُ أُخْتَهَا أُمَّ كُلْثُومٍ بِنْتَ أَبِي بَكْرٍ الصِّدِّيقِ وَبَنَاتِ أَخِيهَا أَنْ يُرْضِعْنَ مَنْ أَحَبَّتْ أَنْ يَدْخُلَ عَلَيْهَا مِنَ الرِّجَالِ وَأَبَى سَائِرُ أَزْوَاجِ النَّبِيِّ صلى الله عليه وسلم أَنْ يَدْخُلَ عَلَيْهِنَّ بِتِلْكَ الرَّضَاعَةِ أَحَدٌ مِنَ النَّاسِ وَقُلْنَ لاَ وَاللَّهِ مَا نَرَى الَّذِي أَمَرَ بِهِ رَسُولُ اللَّهِ صلى الله عليه وسلم سَهْلَةَ بِنْتَ سُهَيْلٍ إِلاَّ رُخْصَةً مِنْ رَسُولِ اللَّهِ صلى الله عليه وسلم فِي رَضَاعَةِ سَالِمٍ وَحْدَهُ لاَ وَاللَّهِ لاَ يَدْخُلُ عَلَيْنَا بِهَذِهِ الرَّضَاعَةِ أَحَدٌ فَعَلَى هَذَا كَانَ أَزْوَاجُ النَّبِيِّ صلى الله عليه وسلم فِي رَضَاعَةِ الْكَبِيرِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Ibn Shihab that he was asked about the suckling of an older person. He said, &#x27;&#x27;Urwa ibn az-Zubayr informed me that Abu Hudhayfa ibn Utba ibn Rabia, one of the companions of the Messenger of Allah, may Allah bless him and grant him peace, who was present at Badr, adopted Salim (who is called Salim, the mawla of Abu Hudhayfa) as the Messenger of Allah, may Allah bless him and grant him peace, adopted Zayd ibn Haritha. He thought of him as his son, and Abu Hudhayfa married him to his brother&#x27;s sister, Fatima bint al-Walid ibn Utba ibn Rabia, who was at that time among the first emigrants. She was one of the best unmarried women of the Quraysh. When Allah the Exalted sent down in His Book what He sent down about Zayd ibn Haritha, &#x27;Call them after their true fathers. That is more equitable in the sight of Allah. If you do not know who their fathers were then they are your brothers in the deen and your mawali,&#x27; (Sura 33 ayat 5) people in this position were traced back to their fathers. When the father was not known, they were traced to their mawla. &quot;Sahla bint Suhayl who was the wife of Abu Hudhayfa, and one of the tribe of Amr ibn Luayy, came to the Messenger of Allah, may Allah bless him and grant him peace, and said, &#x27;Messenger of Allah! We think of Salim as a son and he comes in to see me while I am uncovered. We only have one room, so what do you think about the situation?&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Give him five drinks of your milk and he will be mahram by it.&#x27; She then saw him as a foster son. A&#x27;isha umm al-muminin took that as a precedent for whatever men she wanted to be able to come to see her. She ordered her sister, Umm Kulthum bint Abi Bakr as-Siddiq and the daughters of her brother to give milk to whichever men she wanted to be able to come in to see her. The rest of the wives of the Prophet, may Allah bless him and grant him peace, refused to let anyone come in to them by such nursing. They said, &#x27;No! By Allah! We think that what the Messenger of Allah, may Allah bless him and grant him peace, ordered Sahla bint Suhayl to do was only an indulgence concerning the nursing of Salim alone. No! By Allah! No one will come in upon us by such nursing!&#x27; &quot;This is what the wives of the Prophet, may Allah bless him and grant him peace, thought about the suckling of an older person</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Hasan</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 13</span></td></tr><tr id='h1285' class='hadith-sep'><td colspan='2'>Hadith 1285 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، أَنَّهُ قَالَ جَاءَ رَجُلٌ إِلَى عَبْدِ اللَّهِ بْنِ عُمَرَ وَأَنَا مَعَهُ عِنْدَ دَارِ الْقَضَاءِ يَسْأَلُهُ عَنْ رَضَاعَةِ الْكَبِيرِ فَقَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ جَاءَ رَجُلٌ إِلَى عُمَرَ بْنِ الْخَطَّابِ فَقَالَ إِنِّي كَانَتْ لِي وَلِيدَةٌ وَكُنْتُ أَطَؤُهَا فَعَمَدَتِ امْرَأَتِي إِلَيْهَا فَأَرْضَعَتْهَا فَدَخَلْتُ عَلَيْهَا فَقَالَتْ دُونَكَ فَقَدْ وَاللَّهِ أَرْضَعْتُهَا ‏.‏ فَقَالَ عُمَرُ أَوْجِعْهَا وَأْتِ جَارِيتَكَ فَإِنَّمَا الرَّضَاعَةُ رَضَاعَةُ الصَّغِيرِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Abdullah ibn Dinar said, &quot;A man came to Abdullah ibn Umar when I waswith him at the place where judgments were given and asked him about the suckling of an older person. Abdullah ibn Umar replied, &#x27;A man came to Umar ibn al-Khattab and said, &#x27;I have a slave-girl and I used to have intercourse with her. My wife went to her and suckled her. When I went to the girl, my wife told me to watch out, because she had suckled her!&#x27; Umar told him to beat his wife and to go to his slave-girl because kinship by suckling was only by the suckling of the young</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 14</span></td></tr><tr id='h1286' class='hadith-sep'><td colspan='2'>Hadith 1286 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ رَجُلاً، سَأَلَ أَبَا مُوسَى الأَشْعَرِيَّ فَقَالَ إِنِّي مَصِصْتُ عَنِ امْرَأَتِي، مِنْ ثَدْيِهَا لَبَنًا فَذَهَبَ فِي بَطْنِي فَقَالَ أَبُو مُوسَى لاَ أُرَاهَا إِلاَّ قَدْ حَرُمَتْ عَلَيْكَ ‏.‏ فَقَالَ عَبْدُ اللَّهِ بْنُ مَسْعُودٍ انْظُرْ مَاذَا تُفْتِي بِهِ الرَّجُلَ فَقَالَ أَبُو مُوسَى فَمَاذَا تَقُولُ أَنْتَ فَقَالَ عَبْدُ اللَّهِ بْنُ مَسْعُودٍ لاَ رَضَاعَةَ إِلاَّ مَا كَانَ فِي الْحَوْلَيْنِ ‏.‏ فَقَالَ أَبُو مُوسَى لاَ تَسْأَلُونِي عَنْ شَىْءٍ مَا كَانَ هَذَا الْحَبْرُ بَيْنَ أَظْهُرِكُمْ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Yahya ibn Said that a man said to Abu Musa al-Ashari, &quot;I drank some milk from my wife&#x27;s breasts and it went into my stomach.&quot; Abu Musa said, &quot;I can only but think that she is haram for you.&quot; Abdullah ibn Masud said, &quot;Look at what opinion you are giving the man.&quot; Abu Musa said, &quot;Then what do you say?&quot; Abdullah ibn Masud said, &quot;There is only kinship by suckling in the first two years.&quot; Abu Musa said, &quot;Do not ask me about anything while this learned man is among you</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 15</span></td></tr><tr id='h1287' class='hadith-sep'><td colspan='2'>Hadith 1287 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ سُلَيْمَانَ بْنِ يَسَارٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ يَحْرُمُ مِنَ الرَّضَاعَةِ مَا يَحْرُمُ مِنَ الْوِلاَدَةِ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Dinar from Sulayman ibn Yasar and from Urwa ibn az-Zubayr from A&#x27;isha umm al- muminin, that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot; What is haram by birth is haram by suckling</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 16</span></td></tr><tr id='h1288' class='hadith-sep'><td colspan='2'>Hadith 1288 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ نَوْفَلٍ، أَنَّهُ قَالَ أَخْبَرَنِي عُرْوَةُ بْنُ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، عَنْ جُدَامَةَ بِنْتِ وَهْبٍ الأَسَدِيَّةِ، أَنَّهَا أَخْبَرَتْهَا أَنَّهَا، سَمِعَتْ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ لَقَدْ هَمَمْتُ أَنْ أَنْهَى عَنِ الْغِيلَةِ حَتَّى ذَكَرْتُ أَنَّ الرُّومَ وَفَارِسَ يَصْنَعُونَ ذَلِكَ فَلاَ يَضُرُّ أَوْلاَدَهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik that Muhammad ibn Abd ar-Rahman ibn Nawfal said, &#x27;&#x27;Urwa ibn az-Zubayr informed me from A&#x27;isha umm al- muminin that Judama bint Wahb al-Asadiyya informed her that she heard the Messenger of Allah, may Allah bless him and grant him peace, say, &#x27;I intended to prohibit ghila but I remembered that the Greeks and Persians do that without it causing any injury to their children.&#x27; &quot; Malik explained, &quot;Ghila is that a man has intercourse with his wife while she is suckling</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 17</span></td></tr><tr id='h1289' class='hadith-sep'><td colspan='2'>Hadith 1289 — Suckling</td></tr>
-<tr class='arabic'><td class='label'>Arabic</td><td><span class='arabic-text'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ حَزْمٍ، عَنْ عَمْرَةَ بِنْتِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ كَانَ فِيمَا أُنْزِلَ مِنَ الْقُرْآنِ عَشْرُ رَضَعَاتٍ مَعْلُومَاتٍ يُحَرِّمْنَ ثُمَّ نُسِخْنَ بِخَمْسٍ مَعْلُومَاتٍ فَتُوُفِّيَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَهُوَ فِيمَا يُقْرَأُ مِنَ الْقُرْآنِ ‏.‏</span></td></tr>
-<tr class='eng'><td class='label'>English</td><td><span class='eng-text'>Yahya related to me from Malik from Abdullah ibn Abi Bakr ibn Hazm from Amra bint Abd ar-Rahman that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;Amongst what was sent down of the Qur&#x27;an was &#x27;ten known sucklings make haram&#x27; - then it was abrogated by &#x27;five known sucklings&#x27;. When the Messenger of Allah, may Allah bless him and grant him peace, died, it was what is now recited of the Qur&#x27;an.&quot; Yahya said that Malik said, &quot;One does not act on this</span></td></tr>
-<tr class='grade'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
-<tr class='ref'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 18</span></td></tr>
+<tr id='h1272' class='hadith-sep' data-hadith='1272'><td colspan='2'><a class='permalink' href='#h1272'>Hadith 1272</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1272'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرٍ، عَنْ عَمْرَةَ بِنْتِ عَبْدِ الرَّحْمَنِ، أَنَّ عَائِشَةَ أُمَّ الْمُؤْمِنِينَ، أَخْبَرَتْهَا أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ عِنْدَهَا وَأَنَّهَا سَمِعَتْ صَوْتَ رَجُلٍ يَسْتَأْذِنُ فِي بَيْتِ حَفْصَةَ قَالَتْ عَائِشَةُ فَقُلْتُ يَا رَسُولَ اللَّهِ هَذَا رَجُلٌ يَسْتَأْذِنُ فِي بَيْتِكَ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أُرَاهُ فُلاَنًا ‏&quot;‏ ‏.‏ لِعَمٍّ لِحَفْصَةَ مِنَ الرَّضَاعَةِ ‏.‏ فَقَالَتْ عَائِشَةُ يَا رَسُولَ اللَّهِ لَوْ كَانَ فُلاَنٌ حَيًّا - لِعَمِّهَا مِنَ الرَّضَاعَةِ - دَخَلَ عَلَىَّ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ نَعَمْ إِنَّ الرَّضَاعَةَ تُحَرِّمُ مَا تُحَرِّمُ الْوِلاَدَةُ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1272'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abdullah ibn Abi Bakr from Amra bint Abd ar-Rahman that A&#x27;isha, umm al-muminin informed her that the Messenger of Allah, may Allah bless him and grant him peace, was with her and she heard the voice of a man asking permission to enter the room of Hafsa. A&#x27;isha said that she had said, &quot;Messenger of Allah! There is a man asking permission to enter your house!&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;I think it is so-and-so&quot; (referring to a paternal uncle of Hafsa by suckling). A&#x27;isha said, &quot;Messenger of Allah! If so-and-so were alive (referring to her paternal uncle by suckling) could he enter where I am?&quot; The Messenger of Allah, may Allah bless him and grant him peace, said, &quot;Yes. Suckling makes haram as birth makes haram</span></td></tr>
+<tr class='grade' data-hadith='1272'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1272'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 1</span></td></tr><tr id='h1273' class='hadith-sep' data-hadith='1273'><td colspan='2'><a class='permalink' href='#h1273'>Hadith 1273</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1273'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّهَا قَالَتْ جَاءَ عَمِّي مِنَ الرَّضَاعَةِ يَسْتَأْذِنُ عَلَىَّ فَأَبَيْتُ أَنْ آذَنَ لَهُ عَلَىَّ حَتَّى أَسْأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنْ ذَلِكَ فَجَاءَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَسَأَلْتُهُ عَنْ ذَلِكَ فَقَالَ ‏&quot;‏ إِنَّهُ عَمُّكِ فَأْذَنِي لَهُ ‏&quot;‏ ‏.‏ قَالَتْ فَقُلْتُ يَا رَسُولَ اللَّهِ إِنَّمَا أَرْضَعَتْنِي الْمَرْأَةُ وَلَمْ يُرْضِعْنِي الرَّجُلُ ‏.‏ فَقَالَ ‏&quot;‏ إِنَّهُ عَمُّكِ فَلْيَلِجْ عَلَيْكِ ‏&quot;‏ ‏.‏ قَالَتْ عَائِشَةُ وَذَلِكَ بَعْدَ مَا ضُرِبَ عَلَيْنَا الْحِجَابُ ‏.‏ وَقَالَتْ عَائِشَةُ يَحْرُمُ مِنَ الرَّضَاعَةِ مَا يَحْرُمُ مِنَ الْوِلاَدَةِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1273'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father that A&#x27;isha, umm al-muminin said, &quot;My paternal uncle by suckling came to me and I refused to give him permission to enter until I had asked the Messenger of Allah, may Allah bless him and grant him peace, about it. The Messenger of Allah, may Allah bless him and grant him peace, came and I asked him about it. He said, &#x27;He is your paternal uncle, so give him permission.&#x27; So I said, &#x27;Messenger of Allah! The woman nursed me not the man.&#x27; He said, &#x27;He is your paternal uncle, so let him enter.&#x27; &quot; A&#x27;isha said, &quot;That was after the veil had been imposed on us.&quot; A&#x27;isha added, &quot;What is haram by birth is made haram by suckling</span></td></tr>
+<tr class='grade' data-hadith='1273'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1273'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 2</span></td></tr><tr id='h1274' class='hadith-sep' data-hadith='1274'><td colspan='2'><a class='permalink' href='#h1274'>Hadith 1274</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1274'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّهَا أَخْبَرَتْهُ أَنَّ أَفْلَحَ أَخَا أَبِي الْقُعَيْسِ جَاءَ يَسْتَأْذِنُ عَلَيْهَا وَهُوَ عَمُّهَا مِنَ الرَّضَاعَةِ بَعْدَ أَنْ أُنْزِلَ الْحِجَابُ قَالَتْ فَأَبَيْتُ أَنْ آذَنَ لَهُ عَلَىَّ فَلَمَّا جَاءَ رَسُولُ اللَّهِ صلى الله عليه وسلم أَخْبَرْتُهُ بِالَّذِي صَنَعْتُ فَأَمَرَنِي أَنْ آذَنَ لَهُ عَلَىَّ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1274'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Urwa ibn az- Zubayr that A&#x27;isha umm al-muminin told him that Aflah, the brother of Abu&#x27;l-Quays came and asked permission to visit her after the veil had been lowered, and he was her paternal uncle by suckling. She said, &quot;I refusedto give him permission to enter. When the Messenger of Allah, may Allah bless him and grant him peace, came, I told him about what I had done, and he ordered me to give him permission to enter</span></td></tr>
+<tr class='grade' data-hadith='1274'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1274'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 3</span></td></tr><tr id='h1275' class='hadith-sep' data-hadith='1275'><td colspan='2'><a class='permalink' href='#h1275'>Hadith 1275</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1275'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ ثَوْرِ بْنِ زَيْدٍ الدِّيلِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّهُ كَانَ يَقُولُ مَا كَانَ فِي الْحَوْلَيْنِ وَإِنْ كَانَ مَصَّةً وَاحِدَةً فَهُوَ يُحَرِّمُ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1275'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Thawr ibn Zayd ad-Dili that Abdullah ibn Abbas said, &quot;The milk which a child under two years old sucks, even if it is only one suck, makes the foster relatives haram</span></td></tr>
+<tr class='grade' data-hadith='1275'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1275'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 4</span></td></tr><tr id='h1276' class='hadith-sep' data-hadith='1276'><td colspan='2'><a class='permalink' href='#h1276'>Hadith 1276</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1276'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عَمْرِو بْنِ الشَّرِيدِ، أَنَّ عَبْدَ اللَّهِ بْنَ عَبَّاسٍ، سُئِلَ عَنْ رَجُلٍ، كَانَتْ لَهُ امْرَأَتَانِ فَأَرْضَعَتْ إِحْدَاهُمَا غُلاَمًا وَأَرْضَعَتِ الأُخْرَى جَارِيَةً فَقِيلَ لَهُ هَلْ يَتَزَوَّجُ الْغُلاَمُ الْجَارِيَةَ فَقَالَ لاَ اللِّقَاحُ وَاحِدٌ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1276'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab from Amr ibn ash- Sharid that Abdullah ibn Abbas was asked whether, if a man had two wives, and one of them nursed a slave-boy, and the other had nursed a slave-girl, could the slave-boy marry the slave-girl. He said, &quot;No. The husband is the same</span></td></tr>
+<tr class='grade' data-hadith='1276'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1276'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 5</span></td></tr><tr id='h1277' class='hadith-sep' data-hadith='1277'><td colspan='2'><a class='permalink' href='#h1277'>Hadith 1277</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1277'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، كَانَ يَقُولُ لاَ رَضَاعَةَ إِلاَّ لِمَنْ أُرْضِعَ فِي الصِّغَرِ وَلاَ رَضَاعَةَ لِكَبِيرٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1277'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Abdullah ibn Umar said, &quot;There is no kinship by suckling except for a person who is nursed when he is small. There is no kinship by suckling over the age of two years</span></td></tr>
+<tr class='grade' data-hadith='1277'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1277'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 6</span></td></tr><tr id='h1278' class='hadith-sep' data-hadith='1278'><td colspan='2'><a class='permalink' href='#h1278'>Hadith 1278</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1278'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ سَالِمَ بْنَ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَخْبَرَهُ أَنَّ عَائِشَةَ أُمَّ الْمُؤْمِنِينَ أَرْسَلَتْ بِهِ وَهُوَ يَرْضَعُ إِلَى أُخْتِهَا أُمِّ كُلْثُومٍ بِنْتِ أَبِي بَكْرٍ الصِّدِّيقِ فَقَالَتْ أَرْضِعِيهِ عَشْرَ رَضَعَاتٍ حَتَّى يَدْخُلَ عَلَىَّ ‏.‏ قَالَ سَالِمٌ فَأَرْضَعَتْنِي أُمُّ كُلْثُومٍ ثَلاَثَ رَضَعَاتٍ ثُمَّ مَرِضَتْ فَلَمْ تُرْضِعْنِي غَيْرَ ثَلاَثِ رَضَعَاتٍ فَلَمْ أَكُنْ أَدْخُلُ عَلَى عَائِشَةَ مِنْ أَجْلِ أَنَّ أُمَّ كُلْثُومٍ لَمْ تُتِمَّ لِي عَشْرَ رَضَعَاتٍ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1278'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Salim ibn Abdullah ibn Umar informed him that A&#x27;isha umm al-muminin sent him away while he was being nursed to her sister Umm Kulthum bint Abi Bakr as-Siddiq and said, &quot;Suckle him ten times so that he can come in to see me.&quot; Salim said, &quot;Umm Kulthum nursed me three times and then fell ill, so that she only nursed me three times. I could not go in to see A&#x27;isha because Umm Kulthum did not finish for me the ten times</span></td></tr>
+<tr class='grade' data-hadith='1278'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Daif</span></td></tr>
+<tr class='ref' data-hadith='1278'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 7</span></td></tr><tr id='h1279' class='hadith-sep' data-hadith='1279'><td colspan='2'><a class='permalink' href='#h1279'>Hadith 1279</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1279'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، أَنَّ صَفِيَّةَ بِنْتَ أَبِي عُبَيْدٍ، أَخْبَرَتْهُ أَنَّ حَفْصَةَ أُمَّ الْمُؤْمِنِينَ أَرْسَلَتْ بِعَاصِمِ بْنِ عَبْدِ اللَّهِ بْنِ سَعْدٍ إِلَى أُخْتِهَا فَاطِمَةَ بِنْتِ عُمَرَ بْنِ الْخَطَّابِ تُرْضِعُهُ عَشْرَ رَضَعَاتٍ لِيَدْخُلَ عَلَيْهَا وَهُوَ صَغِيرٌ يَرْضَعُ فَفَعَلَتْ فَكَانَ يَدْخُلُ عَلَيْهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1279'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Nafi that Safiyya bint Abi Ubayd told him that Hafsa, umm al-muminin, sent Asim ibn Abdullah ibn Sad to her sister Fatima bint Umar ibn al-Khattab for her to suckle him ten times so that he could come in to see her. She did it, so he used to come in to see her</span></td></tr>
+<tr class='grade' data-hadith='1279'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1279'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 8</span></td></tr><tr id='h1280' class='hadith-sep' data-hadith='1280'><td colspan='2'><a class='permalink' href='#h1280'>Hadith 1280</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1280'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْقَاسِمِ، عَنْ أَبِيهِ، أَنَّهُ أَخْبَرَهُ أَنَّ عَائِشَةَ زَوْجَ النَّبِيِّ صلى الله عليه وسلم كَانَ يَدْخُلُ عَلَيْهَا مَنْ أَرْضَعَتْهُ أَخَوَاتُهَا وَبَنَاتُ أَخِيهَا وَلاَ يَدْخُلُ عَلَيْهَا مَنْ أَرْضَعَهُ نِسَاءُ إِخْوَتِهَا ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1280'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abd ar-Rahman ibn al-Qasim that his father told him that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, admitted those whom her sisters and the daughters of her brother had nursed, and she did not admit those who were nursed by the wives of her brothers</span></td></tr>
+<tr class='grade' data-hadith='1280'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1280'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 9</span></td></tr><tr id='h1281' class='hadith-sep' data-hadith='1281'><td colspan='2'><a class='permalink' href='#h1281'>Hadith 1281</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1281'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ إِبْرَاهِيمَ بْنِ عُقْبَةَ، أَنَّهُ سَأَلَ سَعِيدَ بْنَ الْمُسَيَّبِ عَنِ الرَّضَاعَةِ، فَقَالَ سَعِيدٌ كُلُّ مَا كَانَ فِي الْحَوْلَيْنِ وَإِنْ كَانَتْ قَطْرَةً وَاحِدَةً فَهُوَ يُحَرِّمُ وَمَا كَانَ بَعْدَ الْحَوْلَيْنِ فَإِنَّمَا هُوَ طَعَامٌ يَأْكُلُهُ ‏.‏ قَالَ إِبْرَاهِيمُ بْنُ عُقْبَةَ ثُمَّ سَأَلْتُ عُرْوَةَ بْنَ الزُّبَيْرِ فَقَالَ مِثْلَ مَا قَالَ سَعِيدُ بْنُ الْمُسَيَّبِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1281'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Ibrahim ibn Uqba asked Said ibn al-Musayyab about suckling. Said said, &quot;All that occurs in the first two years, even if it is only a drop, makes haram. Whatever is after two years, is only food that is eaten.&quot; Ibrahim ibn Uqba said, &#x27;&#x27;Then I asked Urwa ibn az-Zubayr and he told me the same as what Said ibn al-Musayyab said</span></td></tr>
+<tr class='grade' data-hadith='1281'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='1281'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 10</span></td></tr><tr id='h1282' class='hadith-sep' data-hadith='1282'><td colspan='2'><a class='permalink' href='#h1282'>Hadith 1282</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1282'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ قَالَ سَمِعْتُ سَعِيدَ بْنَ الْمُسَيَّبِ، يَقُولُ لاَ رَضَاعَةَ إِلاَّ مَا كَانَ فِي الْمَهْدِ وَإِلاَّ مَا أَنْبَتَ اللَّحْمَ وَالدَّمَ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1282'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Yahya ibn Said said that he heard Said ibn al-Musayyab say, &quot;Suckling is only while the child is in the cradle. If not, it does not cause flesh and blood relations</span></td></tr>
+<tr class='grade' data-hadith='1282'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='1282'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 11</span></td></tr><tr id='h1283' class='hadith-sep' data-hadith='1283'><td colspan='2'><a class='permalink' href='#h1283'>Hadith 1283</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1283'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ كَانَ يَقُولُ الرَّضَاعَةُ قَلِيلُهَا وَكَثِيرُهَا تُحَرِّمُ وَالرَّضَاعَةُ مِنْ قِبَلِ الرِّجَالِ تُحَرِّمُ ‏.‏ قَالَ يَحْيَى وَسَمِعْتُ مَالِكًا يَقُولُ الرَّضَاعَةُ قَلِيلُهَا وَكَثِيرُهَا إِذَا كَانَ فِي الْحَوْلَيْنِ تُحَرِّمُ فَأَمَّا مَا كَانَ بَعْدَ الْحَوْلَيْنِ فَإِنَّ قَلِيلَهُ وَكَثِيرَهُ لاَ يُحَرِّمُ شَيْئًا وَإِنَّمَا هُوَ بِمَنْزِلَةِ الطَّعَامِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1283'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that he said, &quot;Suckling however little or much, makes haram. Kinship by suckling makes men mahram.&quot; Yahya said that he had heard Malik say, &quot;Suckling, however little or much when it is in the first two years, makes haram. As for what is after the first two years, little or much, it does not make anything haram. It is like food</span></td></tr>
+<tr class='grade' data-hadith='1283'><td class='label'>Grade</td><td><span class='grade-text'>Maqtu Sahih</span></td></tr>
+<tr class='ref' data-hadith='1283'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 12</span></td></tr><tr id='h1284' class='hadith-sep' data-hadith='1284'><td colspan='2'><a class='permalink' href='#h1284'>Hadith 1284</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1284'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، أَنَّهُ سُئِلَ عَنْ رَضَاعَةِ الْكَبِيرِ، فَقَالَ أَخْبَرَنِي عُرْوَةُ بْنُ الزُّبَيْرِ، أَنَّ أَبَا حُذَيْفَةَ بْنَ عُتْبَةَ بْنِ رَبِيعَةَ، وَكَانَ، مِنْ أَصْحَابِ رَسُولِ اللَّهِ صلى الله عليه وسلم وَكَانَ قَدْ شَهِدَ بَدْرًا وَكَانَ تَبَنَّى سَالِمًا الَّذِي يُقَالُ لَهُ سَالِمٌ مَوْلَى أَبِي حُذَيْفَةَ كَمَا تَبَنَّى رَسُولُ اللَّهِ صلى الله عليه وسلم زَيْدَ بْنَ حَارِثَةَ وَأَنْكَحَ أَبُو حُذَيْفَةَ سَالِمًا وَهُوَ يَرَى أَنَّهُ ابْنُهُ أَنْكَحَهُ بِنْتَ أَخِيهِ فَاطِمَةَ بِنْتَ الْوَلِيدِ بْنِ عُتْبَةَ بْنِ رَبِيعَةَ وَهِيَ يَوْمَئِذٍ مِنَ الْمُهَاجِرَاتِ الأُوَلِ وَهِيَ مِنْ أَفْضَلِ أَيَامَى قُرَيْشٍ فَلَمَّا أَنْزَلَ اللَّهُ تَعَالَى فِي كِتَابِهِ فِي زَيْدِ بْنِ حَارِثَةَ مَا أَنْزَلَ فَقَالَ ‏{‏ادْعُوهُمْ لآبَائِهِمْ هُوَ أَقْسَطُ عِنْدَ اللَّهِ فَإِنْ لَمْ تَعْلَمُوا آبَاءَهُمْ فَإِخْوَانُكُمْ فِي الدِّينِ وَمَوَالِيكُمْ‏}‏ رُدَّ كُلُّ وَاحِدٍ مِنْ أُولَئِكَ إِلَى أَبِيهِ فَإِنْ لَمْ يُعْلَمْ أَبُوهُ رُدَّ إِلَى مَوْلاَهُ فَجَاءَتْ سَهْلَةُ بِنْتُ سُهَيْلٍ وَهِيَ امْرَأَةُ أَبِي حُذَيْفَةَ وَهِيَ مِنْ بَنِي عَامِرِ بْنِ لُؤَىٍّ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَقَالَتْ يَا رَسُولَ اللَّهِ كُنَّا نَرَى سَالِمًا وَلَدًا وَكَانَ يَدْخُلُ عَلَىَّ وَأَنَا فُضُلٌ وَلَيْسَ لَنَا إِلاَّ بَيْتٌ وَاحِدٌ فَمَاذَا تَرَى فِي شَأْنِهِ فَقَالَ لَهَا رَسُولُ اللَّهِ صلى الله عليه وسلم ‏&quot;‏ أَرْضِعِيهِ خَمْسَ رَضَعَاتٍ فَيَحْرُمُ بِلَبَنِهَا ‏&quot;‏ ‏.‏ وَكَانَتْ تَرَاهُ ابْنًا مِنَ الرَّضَاعَةِ فَأَخَذَتْ بِذَلِكَ عَائِشَةُ أُمُّ الْمُؤْمِنِينَ فِيمَنْ كَانَتْ تُحِبُّ أَنْ يَدْخُلَ عَلَيْهَا مِنَ الرِّجَالِ فَكَانَتْ تَأْمُرُ أُخْتَهَا أُمَّ كُلْثُومٍ بِنْتَ أَبِي بَكْرٍ الصِّدِّيقِ وَبَنَاتِ أَخِيهَا أَنْ يُرْضِعْنَ مَنْ أَحَبَّتْ أَنْ يَدْخُلَ عَلَيْهَا مِنَ الرِّجَالِ وَأَبَى سَائِرُ أَزْوَاجِ النَّبِيِّ صلى الله عليه وسلم أَنْ يَدْخُلَ عَلَيْهِنَّ بِتِلْكَ الرَّضَاعَةِ أَحَدٌ مِنَ النَّاسِ وَقُلْنَ لاَ وَاللَّهِ مَا نَرَى الَّذِي أَمَرَ بِهِ رَسُولُ اللَّهِ صلى الله عليه وسلم سَهْلَةَ بِنْتَ سُهَيْلٍ إِلاَّ رُخْصَةً مِنْ رَسُولِ اللَّهِ صلى الله عليه وسلم فِي رَضَاعَةِ سَالِمٍ وَحْدَهُ لاَ وَاللَّهِ لاَ يَدْخُلُ عَلَيْنَا بِهَذِهِ الرَّضَاعَةِ أَحَدٌ فَعَلَى هَذَا كَانَ أَزْوَاجُ النَّبِيِّ صلى الله عليه وسلم فِي رَضَاعَةِ الْكَبِيرِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1284'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Ibn Shihab that he was asked about the suckling of an older person. He said, &#x27;&#x27;Urwa ibn az-Zubayr informed me that Abu Hudhayfa ibn Utba ibn Rabia, one of the companions of the Messenger of Allah, may Allah bless him and grant him peace, who was present at Badr, adopted Salim (who is called Salim, the mawla of Abu Hudhayfa) as the Messenger of Allah, may Allah bless him and grant him peace, adopted Zayd ibn Haritha. He thought of him as his son, and Abu Hudhayfa married him to his brother&#x27;s sister, Fatima bint al-Walid ibn Utba ibn Rabia, who was at that time among the first emigrants. She was one of the best unmarried women of the Quraysh. When Allah the Exalted sent down in His Book what He sent down about Zayd ibn Haritha, &#x27;Call them after their true fathers. That is more equitable in the sight of Allah. If you do not know who their fathers were then they are your brothers in the deen and your mawali,&#x27; (Sura 33 ayat 5) people in this position were traced back to their fathers. When the father was not known, they were traced to their mawla. &quot;Sahla bint Suhayl who was the wife of Abu Hudhayfa, and one of the tribe of Amr ibn Luayy, came to the Messenger of Allah, may Allah bless him and grant him peace, and said, &#x27;Messenger of Allah! We think of Salim as a son and he comes in to see me while I am uncovered. We only have one room, so what do you think about the situation?&#x27; The Messenger of Allah, may Allah bless him and grant him peace, said, &#x27;Give him five drinks of your milk and he will be mahram by it.&#x27; She then saw him as a foster son. A&#x27;isha umm al-muminin took that as a precedent for whatever men she wanted to be able to come to see her. She ordered her sister, Umm Kulthum bint Abi Bakr as-Siddiq and the daughters of her brother to give milk to whichever men she wanted to be able to come in to see her. The rest of the wives of the Prophet, may Allah bless him and grant him peace, refused to let anyone come in to them by such nursing. They said, &#x27;No! By Allah! We think that what the Messenger of Allah, may Allah bless him and grant him peace, ordered Sahla bint Suhayl to do was only an indulgence concerning the nursing of Salim alone. No! By Allah! No one will come in upon us by such nursing!&#x27; &quot;This is what the wives of the Prophet, may Allah bless him and grant him peace, thought about the suckling of an older person</span></td></tr>
+<tr class='grade' data-hadith='1284'><td class='label'>Grade</td><td><span class='grade-text'>Hasan</span></td></tr>
+<tr class='ref' data-hadith='1284'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 13</span></td></tr><tr id='h1285' class='hadith-sep' data-hadith='1285'><td colspan='2'><a class='permalink' href='#h1285'>Hadith 1285</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1285'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، أَنَّهُ قَالَ جَاءَ رَجُلٌ إِلَى عَبْدِ اللَّهِ بْنِ عُمَرَ وَأَنَا مَعَهُ عِنْدَ دَارِ الْقَضَاءِ يَسْأَلُهُ عَنْ رَضَاعَةِ الْكَبِيرِ فَقَالَ عَبْدُ اللَّهِ بْنُ عُمَرَ جَاءَ رَجُلٌ إِلَى عُمَرَ بْنِ الْخَطَّابِ فَقَالَ إِنِّي كَانَتْ لِي وَلِيدَةٌ وَكُنْتُ أَطَؤُهَا فَعَمَدَتِ امْرَأَتِي إِلَيْهَا فَأَرْضَعَتْهَا فَدَخَلْتُ عَلَيْهَا فَقَالَتْ دُونَكَ فَقَدْ وَاللَّهِ أَرْضَعْتُهَا ‏.‏ فَقَالَ عُمَرُ أَوْجِعْهَا وَأْتِ جَارِيتَكَ فَإِنَّمَا الرَّضَاعَةُ رَضَاعَةُ الصَّغِيرِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1285'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Abdullah ibn Dinar said, &quot;A man came to Abdullah ibn Umar when I waswith him at the place where judgments were given and asked him about the suckling of an older person. Abdullah ibn Umar replied, &#x27;A man came to Umar ibn al-Khattab and said, &#x27;I have a slave-girl and I used to have intercourse with her. My wife went to her and suckled her. When I went to the girl, my wife told me to watch out, because she had suckled her!&#x27; Umar told him to beat his wife and to go to his slave-girl because kinship by suckling was only by the suckling of the young</span></td></tr>
+<tr class='grade' data-hadith='1285'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1285'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 14</span></td></tr><tr id='h1286' class='hadith-sep' data-hadith='1286'><td colspan='2'><a class='permalink' href='#h1286'>Hadith 1286</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1286'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ رَجُلاً، سَأَلَ أَبَا مُوسَى الأَشْعَرِيَّ فَقَالَ إِنِّي مَصِصْتُ عَنِ امْرَأَتِي، مِنْ ثَدْيِهَا لَبَنًا فَذَهَبَ فِي بَطْنِي فَقَالَ أَبُو مُوسَى لاَ أُرَاهَا إِلاَّ قَدْ حَرُمَتْ عَلَيْكَ ‏.‏ فَقَالَ عَبْدُ اللَّهِ بْنُ مَسْعُودٍ انْظُرْ مَاذَا تُفْتِي بِهِ الرَّجُلَ فَقَالَ أَبُو مُوسَى فَمَاذَا تَقُولُ أَنْتَ فَقَالَ عَبْدُ اللَّهِ بْنُ مَسْعُودٍ لاَ رَضَاعَةَ إِلاَّ مَا كَانَ فِي الْحَوْلَيْنِ ‏.‏ فَقَالَ أَبُو مُوسَى لاَ تَسْأَلُونِي عَنْ شَىْءٍ مَا كَانَ هَذَا الْحَبْرُ بَيْنَ أَظْهُرِكُمْ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1286'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Yahya ibn Said that a man said to Abu Musa al-Ashari, &quot;I drank some milk from my wife&#x27;s breasts and it went into my stomach.&quot; Abu Musa said, &quot;I can only but think that she is haram for you.&quot; Abdullah ibn Masud said, &quot;Look at what opinion you are giving the man.&quot; Abu Musa said, &quot;Then what do you say?&quot; Abdullah ibn Masud said, &quot;There is only kinship by suckling in the first two years.&quot; Abu Musa said, &quot;Do not ask me about anything while this learned man is among you</span></td></tr>
+<tr class='grade' data-hadith='1286'><td class='label'>Grade</td><td><span class='grade-text'>Mauquf Sahih</span></td></tr>
+<tr class='ref' data-hadith='1286'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 15</span></td></tr><tr id='h1287' class='hadith-sep' data-hadith='1287'><td colspan='2'><a class='permalink' href='#h1287'>Hadith 1287</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1287'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ سُلَيْمَانَ بْنِ يَسَارٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ &quot;‏ يَحْرُمُ مِنَ الرَّضَاعَةِ مَا يَحْرُمُ مِنَ الْوِلاَدَةِ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1287'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abdullah ibn Dinar from Sulayman ibn Yasar and from Urwa ibn az-Zubayr from A&#x27;isha umm al- muminin, that the Messenger of Allah, may Allah bless him and grant him peace, said, &quot; What is haram by birth is haram by suckling</span></td></tr>
+<tr class='grade' data-hadith='1287'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1287'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 16</span></td></tr><tr id='h1288' class='hadith-sep' data-hadith='1288'><td colspan='2'><a class='permalink' href='#h1288'>Hadith 1288</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1288'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ نَوْفَلٍ، أَنَّهُ قَالَ أَخْبَرَنِي عُرْوَةُ بْنُ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، عَنْ جُدَامَةَ بِنْتِ وَهْبٍ الأَسَدِيَّةِ، أَنَّهَا أَخْبَرَتْهَا أَنَّهَا، سَمِعَتْ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ &quot;‏ لَقَدْ هَمَمْتُ أَنْ أَنْهَى عَنِ الْغِيلَةِ حَتَّى ذَكَرْتُ أَنَّ الرُّومَ وَفَارِسَ يَصْنَعُونَ ذَلِكَ فَلاَ يَضُرُّ أَوْلاَدَهُمْ ‏&quot;‏ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1288'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik that Muhammad ibn Abd ar-Rahman ibn Nawfal said, &#x27;&#x27;Urwa ibn az-Zubayr informed me from A&#x27;isha umm al- muminin that Judama bint Wahb al-Asadiyya informed her that she heard the Messenger of Allah, may Allah bless him and grant him peace, say, &#x27;I intended to prohibit ghila but I remembered that the Greeks and Persians do that without it causing any injury to their children.&#x27; &quot; Malik explained, &quot;Ghila is that a man has intercourse with his wife while she is suckling</span></td></tr>
+<tr class='grade' data-hadith='1288'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1288'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 17</span></td></tr><tr id='h1289' class='hadith-sep' data-hadith='1289'><td colspan='2'><a class='permalink' href='#h1289'>Hadith 1289</a> — Suckling</td></tr>
+<tr class='arabic' data-hadith='1289'><td class='label'>&#x639;&#x64e;&#x631;&#x64e;&#x628;&#x650;&#x64a;</td><td><span class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرِ بْنِ حَزْمٍ، عَنْ عَمْرَةَ بِنْتِ عَبْدِ الرَّحْمَنِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّهَا قَالَتْ كَانَ فِيمَا أُنْزِلَ مِنَ الْقُرْآنِ عَشْرُ رَضَعَاتٍ مَعْلُومَاتٍ يُحَرِّمْنَ ثُمَّ نُسِخْنَ بِخَمْسٍ مَعْلُومَاتٍ فَتُوُفِّيَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَهُوَ فِيمَا يُقْرَأُ مِنَ الْقُرْآنِ ‏.‏</span></td></tr>
+<tr class='eng' data-hadith='1289'><td class='label'>English</td><td><span class='eng-text' lang='en'>Yahya related to me from Malik from Abdullah ibn Abi Bakr ibn Hazm from Amra bint Abd ar-Rahman that A&#x27;isha, the wife of the Prophet, may Allah bless him and grant him peace, said, &quot;Amongst what was sent down of the Qur&#x27;an was &#x27;ten known sucklings make haram&#x27; - then it was abrogated by &#x27;five known sucklings&#x27;. When the Messenger of Allah, may Allah bless him and grant him peace, died, it was what is now recited of the Qur&#x27;an.&quot; Yahya said that Malik said, &quot;One does not act on this</span></td></tr>
+<tr class='grade' data-hadith='1289'><td class='label'>Grade</td><td><span class='grade-text'>Sahih</span></td></tr>
+<tr class='ref' data-hadith='1289'><td class='label'>Reference</td><td><span class='ref-text'>Book 30, Hadith 18</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -257,5 +391,120 @@ mark.hl{background:#fff176;border-radius:2px;color:inherit}
   <a href="https://github.com/fawazahmed0/hadith-api" rel="noopener noreferrer">fawazahmed0/hadith-api</a>
   (public domain). Hindi translations for Nawawi 40 are hand-curated.
 </footer>
+<script>
+(function(){
+  var cfList=document.getElementById('hcf-list');
+  var fromInput=document.getElementById('hvc-from');
+  var toInput=document.getElementById('hvc-to');
+  var maxH=toInput?+toInput.max:0;
+  var minH=fromInput?+fromInput.min:1;
+  var vcFrom=minH,vcTo=maxH;
+  var enabledTypes=new Set();
+  var userPrefs=null;
+  try{var raw=localStorage.getItem('hadith-cf');if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=(key==='eng'||key==='arabic');}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem('hadith-cf',JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var n=+tr.dataset.hadith;
+      var inRange=(n>=vcFrom&&n<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.hvcSelectAll=function(){
+    vcFrom=minH;vcTo=maxH;
+    if(fromInput)fromInput.value=minH;
+    if(toInput)toInput.value=maxH;
+    applyAllRows();
+  };
+  window.hvcClearAll=function(){vcFrom=0;vcTo=0;applyAllRows();};
+  window.hvcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+  /* Scroll to #h{n} anchor after rows are applied */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-hl');
+          setTimeout(function(){el.classList.remove('hadith-anchor-hl');},2400);
+        },80);
+      }
+    }
+  })();
+  /* Font size control */
+  var FS_KEY='hfs';
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=scale+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+  /* Scroll-to-top button */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){stb.style.display=(window.scrollY>300)?'flex':'none';});
+  stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
 </body>
 </html>
