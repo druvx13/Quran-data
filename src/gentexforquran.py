@@ -85,4 +85,28 @@ with open('latex/qupk.tex','w') as targetpk, open('data/en.pickthall.txt','r', e
             translation_line=transpk.readline()
             targetpk.write("\\flushleft{%s}\n" % translation_line.rstrip('\n'))
 
+# Khattab (English) + Unicode transliteration — no Arabic text
+def _tex_escape(text):
+    """Escape LaTeX special characters present in transliteration data."""
+    return text.replace('_', r'\_').replace('\xa0', ' ')
+
+with open('latex/quk.tex', 'w', encoding='utf-8') as quk_out, \
+     open('data/en.khattab.txt', 'r', encoding='utf-8') as khattab_in, \
+     open('data/translit_en.txt', 'r', encoding='utf-8') as translit_in:
+    # translit_en.txt format: "N|transliteration_text" (sequential verse index then pipe)
+    for sura_idx in range(114):
+        quk_out.write("\\chapter{%s}\n" % suraname[sura_idx])
+        count = 0
+        while count < surasize[sura_idx]:
+            count += 1
+            khattab_line = khattab_in.readline().rstrip('\n')
+            translit_raw = translit_in.readline().rstrip('\n')
+            # strip leading "N|" index prefix
+            if '|' in translit_raw:
+                translit_raw = translit_raw.split('|', 1)[1]
+            translit_line = _tex_escape(translit_raw)
+            quk_out.write("\\noindent\\textbf{[%d:%d]}\\par\n" % (sura_idx + 1, count))
+            quk_out.write("\\textit{%s}\\par\n" % translit_line)
+            quk_out.write("%s\\par\n\\bigskip\n" % khattab_line)
+
 

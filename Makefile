@@ -4,13 +4,14 @@ LATEX    = xelatex
 LATEX_DIR = latex
 OUTPUT_DIR = output
 
-.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-docs clean help
+.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-docs generate-khattab-pdf clean help
 
 ## Show available targets.
 help:
 	@echo "Available targets:"
 	@echo "  make generate-tex    Generate intermediate LaTeX content files (run first for PDFs)"
 	@echo "  make all             Compile all PDFs (requires generate-tex first)"
+	@echo "  make generate-khattab-pdf  Generate Khattab English+Transliteration PDF (output/khattab.pdf)"
 	@echo "  make generate-txt    Generate formatted plain-text output files"
 	@echo "  make generate-hadith      Generate plain-text Hadith output files (output/hadith/)"
 	@echo "  make generate-hadith-html Generate Hadith HTML website (docs/hadith/)"
@@ -39,6 +40,11 @@ $(OUTPUT_DIR)/suhail.pdf:   $(LATEX_DIR)/qup.tex
 $(OUTPUT_DIR)/sahih.pdf:    $(LATEX_DIR)/qus.tex
 $(OUTPUT_DIR)/translit.pdf: $(LATEX_DIR)/qut.tex
 $(OUTPUT_DIR)/pickthall.pdf: $(LATEX_DIR)/qupk.tex
+$(OUTPUT_DIR)/khattab.pdf:  $(LATEX_DIR)/quk.tex
+
+## Generate Khattab English translation + Unicode transliteration PDF (no Arabic).
+## Requires generate-tex to have been run first.
+generate-khattab-pdf: $(OUTPUT_DIR)/khattab.pdf
 
 ## Generate formatted plain-text output files.
 generate-txt:
