@@ -4,14 +4,15 @@ LATEX    = xelatex
 LATEX_DIR = latex
 OUTPUT_DIR = output
 
-.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-docs generate-khattab-pdf clean help
+.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-docs generate-khattab-pdf generate-khattab-book-pdf clean help
 
 ## Show available targets.
 help:
 	@echo "Available targets:"
 	@echo "  make generate-tex    Generate intermediate LaTeX content files (run first for PDFs)"
 	@echo "  make all             Compile all PDFs (requires generate-tex first)"
-	@echo "  make generate-khattab-pdf  Generate Khattab English+Transliteration PDF (output/khattab.pdf)"
+	@echo "  make generate-khattab-pdf       Generate Khattab English+Transliteration PDF (output/khattab.pdf)"
+	@echo "  make generate-khattab-book-pdf  Generate professional A5 book PDF, English only (output/quran_khattab_english_a5.pdf)"
 	@echo "  make generate-txt    Generate formatted plain-text output files"
 	@echo "  make generate-hadith      Generate plain-text Hadith output files (output/hadith/)"
 	@echo "  make generate-hadith-html Generate Hadith HTML website (docs/hadith/)"
@@ -45,6 +46,14 @@ $(OUTPUT_DIR)/khattab.pdf:  $(LATEX_DIR)/quk.tex
 ## Generate Khattab English translation + Unicode transliteration PDF (no Arabic).
 ## Requires generate-tex to have been run first.
 generate-khattab-pdf: $(OUTPUT_DIR)/khattab.pdf
+
+## Generate professional A5 book PDF — English translation only, no transliteration.
+## Self-contained: runs gen_khattab_book.py then compiles with XeLaTeX (two passes for TOC).
+generate-khattab-book-pdf: | $(OUTPUT_DIR)
+	$(PYTHON) src/gen_khattab_book.py
+	cd $(LATEX_DIR) && $(LATEX) -interaction=nonstopmode khattab_book.tex && \
+	  $(LATEX) -interaction=nonstopmode khattab_book.tex && \
+	  mv khattab_book.pdf ../$(OUTPUT_DIR)/quran_khattab_english_a5.pdf
 
 ## Generate formatted plain-text output files.
 generate-txt:
