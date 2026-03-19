@@ -11,7 +11,8 @@ Inputs:
 
 Outputs:
   - docs/how/index.html
-  - docs/how/sd/refs.json
+  - docs/how/sd/translations.json
+  - docs/how/sd/t/*.json
 """
 
 import json
@@ -223,6 +224,9 @@ def generate(categories, ref_store):
     tr_opts = ''.join(
         ["<option value='%s'>%s</option>" % (t['key'], t['label']) for t in ref_store['translations']]
     )
+    filter_opts = ["<option value='all'>All Categories</option>"]
+    for i, cat in enumerate(categories, 1):
+        filter_opts.append("<option value='cat-%d'>%s</option>" % (i, cat['name']))
 
     html = """<!DOCTYPE html>
 <html lang='en'>
@@ -241,7 +245,7 @@ main{max-width:1200px;margin:0 auto;padding:16px}
 h1{margin:0 0 10px;font-size:1.45em}
 .layout{display:grid;grid-template-columns:280px 1fr;gap:16px}
 .side{position:sticky;top:74px;align-self:start;background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;padding:12px}
-.side .search{width:100%;padding:8px;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:8px}
+.side .filter{width:100%;padding:8px;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:8px;background:#fff}
 .side nav{display:flex;flex-direction:column;gap:6px;max-height:65vh;overflow:auto}
 .side nav a{color:#1a3a5c;text-decoration:none;background:#fff;border:1px solid #ccd6e0;padding:7px 8px;border-radius:6px;font-size:.9em}
 .side nav a:hover{background:#dde8f2}
@@ -270,7 +274,7 @@ footer a:hover{text-decoration:underline}
 @media(max-width:940px){.layout{grid-template-columns:1fr}.side{position:static}}
 @media(prefers-color-scheme:dark){
  body{background:#121212;color:#e8e8e8}header{background:#0d2136}
- .side{background:#1e2a3a;border-color:#334}.side .search,.ctrl select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+ .side{background:#1e2a3a;border-color:#334}.side .filter,.ctrl select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
  .ctrl button{background:#0d2136!important;border-color:#334!important;color:#90caf9!important}
  .ctrl button:hover{background:#1a3a5c!important}
  .side nav a{background:#1a1a1a;border-color:#334;color:#90caf9}.side nav a:hover{background:#263650}
@@ -284,7 +288,6 @@ footer a:hover{text-decoration:underline}
 <header>
   <a href='../index.html'>&#8962; Index</a>
   <a href='../hadith/index.html'>&#128209; Hadith</a>
-  <a href='index.html'>How</a>
   <a class='header-search' href='../config.html' title='Settings'>&#9881;</a>
   <a class='header-search' href='../search.html'>&#128269; Search</a>
 </header>
@@ -292,7 +295,8 @@ footer a:hover{text-decoration:underline}
   <h1>Comprehensive Ethical & Duty Guide</h1>
   <div class='layout'>
     <aside class='side'>
-      <input id='q' class='search' placeholder='Filter duties...'>
+      <label for='fcat' style='font-size:.9em;color:#1a3a5c'>Filter:</label>
+      <select id='fcat' class='filter'>__FILTER_OPTS__</select>
       <div class='ctrl'><label for='t'>Translation:</label><select id='t'>__TR_OPTS__</select></div>
       <div class='ctrl'><button id='how-dl' onclick='downloadHowZip()' style='padding:6px 10px;border:1px solid #ccd6e0;border-radius:6px;background:#1a3a5c;color:#fff;cursor:pointer'>&#128229; Download Offline ZIP</button></div>
       <div class='note'>All available translations loaded from <code>output/quran_*.txt</code>. Verse chips open the main reader.</div>
@@ -304,9 +308,8 @@ footer a:hover{text-decoration:underline}
 <footer><a href='../../index.html'>&#8962; Qur'an Index</a> &nbsp;|&nbsp; <a href='https://github.com/druvx13/Quran-data' rel='noopener noreferrer'>GitHub</a></footer>
 <script>
 (function(){
-  var q=document.getElementById('q');
+  var fcat=document.getElementById('fcat');
   var t=document.getElementById('t');
-  var cards=[].slice.call(document.querySelectorAll('.duty-card'));
   var TRANS_CACHE={};
 
   function refsFrom(el){
@@ -332,14 +335,9 @@ footer a:hover{text-decoration:underline}
     document.querySelectorAll('.tv').forEach(renderBox);
   }
   function applyFilter(){
-    var s=(q.value||'').toLowerCase().trim();
-    cards.forEach(function(c){
-      var hay=(c.getAttribute('data-search')||'');
-      c.style.display=!s||hay.indexOf(s)!==-1?'':'none';
-    });
+    var v=(fcat&&fcat.value)||'all';
     document.querySelectorAll('.cat').forEach(function(sec){
-      var visible=sec.querySelector('.duty-card[style=""]')||sec.querySelector('.duty-card:not([style*="display: none"])');
-      sec.style.display=visible?'':'none';
+      sec.style.display=(v==='all'||sec.id===v)?'':'none';
     });
   }
   function escapeHtml(s){
@@ -347,7 +345,7 @@ footer a:hover{text-decoration:underline}
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
     });
   }
-  q.addEventListener('input',applyFilter);
+  if(fcat)fcat.addEventListener('change',applyFilter);
   function loadTranslationAndRender(key){
     if(TRANS_CACHE[key]){renderAll();return;}
     fetch('sd/t/'+key+'.json').then(function(r){return r.json();}).then(function(data){
@@ -359,6 +357,9 @@ footer a:hover{text-decoration:underline}
     try{localStorage.setItem('how-trans',t.value);}catch(_){}
     loadTranslationAndRender(t.value);
   });
+  try{var sf=localStorage.getItem('how-filter-cat');if(sf&&fcat)fcat.value=sf;}catch(_){}
+  if(fcat)fcat.addEventListener('change',function(){try{localStorage.setItem('how-filter-cat',fcat.value);}catch(_){}}); 
+  applyFilter();
   try{var sv=localStorage.getItem('how-trans');if(sv)t.value=sv;}catch(_){}
   loadTranslationAndRender(t.value);
 })();
@@ -399,7 +400,7 @@ async function downloadHowZip(){
 </body>
 </html>
 """
-    html = html.replace('__TR_OPTS__', tr_opts).replace('__NAV__', ''.join(nav)).replace('__SECTIONS__', ''.join(sections))
+    html = html.replace('__TR_OPTS__', tr_opts).replace('__FILTER_OPTS__', ''.join(filter_opts)).replace('__NAV__', ''.join(nav)).replace('__SECTIONS__', ''.join(sections))
 
     with open(os.path.join(OUT_DIR, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(html)

@@ -15,7 +15,7 @@ main{max-width:1200px;margin:0 auto;padding:16px}
 h1{margin:0 0 10px;font-size:1.45em}
 .layout{display:grid;grid-template-columns:280px 1fr;gap:16px}
 .side{position:sticky;top:74px;align-self:start;background:#f0f4f8;border:1px solid #ccd6e0;border-radius:8px;padding:12px}
-.side .search{width:100%;padding:8px;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:8px}
+.side .filter{width:100%;padding:8px;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:8px;background:#fff}
 .side nav{display:flex;flex-direction:column;gap:6px;max-height:65vh;overflow:auto}
 .side nav a{color:#1a3a5c;text-decoration:none;background:#fff;border:1px solid #ccd6e0;padding:7px 8px;border-radius:6px;font-size:.9em}
 .side nav a:hover{background:#dde8f2}
@@ -44,7 +44,7 @@ footer a:hover{text-decoration:underline}
 @media(max-width:940px){.layout{grid-template-columns:1fr}.side{position:static}}
 @media(prefers-color-scheme:dark){
  body{background:#121212;color:#e8e8e8}header{background:#0d2136}
- .side{background:#1e2a3a;border-color:#334}.side .search,.ctrl select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+ .side{background:#1e2a3a;border-color:#334}.side .filter,.ctrl select{background:#1a1a1a;border-color:#334;color:#e8e8e8}
  .ctrl button{background:#0d2136!important;border-color:#334!important;color:#90caf9!important}
  .ctrl button:hover{background:#1a3a5c!important}
  .side nav a{background:#1a1a1a;border-color:#334;color:#90caf9}.side nav a:hover{background:#263650}
@@ -58,7 +58,6 @@ footer a:hover{text-decoration:underline}
 <header>
   <a href='../index.html'>&#8962; Index</a>
   <a href='../hadith/index.html'>&#128209; Hadith</a>
-  <a href='index.html'>How</a>
   <a class='header-search' href='../config.html' title='Settings'>&#9881;</a>
   <a class='header-search' href='../search.html'>&#128269; Search</a>
 </header>
@@ -66,7 +65,8 @@ footer a:hover{text-decoration:underline}
   <h1>Comprehensive Ethical & Duty Guide</h1>
   <div class='layout'>
     <aside class='side'>
-      <input id='q' class='search' placeholder='Filter duties...'>
+      <label for='fcat' style='font-size:.9em;color:#1a3a5c'>Filter:</label>
+      <select id='fcat' class='filter'><option value='all'>All Categories</option><option value='cat-1'>Core Beliefs & Worship</option><option value='cat-2'>Moral & Ethical Conduct (Personal)</option><option value='cat-3'>Social & Family Duties</option><option value='cat-4'>Judicial & Community Duties</option><option value='cat-5'>Rulings on Specific Acts</option></select>
       <div class='ctrl'><label for='t'>Translation:</label><select id='t'><option value='english_abdelhaleem'>English Abdelhaleem</option><option value='english_abridged'>English Abridged</option><option value='english_ahmedali'>English Ahmedali</option><option value='english_ahmedraza'>English Ahmedraza</option><option value='english_aishabewley'>English Aishabewley</option><option value='english_aliunal'>English Aliunal</option><option value='english_arberry'>English Arberry</option><option value='english_asad'>English Asad</option><option value='english_daryabadi'>English Daryabadi</option><option value='english_edwardpalmer'>English Edwardpalmer</option><option value='english_farookmalik'>English Farookmalik</option><option value='english_georgesale'>English Georgesale</option><option value='english_hamidsaziz'>English Hamidsaziz</option><option value='english_hilali'>English Hilali</option><option value='english_itani'>English Itani</option><option value='english_itaninew'>English Itaninew</option><option value='english_johnrodwell'>English Johnrodwell</option><option value='english_khattab'>English Khattab</option><option value='english_lalehbakhtiar'>English Lalehbakhtiar</option><option value='english_literal'>English Literal</option><option value='english_maududi'>English Maududi</option><option value='english_miraneesuddin'>English Miraneesuddin</option><option value='english_mohammadshafi'>English Mohammadshafi</option><option value='english_monotheist'>English Monotheist</option><option value='english_mubarakpuri'>English Mubarakpuri</option><option value='english_muhammadghali'>English Muhammadghali</option><option value='english_njdawood'>English Njdawood</option><option value='english_pickthall'>English Pickthall</option><option value='english_qarai'>English Qarai</option><option value='english_qaribullah'>English Qaribullah</option><option value='english_rwwad'>English Rwwad</option><option value='english_safikaskas'>English Safikaskas</option><option value='english_sahih'>English Sahih</option><option value='english_sarwar'>English Sarwar</option><option value='english_shabbirahmed'>English Shabbirahmed</option><option value='english_shakir'>English Shakir</option><option value='english_syedvickar'>English Syedvickar</option><option value='english_tbirving'>English Tbirving</option><option value='english_translit'>English Translit</option><option value='english_ummmuhammad'>English Ummmuhammad</option><option value='english_usmani'>English Usmani</option><option value='english_wahiduddin'>English Wahiduddin</option><option value='english_yusufali'>English Yusufali</option><option value='gujarati_rabila'>Gujarati Rabila</option><option value='hindi_dk'>Hindi Dk</option><option value='hindi_farooq'>Hindi Farooq</option><option value='hindi_mokhtasar'>Hindi Mokhtasar</option><option value='hindi_omari'>Hindi Omari</option><option value='hindi_suhail'>Hindi Suhail</option><option value='nepali_ahl_al_hadith'>Nepali Ahl Al Hadith</option><option value='roman_gujarati_rabila'>Roman Gujarati Rabila</option><option value='roman_hindi_farooq'>Roman Hindi Farooq</option><option value='roman_hindi_omari'>Roman Hindi Omari</option><option value='roman_hindi_suhail'>Roman Hindi Suhail</option><option value='roman_urdu_junagarhi'>Roman Urdu Junagarhi</option><option value='roman_urdu_maududi'>Roman Urdu Maududi</option><option value='urdu_ahmedali'>Urdu Ahmedali</option><option value='urdu_bayanulquran'>Urdu Bayanulquran</option><option value='urdu_jalandhry'>Urdu Jalandhry</option><option value='urdu_jawadi'>Urdu Jawadi</option><option value='urdu_junagarhi'>Urdu Junagarhi</option><option value='urdu_kanzuliman'>Urdu Kanzuliman</option><option value='urdu_karamshah'>Urdu Karamshah</option><option value='urdu_mahmudalhasan'>Urdu Mahmudalhasan</option><option value='urdu_maududi'>Urdu Maududi</option><option value='urdu_najafi'>Urdu Najafi</option><option value='urdu_qadri'>Urdu Qadri</option><option value='urdu_taqiusmani'>Urdu Taqiusmani</option><option value='urdu_wahiduddin'>Urdu Wahiduddin</option><option value='urdu_zilalquran'>Urdu Zilalquran</option></select></div>
       <div class='ctrl'><button id='how-dl' onclick='downloadHowZip()' style='padding:6px 10px;border:1px solid #ccd6e0;border-radius:6px;background:#1a3a5c;color:#fff;cursor:pointer'>&#128229; Download Offline ZIP</button></div>
       <div class='note'>All available translations loaded from <code>output/quran_*.txt</code>. Verse chips open the main reader.</div>
@@ -78,9 +78,8 @@ footer a:hover{text-decoration:underline}
 <footer><a href='../../index.html'>&#8962; Qur'an Index</a> &nbsp;|&nbsp; <a href='https://github.com/druvx13/Quran-data' rel='noopener noreferrer'>GitHub</a></footer>
 <script>
 (function(){
-  var q=document.getElementById('q');
+  var fcat=document.getElementById('fcat');
   var t=document.getElementById('t');
-  var cards=[].slice.call(document.querySelectorAll('.duty-card'));
   var TRANS_CACHE={};
 
   function refsFrom(el){
@@ -106,14 +105,9 @@ footer a:hover{text-decoration:underline}
     document.querySelectorAll('.tv').forEach(renderBox);
   }
   function applyFilter(){
-    var s=(q.value||'').toLowerCase().trim();
-    cards.forEach(function(c){
-      var hay=(c.getAttribute('data-search')||'');
-      c.style.display=!s||hay.indexOf(s)!==-1?'':'none';
-    });
+    var v=(fcat&&fcat.value)||'all';
     document.querySelectorAll('.cat').forEach(function(sec){
-      var visible=sec.querySelector('.duty-card[style=""]')||sec.querySelector('.duty-card:not([style*="display: none"])');
-      sec.style.display=visible?'':'none';
+      sec.style.display=(v==='all'||sec.id===v)?'':'none';
     });
   }
   function escapeHtml(s){
@@ -121,7 +115,7 @@ footer a:hover{text-decoration:underline}
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
     });
   }
-  q.addEventListener('input',applyFilter);
+  if(fcat)fcat.addEventListener('change',applyFilter);
   function loadTranslationAndRender(key){
     if(TRANS_CACHE[key]){renderAll();return;}
     fetch('sd/t/'+key+'.json').then(function(r){return r.json();}).then(function(data){
@@ -133,6 +127,9 @@ footer a:hover{text-decoration:underline}
     try{localStorage.setItem('how-trans',t.value);}catch(_){}
     loadTranslationAndRender(t.value);
   });
+  try{var sf=localStorage.getItem('how-filter-cat');if(sf&&fcat)fcat.value=sf;}catch(_){}
+  if(fcat)fcat.addEventListener('change',function(){try{localStorage.setItem('how-filter-cat',fcat.value);}catch(_){}}); 
+  applyFilter();
   try{var sv=localStorage.getItem('how-trans');if(sv)t.value=sv;}catch(_){}
   loadTranslationAndRender(t.value);
 })();

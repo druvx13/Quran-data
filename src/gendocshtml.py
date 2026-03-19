@@ -633,7 +633,7 @@ HEADER_HTML = """\
 <script src="config.js"></script>
 </head>
 <body data-sura="{num}">
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
 {surah_info}<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
@@ -1083,7 +1083,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English, Hindi, Gujarati &amp; Nepali Translation</h1>
 <details class="notice">
@@ -1122,6 +1122,7 @@ Texts are reproduced verbatim; no alterations have been made.
 </section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
+<a href='how/index.html' style='border:2px solid #ffd54f'><strong>&#9878; How</strong> Ethical &amp; Duty Guide<span class='sg-meta'><span>Comprehensive categorized guide</span></span></a>
 """ % (CSS + """
 .recent-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
 .recent-card{display:flex;flex-direction:column;padding:10px 14px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em;min-width:160px}
@@ -1314,7 +1315,7 @@ SEARCH_HTML = """\
 <script src="config.js"></script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Searches the content types you have enabled in <a href="config.html">Settings</a>. Results link directly to the verse.</p>
@@ -1615,7 +1616,7 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 <script src="config.js"></script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#9881; Reader Settings</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Choose which translations appear by default when you open a Surah page. Your preferences are saved in your browser.</p>
@@ -1782,7 +1783,7 @@ BOOKMARKS_HTML = """\
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128278; My Bookmarks</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Bookmarks are stored in your browser. Use Export to save a backup and Import to restore them on another device.</p>
@@ -1951,7 +1952,7 @@ with open(sources_html_path, 'w', encoding='utf-8') as f:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128218; Sources &amp; Attribution</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:20px">All texts displayed on this website are reproduced verbatim from their original sources. No alterations have been made. Below is a comprehensive listing of every source used.</p>
@@ -2129,7 +2130,7 @@ with open(license_html_path, 'w', encoding='utf-8') as f:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128220; License</h1>
 <div class="license-card">
@@ -2203,7 +2204,7 @@ with open(download_html_path, 'w', encoding='utf-8') as f:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128229; Download for Offline Use</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:16px">Generate a ZIP file of the entire Qur&rsquo;an website customised to your preferences. The ZIP can be opened directly in any browser for offline reading or hosted on any web server.</p>
