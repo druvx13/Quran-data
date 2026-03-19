@@ -633,7 +633,7 @@ HEADER_HTML = """\
 <script src="config.js"></script>
 </head>
 <body data-sura="{num}">
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Surah {num}: {name}</h1>
 {surah_info}<noscript><p class="noscript-warn">&#9888; The Verse &amp; Content Filter requires JavaScript. All verses are shown below.</p></noscript>
@@ -1083,7 +1083,7 @@ with open(index_path, 'w', encoding='utf-8') as out:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>Qur&#x2019;an &mdash; Arabic, Transliteration, English, Hindi, Gujarati &amp; Nepali Translation</h1>
 <details class="notice">
@@ -1314,7 +1314,7 @@ SEARCH_HTML = """\
 <script src="config.js"></script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128269; Search the Qur&#x2019;an</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Searches the content types you have enabled in <a href="config.html">Settings</a>. Results link directly to the verse.</p>
@@ -1615,7 +1615,7 @@ with open(config_html_path, 'w', encoding='utf-8') as f:
 <script src="config.js"></script>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#9881; Reader Settings</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Choose which translations appear by default when you open a Surah page. Your preferences are saved in your browser.</p>
@@ -1782,7 +1782,7 @@ BOOKMARKS_HTML = """\
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>{surah_select}<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>{surah_select}<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128278; My Bookmarks</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:14px">Bookmarks are stored in your browser. Use Export to save a backup and Import to restore them on another device.</p>
@@ -1951,7 +1951,7 @@ with open(sources_html_path, 'w', encoding='utf-8') as f:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128218; Sources &amp; Attribution</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:20px">All texts displayed on this website are reproduced verbatim from their original sources. No alterations have been made. Below is a comprehensive listing of every source used.</p>
@@ -2129,7 +2129,7 @@ with open(license_html_path, 'w', encoding='utf-8') as f:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128220; License</h1>
 <div class="license-card">
@@ -2203,7 +2203,7 @@ with open(download_html_path, 'w', encoding='utf-8') as f:
 </style>
 </head>
 <body>
-<header><a href="index.html">&#8962; Index</a>%s<a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
+<header><a href="index.html">&#8962; Index</a>%s<a href="how/index.html">&#9878; How</a><a class="header-search" href="config.html" title="Settings">&#9881;</a><a class="header-search" href="search.html">&#128269; Search</a></header>
 <main>
 <h1>&#128229; Download for Offline Use</h1>
 <p style="font-size:.93em;color:#555;margin-bottom:16px">Generate a ZIP file of the entire Qur&rsquo;an website customised to your preferences. The ZIP can be opened directly in any browser for offline reading or hosted on any web server.</p>
@@ -2233,6 +2233,7 @@ with open(download_html_path, 'w', encoding='utf-8') as f:
 <h2>&#128230; Additional Pages</h2>
 <div class="dl-grid" id="dl-extras">
 <label><input type="checkbox" value="index" checked> Index Page</label>
+<label><input type="checkbox" value="how" checked> How Guide</label>
 <label><input type="checkbox" value="search" checked> Search Page</label>
 <label><input type="checkbox" value="config" checked> Settings Page</label>
 <label><input type="checkbox" value="sources" checked> Sources Page</label>
@@ -2290,12 +2291,13 @@ async function generateZip(){
     var fn=('00'+i).slice(-3)+'.html';
     files.push(fn);
   }
-  var extraMap={'index':'index.html','search':'search.html','config':'config.html','sources':'sources.html','license':'license.html','download':'download.html'};
+  var extraMap={'index':'index.html','how':'how/index.html','search':'search.html','config':'config.html','sources':'sources.html','license':'license.html','download':'download.html'};
   extras.forEach(function(e){if(extraMap[e])files.push(extraMap[e]);});
 
-  /* Also include config.js and search-data.js if search is included */
+  /* Also include config.js and extra data files when needed */
   var needConfigJS=extras.indexOf('config')>=0||files.length>0;
   var needSearchJS=extras.indexOf('search')>=0;
+  var needHowData=extras.indexOf('how')>=0;
 
   var total=files.length+(needConfigJS?1:0)+(needSearchJS?1:0);
   var done=0;
@@ -2312,6 +2314,9 @@ async function generateZip(){
     /* Remove header links to excluded pages */
     if(extras.indexOf('config')<0){
       doc.querySelectorAll('a[href="config.html"]').forEach(function(a){a.remove();});
+    }
+    if(extras.indexOf('how')<0){
+      doc.querySelectorAll('a[href="how/index.html"]').forEach(function(a){a.remove();});
     }
     if(extras.indexOf('search')<0){
       doc.querySelectorAll('a[href="search.html"]').forEach(function(a){a.remove();});
@@ -2398,7 +2403,7 @@ async function generateZip(){
     /* Remove additional page labels not selected */
     var dlExtras=doc.getElementById('dl-extras');
     if(dlExtras){
-      var extraKeys=['index','search','config','sources','license','download'];
+    var extraKeys=['index','how','search','config','sources','license','download'];
       extraKeys.forEach(function(key){
         if(extras.indexOf(key)<0){
           dlExtras.querySelectorAll('input[value="'+key+'"]').forEach(function(inp){
@@ -2439,6 +2444,30 @@ async function generateZip(){
       console.warn('Failed to fetch '+fname,e);
     }
     updateProgress();
+  }
+
+  /* Add docs/how JSON data when How page is selected */
+  if(needHowData){
+    try{
+      status.textContent='Fetching how/sd/translations.json\\u2026';
+      var howMetaResp=await fetch('how/sd/translations.json');
+      if(howMetaResp.ok){
+        var howMetaText=await howMetaResp.text();
+        zip.file('how/sd/translations.json',howMetaText);
+        updateProgress();
+        var howMeta=JSON.parse(howMetaText||'{}');
+        var trList=(howMeta.translations||[]);
+        for(var hi=0;hi<trList.length;hi++){
+          var key=trList[hi].key;
+          try{
+            status.textContent='Fetching how/sd/t/'+key+'.json\\u2026';
+            var one=await fetch('how/sd/t/'+key+'.json');
+            if(one.ok){zip.file('how/sd/t/'+key+'.json',await one.text());}
+          }catch(_){}
+          updateProgress();
+        }
+      }
+    }catch(_){}
   }
 
   /* Add config.js with smart defaults.

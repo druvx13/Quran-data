@@ -4,7 +4,7 @@ LATEX    = xelatex
 LATEX_DIR = latex
 OUTPUT_DIR = output
 
-.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-docs generate-khattab-pdf generate-khattab-book-pdf clean help
+.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-how-html generate-docs generate-khattab-pdf generate-khattab-book-pdf clean help
 
 ## Show available targets.
 help:
@@ -16,6 +16,7 @@ help:
 	@echo "  make generate-txt    Generate formatted plain-text output files"
 	@echo "  make generate-hadith      Generate plain-text Hadith output files (output/hadith/)"
 	@echo "  make generate-hadith-html Generate Hadith HTML website (docs/hadith/)"
+	@echo "  make generate-how-html    Generate Ethical & Duty Guide website (docs/how/)"
 	@echo "  make generate-docs        Regenerate the docs/ HTML pages (requires generate-txt first)"
 	@echo "  make clean                Remove LaTeX build artefacts"
 
@@ -66,6 +67,10 @@ generate-hadith:
 ## Generate Hadith HTML website (docs/hadith/).
 generate-hadith-html:
 	$(PYTHON) src/gen_hadith_html.py
+
+## Generate Ethical & Duty Guide website (docs/how/).
+generate-how-html:
+	$(PYTHON) src/gen_how_html.py
 
 ## Regenerate the docs/ HTML pages (GitHub Pages).
 ## Requires generate-txt to have been run first.
