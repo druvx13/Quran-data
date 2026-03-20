@@ -4,7 +4,7 @@ LATEX    = xelatex
 LATEX_DIR = latex
 OUTPUT_DIR = output
 
-.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-how-html generate-docs generate-khattab-pdf generate-khattab-book-pdf generate-hindi-mokhtasar-print-html clean help
+.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-how-html generate-docs generate-khattab-pdf generate-khattab-book-pdf generate-hindi-mokhtasar-print-html generate-hindi-farooq-print-html clean help
 
 ## Show available targets.
 help:
@@ -18,6 +18,7 @@ help:
 	@echo "  make generate-hadith-html Generate Hadith HTML website (docs/hadith/)"
 	@echo "  make generate-how-html    Generate Ethical & Duty Guide website (docs/how/)"
 	@echo "  make generate-hindi-mokhtasar-print-html  Generate print-ready Hindi Mokhtasar HTML (output/hindi_mokhtasar_print.html)"
+	@echo "  make generate-hindi-farooq-print-html     Generate print-ready Hindi Farooq A5 HTML (output/hindi_farooq_print.html)"
 	@echo "  make generate-docs        Regenerate the docs/ HTML pages (requires generate-txt first)"
 	@echo "  make clean                Remove LaTeX build artefacts"
 
@@ -76,6 +77,10 @@ generate-how-html:
 ## Generate print-ready Hindi Mokhtasar HTML (output/hindi_mokhtasar_print.html).
 generate-hindi-mokhtasar-print-html:
 	$(PYTHON) src/gen_hindi_mokhtasar_print_html.py
+
+## Generate print-ready Hindi Farooq A5 HTML (output/hindi_farooq_print.html).
+generate-hindi-farooq-print-html:
+	$(PYTHON) src/gen_hindi_farooq_print_html.py
 
 ## Regenerate the docs/ HTML pages (GitHub Pages).
 ## Requires generate-txt to have been run first.
