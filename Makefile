@@ -4,7 +4,7 @@ LATEX    = xelatex
 LATEX_DIR = latex
 OUTPUT_DIR = output
 
-.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-how-html generate-docs generate-khattab-pdf generate-khattab-book-pdf generate-hindi-mokhtasar-print-html generate-hindi-farooq-print-html generate-hindi-suhail-print-html generate-english-ummmuhammad-print-html generate-translit-unicode-print-html generate-roman-urdu-maududi-print-html clean help
+.PHONY: all generate-tex generate-txt generate-hadith generate-hadith-html generate-how-html generate-docs generate-khattab-pdf generate-khattab-book-pdf generate-hindi-mokhtasar-print-html generate-hindi-farooq-print-html generate-hindi-suhail-print-html generate-english-ummmuhammad-print-html generate-translit-unicode-print-html generate-roman-urdu-maududi-print-html generate-english-khattab-print-html clean help
 
 ## Show available targets.
 help:
@@ -23,6 +23,7 @@ help:
 	@echo "  make generate-english-ummmuhammad-print-html  Generate print-ready English Umm Muhammad A5 HTML (output/english_ummmuhammad_print.html)"
 	@echo "  make generate-translit-unicode-print-html  Generate print-ready Unicode transliteration A5 HTML (output/translit_unicode_print.html)"
 	@echo "  make generate-roman-urdu-maududi-print-html  Generate print-ready Roman Urdu Maududi A5 HTML (output/roman_urdu_maududi_print.html)"
+	@echo "  make generate-english-khattab-print-html  Generate print-ready English Khattab A5 HTML (output/english_khattab_print.html)"
 	@echo "  make generate-docs        Regenerate the docs/ HTML pages (requires generate-txt first)"
 	@echo "  make clean                Remove LaTeX build artefacts"
 
@@ -101,6 +102,10 @@ generate-translit-unicode-print-html:
 ## Generate print-ready Roman Urdu Maududi A5 HTML (output/roman_urdu_maududi_print.html).
 generate-roman-urdu-maududi-print-html:
 	$(PYTHON) src/gen_roman_urdu_maududi_print_html.py
+
+## Generate print-ready English Khattab A5 HTML (output/english_khattab_print.html).
+generate-english-khattab-print-html:
+	$(PYTHON) src/gen_english_khattab_print_html.py
 
 ## Regenerate the docs/ HTML pages (GitHub Pages).
 ## Requires generate-txt to have been run first.
