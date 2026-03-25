@@ -1,0 +1,252 @@
+% =============================================================================
+%  The Clear Quran — An Optimal English Translation
+%  Professional A5 Book Edition
+%  Translator: Dr. Mustafa Khattab
+%  Typeset with XeLaTeX + Noto Serif
+% =============================================================================
+\documentclass[11pt, twoside, openright]{book}
+
+% ── Geometry ─────────────────────────────────────────────────────────────────
+\usepackage[
+  a5paper,
+  inner  = 22mm,
+  outer  = 16mm,
+  top    = 20mm,
+  bottom = 18mm,
+  includeheadfoot,
+  headsep = 5mm
+]{geometry}
+
+% ── XeLaTeX Unicode font ─────────────────────────────────────────────────────
+\usepackage{fontspec}
+\setmainfont{Noto Serif}[
+  BoldFont        = Noto Serif Bold,
+  ItalicFont      = Noto Serif Italic,
+  BoldItalicFont  = Noto Serif Bold Italic,
+  Ligatures       = TeX
+]
+
+% ── Colour palette ───────────────────────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{deepbrown}{RGB}{72, 42, 20}      % chapter headings
+\definecolor{goldenbrown}{RGB}{139, 90, 43}   % decorative rules & verse nums
+\definecolor{muted}{RGB}{110, 80, 50}         % subtitle text
+
+% ── Line spacing & paragraph style ──────────────────────────────────────────
+\usepackage{setspace}
+\setstretch{1.45}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt plus 1pt}
+
+% ── Widow / orphan control ───────────────────────────────────────────────────
+\widowpenalty  = 10000
+\clubpenalty   = 10000
+
+% ── Headers & footers ────────────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\textit{The Clear Quran}}
+\fancyhead[RO]{\small\textit{\leftmark}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Simpler style for chapter-opening pages
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% ── Chapter & section formatting ─────────────────────────────────────────────
+\usepackage{titlesec}
+
+% Chapter: centred with ornamental rules above and below
+\titleformat{\chapter}[display]
+  {\normalfont\centering}
+  {%
+    \textcolor{goldenbrown}{\rule[0.5ex]{18mm}{0.5pt}}\enspace
+    {\footnotesize\textcolor{muted}{\textbf{Sūrah \thechapter}}}%
+    \enspace\textcolor{goldenbrown}{\rule[0.5ex]{18mm}{0.5pt}}
+  }
+  {0.25em}
+  {\large\bfseries\color{deepbrown}}
+  [\vspace{0.15em}\textcolor{goldenbrown}{\rule{\linewidth}{0.4pt}}]
+
+\titlespacing*{\chapter}{0pt}{-12pt}{10pt}
+
+% ── Hyperref (PDF bookmarks, clickable TOC) ───────────────────────────────────
+\usepackage{hyperref}
+\hypersetup{
+  pdftitle    = {The Clear Quran: An Optimal English Translation},
+  pdfauthor   = {Dr. Mustafa Khattab},
+  pdfsubject  = {English Translation of the Holy Quran},
+  pdfkeywords = {Quran, Koran, Islam, Khattab, English, Translation},
+  colorlinks  = true,
+  linkcolor   = deepbrown,
+  urlcolor    = goldenbrown,
+  citecolor   = muted,
+  bookmarksopen = true,
+  bookmarksnumbered = true,
+  pdfstartview = {FitH}
+}
+
+% ── Verse-number command ──────────────────────────────────────────────────────
+% \vn{n} — small bold coloured superscript verse number (inline)
+\newcommand{\vn}[1]{%
+  \textsuperscript{\textcolor{goldenbrown}{\bfseries\scriptsize#1}}%
+}
+
+% ── Surah chapter command ─────────────────────────────────────────────────────
+% \surahchapter[toc]{num}{arabic_name}{english_name}{verses}
+\newcommand{\surahchapter}[5][]{%
+  \chapter[#1]{#3}
+  \begin{center}
+    {\small\textcolor{muted}{\textit{#4 \textbullet{} #5 verses}}}%
+  \end{center}
+  \vspace{4pt}%
+}
+
+% =============================================================================
+\begin{document}
+
+% ─────────────────────────────────────────────────────────────────────────────
+%  COVER PAGE
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{titlepage}
+\thispagestyle{empty}
+
+\begin{center}
+\vspace*{24mm}
+
+\textcolor{goldenbrown}{\rule{80mm}{0.6pt}}\\[6mm]
+{\footnotesize\textcolor{muted}{\textit{In the name of Allah — the Most Compassionate, Most Merciful}}}\\[8mm]
+\textcolor{goldenbrown}{\rule{80mm}{0.6pt}}\\[14mm]
+
+{\fontsize{30}{36}\selectfont\bfseries\color{deepbrown} The Clear Quran}\\[5mm]
+{\fontsize{14}{18}\selectfont\textcolor{muted}{\textit{An Optimal English Translation}}}\\[18mm]
+
+\textcolor{goldenbrown}{\rule{40mm}{0.4pt}}\\[12mm]
+
+{\fontsize{12}{16}\selectfont\color{deepbrown} Translated by}\\[3mm]
+{\fontsize{14}{18}\selectfont\bfseries\color{deepbrown} Dr.\ Mustafa Khattab}\\[4mm]
+{\fontsize{10}{14}\selectfont\textcolor{muted}{Scholar of Islamic Studies \textbullet{} Al-Azhar University, Egypt}}
+
+\vfill
+
+\textcolor{goldenbrown}{\rule{60mm}{0.4pt}}\\[8mm]
+{\small\textcolor{muted}{%
+  English-only edition \textbullet{} No Arabic script \textbullet{} A5 Format\\[3mm]
+  Generated from the \texttt{druvx13/Quran-data} repository
+}}\\[6mm]
+\textcolor{goldenbrown}{\rule{60mm}{0.4pt}}
+
+\end{center}
+\end{titlepage}
+
+% ─────────────────────────────────────────────────────────────────────────────
+%  FRONT MATTER
+% ─────────────────────────────────────────────────────────────────────────────
+\frontmatter
+
+% --- Epigraph page -----------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+{\setstretch{1.6}
+\textcolor{goldenbrown}{\rule{50mm}{0.4pt}}\\[10mm]
+{\large\textit{%
+  ``Indeed, We have sent it down as an Arabic Quran so that you may understand.''}%
+}\\[4mm]
+{\small\textcolor{muted}— Quran 12:2}\\[10mm]
+\textcolor{goldenbrown}{\rule{50mm}{0.4pt}}
+}
+\end{center}
+\vspace*{\fill}
+\clearpage
+
+% --- Translator's Note -------------------------------------------------------
+\chapter*{About This Translation}
+\addcontentsline{toc}{chapter}{About This Translation}
+
+\textit{The Clear Quran: An Optimal Translation} is an English translation of
+the meanings of the Holy Quran by Dr.~Mustafa Khattab, a Canadian-Egyptian
+Muslim scholar who studied at Al-Azhar University in Egypt, one of the oldest
+institutions of Islamic learning in the world.
+
+\medskip
+This translation aims to convey the meanings of the Quran in clear, contemporary
+English that is accessible to the modern reader, without compromising accuracy.
+Key features include:
+
+\medskip
+\begin{itemize}
+  \setlength\itemsep{2pt}
+  \item Clear, modern English that preserves the dignity and beauty of the
+        original Arabic text.
+  \item The use of gender-inclusive language where the original intends both
+        men and women.
+  \item Footnotes and bracketed additions [\,\textsuperscript{text}\,] clarifying
+        implied meanings, represented here as \textsuperscript{raised} markers
+        or in-line context notes.
+  \item The ˹\,˺ corner brackets are used throughout to enclose implied
+        meanings that are in the original Arabic but need elaboration in
+        English for clarity.
+\end{itemize}
+
+\medskip
+This document contains the English translation text only. For Arabic script,
+Unicode transliteration, or multi-language comparison, see the full
+\texttt{druvx13/Quran-data} repository.
+
+\bigskip
+\noindent\textcolor{goldenbrown}{\rule{\linewidth}{0.3pt}}
+
+% --- Table of Contents -------------------------------------------------------
+\tableofcontents
+
+% ─────────────────────────────────────────────────────────────────────────────
+%  MAIN CONTENT
+% ─────────────────────────────────────────────────────────────────────────────
+\mainmatter
+
+\input{khattab_book_content}
+
+% ─────────────────────────────────────────────────────────────────────────────
+%  BACK MATTER — COLOPHON
+% ─────────────────────────────────────────────────────────────────────────────
+\backmatter
+
+\pagestyle{empty}
+\vspace*{\fill}
+
+\begin{center}
+\textcolor{goldenbrown}{\rule{60mm}{0.5pt}}\\[10mm]
+
+{\large\bfseries\color{deepbrown} Colophon}\\[8mm]
+
+{\setstretch{1.6}\small\noindent
+\textit{The Clear Quran: An Optimal English Translation}\\
+Translated by Dr.~Mustafa Khattab\\[4mm]
+\textcolor{muted}{English translation \textcopyright{} 2016 Dr.~Mustafa Khattab /
+Dar-us-Salam Publications.
+All rights of the original translation are reserved.
+This typeset edition is generated solely for personal study and
+non-commercial reference.}\\[6mm]
+\textcolor{goldenbrown}{\rule{40mm}{0.3pt}}\\[5mm]
+Typeset with XeLaTeX using \textit{Noto Serif} typeface\\
+by Monotype \textbullet{} SIL Open Font Licence 1.1\\[4mm]
+Generated from \texttt{druvx13/Quran-data}\\
+\texttt{https://github.com/druvx13/Quran-data}\\[6mm]
+\textcolor{goldenbrown}{\rule{40mm}{0.3pt}}\\[5mm]
+A5 format \textbullet{} English text only \textbullet{} 114 Chapters \textbullet{} 6,236 Verses
+}
+
+\vspace{10mm}
+\textcolor{goldenbrown}{\rule{60mm}{0.5pt}}
+\end{center}
+
+\vspace*{\fill}
+
+\end{document}

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Jamiʼ at-Tirmidhi — Book 12: The Book on Suckling">
+<title>Jamiʼ at-Tirmidhi — Book 12: The Book on Suckling</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <a href='index.html'>Jamiʼ at-Tirmidhi</a> | <select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Book'><option value=''>Jump to Book…</option><option value='book-1.html'>1. The Book on Purification</option><option value='book-2.html'>2. The Book on Salat (Prayer)</option><option value='book-3.html'>3. The Book on Al-Witr</option><option value='book-4.html'>4. The Book on the Day of Friday</option><option value='book-5.html'>5. The Book on the Two Eids</option><option value='book-6.html'>6. The Book on Traveling</option><option value='book-7.html'>7. The Book on Zakat</option><option value='book-8.html'>8. The Book on Fasting</option><option value='book-9.html'>9. The Book on Hajj</option><option value='book-10.html'>10. The Book on Jana''iz (Funerals)</option><option value='book-11.html'>11. The Book on Marriage</option><option value='book-12.html' selected>12. The Book on Suckling</option><option value='book-13.html'>13. The Book on Divorce and Li'an</option><option value='book-14.html'>14. The Book on Business</option><option value='book-15.html'>15. The Chapters On Judgements From The Messenger of Allah</option><option value='book-16.html'>16. The Book on Blood Money</option><option value='book-17.html'>17. The Book on Legal Punishments (Al-Hudud)</option><option value='book-18.html'>18. The Book on Hunting</option><option value='book-19.html'>19. The Book on Sacrifices</option><option value='book-20.html'>20. The Book on Vows and Oaths</option><option value='book-21.html'>21. The Book on Military Expeditions</option><option value='book-22.html'>22. The Book on Virtues of Jihad</option><option value='book-23.html'>23. The Book on Jihad</option><option value='book-24.html'>24. The Book on Clothing</option><option value='book-25.html'>25. The Book on Food</option><option value='book-26.html'>26. The Book on Drinks</option><option value='book-27.html'>27. Chapters on Righteousness And Maintaining Good Relations With Relatives</option><option value='book-28.html'>28. Chapters on Medicine</option><option value='book-29.html'>29. Chapters On Inheritance</option><option value='book-30.html'>30. Chapters On Wasaya (Wills and Testament)</option><option value='book-31.html'>31. Chapters On Wala' And Gifts</option><option value='book-32.html'>32. Chapters On Al-Qadar</option><option value='book-33.html'>33. Chapters On Al-Fitan</option><option value='book-34.html'>34. Chapters On Dreams</option><option value='book-35.html'>35. Chapters On Witnesses</option><option value='book-36.html'>36. Chapters On Zuhd</option><option value='book-37.html'>37. Chapters on the description of the Day of Judgement, Ar-Riqaq, and Al-Wara'</option><option value='book-38.html'>38. Chapters on the description of Paradise</option><option value='book-39.html'>39. The Book on the Description of Hellfire</option><option value='book-40.html'>40. The Book on Faith</option><option value='book-41.html'>41. Chapters on Knowledge</option><option value='book-42.html'>42. Chapters on Seeking Permission</option><option value='book-43.html'>43. Chapters on Manners</option><option value='book-44.html'>44. Chapters on Parables</option><option value='book-45.html'>45. Chapters on The Virtues of the Qur'an</option><option value='book-46.html'>46. Chapters on Recitation</option><option value='book-47.html'>47. Chapters on Tafsir</option><option value='book-48.html'>48. Chapters on Supplication</option><option value='book-49.html'>49. Chapters on Virtues</option></select> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Jamiʼ at-Tirmidhi — Book 12: The Book on Suckling</h1>
+<noscript><p class="noscript-warn">&#9888; The Hadith Filter requires JavaScript. All hadiths are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='29' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='29' value='29'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='hadith-en'><label for='cf-0'>English</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='hadith-ar'><label for='cf-1'>Arabic</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Jamiʼ at-Tirmidhi &mdash; Book 12: The Book on Suckling</th></tr></thead><tbody>
+<tr class='hadith-sep' data-hadith='1' id='h-1146'><td colspan='2'>[12:1] <a class='permalink' href='#h-1146' data-hadith='1'>Hadith 1</a><button class='copy-btn' onclick='copyHadith(this,"[12:1]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='1'><td class='label'>English</td><td lang='en'>Ali (bin Abi Talib) narrated that The Messenger of Allah said:“Indeed Allah has made unlawful through suckling whatever He made unlawful through lineage.”</td></tr>
+<tr class='hadith-ar' data-hadith='1'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ إِبْرَاهِيمَ، حَدَّثَنَا عَلِيُّ بْنُ زَيْدٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِنَّ اللَّهَ حَرَّمَ مِنَ الرَّضَاعِ مَا حَرَّمَ مِنَ النَّسَبِ ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَائِشَةَ وَابْنِ عَبَّاسٍ وَأُمِّ حَبِيبَةَ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ عَلِيٍّ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='2' id='h-1147'><td colspan='2'>[12:2] <a class='permalink' href='#h-1147' data-hadith='2'>Hadith 2</a><button class='copy-btn' onclick='copyHadith(this,"[12:2]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='2'><td class='label'>English</td><td lang='en'>Aishah narrated that the Messenger of Allah said:“Indeed Allah has made unlawful through suckling whatever He made unlawful through birth.”</td></tr>
+<tr class='hadith-ar' data-hadith='2'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا بُنْدَارٌ، حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الْقَطَّانُ، حَدَّثَنَا مَالِكٌ، ح وَحَدَّثَنَا إِسْحَاقُ بْنُ مُوسَى الأَنْصَارِيُّ، قَالَ حَدَّثَنَا مَعْنٌ، قَالَ حَدَّثَنَا مَالِكٌ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ سُلَيْمَانَ بْنِ يَسَارٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ، قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِنَّ اللَّهَ حَرَّمَ مِنَ الرَّضَاعَةِ مَا حَرَّمَ مِنَ الْوِلاَدَةِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ لاَ نَعْلَمُ بَيْنَهُمْ فِي ذَلِكَ اخْتِلاَفًا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='3' id='h-1148'><td colspan='2'>[12:3] <a class='permalink' href='#h-1148' data-hadith='3'>Hadith 3</a><button class='copy-btn' onclick='copyHadith(this,"[12:3]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='3'><td class='label'>English</td><td lang='en'>Aishah narrated:“My uncle through suckling came and asked permission (to enter) but I refused to admit him until I asked the Messenger of Allah. So the Messenger of Allah said: “Let him in since he is your uncle.’” She said: “It is only the woman who suckled me; I was not suckled by the man.’ So he said: ‘Indeed he is your uncle, so let him in.’”</td></tr>
+<tr class='hadith-ar' data-hadith='3'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ الْخَلاَّلُ، حَدَّثَنَا ابْنُ نُمَيْرٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، قَالَتْ جَاءَ عَمِّي مِنَ الرَّضَاعَةِ يَسْتَأْذِنُ عَلَىَّ فَأَبَيْتُ أَنْ آذَنَ لَهُ حَتَّى أَسْتَأْمِرَ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ فَلْيَلِجْ عَلَيْكِ فَإِنَّهُ عَمُّكِ ‏"‏ ‏.‏ قَالَتْ إِنَّمَا أَرْضَعَتْنِي الْمَرْأَةُ وَلَمْ يُرْضِعْنِي الرَّجُلُ ‏.‏ قَالَ ‏"‏ فَإِنَّهُ عَمُّكِ فَلْيَلِجْ عَلَيْكِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ كَرِهُوا لَبَنَ الْفَحْلِ وَالأَصْلُ فِي هَذَا حَدِيثُ عَائِشَةَ وَقَدْ رَخَّصَ بَعْضُ أَهْلِ الْعِلْمِ فِي لَبَنِ الْفَحْلِ وَالْقَوْلُ الأَوَّلُ أَصَحُّ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='4' id='h-1149'><td colspan='2'>[12:4] <a class='permalink' href='#h-1149' data-hadith='4'>Hadith 4</a><button class='copy-btn' onclick='copyHadith(this,"[12:4]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='4'><td class='label'>English</td><td lang='en'>Amr bin Ash-Shariq narrated that Ibn Abbas was asked about the case in which a man had two slave girls, one of them suckled a girl and the other suckled a boy, is it lawful for the boy to marry the girl? She said:“No, the semen is the same.”</td></tr>
+<tr class='hadith-ar' data-hadith='4'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا مَالِكٌ، ح وَحَدَّثَنَا الأَنْصَارِيُّ، حَدَّثَنَا مَعْنٌ، قَالَ حَدَّثَنَا مَالِكُ بْنُ أَنَسٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عَمْرِو بْنِ الشَّرِيدِ، عَنِ ابْنِ عَبَّاسٍ، أَنَّهُ سُئِلَ عَنْ رَجُلٍ، لَهُ جَارِيَتَانِ أَرْضَعَتْ إِحْدَاهُمَا جَارِيَةً وَالأُخْرَى غُلاَمًا أَيَحِلُّ لِلْغُلاَمِ أَنْ يَتَزَوَّجَ بِالْجَارِيَةِ فَقَالَ لاَ اللِّقَاحُ وَاحِدٌ ‏.‏ قَالَ أَبُو عِيسَى وَهَذَا تَفْسِيرُ لَبَنِ الْفَحْلِ وَهَذَا الأَصْلُ فِي هَذَا الْبَابِ وَهُوَ قَوْلُ أَحْمَدَ وَإِسْحَاقَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='5' id='h-1150'><td colspan='2'>[12:5] <a class='permalink' href='#h-1150' data-hadith='5'>Hadith 5</a><button class='copy-btn' onclick='copyHadith(this,"[12:5]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='5'><td class='label'>English</td><td lang='en'>Abdullah bin Az-Zubair narrated from Aishah from the Prophet who said:“One sip or two sips do not make a prohibition.”</td></tr>
+<tr class='hadith-ar' data-hadith='5'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الأَعْلَى الصَّنْعَانِيُّ، قَالَ حَدَّثَنَا الْمُعْتَمِرُ بْنُ سُلَيْمَانَ، قَالَ سَمِعْتُ أَيُّوبَ، يُحَدِّثُ عَنْ عَبْدِ اللَّهِ بْنِ أَبِي مُلَيْكَةَ، عَنْ عَبْدِ اللَّهِ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ لاَ تُحَرِّمُ الْمَصَّةُ وَلاَ الْمَصَّتَانِ ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ أُمِّ الْفَضْلِ وَأَبِي هُرَيْرَةَ وَالزُّبَيْرِ بْنِ الْعَوَّامِ وَابْنِ الزُّبَيْرِ ‏.‏ وَرَوَى غَيْرُ وَاحِدٍ هَذَا الْحَدِيثَ عَنْ هِشَامِ بْنِ عُرْوَةَ عَنْ أَبِيهِ عَنْ عَبْدِ اللَّهِ بْنِ الزُّبَيْرِ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ لاَ تُحَرِّمُ الْمَصَّةُ وَلاَ الْمَصَّتَانِ ‏"‏ ‏.‏ وَرَوَى مُحَمَّدُ بْنُ دِينَارٍ عَنْ هِشَامِ بْنِ عُرْوَةَ عَنْ أَبِيهِ عَنْ عَبْدِ اللَّهِ بْنِ الزُّبَيْرِ عَنِ الزُّبَيْرِ عَنِ النَّبِيِّ عَلَيْهِ الصَّلاَةُ وَالسَّلاَمُ ‏.‏ وَزَادَ فِيهِ مُحَمَّدُ بْنُ دِينَارٍ الْبَصْرِيُّ عَنِ الزُّبَيْرِ عَنِ النَّبِيِّ صلى الله عليه وسلم وَهُوَ غَيْرُ مَحْفُوظٍ ‏.‏ وَالصَّحِيحُ عِنْدَ أَهْلِ الْحَدِيثِ حَدِيثُ ابْنِ أَبِي مُلَيْكَةَ عَنْ عَبْدِ اللَّهِ بْنِ الزُّبَيْرِ عَنْ عَائِشَةَ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ عَائِشَةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَسَأَلْتُ مُحَمَّدًا عَنْ هَذَا فَقَالَ الصَّحِيحُ عَنِ ابْنِ الزُّبَيْرِ عَنْ عَائِشَةَ وَحَدِيثُ مُحَمَّدِ بْنِ دِينَارٍ خَطَأٌ أَخْطَأَ فِيهِ مُحَمَّدُ بْنُ دِينَارٍ وَزَادَ فِيهِ عَنِ الزُّبَيْرِ وَإِنَّمَا هُوَ هِشَامُ بْنُ عُرْوَةَ عَنْ أَبِيهِ عَنِ الزُّبَيْرِ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ ‏.‏ وَقَالَتْ عَائِشَةُ أُنْزِلَ فِي الْقُرْآنِ عَشْرُ رَضَعَاتٍ مَعْلُومَاتٍ ‏.‏ فَنُسِخَ مِنْ ذَلِكَ خَمْسٌ وَصَارَ إِلَى خَمْسِ رَضَعَاتٍ مَعْلُومَاتٍ ‏.‏ فَتُوُفِّيَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَالأَمْرُ عَلَى ذَلِكَ ‏.‏ حَدَّثَنَا بِذَلِكَ إِسْحَاقُ بْنُ مُوسَى الأَنْصَارِيُّ حَدَّثَنَا مَعْنٌ حَدَّثَنَا مَالِكٌ عَنْ عَبْدِ اللَّهِ بْنِ أَبِي بَكْرٍ عَنْ عَمْرَةَ عَنْ عَائِشَةَ بِهَذَا ‏.‏ وَبِهَذَا كَانَتْ عَائِشَةُ تُفْتِي وَبَعْضُ أَزْوَاجِ النَّبِيِّ صلى الله عليه وسلم وَهُوَ قَوْلُ الشَّافِعِيِّ وَإِسْحَاقَ ‏.‏ وَقَالَ أَحْمَدُ بِحَدِيثِ النَّبِيِّ صلى الله عليه وسلم ‏"‏ لاَ تُحَرِّمُ الْمَصَّةُ وَلاَ الْمَصَّتَانِ ‏"‏ ‏.‏ وَقَالَ إِنْ ذَهَبَ ذَاهِبٌ إِلَى قَوْلِ عَائِشَةَ فِي خَمْسِ رَضَعَاتٍ فَهُوَ مَذْهَبٌ قَوِيٌّ ‏.‏ وَجَبُنَ عَنْهُ أَنْ يَقُولَ فِيهِ شَيْئًا ‏.‏ وَقَالَ بَعْضُ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ يُحَرِّمُ قَلِيلُ الرَّضَاعِ وَكَثِيرُهُ إِذَا وَصَلَ إِلَى الْجَوْفِ ‏.‏ وَهُوَ قَوْلُ سُفْيَانَ الثَّوْرِيِّ وَمَالِكِ بْنِ أَنَسٍ وَالأَوْزَاعِيِّ وَعَبْدِ اللَّهِ بْنِ الْمُبَارَكِ وَوَكِيعٍ وَأَهْلِ الْكُوفَةِ ‏.‏ عَبْدُ اللَّهِ بْنُ أَبِي مُلَيْكَةَ هُوَ عَبْدُ اللَّهِ بْنُ عُبَيْدِ اللَّهِ بْنِ أَبِي مُلَيْكَةَ وَيُكْنَى أَبَا مُحَمَّدٍ وَكَانَ عَبْدُ اللَّهِ قَدِ اسْتَقْضَاهُ عَلَى الطَّائِفِ وَقَالَ ابْنُ جُرَيْجٍ عَنِ ابْنِ أَبِي مُلَيْكَةَ قَالَ أَدْرَكْتُ ثَلاَثِينَ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='6' id='h-1151'><td colspan='2'>[12:6] <a class='permalink' href='#h-1151' data-hadith='6'>Hadith 6</a><button class='copy-btn' onclick='copyHadith(this,"[12:6]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='6'><td class='label'>English</td><td lang='en'>Abdullah bin Abi Mulaikah narrated:“Ubaid bin Abi Maryam narrated to me from Uqbah bin Al-Harith” and, he (Abdullah bin Abi Mulaikah) said: “And I heard it from Uqbah bin Al-Harith, but to me, the narration of Ubaid is better preserved; he said: (Uqbah bin Al-Harith narrated: ) “I married a woman, then a black woman came to us and she said: ‘I suckled both of you.’ So I went to the Prophet and said: ‘I married so-and-so the daughter of so-and-so, then a black women came to us, and said: “I suckled both of you” but she is a liar.’” He said: “Then he (pbuh) turned away from me.” He said: “So I went around to face him (and he (pbuh) turned his face away from me) so I said: ‘She is a liar.’ He said: ‘How can you stay with her while she claims that she suckled both of you? Leave her.’”</td></tr>
+<tr class='hadith-ar' data-hadith='6'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ حُجْرٍ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ إِبْرَاهِيمَ، عَنْ أَيُّوبَ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي مُلَيْكَةَ، قَالَ حَدَّثَنِي عُبَيْدُ بْنُ أَبِي مَرْيَمَ، عَنْ عُقْبَةَ بْنِ الْحَارِثِ، قَالَ وَسَمِعْتُهُ مِنْ، عُقْبَةَ وَلَكِنِّي لِحَدِيثِ عُبَيْدٍ أَحْفَظُ قَالَ تَزَوَّجْتُ امْرَأَةً فَجَاءَتْنَا امْرَأَةٌ سَوْدَاءُ فَقَالَتْ إِنِّي قَدْ أَرْضَعْتُكُمَا ‏.‏ فَأَتَيْتُ النَّبِيَّ صلى الله عليه وسلم فَقُلْتُ تَزَوَّجْتُ فُلاَنَةَ بِنْتَ فُلاَنٍ فَجَاءَتْنَا امْرَأَةٌ سَوْدَاءُ فَقَالَتْ إِنِّي قَدْ أَرْضَعْتُكُمَا وَهِيَ كَاذِبَةٌ ‏.‏ قَالَ فَأَعْرَضَ عَنِّي ‏.‏ قَالَ فَأَتَيْتُهُ مِنْ قِبَلِ وَجْهِهِ فَأَعْرَضَ عَنِّي بِوَجْهِهِ فَقُلْتُ إِنَّهَا كَاذِبَةٌ ‏.‏ قَالَ ‏"‏ وَكَيْفَ بِهَا وَقَدْ زَعَمَتْ أَنَّهَا قَدْ أَرْضَعَتْكُمَا دَعْهَا عَنْكَ ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنِ ابْنِ عُمَرَ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ عُقْبَةَ بْنِ الْحَارِثِ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَقَدْ رَوَى غَيْرُ وَاحِدٍ هَذَا الْحَدِيثَ عَنِ ابْنِ أَبِي مُلَيْكَةَ عَنْ عُقْبَةَ بْنِ الْحَارِثِ وَلَمْ يَذْكُرُوا فِيهِ عَنْ عُبَيْدِ بْنِ أَبِي مَرْيَمَ وَلَمْ يَذْكُرُوا فِيهِ ‏"‏ دَعْهَا عَنْكَ ‏"‏ ‏.‏ وَالْعَمَلُ عَلَى هَذَا الْحَدِيثِ عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ أَجَازُوا شَهَادَةَ الْمَرْأَةِ الْوَاحِدَةِ فِي الرَّضَاعِ ‏.‏ وَقَالَ ابْنُ عَبَّاسٍ تَجُوزُ شَهَادَةُ امْرَأَةٍ وَاحِدَةٍ فِي الرَّضَاعِ وَيُؤْخَذُ يَمِينُهَا ‏.‏ وَبِهِ يَقُولُ أَحْمَدُ وَإِسْحَاقُ ‏.‏ وَقَدْ قَالَ بَعْضُ أَهْلِ الْعِلْمِ لاَ تَجُوزُ شَهَادَةُ الْمَرْأَةِ الْوَاحِدَةِ حَتَّى يَكُونَ أَكْثَرَ ‏.‏ وَهُوَ قَوْلُ الشَّافِعِيِّ ‏.‏ سَمِعْتُ الْجَارُودَ يَقُولُ سَمِعْتُ وَكِيعًا يَقُولُ لاَ تَجُوزُ شَهَادَةُ امْرَأَةٍ وَاحِدَةٍ فِي الْحُكْمِ وَيُفَارِقُهَا فِي الْوَرَعِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='7' id='h-1152'><td colspan='2'>[12:7] <a class='permalink' href='#h-1152' data-hadith='7'>Hadith 7</a><button class='copy-btn' onclick='copyHadith(this,"[12:7]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='7'><td class='label'>English</td><td lang='en'>Umm Salamah narrated that The Messenger of Allah said:“No prohibition results from suckling except for what penetrates the intestines while on the breast before weaning.”</td></tr>
+<tr class='hadith-ar' data-hadith='7'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ فَاطِمَةَ بِنْتِ الْمُنْذِرِ، عَنْ أُمِّ سَلَمَةَ، قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ لاَ يُحَرِّمُ مِنَ الرَّضَاعَةِ إِلاَّ مَا فَتَقَ الأَمْعَاءَ فِي الثَّدْىِ وَكَانَ قَبْلَ الْفِطَامِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَكْثَرِ أَهْلِ الْعِلْمِ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم وَغَيْرِهِمْ أَنَّ الرَّضَاعَةَ لاَ تُحَرِّمُ إِلاَّ مَا كَانَ دُونَ الْحَوْلَيْنِ وَمَا كَانَ بَعْدَ الْحَوْلَيْنِ الْكَامِلَيْنِ فَإِنَّهُ لاَ يُحَرِّمُ شَيْئًا ‏.‏ وَفَاطِمَةُ بِنْتُ الْمُنْذِرِ بْنِ الزُّبَيْرِ بْنِ الْعَوَّامِ هِيَ امْرَأَةُ هِشَامِ بْنِ عُرْوَةَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='8' id='h-1153'><td colspan='2'>[12:8] <a class='permalink' href='#h-1153' data-hadith='8'>Hadith 8</a><button class='copy-btn' onclick='copyHadith(this,"[12:8]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='8'><td class='label'>English</td><td lang='en'>Hajjaj bin Hajjaj Al-Aslami narrated that His father asked the Prophet:“O Messenger of Allah! What will remove the responsibility of the foster relationship from me?” So he said: “A Ghurrah: a male slave or a female slave.”</td></tr>
+<tr class='hadith-ar' data-hadith='8'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا حَاتِمُ بْنُ إِسْمَاعِيلَ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ حَجَّاجِ بْنِ حَجَّاجٍ الأَسْلَمِيِّ، عَنْ أَبِيهِ، أَنَّهُ سَأَلَ النَّبِيَّ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ مَا يُذْهِبُ عَنِّي مَذَمَّةَ الرَّضَاعِ فَقَالَ ‏ "‏ غُرَّةٌ عَبْدٌ أَوْ أَمَةٌ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَمَعْنَى قَوْلِهِ مَا يُذْهِبُ عَنِّي مَذَمَّةَ الرَّضَاعِ ‏.‏ يَقُولُ إِنَّمَا يَعْنِي بِهِ ذِمَامَ الرَّضَاعَةِ وَحَقَّهَا يَقُولُ إِذَا أَعْطَيْتَ الْمُرْضِعَةَ عَبْدًا أَوْ أَمَةً فَقَدْ قَضَيْتَ ذِمَامَهَا ‏.‏ وَيُرْوَى عَنْ أَبِي الطُّفَيْلِ قَالَ كُنْتُ جَالِسًا مَعَ النَّبِيِّ صلى الله عليه وسلم إِذْ أَقْبَلَتِ امْرَأَةٌ فَبَسَطَ النَّبِيُّ صلى الله عليه وسلم رِدَاءَهُ حَتَّى قَعَدَتْ عَلَيْهِ فَلَمَّا ذَهَبَتْ قِيلَ هِيَ كَانَتْ أَرْضَعَتِ النَّبِيَّ صلى الله عليه وسلم ‏.‏ هَكَذَا رَوَاهُ يَحْيَى بْنُ سَعِيدٍ الْقَطَّانُ وَحَاتِمُ بْنُ إِسْمَاعِيلَ وَغَيْرُ وَاحِدٍ عَنْ هِشَامِ بْنِ عُرْوَةَ عَنْ أَبِيهِ عَنْ حَجَّاجِ بْنِ حَجَّاجٍ عَنْ أَبِيهِ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ وَرَوَى سُفْيَانُ بْنُ عُيَيْنَةَ عَنْ هِشَامِ بْنِ عُرْوَةَ عَنْ أَبِيهِ عَنْ حَجَّاجِ بْنِ أَبِي حَجَّاجٍ عَنْ أَبِيهِ عَنِ النَّبِيِّ صلى الله عليه وسلم ‏.‏ وَحَدِيثُ ابْنِ عُيَيْنَةَ غَيْرُ مَحْفُوظٍ وَالصَّحِيحُ مَا رَوَى هَؤُلاَءِ عَنْ هِشَامِ بْنِ عُرْوَةَ عَنْ أَبِيهِ ‏.‏ وَهِشَامُ بْنُ عُرْوَةَ يُكْنَى أَبَا الْمُنْذِرِ وَقَدْ أَدْرَكَ جَابِرَ بْنَ عَبْدِ اللَّهِ وَابْنَ عُمَرَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='9' id='h-1154'><td colspan='2'>[12:9] <a class='permalink' href='#h-1154' data-hadith='9'>Hadith 9</a><button class='copy-btn' onclick='copyHadith(this,"[12:9]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='9'><td class='label'>English</td><td lang='en'>Aishah narrated:“Barfah’s husband was a slave, so the Messenger of Allah let her chose, and she chose herself, and if he was a free man she would not have had a choice.”</td></tr>
+<tr class='hadith-ar' data-hadith='9'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ حُجْرٍ، أَخْبَرَنَا جَرِيرُ بْنُ عَبْدِ الْحَمِيدِ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، قَالَتْ كَانَ زَوْجُ بَرِيرَةَ عَبْدًا فَخَيَّرَهَا رَسُولُ اللَّهِ صلى الله عليه وسلم فَاخْتَارَتْ نَفْسَهَا وَلَوْ كَانَ حُرًّا لَمْ يُخَيِّرْهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='10' id='h-1155'><td colspan='2'>[12:10] <a class='permalink' href='#h-1155' data-hadith='10'>Hadith 10</a><button class='copy-btn' onclick='copyHadith(this,"[12:10]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='10'><td class='label'>English</td><td lang='en'>Aishah narrated:“Barfah’s husband was a free man, so the Messenger of Allah let her choose.”</td></tr>
+<tr class='hadith-ar' data-hadith='10'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ إِبْرَاهِيمَ، عَنِ الأَسْوَدِ، عَنْ عَائِشَةَ، قَالَتْ كَانَ زَوْجُ بَرِيرَةَ حُرًّا فَخَيَّرَهَا رَسُولُ اللَّهِ صلى الله عليه وسلم ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ عَائِشَةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ هَكَذَا رَوَى هِشَامٌ عَنْ أَبِيهِ عَنْ عَائِشَةَ قَالَتْ كَانَ زَوْجُ بَرِيرَةَ عَبْدًا ‏.‏ وَرَوَى عِكْرِمَةُ عَنِ ابْنِ عَبَّاسٍ قَالَ رَأَيْتُ زَوْجَ بَرِيرَةَ وَكَانَ عَبْدًا يُقَالُ لَهُ مُغِيثٌ ‏.‏ وَهَكَذَا رُوِيَ عَنِ ابْنِ عُمَرَ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ وَقَالُوا إِذَا كَانَتِ الأَمَةُ تَحْتَ الْحُرِّ فَأُعْتِقَتْ فَلاَ خِيَارَ لَهَا وَإِنَّمَا يَكُونُ لَهَا الْخِيَارُ إِذَا أُعْتِقَتْ وَكَانَتْ تَحْتَ عَبْدٍ ‏.‏ وَهُوَ قَوْلُ الشَّافِعِيِّ وَأَحْمَدَ وَإِسْحَاقَ ‏.‏ وَرَوَى الأَعْمَشُ عَنْ إِبْرَاهِيمَ عَنِ الأَسْوَدِ عَنْ عَائِشَةَ قَالَتْ كَانَ زَوْجُ بَرِيرَةَ حُرًّا فَخَيَّرَهَا رَسُولُ اللَّهِ صلى الله عليه وسلم ‏.‏ وَرَوَى أَبُو عَوَانَةَ هَذَا الْحَدِيثَ عَنِ الأَعْمَشِ عَنْ إِبْرَاهِيمَ عَنِ الأَسْوَدِ عَنْ عَائِشَةَ فِي قِصَّةِ بَرِيرَةَ قَالَ الأَسْوَدُ وَكَانَ زَوْجُهَا حُرًّا ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ بَعْضِ أَهْلِ الْعِلْمِ مِنَ التَّابِعِينَ وَمَنْ بَعْدَهُمْ وَهُوَ قَوْلُ سُفْيَانَ الثَّوْرِيِّ وَأَهْلِ الْكُوفَةِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='11' id='h-1156'><td colspan='2'>[12:11] <a class='permalink' href='#h-1156' data-hadith='11'>Hadith 11</a><button class='copy-btn' onclick='copyHadith(this,"[12:11]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='11'><td class='label'>English</td><td lang='en'>Ibn Abbas narrated:“Barfahs husband was a black slave belonging to Banu Al-Mughirah. On the day that Barirah was freed. By Allah! It is as if I can see him in the streets of Al-Madinah behind her. Indeed tears were flowing down his beard while he was trying to get her to chose to stay with him, but she did not do it.”</td></tr>
+<tr class='hadith-ar' data-hadith='11'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا عَبْدَةُ، عَنْ سَعِيدِ بْنِ أَبِي عَرُوبَةَ، عَنْ أَيُّوبَ، وَقَتَادَةَ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، أَنَّ زَوْجَ، بَرِيرَةَ كَانَ عَبْدًا أَسْوَدَ لِبَنِي الْمُغِيرَةِ يَوْمَ أُعْتِقَتْ بَرِيرَةُ وَاللَّهِ لَكَأَنِّي بِهِ فِي طُرُقِ الْمَدِينَةِ وَنَوَاحِيهَا وَإِنَّ دُمُوعَهُ لَتَسِيلُ عَلَى لِحْيَتِهِ يَتَرَضَّاهَا لِتَخْتَارَهُ فَلَمْ تَفْعَلْ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَسَعِيدُ بْنُ أَبِي عَرُوبَةَ هُوَ سَعِيدُ بْنُ مِهْرَانَ وَيُكْنَى أَبَا النَّضْرِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='12' id='h-1157'><td colspan='2'>[12:12] <a class='permalink' href='#h-1157' data-hadith='12'>Hadith 12</a><button class='copy-btn' onclick='copyHadith(this,"[12:12]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='12'><td class='label'>English</td><td lang='en'>Abu Hurairah narrated that The Messenger of Allah said:“The child is for the bed, and for the fornicator is the stone.”</td></tr>
+<tr class='hadith-ar' data-hadith='12'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ الْوَلَدُ لِلْفِرَاشِ وَلِلْعَاهِرِ الْحَجَرُ ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عُمَرَ وَعُثْمَانَ وَعَائِشَةَ وَأَبِي أُمَامَةَ وَعَمْرِو بْنِ خَارِجَةَ وَعَبْدِ اللَّهِ بْنِ عَمْرٍو وَالْبَرَاءِ بْنِ عَازِبٍ وَزَيْدِ بْنِ أَرْقَمَ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أَبِي هُرَيْرَةَ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ ‏.‏ وَقَدْ رَوَاهُ الزُّهْرِيُّ عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ وَأَبِي سَلَمَةَ عَنْ أَبِي هُرَيْرَةَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='13' id='h-1158'><td colspan='2'>[12:13] <a class='permalink' href='#h-1158' data-hadith='13'>Hadith 13</a><button class='copy-btn' onclick='copyHadith(this,"[12:13]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='13'><td class='label'>English</td><td lang='en'>Jabir (bin Abdullah) narrated:“The Prophet saw a woman, then he went to Zainab to fulfill his need and he left. He said: ‘Indeed when the woman enters, she enters in the image of Shaitan. So when one of you sees a woman that he is fascinated with, then let him go to his wife, for indeed with her (his wife) is the same as that which is with her.”</td></tr>
+<tr class='hadith-ar' data-hadith='13'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا عَبْدُ الأَعْلَى، حَدَّثَنَا هِشَامُ بْنُ أَبِي عَبْدِ اللَّهِ، وَهُوَ الدَّسْتَوَائِيُّ عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم رَأَى امْرَأَةً فَدَخَلَ عَلَى زَيْنَبَ فَقَضَى حَاجَتَهُ وَخَرَجَ وَقَالَ ‏ "‏ إِنَّ الْمَرْأَةَ إِذَا أَقْبَلَتْ أَقْبَلَتْ فِي صُورَةِ شَيْطَانٍ فَإِذَا رَأَى أَحَدُكُمُ امْرَأَةً فَأَعْجَبَتْهُ فَلْيَأْتِ أَهْلَهُ فَإِنَّ مَعَهَا مِثْلَ الَّذِي مَعَهَا ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنِ ابْنِ مَسْعُودٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ جَابِرٍ حَدِيثٌ صَحِيحٌ حَسَنٌ غَرِيبٌ ‏.‏ وَهِشَامٌ الدَّسْتَوَائِيُّ هُوَ هِشَامُ بْنُ سَنْبَرٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='14' id='h-1159'><td colspan='2'>[12:14] <a class='permalink' href='#h-1159' data-hadith='14'>Hadith 14</a><button class='copy-btn' onclick='copyHadith(this,"[12:14]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='14'><td class='label'>English</td><td lang='en'>Abu Hurairah narrated that The Prophet said:“If I were to order anyone to prostrate to anyone, then I would order the wife to prostrate to her husband.”</td></tr>
+<tr class='hadith-ar' data-hadith='14'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مَحْمُودُ بْنُ غَيْلاَنَ، حَدَّثَنَا النَّضْرُ بْنُ شُمَيْلٍ، أَخْبَرَنَا مُحَمَّدُ بْنُ عَمْرٍو، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ لَوْ كُنْتُ آمِرًا أَحَدًا أَنْ يَسْجُدَ لأَحَدٍ لأَمَرْتُ الْمَرْأَةَ أَنْ تَسْجُدَ لِزَوْجِهَا ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ مُعَاذِ بْنِ جَبَلٍ وَسُرَاقَةَ بْنِ مَالِكِ بْنِ جُعْشُمٍ وَعَائِشَةَ وَابْنِ عَبَّاسٍ وَعَبْدِ اللَّهِ بْنِ أَبِي أَوْفَى وَطَلْقِ بْنِ عَلِيٍّ وَأُمِّ سَلَمَةَ وَأَنَسٍ وَابْنِ عُمَرَ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أَبِي هُرَيْرَةَ حَدِيثٌ حَسَنٌ غَرِيبٌ مِنْ هَذَا الْوَجْهِ مِنْ حَدِيثِ مُحَمَّدِ بْنِ عَمْرٍو عَنْ أَبِي سَلَمَةَ عَنْ أَبِي هُرَيْرَةَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='15' id='h-1160'><td colspan='2'>[12:15] <a class='permalink' href='#h-1160' data-hadith='15'>Hadith 15</a><button class='copy-btn' onclick='copyHadith(this,"[12:15]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='15'><td class='label'>English</td><td lang='en'>Talq bin Ali narrated that The Messenger of Allah said:“When a man calls his wife to fulfill his need, then let her come, even if she is at the oven.”</td></tr>
+<tr class='hadith-ar' data-hadith='15'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا هَنَّادٌ، حَدَّثَنَا مُلاَزِمُ بْنُ عَمْرٍو، قَالَ حَدَّثَنِي عَبْدُ اللَّهِ بْنُ بَدْرٍ، عَنْ قَيْسِ بْنِ طَلْقٍ، عَنْ أَبِيهِ، طَلْقِ بْنِ عَلِيٍّ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِذَا الرَّجُلُ دَعَا زَوْجَتَهُ لِحَاجَتِهِ فَلْتَأْتِهِ وَإِنْ كَانَتْ عَلَى التَّنُّورِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='16' id='h-1161'><td colspan='2'>[12:16] <a class='permalink' href='#h-1161' data-hadith='16'>Hadith 16</a><button class='copy-btn' onclick='copyHadith(this,"[12:16]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='16'><td class='label'>English</td><td lang='en'>Umm Salamah narrated that The Messenger of Allah said:“Whichever woman dies while her husband is pleased with her, then she enters Paradise.”</td></tr>
+<tr class='hadith-ar' data-hadith='16'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا وَاصِلُ بْنُ عَبْدِ الأَعْلَى الْكُوفِيُّ، حَدَّثَنَا مُحَمَّدُ بْنُ فُضَيْلٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَبْدِ الرَّحْمَنِ أَبِي نَصْرٍ، عَنْ مُسَاوِرٍ الْحِمْيَرِيِّ، عَنْ أُمِّهِ، عَنْ أُمِّ سَلَمَةَ، قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَيُّمَا امْرَأَةٍ مَاتَتْ وَزَوْجُهَا عَنْهَا رَاضٍ دَخَلَتِ الْجَنَّةَ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='17' id='h-1162'><td colspan='2'>[12:17] <a class='permalink' href='#h-1162' data-hadith='17'>Hadith 17</a><button class='copy-btn' onclick='copyHadith(this,"[12:17]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='17'><td class='label'>English</td><td lang='en'>Abu Hurairah narrated that The Messenger of Allah said:“The most complete of the believers in faith, is the one with the best character among them. And the best of you are those who are best to your women.”</td></tr>
+<tr class='hadith-ar' data-hadith='17'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو كُرَيْبٍ، مُحَمَّدُ بْنُ الْعَلاَءِ حَدَّثَنَا عَبْدَةُ بْنُ سُلَيْمَانَ، عَنْ مُحَمَّدِ بْنِ عَمْرٍو، حَدَّثَنَا أَبُو سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَكْمَلُ الْمُؤْمِنِينَ إِيمَانًا أَحْسَنُهُمْ خُلُقًا وَخِيَارُكُمْ خِيَارُكُمْ لِنِسَائِهِمْ خُلُقًا ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَائِشَةَ وَابْنِ عَبَّاسٍ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أَبِي هُرَيْرَةَ هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='18' id='h-1163'><td colspan='2'>[12:18] <a class='permalink' href='#h-1163' data-hadith='18'>Hadith 18</a><button class='copy-btn' onclick='copyHadith(this,"[12:18]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='18'><td class='label'>English</td><td lang='en'>Sulaiman bin Amr bin Al-Ahwas said:“My father narrated to me that he witnessed the farewell Hajj with the Messenger of Allah. So he thanked and praised Allah and he reminded and gave admonition. He mentioned a story in his narration and he (the Prophet) said: “And indeed I order you to be good to the women, for they are but captives with you over whom you have no power than that, except if they come with manifest Fahishah (evil behavior). If they do that, then abandon their beds and beat them with a beating that is not harmful. And if they obey you then you have no cause against them. Indeed you have rights over your women, and your women have rights over you. As for your rights over your women, then they must not allow anyone whom you dislike to treat on your bedding (furniture), nor to admit anyone in your home that you dislike. And their rights over you are that you treat them well in clothing them and feeding them.”</td></tr>
+<tr class='hadith-ar' data-hadith='18'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ الْخَلاَّلُ، حَدَّثَنَا الْحُسَيْنُ بْنُ عَلِيٍّ الْجُعْفِيُّ، عَنْ زَائِدَةَ، عَنْ شَبِيبِ بْنِ غَرْقَدَةَ، عَنْ سُلَيْمَانَ بْنِ عَمْرِو بْنِ الأَحْوَصِ، قَالَ حَدَّثَنِي أَبِي أَنَّهُ، شَهِدَ حَجَّةَ الْوَدَاعِ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم فَحَمِدَ اللَّهَ وَأَثْنَى عَلَيْهِ وَذَكَّرَ وَوَعَظَ فَذَكَرَ فِي الْحَدِيثِ قِصَّةً فَقَالَ ‏"‏ أَلاَ وَاسْتَوْصُوا بِالنِّسَاءِ خَيْرًا فَإِنَّمَا هُنَّ عَوَانٌ عِنْدَكُمْ لَيْسَ تَمْلِكُونَ مِنْهُنَّ شَيْئًا غَيْرَ ذَلِكَ إِلاَّ أَنْ يَأْتِينَ بِفَاحِشَةٍ مُبَيِّنَةٍ فَإِنْ فَعَلْنَ فَاهْجُرُوهُنَّ فِي الْمَضَاجِعِ وَاضْرِبُوهُنَّ ضَرْبًا غَيْرَ مُبَرِّحٍ فَإِنْ أَطَعْنَكُمْ فَلاَ تَبْغُوا عَلَيْهِنَّ سَبِيلاً أَلاَ إِنَّ لَكُمْ عَلَى نِسَائِكُمْ حَقًّا وَلِنِسَائِكُمْ عَلَيْكُمْ حَقًّا فَأَمَّا حَقُّكُمْ عَلَى نِسَائِكُمْ أَلاَّ يُوطِئْنَ فُرُشَكُمْ مَنْ تَكْرَهُونَ وَلاَ يَأْذَنَّ فِي بُيُوتِكُمْ لِمَنْ تَكْرَهُونَ أَلاَ وَحَقُّهُنَّ عَلَيْكُمْ أَنْ تُحْسِنُوا إِلَيْهِنَّ فِي كِسْوَتِهِنَّ وَطَعَامِهِنَّ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَمَعْنَى قَوْلِهِ ‏"‏ عَوَانٌ عِنْدَكُمْ ‏"‏ ‏.‏ يَعْنِي أَسْرَى فِي أَيْدِيكُمْ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='19' id='h-1164'><td colspan='2'>[12:19] <a class='permalink' href='#h-1164' data-hadith='19'>Hadith 19</a><button class='copy-btn' onclick='copyHadith(this,"[12:19]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='19'><td class='label'>English</td><td lang='en'>Ali bin Talq narrated that A Bedouin came to the Prophet and said:“O Messenger of Allah! A man among us would be in the desert and a small smell would come from him, (what should he do) while the water is scarce? So the Messenger of Allah said: “When one of you breaks wind then let him perform Wudu, and do not go into your women in their behinds for indeed Allah is not shy of the truth.”</td></tr>
+<tr class='hadith-ar' data-hadith='19'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، وَهَنَّادٌ، قَالاَ حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنْ عَاصِمٍ الأَحْوَلِ، عَنْ عِيسَى بْنِ حِطَّانَ، عَنْ مُسْلِمِ بْنِ سَلاَّمٍ، عَنْ عَلِيِّ بْنِ طَلْقٍ، قَالَ أَتَى أَعْرَابِيٌّ النَّبِيَّ صلى الله عليه وسلم فَقَالَ يَا رَسُولَ اللَّهِ الرَّجُلُ مِنَّا يَكُونُ فِي الْفَلاَةِ فَتَكُونُ مِنْهُ الرُّوَيْحَةُ وَيَكُونُ فِي الْمَاءِ قِلَّةٌ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِذَا فَسَا أَحَدُكُمْ فَلْيَتَوَضَّأْ وَلاَ تَأْتُوا النِّسَاءَ فِي أَعْجَازِهِنَّ فَإِنَّ اللَّهَ لاَ يَسْتَحْيِي مِنَ الْحَقِّ ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عُمَرَ وَخُزَيْمَةَ بْنِ ثَابِتٍ وَابْنِ عَبَّاسٍ وَأَبِي هُرَيْرَةَ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ عَلِيِّ بْنِ طَلْقٍ حَدِيثٌ حَسَنٌ ‏.‏ وَسَمِعْتُ مُحَمَّدًا يَقُولُ لاَ أَعْرِفُ لِعَلِيِّ بْنِ طَلْقٍ عَنِ النَّبِيِّ صلى الله عليه وسلم غَيْرَ هَذَا الْحَدِيثِ الْوَاحِدِ وَلاَ أَعْرِفُ هَذَا الْحَدِيثَ مِنْ حَدِيثِ طَلْقِ بْنِ عَلِيٍّ السُّحَيْمِيِّ ‏.‏ وَكَأَنَّهُ رَأَى أَنَّ هَذَا رَجُلٌ آخَرُ مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='20' id='h-1165'><td colspan='2'>[12:20] <a class='permalink' href='#h-1165' data-hadith='20'>Hadith 20</a><button class='copy-btn' onclick='copyHadith(this,"[12:20]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='20'><td class='label'>English</td><td lang='en'>Ibn Abbas narrated that The Messenger of Allah said:“Allah will not look at a man who enters a man or a woman in the behind.”</td></tr>
+<tr class='hadith-ar' data-hadith='20'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَبُو سَعِيدٍ الأَشَجُّ، حَدَّثَنَا أَبُو خَالِدٍ الأَحْمَرُ، عَنِ الضَّحَّاكِ بْنِ عُثْمَانَ، عَنْ مَخْرَمَةَ بْنِ سُلَيْمَانَ، عَنْ كُرَيْبٍ، عَنِ ابْنِ عَبَّاسٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ لاَ يَنْظُرُ اللَّهُ إِلَى رَجُلٍ أَتَى رَجُلاً أَوِ امْرَأَةً فِي الدُّبُرِ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏ وَرَوَى وَكِيعٌ هَذَا الْحَدِيثَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='21' id='h-1166'><td colspan='2'>[12:21] <a class='permalink' href='#h-1166' data-hadith='21'>Hadith 21</a><button class='copy-btn' onclick='copyHadith(this,"[12:21]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='21'><td class='label'>English</td><td lang='en'>Ali narrated that The Messenger of Allah said:“When one of you breaks wind then let him perform Wudu, and do not go into your women through their behinds.”</td></tr>
+<tr class='hadith-ar' data-hadith='21'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، وَغَيْرُ، وَاحِدٍ، قَالُوا حَدَّثَنَا وَكِيعٌ، عَنْ عَبْدِ الْمَلِكِ بْنِ مُسْلِمٍ، وَهُوَ ابْنُ سَلاَّمٍ عَنْ أَبِيهِ، عَنْ عَلِيٍّ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِذَا فَسَا أَحَدُكُمْ فَلْيَتَوَضَّأْ وَلاَ تَأْتُوا النِّسَاءَ فِي أَعْجَازِهِنَّ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى وَعَلِيٌّ هَذَا هُوَ عَلِيُّ بْنُ طَلْقٍ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='22' id='h-1167'><td colspan='2'>[12:22] <a class='permalink' href='#h-1167' data-hadith='22'>Hadith 22</a><button class='copy-btn' onclick='copyHadith(this,"[12:22]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='22'><td class='label'>English</td><td lang='en'>Maimunah bin Sa’d who was a servant for the Prophet, narrated that The Messenger of Allah said:“The parable of the woman who walks to impress others in adornments for other than her family, is that of darkness on the Day of Judgment: There is no light for her.”</td></tr>
+<tr class='hadith-ar' data-hadith='22'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا عَلِيُّ بْنُ خَشْرَمٍ، أَخْبَرَنَا عِيسَى بْنُ يُونُسَ، عَنْ مُوسَى بْنِ عُبَيْدَةَ، عَنْ أَيُّوبَ بْنِ خَالِدٍ، عَنْ مَيْمُونَةَ بِنْتِ سَعْدٍ، وَكَانَتْ، خَادِمًا لِلنَّبِيِّ صلى الله عليه وسلم قَالَتْ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ مَثَلُ الرَّافِلَةِ فِي الزِّينَةِ فِي غَيْرِ أَهْلِهَا كَمَثَلِ ظُلْمَةِ يَوْمِ الْقِيَامَةِ لاَ نُورَ لَهَا ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ حَدِيثِ مُوسَى بْنِ عُبَيْدَةَ ‏.‏ وَمُوسَى بْنُ عُبَيْدَةَ يُضَعَّفُ فِي الْحَدِيثِ مِنْ قِبَلِ حِفْظِهِ وَهُوَ صَدُوقٌ ‏.‏ وَقَدْ رَوَاهُ بَعْضُهُمْ عَنْ مُوسَى بْنِ عُبَيْدَةَ وَلَمْ يَرْفَعْهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='23' id='h-1168'><td colspan='2'>[12:23] <a class='permalink' href='#h-1168' data-hadith='23'>Hadith 23</a><button class='copy-btn' onclick='copyHadith(this,"[12:23]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='23'><td class='label'>English</td><td lang='en'>Abu Hurairah narrated that The Messenger of Allah said:“Allah becomes jealous and the believer becomes jealous. Allah’s jealousy occurs when a believer does what He has made unlawful for him.”</td></tr>
+<tr class='hadith-ar' data-hadith='23'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا حُمَيْدُ بْنُ مَسْعَدَةَ، حَدَّثَنَا سُفْيَانُ بْنُ حَبِيبٍ، عَنِ الْحَجَّاجِ الصَّوَّافِ، عَنْ يَحْيَى بْنِ أَبِي كَثِيرٍ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ إِنَّ اللَّهَ يَغَارُ وَالْمُؤْمِنُ يَغَارُ وَغَيْرَةُ اللَّهِ أَنْ يَأْتِيَ الْمُؤْمِنُ مَا حَرَّمَ عَلَيْهِ ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عَائِشَةَ وَعَبْدِ اللَّهِ بْنِ عُمَرَ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ أَبِي هُرَيْرَةَ حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏ وَقَدْ رُوِيَ عَنْ يَحْيَى بْنِ أَبِي كَثِيرٍ عَنْ أَبِي سَلَمَةَ عَنْ عُرْوَةَ عَنْ أَسْمَاءَ بِنْتِ أَبِي بَكْرٍ عَنِ النَّبِيِّ صلى الله عليه وسلم هَذَا الْحَدِيثُ وَكِلاَ الْحَدِيثَيْنِ صَحِيحٌ ‏.‏ وَالْحَجَّاجُ الصَّوَّافُ هُوَ الْحَجَّاجُ بْنُ أَبِي عُثْمَانَ وَأَبُو عُثْمَانَ اسْمُهُ مَيْسَرَةُ وَالْحَجَّاجُ يُكْنَى أَبَا الصَّلْتِ وَثَّقَهُ يَحْيَى بْنُ سَعِيدٍ الْقَطَّانُ ‏.‏ حَدَّثَنَا أَبُو بَكْرٍ الْعَطَّارُ عَنْ عَلِيِّ بْنِ الْمَدِينِيِّ قَالَ سَأَلْتُ يَحْيَى بْنَ سَعِيدٍ الْقَطَّانَ عَنْ حَجَّاجٍ الصَّوَّافِ فَقَالَ ثِقَةٌ فَطِنٌ كَيِّسٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='24' id='h-1169'><td colspan='2'>[12:24] <a class='permalink' href='#h-1169' data-hadith='24'>Hadith 24</a><button class='copy-btn' onclick='copyHadith(this,"[12:24]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='24'><td class='label'>English</td><td lang='en'>Abu Sa’eed Al-Khudri narrated that The Messenger of Allah said:“It is not lawful for a woman who believers in Allah and the Last Day to travel on a trip that is three days or more, unless she is accompanied by her father, her brother, her husband, her son, or someone who is a Mahram to her.”</td></tr>
+<tr class='hadith-ar' data-hadith='24'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ لاَ يَحِلُّ لاِمْرَأَةٍ تُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ أَنْ تُسَافِرَ سَفَرًا يَكُونُ ثَلاَثَةَ أَيَّامٍ فَصَاعِدًا إِلاَّ وَمَعَهَا أَبُوهَا أَوْ أَخُوهَا أَوْ زَوْجُهَا أَوِ ابْنُهَا أَوْ ذُو مَحْرَمٍ مِنْهَا ‏"‏ ‏.‏ وَفِي الْبَابِ عَنْ أَبِي هُرَيْرَةَ وَابْنِ عَبَّاسٍ وَابْنِ عُمَرَ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَرُوِيَ عَنِ النَّبِيِّ صلى الله عليه وسلم أَنَّهُ قَالَ ‏"‏ لاَ تُسَافِرُ الْمَرْأَةُ مَسِيرَةَ يَوْمٍ وَلَيْلَةٍ إِلاَّ مَعَ ذِي مَحْرَمٍ ‏"‏ ‏.‏ وَالْعَمَلُ عَلَى هَذَا عِنْدَ أَهْلِ الْعِلْمِ يَكْرَهُونَ لِلْمَرْأَةِ أَنْ تُسَافِرَ إِلاَّ مَعَ ذِي مَحْرَمٍ ‏.‏ وَاخْتَلَفَ أَهْلُ الْعِلْمِ فِي الْمَرْأَةِ إِذَا كَانَتْ مُوسِرَةً وَلَمْ يَكُنْ لَهَا مَحْرَمٌ هَلْ تَحُجُّ ‏.‏ فَقَالَ بَعْضُ أَهْلِ الْعِلْمِ لاَ يَجِبُ عَلَيْهَا الْحَجُّ لأَنَّ الْمَحْرَمَ مِنَ السَّبِيلِ لِقَوْلِ اللَّهِ عَزَّ وَجَلَِّ ‏:‏ ‏(‏ لِمَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلاً ‏)‏ فَقَالُوا إِذَا لَمْ يَكُنْ لَهَا مَحْرَمٌ فَلاَ تَسْتَطِيعُ إِلَيْهِ سَبِيلاً ‏.‏ وَهُوَ قَوْلُ سُفْيَانَ الثَّوْرِيِّ وَأَهْلِ الْكُوفَةِ ‏.‏ وَقَالَ بَعْضُ أَهْلِ الْعِلْمِ إِذَا كَانَ الطَّرِيقُ آمِنًا فَإِنَّهَا تَخْرُجُ مَعَ النَّاسِ فِي الْحَجِّ ‏.‏ وَهُوَ قَوْلُ مَالِكِ بْنِ أَنَسٍ وَالشَّافِعِيِّ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='25' id='h-1170'><td colspan='2'>[12:25] <a class='permalink' href='#h-1170' data-hadith='25'>Hadith 25</a><button class='copy-btn' onclick='copyHadith(this,"[12:25]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='25'><td class='label'>English</td><td lang='en'>Abu Hurairah narrated that The Messenger of Allah said:“A woman is not to travel the distance of a day and a night unless she is accompanied by someone who is a Mahram.”</td></tr>
+<tr class='hadith-ar' data-hadith='25'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَلِيٍّ الْخَلاَّلُ، حَدَّثَنَا بِشْرُ بْنُ عُمَرَ، حَدَّثَنَا مَالِكُ بْنُ أَنَسٍ، عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ لاَ تُسَافِرُ امْرَأَةٌ مَسِيرَةَ يَوْمٍ وَلَيْلَةٍ إِلاَّ وَمَعَهَا ذُو مَحْرَمٍ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='26' id='h-1171'><td colspan='2'>[12:26] <a class='permalink' href='#h-1171' data-hadith='26'>Hadith 26</a><button class='copy-btn' onclick='copyHadith(this,"[12:26]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='26'><td class='label'>English</td><td lang='en'>Uqbah bin Amir narrated that The Messenger of Allah said:“Beware of entering upon women.” So a man from the Ansar said: ‘”O Messenger of Allah! What do you think about Hamu? So he said: “The Hamu is death.”</td></tr>
+<tr class='hadith-ar' data-hadith='26'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنْ يَزِيدَ بْنِ أَبِي حَبِيبٍ، عَنْ أَبِي الْخَيْرِ، عَنْ عُقْبَةَ بْنِ عَامِرٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏"‏ إِيَّاكُمْ وَالدُّخُولَ عَلَى النِّسَاءِ ‏"‏ ‏.‏ فَقَالَ رَجُلٌ مِنَ الأَنْصَارِ يَا رَسُولَ اللَّهِ أَفَرَأَيْتَ الْحَمْوَ قَالَ ‏"‏ الْحَمْوُ الْمَوْتُ ‏"‏ ‏.‏ قَالَ وَفِي الْبَابِ عَنْ عُمَرَ وَجَابِرٍ وَعَمْرِو بْنِ الْعَاصِ ‏.‏ قَالَ أَبُو عِيسَى حَدِيثُ عُقْبَةَ بْنِ عَامِرٍ حَدِيثٌ حَسَنٌ صَحِيحٌ ‏.‏ وَإِنَّمَا مَعْنَى كَرَاهِيَةِ الدُّخُولِ عَلَى النِّسَاءِ عَلَى نَحْوِ مَا رُوِيَ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ لاَ يَخْلُوَنَّ رَجُلٌ بِامْرَأَةٍ إِلاَّ كَانَ ثَالِثَهُمَا الشَّيْطَانُ ‏"‏ ‏.‏ وَمَعْنَى قَوْلِهِ ‏"‏ الْحَمْوُ ‏"‏ ‏.‏ يُقَالُ هُوَ أَخُو الزَّوْجِ كَأَنَّهُ كَرِهَ لَهُ أَنْ يَخْلُوَ بِهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='27' id='h-1172'><td colspan='2'>[12:27] <a class='permalink' href='#h-1172' data-hadith='27'>Hadith 27</a><button class='copy-btn' onclick='copyHadith(this,"[12:27]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='27'><td class='label'>English</td><td lang='en'>Jabir narrated that The Prophet said:“Do not enter upon Al-Mughibar (the women whose husband are absent), for indeed the Shaitan flows through one of you as the blood flows.” We said: “And you?” He said: “And me, but Allah helped me over him, so I am safe.”</td></tr>
+<tr class='hadith-ar' data-hadith='27'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ، حَدَّثَنَا عِيسَى بْنُ يُونُسَ، عَنْ مُجَالِدٍ، عَنِ الشَّعْبِيِّ، عَنْ جَابِرٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ لاَ تَلِجُوا عَلَى الْمُغِيبَاتِ فَإِنَّ الشَّيْطَانَ يَجْرِي مِنْ أَحَدِكُمْ مَجْرَى الدَّمِ ‏"‏ ‏.‏ قُلْنَا وَمِنْكَ قَالَ ‏"‏ وَمِنِّي وَلَكِنَّ اللَّهَ أَعَانَنِي عَلَيْهِ فَأَسْلَمُ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ غَرِيبٌ مِنْ هَذَا الْوَجْهِ ‏.‏ وَقَدْ تَكَلَّمَ بَعْضُهُمْ فِي مُجَالِدِ بْنِ سَعِيدٍ مِنْ قِبَلِ حِفْظِهِ ‏.‏ وَسَمِعْتُ عَلِيَّ بْنَ خَشْرَمٍ يَقُولُ قَالَ سُفْيَانُ بْنُ عُيَيْنَةَ فِي تَفْسِيرِ قَوْلِ النَّبِيِّ صلى الله عليه وسلم ‏"‏ وَلَكِنَّ اللَّهَ أَعَانَنِي عَلَيْهِ فَأَسْلَمُ ‏"‏ ‏.‏ يَعْنِي أَسْلَمُ أَنَا مِنْهُ ‏.‏ قَالَ سُفْيَانُ وَالشَّيْطَانُ لاَ يُسْلِمُ ‏.‏ وَ ‏"‏ لاَ تَلِجُوا عَلَى الْمُغِيبَاتِ ‏"‏ وَالْمُغِيبَةُ الْمَرْأَةُ الَّتِي يَكُونُ زَوْجُهَا غَائِبًا وَالْمُغِيبَاتُ جَمَاعَةُ الْمُغِيبَةِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='28' id='h-1173'><td colspan='2'>[12:28] <a class='permalink' href='#h-1173' data-hadith='28'>Hadith 28</a><button class='copy-btn' onclick='copyHadith(this,"[12:28]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='28'><td class='label'>English</td><td lang='en'>Abdullah narrated that The Prophet said:“The woman is Awrah, so when she goes out, the Shaitan seeks to tempt her.”</td></tr>
+<tr class='hadith-ar' data-hadith='28'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا عَمْرُو بْنُ عَاصِمٍ، حَدَّثَنَا هَمَّامٌ، عَنْ قَتَادَةَ، عَنْ مُوَرِّقٍ، عَنْ أَبِي الأَحْوَصِ، عَنْ عَبْدِ اللَّهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ الْمَرْأَةُ عَوْرَةٌ فَإِذَا خَرَجَتِ اسْتَشْرَفَهَا الشَّيْطَانُ ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='29' id='h-1174'><td colspan='2'>[12:29] <a class='permalink' href='#h-1174' data-hadith='29'>Hadith 29</a><button class='copy-btn' onclick='copyHadith(this,"[12:29]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='29'><td class='label'>English</td><td lang='en'>Mu’adh bin Jabal narrated that The Prophet said:“No woman annoys her husband in the world except that his wife among the Al-Huril-Ain said: ‘Do not annoy him, may Allah destroy you, he is only like a guest with, soon he will part from you for us.’”</td></tr>
+<tr class='hadith-ar' data-hadith='29'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الْحَسَنُ بْنُ عَرَفَةَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ عَيَّاشٍ، عَنْ بَحِيرِ بْنِ سَعْدٍ، عَنْ خَالِدِ بْنِ مَعْدَانَ، عَنْ كَثِيرِ بْنِ مُرَّةَ الْحَضْرَمِيِّ، عَنْ مُعَاذِ بْنِ جَبَلٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ "‏ لاَ تُؤْذِي امْرَأَةٌ زَوْجَهَا فِي الدُّنْيَا إِلاَّ قَالَتْ زَوْجَتُهُ مِنَ الْحُورِ الْعِينِ لاَ تُؤْذِيهِ قَاتَلَكِ اللَّهُ فَإِنَّمَا هُوَ عِنْدَكِ دَخِيلٌ يُوشِكُ أَنْ يُفَارِقَكِ إِلَيْنَا ‏"‏ ‏.‏ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ لاَ نَعْرِفُهُ إِلاَّ مِنْ هَذَا الْوَجْهِ ‏.‏ وَرِوَايَةُ إِسْمَاعِيلَ بْنِ عَيَّاشٍ عَنِ الشَّامِيِّينَ أَصْلَحُ وَلَهُ عَنْ أَهْلِ الْحِجَازِ وَأَهْلِ الْعِرَاقِ مَنَاكِيرُ ‏.‏</td></tr>
+</tbody></table></div>
+<nav class='chapter-nav'><span><a href='book-11.html'>&laquo; Book 11</a></span><span><a href='book-13.html'>Book 13 &raquo;</a></span></nav>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+<script>
+(function(){
+  var CF_KEY='hadith-cf';
+  var FS_KEY='hfs';
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxHadith=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxHadith;
+  var enabledTypes=new Set();
+
+  /* ---- Default content filter prefs ---- */
+  var DEFAULTS={'hadith-en':true,'hadith-ar':true,};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem(CF_KEY);if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=DEFAULTS.hasOwnProperty(key)?DEFAULTS[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem(CF_KEY,JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var h=+tr.dataset.hadith;
+      var inRange=(h>=vcFrom&&h<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxHadith;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxHadith;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+
+  /* ---- Scroll to #h-N anchor ---- */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-highlight');
+          setTimeout(function(){el.classList.remove('hadith-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
+
+  /* ---- Font size control ---- */
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy hadith ---- */
+  window.copyHadith=function(btn,ref){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+ref+']'];
+    if(tbod){
+      var hid=row.dataset.hadith;
+      tbod.querySelectorAll('tr[data-hadith="'+hid+'"]').forEach(function(tr){
+        if(tr.classList.contains('hadith-sep'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#h-'+a.dataset.hadith;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#h-'+a.dataset.hadith);
+    });
+  });
+})();
+</script>
+</body>
+</html>

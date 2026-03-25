@@ -1122,6 +1122,7 @@ Texts are reproduced verbatim; no alterations have been made.
 </section>
 <h2>Surahs (Chapters)</h2>
 <div class="surah-grid">
+<a href='how/index.html' style='border:2px solid #ffd54f'><strong>&#9878; How</strong> Ethical &amp; Duty Guide<span class='sg-meta'><span>Comprehensive categorized guide</span></span></a>
 """ % (CSS + """
 .recent-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
 .recent-card{display:flex;flex-direction:column;padding:10px 14px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em;min-width:160px}
@@ -2233,6 +2234,7 @@ with open(download_html_path, 'w', encoding='utf-8') as f:
 <h2>&#128230; Additional Pages</h2>
 <div class="dl-grid" id="dl-extras">
 <label><input type="checkbox" value="index" checked> Index Page</label>
+<label><input type="checkbox" value="how" checked> How Guide</label>
 <label><input type="checkbox" value="search" checked> Search Page</label>
 <label><input type="checkbox" value="config" checked> Settings Page</label>
 <label><input type="checkbox" value="sources" checked> Sources Page</label>
@@ -2290,12 +2292,13 @@ async function generateZip(){
     var fn=('00'+i).slice(-3)+'.html';
     files.push(fn);
   }
-  var extraMap={'index':'index.html','search':'search.html','config':'config.html','sources':'sources.html','license':'license.html','download':'download.html'};
+  var extraMap={'index':'index.html','how':'how/index.html','search':'search.html','config':'config.html','sources':'sources.html','license':'license.html','download':'download.html'};
   extras.forEach(function(e){if(extraMap[e])files.push(extraMap[e]);});
 
-  /* Also include config.js and search-data.js if search is included */
+  /* Also include config.js and extra data files when needed */
   var needConfigJS=extras.indexOf('config')>=0||files.length>0;
   var needSearchJS=extras.indexOf('search')>=0;
+  var needHowData=extras.indexOf('how')>=0;
 
   var total=files.length+(needConfigJS?1:0)+(needSearchJS?1:0);
   var done=0;
@@ -2312,6 +2315,9 @@ async function generateZip(){
     /* Remove header links to excluded pages */
     if(extras.indexOf('config')<0){
       doc.querySelectorAll('a[href="config.html"]').forEach(function(a){a.remove();});
+    }
+    if(extras.indexOf('how')<0){
+      doc.querySelectorAll('a[href="how/index.html"]').forEach(function(a){a.remove();});
     }
     if(extras.indexOf('search')<0){
       doc.querySelectorAll('a[href="search.html"]').forEach(function(a){a.remove();});
@@ -2398,7 +2404,7 @@ async function generateZip(){
     /* Remove additional page labels not selected */
     var dlExtras=doc.getElementById('dl-extras');
     if(dlExtras){
-      var extraKeys=['index','search','config','sources','license','download'];
+    var extraKeys=['index','how','search','config','sources','license','download'];
       extraKeys.forEach(function(key){
         if(extras.indexOf(key)<0){
           dlExtras.querySelectorAll('input[value="'+key+'"]').forEach(function(inp){
@@ -2439,6 +2445,30 @@ async function generateZip(){
       console.warn('Failed to fetch '+fname,e);
     }
     updateProgress();
+  }
+
+  /* Add docs/how JSON data when How page is selected */
+  if(needHowData){
+    try{
+      status.textContent='Fetching how/sd/translations.json\\u2026';
+      var howMetaResp=await fetch('how/sd/translations.json');
+      if(howMetaResp.ok){
+        var howMetaText=await howMetaResp.text();
+        zip.file('how/sd/translations.json',howMetaText);
+        updateProgress();
+        var howMeta=JSON.parse(howMetaText||'{}');
+        var trList=(howMeta.translations||[]);
+        for(var hi=0;hi<trList.length;hi++){
+          var key=trList[hi].key;
+          try{
+            status.textContent='Fetching how/sd/t/'+key+'.json\\u2026';
+            var one=await fetch('how/sd/t/'+key+'.json');
+            if(one.ok){zip.file('how/sd/t/'+key+'.json',await one.text());}
+          }catch(_){}
+          updateProgress();
+        }
+      }
+    }catch(_){}
   }
 
   /* Add config.js with smart defaults.

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sunan Abu Dawud — Book 10: The Book of Lost and Found Items">
+<title>Sunan Abu Dawud — Book 10: The Book of Lost and Found Items</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <a href='index.html'>Sunan Abu Dawud</a> | <select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Book'><option value=''>Jump to Book…</option><option value='book-1.html'>1. Purification (Kitab Al-Taharah)</option><option value='book-2.html'>2. Prayer (Kitab Al-Salat)</option><option value='book-3.html'>3. The Book Of The Prayer For Rain (Kitab al-Istisqa')</option><option value='book-4.html'>4. Prayer (Kitab Al-Salat): Detailed Rules of Law about the Prayer during Journey</option><option value='book-5.html'>5. Prayer (Kitab Al-Salat): Voluntary Prayers</option><option value='book-6.html'>6. Prayer (Kitab Al-Salat): Detailed Injunctions about Ramadan</option><option value='book-7.html'>7. Prayer (Kitab Al-Salat): Prostration while reciting the Qur'an</option><option value='book-8.html'>8. Prayer (Kitab Al-Salat): Detailed Injunctions about Witr</option><option value='book-9.html'>9. Zakat (Kitab Al-Zakat)</option><option value='book-10.html' selected>10. The Book of Lost and Found Items</option><option value='book-11.html'>11. The Rites of Hajj (Kitab Al-Manasik Wa'l-Hajj)</option><option value='book-12.html'>12. Marriage (Kitab Al-Nikah)</option><option value='book-13.html'>13. Divorce (Kitab Al-Talaq)</option><option value='book-14.html'>14. Fasting (Kitab Al-Siyam)</option><option value='book-15.html'>15. Jihad (Kitab Al-Jihad)</option><option value='book-16.html'>16. Sacrifice (Kitab Al-Dahaya)</option><option value='book-17.html'>17. Game (Kitab Al-Said)</option><option value='book-18.html'>18. Wills (Kitab Al-Wasaya)</option><option value='book-19.html'>19. Shares of Inheritance (Kitab Al-Fara'id)</option><option value='book-20.html'>20. Tribute, Spoils, and Rulership (Kitab Al-Kharaj, Wal-Fai' Wal-Imarah)</option><option value='book-21.html'>21. Funerals (Kitab Al-Jana'iz)</option><option value='book-22.html'>22. Oaths and Vows (Kitab Al-Aiman Wa Al-Nudhur)</option><option value='book-23.html'>23. Commercial Transactions (Kitab Al-Buyu)</option><option value='book-24.html'>24. Wages (Kitab Al-Ijarah)</option><option value='book-25.html'>25. The Office of the Judge (Kitab Al-Aqdiyah)</option><option value='book-26.html'>26. Knowledge (Kitab Al-Ilm)</option><option value='book-27.html'>27. Drinks (Kitab Al-Ashribah)</option><option value='book-28.html'>28. Foods (Kitab Al-At'imah)</option><option value='book-29.html'>29. Medicine (Kitab Al-Tibb)</option><option value='book-30.html'>30. Divination and Omens (Kitab Al-Kahanah Wa Al-Tatayyur)</option><option value='book-31.html'>31. The Book of Manumission of Slaves</option><option value='book-32.html'>32. Dialects and Readings of the Qur'an (Kitab Al-Huruf Wa Al-Qira'at)</option><option value='book-33.html'>33. Hot Baths (Kitab Al-Hammam)</option><option value='book-34.html'>34. Clothing (Kitab Al-Libas)</option><option value='book-35.html'>35. Combing the Hair (Kitab Al-Tarajjul)</option><option value='book-36.html'>36. Signet-Rings (Kitab Al-Khatam)</option><option value='book-37.html'>37. Trials and Fierce Battles (Kitab Al-Fitan Wa Al-Malahim)</option><option value='book-38.html'>38. The Promised Deliverer (Kitab Al-Mahdi)</option><option value='book-39.html'>39. Battles (Kitab Al-Malahim)</option><option value='book-40.html'>40. Prescribed Punishments (Kitab Al-Hudud)</option><option value='book-41.html'>41. Types of Blood-Wit (Kitab Al-Diyat)</option><option value='book-42.html'>42. Model Behavior of the Prophet (Kitab Al-Sunnah)</option><option value='book-43.html'>43. General Behavior (Kitab Al-Adab)</option></select> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Sunan Abu Dawud — Book 10: The Book of Lost and Found Items</h1>
+<noscript><p class="noscript-warn">&#9888; The Hadith Filter requires JavaScript. All hadiths are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='20' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='20' value='20'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='hadith-en'><label for='cf-0'>English</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='hadith-ar'><label for='cf-1'>Arabic</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Sunan Abu Dawud &mdash; Book 10: The Book of Lost and Found Items</th></tr></thead><tbody>
+<tr class='hadith-sep' data-hadith='1' id='h-1701'><td colspan='2'>[10:1] <a class='permalink' href='#h-1701' data-hadith='1'>Hadith 1</a><button class='copy-btn' onclick='copyHadith(this,"[10:1]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='1'><td class='label'>English</td><td lang='en'>Suwayd ibn Ghaflah said:I fought along with Zayd ibn Suhan and Sulayman ibn Rabi'ah. I found a whip. They said to me: Throw it away. I said: No; if I find its owner (I shall give it to him); if not, I shall use it. Then I performed hajj; and when I reached Medina, I asked Ubayy ibn Ka'b. He said: I found a purse which contained one hundred dinars; so I came to the Prophet (ﷺ). He said to me: Make the matter known for a year. I made it known for a year and then came to him. He then said to me: Make the matter known for a year. So I made it known for a year. I then (again) came to him. He said to me: Make the matter known for a year. Then I came to him and said: I did not find anyone who realises it. He said: Remember, its number, its container and its tie. If its owner comes, (give it to him), otherwise use it yourself. He (the narrator Shu'bah) said: I do not know whether he said the word "make the matter known" three times or once</td></tr>
+<tr class='hadith-ar' data-hadith='1'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ كَثِيرٍ، أَخْبَرَنَا شُعْبَةُ، عَنْ سَلَمَةَ بْنِ كُهَيْلٍ، عَنْ سُوَيْدِ بْنِ غَفَلَةَ، قَالَ غَزَوْتُ مَعَ زَيْدِ بْنِ صُوحَانَ وَسَلْمَانَ بْنِ رَبِيعَةَ فَوَجَدْتُ سَوْطًا فَقَالاَ لِي اطْرَحْهُ ‏.‏ فَقُلْتُ لاَ وَلَكِنْ إِنْ وَجَدْتُ صَاحِبَهُ وَإِلاَّ اسْتَمْتَعْتُ بِهِ فَحَجَجْتُ فَمَرَرْتُ عَلَى الْمَدِينَةِ فَسَأَلْتُ أُبَىَّ بْنَ كَعْبٍ فَقَالَ وَجَدْتُ صُرَّةً فِيهَا مِائَةُ دِينَارٍ فَأَتَيْتُ النَّبِيَّ صلى الله عليه وسلم فَقَالَ ‏"‏ عَرِّفْهَا حَوْلاً ‏"‏ ‏.‏ فَعَرَّفْتُهَا حَوْلاً ثُمَّ أَتَيْتُهُ فَقَالَ ‏"‏ عَرِّفْهَا حَوْلاً ‏"‏ ‏.‏ فَعَرَّفْتُهَا حَوْلاً ثُمَّ أَتَيْتُهُ فَقَالَ ‏"‏ عَرِّفْهَا حَوْلاً ‏"‏ ‏.‏ فَعَرَّفْتُهَا حَوْلاً ثُمَّ أَتَيْتُهُ فَقُلْتُ لَمْ أَجِدْ مَنْ يَعْرِفُهَا ‏.‏ فَقَالَ ‏"‏ احْفَظْ عَدَدَهَا وَوِكَاءَهَا وَوِعَاءَهَا فَإِنْ جَاءَ صَاحِبُهَا وَإِلاَّ فَاسْتَمْتِعْ بِهَا ‏"‏ ‏.‏ وَقَالَ وَلاَ أَدْرِي أَثَلاَثًا قَالَ ‏"‏ عَرِّفْهَا ‏"‏ ‏.‏ أَوْ مَرَّةً وَاحِدَةً ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='2' id='h-1702'><td colspan='2'>[10:2] <a class='permalink' href='#h-1702' data-hadith='2'>Hadith 2</a><button class='copy-btn' onclick='copyHadith(this,"[10:2]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='2'><td class='label'>English</td><td lang='en'>The aforesaid tradition has also been transmitted by Shu’bah through a different chain of narrators to the same effect. The version goes :He said : Make it known for a year. He said this three times. He said: I do not know whether he said “for a year” or “for three years”</td></tr>
+<tr class='hadith-ar' data-hadith='2'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا يَحْيَى، عَنْ شُعْبَةَ، بِمَعْنَاهُ قَالَ ‏ "‏ عَرِّفْهَا حَوْلاً ‏"‏ ‏.‏ وَقَالَ ثَلاَثَ مِرَارٍ قَالَ فَلاَ أَدْرِي قَالَ لَهُ ذَلِكَ فِي سَنَةٍ أَوْ فِي ثَلاَثِ سِنِينَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='3' id='h-1703'><td colspan='2'>[10:3] <a class='permalink' href='#h-1703' data-hadith='3'>Hadith 3</a><button class='copy-btn' onclick='copyHadith(this,"[10:3]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='3'><td class='label'>English</td><td lang='en'>The above mentioned tradition has also been transmitted by Salamah. Bin Kuhail through a different chain to the same effect. The version has ; about making the matter known he said ; “ two years or three.” He said :Remember its number, its container and its string. The version adds : If its owner comes, and tells its number and its string, then give it to him. Abu Dawud said : None of the narrators said this word in this tradition except Hammad ; That is, “ If he tells its number.”</td></tr>
+<tr class='hadith-ar' data-hadith='3'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا حَمَّادٌ، حَدَّثَنَا سَلَمَةُ بْنُ كُهَيْلٍ، بِإِسْنَادِهِ وَمَعْنَاهُ قَالَ فِي التَّعْرِيفِ قَالَ عَامَيْنِ أَوْ ثَلاَثَةً ‏.‏ وَقَالَ ‏"‏ اعْرِفْ عَدَدَهَا وَوِعَاءَهَا وَوِكَاءَهَا ‏"‏ ‏.‏ زَادَ ‏"‏ فَإِنْ جَاءَ صَاحِبُهَا فَعَرَفَ عَدَدَهَا وَوِكَاءَهَا فَادْفَعْهَا إِلَيْهِ ‏"‏ ‏.‏ قَالَ أَبُو دَاوُدَ لَيْسَ يَقُولُ هَذِهِ الْكَلِمَةَ إِلاَّ حَمَّادٌ فِي هَذَا الْحَدِيثِ يَعْنِي ‏"‏ فَعَرَفَ عَدَدَهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='4' id='h-1704'><td colspan='2'>[10:4] <a class='permalink' href='#h-1704' data-hadith='4'>Hadith 4</a><button class='copy-btn' onclick='copyHadith(this,"[10:4]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='4'><td class='label'>English</td><td lang='en'>Zaid bin Khalid al-Juhani said :A man asked the Messenger of Allah (SWAS) about a find. He said: Make the matter known for a year, then note its string and its container and then use it for your purpose. Then if its owner comes, give it to him. He asked : Messenger of Allah, what about a stray sheep? He replied: Take it; that is for you, or for your brother, or for the wolf. He again asked: Messenger of Allah, What about stray camels? The Messenger of Allah (SWAS) became angry so much so that his cheeks became red or ( the narrator is doubtful) his face became red. He replied: What have you to do with them? They have with them their feet and their stomachs (for drink) till their master comes to him</td></tr>
+<tr class='hadith-ar' data-hadith='4'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ جَعْفَرَ، عَنْ رَبِيعَةَ بْنِ أَبِي عَبْدِ الرَّحْمَنِ، عَنْ يَزِيدَ، مَوْلَى الْمُنْبَعِثِ عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّ رَجُلاً، سَأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنِ اللُّقَطَةِ فَقَالَ ‏"‏ عَرِّفْهَا سَنَةً ثُمَّ اعْرِفْ وِكَاءَهَا وَعِفَاصَهَا ثُمَّ اسْتَنْفِقْ بِهَا فَإِنْ جَاءَ رَبُّهَا فَأَدِّهَا إِلَيْهِ ‏"‏ ‏.‏ فَقَالَ يَا رَسُولَ اللَّهِ فَضَالَّةُ الْغَنَمِ فَقَالَ ‏"‏ خُذْهَا فَإِنَّمَا هِيَ لَكَ أَوْ لأَخِيكَ أَوْ لِلذِّئْبِ ‏"‏ ‏.‏ قَالَ يَا رَسُولَ اللَّهِ فَضَالَّةُ الإِبِلِ فَغَضِبَ رَسُولُ اللَّهِ صلى الله عليه وسلم حَتَّى احْمَرَّتْ وَجْنَتَاهُ - أَوِ احْمَرَّ وَجْهُهُ - وَقَالَ ‏"‏ مَا لَكَ وَلَهَا مَعَهَا حِذَاؤُهَا وَسِقَاؤُهَا حَتَّى يَأْتِيَهَا رَبُّهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='5' id='h-1705'><td colspan='2'>[10:5] <a class='permalink' href='#h-1705' data-hadith='5'>Hadith 5</a><button class='copy-btn' onclick='copyHadith(this,"[10:5]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='5'><td class='label'>English</td><td lang='en'>The above mentioned tradition has also been transmitted by Malik through a different chain of narrators to the same effect. This version adds:They have their stomachs: They can go down to water and eat trees. He did not say about the stray sheep: take it. About a find he said : Make it known for a year; if it’s owner comes, (give it to him), otherwise use it yourself. This version has not the word : “ spend it”. Abu Dawud said : This tradition has been narrated by al-Thawri, Sulaiman bin Bilal, and Hammad bin Salamah on the authority of Rabi ‘ ah in a similar manner. They did not mention the word “take it”</td></tr>
+<tr class='hadith-ar' data-hadith='5'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا ابْنُ السَّرْحِ، حَدَّثَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي مَالِكٌ، بِإِسْنَادِهِ وَمَعْنَاهُ زَادَ ‏"‏ سِقَاؤُهَا تَرِدُ الْمَاءَ وَتَأْكُلُ الشَّجَرَ ‏"‏ ‏.‏ وَلَمْ يَقُلْ ‏"‏ خُذْهَا ‏"‏ ‏.‏ فِي ضَالَّةِ الشَّاءِ وَقَالَ فِي اللُّقَطَةِ ‏"‏ عَرِّفْهَا سَنَةً فَإِنْ جَاءَ صَاحِبُهَا وَإِلاَّ فَشَأْنَكَ بِهَا ‏"‏ ‏.‏ وَلَمْ يَذْكُرِ ‏"‏ اسْتَنْفِقْ ‏"‏ ‏.‏ قَالَ أَبُو دَاوُدَ رَوَاهُ الثَّوْرِيُّ وَسُلَيْمَانُ بْنُ بِلاَلٍ وَحَمَّادُ بْنُ سَلَمَةَ عَنْ رَبِيعَةَ مِثْلَهُ لَمْ يَقُولُوا ‏"‏ خُذْهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='6' id='h-1706'><td colspan='2'>[10:6] <a class='permalink' href='#h-1706' data-hadith='6'>Hadith 6</a><button class='copy-btn' onclick='copyHadith(this,"[10:6]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='6'><td class='label'>English</td><td lang='en'>Narrated Zayd ibn Khalid al-Juhani: The Messenger of Allah (ﷺ) was asked about a find. He said: Make it known for a year. If its seeker comes, deliver it to him, otherwise note its container and its string. Then use it; if its seeker comes, deliver it to him</td></tr>
+<tr class='hadith-ar' data-hadith='6'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ رَافِعٍ، وَهَارُونُ بْنُ عَبْدِ اللَّهِ، - الْمَعْنَى - قَالاَ حَدَّثَنَا ابْنُ أَبِي فُدَيْكٍ، عَنِ الضَّحَّاكِ، - يَعْنِي ابْنَ عُثْمَانَ - عَنْ سَالِمِ أَبِي النَّضْرِ، عَنْ بُسْرِ بْنِ سَعِيدٍ، عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سُئِلَ عَنِ اللُّقَطَةِ فَقَالَ ‏ "‏ عَرِّفْهَا سَنَةً فَإِنْ جَاءَ بَاغِيهَا فَأَدِّهَا إِلَيْهِ وَإِلاَّ فَاعْرِفْ عِفَاصَهَا وَوِكَاءَهَا ثُمَّ كُلْهَا فَإِنْ جَاءَ بَاغِيهَا فَأَدِّهَا إِلَيْهِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='7' id='h-1707'><td colspan='2'>[10:7] <a class='permalink' href='#h-1707' data-hadith='7'>Hadith 7</a><button class='copy-btn' onclick='copyHadith(this,"[10:7]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='7'><td class='label'>English</td><td lang='en'>The aforesaid tradition has also been transmitted by Zaid bin Khalid al-Juhani through a different chain of narrators. This version has:The Messenger of Allah (SWAS) was asked about a find. He replied : Make the matter known for a year; if its owner comes, give it to him, otherwise note its string and its container and have it along with your property. If its owner comes, deliver it to him</td></tr>
+<tr class='hadith-ar' data-hadith='7'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا أَحْمَدُ بْنُ حَفْصٍ، حَدَّثَنِي أَبِي، حَدَّثَنِي إِبْرَاهِيمُ بْنُ طَهْمَانَ، عَنْ عَبَّادِ بْنِ إِسْحَاقَ، عَنْ عَبْدِ اللَّهِ بْنِ يَزِيدَ، عَنْ أَبِيهِ، يَزِيدَ مَوْلَى الْمُنْبَعِثِ عَنْ زَيْدِ بْنِ خَالِدٍ الْجُهَنِيِّ، أَنَّهُ قَالَ سُئِلَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَذَكَرَ نَحْوَ حَدِيثِ رَبِيعَةَ ‏.‏ قَالَ وَسُئِلَ عَنِ اللُّقَطَةِ فَقَالَ ‏ "‏ تُعَرِّفُهَا حَوْلاً فَإِنْ جَاءَ صَاحِبُهَا دَفَعْتَهَا إِلَيْهِ وَإِلاَّ عَرَفْتَ وِكَاءَهَا وَعِفَاصَهَا ثُمَّ أَفِضْهَا فِي مَالِكَ فَإِنْ جَاءَ صَاحِبُهَا فَادْفَعْهَا إِلَيْهِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='8' id='h-1708'><td colspan='2'>[10:8] <a class='permalink' href='#h-1708' data-hadith='8'>Hadith 8</a><button class='copy-btn' onclick='copyHadith(this,"[10:8]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='8'><td class='label'>English</td><td lang='en'>The above mentioned tradition has also been transmitted by Yahya bin Sa’id and Rabi’ah through the chain of narrators mentioned by Qutaibah to the same effect. This version adds; if its seeker comes, and recognizes its container and its number, then give it to him. Hammad also narrated it from `Ubaid Allah bin `Umar from `Amr bin Shu’aib, from his father, from his grandfather, from the Prophet (SWAS) something similar. Abu Dawud said :This addition made by Hammad bin Salamah bin Kuhail, Yahya bin Sa’id, `Ubaid Allah bin `Umar and Rabi’ah; “if its owner comes and recognizes its container, and its string,” is not guarded. The version narrated by Uqbah bin Suwaid on the authority of his father from the Prophet (SWAS) has also the words : “make it known for a year”. The version of `Umar bin al-Khattab has also been transmitted from the Prophet (SWAS). This version has : “Make it known for a year”</td></tr>
+<tr class='hadith-ar' data-hadith='8'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، عَنْ حَمَّادِ بْنِ سَلَمَةَ، عَنْ يَحْيَى بْنِ سَعِيدٍ، وَرَبِيعَةَ، بِإِسْنَادِ قُتَيْبَةَ وَمَعْنَاهُ وَزَادَ فِيهِ ‏"‏ فَإِنْ جَاءَ بَاغِيهَا فَعَرَفَ عِفَاصَهَا وَعَدَدَهَا فَادْفَعْهَا إِلَيْهِ ‏"‏ ‏.‏ وَقَالَ حَمَّادٌ أَيْضًا عَنْ عُبَيْدِ اللَّهِ بْنِ عُمَرَ عَنْ عَمْرِو بْنِ شُعَيْبٍ عَنْ أَبِيهِ عَنْ جَدِّهِ عَنِ النَّبِيِّ صلى الله عليه وسلم مِثْلَهُ ‏.‏ قَالَ أَبُو دَاوُدَ وَهَذِهِ الزِّيَادَةُ الَّتِي زَادَ حَمَّادُ بْنُ سَلَمَةَ فِي حَدِيثِ سَلَمَةَ بْنِ كُهَيْلٍ وَيَحْيَى بْنِ سَعِيدٍ وَعُبَيْدِ اللَّهِ بْنِ عُمَرَ وَرَبِيعَةَ ‏"‏ إِنْ جَاءَ صَاحِبُهَا فَعَرَفَ عِفَاصَهَا وَوِكَاءَهَا فَادْفَعْهَا إِلَيْهِ ‏"‏ ‏.‏ لَيْسَتْ بِمَحْفُوظَةٍ ‏"‏ فَعَرَفَ عِفَاصَهَا وَوِكَاءَهَا ‏"‏ ‏.‏ وَحَدِيثُ عُقْبَةَ بْنِ سُوَيْدٍ عَنْ أَبِيهِ عَنِ النَّبِيِّ صلى الله عليه وسلم أَيْضًا قَالَ ‏"‏ عَرِّفْهَا سَنَةً ‏"‏ ‏.‏ وَحَدِيثُ عُمَرَ بْنِ الْخَطَّابِ أَيْضًا عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ عَرِّفْهَا سَنَةً ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='9' id='h-1709'><td colspan='2'>[10:9] <a class='permalink' href='#h-1709' data-hadith='9'>Hadith 9</a><button class='copy-btn' onclick='copyHadith(this,"[10:9]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='9'><td class='label'>English</td><td lang='en'>Narrated Iyad ibn Himar: The Prophet (ﷺ) said: He who finds something should call one or two trusty persons as witnesses and not conceal it or cover it up; then if he finds its owner he should return it to him, otherwise it is Allah's property which He gives to whom He will</td></tr>
+<tr class='hadith-ar' data-hadith='9'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا خَالِدٌ يَعْنِي الطَّحَّانَ، ح وَحَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا وُهَيْبٌ، - الْمَعْنَى - عَنْ خَالِدٍ الْحَذَّاءِ، عَنْ أَبِي الْعَلاَءِ، عَنْ مُطَرِّفٍ، - يَعْنِي ابْنَ عَبْدِ اللَّهِ - عَنْ عِيَاضِ بْنِ حِمَارٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ مَنْ وَجَدَ لُقَطَةً فَلْيُشْهِدْ ذَا عَدْلٍ - أَوْ ذَوَىْ عَدْلٍ - وَلاَ يَكْتُمْ وَلاَ يُغَيِّبْ فَإِنْ وَجَدَ صَاحِبَهَا فَلْيَرُدَّهَا عَلَيْهِ وَإِلاَّ فَهُوَ مَالُ اللَّهِ عَزَّ وَجَلَّ يُؤْتِيهِ مَنْ يَشَاءُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='10' id='h-1710'><td colspan='2'>[10:10] <a class='permalink' href='#h-1710' data-hadith='10'>Hadith 10</a><button class='copy-btn' onclick='copyHadith(this,"[10:10]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='10'><td class='label'>English</td><td lang='en'>Narrated Abdullah ibn Amr ibn al-'As: The Messenger of Allah (ﷺ) was asked about the hanging fruit. He replied: If a needy person takes some and does not take a supply away in his garment, he is not to be blamed, but he who carries any of it away is to be find twice the value and punished, and he who steals any of it after it has been put in the place where dates are dried is to have his hand cut off if its value reaches the price of a shield. Regarding stray camels and sheep he mentioned the same as others have done. He said: He was asked about finds and replied: If it is in a frequented road and a large town, make the matter known for a year, and if its owner comes, give it to him, but if he does not, it belongs to you. If it is in a place which has been a waste from ancient time, or if it is a hidden treasure (belonging to the Islamic period), it is subject to the payment of the fifth</td></tr>
+<tr class='hadith-ar' data-hadith='10'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا اللَّيْثُ، عَنِ ابْنِ عَجْلاَنَ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ، عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم أَنَّهُ سُئِلَ عَنِ الثَّمَرِ الْمُعَلَّقِ فَقَالَ ‏"‏ مَنْ أَصَابَ بِفِيهِ مِنْ ذِي حَاجَةٍ غَيْرَ مُتَّخِذٍ خُبْنَةً فَلاَ شَىْءَ عَلَيْهِ وَمَنْ خَرَجَ بِشَىْءٍ مِنْهُ فَعَلَيْهِ غَرَامَةُ مِثْلَيْهِ وَالْعُقُوبَةُ وَمَنْ سَرَقَ مِنْهُ شَيْئًا بَعْدَ أَنْ يُئْوِيَهُ الْجَرِينُ فَبَلَغَ ثَمَنَ الْمِجَنِّ فَعَلَيْهِ الْقَطْعُ ‏"‏ ‏.‏ وَذَكَرَ فِي ضَالَّةِ الإِبِلِ وَالْغَنَمِ كَمَا ذَكَرَهُ غَيْرُهُ قَالَ وَسُئِلَ عَنِ اللُّقَطَةِ فَقَالَ ‏"‏ مَا كَانَ مِنْهَا فِي طَرِيقِ الْمِيتَاءِ أَوِ الْقَرْيَةِ الْجَامِعَةِ فَعَرِّفْهَا سَنَةً فَإِنْ جَاءَ طَالِبُهَا فَادْفَعْهَا إِلَيْهِ وَإِنْ لَمْ يَأْتِ فَهِيَ لَكَ وَمَا كَانَ فِي الْخَرَابِ - يَعْنِي - فَفِيهَا وَفِي الرِّكَازِ الْخُمُسُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='11' id='h-1711'><td colspan='2'>[10:11] <a class='permalink' href='#h-1711' data-hadith='11'>Hadith 11</a><button class='copy-btn' onclick='copyHadith(this,"[10:11]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='11'><td class='label'>English</td><td lang='en'>The above mentioned tradition has also been transmitted by ‘Amr bin Shu’aib through a different chain of narrators. This version adds:regarding the stray sheep he said : “Take it”</td></tr>
+<tr class='hadith-ar' data-hadith='11'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الْعَلاَءِ، حَدَّثَنَا أَبُو أُسَامَةَ، عَنِ الْوَلِيدِ، - يَعْنِي ابْنَ كَثِيرٍ - حَدَّثَنِي عَمْرُو بْنُ شُعَيْبٍ، بِإِسْنَادِهِ بِهَذَا قَالَ فِي ضَالَّةِ الشَّاءِ قَالَ ‏ "‏ فَاجْمَعْهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='12' id='h-1712'><td colspan='2'>[10:12] <a class='permalink' href='#h-1712' data-hadith='12'>Hadith 12</a><button class='copy-btn' onclick='copyHadith(this,"[10:12]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='12'><td class='label'>English</td><td lang='en'>The aforesaid tradition has also been transmitted by ‘Amr bin Shu’aib through a different chain of narrators. This version has:He said about the stray sheep: You, your brother or the wolf may have them. Do take it. A similar version has been transmitted by Ayyub and Ya’qub bin `Ata from `Amr bin Shu’aid from the Propher (SWAS). He said : then take it</td></tr>
+<tr class='hadith-ar' data-hadith='12'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُسَدَّدٌ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ عُبَيْدِ اللَّهِ بْنِ الأَخْنَسِ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، بِهَذَا بِإِسْنَادِهِ قَالَ فِي ضَالَّةِ الْغَنَمِ ‏"‏ لَكَ أَوْ لأَخِيكَ أَوْ لِلذِّئْبِ خُذْهَا قَطُّ ‏"‏ ‏.‏ كَذَا قَالَ فِيهِ أَيُّوبُ وَيَعْقُوبُ بْنُ عَطَاءٍ عَنْ عَمْرِو بْنِ شُعَيْبٍ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏"‏ فَخُذْهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='13' id='h-1713'><td colspan='2'>[10:13] <a class='permalink' href='#h-1713' data-hadith='13'>Hadith 13</a><button class='copy-btn' onclick='copyHadith(this,"[10:13]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='13'><td class='label'>English</td><td lang='en'>The above mentioned tradition has also been narrated by ‘Amr bin Shu’aib from his father, from his grandfather, from the Prophet (SWAS) to the same effect. This version has:regarding the stray sheep he said: Take it (and keep it with you) till its seeker comes to it</td></tr>
+<tr class='hadith-ar' data-hadith='13'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ، حَدَّثَنَا حَمَّادٌ، ح وَحَدَّثَنَا ابْنُ الْعَلاَءِ، حَدَّثَنَا ابْنُ إِدْرِيسَ، عَنِ ابْنِ إِسْحَاقَ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، عَنِ النَّبِيِّ صلى الله عليه وسلم بِهَذَا ‏.‏ قَالَ فِي ضَالَّةِ الشَّاءِ ‏ "‏ فَاجْمَعْهَا حَتَّى يَأْتِيَهَا بَاغِيهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='14' id='h-1714'><td colspan='2'>[10:14] <a class='permalink' href='#h-1714' data-hadith='14'>Hadith 14</a><button class='copy-btn' onclick='copyHadith(this,"[10:14]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='14'><td class='label'>English</td><td lang='en'>Narrated Abu Sa'id al-Khudri: Ali ibn AbuTalib found a dinar and he took it to Fatimah. She asked the Messenger of Allah (ﷺ) about it. He said: This is Allah's provision. Then the Messenger of Allah (ﷺ) ate out of the food (bought with it), and Ali and Fatimah also ate out of that food. But afterwards a woman came crying out about the dinar. The Prophet (ﷺ) said: Pay the dinar, Ali</td></tr>
+<tr class='hadith-ar' data-hadith='14'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مُحَمَّدُ بْنُ الْعَلاَءِ، حَدَّثَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ، عَنْ عَمْرِو بْنِ الْحَارِثِ، عَنْ بُكَيْرِ بْنِ الأَشَجِّ، عَنْ عُبَيْدِ اللَّهِ بْنِ مِقْسَمٍ، حَدَّثَهُ عَنْ رَجُلٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، أَنَّ عَلِيَّ بْنَ أَبِي طَالِبٍ، وَجَدَ دِينَارًا فَأَتَى بِهِ فَاطِمَةَ فَسَأَلَتْ عَنْهُ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقَالَ ‏"‏ هُوَ رِزْقُ اللَّهِ عَزَّ وَجَلَّ ‏"‏ ‏.‏ فَأَكَلَ مِنْهُ رَسُولُ اللَّهِ صلى الله عليه وسلم وَأَكَلَ عَلِيٌّ وَفَاطِمَةُ فَلَمَّا كَانَ بَعْدَ ذَلِكَ أَتَتْهُ امْرَأَةٌ تَنْشُدُ الدِّينَارَ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ يَا عَلِيُّ أَدِّ الدِّينَارَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='15' id='h-1715'><td colspan='2'>[10:15] <a class='permalink' href='#h-1715' data-hadith='15'>Hadith 15</a><button class='copy-btn' onclick='copyHadith(this,"[10:15]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='15'><td class='label'>English</td><td lang='en'>Narrated Ali ibn Abu Talib: Bilal ibn Yahya al-Absi said: Ali found a dinar and purchased some flour with it. The seller of the flour recognised him and returned the dinar to him. Ali took it, deducted two qirat (carat) from it, and purchased meat with it</td></tr>
+<tr class='hadith-ar' data-hadith='15'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا الْهَيْثَمُ بْنُ خَالِدٍ الْجُهَنِيُّ، حَدَّثَنَا وَكِيعٌ، عَنْ سَعْدِ بْنِ أَوْسٍ، عَنْ بِلاَلِ بْنِ يَحْيَى الْعَبْسِيِّ، عَنْ عَلِيٍّ، رضى الله عنه أَنَّهُ الْتَقَطَ دِينَارًا فَاشْتَرَى بِهِ دَقِيقًا فَعَرَفَهُ صَاحِبُ الدَّقِيقِ فَرَدَّ عَلَيْهِ الدِّينَارَ فَأَخَذَهُ عَلِيٌّ وَقَطَعَ مِنْهُ قِيرَاطَيْنِ فَاشْتَرَى بِهِ لَحْمًا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='16' id='h-1716'><td colspan='2'>[10:16] <a class='permalink' href='#h-1716' data-hadith='16'>Hadith 16</a><button class='copy-btn' onclick='copyHadith(this,"[10:16]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='16'><td class='label'>English</td><td lang='en'>Sahl bin Sa’d said :`Ali bin Abi Talib entered upon Fatimah while Hasan and Husain were crying. He asked: Why are they crying? She replied: Due to hunger. ‘Ali went out and found a dinar in the market. He then came to Fatima and told her about it. She said: Go to such and such a Jew and get some flour for us. He came to the Jew and purchased flour with it. He said : Are you the son-in-law of him who believes that he is the Messenger of Allah. He said : Yes. The Jew said : Have your dinar with you and you will get the flour. Ali then went out and came to Fatima. He told her about the matter. She then said: Go to such and such a butcher and get some meat for us for a dirham. Ali went out and pawned the dinar for a dirham with him and got the meat, and brought it (to her). She then kneaded the flour, put the utensil on fire and baked the bread. She sent for her father : (i.e. the Prophet (SWAS). He came to them. She said to him : Messenger of Allah, I tell you all the matter. If you think it is lawful for us, we shall eat it and you will eat with us. She said: The matter is such and such. He said: eat in the name of Allah. So they ate it. While they were (eating) at their place, a boy cried adguring in the name of Allah and Islam: He was searching the dinar. The Messenger of Allah (SWAS) commanded and he was called in. He asked him. The boy replied, I lost it somewhere in the market. The Prophet (SWAS) said : `Ali, go to the butcher and tell him that the Messenger of Allah (SWAS) has asked you : send the dinar to me and one dirham of yours will be due on me. The butcher returned it and the Messenger of Allah (SWAS) handed it to him (the boy)</td></tr>
+<tr class='hadith-ar' data-hadith='16'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا جَعْفَرُ بْنُ مُسَافِرٍ التِّنِّيسِيُّ، حَدَّثَنَا ابْنُ أَبِي فُدَيْكٍ، حَدَّثَنَا مُوسَى بْنُ يَعْقُوبَ الزَّمْعِيُّ، عَنْ أَبِي حَازِمٍ، عَنْ سَهْلِ بْنِ سَعْدٍ، أَخْبَرَهُ أَنَّ عَلِيَّ بْنَ أَبِي طَالِبٍ دَخَلَ عَلَى فَاطِمَةَ وَحَسَنٌ وَحُسَيْنٌ يَبْكِيَانِ فَقَالَ مَا يُبْكِيهِمَا قَالَتِ الْجُوعُ فَخَرَجَ عَلِيٌّ فَوَجَدَ دِينَارًا بِالسُّوقِ فَجَاءَ إِلَى فَاطِمَةَ فَأَخْبَرَهَا فَقَالَتِ اذْهَبْ إِلَى فُلاَنٍ الْيَهُودِيِّ فَخُذْ دَقِيقًا فَجَاءَ الْيَهُودِيَّ فَاشْتَرَى بِهِ دَقِيقًا فَقَالَ الْيَهُودِيُّ أَنْتَ خَتَنُ هَذَا الَّذِي يَزْعُمُ أَنَّهُ رَسُولُ اللَّهِ قَالَ نَعَمْ ‏.‏ قَالَ فَخُذْ دِينَارَكَ وَلَكَ الدَّقِيقُ ‏.‏ فَخَرَجَ عَلِيٌّ حَتَّى جَاءَ فَاطِمَةَ فَأَخْبَرَهَا فَقَالَتِ اذْهَبْ إِلَى فُلاَنٍ الْجَزَّارِ فَخُذْ لَنَا بِدِرْهَمٍ لَحْمًا فَذَهَبَ فَرَهَنَ الدِّينَارَ بِدِرْهَمِ لَحْمٍ فَجَاءَ بِهِ فَعَجَنَتْ وَنَصَبَتْ وَخَبَزَتْ وَأَرْسَلَتْ إِلَى أَبِيهَا فَجَاءَهُمْ فَقَالَتْ يَا رَسُولَ اللَّهِ أَذْكُرُ لَكَ فَإِنْ رَأَيْتَهُ لَنَا حَلاَلاً أَكَلْنَاهُ وَأَكَلْتَ مَعَنَا مِنْ شَأْنِهِ كَذَا وَكَذَا ‏.‏ فَقَالَ ‏"‏ كُلُوا بِاسْمِ اللَّهِ ‏"‏ ‏.‏ فَأَكَلُوا فَبَيْنَمَا هُمْ مَكَانَهُمْ إِذَا غُلاَمٌ يَنْشُدُ اللَّهَ وَالإِسْلاَمَ الدِّينَارَ فَأَمَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم فَدُعِيَ لَهُ فَسَأَلَهُ ‏.‏ فَقَالَ سَقَطَ مِنِّي فِي السُّوقِ ‏.‏ فَقَالَ النَّبِيُّ صلى الله عليه وسلم ‏"‏ يَا عَلِيُّ اذْهَبْ إِلَى الْجَزَّارِ فَقُلْ لَهُ إِنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ لَكَ أَرْسِلْ إِلَىَّ بِالدِّينَارِ وَدِرْهَمُكَ عَلَىَّ ‏"‏ ‏.‏ فَأَرْسَلَ بِهِ فَدَفَعَهُ رَسُولُ اللَّهِ صلى الله عليه وسلم إِلَيْهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='17' id='h-1717'><td colspan='2'>[10:17] <a class='permalink' href='#h-1717' data-hadith='17'>Hadith 17</a><button class='copy-btn' onclick='copyHadith(this,"[10:17]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='17'><td class='label'>English</td><td lang='en'>Narrated Jabir ibn Abdullah: The Messenger of Allah (ﷺ) gave us licence to use (for our purpose) a stick, a rope, a whip and things of that type which a man picked up; he may benefit from them</td></tr>
+<tr class='hadith-ar' data-hadith='17'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا سُلَيْمَانُ بْنُ عَبْدِ الرَّحْمَنِ الدِّمَشْقِيُّ، حَدَّثَنَا مُحَمَّدُ بْنُ شُعَيْبٍ، عَنِ الْمُغِيرَةِ بْنِ زِيَادٍ، عَنْ أَبِي الزُّبَيْرِ الْمَكِّيِّ، أَنَّهُ حَدَّثَهُ عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، قَالَ رَخَّصَ لَنَا رَسُولُ اللَّهِ صلى الله عليه وسلم فِي الْعَصَا وَالسَّوْطِ وَالْحَبْلِ وَأَشْبَاهِهِ يَلْتَقِطُهُ الرَّجُلُ يَنْتَفِعُ بِهِ ‏.‏ قَالَ أَبُو دَاوُدَ رَوَاهُ النُّعْمَانُ بْنُ عَبْدِ السَّلاَمِ عَنِ الْمُغِيرَةِ أَبِي سَلَمَةَ بِإِسْنَادِهِ وَرَوَاهُ شَبَابَةُ عَنْ مُغِيرَةَ بْنِ مُسْلِمٍ عَنْ أَبِي الزُّبَيْرِ عَنْ جَابِرٍ قَالَ كَانُوا لَمْ يَذْكُرِ النَّبِيَّ صلى الله عليه وسلم ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='18' id='h-1718'><td colspan='2'>[10:18] <a class='permalink' href='#h-1718' data-hadith='18'>Hadith 18</a><button class='copy-btn' onclick='copyHadith(this,"[10:18]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='18'><td class='label'>English</td><td lang='en'>Narrated Abu Hurayrah: The Prophet (ﷺ) said: He who hides a stray camel shall pay a fine, and a like compensation with it</td></tr>
+<tr class='hadith-ar' data-hadith='18'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا مَخْلَدُ بْنُ خَالِدٍ، حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا مَعْمَرٌ، عَنْ عَمْرِو بْنِ مُسْلِمٍ، عَنْ عِكْرِمَةَ، - أَحْسَبُهُ - عَنْ أَبِي هُرَيْرَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ "‏ ضَالَّةُ الإِبِلِ الْمَكْتُومَةِ غَرَامَتُهَا وَمِثْلُهَا مَعَهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='19' id='h-1719'><td colspan='2'>[10:19] <a class='permalink' href='#h-1719' data-hadith='19'>Hadith 19</a><button class='copy-btn' onclick='copyHadith(this,"[10:19]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='19'><td class='label'>English</td><td lang='en'>‘Abd al-Rahman bin `Uthman al-Taime said:The Messenger of Allah (SWAS) prohibited taking the find of pilgrims. Ibn Wahb said : One should leave the find of a pilgrim till its owner finds it</td></tr>
+<tr class='hadith-ar' data-hadith='19'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا يَزِيدُ بْنُ خَالِدِ بْنِ مَوْهَبٍ، وَأَحْمَدُ بْنُ صَالِحٍ، قَالاَ حَدَّثَنَا ابْنُ وَهْبٍ، أَخْبَرَنِي عَمْرٌو، عَنْ بُكَيْرٍ، عَنْ يَحْيَى بْنِ عَبْدِ الرَّحْمَنِ بْنِ حَاطِبٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عُثْمَانَ التَّيْمِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى عَنْ لُقَطَةِ الْحَاجِّ ‏.‏ قَالَ أَحْمَدُ قَالَ ابْنُ وَهْبٍ يَعْنِي فِي لُقَطَةِ الْحَاجِّ يَتْرُكُهَا حَتَّى يَجِدَهَا صَاحِبُهَا قَالَ ابْنُ مَوْهَبٍ عَنْ عَمْرٍو ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='20' id='h-1720'><td colspan='2'>[10:20] <a class='permalink' href='#h-1720' data-hadith='20'>Hadith 20</a><button class='copy-btn' onclick='copyHadith(this,"[10:20]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='20'><td class='label'>English</td><td lang='en'>Narrated Al-Mundhir ibn Jarir: I accompanied Jarir at Bawazij. The shepherd brought the cows. Among them there was a cow that was not one of them. Jarir asked him: What is this? He replied: This was mixed with the cows and we do not know to whom it belongs. Jarir said: Take it out. I heard the Messenger of Allah (ﷺ) say: No one mixes a stray animal (with his animals) but a man who strays from right path</td></tr>
+<tr class='hadith-ar' data-hadith='20'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنَا عَمْرُو بْنُ عَوْنٍ، أَخْبَرَنَا خَالِدٌ، عَنْ أَبِي حَيَّانَ التَّيْمِيِّ، عَنِ الْمُنْذِرِ بْنِ جَرِيرٍ، قَالَ كُنْتُ مَعَ جَرِيرٍ بِالْبَوَازِيجِ فَجَاءَ الرَّاعِي بِالْبَقَرِ وَفِيهَا بَقَرَةٌ لَيْسَتْ مِنْهَا فَقَالَ لَهُ جَرِيرٌ مَا هَذِهِ قَالَ لَحِقَتْ بِالْبَقَرِ لاَ نَدْرِي لِمَنْ هِيَ ‏.‏ فَقَالَ جَرِيرٌ أَخْرِجُوهَا فَقَدْ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ "‏ لاَ يَأْوِي الضَّالَّةَ إِلاَّ ضَالٌّ ‏"‏ ‏.‏</td></tr>
+</tbody></table></div>
+<nav class='chapter-nav'><span><a href='book-9.html'>&laquo; Book 9</a></span><span><a href='book-11.html'>Book 11 &raquo;</a></span></nav>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+<script>
+(function(){
+  var CF_KEY='hadith-cf';
+  var FS_KEY='hfs';
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxHadith=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxHadith;
+  var enabledTypes=new Set();
+
+  /* ---- Default content filter prefs ---- */
+  var DEFAULTS={'hadith-en':true,'hadith-ar':true,};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem(CF_KEY);if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=DEFAULTS.hasOwnProperty(key)?DEFAULTS[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem(CF_KEY,JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var h=+tr.dataset.hadith;
+      var inRange=(h>=vcFrom&&h<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxHadith;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxHadith;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+
+  /* ---- Scroll to #h-N anchor ---- */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-highlight');
+          setTimeout(function(){el.classList.remove('hadith-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
+
+  /* ---- Font size control ---- */
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy hadith ---- */
+  window.copyHadith=function(btn,ref){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+ref+']'];
+    if(tbod){
+      var hid=row.dataset.hadith;
+      tbod.querySelectorAll('tr[data-hadith="'+hid+'"]').forEach(function(tr){
+        if(tr.classList.contains('hadith-sep'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#h-'+a.dataset.hadith;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#h-'+a.dataset.hadith);
+    });
+  });
+})();
+</script>
+</body>
+</html>

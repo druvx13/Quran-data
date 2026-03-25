@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Muwatta Malik — Book 15: The Qur'an">
+<title>Muwatta Malik — Book 15: The Qur'an</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <a href='index.html'>Muwatta Malik</a> | <select class='surah-nav-select' onchange='location.href=this.value' aria-label='Navigate to Book'><option value=''>Jump to Book…</option><option value='book-1.html'>1. The Times of Prayer</option><option value='book-2.html'>2. Purity</option><option value='book-3.html'>3. Prayer</option><option value='book-4.html'>4. Forgetfulness in Prayer</option><option value='book-5.html'>5. Jumu'a</option><option value='book-6.html'>6. Prayer in Ramadan</option><option value='book-7.html'>7. Tahajjud</option><option value='book-8.html'>8. Prayer in Congregation</option><option value='book-9.html'>9. Shortening the Prayer</option><option value='book-10.html'>10. The Two 'Ids</option><option value='book-11.html'>11. The Fear Prayer</option><option value='book-12.html'>12. The Eclipse Prayer</option><option value='book-13.html'>13. Asking for Rain</option><option value='book-14.html'>14. The Qibla</option><option value='book-15.html' selected>15. The Qur'an</option><option value='book-16.html'>16. Burials</option><option value='book-17.html'>17. Zakat</option><option value='book-18.html'>18. Fasting</option><option value='book-19.html'>19. I'tikaf in Ramadan</option><option value='book-20.html'>20. Hajj</option><option value='book-21.html'>21. Jihad</option><option value='book-22.html'>22. Vows and Oaths</option><option value='book-23.html'>23. Sacrificial Animals</option><option value='book-24.html'>24. Slaughtering Animals</option><option value='book-25.html'>25. Game</option><option value='book-26.html'>26. The 'Aqiqa</option><option value='book-27.html'>27. Fara'id</option><option value='book-28.html'>28. Marriage</option><option value='book-29.html'>29. Divorce</option><option value='book-30.html'>30. Suckling</option><option value='book-31.html'>31. Business Transactions</option><option value='book-32.html'>32. Qirad</option><option value='book-33.html'>33. Sharecropping</option><option value='book-34.html'>34. Renting Land</option><option value='book-35.html'>35. Pre-emption in Property</option><option value='book-36.html'>36. Judgements</option><option value='book-37.html'>37. Wills and Testaments</option><option value='book-38.html'>38. Setting Free and Wala'</option><option value='book-39.html'>39. The Mukatab</option><option value='book-40.html'>40. The Mudabbar</option><option value='book-41.html'>41. Hudud</option><option value='book-42.html'>42. Drinks</option><option value='book-43.html'>43. Blood-Money</option><option value='book-44.html'>44. The Oath of Qasama</option><option value='book-45.html'>45. Madina</option><option value='book-46.html'>46. The Decree</option><option value='book-47.html'>47. Good Character</option><option value='book-48.html'>48. Dress</option><option value='book-49.html'>49. The Description of the Prophet, may Allah Bless Him and Grant Him Peace</option><option value='book-50.html'>50. The Evil Eye</option><option value='book-51.html'>51. Hair</option><option value='book-52.html'>52. Visions</option><option value='book-53.html'>53. Greetings</option><option value='book-54.html'>54. General Subjects</option><option value='book-55.html'>55. The Oath of Allegiance</option><option value='book-56.html'>56. Speech</option><option value='book-57.html'>57. Jahannam</option><option value='book-58.html'>58. Sadaqa</option><option value='book-59.html'>59. Knowledge</option><option value='book-60.html'>60. The Supplication of the Unjustly Wronged</option><option value='book-61.html'>61. The Names of the Prophet, may Allah Bless Him and Grant Him Peace</option></select> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Muwatta Malik — Book 15: The Qur'an</h1>
+<noscript><p class="noscript-warn">&#9888; The Hadith Filter requires JavaScript. All hadiths are shown below.</p></noscript>
+<details class='verse-chooser'><summary><span class='vc-title'>&#x2714; Hadith &amp; Content Filter</span><span class='vc-arrow'>&#x25BC;</span></summary><div class='vc-body'><div class='vc-font-ctrl'><span>Font Size:</span><button onclick='fsDecrease()' title='Decrease font size'>A&minus;</button><button onclick='fsReset()' title='Reset font size'>A</button><button onclick='fsIncrease()' title='Increase font size'>A+</button></div><div class='vc-section-title'>Hadith Range</div><div class='vc-controls'><button onclick='vcSelectAll()'>Show All</button><button onclick='vcClearAll()'>Hide All</button></div><div class='vc-range'><label>From <input type='number' id='vc-from' min='1' max='46' value='1'></label><label>To <input type='number' id='vc-to' min='1' max='46' value='46'></label><button onclick='vcApplyRange()'>Apply Range</button></div><div class='vc-section-title' style='margin-top:12px'>Content</div><div class='cf-list' id='cf-list'><span class='cf-item'><input type='checkbox' id='cf-0' data-rowclass='hadith-en'><label for='cf-0'>English</label></span><span class='cf-item'><input type='checkbox' id='cf-1' data-rowclass='hadith-ar'><label for='cf-1'>Arabic</label></span></div></div></details>
+<div class='table-wrap'><table><thead><tr><th colspan='2'>Muwatta Malik &mdash; Book 15: The Qur'an</th></tr></thead><tbody>
+<tr class='hadith-sep' data-hadith='1' id='h-472'><td colspan='2'>[15:3] <a class='permalink' href='#h-472' data-hadith='1'>Hadith 3</a><button class='copy-btn' onclick='copyHadith(this,"[15:3]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='1'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Dawud ibn al-Husayn from al- Araj from Abd ar-Rahman ibn Abd al-Qari that Umar ibn al Khattab said, "Whoever misses reading his hizb at night and reads it from when the sun has passed the meridian until the dhuhr prayer has not missed it, or it is as if he has caught it</td></tr>
+<tr class='hadith-ar' data-hadith='1'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ دَاوُدَ بْنِ الْحُصَيْنِ، عَنِ الأَعْرَجِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَبْدٍ الْقَارِيِّ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، قَالَ مَنْ فَاتَهُ حِزْبُهُ مِنَ اللَّيْلِ فَقَرَأَهُ حِينَ تَزُولُ الشَّمْسُ إِلَى صَلاَةِ الظُّهْرِ فَإِنَّهُ لَمْ يَفُتْهُ أَوْ كَأَنَّهُ أَدْرَكَهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='2' id='h-473'><td colspan='2'>[15:4] <a class='permalink' href='#h-473' data-hadith='2'>Hadith 4</a><button class='copy-btn' onclick='copyHadith(this,"[15:4]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='2'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that Yahya ibn Said said, "Once Muhammad ibn Yahya ibn Habban and I were sitting down, and Muhammad called a man over to him and said to him, 'Tell me what you have heard from your father.' The man replied that his father had told him that he went to Zayd ibn Thabit and asked him, 'What do you think of reciting the whole Qur'an in seven days?' Zayd said, 'That's good, but I prefer to recite it in two weeks, or ten days. Ask me why that is.' He said, 'I ask you then.' Zayd said, 'So that I can reflect on it and pause in it</td></tr>
+<tr class='hadith-ar' data-hadith='2'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ قَالَ كُنْتُ أَنَا وَمُحَمَّدُ بْنُ يَحْيَى بْنِ حَبَّانَ، جَالِسَيْنِ فَدَعَا مُحَمَّدٌ رَجُلاً فَقَالَ أَخْبِرْنِي بِالَّذِي، سَمِعْتَ مِنْ، أَبِيكَ ‏.‏ فَقَالَ الرَّجُلُ أَخْبَرَنِي أَبِي أَنَّهُ، أَتَى زَيْدَ بْنَ ثَابِتٍ فَقَالَ لَهُ كَيْفَ تَرَى فِي قِرَاءَةِ الْقُرْآنِ فِي سَبْعٍ فَقَالَ زَيْدٌ حَسَنٌ وَلأَنْ أَقْرَأَهُ فِي نِصْفٍ أَوْ عَشْرٍ أَحَبُّ إِلَىَّ وَسَلْنِي لِمَ ذَاكَ قَالَ فَإِنِّي أَسْأَلُكَ ‏.‏ قَالَ زَيْدٌ لِكَىْ أَتَدَبَّرَهُ وَأَقِفَ عَلَيْهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='3' id='h-474'><td colspan='2'>[15:5] <a class='permalink' href='#h-474' data-hadith='3'>Hadith 5</a><button class='copy-btn' onclick='copyHadith(this,"[15:5]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='3'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ibn Shihab from Urwa ibn az- Zubayr that Abd ar-Rahman ibn Abd al-Qari said that he had heard Umar ibn al-Khattab say, "I heard Hisham ibn Hakim ibn Hizam reciting Surat al-Furqan (Sura 25) differently from me, and it was the Messenger of Allah, may Allah bless him and grant him peace, who had recited it to me. I was about to rush up to him but I granted him a respite until he had finished his prayer. Then I grabbed him by his cloak and took him to the Messenger of Allah, may Allah bless him and grant him peace, and said, 'Messenger of Allah, I heard this man reciting Surat al- Furqan differently from the way you recited it to me.' The Messenger of Allah, may Allah bless him and grant him peace, said, 'Let him go.' Then he said, 'Recite, Hisham,' and Hisham recited as I had heard him recite. The Messenger of Allah, may Allah bless him and grant him peace, said, 'It was sent down like that.' Then he said to me, 'Recite' and I recited the sura, and he said, 'It was sent down like that. This Qur'an was sent down in seven (different) ways, so recite from it whatever is easy for you</td></tr>
+<tr class='hadith-ar' data-hadith='3'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَبْدٍ الْقَارِيِّ، أَنَّهُ قَالَ سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ، يَقُولُ سَمِعْتُ هِشَامَ بْنَ حَكِيمِ بْنِ حِزَامٍ، يَقْرَأُ سُورَةَ الْفُرْقَانِ عَلَى غَيْرِ مَا أَقْرَؤُهَا وَكَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم أَقْرَأَنِيهَا فَكِدْتُ أَنْ أَعْجَلَ عَلَيْهِ ثُمَّ أَمْهَلْتُهُ حَتَّى انْصَرَفَ ثُمَّ لَبَّبْتُهُ بِرِدَائِهِ فَجِئْتُ بِهِ رَسُولَ اللَّهِ صلى الله عليه وسلم فَقُلْتُ يَا رَسُولَ اللَّهِ إِنِّي سَمِعْتُ هَذَا يَقْرَأُ سُورَةَ الْفُرْقَانِ عَلَى غَيْرِ مَا أَقْرَأْتَنِيهَا فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ أَرْسِلْهُ - ثُمَّ قَالَ - اقْرَأْ يَا هِشَامُ ‏"‏ ‏.‏ فَقَرَأَ الْقِرَاءَةَ الَّتِي سَمِعْتُهُ يَقْرَأُ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ هَكَذَا أُنْزِلَتْ ‏"‏ ‏.‏ ثُمَّ قَالَ لِي ‏"‏ اقْرَأْ ‏"‏ ‏.‏ فَقَرَأْتُهَا فَقَالَ ‏"‏ هَكَذَا أُنْزِلَتْ إِنَّ هَذَا الْقُرْآنَ أُنْزِلَ عَلَى سَبْعَةِ أَحْرُفٍ فَاقْرَءُوا مَا تَيَسَّرَ مِنْهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='4' id='h-475'><td colspan='2'>[15:6] <a class='permalink' href='#h-475' data-hadith='4'>Hadith 6</a><button class='copy-btn' onclick='copyHadith(this,"[15:6]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='4'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, "A man who knows the Qur'an well is like a man who has a hobbled camel. If he takes care of it, he keeps it, and if he lets it go, it gets away</td></tr>
+<tr class='hadith-ar' data-hadith='4'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ إِنَّمَا مَثَلُ صَاحِبِ الْقُرْآنِ كَمَثَلِ صَاحِبِ الإِبِلِ الْمُعَقَّلَةِ إِنْ عَاهَدَ عَلَيْهَا أَمْسَكَهَا وَإِنْ أَطْلَقَهَا ذَهَبَتْ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='5' id='h-476'><td colspan='2'>[15:7] <a class='permalink' href='#h-476' data-hadith='5'>Hadith 7</a><button class='copy-btn' onclick='copyHadith(this,"[15:7]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='5'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Hisham ibn Urwa from his father from A'isha, the wife of the Prophet, may Allah bless him and grant him peace, that al-Harith ibn Hisham asked the Messenger of Allah, may Allah bless him and grant him peace, "How does the revelation come to you?" and the Messenger of Allah, may Allah bless him and grant him peace, said, "Sometimes it comes to me like the ringing of a bell, and that is the hardest for me, and when it leaves me I remember what it has said. And sometimes the angel appears to me in the likeness of a man and talks to me and I remember what he says." A'isha added, "I saw it coming down on him on an intensely cold day, and when it had left him his forehead was dripping with sweat</td></tr>
+<tr class='hadith-ar' data-hadith='5'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، زَوْجِ النَّبِيِّ صلى الله عليه وسلم أَنَّ الْحَارِثَ بْنَ هِشَامٍ سَأَلَ رَسُولَ اللَّهِ كَيْفَ يَأْتِيكَ الْوَحْىُ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَحْيَانًا يَأْتِينِي فِي مِثْلِ صَلْصَلَةِ الْجَرَسِ وَهُوَ أَشَدُّهُ عَلَىَّ فَيَفْصِمُ عَنِّي وَقَدْ وَعَيْتُ مَا قَالَ وَأَحْيَانًا يَتَمَثَّلُ لِيَ الْمَلَكُ رَجُلاً فَيُكَلِّمُنِي فَأَعِي مَا يَقُولُ ‏"‏ ‏.‏ قَالَتْ عَائِشَةُ وَلَقَدْ رَأَيْتُهُ يَنْزِلُ عَلَيْهِ فِي الْيَوْمِ الشَّدِيدِ الْبَرْدِ فَيُفْصِمُ عَنْهُ وَإِنَّ جَبِينَهُ لَيَتَفَصَّدُ عَرَقًا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='6' id='h-477'><td colspan='2'>[15:8] <a class='permalink' href='#h-477' data-hadith='6'>Hadith 8</a><button class='copy-btn' onclick='copyHadith(this,"[15:8]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='6'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Hisham ibn Urwa that his father said that Abasa (Sura 80) was sent down about Abdullah ibn Umm Maktum. He came to the Prophet, may Allah bless him and grant him peace, and began to say, "O Muhammad, show me a place near you (where I can sit)," whilst one of the leading men of the idol worshippers was in audience with the Prophet, may Allah bless him and grant him peace. The Prophet, may Allah bless him and grant him peace, began to turn away from him and give his attention to the other man, and he said to him, "Father of so-and-so, do you see any harm in what I am saying?" and he said, "No, by the blood (of our sacrifices) I see no harm in what you are saying." And Abasa - "He frowned and turned away when the blind man came" - was sent down</td></tr>
+<tr class='hadith-ar' data-hadith='6'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّهُ قَالَ أُنْزِلَتْ ‏{‏عَبَسَ وَتَوَلَّى‏}‏ فِي عَبْدِ اللَّهِ بْنِ أُمِّ مَكْتُومٍ جَاءَ إِلَى رَسُولِ اللَّهِ صلى الله عليه وسلم فَجَعَلَ يَقُولُ يَا مُحَمَّدُ اسْتَدْنِينِي وَعِنْدَ النَّبِيِّ صلى الله عليه وسلم رَجُلٌ مِنْ عُظَمَاءِ الْمُشْرِكِينَ فَجَعَلَ النَّبِيُّ صلى الله عليه وسلم يُعْرِضُ عَنْهُ وَيُقْبِلُ عَلَى الآخَرِ وَيَقُولُ ‏"‏ يَا أَبَا فُلاَنٍ هَلْ تَرَى بِمَا أَقُولُ بَأْسًا ‏"‏ ‏.‏ فَيَقُولُ لاَ وَالدِّمَاءِ مَا أَرَى بِمَا تَقُولُ بَأْسًا ‏.‏ فَأُنْزِلَتْ ‏{‏عَبَسَ وَتَوَلَّى أَنْ جَاءَهُ الأَعْمَى‏}‏</td></tr>
+<tr class='hadith-sep' data-hadith='7' id='h-478'><td colspan='2'>[15:9] <a class='permalink' href='#h-478' data-hadith='7'>Hadith 9</a><button class='copy-btn' onclick='copyHadith(this,"[15:9]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='7'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Zayd ibn Aslam from his father that the Messenger of Allah, may Allah bless him and grant him peace, was on one of his journeys, and one night Umar ibn al-Khattab, who was travelling with him, asked him about something, but he did not answer him. He asked him again, but he did not answer him. Then he asked him again, and again he did not answer him. Umar said, "May your mother be bereaved of you, Umar. Three times you have importuned the Messenger of Allah, may Allah bless him and grant him peace, with a question and he has not answered you at all." Umar continued, "I got my camel moving until, when I was in front of the people, I feared that a piece of Qur'an was being sent down about me. It was not long before I heard a crier calling for me, and I said that I feared that a piece of Qur'an had been sent down about me." He continued, "I came to the Messenger of Allah, may Allah bless him and grant him peace, and said, 'Peace be upon you' to him, and he said, 'A sura has been sent down to me this night that is more beloved to me than anything on which the sun rises.' Then he recited al-Fath (Sura)</td></tr>
+<tr class='hadith-ar' data-hadith='7'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَسِيرُ فِي بَعْضِ أَسْفَارِهِ وَعُمَرُ بْنُ الْخَطَّابِ يَسِيرُ مَعَهُ لَيْلاً فَسَأَلَهُ عُمَرُ عَنْ شَىْءٍ فَلَمْ يُجِبْهُ ثُمَّ سَأَلَهُ فَلَمْ يُجِبْهُ ثُمَّ سَأَلَهُ فَلَمْ يُجِبْهُ ‏.‏ فَقَالَ عُمَرُ ثَكِلَتْكَ أُمُّكَ عُمَرُ نَزَرْتَ رَسُولَ اللَّهِ صلى الله عليه وسلم ثَلاَثَ مَرَّاتٍ كُلُّ ذَلِكَ لاَ يُجِيبُكَ - قَالَ عُمَرُ - فَحَرَّكْتُ بَعِيرِي حَتَّى إِذَا كُنْتُ أَمَامَ النَّاسِ وَخَشِيتُ أَنْ يُنْزَلَ فِيَّ قُرْآنٌ فَمَا نَشِبْتُ أَنْ سَمِعْتُ صَارِخًا يَصْرُخُ بِي - قَالَ - فَقُلْتُ لَقَدْ خَشِيتُ أَنْ يَكُونَ نَزَلَ فِيَّ قُرْآنٌ - قَالَ - فَجِئْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم فَسَلَّمْتُ عَلَيْهِ فَقَالَ ‏"‏ لَقَدْ أُنْزِلَتْ عَلَىَّ هَذِهِ اللَّيْلَةَ سُورَةٌ لَهِيَ أَحَبُّ إِلَىَّ مِمَّا طَلَعَتْ عَلَيْهِ الشَّمْسُ ‏"‏ ‏.‏ ثُمَّ قَرَأَ ‏{‏ إِنَّا فَتَحْنَا لَكَ فَتْحًا مُبِينًا ‏}‏</td></tr>
+<tr class='hadith-sep' data-hadith='8' id='h-479'><td colspan='2'>[15:10] <a class='permalink' href='#h-479' data-hadith='8'>Hadith 10</a><button class='copy-btn' onclick='copyHadith(this,"[15:10]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='8'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Yahya ibn Said from Muhammad ibn Ibrahim ibn al-Harith at-Taymi from Abu Salama ibn Abd ar Rahman that Abu Said said that he had heard the Messenger of Allah, may Allah bless him and grant him peace, say, "A group of people will appear among you whose prayer, fasting and deeds will make you think little of your own prayer, fasting and deeds. They will recite the Qur'an, but it wil not get past their throats, and they will pass through the deen like an arrow passes through game. You look at the arrowhead, and you see nothing, and you look at the shaft, and you see nothing, and you look at the flights, and you see nothing. And you are in doubt about the notch</td></tr>
+<tr class='hadith-ar' data-hadith='8'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ بْنِ الْحَارِثِ التَّيْمِيِّ، عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ أَبِي سَعِيدٍ، قَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ "‏ يَخْرُجُ فِيكُمْ قَوْمٌ تَحْقِرُونَ صَلاَتَكُمْ مَعَ صَلاَتِهِمْ وَصِيَامَكُمْ مَعَ صِيَامِهِمْ وَأَعْمَالَكُمْ مَعَ أَعْمَالِهِمْ يَقْرَءُونَ الْقُرْآنَ وَلاَ يُجَاوِزُ حَنَاجِرَهُمْ يَمْرُقُونَ مِنَ الدِّينِ مُرُوقَ السَّهْمِ مِنَ الرَّمِيَّةِ تَنْظُرُ فِي النَّصْلِ فَلاَ تَرَى شَيْئًا وَتَنْظُرُ فِي الْقِدْحِ فَلاَ تَرَى شَيْئًا وَتَنْظُرُ فِي الرِّيشِ فَلاَ تَرَى شَيْئًا وَتَتَمَارَى فِي الْفُوقِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='9' id='h-480'><td colspan='2'>[15:11] <a class='permalink' href='#h-480' data-hadith='9'>Hadith 11</a><button class='copy-btn' onclick='copyHadith(this,"[15:11]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='9'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that he had heard that it took Abdullah ibn Umar eight years to learn Surat al-Baqara. (Sura)</td></tr>
+<tr class='hadith-ar' data-hadith='9'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، مَكَثَ عَلَى سُورَةِ الْبَقَرَةِ ثَمَانِيَ سِنِينَ يَتَعَلَّمُهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='10' id='h-481'><td colspan='2'>[15:12] <a class='permalink' href='#h-481' data-hadith='10'>Hadith 12</a><button class='copy-btn' onclick='copyHadith(this,"[15:12]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='10'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Abdullah ibn Yazid, the mawla of al Aswad ibn Sufyan, from Abu Salama ibn Abd ar Rahman that Abu Hurayra recited al-Inshiqaq (Sura 84) to them and prostrated in it. When he had finished he told them that the Messenger of Allah, may Allah bless him and grant him peace, had prostrated in it</td></tr>
+<tr class='hadith-ar' data-hadith='10'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ يَزِيدَ، مَوْلَى الأَسْوَدِ بْنِ سُفْيَانَ عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ، أَنَّ أَبَا هُرَيْرَةَ، قَرَأَ لَهُمْ ‏{‏إِذَا السَّمَاءُ انْشَقَّتْ‏}‏ فَسَجَدَ فِيهَا فَلَمَّا انْصَرَفَ أَخْبَرَهُمْ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم سَجَدَ فِيهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='11' id='h-482'><td colspan='2'>[15:13] <a class='permalink' href='#h-482' data-hadith='11'>Hadith 13</a><button class='copy-btn' onclick='copyHadith(this,"[15:13]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='11'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Nafi, the mawla of Ibn Umar that a man from Egypt told him that Umar ibn al-Khattab recited Surat al-Hajj (Sura 22) and prostrated twice in it, and then said, "This sura has been given special preference by having two prostrations in it</td></tr>
+<tr class='hadith-ar' data-hadith='11'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، مَوْلَى ابْنِ عُمَرَ أَنَّ رَجُلاً، مِنْ أَهْلِ مِصْرَ أَخْبَرَهُ أَنَّ عُمَرَ بْنَ الْخَطَّابِ قَرَأَ سُورَةَ الْحَجِّ فَسَجَدَ فِيهَا سَجْدَتَيْنِ ثُمَّ قَالَ إِنَّ هَذِهِ السُّورَةَ فُضِّلَتْ بِسَجْدَتَيْنِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='12' id='h-483'><td colspan='2'>[15:14] <a class='permalink' href='#h-483' data-hadith='12'>Hadith 14</a><button class='copy-btn' onclick='copyHadith(this,"[15:14]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='12'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that Abdullah ibn Dinar said, "I saw Abdullah ibn Umar prostrate twice in Surat al-Hajj (Sura)</td></tr>
+<tr class='hadith-ar' data-hadith='12'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، أَنَّهُ قَالَ رَأَيْتُ عَبْدَ اللَّهِ بْنَ عُمَرَ يَسْجُدُ فِي سُورَةِ الْحَجِّ سَجْدَتَيْنِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='13' id='h-484'><td colspan='2'>[15:15] <a class='permalink' href='#h-484' data-hadith='13'>Hadith 15</a><button class='copy-btn' onclick='copyHadith(this,"[15:15]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='13'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ibn Shihab from al-Araj that Umar ibn al Khattab recited Surat an-Najm (Sura 53) and prostrated in it, and then got up and recited another sura</td></tr>
+<tr class='hadith-ar' data-hadith='13'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنِ الأَعْرَجِ، ‏.‏ أَنَّ عُمَرَ بْنَ الْخَطَّابِ، قَرَأَ بِالنَّجْمِ إِذَا هَوَى فَسَجَدَ فِيهَا ثُمَّ قَامَ فَقَرَأَ بِسُورَةٍ أُخْرَى ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='14' id='h-487'><td colspan='2'>[15:18] <a class='permalink' href='#h-487' data-hadith='14'>Hadith 18</a><button class='copy-btn' onclick='copyHadith(this,"[15:18]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='14'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ubaydullah ibn Abd ar-Rahman that Ubayd ibn Hunayn, the mawla of the family of Zayd ibn al Khattab, said that he had heard Abu Hurayra say, "I was going along with the Messenger of Allah, may Allah bless him and grant him peace, when he heard a man reciting Surat al-Ikhlas (Sura 112). The Messenger of Allah, may Allah bless him and grant him peace, said, 'It is obligatory,' and I asked him, 'What is, Messenger of Allah?' and he said, 'The Garden.' I wanted to tell the man the good news but I was afraid that I would miss the midday meal with the Messenger of Allah, may Allah bless him and grant him peace, and I preferred to eat with the Messenger of Allah, may Allah bless him and grant him peace. When I went to the man afterwards I found that he had gone</td></tr>
+<tr class='hadith-ar' data-hadith='14'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ عُبَيْدِ بْنِ حُنَيْنٍ، مَوْلَى آلِ زَيْدِ بْنِ الْخَطَّابِ أَنَّهُ قَالَ سَمِعْتُ أَبَا هُرَيْرَةَ، يَقُولُ أَقْبَلْتُ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم فَسَمِعَ رَجُلاً يَقْرَأُ ‏{‏قُلْ هُوَ اللَّهُ أَحَدٌ‏}‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ وَجَبَتْ ‏"‏ ‏.‏ فَسَأَلْتُهُ مَاذَا يَا رَسُولَ اللَّهِ فَقَالَ ‏"‏ الْجَنَّةُ ‏"‏ ‏.‏ فَقَالَ أَبُو هُرَيْرَةَ فَأَرَدْتُ أَنْ أَذْهَبَ إِلَيْهِ فَأُبَشِّرَهُ ثُمَّ فَرِقْتُ أَنْ يَفُوتَنِي الْغَدَاءُ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم فَآثَرْتُ الْغَدَاءَ مَعَ رَسُولِ اللَّهِ صلى الله عليه وسلم ثُمَّ ذَهَبْتُ إِلَى الرَّجُلِ فَوَجَدْتُهُ قَدْ ذَهَبَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='15' id='h-488'><td colspan='2'>[15:19] <a class='permalink' href='#h-488' data-hadith='15'>Hadith 19</a><button class='copy-btn' onclick='copyHadith(this,"[15:19]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='15'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ibn Shihab that Humayd ibn Abd ar-Rahman ibn Awf had told him that Surat al-Ikhlas (Sura 112) was equal to a third of the Qur'an, and that Surat al-Mulk (Sura 67) pleaded for its owner</td></tr>
+<tr class='hadith-ar' data-hadith='15'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، أَنَّهُ أَخْبَرَهُ أَنَّ ‏{‏قُلْ هُوَ اللَّهُ أَحَدٌ‏}‏ تَعْدِلُ ثُلُثَ الْقُرْآنِ وَأَنَّ ‏{‏تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ‏}‏ تُجَادِلُ عَنْ صَاحِبِهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='16' id='h-489'><td colspan='2'>[15:20] <a class='permalink' href='#h-489' data-hadith='16'>Hadith 20</a><button class='copy-btn' onclick='copyHadith(this,"[15:20]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='16'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Sumayy, the mawla of Abu Bakr, from Abu Salih as-Samman from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, "Whoever says 'There is no god but Allah, alone, without any partner. The Kingdom and praise belong to Him and He has power over everything' (La ilaha illa'llah, wahdahu la sharika lah, lahu'l mulku wa lahu'l hamd, wa huwa ala kulli shay'in qadir) one hundred times a day, it is the same for him as freeing ten slaves. One hundred good actions are written for him and one hundred wrong actions are erased from him, and it is a protection from Shaytan for that day until the night. No-one does anything more excellent than what he does except someone who does more than that</td></tr>
+<tr class='hadith-ar' data-hadith='16'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ سُمَىٍّ، مَوْلَى أَبِي بَكْرٍ عَنْ أَبِي صَالِحٍ السَّمَّانِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ مَنْ قَالَ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَىْءٍ قَدِيرٌ فِي يَوْمٍ مِائَةَ مَرَّةٍ كَانَتْ لَهُ عَدْلَ عَشْرِ رِقَابٍ وَكُتِبَتْ لَهُ مِائَةُ حَسَنَةٍ وَمُحِيَتْ عَنْهُ مِائَةُ سَيِّئَةٍ وَكَانَتْ لَهُ حِرْزًا مِنَ الشَّيْطَانِ يَوْمَهُ ذَلِكَ حَتَّى يُمْسِيَ وَلَمْ يَأْتِ أَحَدٌ بِأَفْضَلَ مِمَّا جَاءَ بِهِ إِلاَّ أَحَدٌ عَمِلَ أَكْثَرَ مِنْ ذَلِكَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='17' id='h-490'><td colspan='2'>[15:21] <a class='permalink' href='#h-490' data-hadith='17'>Hadith 21</a><button class='copy-btn' onclick='copyHadith(this,"[15:21]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='17'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Sumayy, the mawla of Abu Bakr, from Abu Salih as-Samman from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, "Whoever says, 'Glory be to Allah and with His praise' (Subhana'llah wa bi-hamdihi) one hundred times in a day will have his wrong actions taken away from him, even if they are as abundant as the foam on the sea</td></tr>
+<tr class='hadith-ar' data-hadith='17'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ سُمَىٍّ، مَوْلَى أَبِي بَكْرٍ عَنْ أَبِي صَالِحٍ السَّمَّانِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ مَنْ قَالَ سُبْحَانَ اللَّهِ وَبِحَمْدِهِ فِي يَوْمٍ مِائَةَ مَرَّةٍ حُطَّتْ عَنْهُ خَطَايَاهُ وَإِنْ كَانَتْ مِثْلَ زَبَدِ الْبَحْرِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='18' id='h-491'><td colspan='2'>[15:22] <a class='permalink' href='#h-491' data-hadith='18'>Hadith 22</a><button class='copy-btn' onclick='copyHadith(this,"[15:22]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='18'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Abu Ubayd, the mawla of Sulayman ibn Abd al-Malik, from Ata ibn Yazid al-Laythi that Abu Hurayra said, "Whoever says 'Glory be to Allah' (Subhana'llah) thirty- three times and 'Allah is Greater' (Allahu akbar) thirty-three times and 'Praise be to Allah' (al-hamdu lillah) thirty-three times, and seals the hundred with 'There is no god but Allah, alone without any partner. The Kingdom and praise belong to Him and He has power over everything' (La ilaha illa'llah, wahdahu la sharika lah, lahu'l mulku wa lahu'l hamd, wa huwa ala kulli shay'in qadir) after every prayer will have his wrong actions forgiven him even if they are abundant as the foam on the sea</td></tr>
+<tr class='hadith-ar' data-hadith='18'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي عُبَيْدٍ، مَوْلَى سُلَيْمَانَ بْنِ عَبْدِ الْمَلِكِ عَنْ عَطَاءِ بْنِ يَزِيدَ اللَّيْثِيِّ، عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ قَالَ مَنْ سَبَّحَ دُبُرَ كُلِّ صَلاَةٍ ثَلاَثًا وَثَلاَثِينَ وَكَبَّرَ ثَلاَثًا وَثَلاَثِينَ وَحَمِدَ ثَلاَثًا وَثَلاَثِينَ وَخَتَمَ الْمِائَةَ بِلاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَىْءٍ قَدِيرٌ غُفِرَتْ ذُنُوبُهُ وَلَوْ كَانَتْ مِثْلَ زَبَدِ الْبَحْرِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='19' id='h-492'><td colspan='2'>[15:23] <a class='permalink' href='#h-492' data-hadith='19'>Hadith 23</a><button class='copy-btn' onclick='copyHadith(this,"[15:23]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='19'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that Umara ibn Sayyad had heard Said ibn al Musayyab say about abiding good deeds that they were a slave's saying 'Allah is greater' (Allahu akbar) and 'Glory be to Allah' (Subahana'llah) and 'Praise be to Allah' (al-hamdu lillah) and 'There is no god but Allah and there is no power and no strength except by Allah.' (La ilaha illa'llah wa la hawla wa la quwwata illa bi'llah)</td></tr>
+<tr class='hadith-ar' data-hadith='19'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عُمَارَةَ بْنِ صَيَّادٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، أَنَّهُ سَمِعَهُ يَقُولُ فِي الْبَاقِيَاتِ الصَّالِحَاتِ إِنَّهَا قَوْلُ الْعَبْدِ اللَّهُ أَكْبَرُ وَسُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلاَ إِلَهَ إِلاَّ اللَّهُ وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='20' id='h-493'><td colspan='2'>[15:24] <a class='permalink' href='#h-493' data-hadith='20'>Hadith 24</a><button class='copy-btn' onclick='copyHadith(this,"[15:24]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='20'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that Ziyad ibn Abi Ziyad said that Abu'd-Darda had said, "Shall I not tell you the best of your deeds, and those that give you the highest rank, and those that are the purest with your King, and are better for you than giving gold and silver, and better for you than meeting your enemy and striking their necks?" They said, "Of course." He said, "Remembrance (dhikr) of Allah ta ala</td></tr>
+<tr class='hadith-ar' data-hadith='20'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زِيَادِ بْنِ أَبِي زِيَادٍ، أَنَّهُ قَالَ قَالَ أَبُو الدَّرْدَاءِ أَلاَ أُخْبِرُكُمْ بِخَيْرِ، أَعْمَالِكُمْ وَأَرْفَعِهَا فِي دَرَجَاتِكُمْ وَأَزْكَاهَا عِنْدَ مَلِيكِكُمْ وَخَيْرٍ لَكُمْ مِنْ إِعْطَاءِ الذَّهَبِ وَالْوَرِقِ وَخَيْرٍ لَكُمْ مِنْ أَنْ تَلْقَوْا عَدُوَّكُمْ فَتَضْرِبُوا أَعْنَاقَهُمْ وَيَضْرِبُوا أَعْنَاقَكُمْ قَالُوا بَلَى ‏.‏ قَالَ ذِكْرُ اللَّهِ تَعَالَى ‏.‏ قَالَ زِيَادُ بْنُ أَبِي زِيَادٍ وَقَالَ أَبُو عَبْدِ الرَّحْمَنِ مُعَاذُ بْنُ جَبَلٍ مَا عَمِلَ ابْنُ آدَمَ مِنْ عَمَلٍ أَنْجَى لَهُ مِنْ عَذَابِ اللَّهِ مِنْ ذِكْرِ اللَّهِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='21' id='h-494'><td colspan='2'>[15:25] <a class='permalink' href='#h-494' data-hadith='21'>Hadith 25</a><button class='copy-btn' onclick='copyHadith(this,"[15:25]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='21'><td class='label'>English</td><td lang='en'>Malik related to me from Nuaym ibn Abdullah ibn al-Mujmir from AIi ibn Yahya az-Zuraqi from his father that Rifaa ibn Rafi said, "One day we were praying behind the Messenger of Allah, may Allah bless him and grant him peace, when the Messenger of Allah, may Allah bless him and grant him peace, raised his head from ruku and said, 'Allah hears the one who praises Him' (Sami Allahu liman hamidah). A man behind him said, 'Our Lord, praise belongs to you - blessed, pure and abundant praise' (Rabbana wa laka'l hamd, hamdan kathiran tayiban mubarakan fihi). When the Messenger of Allah, may Allah bless him and grant him peace, had finished, he said, 'Who was it who spoke just now?' The man said, 'I did, Messenger of Allah,' and the Messenger of Allah, may Allah bless him and grant him peace, said, 'I saw more than thirty angels rushing to it to see which one of them would record it first</td></tr>
+<tr class='hadith-ar' data-hadith='21'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي مَالِكٌ، عَنْ نُعَيْمِ بْنِ عَبْدِ اللَّهِ الْمُجْمِرِ، عَنْ عَلِيِّ بْنِ يَحْيَى الزُّرَقِيِّ، عَنْ أَبِيهِ، عَنْ رِفَاعَةَ بْنِ رَافِعٍ، أَنَّهُ قَالَ كُنَّا يَوْمًا نُصَلِّي وَرَاءَ رَسُولِ اللَّهِ صلى الله عليه وسلم فَلَمَّا رَفَعَ رَسُولُ اللَّهِ صلى الله عليه وسلم رَأْسَهُ مِنَ الرَّكْعَةِ وَقَالَ ‏"‏ سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ ‏"‏ ‏.‏ قَالَ رَجُلٌ وَرَاءَهُ رَبَّنَا وَلَكَ الْحَمْدُ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ ‏.‏ فَلَمَّا انْصَرَفَ رَسُولُ اللَّهِ صلى الله عليه وسلم قَالَ ‏"‏ مَنِ الْمُتَكَلِّمُ آنِفًا ‏"‏ ‏.‏ فَقَالَ الرَّجُلُ أَنَا يَا رَسُولَ اللَّهِ ‏.‏ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ لَقَدْ رَأَيْتُ بِضْعَةً وَثَلاَثِينَ مَلَكًا يَبْتَدِرُونَهَا أَيُّهُمْ يَكْتُبُهُنَّ أَوَّلاً ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='22' id='h-495'><td colspan='2'>[15:26] <a class='permalink' href='#h-495' data-hadith='22'>Hadith 26</a><button class='copy-btn' onclick='copyHadith(this,"[15:26]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='22'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Abu'z-Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, "Every prophet is given a supplication (dua), and I wish to preserve my dua as intercession for my community in the next world</td></tr>
+<tr class='hadith-ar' data-hadith='22'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ لِكُلِّ نَبِيٍّ دَعْوَةٌ يَدْعُو بِهَا فَأُرِيدُ أَنْ أَخْتَبِئَ دَعْوَتِي شَفَاعَةً لأُمَّتِي فِي الآخِرَةِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='23' id='h-496'><td colspan='2'>[15:27] <a class='permalink' href='#h-496' data-hadith='23'>Hadith 27</a><button class='copy-btn' onclick='copyHadith(this,"[15:27]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='23'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Yahya ibn Said that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, used to say the following dua, "O Allah, it is You who makes the dawn break and makes the night a time for rest and appoints the sun and moon to reckon by. Relieve me of debt and enrich me from poverty and let me enjoy my hearing, my sight and my strength in Your way." Allahumma faliqa'l isbah, wa ja ila'l-layli sakana, wa 'sh-shamsi wa'l-qamari husbana. Iqda anniy addayna, wa'ghnaniy mina'l faqr. Na'mti aniy bi samiy wa basariy, wa quwwatiy fi sabilik</td></tr>
+<tr class='hadith-ar' data-hadith='23'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَدْعُو فَيَقُولُ ‏ "‏ اللَّهُمَّ فَالِقَ الإِصْبَاحِ وَجَاعِلَ اللَّيْلِ سَكَنًا وَالشَّمْسِ وَالْقَمَرِ حُسْبَانًا اقْضِ عَنِّي الدَّيْنَ وَأَغْنِنِي مِنَ الْفَقْرِ وَأَمْتِعْنِي بِسَمْعِي وَبَصَرِي وَقُوَّتِي فِي سَبِيلِكَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='24' id='h-497'><td colspan='2'>[15:28] <a class='permalink' href='#h-497' data-hadith='24'>Hadith 28</a><button class='copy-btn' onclick='copyHadith(this,"[15:28]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='24'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Abu'z Zinad from al-Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, ''When you are making dua do not say; 'O Allah, forgive me if You wish. O Allah, forgive me if you wish.' You should be firm in your asking, for there is no compelling Him</td></tr>
+<tr class='hadith-ar' data-hadith='24'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ لاَ يَقُلْ أَحَدُكُمْ إِذَا دَعَا اللَّهُمَّ اغْفِرْ لِي إِنْ شِئْتَ اللَّهُمَّ ارْحَمْنِي إِنْ شِئْتَ لِيَعْزِمِ الْمَسْأَلَةَ فَإِنَّهُ لاَ مُكْرِهَ لَهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='25' id='h-498'><td colspan='2'>[15:29] <a class='permalink' href='#h-498' data-hadith='25'>Hadith 29</a><button class='copy-btn' onclick='copyHadith(this,"[15:29]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='25'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ibn Shihab from Abu Ubayd, the mawla of Ibn Azhar, from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, "You will be answered as long as you are not impatient and say, 'I have made a dua and I have not been answered</td></tr>
+<tr class='hadith-ar' data-hadith='25'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَبِي عُبَيْدٍ، مَوْلَى ابْنِ أَزْهَرَ عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ يُسْتَجَابُ لأَحَدِكُمْ مَا لَمْ يَعْجَلْ فَيَقُولُ قَدْ دَعَوْتُ فَلَمْ يُسْتَجَبْ لِي ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='26' id='h-499'><td colspan='2'>[15:30] <a class='permalink' href='#h-499' data-hadith='26'>Hadith 30</a><button class='copy-btn' onclick='copyHadith(this,"[15:30]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='26'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ibn Shihab from Abu Abdullah al-Agharr and from Abu Salama from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, said, "Our Lord, the Blessed and Exalted, descends every night to the heaven of this world when the last third of the night is still to come and says, 'Who will call on Me so that I may answer him? Who will ask Me so that I may give him? Who will ask forgiveness of Me so that I may forgive him?</td></tr>
+<tr class='hadith-ar' data-hadith='26'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنْ أَبِي عَبْدِ اللَّهِ الأَغَرِّ، وَعَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ يَنْزِلُ رَبُّنَا تَبَارَكَ وَتَعَالَى كُلَّ لَيْلَةٍ إِلَى السَّمَاءِ الدُّنْيَا حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ فَيَقُولُ مَنْ يَدْعُونِي فَأَسْتَجِيبَ لَهُ مَنْ يَسْأَلُنِي فَأُعْطِيَهُ مَنْ يَسْتَغْفِرُنِي فَأَغْفِرَ لَهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='27' id='h-500'><td colspan='2'>[15:31] <a class='permalink' href='#h-500' data-hadith='27'>Hadith 31</a><button class='copy-btn' onclick='copyHadith(this,"[15:31]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='27'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Yahya ibn Said from Muhammad ibn Ibrahim ibn al-Harith at-Taymi that A'isha, umm al-muminin said, "I was sleeping by the side of the Messenger of Allah, mayAllah bless him and grant him peace, and I missed him in the night, so I felt for him with my hand and I put my hand on his feet and he was in sajda saying, 'I seek refuge in Your pleasure from Your wrath, and in Your pardon from Your punishment, and in You from You. I cannot enumerate Your praises as You praise Yourself.' " Audhu bi ridaka min sakhatika, wa bi muafatika min uqubatika wa bika minka, la uhsiy thana'an alayka, anta kama athnayta ala nafsika</td></tr>
+<tr class='hadith-ar' data-hadith='27'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ بْنِ الْحَارِثِ التَّيْمِيِّ، أَنَّ عَائِشَةَ أُمَّ الْمُؤْمِنِينَ، قَالَتْ كُنْتُ نَائِمَةً إِلَى جَنْبِ رَسُولِ اللَّهِ صلى الله عليه وسلم فَفَقَدْتُهُ مِنَ اللَّيْلِ فَلَمَسْتُهُ بِيَدِي فَوَضَعْتُ يَدِي عَلَى قَدَمَيْهِ وَهُوَ سَاجِدٌ يَقُولُ ‏ "‏ أَعُوذُ بِرِضَاكَ مِنْ سَخَطِكَ وَبِمُعَافَاتِكَ مِنْ عُقُوبَتِكَ وَبِكَ مِنْكَ لاَ أُحْصِي ثَنَاءً عَلَيْكَ أَنْتَ كَمَا أَثْنَيْتَ عَلَى نَفْسِكَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='28' id='h-501'><td colspan='2'>[15:32] <a class='permalink' href='#h-501' data-hadith='28'>Hadith 32</a><button class='copy-btn' onclick='copyHadith(this,"[15:32]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='28'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ziyad ibn Abi Ziyad from Talha ibn Ubaydullah ibn Kariz that the Messenger of Allah, may Allah bless him and grant him peace, said, "The best dua is dua on the day of Arafa, and the best thing that I or the Prophets before me have said is 'There is no god but Allah, alone, without any partner' (La ilaha illa'llah, wahdahu la sharika lah)</td></tr>
+<tr class='hadith-ar' data-hadith='28'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زِيَادِ بْنِ أَبِي زِيَادٍ، عَنْ طَلْحَةَ بْنِ عُبَيْدِ اللَّهِ بْنِ كَرِيزٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ أَفْضَلُ الدُّعَاءِ دُعَاءُ يَوْمِ عَرَفَةَ وَأَفْضَلُ مَا قُلْتُ أَنَا وَالنَّبِيُّونَ مِنْ قَبْلِي لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='29' id='h-502'><td colspan='2'>[15:33] <a class='permalink' href='#h-502' data-hadith='29'>Hadith 33</a><button class='copy-btn' onclick='copyHadith(this,"[15:33]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='29'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Abu'zZubayr al-Makki from Tawus al-Yamani from Abdullah ibn Abbas that the Messenger of Allah, may Allah bless him and grant him peace, used to teach this dua in the same way that he would teach them a sura of the Qur'an, "O Allah, I seek refuge in You from the torment of Jahannam, and I seek refuge in You from the trial of the Dajjal, and I seek refuge in You from the trial of life and death." Allahumma inniy audhu bika min adhabi jahannama, wa audhu bika min adhabi'l-qabri, wa audhu bika min fitnati'l-mahya wa mamati</td></tr>
+<tr class='hadith-ar' data-hadith='29'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزُّبَيْرِ الْمَكِّيِّ، عَنْ طَاوُسٍ الْيَمَانِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُعَلِّمُهُمْ هَذَا الدُّعَاءَ كَمَا يُعَلِّمُهُمُ السُّورَةَ مِنَ الْقُرْآنِ يَقُولُ ‏ "‏ اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ جَهَنَّمَ وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='30' id='h-503'><td colspan='2'>[15:34] <a class='permalink' href='#h-503' data-hadith='30'>Hadith 34</a><button class='copy-btn' onclick='copyHadith(this,"[15:34]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='30'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Abu'z Zubayr al-Makki from Tawus al-Yamani from Abdullah ibn Abbas that the Messenger of Allah, may Allah bless him and grant him peace, used to say, when he rose for prayer in the middle of the night, "O Allah, praise belongs to You. You are the light of the heavens and the earth and praise belongs toYou.You are the Sustainer of the heavens and the earth and praise belongs to You. You are the Lord of the heavens and the earth and whoever is in them. You are the Truth, and Your words are true. Your promise is true, and the meeting with You is true. The Garden is true and the Fire is true and the Hour is true. O Allah, I submit toYou and I accept You and I trust in You and I turn to You and I argue by You and I summon toYou for judgement. Forgive me what I have sent before me and what I have left behind, what I have kept secret and what I have proclaimed, You are my god - there is no god but You." Allahumma laka'l-hamdu anta nuru's-samawati wa'l-ardi, wa laka'l-hamdu anta qayamu's-Samawati wa'l-ardi, wa laka'l-hamdu anta rabbu's-Samawati wa'l-ardi,wamanfihina.Anta'l-haqqu,waqawluka'lhaqqu, wa waduka'l-haqqu, wa liqa'uka haqqun, wa jannatu haqqun, wa naru haqqun, wa sactu haqqun. Allahumma laka aslamtu, wa bikaamantu, waalayka tawakaltu, wa ilayka anabtu, wa bika khasamtu, wa ilayka hakamtu, fa'ghfirliy ma qadamtu wa akhartu wa asrartu, wa alantu. Anta ilahiy, la ilaha illa ant</td></tr>
+<tr class='hadith-ar' data-hadith='30'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ أَبِي الزُّبَيْرِ الْمَكِّيِّ، عَنْ طَاوُسٍ الْيَمَانِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ إِذَا قَامَ إِلَى الصَّلاَةِ مِنْ جَوْفِ اللَّيْلِ يَقُولُ ‏ "‏ اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ نُورُ السَّمَوَاتِ وَالأَرْضِ وَلَكَ الْحَمْدُ أَنْتَ قَيَّامُ السَّمَوَاتِ وَالأَرْضِ وَلَكَ الْحَمْدُ أَنْتَ رَبُّ السَّمَوَاتِ وَالأَرْضِ وَمَنْ فِيهِنَّ أَنْتَ الْحَقُّ وَقَوْلُكَ الْحَقُّ وَوَعْدُكَ الْحَقُّ وَلِقَاؤُكَ حَقٌّ وَالْجَنَّةُ حَقٌّ وَالنَّارُ حَقٌّ وَالسَّاعَةُ حَقٌّ اللَّهُمَّ لَكَ أَسْلَمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَإِلَيْكَ أَنَبْتُ وَبِكَ خَاصَمْتُ وَإِلَيْكَ حَاكَمْتُ فَاغْفِرْ لِي مَا قَدَّمْتُ وَأَخَّرْتُ وَأَسْرَرْتُ وَأَعْلَنْتُ أَنْتَ إِلَهِي لاَ إِلَهَ إِلاَّ أَنْتَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='31' id='h-504'><td colspan='2'>[15:35] <a class='permalink' href='#h-504' data-hadith='31'>Hadith 35</a><button class='copy-btn' onclick='copyHadith(this,"[15:35]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='31'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that Abdullah ibn Abdullah ibn Jabir ibn Atik said that Abdullah ibn Umar had come to them in Bani Muawiya, one of the villages of the Ansar, and said, "Do you know where the Messenger of Allah, may Allah bless him and grant him peace, prayed in this mosque of yours? "I told him, "Yes," and I pointed out a place near where he was. He said, "Do you know the three things for which he made dua here?" I said "Yes." He said, "Tell me them then." I said, "He asked that He would not make an enemy from among the non- believers triumph over the believers and that He would not destroy the believers by bad harvests, and he was given both these things. And he asked that He would not make the believers fight among themselves, and that was refused." Ibn Umar said, "You have told the truth," and he added, "Turmoil will not cease until the day of rising</td></tr>
+<tr class='hadith-ar' data-hadith='31'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ جَابِرِ بْنِ عَتِيكٍ، أَنَّهُ قَالَ جَاءَنَا عَبْدُ اللَّهِ بْنُ عُمَرَ فِي بَنِي مُعَاوِيَةَ - وَهِيَ قَرْيَةٌ مِنْ قُرَى الأَنْصَارِ - فَقَالَ هَلْ تَدْرُونَ أَيْنَ صَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم مِنْ مَسْجِدِكُمْ هَذَا فَقُلْتُ لَهُ نَعَمْ وَأَشَرْتُ لَهُ إِلَى نَاحِيَةٍ مِنْهُ فَقَالَ هَلْ تَدْرِي مَا الثَّلاَثُ الَّتِي دَعَا بِهِنَّ فِيهِ فَقُلْتُ نَعَمْ ‏.‏ قَالَ فَأَخْبِرْنِي بِهِنَّ ‏.‏ فَقُلْتُ دَعَا بِأَنْ لاَ يُظْهِرَ عَلَيْهِمْ عَدُوًّا مِنْ غَيْرِهِمْ وَلاَ يُهْلِكَهُمْ بِالسِّنِينَ فَأُعْطِيَهُمَا وَدَعَا بِأَنْ لاَ يَجْعَلَ بَأْسَهُمْ بَيْنَهُمْ فَمُنِعَهَا ‏.‏ قَالَ صَدَقْتَ ‏.‏ قَالَ ابْنُ عُمَرَ فَلَنْ يَزَالَ الْهَرْجُ إِلَى يَوْمِ الْقِيَامَةِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='32' id='h-505'><td colspan='2'>[15:36] <a class='permalink' href='#h-505' data-hadith='32'>Hadith 36</a><button class='copy-btn' onclick='copyHadith(this,"[15:36]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='32'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that Zayd ibn Aslam used to say, "No-one makes a dua without one of three things happening. Either it is answered, or it is stored up for him, or wrong actions are atoned for by it</td></tr>
+<tr class='hadith-ar' data-hadith='32'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، أَنَّهُ كَانَ يَقُولُ مَا مِنْ دَاعٍ يَدْعُو إِلاَّ كَانَ بَيْنَ إِحْدَى ثَلاَثٍ إِمَّا أَنْ يُسْتَجَابَ لَهُ وَإِمَّا أَنْ يُدَّخَرَ لَهُ وَإِمَّا أَنْ يُكَفَّرَ عَنْهُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='33' id='h-506'><td colspan='2'>[15:37] <a class='permalink' href='#h-506' data-hadith='33'>Hadith 37</a><button class='copy-btn' onclick='copyHadith(this,"[15:37]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='33'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that Abdullah ibn Dinar said, "Abdullah ibn Umar saw me when I was making dua and I was pointing with two fingers, one from each hand, and he forbade me</td></tr>
+<tr class='hadith-ar' data-hadith='33'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، قَالَ رَآنِي عَبْدُ اللَّهِ بْنُ عُمَرَ وَأَنَا أَدْعُو، وَأُشِيرُ، بِأَصْبُعَيْنِ أَصْبُعٍ مِنْ كُلِّ يَدٍ فَنَهَانِي ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='34' id='h-507'><td colspan='2'>[15:38] <a class='permalink' href='#h-507' data-hadith='34'>Hadith 38</a><button class='copy-btn' onclick='copyHadith(this,"[15:38]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='34'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Yahya ibn Said that Said ibn al-Musayyab used to say, "A man is raised by the dua of his son after his death." He spoke with his hands turned upwards, and then lifted them up</td></tr>
+<tr class='hadith-ar' data-hadith='34'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ يَحْيَى بْنِ سَعِيدٍ، أَنَّ سَعِيدَ بْنَ الْمُسَيَّبِ، كَانَ يَقُولُ إِنَّ الرَّجُلَ لَيُرْفَعُ بِدُعَاءِ وَلَدِهِ مِنْ بَعْدِهِ وَقَالَ بِيَدَيْهِ نَحْوَ السَّمَاءِ فَرَفَعَهُمَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='35' id='h-508'><td colspan='2'>[15:39] <a class='permalink' href='#h-508' data-hadith='35'>Hadith 39</a><button class='copy-btn' onclick='copyHadith(this,"[15:39]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='35'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Hisham ibn Urwa that his father said, "The following ayat was sent down about dua - 'And do not be loud in your prayer and do not be silent in it, but seek a way between these.' " (Sura 17 ayat 110) Yahya said that Malik was asked about making dua in obligatory prayers and he said, "There is no harm in making dua in them</td></tr>
+<tr class='hadith-ar' data-hadith='35'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّهُ قَالَ إِنَّمَا أُنْزِلَتْ هَذِهِ الآيَةُ ‏{‏وَلاَ تَجْهَرْ بِصَلاَتِكَ وَلاَ تُخَافِتْ بِهَا وَابْتَغِ بَيْنَ ذَلِكَ سَبِيلاً‏}‏ فِي الدُّعَاءِ ‏.‏ قَالَ يَحْيَى وَسُئِلَ مَالِكٌ عَنِ الدُّعَاءِ فِي الصَّلاَةِ الْمَكْتُوبَةِ فَقَالَ لاَ بَأْسَ بِالدُّعَاءِ فِيهَا ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='36' id='h-509'><td colspan='2'>[15:40] <a class='permalink' href='#h-509' data-hadith='36'>Hadith 40</a><button class='copy-btn' onclick='copyHadith(this,"[15:40]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='36'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, used to make dua saying, "O Allah, I askYou for good actions and for leaving what is disapproved of and for love of the poor. And if You wish to try people, then bring me to You without being tried." Allahumma inniy asa'luka fala'l-khayrati, wa tarqa'l-munqarati, wa hubba'l-masakin, wa idha aradta fi'n-nasi fitnatan fa'qbithni ilayka ghayra maftun</td></tr>
+<tr class='hadith-ar' data-hadith='36'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يَدْعُو فَيَقُولُ ‏ "‏ اللَّهُمَّ إِنِّي أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ وَتَرْكَ الْمُنْكَرَاتِ وَحُبَّ الْمَسَاكِينِ وَإِذَا أَرَدْتَ فِي النَّاسِ فِتْنَةً فَاقْبِضْنِي إِلَيْكَ غَيْرَ مَفْتُونٍ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='37' id='h-510'><td colspan='2'>[15:41] <a class='permalink' href='#h-510' data-hadith='37'>Hadith 41</a><button class='copy-btn' onclick='copyHadith(this,"[15:41]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='37'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that he had heard that the Messenger of Allah, may Allah bless him and grant him peace, said, "No one calls to guidance without having the same reward as those who follow him without diminishing their rewards at all. And no one calls to error without having the same burdens as they do without diminishing their burdens at all</td></tr>
+<tr class='hadith-ar' data-hadith='37'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ مَا مِنْ دَاعٍ يَدْعُو إِلَى هُدًى إِلاَّ كَانَ لَهُ مِثْلُ أَجْرِ مَنِ اتَّبَعَهُ لاَ يَنْقُصُ ذَلِكَ مِنْ أُجُورِهِمْ شَيْئًا وَمَا مِنْ دَاعٍ يَدْعُو إِلَى ضَلاَلَةٍ إِلاَّ كَانَ عَلَيْهِ مِثْلُ أَوْزَارِهِمْ لاَ يَنْقُصُ ذَلِكَ مِنْ أَوْزَارِهِمْ شَيْئًا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='38' id='h-511'><td colspan='2'>[15:42] <a class='permalink' href='#h-511' data-hadith='38'>Hadith 42</a><button class='copy-btn' onclick='copyHadith(this,"[15:42]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='38'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that he had heard that Abdullah ibn Umar said, "O Allah, make me one of the leaders of the people of taqwa ." Allahumma jalniy min a'imati'l-mutaqin</td></tr>
+<tr class='hadith-ar' data-hadith='38'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ، قَالَ اللَّهُمَّ اجْعَلْنِي مِنْ أَئِمَّةِ الْمُتَّقِينَ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='39' id='h-512'><td colspan='2'>[15:43] <a class='permalink' href='#h-512' data-hadith='39'>Hadith 43</a><button class='copy-btn' onclick='copyHadith(this,"[15:43]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='39'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that he had heard that Abu'd-Darda used to rise in the middle of the night and say, "Eyes have slept, and stars have set, and You are the Living and Self Subsistent." Namat'l uyun wa ghariti'n-nujum wa anta'lhayyu-l-qayyum</td></tr>
+<tr class='hadith-ar' data-hadith='39'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، أَنَّهُ بَلَغَهُ أَنَّ أَبَا الدَّرْدَاءِ، كَانَ يَقُومُ مِنْ جَوْفِ اللَّيْلِ فَيَقُولُ نَامَتِ الْعُيُونُ وَغَارَتِ النُّجُومُ وَأَنْتَ الْحَىُّ الْقَيُّومُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='40' id='h-513'><td colspan='2'>[15:44] <a class='permalink' href='#h-513' data-hadith='40'>Hadith 44</a><button class='copy-btn' onclick='copyHadith(this,"[15:44]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='40'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Zayd ibn Aslam from Ata ibn Yasar from Abdullah as-Sunabihi that the Messenger of Allah, may Allah bless him and grant him peace, said, "The sun rises and with it is a horn of Shaytan and when the sun gets higher the horn leaves it. Then when the sun reaches the meridian the horn joins it and when the sun declines the horn leaves it, and when the sun has nearly set it joins it again." The Messenger of Allah, may Allah bless him and grant him peace, forbade prayer at these times</td></tr>
+<tr class='hadith-ar' data-hadith='40'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>حَدَّثَنِي يَحْيَى، عَنْ مَالِكٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ عَبْدِ اللَّهِ الصُّنَابِحِيِّ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ إِنَّ الشَّمْسَ تَطْلُعُ وَمَعَهَا قَرْنُ الشَّيْطَانِ فَإِذَا ارْتَفَعَتْ فَارَقَهَا ثُمَّ إِذَا اسْتَوَتْ قَارَنَهَا فَإِذَا زَالَتْ فَارَقَهَا فَإِذَا دَنَتْ لِلْغُرُوبِ قَارَنَهَا فَإِذَا غَرَبَتْ فَارَقَهَا ‏"‏ ‏.‏ وَنَهَى رَسُولُ اللَّهِ صلى الله عليه وسلم عَنِ الصَّلاَةِ فِي تِلْكَ السَّاعَاتِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='41' id='h-514'><td colspan='2'>[15:45] <a class='permalink' href='#h-514' data-hadith='41'>Hadith 45</a><button class='copy-btn' onclick='copyHadith(this,"[15:45]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='41'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Hisham ibn Urwa that his father said that the Messenger of Allah, may Allah bless him and grant him peace, used to say, "Delay the prayer when the edge of the sun appears until it is completely in view, and delay the prayer when the edge of the sun is disappearing until it has completely disappeared</td></tr>
+<tr class='hadith-ar' data-hadith='41'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، أَنَّهُ قَالَ كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ "‏ إِذَا بَدَا حَاجِبُ الشَّمْسِ فَأَخِّرُوا الصَّلاَةَ حَتَّى تَبْرُزَ وَإِذَا غَابَ حَاجِبُ الشَّمْسِ فَأَخِّرُوا الصَّلاَةَ حَتَّى تَغِيبَ ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='42' id='h-515'><td colspan='2'>[15:46] <a class='permalink' href='#h-515' data-hadith='42'>Hadith 46</a><button class='copy-btn' onclick='copyHadith(this,"[15:46]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='42'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik that al-Ala ibn Abd ar-Rahman said, "We visited Anas ibn Malik after dhuhr and he stood up and prayed asr. When he had finished his prayer, we mentioned doing prayers early in their time, or he mentioned it, and he said that he had heard the Messenger of Allah, may Allah bless him and grant him peace, say, the prayer of the hypocrites, the prayer of the hypocrites, the prayer of the hypocrites is that one of them sits until the sun becomes yellow and is between the horns of Shaytan, or on the horn of Shaytan, and then gets up and rattles off four rakas, hardly remembering Allah in them at all</td></tr>
+<tr class='hadith-ar' data-hadith='42'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ الْعَلاَءِ بْنِ عَبْدِ الرَّحْمَنِ، قَالَ دَخَلْنَا عَلَى أَنَسِ بْنِ مَالِكٍ بَعْدَ الظُّهْرِ فَقَامَ يُصَلِّي الْعَصْرَ فَلَمَّا فَرَغَ مِنْ صَلاَتِهِ ذَكَرْنَا تَعْجِيلَ الصَّلاَةِ أَوْ ذَكَرَهَا فَقَالَ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ "‏ تِلْكَ صَلاَةُ الْمُنَافِقِينَ تِلْكَ صَلاَةُ الْمُنَافِقِينَ تِلْكَ صَلاَةُ الْمُنَافِقِينَ يَجْلِسُ أَحَدُهُمْ حَتَّى إِذَا اصْفَرَّتِ الشَّمْسُ وَكَانَتْ بَيْنَ قَرْنَىِ الشَّيْطَانِ - أَوْ عَلَى قَرْنِ الشَّيْطَانِ - قَامَ فَنَقَرَ أَرْبَعًا لاَ يَذْكُرُ اللَّهَ فِيهَا إِلاَّ قَلِيلاً ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='43' id='h-516'><td colspan='2'>[15:47] <a class='permalink' href='#h-516' data-hadith='43'>Hadith 47</a><button class='copy-btn' onclick='copyHadith(this,"[15:47]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='43'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Nafi from Abdullah ibn Umar that the Messenger of Allah, may Allah bless him and grant him peace, said, "You should not intend to pray either at sunrise or sunset</td></tr>
+<tr class='hadith-ar' data-hadith='43'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ "‏ لاَ يَتَحَرَّ أَحَدُكُمْ فَيُصَلِّيَ عِنْدَ طُلُوعِ الشَّمْسِ وَلاَ عِنْدَ غُرُوبِهَا ‏"‏ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='44' id='h-517'><td colspan='2'>[15:48] <a class='permalink' href='#h-517' data-hadith='44'>Hadith 48</a><button class='copy-btn' onclick='copyHadith(this,"[15:48]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='44'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Muhammad ibn Yahya ibn Habban from al Araj from Abu Hurayra that the Messenger of Allah, may Allah bless him and grant him peace, forbade prayer after asr until the sun had set, and prayer after subh until the sun had risen</td></tr>
+<tr class='hadith-ar' data-hadith='44'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ مُحَمَّدِ بْنِ يَحْيَى بْنِ حَبَّانَ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَهَى عَنِ الصَّلاَةِ بَعْدَ الْعَصْرِ حَتَّى تَغْرُبَ الشَّمْسُ وَعَنِ الصَّلاَةِ بَعْدَ الصُّبْحِ حَتَّى تَطْلُعَ الشَّمْسُ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='45' id='h-518'><td colspan='2'>[15:49] <a class='permalink' href='#h-518' data-hadith='45'>Hadith 49</a><button class='copy-btn' onclick='copyHadith(this,"[15:49]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='45'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Abdullah ibn Dinar from Abdullah ibn Umar that Umar ibn al-Khattab used to say, "Do not intend to do your prayer at either sunrise or sunset, for the horns of Shaytan rise with the rising of the sun and set with its setting." Umar used to beat people for that kind of prayer</td></tr>
+<tr class='hadith-ar' data-hadith='45'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ عُمَرَ بْنَ الْخَطَّابِ، كَانَ يَقُولُ لاَ تَحَرَّوْا بِصَلاَتِكُمْ طُلُوعَ الشَّمْسِ وَلاَ غُرُوبَهَا فَإِنَّ الشَّيْطَانَ يَطْلُعُ قَرْنَاهُ مَعَ طُلُوعِ الشَّمْسِ وَيَغْرُبَانِ مَعَ غُرُوبِهَا وَكَانَ يَضْرِبُ النَّاسَ عَلَى تِلْكَ الصَّلاَةِ ‏.‏</td></tr>
+<tr class='hadith-sep' data-hadith='46' id='h-519'><td colspan='2'>[15:50] <a class='permalink' href='#h-519' data-hadith='46'>Hadith 50</a><button class='copy-btn' onclick='copyHadith(this,"[15:50]")' title='Copy this hadith'>⧉ Copy</button></td></tr>
+<tr class='hadith-en' data-hadith='46'><td class='label'>English</td><td lang='en'>Yahya related to me from Malik from Ibn Shihab from as-Sa'ib ibn Yazid that he saw Umar ibn al-Khattab beating al-Munkadir for praying after asr</td></tr>
+<tr class='hadith-ar' data-hadith='46'><td class='label'>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td><td class='arabic-text' lang='ar'>وَحَدَّثَنِي عَنْ مَالِكٍ، عَنِ ابْنِ شِهَابٍ، عَنِ السَّائِبِ بْنِ يَزِيدَ، أَنَّهُ رَأَى عُمَرَ بْنَ الْخَطَّابِ يَضْرِبُ الْمُنْكَدِرَ فِي الصَّلاَةِ بَعْدَ الْعَصْرِ ‏.‏</td></tr>
+</tbody></table></div>
+<nav class='chapter-nav'><span><a href='book-14.html'>&laquo; Book 14</a></span><span><a href='book-16.html'>Book 16 &raquo;</a></span></nav>
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+<script>
+(function(){
+  var CF_KEY='hadith-cf';
+  var FS_KEY='hfs';
+  var cfList=document.getElementById('cf-list');
+  var fromInput=document.getElementById('vc-from');
+  var toInput=document.getElementById('vc-to');
+  var maxHadith=toInput?+toInput.max:0;
+  var vcFrom=1,vcTo=maxHadith;
+  var enabledTypes=new Set();
+
+  /* ---- Default content filter prefs ---- */
+  var DEFAULTS={'hadith-en':true,'hadith-ar':true,};
+  var userPrefs=null;
+  try{var raw=localStorage.getItem(CF_KEY);if(raw)userPrefs=JSON.parse(raw);}catch(e){}
+
+  if(cfList){
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      var key=cb.dataset.rowclass;
+      var on;
+      if(userPrefs&&userPrefs.hasOwnProperty(key)){on=userPrefs[key];}
+      else{on=DEFAULTS.hasOwnProperty(key)?DEFAULTS[key]:false;}
+      cb.checked=on;
+      if(on)enabledTypes.add(key);
+    });
+    cfList.addEventListener('change',function(e){
+      if(e.target.type!=='checkbox')return;
+      if(e.target.checked)enabledTypes.add(e.target.dataset.rowclass);
+      else enabledTypes.delete(e.target.dataset.rowclass);
+      saveCfPrefs();
+      applyAllRows();
+    });
+  }
+  function saveCfPrefs(){
+    if(!cfList)return;
+    var prefs={};
+    cfList.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      prefs[cb.dataset.rowclass]=cb.checked;
+    });
+    try{localStorage.setItem(CF_KEY,JSON.stringify(prefs));}catch(e){}
+  }
+  function applyAllRows(){
+    document.querySelectorAll('tr[data-hadith]').forEach(function(tr){
+      var h=+tr.dataset.hadith;
+      var inRange=(h>=vcFrom&&h<=vcTo);
+      if(tr.classList.contains('hadith-sep')){
+        tr.style.display=inRange?'':'none';
+      }else{
+        var typeEnabled=false;
+        enabledTypes.forEach(function(t){if(tr.classList.contains(t))typeEnabled=true;});
+        tr.style.display=(inRange&&typeEnabled)?'':'none';
+      }
+    });
+  }
+  window.vcSelectAll=function(){
+    vcFrom=1;vcTo=maxHadith;
+    if(fromInput)fromInput.value=1;
+    if(toInput)toInput.value=maxHadith;
+    applyAllRows();
+  };
+  window.vcClearAll=function(){
+    vcFrom=0;vcTo=0;
+    applyAllRows();
+  };
+  window.vcApplyRange=function(){
+    var f=parseInt(fromInput?fromInput.value:'1',10)||1;
+    var t=parseInt(toInput?toInput.value:'1',10)||1;
+    if(f>t){var tmp=f;f=t;t=tmp;}
+    vcFrom=f;vcTo=t;
+    if(fromInput)fromInput.value=f;
+    if(toInput)toInput.value=t;
+    applyAllRows();
+  };
+  applyAllRows();
+
+  /* ---- Scroll to #h-N anchor ---- */
+  (function(){
+    var h=location.hash;
+    if(h&&/^#h-\d+$/.test(h)){
+      var el=document.getElementById(h.slice(1));
+      if(el){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          el.classList.add('hadith-anchor-highlight');
+          setTimeout(function(){el.classList.remove('hadith-anchor-highlight');},2400);
+        },80);
+      }
+    }
+  })();
+
+  /* ---- Font size control ---- */
+  var fsSteps=[0.8,0.9,1.0,1.1,1.25,1.4,1.6];
+  var fsIdx=2;
+  function loadFs(){
+    var s=localStorage.getItem(FS_KEY);
+    if(s!==null){fsIdx=parseInt(s,10)||2;}
+    if(fsIdx<0)fsIdx=0;if(fsIdx>=fsSteps.length)fsIdx=fsSteps.length-1;
+  }
+  function applyFs(){
+    var scale=fsSteps[fsIdx];
+    document.querySelectorAll('.arabic-text').forEach(function(el){
+      el.style.fontSize=(1.5*scale)+'em';
+    });
+    document.querySelectorAll('td:not(.label)').forEach(function(el){
+      el.style.fontSize=(scale)+'em';
+    });
+    localStorage.setItem(FS_KEY,fsIdx);
+  }
+  window.fsIncrease=function(){if(fsIdx<fsSteps.length-1){fsIdx++;applyFs();}};
+  window.fsDecrease=function(){if(fsIdx>0){fsIdx--;applyFs();}};
+  window.fsReset=function(){fsIdx=2;applyFs();};
+  loadFs();
+  if(fsIdx!==2)applyFs();
+
+  /* ---- Scroll-to-top button ---- */
+  var stb=document.createElement('button');
+  stb.className='scroll-top-btn';
+  stb.title='Back to top';
+  stb.innerHTML='&#8679;';
+  stb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  document.body.appendChild(stb);
+  window.addEventListener('scroll',function(){
+    stb.style.display=window.scrollY>400?'flex':'none';
+  },{passive:true});
+
+  /* ---- Copy hadith ---- */
+  window.copyHadith=function(btn,ref){
+    var row=btn.closest('tr');
+    if(!row)return;
+    var tbod=row.parentNode;
+    var texts=['['+ref+']'];
+    if(tbod){
+      var hid=row.dataset.hadith;
+      tbod.querySelectorAll('tr[data-hadith="'+hid+'"]').forEach(function(tr){
+        if(tr.classList.contains('hadith-sep'))return;
+        if(tr.style.display==='none')return;
+        var lbl=tr.querySelector('.label');
+        var val=tr.cells[1];
+        if(lbl&&val)texts.push(lbl.textContent.trim()+': '+val.textContent.trim());
+      });
+    }
+    var text=texts.join('\n');
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(function(){
+      btn.textContent='\u2714';
+      setTimeout(function(){btn.textContent='\u29c9 Copy';},1200);
+    });
+  };
+
+  /* ---- Permalink click ---- */
+  document.querySelectorAll('a.permalink').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var url=location.origin+location.pathname+'#h-'+a.dataset.hadith;
+      navigator.clipboard&&navigator.clipboard.writeText(url);
+      history.replaceState(null,'','#h-'+a.dataset.hadith);
+    });
+  });
+})();
+</script>
+</body>
+</html>

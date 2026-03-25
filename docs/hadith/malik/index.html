@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Muwatta Malik — Books">
+<title>Muwatta Malik — Books</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-size:16px;background:#fff;color:#111;line-height:1.6}
+header{background:#1a3a5c;color:#fff;padding:12px 16px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#ffd54f;text-decoration:none;font-weight:bold;font-size:1.1em}
+header a:hover{text-decoration:underline}
+.header-search{margin-left:auto}
+main{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4em;margin:0 0 12px}
+h2{font-size:1.2em;color:#1a3a5c;margin:20px 0 8px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+.surah-grid a{display:block;padding:10px 12px;background:#f0f4f8;border:1px solid #ccd6e0;
+  border-radius:6px;text-decoration:none;color:#1a3a5c;font-size:.95em}
+.surah-grid a:hover{background:#dde8f2}
+.sg-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:.78em;color:#555}
+.notice{background:#fff8e1;border-left:4px solid #ffd54f;padding:12px 16px;margin-bottom:20px;font-size:.95em}
+.notice summary{cursor:pointer}
+.table-wrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;margin-bottom:24px}
+th{background:#1a3a5c;color:#fff;padding:10px 12px;text-align:left;font-size:.9em}
+td{padding:8px 12px;vertical-align:top;border:1px solid #ccd6e0}
+.ayah-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.hadith-sep td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:.9em;padding:6px 12px;border-color:#1a3a5c}
+.label{color:#888;font-size:.82em;white-space:nowrap;width:110px;vertical-align:top}
+.hadith-en td{background:#fff}
+.hadith-ar td{background:#fff8e1}
+.hadith-hi td{background:#f5f0ff}
+.arabic-text{font-family:'Scheherazade New','Amiri','Traditional Arabic',serif;font-size:1.5em;direction:rtl;text-align:right;line-height:2}
+.hindi-text{font-family:'Noto Sans Devanagari',Arial,sans-serif;color:#3a2a6c}
+nav.chapter-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:16px 0;margin-top:8px;border-top:1px solid #ccd6e0}
+nav.chapter-nav a{display:inline-block;padding:8px 16px;background:#1a3a5c;color:#fff;
+  border-radius:4px;text-decoration:none;font-size:.95em}
+nav.chapter-nav a:hover{background:#2a5a8c}
+footer{text-align:center;padding:16px 20px;font-size:.82em;color:#666;border-top:1px solid #e0e0e0;margin-top:32px;line-height:1.8}
+footer a{color:#1a3a5c;text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+.surah-nav-select{padding:5px 8px;border-radius:4px;border:1px solid #ffd54f;background:#1a3a5c;color:#ffd54f;font-size:.9em;cursor:pointer;max-width:240px}
+.surah-nav-select:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.verse-chooser{background:#f0f4f8;border:1px solid #ccd6e0;border-radius:6px;margin-bottom:16px}
+.verse-chooser summary{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;list-style:none;background:#e8eef4;border-radius:6px}
+.verse-chooser[open] summary{border-radius:6px 6px 0 0}
+.verse-chooser summary::-webkit-details-marker{display:none}
+.vc-title{font-size:1em;font-weight:bold;color:#1a3a5c}
+.vc-arrow{color:#1a3a5c;transition:transform .2s}
+.verse-chooser[open] .vc-arrow{transform:rotate(180deg)}
+.vc-body{padding:10px 14px;max-height:340px;overflow-y:auto}
+.vc-controls{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.vc-controls button{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:.88em;background:#1a3a5c;color:#fff;min-height:36px}
+.vc-controls button:hover{background:#2a5a8c}
+.vc-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vc-range label{font-size:.88em;color:#1a3a5c;white-space:nowrap}
+.vc-range input[type=number]{width:70px;padding:5px 6px;border:1px solid #ccd6e0;border-radius:4px;font-size:.88em;color:#111;background:#fff}
+.vc-range input[type=number]:focus{outline:2px solid #ffd54f;outline-offset:2px}
+.vc-section-title{font-size:.82em;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:8px 0 4px}
+.cf-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cf-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.cf-item label{display:inline-flex;align-items:center;padding:5px 10px;background:#fff;border:1px solid #ccd6e0;border-radius:4px;cursor:pointer;font-size:.85em;color:#1a3a5c;user-select:none;white-space:nowrap}
+.cf-item label:hover{background:#dde8f2}
+.cf-item input:checked+label{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.cf-item input:focus+label{outline:2px solid #ffd54f;outline-offset:2px}
+@media(max-width:600px){
+  .vc-controls button{min-height:44px}
+  .cf-item label{min-height:44px;padding:8px 10px}
+  main{padding:10px 8px}
+  h1{font-size:1.15em}
+  .surah-nav-select{max-width:160px;font-size:.82em}
+  .table-wrap thead{display:none}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr{display:block;width:100%}
+  .table-wrap td{display:block;width:100%;border-left:none;border-right:none;border-bottom:none;box-sizing:border-box}
+  .table-wrap .label{padding:5px 10px 1px;font-size:.72em;width:auto;white-space:normal;border-top:2px solid rgba(0,0,0,.07)}
+  .table-wrap td:not(.label){padding:2px 10px 8px}
+  .table-wrap .hadith-sep td,.table-wrap .ayah-sep td{border:none;padding:7px 10px}
+  .arabic-text{font-size:1.25em}
+  nav.chapter-nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+  footer{font-size:.78em;padding:12px 14px}
+}
+@media(max-width:380px){
+  .surah-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  header{padding:8px 10px;gap:8px}
+}
+.noscript-warn{background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;margin-bottom:12px;font-size:.93em;color:#856404}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e8e8e8}
+  header{background:#0d2136}
+  main{color:#e8e8e8}
+  h2{color:#90caf9}
+  td{border-color:#333;color:#e8e8e8}
+  .hadith-sep td,.ayah-sep td{background:#0d2136;border-color:#0d2136}
+  .label{color:#aaa}
+  .hadith-en td{background:#1a1a1a}
+  .hadith-ar td{background:#2a2010}
+  .hadith-hi td{background:#1e1530}
+  .surah-grid a{background:#1e2a3a;border-color:#334;color:#90caf9}
+  .surah-grid a:hover{background:#263650}
+  .sg-meta{color:#aaa}
+  .notice{background:#2a2010;border-left-color:#ffc107;color:#e8e8e8}
+  .verse-chooser{background:#1e2a3a;border-color:#334}
+  .verse-chooser summary{background:#162030}
+  .vc-title{color:#90caf9}
+  .vc-arrow{color:#90caf9}
+  .vc-range input[type=number]{background:#1a1a1a;border-color:#334;color:#e8e8e8}
+  .cf-item label{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .cf-item label:hover{background:#263650}
+  .cf-item input:checked+label{background:#1a3a5c;color:#fff}
+  footer{color:#aaa;border-top-color:#333}
+  footer a{color:#90caf9}
+  th{background:#0d2136}
+  .hindi-text{color:#b39ddb}
+}
+@media(max-width:600px) and (prefers-color-scheme:dark){
+  .table-wrap .label{border-top-color:rgba(255,255,255,.08)}
+}
+@media print{
+  header,nav.chapter-nav,.verse-chooser,footer{display:none!important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:table!important}
+  .table-wrap tbody{display:table-row-group!important}
+  .table-wrap tr{display:table-row!important}
+  .table-wrap td{display:table-cell!important;width:auto!important}
+  .table-wrap .label{width:110px!important;white-space:nowrap!important}
+  td{border-color:#999;color:#000;background:#fff!important}
+  .arabic-text{font-size:1.3em}
+  .hadith-sep td{background:#ddd!important;color:#000!important}
+  tr[data-hadith]{display:table-row!important}
+}
+@keyframes hadith-pulse{0%{background:#1a3a5c}40%{background:#ffd54f}100%{background:#1a3a5c}}
+.hadith-anchor-highlight td{animation:hadith-pulse .8s ease-in-out 3}
+.copy-btn{background:none;border:1px solid #ccd6e0;border-radius:4px;
+  padding:1px 7px;cursor:pointer;font-size:.75em;color:#888;margin-left:8px;
+  vertical-align:middle;line-height:1.4}
+.copy-btn:hover{background:#e8eef4;color:#1a3a5c}
+.scroll-top-btn{position:fixed;bottom:24px;right:20px;width:42px;height:42px;
+  border-radius:50%;background:#1a3a5c;color:#ffd54f;font-size:1.2em;font-weight:bold;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:100;line-height:1}
+.scroll-top-btn:hover{background:#2a5a8c}
+.vc-font-ctrl{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.vc-font-ctrl span{font-size:.85em;color:#555}
+.vc-font-ctrl button{padding:3px 10px;border:1px solid #ccd6e0;border-radius:4px;
+  cursor:pointer;font-size:.88em;background:#fff;color:#1a3a5c;min-height:30px}
+.vc-font-ctrl button:hover{background:#dde8f2}
+.permalink{color:inherit;text-decoration:none;font-weight:bold}
+.permalink:hover{text-decoration:underline}
+@media(prefers-color-scheme:dark){
+  .copy-btn{border-color:#334;color:#90caf9}
+  .copy-btn:hover{background:#263650}
+  .vc-font-ctrl span{color:#aaa}
+  .vc-font-ctrl button{background:#1a1a1a;border-color:#334;color:#90caf9}
+  .vc-font-ctrl button:hover{background:#263650}
+}
+</style>
+</head>
+<body>
+<header><a href='../index.html'>&#8962; Hadith Index</a> | <strong>Muwatta Malik</strong> | <a class='header-search' href='../search.html'>&#128269; Search</a></header>
+<main>
+<h1>Muwatta Malik</h1>
+<div class='surah-grid'>
+<a href='book-1.html'><strong>Book 1</strong><br>The Times of Prayer<span class='sg-meta'><span>31 hadiths</span></span></a>
+<a href='book-2.html'><strong>Book 2</strong><br>Purity<span class='sg-meta'><span>114 hadiths</span></span></a>
+<a href='book-3.html'><strong>Book 3</strong><br>Prayer<span class='sg-meta'><span>75 hadiths</span></span></a>
+<a href='book-4.html'><strong>Book 4</strong><br>Forgetfulness in Prayer<span class='sg-meta'><span>3 hadiths</span></span></a>
+<a href='book-5.html'><strong>Book 5</strong><br>Jumu'a<span class='sg-meta'><span>21 hadiths</span></span></a>
+<a href='book-6.html'><strong>Book 6</strong><br>Prayer in Ramadan<span class='sg-meta'><span>8 hadiths</span></span></a>
+<a href='book-7.html'><strong>Book 7</strong><br>Tahajjud<span class='sg-meta'><span>33 hadiths</span></span></a>
+<a href='book-8.html'><strong>Book 8</strong><br>Prayer in Congregation<span class='sg-meta'><span>39 hadiths</span></span></a>
+<a href='book-9.html'><strong>Book 9</strong><br>Shortening the Prayer<span class='sg-meta'><span>102 hadiths</span></span></a>
+<a href='book-10.html'><strong>Book 10</strong><br>The Two 'Ids<span class='sg-meta'><span>13 hadiths</span></span></a>
+<a href='book-11.html'><strong>Book 11</strong><br>The Fear Prayer<span class='sg-meta'><span>4 hadiths</span></span></a>
+<a href='book-12.html'><strong>Book 12</strong><br>The Eclipse Prayer<span class='sg-meta'><span>4 hadiths</span></span></a>
+<a href='book-13.html'><strong>Book 13</strong><br>Asking for Rain<span class='sg-meta'><span>6 hadiths</span></span></a>
+<a href='book-14.html'><strong>Book 14</strong><br>The Qibla<span class='sg-meta'><span>15 hadiths</span></span></a>
+<a href='book-15.html'><strong>Book 15</strong><br>The Qur'an<span class='sg-meta'><span>46 hadiths</span></span></a>
+<a href='book-16.html'><strong>Book 16</strong><br>Burials<span class='sg-meta'><span>56 hadiths</span></span></a>
+<a href='book-17.html'><strong>Book 17</strong><br>Zakat<span class='sg-meta'><span>52 hadiths</span></span></a>
+<a href='book-18.html'><strong>Book 18</strong><br>Fasting<span class='sg-meta'><span>57 hadiths</span></span></a>
+<a href='book-19.html'><strong>Book 19</strong><br>I'tikaf in Ramadan<span class='sg-meta'><span>13 hadiths</span></span></a>
+<a href='book-20.html'><strong>Book 20</strong><br>Hajj<span class='sg-meta'><span>251 hadiths</span></span></a>
+<a href='book-21.html'><strong>Book 21</strong><br>Jihad<span class='sg-meta'><span>48 hadiths</span></span></a>
+<a href='book-22.html'><strong>Book 22</strong><br>Vows and Oaths<span class='sg-meta'><span>18 hadiths</span></span></a>
+<a href='book-23.html'><strong>Book 23</strong><br>Sacrificial Animals<span class='sg-meta'><span>13 hadiths</span></span></a>
+<a href='book-24.html'><strong>Book 24</strong><br>Slaughtering Animals<span class='sg-meta'><span>10 hadiths</span></span></a>
+<a href='book-25.html'><strong>Book 25</strong><br>Game<span class='sg-meta'><span>11 hadiths</span></span></a>
+<a href='book-26.html'><strong>Book 26</strong><br>The 'Aqiqa<span class='sg-meta'><span>7 hadiths</span></span></a>
+<a href='book-27.html'><strong>Book 27</strong><br>Fara'id<span class='sg-meta'><span>16 hadiths</span></span></a>
+<a href='book-28.html'><strong>Book 28</strong><br>Marriage<span class='sg-meta'><span>59 hadiths</span></span></a>
+<a href='book-29.html'><strong>Book 29</strong><br>Divorce<span class='sg-meta'><span>118 hadiths</span></span></a>
+<a href='book-30.html'><strong>Book 30</strong><br>Suckling<span class='sg-meta'><span>18 hadiths</span></span></a>
+<a href='book-31.html'><strong>Book 31</strong><br>Business Transactions<span class='sg-meta'><span>95 hadiths</span></span></a>
+<a href='book-32.html'><strong>Book 32</strong><br>Qirad<span class='sg-meta'><span>2 hadiths</span></span></a>
+<a href='book-33.html'><strong>Book 33</strong><br>Sharecropping<span class='sg-meta'><span>1 hadiths</span></span></a>
+<a href='book-34.html'><strong>Book 34</strong><br>Renting Land<span class='sg-meta'><span>4 hadiths</span></span></a>
+<a href='book-35.html'><strong>Book 35</strong><br>Pre-emption in Property<span class='sg-meta'><span>4 hadiths</span></span></a>
+<a href='book-36.html'><strong>Book 36</strong><br>Judgements<span class='sg-meta'><span>56 hadiths</span></span></a>
+<a href='book-37.html'><strong>Book 37</strong><br>Wills and Testaments<span class='sg-meta'><span>9 hadiths</span></span></a>
+<a href='book-38.html'><strong>Book 38</strong><br>Setting Free and Wala'<span class='sg-meta'><span>25 hadiths</span></span></a>
+<a href='book-39.html'><strong>Book 39</strong><br>The Mukatab<span class='sg-meta'><span>7 hadiths</span></span></a>
+<a href='book-40.html'><strong>Book 40</strong><br>The Mudabbar<span class='sg-meta'><span>3 hadiths</span></span></a>
+<a href='book-41.html'><strong>Book 41</strong><br>Hudud<span class='sg-meta'><span>35 hadiths</span></span></a>
+<a href='book-42.html'><strong>Book 42</strong><br>Drinks<span class='sg-meta'><span>15 hadiths</span></span></a>
+<a href='book-43.html'><strong>Book 43</strong><br>Blood-Money<span class='sg-meta'><span>43 hadiths</span></span></a>
+<a href='book-44.html'><strong>Book 44</strong><br>The Oath of Qasama<span class='sg-meta'><span>1 hadiths</span></span></a>
+<a href='book-45.html'><strong>Book 45</strong><br>Madina<span class='sg-meta'><span>24 hadiths</span></span></a>
+<a href='book-46.html'><strong>Book 46</strong><br>The Decree<span class='sg-meta'><span>10 hadiths</span></span></a>
+<a href='book-47.html'><strong>Book 47</strong><br>Good Character<span class='sg-meta'><span>18 hadiths</span></span></a>
+<a href='book-48.html'><strong>Book 48</strong><br>Dress<span class='sg-meta'><span>20 hadiths</span></span></a>
+<a href='book-49.html'><strong>Book 49</strong><br>The Description of the Prophet, may Allah Bless Him and Grant Him Peace<span class='sg-meta'><span>40 hadiths</span></span></a>
+<a href='book-50.html'><strong>Book 50</strong><br>The Evil Eye<span class='sg-meta'><span>19 hadiths</span></span></a>
+<a href='book-51.html'><strong>Book 51</strong><br>Hair<span class='sg-meta'><span>17 hadiths</span></span></a>
+<a href='book-52.html'><strong>Book 52</strong><br>Visions<span class='sg-meta'><span>8 hadiths</span></span></a>
+<a href='book-53.html'><strong>Book 53</strong><br>Greetings<span class='sg-meta'><span>6 hadiths</span></span></a>
+<a href='book-54.html'><strong>Book 54</strong><br>General Subjects<span class='sg-meta'><span>44 hadiths</span></span></a>
+<a href='book-55.html'><strong>Book 55</strong><br>The Oath of Allegiance<span class='sg-meta'><span>3 hadiths</span></span></a>
+<a href='book-56.html'><strong>Book 56</strong><br>Speech<span class='sg-meta'><span>28 hadiths</span></span></a>
+<a href='book-57.html'><strong>Book 57</strong><br>Jahannam<span class='sg-meta'><span>2 hadiths</span></span></a>
+<a href='book-58.html'><strong>Book 58</strong><br>Sadaqa<span class='sg-meta'><span>15 hadiths</span></span></a>
+<a href='book-59.html'><strong>Book 59</strong><br>Knowledge<span class='sg-meta'><span>1 hadiths</span></span></a>
+<a href='book-60.html'><strong>Book 60</strong><br>The Supplication of the Unjustly Wronged<span class='sg-meta'><span>1 hadiths</span></span></a>
+<a href='book-61.html'><strong>Book 61</strong><br>The Names of the Prophet, may Allah Bless Him and Grant Him Peace<span class='sg-meta'><span>1 hadiths</span></span></a>
+</div>
+
+</main>
+<footer><a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a> &nbsp;|&nbsp; <a href="../../index.html">&#8962; Qurʼan Index</a></footer>
+</body>
+</html>
