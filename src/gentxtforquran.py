@@ -102,7 +102,7 @@ translations = [
 
 def read_required_line(src, src_file, sura_num, ayah_num):
     line = src.readline()
-    if line == '':
+    if not line:
         raise ValueError(
             "Unexpected end of file in %s at [%d:%d]" % (src_file, sura_num, ayah_num)
         )
