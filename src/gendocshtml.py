@@ -200,6 +200,14 @@ with open('data/en.transliteration.tanzil.txt', 'r', encoding='utf-8') as f:
         if len(parts) == 3:
             translit[(int(parts[0]), int(parts[1]))] = parts[2]
 
+def read_required_line(src, src_file, sura_num, ayah_num):
+    line = src.readline()
+    if line == '':
+        raise ValueError(
+            "Unexpected end of file in %s at [%d:%d]" % (src_file, sura_num, ayah_num)
+        )
+    return line.rstrip('\n')
+
 # ---------------------------------------------------------------------------
 # Load Hindi translation  quran_hindi_farooq.txt
 # Format: [sura:ayah] text
@@ -231,7 +239,9 @@ pickthall = {}
 with open('data/en.pickthall.txt', 'r', encoding='utf-8') as f:
     for sura_idx, size in enumerate(SURA_SIZE, 1):
         for ayah in range(1, size + 1):
-            pickthall[(sura_idx, ayah)] = f.readline().rstrip('\n')
+            pickthall[(sura_idx, ayah)] = read_required_line(
+                f, 'data/en.pickthall.txt', sura_idx, ayah
+            )
 
 # ---------------------------------------------------------------------------
 # Load Yusuf Ali English translation  quran_english_yusufali.txt

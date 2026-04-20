@@ -100,6 +100,57 @@ translations = [
     ('data/gu.roman.rabila.txt', 'output/quran_roman_gujarati_rabila.txt', 'Rabila Al-Omari', 'Roman-Gujarati'),
 ]
 
+def read_required_line(src, src_file, sura_num, ayah_num):
+    line = src.readline()
+    if line == '':
+        raise ValueError(
+            "Unexpected end of file in %s at [%d:%d]" % (src_file, sura_num, ayah_num)
+        )
+    return line.rstrip('\n')
+
+def parse_sura_ayah_text(raw_line, src_file, sura_num, ayah_num):
+    parts = raw_line.split('|', 2)
+    if len(parts) != 3:
+        raise ValueError(
+            "Malformed sura|ayah|text line in %s at [%d:%d]: %r"
+            % (src_file, sura_num, ayah_num, raw_line)
+        )
+    try:
+        parsed_sura = int(parts[0])
+        parsed_ayah = int(parts[1])
+    except ValueError as exc:
+        raise ValueError(
+            "Non-numeric sura/ayah in %s at [%d:%d]: %r"
+            % (src_file, sura_num, ayah_num, raw_line)
+        ) from exc
+    if parsed_sura != sura_num or parsed_ayah != ayah_num:
+        raise ValueError(
+            "Out-of-order verse in %s: expected [%d:%d], got [%d:%d]"
+            % (src_file, sura_num, ayah_num, parsed_sura, parsed_ayah)
+        )
+    return parts[2]
+
+def parse_sequential_text(raw_line, src_file, verse_index, sura_num, ayah_num):
+    parts = raw_line.split('|', 1)
+    if len(parts) != 2:
+        raise ValueError(
+            "Malformed num|text line in %s at [%d:%d]: %r"
+            % (src_file, sura_num, ayah_num, raw_line)
+        )
+    try:
+        parsed_idx = int(parts[0])
+    except ValueError as exc:
+        raise ValueError(
+            "Non-numeric verse index in %s at [%d:%d]: %r"
+            % (src_file, sura_num, ayah_num, raw_line)
+        ) from exc
+    if parsed_idx != verse_index:
+        raise ValueError(
+            "Out-of-order global verse index in %s: expected %d at [%d:%d], got %d"
+            % (src_file, verse_index, sura_num, ayah_num, parsed_idx)
+        )
+    return parts[1]
+
 for src_file, out_file, translator, lang in translations:
     with open(out_file, 'w', encoding='utf-8') as out:
         if lang in ('Transliteration', 'Transliteration-Sequential'):
@@ -186,13 +237,17 @@ for src_file, out_file, translator, lang in translations:
         elif lang == 'Transliteration-Sequential':
             with open(src_file, 'r', encoding='utf-8') as src:
                 # Parse num|text format with sequential global ayah numbers
+                verse_index = 1
                 for sura_num in range(114):
                     out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
                     out.write("-" * 40 + "\n")
                     for ayah_num in range(1, surasize[sura_num] + 1):
-                        raw_line = src.readline().rstrip('\n')
-                        text = raw_line.split('|', 1)[1] if '|' in raw_line else ''
+                        raw_line = read_required_line(src, src_file, sura_num + 1, ayah_num)
+                        text = parse_sequential_text(
+                            raw_line, src_file, verse_index, sura_num + 1, ayah_num
+                        )
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
+                        verse_index += 1
                     out.write("\n")
         elif lang in ('English-SuraAyah', 'English-Piped', 'Urdu-SuraAyah'):
             with open(src_file, 'r', encoding='utf-8') as src:
@@ -200,8 +255,8 @@ for src_file, out_file, translator, lang in translations:
                     out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
                     out.write("-" * 40 + "\n")
                     for ayah_num in range(1, surasize[sura_num] + 1):
-                        raw_line = src.readline().rstrip('\n')
-                        text = raw_line.split('|', 2)[2] if raw_line.count('|') >= 2 else raw_line
+                        raw_line = read_required_line(src, src_file, sura_num + 1, ayah_num)
+                        text = parse_sura_ayah_text(raw_line, src_file, sura_num + 1, ayah_num)
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
         else:
@@ -210,7 +265,7 @@ for src_file, out_file, translator, lang in translations:
                     out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
                     out.write("-" * 40 + "\n")
                     for ayah_num in range(1, surasize[sura_num] + 1):
-                        line = src.readline().rstrip('\n')
+                        line = read_required_line(src, src_file, sura_num + 1, ayah_num)
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, line))
                     out.write("\n")
     print("Generated: %s" % out_file)
