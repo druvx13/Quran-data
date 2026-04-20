@@ -101,6 +101,7 @@ translations = [
 ]
 
 def read_required_line(src, src_file, sura_num, ayah_num):
+    """Read one source line and fail fast if verse data ends early."""
     line = src.readline()
     if not line:
         raise ValueError(
@@ -109,6 +110,7 @@ def read_required_line(src, src_file, sura_num, ayah_num):
     return line.rstrip('\n')
 
 def parse_sura_ayah_text(raw_line, src_file, sura_num, ayah_num):
+    """Validate and parse a `sura|ayah|text` verse line."""
     parts = raw_line.split('|', 2)
     if len(parts) != 3:
         raise ValueError(
@@ -131,6 +133,7 @@ def parse_sura_ayah_text(raw_line, src_file, sura_num, ayah_num):
     return parts[2]
 
 def parse_sequential_text(raw_line, src_file, verse_index, sura_num, ayah_num):
+    """Validate and parse a sequential `num|text` verse line."""
     parts = raw_line.split('|', 1)
     if len(parts) != 2:
         raise ValueError(

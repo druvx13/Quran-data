@@ -201,6 +201,7 @@ with open('data/en.transliteration.tanzil.txt', 'r', encoding='utf-8') as f:
             translit[(int(parts[0]), int(parts[1]))] = parts[2]
 
 def read_required_line(src, src_file, sura_num, ayah_num):
+    """Read one source line and fail fast if verse data ends early."""
     line = src.readline()
     if not line:
         raise ValueError(
