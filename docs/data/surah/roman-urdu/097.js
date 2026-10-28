@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/097",["Humne is (Quran) ko shab-e-qadr mei nazil kiya hai","Aur tum kya jano kay shab-e-qadr kya hai","Shab-e-qadr hazar mahino se zyada behtar hai","Farishtey aur rooh(Jibrael) us mein apne Rubb ke izn(permission) se har hukm le kar utarte hai","Woh raat sarasar salamati hai tulu e fajr tak"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedali/112",["SAY: \"HE IS God the one the most unique,","God the immanently indispensable.","He has begotten no one, and is begotten of none.","There is no one comparable to Him.\""]);

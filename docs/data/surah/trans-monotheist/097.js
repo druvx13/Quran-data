@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/097",["We have sent it down in the Night of Decree","And do you know what is the Night of Decree","The Night of Destiny is better than one thousand months","The Angels and the Spirit come down in it by their Lord's leave to carry out every matter","It is peaceful until the coming of dawn"]);

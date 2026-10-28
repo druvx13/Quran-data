@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/110",["(O Prophet,) When there comes Allah’s help and the Victory,","and you see people entering Allah’s (approved) religion in multitudes,","then pronounce the purity and praise of your Lord, and seek forgiveness from Him. Surely He is Ever-Relenting."]);

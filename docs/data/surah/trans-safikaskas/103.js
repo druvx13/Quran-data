@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/103",["I swear by the Late Afternoon","the human being is surely, in a state of loss","Except for those who have believed and done good deeds and urged one another to the Truth and urged one another to patience"]);

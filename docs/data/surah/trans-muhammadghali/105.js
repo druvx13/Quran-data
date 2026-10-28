@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/105",["Have you not seen how your Lord performed with the companions (i.e., owners) of the elephant","Did He not make their plotting go into great error","And He sent upon them baleful birds (in flocks)","Throwing against them stones of baked clay","So He made them like green blades eaten (up)"]);

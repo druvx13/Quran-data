@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/109",["Say: O ones who are ungrateful","I worship not what you worship","and you are not ones who worship what I worship","And I am not one who worships what you worshipped","And you are not ones who worship what I worship","For you is your way of life, and for me is my way of life"]);

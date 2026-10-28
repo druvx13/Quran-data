@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/109",["Say: 'O unbelievers,","I do not worship what you worship,","nor do you worship what I worship.","Nor am I worshiping what you have worshipped,","neither will you worship what I worship.","To you your religion, and to me my Religion'"]);

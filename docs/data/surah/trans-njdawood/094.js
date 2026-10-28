@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/094",["HAVE WE not lifted up your heart","and relieved you¹ of the burden","which weighed down your back","And have We not given you high renown","With every hardship there comes ease","With every hardship there comes ease","When your prayers are ended resume your toil","and seek your Lord with all fervour"]);

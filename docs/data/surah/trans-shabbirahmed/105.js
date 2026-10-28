@@ -1,0 +1,1 @@
+QData("surah/trans-shabbirahmed/105",["Are you not aware of how your Lord dealt with the Army of the Elephant","Did He not bring their strategy to utter failure","And sent upon them swarms of flying creatures","Then you showered them with hard stones earmarked with requital. ('Sijjil' = Inscribed = Marked out)","And made them like a field of grain eaten down to stubble"]);

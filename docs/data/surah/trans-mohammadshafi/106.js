@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/106",["For the welfare of the Qurays","Their welfare during winter and summer journeys [of their trading caravans]","So let them worship the Lord of this House","Who provided them food against hunger and security against fear"]);

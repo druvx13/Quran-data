@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/112",["Say: \"He, God, the Unique One of Absolute Unity","God, the Eternally-Besought-of-All (Himself in no need of anything)","He begets not, nor is He begotten","And comparable to Him there is none"]);

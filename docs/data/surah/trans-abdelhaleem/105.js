@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/105",["Do you [Prophet] not see how your Lord dealt with the army of the elephant?","Did He not utterly confound their plans?","He sent ranks of birds against them,","pelting them with pellets of hard-baked clay:","He made them [like] cropped stubble."]);

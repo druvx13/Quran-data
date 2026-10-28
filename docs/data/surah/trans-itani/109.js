@@ -1,0 +1,1 @@
+QData("surah/trans-itani/109",["Say, “O disbelievers.","I do not worship what you worship.","Nor do you worship what I worship.","Nor do I serve what you serve.","Nor do you serve what I serve.","You have your way, and I have my way.”"]);

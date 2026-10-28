@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/110",["When God's victory has come, together with His conquest","and you see people embracing God's religion in multitudes","exult your Lord's glory, and praise Him, and ask for His forgiveness; for He is ever-accepting of repentance"]);

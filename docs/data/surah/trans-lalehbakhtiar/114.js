@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/114",["Say: I take refuge with the Lord of humanity","King of humanity","God of humanity","from the worst of the sneaking whisperer of evil","who whispers evil in the breasts of humanity","from among the genie and humanity"]);

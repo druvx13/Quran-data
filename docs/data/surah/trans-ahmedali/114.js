@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedali/114",["SAY: \"I SEEK refuge with the Lord of men,","The King of men,","The God of men,","From the evil of him who breathes temptations into the minds of men,","Who suggests evil thoughts to the hearts of men --","From among the jinns and men."]);

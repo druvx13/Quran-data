@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/112",["Say, \"He is God, the One,","God, the Self-sufficient One.","He does not give birth, nor was He born,","and there is nothing like Him.\""]);

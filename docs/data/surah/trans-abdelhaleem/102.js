@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/102",["Striving for more distracts you","until you go into your graves.","No indeed! You will come to know.","No indeed! In the end you will come to know.","No indeed! If only you knew for certain.","You will most definitely see Hellfire,","you will see it with the eye of certainty.","On that Day, you will be asked about your pleasures."]);

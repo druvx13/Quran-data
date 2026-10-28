@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/106",["FOR THE protection of Quraysh","their protection in their winter and summer journeyings","Therefore let them worship the Lord of this House","who fed them when there was famine and shielded them from fear"]);

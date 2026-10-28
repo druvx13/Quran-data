@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/114",["Say: \"I seek refuge with the Lord of mankind","The King of mankind","The God of mankind","From the evil of the sneaking whisperer","Who whispers into the chests of mankind","From among the Jinn and mankind"]);

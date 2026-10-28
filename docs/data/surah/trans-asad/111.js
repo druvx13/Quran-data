@@ -1,0 +1,1 @@
+QData("surah/trans-asad/111",["DOOMED are the hands of him of the glowing countence: and doomed is he!","What will his wealth avail him, and all that he has gained?","[In the life to come] he shall have to endure a fire fiercely glowing;","together with his wife, that carrier of evil tales,","[who bears] around her neck a rope of twisted strands!"]);

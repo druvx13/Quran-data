@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/103",["jamanana soganda","ni:Sanka (cokkasapane) manavi kharekhara nukasanamam che","sivaya te lokona je'o imana lavya, ane sara karyo karya ane (jemane) ekabijane satyanum sucana karyu, ane ekabija ne dhairyani sikhamana kari"]);

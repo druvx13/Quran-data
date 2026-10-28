@@ -1,0 +1,1 @@
+QData("surah/trans-daryabadi/097",["Verily We! We have sent it down on the night of Power.","And what shall make thee know that which the night of Power is?","The night of Power is better than a thousand months.","The angels and the spirit descend therein by the command of their Lord with His decrees for every affair.","It is all peace, until the rising of the dawn."]);

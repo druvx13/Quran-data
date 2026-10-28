@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/094",["HAVE we not OPENED thine heart for thee","And taken off from thee thy burden","Which galled thy back","And have we not raised thy name for thee","Then verily along with trouble cometh ease","Verily along with trouble cometh ease","But when thou art set at liberty, then prosecute thy toil","And seek thy Lord with fervour"]);

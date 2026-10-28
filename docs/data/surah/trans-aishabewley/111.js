@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/111",["Ruin to the hands of Abu Lahab and ruin to him","His wealth has not helped him nor anything he has earned","He will burn in a Flaming Fire","And so will his wife, the firewood-carrier","with a rope of twisted fibre round her neck"]);

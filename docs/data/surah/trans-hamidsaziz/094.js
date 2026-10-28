@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/094",["Have We not expanded for you your breast","And set down from you your load","Which galled your back","And exalted for you your renown","Verily, with difficulty comes ease","Verily, with difficulty comes ease","So when you are at relieved, then still toil","And to your Lord turn all your yearning (or attention)"]);

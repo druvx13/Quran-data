@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/109",["Say, \"O you faithless","I do not serve what you serve","Nor will you serve what I serve","Nor will I serve what you serve","Nor will you serve what I serve","To you your Way and to me my Way"]);

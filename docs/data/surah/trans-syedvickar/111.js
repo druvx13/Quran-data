@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/111",["Perish the hands of the Father of Flame (Abu’-Lahab)! Perish he","(There is) no benefit to him (in the Hereafter) from all his wealth, and from all his gains","Soon he will be burnt in a Fire of burning Flame","And his wife shall carry the (crackling) wood, as fuel","A twisted rope of palm-leaf fiber around her (own) neck"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/103",["By the time (i.e. historic time is witness that)","Man is certainly at a loss","except those who believe and do righteous works and recommend to one another, the truth, and recommend to one another, patience"]);

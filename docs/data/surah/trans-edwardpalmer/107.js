@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/107",["Hast thou considered him who calls the judgment a lie","He it is who pushes the orphan away","and urges not (others) to feed the poor","But woe to those who pray","and who are careless in their prayers","Who pretend","and withhold necessaries"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/114",["Say: I seek refuge in the Lord of men,","The King of men,","The god of men,","From the evil of the whisperings of the slinking (Shaitan),","Who whispers into the hearts of men,","From among the jinn and the men."]);

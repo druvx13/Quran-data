@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/111",["aboo lahab ke donon haath naash ho gaye aur vah svayan bhee naash ho gaya","usaka dhan tatha jo usane kamaaya usake kaam nahin aaya","vah sheeghr laava phenkatee aag mein jaayega","tatha usakee patnee bhee, jo eendhan lie phiratee hai","usakee gardan mein moonj kee rassee hogee"]);

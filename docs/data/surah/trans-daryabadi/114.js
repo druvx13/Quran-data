@@ -1,0 +1,1 @@
+QData("surah/trans-daryabadi/114",["Say thou: I seek refuge with the Lord of mankind,","The King of mankind,","The God of mankind,","From the evil of the sneaking whisperer","Who whispereth Unto the breasts of mankind,","Whether of Jinn or of mankind."]);

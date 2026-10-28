@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/113",["Say, I fly for refuge unto the Lord of the day-break","that He may deliver me from the mischief of those things which He hath created","and from the mischief of the night, when it cometh on","and from the mischief of women blowing on knots","and from the mischief of the envious, when he envieth"]);

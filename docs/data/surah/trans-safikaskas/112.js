@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/112",["Say: \"He is God who is Uniquely Singular","Who is Eternal, [the uncaused cause of all that exists]","Who has not given birth nor is He born","and there is no equivalent to Him"]);

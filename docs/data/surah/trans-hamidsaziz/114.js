@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/114",["Say, \"I seek refuge in the Lord and Cherisher of mankind","The King (or Ruler) of mankind","The God (or Judge) of mankind","From the mischief of the Whisperer, who slinks off","Who whispers into the heart of men","From among Jinn and Men"]);

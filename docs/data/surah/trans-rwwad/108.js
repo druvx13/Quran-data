@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/108",["We have surely given you [O Prophet] al-Kauthar [i.e., abundance],","so pray and offer sacrifice to your Lord alone.","Indeed, the one who hates you is truly cut off [from all goodness]."]);

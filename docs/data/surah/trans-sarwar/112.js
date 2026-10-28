@@ -1,0 +1,1 @@
+QData("surah/trans-sarwar/112",["(Muhammad), say, \"He is the only God.","God is Absolute.","He neither begets nor was He begotten.","There is no one equal to Him."]);

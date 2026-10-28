@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/111",["Perish shall the hands of The Father of Flame, and he shall perish","His wealth shall not avail him, nor what he has gained","He shall soon broil in a Fire that flames","And his wife shall carry the wood as fuel","On her own neck a cord of palm fibres"]);

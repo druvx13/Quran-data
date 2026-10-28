@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/110",["When there comes the help of Allah and the victory","you see the people entering Allah's religion (Islam) in multitudes","So glorify your Lord with His praises, and pray for His forgiveness: surely He is ever ready to accept repentance"]);

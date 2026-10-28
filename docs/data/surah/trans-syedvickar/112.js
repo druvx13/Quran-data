@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/112",["Say: \"He is Allah, The One (Ahad, and Only One)","Allah the Eternal (Samad, the Ever Enduring), the Absolute (and Alone)","He begets not (has no descendents, no children, none), nor was He (ever) begotten","And there is none like (or comparable) unto Him"]);

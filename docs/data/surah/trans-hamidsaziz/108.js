@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/108",["Verily, We have given you (Muhammad) El Kauthar (The Fountain of Abundance)","So pray to your Lord and sacrifice","Verily, he who insults you shall be issueless (cut off)"]);

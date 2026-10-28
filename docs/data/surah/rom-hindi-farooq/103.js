@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/103",["gavaah hai guzarata samay","ki vaastav mein manushy ghaate mein hai","sivaay un logon ke jo eemaan lae aur achchhe karm kie aur ek-doosare ko haq kee taakeed kee, aur ek-doosare ko dhairy kee taakeed kee"]);

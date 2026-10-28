@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/110",["When God’s help comes and victory (which is a door to further victories)","And you see people entering God’s Religion in throngs","Then glorify your Lord with His praise, and ask Him for forgiveness, for He surely is One Who returns repentance with liberal forgiveness and additional reward"]);

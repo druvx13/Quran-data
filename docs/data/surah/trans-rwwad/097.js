@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/097",["Indeed, We sent this [Qur’an] down on the Night of Decree.","How do you know what the Night of Decree is?","The Night of Decree is better than a thousand months.","On that night the angels and the Spirit [i.e., Gabriel] descend by their Lord’s permission with all decrees.","It is all peace until the break of dawn."]);

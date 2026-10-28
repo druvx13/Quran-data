@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/113",["Say, “I seek the protection of the Lord of the day break","from the evil of that which He has created","and from the evil of the darkness (of night) when it overspreads","and from the evil of women blowing in the knots (practicing witchcraft)","and from the evil of the envier when he envies.”"]);

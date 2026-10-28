@@ -1,0 +1,1 @@
+QData("surah/trans-itaninew/114",["Say, 'I seek refuge in the Lord of mankind","The King of mankind","The God of mankind","From the evil of the sneaky whisperer","Who whispers into the hearts of people","From among jinn and among people"]);

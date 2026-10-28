@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/001",["IN the name of the merciful and compassionate God","Praise belongs to God, the Lord of the worlds","the merciful, the compassionate","the ruler of the day of judgment","Thee we serve and Thee we ask for aid","Guide us in the right path","the path of those Thou art gracious to; not of those Thou art wroth with; nor of those who err"]);

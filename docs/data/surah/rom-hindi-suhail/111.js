@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/111",["abu lahab ke haath toot jaen aur vah khud satyaanaas ho jae","(aakhir) na usaka maal hee usake haath aaya aur (na) usane kamaaya","vah bahut bhadakatee huee aag mein daakhil hoga","aur usakee joroo bhee jo sar par eendhan uthae phiratee hai","aur usake gale mein batee huee rassee bandhee hai"]);

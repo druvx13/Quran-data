@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/110",["When God´s support comes as well as victory","and you see mankind entering God´s religion in droves","then hymn your Lord´s praise and beg Him for forgiveness, since He is so Relenting"]);

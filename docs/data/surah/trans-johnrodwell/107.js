@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/107",["WHAT thinkest thou of him who treateth our RELIGION as a lie","He it is who trusteth away the orphan","And stirreth not others up to feed the poor","Woe to those who pray","But in their prayer are careless","Who make a shew of devotion","But refuse help to the needy"]);

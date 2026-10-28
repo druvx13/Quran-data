@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/097",["Yaqeenan hum nay issay shab qadar mein nazil farmaya","To kiaya janey kay shab qadar kiya hy","Shab qadar aik hazar maheeno say behter hai","Iss (mein her kaam) kay siranjam denay ko apney rab kay hukum say farishty aur rooh(jibrael)utertay hain","Yeh raat sir-a-sir slamti ki hoti hai aur fajar kay tuloo honay tak(rehti hai)"]);

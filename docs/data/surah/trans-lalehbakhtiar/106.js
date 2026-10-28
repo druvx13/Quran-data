@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/106",["For the solidarity of the Quraysh","their solidarity is the winter and the summer travel","Let them worship the Lord of this House","Who fed them against hunger and secured them against fear"]);

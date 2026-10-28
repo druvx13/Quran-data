@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/114",["Say, \"I take refuge with The Lord of mankind","The King of mankind","The God of mankind","From the evil of the constantly slinking whisperer","Who whispers in the breasts of mankind","Of the jinn (creatures) and mankind"]);

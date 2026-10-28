@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/113",["SAY: I betake me for refuge to the Lord of the DAY BREAK","Against the mischiefs of his creation","And against the mischief of the night when it overtaketh me","And against the mischief of weird women","And against the mischief of the envier when he envieth"]);

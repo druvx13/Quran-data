@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/105",["Do you not see what your Lord did with the Companions of the Elephant","Did He not bring all their schemes to nothing","unleashing upon them flock after flock of birds","bombarding them with stones of hard-baked clay","making them like stripped wheat-stalks eaten bare"]);

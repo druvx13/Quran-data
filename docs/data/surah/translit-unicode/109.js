@@ -1,0 +1,1 @@
+QData("surah/translit-unicode/109",["Qul yaa-ai yuhal kaafiroon","Laa a'budu ma t'abudoon","Wa laa antum 'aabidoona maa a'bud","Wa laa ana 'abidum maa 'abattum","Wa laa antum 'aabidoona ma a'bud","Lakum deenukum wa liya deen."]);

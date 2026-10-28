@@ -1,0 +1,1 @@
+QData("surah/translit-en/102",["Alhakumu alttakathuru","Hatta zurtumu almaqabira","Kalla sawfa taAAlamoona","Thumma kalla sawfa taAAlamoona","Kalla law taAAlamoona AAilma alyaqeeni","Latarawunna aljaheema","Thumma latarawunnaha AAayna alyaqeeni","Thumma latusalunna yawmaithin AAani alnnaAAeemi"]);

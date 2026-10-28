@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/108",["nishchay hee hamane tumhen kausar pradaan kiya","atah tum apane rab hee ke lie namaaz padho aur (usee ke din) qaurabaanee karo","nissandeh tumhaara jo vairee hai vahee jadakata hai"]);

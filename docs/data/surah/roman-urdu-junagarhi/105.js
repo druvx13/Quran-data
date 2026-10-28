@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/105",["Kia tu nay na dekha kay tery rab nay hathi walon kay sath kia kiya","Kia unkay maker ko beykar nai kerdia","Aur unper parindon kay jhond kay jhond bhej diey","Jo unhein mitti or pather ki kankariyan mar rahy thy","Pus unhein khaye huye bhoosy ki tarah kerdiya"]);

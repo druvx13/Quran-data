@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/110",["ai rasool jab khuda kee madad aa pahanchegee","aur phateh (makka) ho jaegee aur tum logon ko dekhoge ki gol ke gol khuda ke deen mein daakhil ho rahe hain","to tum apane paravaradigaar kee taareef ke saath tasabeeh karana aur usee se magapherat kee dua maangana vah beshak bada maaf karane vaala hai"]);

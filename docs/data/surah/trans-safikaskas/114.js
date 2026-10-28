@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/114",["Say: \"I seek refuge with the Lord of people","The King of people","The God of people","From the evil of the insidious whisperer","who whispers [evil] into the hearts of people","from among the jinn or people"]);

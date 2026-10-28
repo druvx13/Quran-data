@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/106",["For the taming (civilizing) of the Qureysh","Their covenant covers their caravans in winter and summer","So let them serve the Lord of this house","Who feeds them against hunger, and makes them safe against fear"]);

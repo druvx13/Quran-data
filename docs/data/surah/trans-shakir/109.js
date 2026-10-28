@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/109",["Say: O unbelievers!","I do not serve that which you serve,","Nor do you serve Him Whom I serve:","Nor am I going to serve that which you serve,","Nor are you going to serve Him Whom I serve:","You shall have your religion and I shall have my religion."]);

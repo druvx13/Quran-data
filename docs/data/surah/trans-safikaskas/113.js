@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/113",["Say: \"I seek refuge with the lord of the Daybreak","from the evil in that which He has created","and from the evil of the darkness when it settles","and from women who blow on knots","and from the evil of the envious when he envies"]);

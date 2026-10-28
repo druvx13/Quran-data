@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/110",["When God's help and victory come,","and you see people entering God's religion in multitudes,","then glorify your Lord with His praise and seek His forgiveness. He is always ready to accept repentance."]);

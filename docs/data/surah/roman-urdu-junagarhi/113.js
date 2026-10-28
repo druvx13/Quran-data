@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/113",["Aap kehdijiye! Kay mein subha ky Rab ki panah mein aata hun","Her uss cheez ky shar say jo uss nay paida ki hai","Aur andheri raat ki tareki kay shar say jab uska andhera phel jaye","Aur girah(laga ker inn)mein phonknay walon kay sher say(bhi)","Aur hasad kerney waly ki burai say bhi jab wo hasad karey"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/105",["Have you not seen how your Lord dealt with the people of the Elephant?","Did He not turn their scheme into a total loss?","He sent against them swarms of birds,","pelting them with stones of baked clay,","leaving them like chewed-up chaff."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/106",["For the composing of Koraish,","their composing for the winter and summer caravan!","So let them serve the Lord of this House","who has fed them against hunger and secured them from fear."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/111",["Condemned is the hand of Abu-Lahab; condemned indeed","His money will not avail him, nor what he has earned","He will be sent to a flaming Fire","And his wife who carries the logs","On her neck will be a rope of thorns"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/105",["Did you not see how your Lord dealt with the companions of the elephant","Did He not make their evil plan go astray","And He sent against them flights of birds","Striking them (the companions of the elephant) with stones of baked clay","Then did He make them like an empty field of stalks and straw, (of which the corn) has been eaten up"]);

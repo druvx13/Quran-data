@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/094",["Have We not reassured your heart for you [O Prophet],","and relieved you of your burden","that weighed down your back,","and raised high your fame for you?","For indeed, with hardship comes ease,","indeed, with hardship comes ease.","So whenever you are free, strive in worship,","and turn to your Lord in devotion."]);

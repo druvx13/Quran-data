@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/114",["Say, I seek refuge in the Lord of men","the King of men","the God of men","from the evil of the whisperer, who slinks off","who whispers into the hearts of men","from ginns and men"]);

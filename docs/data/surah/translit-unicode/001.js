@@ -1,0 +1,1 @@
+QData("surah/translit-unicode/001",["Bismillaahir Rahmaanir Raheem","Alhamdu lillaahi Rabbil 'aalameen","Ar-Rahmaanir-Raheem","Maaliki Yawmid-Deen","Iyyaaka na'budu wa lyyaaka nasta'een","Ihdinas-Siraatal-Mustaqeem","Siraatal-lazeena an'amta 'alaihim ghayril-maghdoobi 'alaihim wa lad-daaalleen"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-hilali/112",["Say (O Muhammad (Peace be upon him)): \"He is Allah, (the) One.","\"Allah-us-Samad (The Self-Sufficient Master, Whom all creatures need, He neither eats nor drinks).","\"He begets not, nor was He begotten;","\"And there is none co-equal or comparable unto Him.\""]);

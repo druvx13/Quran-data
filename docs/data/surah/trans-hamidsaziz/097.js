@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/097",["Verily, We sent it (the Quran) down on the Night of Power","And what shall make you know what the Night of Power is","The Night of Power is better than a thousand months","The angels and the Spirit descend therein, by the permission of their Lord with every decree","Peace it is until the rising of the dawn"]);

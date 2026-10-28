@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/111",["May the hands of Abu Lahab perish. And may he perish","His wealth and that which he earned will not save him","He will enter flaming fire","and his wife (too who is a) carrier of fire-wood","In her neck (there will be) a rope of palm-fibre"]);

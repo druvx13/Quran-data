@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/103",["By the declining day,","man is [deep] in loss,","except for those who believe, do good deeds, urge one another to the truth, and urge one another to steadfastness."]);

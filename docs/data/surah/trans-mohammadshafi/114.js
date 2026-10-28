@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/114",["Say, \"I seek refuge in the Lord of mankind","King of mankind","One Whom mankind should worship","From the evil of the temptations, doubts and suggestions of the stealthy whisperer","— One who puts the evil things in minds of mankind —","From among the jinn and mankind"]);

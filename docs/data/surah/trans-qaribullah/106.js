@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/106",["For the custom of the Koraysh,","their custom of the winter and summer journey.","Therefore let them worship the Lord of this House","who fed them from hunger and secured them from fear."]);

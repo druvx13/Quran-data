@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/105",["kya tum nahin jaanate ki tere paalanahaar ne haathee vaale ke saath kya kiya","kya usane unakee chaal ko viphal nahin kar diya","aur unapar pankshiyon ke dal bheje","jo unapar pakee kankaree ke patthar phenk rahe the","to unhen aisa kar diya, jaise khaane ka bhoosa"]);

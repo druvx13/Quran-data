@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedraza/094",["Did We not widen your bosom?","And relieve you of the burden –","Which had broken your back?","And We have exalted your remembrance for you.","So indeed with hardship is ease.","Indeed with hardship is ease.","So when you finish the prayer, strive in supplication.","And incline towards your Lord."]);

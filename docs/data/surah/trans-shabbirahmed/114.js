@@ -1,0 +1,1 @@
+QData("surah/trans-shabbirahmed/114",["Say, \"I seek refuge with the Lord of Mankind","The King of mankind","The God of mankind","From the evil of the whispering elusive tempter, the covert desire","That whispers in the hearts of people","(And) from the hidden psyche that rationalizes the evil, as well as the temptations that come from people"]);

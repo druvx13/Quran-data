@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/110",["(he nabee!) jab allaah kee sahaayata evan vijay aa jaaye","aur tum logon ko allaah ke dharm mein dal ke dal pravesh karate dekh lo","to apane paalanahaar kee prashansa ke saath usakee pavitrata ka varnan karo aur usase kshama maango, nihsandeh vah bada kshamee hai"]);

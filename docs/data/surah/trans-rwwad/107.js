@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/107",["Have you seen the one who denies the Recompense?","Such is the one who repulses the orphan harshly,","and does not urge others to feed the needy.","So woe to those who pray,","but are heedless of their prayer;","those who only show off,","and withhold even the small kindnesses."]);

@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/110",["jyare allahani madada ane vijaya avi jaya","ane tame lokone allahana dinamam tole-tola avata jo'i lo","tame potana palanaharani “tasbiha” (gunagana) mam lagi java, prasansa sathe ane tenathi ksamani du'a manga, ni:Sanka te khuba ja ksama kabula karavavalo che"]);

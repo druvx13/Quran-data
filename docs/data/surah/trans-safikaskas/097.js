@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/097",["We sent this [Qur'an] down during the Night of Decree","But how would you know what is the Night of Decree","The Night of Decree is better than a thousand months","During that Night, the angels and the Spirit descend by their Lord's authority for a variety of matters","There is peace that night until the coming of dawn"]);

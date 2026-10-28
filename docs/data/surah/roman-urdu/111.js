@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/111",["Toot gaye Abu Lahab ke haath aur na-murad ho gaya woh","Uska maal aur jo kuch us ne kamaya woh uske kisi kaam na aaya","Zaroor woh shola zan Aag mei dala jayega","Aur (us ke saath) us ki joru(wife) bhi lagai bujhai karne wali","Us ki gardan(neck) mein moonj ki rassi hogi"]);

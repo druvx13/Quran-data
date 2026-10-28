@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/095",["By the fig and the olive","And the mount of ages","And this secure land","We have created mankind in the best form","Then We returned him to the lowest of the low","Except those who have believed and done good work, they will have a reward of thanks","So what would make you deny the system after that","Is God not the wisest of the wise"]);

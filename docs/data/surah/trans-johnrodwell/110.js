@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/110",["WHEN the HELP of God and the victory arrive","And thou seest men entering the religion of God by troops","Then utter the praise of thy Lord, implore His pardon; for He loveth to turn in mercy"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/097",["We have sent it down on the Night of Power","What will make you realize what the Night of Power is like","The Night of Power is better than a thousand months","Angels and the Spirit descend on it on every errand with their Lord´s permission","[it means] peace till the approach of daybreak"]);

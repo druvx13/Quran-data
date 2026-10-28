@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/106",["This should be cherished by Quraysh","The way they cherish the journey of the winter and summer","So let them serve the Lord of this sanctuary","The One who fed them from hunger, and protected them from fear"]);

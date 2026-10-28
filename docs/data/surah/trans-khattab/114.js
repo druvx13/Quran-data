@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/114",["Say, ˹O Prophet,˺ “I seek refuge in the Lord of humankind","the Master of humankind","the God of humankind","from the evil of the lurking whisperer—","who whispers into the hearts of humankind—","from among jinn and humankind.”"]);

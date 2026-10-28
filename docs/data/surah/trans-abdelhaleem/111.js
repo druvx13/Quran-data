@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/111",["May the hands of Abu Lahab be ruined! May he be ruined too!","Neither his wealth nor his gains will help him:","he will burn in the Flaming Fire––","and so will his wife, the firewood-carrier,","with a palm-fibre rope around her neck."]);

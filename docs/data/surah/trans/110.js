@@ -1,0 +1,1 @@
+QData("surah/trans/110",["When Allah's succour and the triumph cometh","And thou seest mankind entering the religion of Allah in troops,","Then hymn the praises of thy Lord, and seek forgiveness of Him. Lo! He is ever ready to show mercy."]);

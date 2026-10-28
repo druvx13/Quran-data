@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/105",["kya tumane dekha nahin ki tumhaare rab ne haatheevaalon ke saath kaisa barataav kiya","kya usane unakee chaal ko akaarath nahin kar diya","aur unapar niyukt hone ko jhund ke jhund pakshee bheje","unapar kankareele patthar maar rahe the","antatah unhen aisa kar diya, jaise khaane ka bhoosa ho"]);

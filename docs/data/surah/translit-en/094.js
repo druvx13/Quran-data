@@ -1,0 +1,1 @@
+QData("surah/translit-en/094",["Alam nashrah laka sadraka","WawadaAAna AAanka wizraka","Allathee anqada thahraka","WarafaAAna laka thikraka","Fainna maAAa alAAusri yusran","Inna maAAa alAAusri yusran","Faitha faraghta fainsab","Waila rabbika fairghab"]);

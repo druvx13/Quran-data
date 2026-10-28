@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/108",["Yaqeenan hum nay tujhay (hoz)kusar (aur bhat kuch) diya hay","Pus tu apney rab kay liey namz parh aur qurbani karo","Yaqeenan tera dushman hi la-waris aur benam-o-nishan hai"]);

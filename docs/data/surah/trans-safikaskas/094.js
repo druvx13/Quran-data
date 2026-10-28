@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/094",["Did We not relieve the tightness in your chest","and lift your burden","that weighed heavily on your back","and raised high your reputation","For truly, with hardship comes ease","Indeed, with hardship comes ease","So, when you are done, get ready for serious devotion","and focus all your attention on your Lord"]);

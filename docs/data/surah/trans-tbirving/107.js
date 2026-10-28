@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/107",["Have you seen someone who rejects religion","That is the person who pushes the orphan aside","and does not promote feeding the needy","It will be too bad for the prayerful","who are absent-minded as they pray","who aim to be noticed","while they hold back contributions"]);

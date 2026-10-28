@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/112",["Say: He is Allah the One and Only","Allah is the Self-Sufficient (independent of all, while all are dependent on Him)","He begets not, nor is He begotten","And there is none comparable to Him"]);

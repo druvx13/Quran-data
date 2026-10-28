@@ -1,0 +1,1 @@
+QData("surah/translit-unicode/111",["Tab bat yadaa abee Lahabinw-wa tabb","Maa aghna 'anhu maaluhu wa ma kasab","Sa yas laa naran zaata lahab","Wam ra-atuhu hamma latal-hatab","Fee jeediha hab lum mim-masad"]);

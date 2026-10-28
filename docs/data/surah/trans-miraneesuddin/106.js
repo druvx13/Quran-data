@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/106",["For the taming of Quraysh","their taming in equipping caravans (for traveling) in winter and summer","so let them serve the Lord of this house (Kaaba)","Who has fed them in hunger and given them security from fear"]);

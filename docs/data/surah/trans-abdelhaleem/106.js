@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/106",["[He did this] to make the Quraysh feel secure,","secure in their winter and summer journeys.","So let them worship the Lord of this House:","who provides them with food to ward off hunger, safety to ward off fear."]);

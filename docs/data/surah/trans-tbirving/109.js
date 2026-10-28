@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/109",["SAY: \"O disbelievers","I do not serve what you serve","nor are you serving what I serve","I will not worship what you have worshipped","neither will you worship what I worship","You have your religion while I have my religion"]);

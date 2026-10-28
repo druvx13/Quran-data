@@ -1,0 +1,1 @@
+QData("surah/trans-qarai/109",["Say, ‘O faithless ones!","I do not worship what you worship,","nor do you worship what I worship;","nor will I worship what you have worshipped,","nor will you worship what I worship.","To you your religion, and to me my religion.’"]);

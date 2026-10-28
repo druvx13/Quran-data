@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/097",["We sent this (the Holy Koran) down on the Night of Honor.","What could let you know what the Night of Honor is!","The Night of Honor is better than a thousand months,","in it the angels and the Spirit (Gabriel) descend by the permission of their Lord upon every command.","Peace it is, till the break of dawn."]);

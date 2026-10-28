@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/097",["Truly We sent it down on the Night of Power","And what will convey to you what the Night of Power is","The Night of Power is better than a thousand months","In it the angels and the Ruh descend by their Lord´s authority with every ordinance","It is Peace — until the coming of the dawn"]);

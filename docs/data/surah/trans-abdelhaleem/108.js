@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/108",["We have truly given abundance to you [Prophet]––","so pray to your Lord and make your sacrifice to Him alone––","it is the one who hates you who has been cut off."]);

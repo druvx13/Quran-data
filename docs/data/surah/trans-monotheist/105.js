@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/105",["Have you not seen what your Lord did to the people of the elephant","Did He not cause their schemes to go astray","And He sent down upon them swarms of birds","Striking them with rocks made from hardened clay","Until He turned them like devoured hay"]);

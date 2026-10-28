@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/105",["Have you not considered how your Lord dealt with the possessors of the elephant?","Did He not cause their war to end in confusion,","And send down (to prey) upon them birds in flocks,","Casting against them stones of baked clay,","So He rendered them like straw eaten up?"]);

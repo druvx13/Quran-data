@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/103",["By the afternoon","verily man employeth himself in that which will prove of loss","Except those who believe, and do that which is right; and who mutually recommend the truth, and mutually recommend perseverance unto each other"]);

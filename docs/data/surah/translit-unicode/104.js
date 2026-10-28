@@ -1,0 +1,1 @@
+QData("surah/translit-unicode/104",["Wai lul-li kulli hu mazatil-lumaza","Al-lazi jama'a maalaw wa'addadah","Yahsabu anna maalahu akhladah","Kalla layum ba zanna fil hutamah","Wa maa adraaka mal-hutamah","Narul laahil-mooqada","Al latee tat tali'u 'alalafidah","Innaha 'alaihim moosada","Fee 'amadim-mu mad dadah"]);

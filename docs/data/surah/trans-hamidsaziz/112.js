@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/112",["Say, \"He is Allah, the One and Only","Allah the Absolute, on whom all things depend, besought by all","He begets not and is not begotten","Nor is there like unto Him any one"]);

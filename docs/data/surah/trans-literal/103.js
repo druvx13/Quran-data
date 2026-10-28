@@ -1,0 +1,1 @@
+QData("surah/trans-literal/103",["And/by the time/era/end of day to dusk","That truly the human/mankind (is) in (E) loss","Except those who believed and made/did the correct/righteous deeds, and directed/commanded with the truth/just , and directed/commanded with the patience"]);

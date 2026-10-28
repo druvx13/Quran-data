@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/107",["Have you seen the one who denies the ˹final˺ Judgment","That is the one who repulses the orphan","and does not encourage the feeding of the poor","So woe to those ˹hypocrites˺ who pray","yet are unmindful of their prayers","those who ˹only˺ show off","and refuse to give ˹even the simplest˺ aid"]);
