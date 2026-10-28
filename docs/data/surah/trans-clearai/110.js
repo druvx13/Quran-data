@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/110",["When God’s help comes and the victory.","And you see people entering God’s religion in crowds.","Then glorify your Lord with praise and seek His forgiveness. Truly He is ever accepting of repentance."]);
