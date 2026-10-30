@@ -435,7 +435,18 @@ def tr_section(src: Source, text: str) -> str:
             f'lang="{src.lang}"{d}><h3>{esc(src.full)}{tag}</h3><p>{esc(text)}</p></section>')
 
 
-def surah_body(s: int, data: dict[str, Verses], defaults: list[Source]) -> str:
+def alt_section(src: Source, text: str) -> str:
+    """Secondary Arabic text (e.g. Simple). Lives next to the main Arabic, never
+    inside the translation list. Styling switches in CSS via html.simple-primary."""
+    if not text:
+        return ""
+    return (f'<section class="ar-alt" data-t="{src.id}" lang="ar" dir="rtl">'
+            f'<h3>{esc(src.full)}</h3><p>{esc(text)}</p></section>')
+
+
+def surah_body(s: int, data: dict[str, Verses], defaults: list[Source],
+               alts: list[Source] | None = None) -> str:
+    alts = alts or []
     info = sura_info(s)
     parts: list[str] = []
     if s == 9:
@@ -454,11 +465,13 @@ def surah_body(s: int, data: dict[str, Verses], defaults: list[Source]) -> str:
                      'al-tilawah). Schools differ on which verses are counted.">'
                      'Prostration</span>')
         rows = "".join(tr_section(src, data[src.id].get((s, a), "")) for src in defaults)
+        alt_rows = "".join(alt_section(src, data[src.id].get((s, a), "")) for src in alts)
         parts.append(
             f'<article class="ayah" id="ayah-{a}" data-a="{a}">'
             f'<div class="ayah-head"><a class="ayah-no" href="#ayah-{a}" '
             f'aria-label="Verse {a}">{a}</a>{badge}</div>'
             f'<p class="ar" lang="ar" dir="rtl">{esc(data["arabic"].get((s, a), ""))}</p>'
+            f'<div class="ar-extra">{alt_rows}</div>'
             f'<div class="tr-list">{rows}</div></article>')
 
     prev_l = nxt_l = ""
@@ -503,7 +516,7 @@ def index_body(sources: list[Source]) -> str:
         f'title="{esc(SURA_NAMES[s-1][0])} {s}:{a}">Juz {j}</a>'
         for j, (s, a) in enumerate(JUZ_STARTS, 1))
     return f"""<h1>Qur’an Reader</h1>
-<p class="lead">Read the Arabic with transliteration, verse audio and {len(sources) - 1} translations and commentaries. Choose what appears in <a href="config.html">Settings</a>.</p>
+<p class="lead">Read the Arabic with transliteration, verse audio and {sum(1 for s in sources if s.kind != "arabic")} translations and commentaries. Choose what appears in <a href="config.html">Settings</a>.</p>
 <aside id="welcome" class="note" hidden><p><strong>First visit?</strong> Open <a href="config.html">Settings</a> to pick the languages and translations you want with each verse.</p><button type="button" class="btn small" id="welcome-x">Got it</button></aside>
 <section id="resume" hidden aria-label="Continue reading"></section>
 <div class="field-row"><label for="filter">Find a surah</label><input id="filter" class="field" type="search" placeholder="Name, meaning or number" autocomplete="off"><span id="fcount" class="small muted" role="status" aria-live="polite"></span></div>
@@ -608,14 +621,14 @@ color-scheme:light}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.6 var(--ui)}
 [hidden]{display:none!important}
-a{color:var(--link)}
+a{color:var(--link);text-decoration:none}
+p a,.note a,.foot a{font-weight:600}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .skip{position:absolute;left:-999px;top:0}.skip:focus{left:8px;top:8px;z-index:100;background:var(--surface);padding:8px 12px;border-radius:6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .muted{color:var(--muted)}.small{font-size:.875rem}.center{text-align:center}
 .top{background:var(--head);color:var(--head-ink);display:flex;align-items:center;flex-wrap:wrap;gap:0 18px;padding:6px 14px}
 .top a{color:inherit;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
-.top a:hover{text-decoration:underline}
 .brand{font-weight:700;font-size:1.2rem;margin-right:auto}
 .top nav{display:flex;gap:0 18px;flex-wrap:wrap}
 main{max-width:46rem;margin:0 auto;padding:18px 14px 40px}
@@ -640,7 +653,7 @@ h2{font-size:1.15rem;margin:1.6em 0 .5em}
 .btn.small{min-height:36px;padding:4px 10px;font-size:.9rem}
 .btn.primary{background:var(--on);color:var(--on-ink);border-color:var(--on)}
 .btn.danger{color:var(--warn)}
-.link{background:none;border:0;color:var(--link);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.link{background:none;border:0;color:var(--link);font:inherit;text-decoration:none;font-weight:600;cursor:pointer;padding:0}
 .radio{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-right:12px}
 .radio input{width:20px;height:20px}
 .sgrid{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(14.5rem,1fr));gap:8px}
@@ -675,6 +688,12 @@ h2{font-size:1.15rem;margin:1.6em 0 .5em}
 .ib:hover{background:var(--soft)}.ib[aria-pressed=true]{color:var(--accent)}.ib[aria-pressed=true] svg{fill:currentColor}
 .ar{font-family:var(--arabic);font-size:calc(var(--ar)*1rem);line-height:2.1;direction:rtl;text-align:right;margin:.3em 0 .4em}
 .no-ar .ar,.no-audio .play{display:none}
+.ar-alt{border-inline-start:3px solid var(--line);padding:2px 0;padding-inline-start:12px;margin:12px 0}
+.ar-alt h3{font:600 .78rem/1.3 var(--ui);color:var(--muted);margin:0 0 3px;direction:ltr;text-align:left}
+.ar-alt p{margin:0;font-family:var(--arabic);font-size:calc(var(--tx)*1.3rem);line-height:2;direction:rtl;text-align:right}
+.simple-primary .ar-alt{border:0;padding:0;margin:.3em 0 .4em}
+.simple-primary .ar-alt h3{display:none}
+.simple-primary .ar-alt p{font-size:calc(var(--ar)*1rem);line-height:2.1}
 .tr{border-inline-start:3px solid var(--line);padding:2px 0;padding-inline-start:12px;margin:12px 0;font-family:var(--serif)}
 .tr[data-kind=transliteration]{border-color:var(--accent)}
 .tr[data-kind=tafsir]{border-color:var(--link)}
@@ -805,7 +824,7 @@ function initReader(){
   jump.append(h("option",{value:"",text:"Choose a surah"}));
   C.suras.forEach((m,i)=>{const n=i+1;if(n<C.range[0]||n>C.range[1])return;jump.append(h("option",{value:pad(n)+".html",text:`${n}. ${m.name}`,selected:n===s}));});
   jump.addEventListener("change",()=>{if(jump.value)location.href=jump.value;});
-  const flags=()=>{root.classList.toggle("no-ar",!isOn("arabic"));root.classList.toggle("no-audio",!isOn("audio"));};
+  const flags=()=>{root.classList.toggle("no-ar",!isOn("arabic"));root.classList.toggle("simple-primary",!isOn("arabic")&&isOn("arabic-simple"));root.classList.toggle("no-audio",!isOn("audio"));};
 
   /* range + deep links: #5 jumps to a verse, #5-9 shows only those verses */
   let from=1,to=size;const fi=h("input",{type:"number",class:"num",min:1,max:size,value:1,"aria-label":"From verse"}),ti=h("input",{type:"number",class:"num",min:1,max:size,value:size,"aria-label":"To verse"});
@@ -840,6 +859,7 @@ function initReader(){
 
   const verseText=art=>{const a=+art.dataset.a,L=[`${meta.name} (${s}:${a})`];
     if(isOn("arabic"))L.push($(".ar",art).textContent);
+    $$(".ar-alt",art).forEach(t=>L.push((isOn("arabic")?$("h3",t).textContent+": ":"")+$("p",t).textContent));
     $$(".tr",art).forEach(t=>L.push($("h3",t).firstChild.textContent+": "+$("p",t).textContent));return L.join("\n");};
   arts.forEach(art=>{const a=+art.dataset.a,box=h("div",{class:"actions"});
     box.append(
@@ -850,13 +870,13 @@ function initReader(){
     $(".ayah-head",art).append(box);});
 
   /* on-demand editions */
-  const trNode=(t,text)=>h("section",{class:"tr","data-t":t.id,"data-kind":t.kind,lang:t.lang,dir:t.rtl?"rtl":false},
+  const trNode=(t,text)=>t.kind==="arabic"?h("section",{class:"ar-alt","data-t":t.id,lang:"ar",dir:"rtl"},h("h3",{text:t.full}),h("p",{text})):h("section",{class:"tr","data-t":t.id,"data-kind":t.kind,lang:t.lang,dir:t.rtl?"rtl":false},
     h("h3",{},t.full,t.tag?h("span",{class:"tag",text:t.tag}):null),h("p",{text}));
-  const place=(art,t,text)=>{if(!text||$(`.tr[data-t="${t.id}"]`,art))return;
-    const list=$(".tr-list",art),ref=[...list.children].find(c=>ORD[c.dataset.t]>ORD[t.id]);list.insertBefore(trNode(t,text),ref||null);};
+  const place=(art,t,text)=>{if(!text||$(`[data-t="${t.id}"]`,art))return;
+    const list=$(t.kind==="arabic"?".ar-extra":".tr-list",art),ref=[...list.children].find(c=>ORD[c.dataset.t]>ORD[t.id]);list.insertBefore(trNode(t,text),ref||null);};
   const sync=async()=>{
-    $$(".tr[data-t]").forEach(n=>{if(!isOn(n.dataset.t))n.remove();});
-    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!$(`.tr[data-t="${t.id}"]`));
+    $$("[data-t]").forEach(n=>{if(!isOn(n.dataset.t))n.remove();});
+    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!$(`[data-t="${t.id}"]`));
     if(!need.length){statusEl.textContent="";return;}
     statusEl.textContent="Loading…";
     const res=await Promise.all(need.map(t=>load(`surah/${t.id}/${pad(s)}`).then(a=>[t,a],()=>[t,null])));
@@ -992,7 +1012,7 @@ function initDownload(){
     const zip=new JSZip(),missing=[];let done=0;
     const clean=doc=>{$$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
       if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
-      $$(".tr[data-t]",doc).forEach(n=>{if(!ids.includes(n.dataset.t))n.remove();});};
+      $$("[data-t]",doc).forEach(n=>{if(!ids.includes(n.dataset.t))n.remove();});};
     const run=async j=>{try{const r=await fetch(j.p);if(!r.ok)throw 0;let t=await r.text();
       if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
       if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
@@ -1058,7 +1078,8 @@ def main(argv=None) -> int:
         nonlocal changed
         changed += write(path, text)
 
-    defaults = [s for s in sources if s.default and s.id != "arabic"]
+    defaults = [s for s in sources if s.default and s.kind != "arabic"]
+    alts = [s for s in sources if s.default and s.kind == "arabic" and s.id != "arabic"]
 
     # 2. shared assets
     catalog = {
@@ -1095,7 +1116,7 @@ def main(argv=None) -> int:
     for s in range(1, 115):
         n, m = SURA_NAMES[s - 1]
         put(out / f"{s:03d}.html", page(
-            f"Surah {s}: {n} ({m}) | Qur’an Reader", surah_body(s, data, defaults), "reader",
+            f"Surah {s}: {n} ({m}) | Qur’an Reader", surah_body(s, data, defaults, alts), "reader",
             desc=f"Surah {s}, {n} ({m}): Arabic text, transliteration, audio and translations.",
             sura=s))
     lic = root / "LICENSE"
