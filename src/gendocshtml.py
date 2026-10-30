@@ -201,7 +201,10 @@ def _ur(id_, label, name, **kw):
 
 
 CATALOG: list[Source] = [
-    _s("arabic", "Arabic text", G_AR, "ar", _o("arabic"), kind="arabic", default=True),
+    _s("arabic", "Arabic(Uthmanic(minimal))", G_AR, "ar", _o("arabic"),
+       kind="arabic", default=True),
+    _s("arabic-simple", "Arabic(Simple)", G_AR, "ar", _o("arabic_simple"),
+       kind="arabic"),
     _s("translit", "Tanzil", G_TL, "en-Latn", "data/en.transliteration.tanzil.txt",
        kind="transliteration", fmt="pipe"),
     _s("translit-unicode", "Unicode", G_TL, "en-Latn", _o("translit_unicode"),
