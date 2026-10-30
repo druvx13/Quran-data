@@ -93,7 +93,7 @@ function initReader(){
   jump.append(h("option",{value:"",text:"Choose a surah"}));
   C.suras.forEach((m,i)=>{const n=i+1;if(n<C.range[0]||n>C.range[1])return;jump.append(h("option",{value:pad(n)+".html",text:`${n}. ${m.name}`,selected:n===s}));});
   jump.addEventListener("change",()=>{if(jump.value)location.href=jump.value;});
-  const flags=()=>{root.classList.toggle("no-ar",!isOn("arabic"));root.classList.toggle("no-audio",!isOn("audio"));};
+  const flags=()=>{root.classList.toggle("no-ar",!isOn("arabic"));root.classList.toggle("simple-primary",!isOn("arabic")&&isOn("arabic-simple"));root.classList.toggle("no-audio",!isOn("audio"));};
 
   /* range + deep links: #5 jumps to a verse, #5-9 shows only those verses */
   let from=1,to=size;const fi=h("input",{type:"number",class:"num",min:1,max:size,value:1,"aria-label":"From verse"}),ti=h("input",{type:"number",class:"num",min:1,max:size,value:size,"aria-label":"To verse"});
@@ -128,6 +128,7 @@ function initReader(){
 
   const verseText=art=>{const a=+art.dataset.a,L=[`${meta.name} (${s}:${a})`];
     if(isOn("arabic"))L.push($(".ar",art).textContent);
+    $$(".ar-alt",art).forEach(t=>L.push((isOn("arabic")?$("h3",t).textContent+": ":"")+$("p",t).textContent));
     $$(".tr",art).forEach(t=>L.push($("h3",t).firstChild.textContent+": "+$("p",t).textContent));return L.join("\n");};
   arts.forEach(art=>{const a=+art.dataset.a,box=h("div",{class:"actions"});
     box.append(
@@ -138,13 +139,13 @@ function initReader(){
     $(".ayah-head",art).append(box);});
 
   /* on-demand editions */
-  const trNode=(t,text)=>h("section",{class:"tr","data-t":t.id,"data-kind":t.kind,lang:t.lang,dir:t.rtl?"rtl":false},
+  const trNode=(t,text)=>t.kind==="arabic"?h("section",{class:"ar-alt","data-t":t.id,lang:"ar",dir:"rtl"},h("h3",{text:t.full}),h("p",{text})):h("section",{class:"tr","data-t":t.id,"data-kind":t.kind,lang:t.lang,dir:t.rtl?"rtl":false},
     h("h3",{},t.full,t.tag?h("span",{class:"tag",text:t.tag}):null),h("p",{text}));
-  const place=(art,t,text)=>{if(!text||$(`.tr[data-t="${t.id}"]`,art))return;
-    const list=$(".tr-list",art),ref=[...list.children].find(c=>ORD[c.dataset.t]>ORD[t.id]);list.insertBefore(trNode(t,text),ref||null);};
+  const place=(art,t,text)=>{if(!text||$(`[data-t="${t.id}"]`,art))return;
+    const list=$(t.kind==="arabic"?".ar-extra":".tr-list",art),ref=[...list.children].find(c=>ORD[c.dataset.t]>ORD[t.id]);list.insertBefore(trNode(t,text),ref||null);};
   const sync=async()=>{
-    $$(".tr[data-t]").forEach(n=>{if(!isOn(n.dataset.t))n.remove();});
-    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!$(`.tr[data-t="${t.id}"]`));
+    $$("[data-t]").forEach(n=>{if(!isOn(n.dataset.t))n.remove();});
+    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!$(`[data-t="${t.id}"]`));
     if(!need.length){statusEl.textContent="";return;}
     statusEl.textContent="Loading…";
     const res=await Promise.all(need.map(t=>load(`surah/${t.id}/${pad(s)}`).then(a=>[t,a],()=>[t,null])));
@@ -280,7 +281,7 @@ function initDownload(){
     const zip=new JSZip(),missing=[];let done=0;
     const clean=doc=>{$$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
       if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
-      $$(".tr[data-t]",doc).forEach(n=>{if(!ids.includes(n.dataset.t))n.remove();});};
+      $$("[data-t]",doc).forEach(n=>{if(!ids.includes(n.dataset.t))n.remove();});};
     const run=async j=>{try{const r=await fetch(j.p);if(!r.ok)throw 0;let t=await r.text();
       if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
       if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
