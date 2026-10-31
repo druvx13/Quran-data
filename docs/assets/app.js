@@ -19,6 +19,14 @@ const ago=t=>{const m=Math.round((Date.now()-t)/6e4);return m<1?"just now":m<60?
 let prefs=store.get("quran-cf",{});if(!prefs||typeof prefs!=="object"||Array.isArray(prefs))prefs={};
 const isOn=id=>Object.prototype.hasOwnProperty.call(prefs,id)?!!prefs[id]:!!C.defaults[id];
 const setOn=(id,v)=>{prefs[id]=!!v;store.set("quran-cf",prefs);};
+const selectedOrder=()=>{
+  const saved=store.get("quran-order",[]);
+  const known=Array.isArray(saved)?saved.filter(id=>C.tr.some(t=>t.id===id)):[];
+  return known.concat(C.tr.map(t=>t.id).filter(id=>!known.includes(id)));
+};
+const orderRank=id=>selectedOrder().indexOf(id);
+const orderedSelected=()=>selectedOrder().map(id=>C.tr.find(t=>t.id===id)).filter(t=>t&&isOn(t.id));
+const saveOrder=ids=>store.set("quran-order",ids);
 let ui=store.get("quran-ui",{});if(!ui||typeof ui!=="object")ui={};
 const applyUi=()=>{const r=document.documentElement;
   if(ui.theme&&ui.theme!=="auto")r.dataset.theme=ui.theme;else delete r.dataset.theme;
@@ -94,6 +102,41 @@ function chips(box,o){
   q.addEventListener("input",()=>{const w=norm(q.value).split(/\s+/).filter(Boolean);
     sets.forEach(fs=>{let any=false;$$(".chip",fs).forEach(l=>{const ok=w.every(x=>l.dataset.s.includes(x));l.hidden=!ok;if(ok)any=true;});fs.hidden=!any;});});
   upd();}
+
+ function editionOrder(box){
+  const render=()=>{
+    box.textContent="";
+    const selected=orderedSelected(),list=h("ol",{class:"order-list","aria-label":"Selected edition order"});
+    if(!selected.length){box.append(h("p",{class:"small muted",text:"Select one or more editions above to arrange them."}));return;}
+    const move=(from,to)=>{
+      const chosen=selected.map(t=>t.id),id=chosen.splice(from,1)[0];
+      chosen.splice(to,0,id);
+      saveOrder(chosen.concat(selectedOrder().filter(x=>!chosen.includes(x))));
+      render();layout();
+    };
+    selected.forEach((t,i)=>{
+      const item=h("li",{class:"order-item","draggable":"true","aria-grabbed":"false","data-id":t.id});
+      const drag=h("span",{class:"order-drag",text:"☷","aria-hidden":"true","title":"Drag to reorder"});
+      const name=h("span",{class:"order-name",text:t.full});name.append(h("small",{text:t.group}));
+      const up=h("button",{type:"button",class:"btn small",text:"Up","aria-label":`Move ${t.full} up`});
+      const down=h("button",{type:"button",class:"btn small",text:"Down","aria-label":`Move ${t.full} down`});
+      up.disabled=i===0;down.disabled=i===selected.length-1;
+      up.addEventListener("click",()=>move(i,i-1));down.addEventListener("click",()=>move(i,i+1));
+      item.append(drag,name,up,down);
+      item.addEventListener("dragstart",e=>{item.setAttribute("aria-grabbed","true");e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",t.id);});
+      item.addEventListener("dragend",()=>item.setAttribute("aria-grabbed","false"));
+      item.addEventListener("dragover",e=>{e.preventDefault();e.dataTransfer.dropEffect="move";});
+      item.addEventListener("drop",e=>{
+        e.preventDefault();const id=e.dataTransfer.getData("text/plain"),from=selected.findIndex(x=>x.id===id);
+        if(from<0||from===i)return;const to=from<i?i-1:i;move(from,to);
+      });
+      list.append(item);
+    });
+    box.append(list);
+  };
+  render();
+  return render;
+ }
 
 /* ---------- book view ----------
    The verse list becomes ONE container laid out as CSS columns; each column is a page.
@@ -241,16 +284,19 @@ function initReader(){
   /* on-demand editions */
   const trNode=(t,text)=>t.kind==="arabic"?h("section",{class:"ar-alt","data-t":t.id,lang:"ar",dir:"rtl"},h("h3",{text:t.full}),h("p",{text})):h("section",{class:"tr","data-t":t.id,"data-kind":t.kind,lang:t.lang,dir:t.rtl?"rtl":false},
     h("h3",{},t.full,t.tag?h("span",{class:"tag",text:t.tag}):null),h("p",{text}));
+  const reorder=(list)=>[...list.children].sort((a,b)=>orderRank(a.dataset.t)-orderRank(b.dataset.t)).forEach(n=>list.append(n));
   const place=(art,t,text)=>{if(!text||$(`[data-t="${t.id}"]`,art))return;
-    const list=$(t.kind==="arabic"?".ar-extra":".tr-list",art),ref=[...list.children].find(c=>ORD[c.dataset.t]>ORD[t.id]);list.insertBefore(trNode(t,text),ref||null);};
+    const list=$(".edition-list",art);
+    list.append(trNode(t,text));reorder(list);};
   const sync=async()=>{
-    arts.forEach(a=>$$("[data-t]",a).forEach(n=>{if(!isOn(n.dataset.t))n.remove();}));
-    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!arts.some(a=>$(`[data-t="${t.id}"]`,a)));
+    arts.forEach(a=>$$("[data-t]",a).forEach(n=>{if(n.dataset.t!=="arabic"&&!isOn(n.dataset.t))n.remove();}));
+    const need=orderedSelected().filter(t=>t.id!=="arabic"&&!arts.some(a=>$(`[data-t="${t.id}"]`,a)));
     if(!need.length){statusEl.textContent="";layout();return;}
     statusEl.textContent="Loading…";
     const res=await Promise.all(need.map(t=>load(`surah/${t.id}/${pad(s)}`).then(a=>[t,a],()=>[t,null])));
     const fails=[];
     res.forEach(([t,arr])=>{if(!arr){fails.push(t.label);return;}if(!isOn(t.id))return;arts.forEach(art=>place(art,t,arr[+art.dataset.a-1]));});
+    arts.forEach(a=>reorder($(".edition-list",a)));
     statusEl.textContent=fails.length?`Couldn’t load ${fails.join(", ")}. Check your connection and try again.`:"";layout();};
 
   /* display panel */
@@ -296,11 +342,13 @@ function initIndex(){
 
 /* ---------- settings ---------- */
 function initConfig(){
-  const build=()=>chips($("#cfg-chips"),{audio:true,isOn,set:setOn});build();
+  let renderOrder;
+  const build=()=>{chips($("#cfg-chips"),{audio:true,isOn,set:setOn,change:()=>renderOrder()});renderOrder();};
+  renderOrder=editionOrder($("#cfg-order"));build();
   $("#cfg-sliders").append(...readingRows(),sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2));
   $$("input[name=theme]").forEach(r=>{r.checked=r.value===(ui.theme||"auto");
     r.addEventListener("change",()=>{ui.theme=r.value;store.set("quran-ui",ui);applyUi();});});
-  $("#cfg-reset").addEventListener("click",()=>{store.del("quran-cf");prefs={};build();toast("Defaults restored");});
+  $("#cfg-reset").addEventListener("click",()=>{store.del("quran-cf");store.del("quran-order");prefs={};build();toast("Defaults restored");});
   $("#cfg-clear").addEventListener("click",()=>{if(confirm("Remove all bookmarks and reading history from this browser?")){store.del("quran-bookmark");store.del("quran-history");toast("Cleared");}});
 }
 
