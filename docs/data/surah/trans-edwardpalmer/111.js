@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/111",["Abu Lahebs two hands shall perish, and he shall perish","His wealth shall not avail him, nor what he has earned","He shall broil in a fire that flames","and his wife carrying faggots","on her neck a cord of palm fibres"]);

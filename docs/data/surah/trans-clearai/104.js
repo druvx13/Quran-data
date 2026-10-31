@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/104",["Woe to every backbiter, slanderer.","Who amassed wealth and counted it.","Thinking his wealth will make him immortal.","No! He will be hurled into the Crusher.","And what will make you know what the Crusher is?","God’s kindled Fire.","Which leaps up to the hearts.","It will be sealed over them.","In towering columns."]);

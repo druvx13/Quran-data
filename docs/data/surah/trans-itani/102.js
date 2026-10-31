@@ -1,0 +1,1 @@
+QData("surah/trans-itani/102",["Abundance distracts you.","Until you visit the graveyards.","Indeed, you will know.","Certainly, you will know.","If you knew with knowledge of certainty.","You would see the Inferno.","Then you will see it with the eye of certainty.","Then, on that Day, you will be questioned about the Bliss."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/114",["SAY: ‘I seek refuge in the Lord of mankind","the King of mankind","the God of mankind","from the mischief of the slinking prompter","who whispers in the hearts of mankind","from jinn and mankind.‘"]);

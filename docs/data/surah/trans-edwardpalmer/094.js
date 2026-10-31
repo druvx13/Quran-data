@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/094",["Have we not expanded for thee thy breast","and set down from thee thy load","which galled thy back","and exalted for thee thy renown","Verily, with difficulty is ease","verily, with difficulty is ease","And when thou art at leisure then toil","and for thy Lord do thou yearn"]);

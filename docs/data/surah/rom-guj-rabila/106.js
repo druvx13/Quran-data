@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/106",["kuraisi'o mam sokha utpanna thavane karane","(etale ke) temane siyala ane unalana sapharathi teva'i java mate, (tena upakara mam)","basa! Temane jo'i'e ke te ja ghara na palanaharani bandagi karata rahe","jene temane bhukhamara mam khavadavyum, ane dara (bhaya) mam santi (ane nisrcintata) api"]);

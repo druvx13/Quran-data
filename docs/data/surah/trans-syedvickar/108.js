@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/108",["To you (O Prophet!) We have granted the Fountain (of Abundance)","Therefore turn to your Lord in prayer and sacrifice","Because he who hates you— He will be cut off (from the hope of the future)"]);

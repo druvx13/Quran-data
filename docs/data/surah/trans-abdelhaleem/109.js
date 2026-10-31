@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/109",["Say [Prophet], ‘Disbelievers:","I do not worship what you worship,","you do not worship what I worship,","I will never worship what you worship,","you will never worship what I worship:","you have your religion and I have mine.’"]);

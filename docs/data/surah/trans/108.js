@@ -1,0 +1,1 @@
+QData("surah/trans/108",["Lo! We have given thee Abundance;","So pray unto thy Lord, and sacrifice.","Lo! it is thy insulter (and not thou) who is without posterity."]);

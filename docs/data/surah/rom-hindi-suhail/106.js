@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/106",["choonki quraish ko jaade aur garmee ke safar se maanoos kar diya hai","to unako maanoos kar dene kee vajah se","is ghar (kaaba) ke maalik kee ibaadat karanee chaahie","jisane unako bhookh mein khaana diya aur unako khauf se aman ata kiya"]);

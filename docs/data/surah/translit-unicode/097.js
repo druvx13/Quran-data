@@ -1,0 +1,1 @@
+QData("surah/translit-unicode/097",["Innaa anzalnaahu fee lailatil qadr","Wa maa adraaka ma lailatul qadr","Lailatul qadri khairum min alfee shahr","Tanaz zalul malaa-ikatu war roohu feeha bi izni-rab bihim min kulli amr","Salaamun hiya hattaa mat la'il fajr"]);

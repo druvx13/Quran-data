@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/103",["By the time of the afternoon!","Surely, the human is in a (state of) loss,","except those who believe and do good works and charge one another with the truth and charge one another with patience."]);

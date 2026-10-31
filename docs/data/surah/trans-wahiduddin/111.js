@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/111",["May the hands of Abu Lahab perish, may he be ruined.","Neither his wealth nor his gains will avail him.","He shall soon enter a Blazing Fire,","and also his wife who carries the fuel,","with a rope of twisted fibre round her neck."]);

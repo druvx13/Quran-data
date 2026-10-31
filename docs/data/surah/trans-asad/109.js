@@ -1,0 +1,1 @@
+QData("surah/trans-asad/109",["SAY: \"O you who deny the truth!","\"I do not worship that which you worship,","and neither do you worship that which I worship!","\"And I will not worship ~hat which you have [ever] worshipped,","and neither will you [ever] worship that which I worship.","Unto you, your moral law, and unto me, mine!\""]);

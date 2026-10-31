@@ -1,0 +1,1 @@
+QData("surah/translit-unicode/099",["Izaa zul zilatil ardu zil zaalaha","Wa akh rajatil ardu athqaalaha","Wa qaalal insaanu ma laha","Yawmaa izin tuhad dithu akhbaaraha","Bi-anna rabbaka awhaa laha","Yawma iziy yas durun naasu ash tatal liyuraw a'maalahum","Famaiy ya'mal mithqala zarratin khai raiy-yarah","Wa maiy-y'amal mithqala zarratin sharraiy-yarah"]);

@@ -1,0 +1,1 @@
+QData("surah/translit-en/105",["Alam tara kayfa faAAala rabbuka biashabi alfeeli","Alam yajAAal kaydahum fee tadleelin","Waarsala AAalayhim tayran ababeela","Tarmeehim bihijaratin min sijjeelin","FajaAAalahum kaAAasfin makoolin"]);

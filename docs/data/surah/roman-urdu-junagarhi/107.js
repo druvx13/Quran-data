@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/107",["Kiya tu nay(ussay bhi)dekha jo (roz) jaza ko jhutlata hai","yehi who hai jo yateem ko dhakkay deta hai","Aur miskeen ko khilaney ki targeeb nahi deta","Un namazion kay liey afsos(aur well nami jahanum ki jagah)hai","Jo apni namaz say ghafil hain","Jo riya kari kerty hein","Aur baratnay ki chez roktay hain"]);

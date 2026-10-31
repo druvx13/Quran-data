@@ -1,0 +1,1 @@
+QData("surah/trans-yusuf/110",["When comes the Help of Allah, and Victory,","And thou dost see the people enter Allah's Religion in crowds,","Celebrate the praises of thy Lord, and pray for His Forgiveness: For He is Oft-Returning (in Grace and Mercy)."]);

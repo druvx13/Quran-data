@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/110",["When comes the help of God, and victory,","and thou seest men entering God's religion in throngs,","then proclaim the praise of thy Lord, and seek His forgiveness; for He turns again unto men."]);

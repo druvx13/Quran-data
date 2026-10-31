@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/110",["When the victory of Allah and the opening comes,","and you see people embracing the Religion of Allah in throngs,","exalt with the praise of your Lord and ask forgiveness from Him. For indeed, He is the Turner (for the penitent)."]);

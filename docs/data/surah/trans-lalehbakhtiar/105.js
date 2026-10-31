@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/105",["Hast thou not considered what thy Lord accomplished with the Companions of the Elephant","Makes He not their cunning leading to nothing","And He sent upon them flocks of birds","throwing at them rocks of baked clay","Then, made He them like ones who are consumed by stalks of husked grain"]);

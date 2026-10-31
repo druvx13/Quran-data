@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/113",["Say, ˹O Prophet,˺ “I seek refuge in the Lord of the daybreak","from the evil of whatever He has created","and from the evil of the night when it grows dark","and from the evil of those ˹witches casting spells by˺ blowing onto knots","and from the evil of an envier when they envy.”"]);

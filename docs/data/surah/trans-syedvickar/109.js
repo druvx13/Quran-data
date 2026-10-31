@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/109",["Say: \"O you people who reject Faith","I do not worship what you worship","Nor will you worship what I worship","And I will not worship what you have been used to worship","Nor will you worship what I worship","To you be your religion, and to me (be) my religion"]);

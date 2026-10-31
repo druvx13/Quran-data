@@ -1,0 +1,1 @@
+QData("surah/trans-sarwar/114",["(Muhammad), say, \"I seek protection from the Cherisher of mankind,","the King of mankind,","the Lord of mankind","against the evil of the temptations of the satans,","of jinn and human beings","who induce temptation into the hearts of mankind."]);

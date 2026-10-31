@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/113",["Say [Prophet], ‘I seek refuge with the Lord of daybreak","against the harm in what He has created,","the harm in the night when darkness gathers,","the harm in witches when they blow on knots,","the harm in the envier when he envies.’"]);

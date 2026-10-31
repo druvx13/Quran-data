@@ -1,0 +1,1 @@
+QData("surah/trans-asad/113",["SAY: \"I seek refuge with the Sustainer of the rising dawn,","\"from the evil of aught that He has created,","\"and from the evil of the black darkness whenever it descends,","\"and from the evil of all human beings bent on occult endeavours,","\"and from the evil of the envious when he envies.\""]);

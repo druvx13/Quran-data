@@ -1,0 +1,1 @@
+QData("surah/translit-en/110",["Itha jaa nasru Allahi waalfathu","Waraayta alnnasa yadkhuloona fee deeni Allahi afwajan","Fasabbih bihamdi rabbika waistaghfirhu innahu kana tawwaban"]);

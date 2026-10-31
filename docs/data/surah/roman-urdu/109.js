@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/109",["Kehdo ke aey kafiron","Main unki ibadat nahin karta jinki ibadat tum karte ho","Aur na tum uski ibadat karne wale ho jiski ibadat mai karta hoon","Aur na mai unki ibadat karne wala hoon jinki ibadat tum ne ki hai","Aur na tum uski ibadat karne waley ho jiski ibadat main karta hoon","Tumhare liye tumhara deen hai aur mere liye mera deen"]);

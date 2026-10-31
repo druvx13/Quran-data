@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/103",["Zamaney ki qasam","Beyshak (bil-yaqeen)insane sir ta sir nuqsan mein hay","Siwaey un logon kay jo eman laey aur nek amal kiey aur(jinhon nay)apas mein haq ki waseeyat ki aur aik doosry ko sabar ki naseehat ki"]);

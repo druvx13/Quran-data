@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/103",["namaaze asr kee qasam","beshak insaan ghaate mein hai","magar jo log eemaan lae, aur achchhe kaam karate rahe aur aapas mein haq ka hukm aur sabr kee vaseeyat karate rahe"]);

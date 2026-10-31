@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/094",["Did We not relieve your chest","And take from you your load","Which had put strain on your back","And We have raised your remembrance","So with hardship comes ease","With hardship comes ease","So when you are done, then stand","And to your Lord you shall seek"]);

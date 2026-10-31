@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/106",["For the security of the Quraysh:","their security in their winter and summer journeys.","So let them worship the Lord of this House,","who provided them with food lest they go hungry and saved them from fear."]);

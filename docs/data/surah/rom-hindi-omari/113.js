@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/113",["(he nabee!) kaho ki main bhor ke paalanahaar kee sharan leta hoon","har usakee buraee se, jise usane paida kiya","tatha raatri kee buraee se, jab usaka andhera chha jaaye","tatha gaanth lagaakar unamen phoonkane vaaliyon kee buraee se","tatha dvesh karane vaale kee buraee se, jab vah dvesh kare"]);

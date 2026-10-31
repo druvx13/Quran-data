@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/106",["Because of the familiarity of the Quraish,","that is, their familiarity with the trips of winter and summer,","they must worship the Lord of this House,","who gave them food against hunger, and gave them security against fear."]);

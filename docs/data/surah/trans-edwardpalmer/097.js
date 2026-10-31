@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/097",["Verily, we sent it down on the Night of Power","And what shall make thee know what the Night of Power is","the Night of Power is better than a thousand months","The angels and the Spirit descend therein, by the permission of their Lord with every bidding","Peace it is until rising of the dawn"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/107",["Have you seen him who cries lies to the Doom","That is the one who repulses the orphan","And does not urge the (offering) of food to the indigent","So woe to the ones who pray","Who are they that are unmindful of their prayer","Who are they that show off","And (refuse and) prevent (small) kindnesses"]);

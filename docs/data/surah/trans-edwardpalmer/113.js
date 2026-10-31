@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/113",["Say, I seek refuge in the Lord of the daybreak","from the evil of what He has created","and from the evil of the night when it cometh on","and from the evil of the blowers upon knots","and from the evil of the envious when he envies"]);

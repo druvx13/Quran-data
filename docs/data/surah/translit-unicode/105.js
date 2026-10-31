@@ -1,0 +1,1 @@
+QData("surah/translit-unicode/105",["Alam tara kaifa fa'ala rabbuka bi ashaabil feel","Alam yaj'al kai dahum fee tad leel","Wa arsala 'alaihim tairan abaabeel","Tar meehim bi hi jaaratim min sij jeel","Faja 'alahum ka'asfim m'akool"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-asad/108",["BEHOLD, We have bestowed upon thee good in abundance:","hence, pray unto thy Sustainer [alone], and sacrifice [unto Him alone].","Verily, he that hates thee has indeed been cut off [from all that is good]!"]);

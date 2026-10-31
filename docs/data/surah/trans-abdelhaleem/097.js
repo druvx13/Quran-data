@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/097",["We sent it down on the Night of Glory.","What will explain to you what that Night of Glory is?","The Night of Glory is better than a thousand months;","on that night the angels and the Spirit descend again and again with their Lord’s permission on every task;","[there is] peace that night until the break of dawn."]);

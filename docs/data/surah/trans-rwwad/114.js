@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/114",["Say, “I seek refuge with the Lord of mankind,","the Sovereign of mankind,","the God of mankind,","from the harm of the lurking whisperer,","who whispers into the hearts of mankind,","from among jinn and mankind.”"]);

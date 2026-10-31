@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/114",["Say: \"I seek refuge in the Lord of humankind","The Sovereign of humankind","The Deity of humankind","From the evil of the sneaking whisperer (the Satan)","Who whispers into the hearts of humankind","Of the jinn and humankind"]);

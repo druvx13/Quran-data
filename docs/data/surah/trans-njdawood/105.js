@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/105",["HAVE YOU not considered how your Lord dealt with the Army of the Elephant?¹","Did He not confound their stratagem","and send against them flocks of birds","which pelted them with clay-stones","so that they became like the withered stalks of plants which cattle had devoured"]);

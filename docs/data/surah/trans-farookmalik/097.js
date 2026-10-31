@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/097",["Surely We have revealed this (Qur’an) in the night of Qadr","And what will make you understand, what the night of Qadr is","The night of Qadr is better than one thousand months","The angels and the Spirit (Gabriel) come down with every decree, by the leave of their Lord","that night is the night of Peace, till the break of dawn"]);

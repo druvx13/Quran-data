@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/103",["By (the Promise of) time (infinite), ('Asr also refers to afternoon prayer, or later part in life)","Surely, man is in loss","Except such as (those who) have Faith and do righteous deeds and (join together) in the mutual teaching of truth, and of patience and perseverance"]);

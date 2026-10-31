@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/114",["kaho, \"main sharan leta hoon manushyon ke rab kee","manushyon ke samraat kee","manushyon ke upaasy kee","vasavasa daalanevaale, khisak jaanevaale kee buraee se","jo manushyon ke seenon mein vasavasa daalata hain","jo jinnon mein se bhee hota hain aur manushyon mein se bhee"]);

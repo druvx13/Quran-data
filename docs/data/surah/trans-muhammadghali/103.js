@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/103",["And (by) the afternoon! (Or: time)","Surely man is indeed in (sheer) loss","Except the ones who have believed, and done deeds of righteousness, and enjoin each other to the Truth, and enjoin each other to patience"]);

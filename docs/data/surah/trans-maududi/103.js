@@ -1,0 +1,1 @@
+QData("surah/trans-maududi/103",["By the time!","Lo! Man is in a state of loss;","save those who have faith and do righteous deeds, and counsel each other to hold on to truth and counsel each other to be steadfast."]);

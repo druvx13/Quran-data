@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedraza/107",["Just look at him, who belies the religion!","So it is he, who pushes away the orphan,","And does not urge to feed the needy.","So ruin is to those offerers of prayer –","Those who are neglectful of their prayer.","Those who make a display (of their deeds).","And do not let others ask for small utilities."]);

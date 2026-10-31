@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedali/108",["HAVE SURELY given you pre-eminence (in numbers and following);","So serve your Lord with full dedication and sacrifice.","It is surely your opponents whose line will come to end."]);

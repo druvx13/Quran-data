@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/109",["Say: ´Kafirun","I do not worship what you worship","and you do not worship what I worship","Nor will I worship what you worship","nor will you worship what I worship","You have your deen and I have my deen.´"]);

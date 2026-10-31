@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/110",["When Allah´s help and victory have arrived","and you have seen people entering Allah´s deen in droves","then glorify your Lord´s praise and ask His forgiveness. He is the Ever-Returning"]);

@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/105",["Tumne dekha nahin ke tumhare Rubb ne haathi walon ke saath kya kiya","Kya usne unki tadbir ko akarat nahin kar diya","Aur un par parindo ke jhund ke jhund bhej diye","Jo un par pakey huey mitti ke patthar phenk rahey thay","Phir un ka yeh haal kar diya jaise janwaron ka khaya hua bhoosa"]);

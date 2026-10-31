@@ -1,0 +1,1 @@
+QData("surah/trans-sarwar/103",["By the time (of the advent of Islam),","the human being is doomed to suffer loss,","except the righteously striving believers who exhort each other to truthful purposes and to patience."]);

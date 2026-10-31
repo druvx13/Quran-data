@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/104",["Woe to every slanderous backbiter","who collects wealth and counts it","He thinks that his wealth can immortalize him","Not so! he shall be hurled into ElHutamah","And what shall make thee understand what ElHutamah is","the fire of God kindled","which rises above the hearts","Verily, it is an archway over them","on long-drawn columns"]);

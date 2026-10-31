@@ -1,0 +1,1 @@
+QData("surah/trans-yusuf/103",["By (the Token of) Time (through the ages),","Verily Man is in loss,","Except such as have Faith, and do righteous deeds, and (join together) in the mutual teaching of Truth, and of Patience and Constancy."]);

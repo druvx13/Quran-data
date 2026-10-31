@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/113",["kaho, \"main sharan leta hoon, prakat karanevaale rab kee","jo kuchh bhee usane paida kiya usakee buraee se","aur andhere kee buraee se jabaki vah ghus aae","aur gaantho mein phoonk maarane-vaalon kee buraee se","aur eershyaalu kee buraee se, jab vah eershya kare."]);

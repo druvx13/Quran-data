@@ -1,0 +1,1 @@
+QData("surah/trans-sahih/106",["For the accustomed security of the Quraysh -","Their accustomed security [in] the caravan of winter and summer -","Let them worship the Lord of this House,","Who has fed them, [saving them] from hunger and made them safe, [saving them] from fear."]);

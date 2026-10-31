@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/109",["Say, “O disbelievers","I do not serve (worship) that which you serve (worship)","And you are not servers of that which I serve","And I am not a server of that which you serve","And you are not servers of that which I serve","For you your religion (or judgment) and for me my religion (or judgment).”"]);

@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/106",["Quresh kay manoos kerney kay liye","(yanni) unhen jary aur garmi kay safar say manoos kerney kay liey.(uskay shukriey main)","Pus unhen chahey kay issi gher kay rab ki ibadat kerty rahen","Jiss nay inhen bhook mein khana diya aur darr (aur khof) mein aman (o-aman) diya"]);

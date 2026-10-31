@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/114",["Say, “I seek refuge with the Lord of mankind,","the King of mankind,","the God of mankind,","from the evil of the whisperer who withdraws (when Allah’s name is pronounced),","the one who whispers in the hearts of people,","whether from among the Jinn or Mankind."]);

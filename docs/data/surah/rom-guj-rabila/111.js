@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/111",["abu lahaba na banne hatha tuti gaya ane te (pote) barabada tha'i gayo","na to tenum dhana tena mate kama avyum ane na to teni kamani","te najikamam bhadakaveli agamam jase","ane teni patni pana (jase) je lakadi'o uthavanari che","tena galamam kathinum doradum hase"]);

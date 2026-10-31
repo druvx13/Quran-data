@@ -1,0 +1,1 @@
+QData("surah/trans-literal/106",["To Koreish`s unification/familiarity","Their unification/familiarization (with) the winter`s and the summer`s travel/journey","So they should worship this, the House`s/Home`s Lord","Who fed them from starvation/hunger, and secured them from fear/fright"]);

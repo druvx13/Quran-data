@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/112",["Say, \"He is Allah, the One and Only","Allah, the eternal and independent Lord and Master on Whom everything in the Universe depends","He begets not nor is He begotten","And there is none comparable to Him"]);

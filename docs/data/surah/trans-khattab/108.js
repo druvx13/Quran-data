@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/108",["Indeed, We have granted you ˹O Prophet˺ abundant goodness","So pray and sacrifice to your Lord ˹alone˺","Only the one who hates you is truly cut off ˹from any goodness˺"]);

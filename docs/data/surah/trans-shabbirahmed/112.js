@@ -1,0 +1,1 @@
+QData("surah/trans-shabbirahmed/112",["Say, \"He is Allah, the One","Allah is Absolute, Eternal, Unique, Self-Sufficient, Perfect, Independent, the Uncaused Cause of all that exists, Besought of all","He begets not, nor is He begotten","And there is none that could be comparable unto Him"]);

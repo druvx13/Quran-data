@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/097",["We have sent it (the Qur’ān) down in the Night of Qadr.","And what may let you know what the Night of Qadr is?","The Night of Qadr is much better than one thousand months.","The angels and the Spirit descend in it, with the leave of your Lord, along with every command.","Peace it is till the debut of dawn."]);

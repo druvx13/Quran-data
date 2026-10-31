@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/112",["tame kahi do ke te allaha ta'ala eka ja che","allaha ta'ala beniyajha che. (Evi hasti ke dareka sarjanane teni jarura che, tene ko'ini jarura nathi)","na tenathi ko'i peda thayu ane na te ko'ina thi peda thayo","ane na ko'i teni sarakhamaninum che"]);

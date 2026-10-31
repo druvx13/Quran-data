@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/107",["Have you seen him who denies the deen","He is the one who harshly rebuffs the orphan","and does not urge the feeding of the poor","So woe to those who do salat","and are forgetful of their salat","those who show off","and deny help to others"]);

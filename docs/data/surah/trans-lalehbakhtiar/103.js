@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/103",["By time through the ages","truly, the human being is, surely, in a loss","but those who believed and did as the ones in accord with morality, and counseled one another to The Truth, and counseled one another to having patience"]);

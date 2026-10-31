@@ -1,0 +1,1 @@
+QData("surah/trans-literal/110",["When/if God`s victory/aid came, and the opening/judgment","And you saw the people entering in God`s religion (in) groups/crowds","So praise/glorify with your Lord`s praise/gratitude/thanks, and ask him for forgiveness, that He truly was/is forgiving"]);

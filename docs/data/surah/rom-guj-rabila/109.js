@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/109",["tame kahi do ke aya inkari'o","na hum bandagi karu chum teni, jeni tame bandagi karo cho","na tame bandagi karavana cho teni, jeni hum bandagi karu chum","ane na hum bandagi karisa, jeni tame bandagi karo cho","Ane na tame teni bandagi karavana cho, jeni hum bandagi kari rahyo chum","tamara mate tamaro dina che ane mara mate maro dina che"]);

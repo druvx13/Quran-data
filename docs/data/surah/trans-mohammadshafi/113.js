@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/113",["Say, \"I seek refuge in Lord of the dawn","From the evil of what He has created","And from the evil of darkness when it sets in","And from the evil of those who blow on knots","And from the evil of the envious person when he envies"]);

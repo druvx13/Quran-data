@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/110",["When the help of God drew near and the victory","and thou hadst seen humanity entering into the way of life of God in units","then, glorify the praise of thy Lord and ask for His forgiveness. Truly, He had been ever The Accepter of Repentance"]);

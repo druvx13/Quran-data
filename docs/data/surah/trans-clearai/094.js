@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/094",["Did We not open your chest for you?","And lifted from you your burden.","Which broke your back.","And raised high your mention?","So truly, with hardship comes ease.","Truly, with hardship comes ease.","So when you are done, toil on.","And to your Lord turn your longing."]);

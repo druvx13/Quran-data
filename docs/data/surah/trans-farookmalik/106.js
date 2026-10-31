@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/106",["The privilege of protection enjoyed by the Qureysh","safe passage of their trading caravans in the winter and the summer (due to their being the caretakers of the House of Allah, and they know this fact)","So they should worship the Lord of this House","Who provided them food in the days of famine and made them secure against fear"]);

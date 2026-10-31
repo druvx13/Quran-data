@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/114",["(he nabee!) kaho ki main insaanon ke paalanahaar kee sharan mein aata hoon","jo saare insaanon ka svaamee hai","jo saare insaanon ka poojy hai","bhram daalane vaale aur chhup jaane vaale (raakshas) kee buraee se","jo logon ke dilon mein bhram daalata rahata hai","jo jinnon mein se hai aur manushyon mein se bhee"]);

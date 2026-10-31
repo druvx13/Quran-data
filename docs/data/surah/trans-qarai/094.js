@@ -1,0 +1,1 @@
+QData("surah/trans-qarai/094",["Did We not open your breast for you","and relieve you of your burden","which [almost] broke your back?","Did We not exalt your name?","Indeed ease accompanies hardship.","Indeed ease accompanies hardship.","So when you are done, appoint,","and supplicate your Lord."]);

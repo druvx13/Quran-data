@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/094",["Did We not expand your breast for you","and remove your load from you","which weighed down your back","Did We not raise your renown high","For truly with hardship comes ease","truly with hardship comes ease","So when you have finished, work on","and make your Lord your goal"]);

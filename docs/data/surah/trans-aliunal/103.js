@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/103",["By Time (especially the last part of it, heavy with events)","Most certainly, human is in loss","Except those who believe and do good, righteous deeds, and exhort one another to truth, and exhort one another to steadfast patience (in the face of misfortunes, and suffering in God’s way, and in doing good deeds, and not committing sins)"]);

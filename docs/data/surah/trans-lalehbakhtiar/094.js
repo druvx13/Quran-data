@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/094",["Expand We not thy breast","and lifted from thee the heavy loaded burden","that weighed heavily on thy back","Exalted We not thy remembrance","So, truly, with hardship, ease","Truly, with hardship, ease","When thou hadst finished thy duties, then, work on supplication","and quest thy Lord"]);

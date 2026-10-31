@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/105",["Have you not seen ˹O Prophet˺ how your Lord dealt with the Army of the Elephant","Did He not frustrate their scheme","For He sent against them flocks of birds","that pelted them with stones of baked clay","leaving them like chewed up straw"]);

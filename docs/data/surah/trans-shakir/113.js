@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/113",["Say: I seek refuge in the Lord of the dawn,","From the evil of what He has created,","And from the evil of the utterly dark night when it comes,","And from the evil of those who blow on knots,","And from the evil of the envious when he envies"]);

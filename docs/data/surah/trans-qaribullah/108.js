@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/108",["Indeed, We have given you (Prophet Muhammad) the abundance (Al Kawthar: river, its pool and springs).","So pray to your Lord and sacrifice.","Surely, he who hates you, he is the most severed."]);

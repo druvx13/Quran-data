@@ -1,0 +1,1 @@
+QData("surah/trans-daryabadi/111",["Perish the two hands of Abu Lahab, and perish he!","His substance availed him not, nor that which he earned.","Anon he shall roast into Fire having flame.","And his wife also: the firewood carrier;","On her neck shall be a cord of twisted fibre."]);

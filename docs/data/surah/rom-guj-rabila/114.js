@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/114",["tame kahi do! Ke hum lokona palanaharani saranamam avum chum","lokona malikana (ane)","lokona ma'abudana (saranamam)","sanka'o nakhanara, pacha hati janarani bura'ithi","je lokona hrdayomam sanka'o nakhe che","(pachi) te jinnatomam thi hoya athava to manusyomam thi"]);

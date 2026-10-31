@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedraza/111",["May both the hands of Abu Lahab be destroyed – and they are destroyed!","His wealth did not benefit him in the least, nor did whatever he earned.","He will soon enter the flaming fire.","And so will his wife; carrying a bundle of firewood on her head.","A rope made from palm fibre around her neck!"]);

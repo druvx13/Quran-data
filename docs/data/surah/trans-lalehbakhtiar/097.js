@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/097",["Truly, We caused it to descend on the night of power","And what will cause thee to recognize what is the night of power","The night of power is better than a thousand months","The angels come forth and the Spirit during it with their Lord’s permission, with every command","Peace it is until the time of the rising dawn"]);

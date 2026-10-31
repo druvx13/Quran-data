@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/110",["When the Help of Allah and victory (of Makkah) comes","And you (O Prophet!) see the people enter Allah’s Religion in crowds","Then celebrate the Praises of your Lord, and pray for forgiveness from Him: Surely, He is One Who accepts repentance, returning (in grace and kindness) with forgiveness"]);

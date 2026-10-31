@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/104",["Woe to every faultfinding backbiter","who has amassed wealth and hoarded it","He thinks his wealth will make him live for ever","No indeed! He will be flung into the Shatterer","And what will convey to you what the Shatterer is","The kindled Fire of Allah","reaching right into the heart","It is sealed in above them","in towering columns"]);

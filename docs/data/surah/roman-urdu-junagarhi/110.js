@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/110",["Jab Allah ji madad aur fatah ajaye","Aur tu logon ko ALLAH kay deen mein jok dar jok aata dekh lay","To apnay rabb ki tasbeeh karney lag hamd kay sath aur uss say maghfirat ki dua maang bey shak woh bara hi tauba qabool karney wala hai"]);

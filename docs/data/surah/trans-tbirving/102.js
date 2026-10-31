@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/102",["Competition has distracted you","until you visit graveyards","Nevertheless you soon will know","once more, you soon shall know","Of course, if you realized with absolute certainty","how you will (all) see Hades","then you would see it with the [very] eye of certainty","next you will be questioned concerning bliss on that day"]);

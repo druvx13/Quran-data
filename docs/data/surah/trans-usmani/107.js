@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/107",["Have you seen him who denies the Requital?","So, he is the one who pushes away the orphan,","and does not persuade (others) to feed the needy.","So, Woe to those performers of Salāh,","who are neglectful of their Salāh,","who (do good only to) show off,","and refuse (to give even) small gifts."]);

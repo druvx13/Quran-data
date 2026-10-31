@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/107",["[Prophet], have you considered the person who denies the Judgement?","It is he who pushes aside the orphan","and does not urge others to feed the needy.","So woe to those who pray","but are heedless of their prayer;","those who are all show","and forbid common kindnesses."]);

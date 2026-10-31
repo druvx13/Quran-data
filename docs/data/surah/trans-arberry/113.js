@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/113",["Say: 'I take refuge with the Lord of the Daybreak","from the evil of what He has created,","from the evil of darkness when it gathers,","from the evil of the women who blow on knots,","from the evil of an envier when he envies.'"]);

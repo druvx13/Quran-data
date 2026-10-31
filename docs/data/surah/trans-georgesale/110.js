@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/110",["When the assistance of God shall come, and the victory","and thou shalt see the people enter into the religion of God by troops","Celebrate the praise of thy Lord, and ask pardon of Him; for He is inclined to forgive"]);

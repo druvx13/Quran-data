@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/109",["SAY: O ye UNBELIEVERS","I worship not that which ye worship","And ye do not worship that which I worship","I shall never worship that which ye worship","Neither will ye worship that which I worship","To you be your religion; to me my religion"]);

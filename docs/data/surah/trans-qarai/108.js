@@ -1,0 +1,1 @@
+QData("surah/trans-qarai/108",["Indeed We have given you abundance.","So pray to your Lord, and sacrifice [the sacrificial camel].","Indeed it is your enemy who is without posterity."]);

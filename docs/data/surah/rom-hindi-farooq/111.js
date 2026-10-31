@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/111",["toot gae aboo lahab ke donon haath aur vah svayan bhee vinasht ho gaya","na usaka maal usake kaam aaya aur na vah kuchh jo usane kamaaya","vah sheeghr hee prajvalit bhadakatee aag mein padega","aur usakee stree bhee eedhan laadanevaalee","usakee garadan mein khajoor ke reson kee batee huee rassee padee hai"]);

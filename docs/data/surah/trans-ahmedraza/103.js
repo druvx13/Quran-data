@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedraza/103",["By oath of this era of yours (O dear Prophet Mohammed – peace and blessings be upon him).","Indeed man is surely in a loss.","Except those who accepted faith, and did good deeds and urged one another to the truth – and urged one another to have patience."]);
