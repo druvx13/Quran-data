@@ -9,6 +9,7 @@ Reads source data from data/ and writes output files to output/.
 """
 import json
 import os
+import re
 import zipfile
 
 os.makedirs('output', exist_ok=True)
@@ -202,12 +203,17 @@ for src_file, out_file, translator, lang in translations:
                     parts = raw_line.rstrip('\n').split('|', 2)
                     if len(parts) == 3 and parts[0].isdigit() and parts[1].isdigit():
                         ayah_data[(int(parts[0]), int(parts[1]))] = parts[2]
+            basmala = re.compile(
+                r"^ب[ِّ]سْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ(?:\s+|$)")
             for sura_num in range(114):
                 out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
                 out.write("-" * 40 + "\n")
                 for ayah_num in range(1, surasize[sura_num] + 1):
+                    text = ayah_data.get((sura_num + 1, ayah_num), '')
+                    if ayah_num == 1 and sura_num + 1 not in (1, 9):
+                        text = basmala.sub('', text, count=1)
                     out.write("[%d:%d] %s\n" % (
-                        sura_num + 1, ayah_num, ayah_data.get((sura_num + 1, ayah_num), '')))
+                        sura_num + 1, ayah_num, text))
                 out.write("\n")
         elif lang in ('English-SuraAyah', 'English-Piped', 'Urdu-SuraAyah'):
             with open(src_file, 'r', encoding='utf-8') as src:

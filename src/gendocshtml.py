@@ -336,6 +336,15 @@ def load_source(root: Path, src: Source) -> Verses:
         f = root / rel
         if f.exists():
             data = PARSERS[fmt](f)
+            if src.id == "arabic-simple":
+                basmala = re.compile(
+                    r"^ب[ِّ]سْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ(?:\s+|$)")
+                for sura in range(2, 115):
+                    if sura == 9:
+                        continue
+                    key = (sura, 1)
+                    if key in data:
+                        data[key] = basmala.sub("", data[key], count=1)
             return {k: v for k, v in data.items()
                     if 1 <= k[0] <= 114 and 1 <= k[1] <= SURA_SIZE[k[0] - 1]}
     return {}
