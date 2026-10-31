@@ -93,54 +93,58 @@ function chips(box,o){
     sets.forEach(fs=>{let any=false;$$(".chip",fs).forEach(l=>{const ok=w.every(x=>l.dataset.s.includes(x));l.hidden=!ok;if(ok)any=true;});fs.hidden=!any;});});
   upd();}
 
-/* ---------- book view: paginated pages with swipe / drag page turns ---------- */
+/* ---------- book view ----------
+   The verse list becomes ONE container laid out as CSS columns; each column is a page.
+   Verses split naturally across pages, nothing is ever cut off or needs inner scrolling,
+   and the real DOM nodes (buttons, audio, bookmarks) stay where they are. */
 function makeBook(o){
-  const rtl=o.rtl,reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,all=$$("#verses>*");
-  const sheet=cls=>{const head=h("div",{class:"pg-head",text:"\u00a0"}),body=h("div",{class:"pg-body"}),foot=h("div",{class:"pg-foot",text:"0"});
+  const rtl=o.rtl,reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,G=24,flow=$("#verses"),arts=o.arts;
+  const sheet=cls=>{const head=h("div",{class:"pg-head",text:"\u00a0"}),body=h("div",{class:"pg-body"}),foot=h("div",{class:"pg-foot",text:"1"});
     return{head,body,foot,el:h("div",{class:"sheet "+cls},h("div",{class:"pg"},head,body,foot))};};
-  const base=sheet("base"),meas=sheet("meas"),leaf=sheet("leaf");leaf.el.hidden=true;
-  const leaves=h("div",{class:"leaves"},base.el,meas.el,leaf.el),cover=h("div",{class:"cover"},leaves);
+  const base=sheet("base"),leaf=sheet("leaf");leaf.el.hidden=true;
+  const leaves=h("div",{class:"leaves"},base.el,leaf.el),cover=h("div",{class:"cover"},leaves);
   const prev=h("button",{type:"button",class:"btn bk-btn","aria-label":"Previous page",text:rtl?"\u203A":"\u2039"});
   const next=h("button",{type:"button",class:"btn bk-btn","aria-label":"Next page",text:rtl?"\u2039":"\u203A"});
   const slider=h("input",{type:"range",min:1,max:1,value:1,class:"bk-slider","aria-label":"Go to page"});
   const count=h("span",{class:"bk-count small","aria-live":"polite"});
   const bar=h("div",{class:"bk-bar"},prev,h("div",{class:"bk-mid"},slider,count),next);
-  $("#verses").before(h("div",{class:"book"+(rtl?" rtl":"")},cover,bar));
+  flow.before(h("div",{class:"book"+(rtl?" rtl":"")},cover,bar));
+  base.body.append(flow);flow.classList.add("flow");flow.prepend(...o.title);flow.append(...o.end);
   document.documentElement.classList.add("bookmode","book-ready");
 
-  let pages=[],idx=0,busy=false,turn=null;
-  const isAyah=x=>x.classList.contains("ayah");
-  const firstAyah=i=>{const n=pages[i]&&pages[i].find(isAyah);return n?+n.dataset.a:0;};
-  const groups=()=>{const G=[];let pend=[...o.title];
-    all.forEach(n=>{if(n.hidden)return;if(isAyah(n)){G.push([...pend,n]);pend=[];}else pend.push(n);});
-    G.push([...pend,...o.end]);return G;};
+  let W=0,H=0,pages=1,idx=0,busy=false,turn=null,start=[],first=[],last=[];
+  const stride=()=>W+G;
   const size=()=>{const top=cover.getBoundingClientRect().top+scrollY;
-    leaves.style.height=Math.max(420,Math.min(innerHeight-top-bar.offsetHeight-36,900))+"px";};
-  const fill=(s,i)=>{const pg=pages[i]||[],A=pg.filter(isAyah).map(x=>+x.dataset.a);
-    s.body.replaceChildren(...pg);s.body.scrollTop=0;
-    s.head.replaceChildren(h("span",{text:o.name}),h("span",{text:A.length?(A.length>1?`${o.sura}:${A[0]}\u2013${A[A.length-1]}`:`${o.sura}:${A[0]}`):""}));
-    s.foot.textContent=String(i+1);};
-  const setIdx=i=>{idx=Math.max(0,Math.min(i,pages.length-1));fill(base,idx);base.el.style.setProperty("--cast",0);
-    slider.max=pages.length;slider.value=idx+1;count.textContent=`Page ${idx+1} of ${pages.length}`;
-    prev.disabled=idx===0;next.disabled=idx===pages.length-1;if(o.onPage)o.onPage(firstAyah(idx));};
-  const paginate=()=>{
-    const atEnd=pages.length>1&&idx===pages.length-1,keep=pages.length?firstAyah(idx):0;
-    base.body.replaceChildren();leaf.body.replaceChildren();size();meas.body.replaceChildren();
-    const P=[];let cur=[];
-    groups().forEach(g=>{meas.body.append(...g);
-      if(meas.body.scrollHeight>meas.body.clientHeight+1&&cur.length){meas.body.replaceChildren(...g);P.push(cur);cur=[...g];}else cur.push(...g);});
-    P.push(cur);meas.body.replaceChildren();pages=P;
-    let t=0;if(atEnd)t=P.length-1;else if(keep){const j=P.findIndex(pg=>pg.includes(o.arts[keep-1]));t=j<0?0:j;}
-    setIdx(t);};
+    leaves.style.height=Math.max(320,Math.min(innerHeight-top-bar.offsetHeight-36,900))+"px";};
+  const measure=()=>{size();W=base.body.clientWidth;H=base.body.clientHeight;
+    Object.assign(flow.style,{width:W+"px",height:H+"px",columnWidth:W+"px",columnGap:G+"px"});};
+  const mapPages=()=>{start=[];first=[];last=[];const fl=flow.getBoundingClientRect().left,st=stride();
+    pages=Math.max(1,Math.round((base.body.scrollWidth+G)/st));
+    arts.forEach(a=>{if(a.hidden)return;const R=a.getClientRects();if(!R.length)return;const n=+a.dataset.a,pg=x=>Math.max(0,Math.min(pages-1,Math.floor((x-fl+2)/st)));
+      const s=pg(R[0].left),e=Math.max(s,pg(R[R.length-1].left));start[n]=s;
+      for(let p=s;p<=e;p++){if(first[p]===undefined||n<first[p])first[p]=n;if(last[p]===undefined||n>last[p])last[p]=n;}});};
+  const setHead=(s,i)=>{const a=first[i],z=last[i];
+    s.head.replaceChildren(h("span",{text:o.name}),h("span",{text:a?(a===z?`${o.sura}:${a}`:`${o.sura}:${a}\u2013${z}`):""}));s.foot.textContent=String(i+1);};
+  const setIdx=i=>{idx=Math.max(0,Math.min(i,pages-1));base.body.scrollLeft=idx*stride();setHead(base,idx);
+    slider.max=pages;slider.value=idx+1;count.textContent=`Page ${idx+1} of ${pages}`;
+    prev.disabled=idx===0;next.disabled=idx===pages-1;base.el.style.setProperty("--cast",0);
+    if(o.onPage){const s=start.findIndex(x=>x===idx);o.onPage(s>0?s:first[idx]||0);}};
+  const reflow=()=>{const atEnd=pages>1&&idx===pages-1,anchor=start.findIndex(x=>x===idx)>0?start.findIndex(x=>x===idx):first[idx];
+    measure();mapPages();let t=0;
+    if(atEnd)t=pages-1;else if(anchor&&start[anchor]!==undefined)t=start[anchor];setIdx(t);};
+  /* focus / anchor jumps can scroll the clipped container: snap the page counter to it */
+  base.body.addEventListener("scroll",()=>{if(busy||turn)return;const x=base.body.scrollLeft;if(Math.abs(x-idx*stride())>3)setIdx(Math.round(x/stride()));});
 
-  /* page-turn animation: t goes 0 -> 1; the leaf swings about the spine edge */
+  /* page-turn animation: t goes 0 -> 1; a snapshot of the old/new page swings about the spine */
   const angle=(t,dir)=>(dir>0?t:1-t)*90*(rtl?1:-1);
   const draw=t=>{const a=angle(t,turn.dir);leaf.el.style.transform=`rotateY(${a}deg)`;
     leaf.el.style.setProperty("--shade",Math.abs(a)/90);base.el.style.setProperty("--cast",Math.sin(Math.PI*t));};
-  const begin=dir=>{const to=idx+dir;if(to<0||to>=pages.length)return false;
-    if(dir>0){fill(leaf,idx);fill(base,to);}else{fill(base,idx);fill(leaf,to);}
-    turn={dir,to};leaf.el.hidden=false;draw(dir>0?0:0);return true;};
-  const finish=ok=>{if(ok)idx=turn.to;turn=null;leaf.el.hidden=true;leaf.el.style.transform="";busy=false;setIdx(idx);};
+  const begin=dir=>{const to=idx+dir;if(to<0||to>=pages)return false;turn={dir,to};
+    const c=flow.cloneNode(true);c.removeAttribute("id");$$("[id]",c).forEach(x=>x.removeAttribute("id"));c.inert=true;c.setAttribute("aria-hidden","true");
+    leaf.body.replaceChildren(c);const lp=dir>0?idx:to,bp=dir>0?to:idx;
+    leaf.el.hidden=false;leaf.body.scrollLeft=lp*stride();setHead(leaf,lp);base.body.scrollLeft=bp*stride();setHead(base,bp);
+    draw(0);return true;};
+  const finish=ok=>{const to=turn.to;turn=null;leaf.el.hidden=true;leaf.el.style.transform="";leaf.body.replaceChildren();busy=false;setIdx(ok?to:idx);};
   const anim=(from,to,ms,done)=>{if(reduce){draw(to);done();return;}const t0=performance.now();
     const step=now=>{const k=Math.min(1,(now-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;draw(from+(to-from)*e);k<1?requestAnimationFrame(step):done();};
     requestAnimationFrame(step);};
@@ -165,19 +169,18 @@ function makeBook(o){
   prev.addEventListener("click",()=>turnBy(-1));next.addEventListener("click",()=>turnBy(1));
   slider.addEventListener("input",()=>{if(!busy)setIdx(+slider.value-1);});
 
-  /* re-flow when anything that changes page heights changes */
-  let rt;const refresh=()=>{clearTimeout(rt);rt=setTimeout(()=>busy?refresh():paginate(),90);};
+  /* re-flow when anything that changes page content or size changes */
+  let rt;const refresh=()=>{clearTimeout(rt);rt=setTimeout(()=>busy?refresh():reflow(),90);};
   addEventListener("quran:layout",refresh);
   let lw=innerWidth,lh=innerHeight;addEventListener("resize",()=>{if(innerWidth!==lw||Math.abs(innerHeight-lh)>80){lw=innerWidth;lh=innerHeight;refresh();}});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(refresh);
-  const panel=$("#panel");if(panel)panel.addEventListener("toggle",refresh);
 
-  const reveal=(n,flash=true)=>{const i=pages.findIndex(pg=>pg.includes(o.arts[n-1]));if(i<0||busy)return;
-    const done=()=>{const el=o.arts[n-1];base.body.scrollTop=Math.max(0,el.offsetTop-6);if(flash){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);}};
-    if(i===idx)done();else if(Math.abs(i-idx)===1){turnBy(i-idx);setTimeout(done,480);}else{setIdx(i);done();}};
-  paginate();
+  const reveal=(n,flash=true)=>{const p=start[n];if(p===undefined||busy)return;
+    const done=()=>{if(!flash)return;const el=arts[n-1];el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);};
+    if(p===idx)done();else if(Math.abs(p-idx)===1){turnBy(p-idx);setTimeout(done,480);}else{setIdx(p);done();}};
+  reflow();
   if(!store.get("quran-bk-hint",false)){store.set("quran-bk-hint",true);setTimeout(()=>toast(`Swipe ${rtl?"right":"left"} to turn the page`),700);}
-  return{refresh,reveal};
+  return{refresh,reveal,get stats(){return{W,H,pages,idx};}};
 }
 
 /* ---------- reader ---------- */
@@ -192,13 +195,13 @@ function initReader(){
 
   /* range + deep links: #5 jumps to a verse, #5-9 shows only those verses */
   let from=1,to=size;const fi=h("input",{type:"number",class:"num",min:1,max:size,value:1,"aria-label":"From verse"}),ti=h("input",{type:"number",class:"num",min:1,max:size,value:size,"aria-label":"To verse"});
-  const applyRange=(a,b,pushHash)=>{from=a;to=b;fi.value=a;ti.value=b;
+  const applyRange=(a,b,pushHash)=>{const moved=a!==from||b!==to;from=a;to=b;fi.value=a;ti.value=b;
     arts.forEach(x=>{const n=+x.dataset.a;x.hidden=n<a||n>b;});
     $$(".juz-mark").forEach(x=>{const n=+x.dataset.a;x.hidden=n<a||n>b;});
     const full=a===1&&b===size;bar.hidden=full;bar.textContent="";
     if(!full){bar.append(a===b?`Showing verse ${a} of ${size}. `:`Showing verses ${a}–${b} of ${size}. `,h("button",{type:"button",class:"link",text:"Show whole surah"}));
       $("button",bar).addEventListener("click",()=>applyRange(1,size,true));}
-    if(pushHash)history.replaceState(null,"",full?location.pathname+location.search:`#${a}${a===b?"":"-"+b}`);if(book)book.refresh();};
+    if(pushHash)history.replaceState(null,"",full?location.pathname+location.search:`#${a}${a===b?"":"-"+b}`);if(book&&moved)book.refresh();};
   const focusAyah=n=>{if(book){book.reveal(n);return;}const el=arts[n-1];if(!el)return;el.scrollIntoView({block:"start"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);};
   const route=()=>{const m=/^#(?:ayah-)?(\d+)(?:-(\d+))?$/.exec(location.hash);if(!m)return;
     let a=+m[1],b=m[2]?+m[2]:a;if(a>b){const t=a;a=b;b=t;}if(a<1||a>size)return;b=Math.min(b,size);
@@ -249,7 +252,11 @@ function initReader(){
     statusEl.textContent=fails.length?`Couldn’t load ${fails.join(", ")}. Check your connection and try again.`:"";layout();};
 
   /* display panel */
-  const body=$("#panel-body");body.textContent="";
+  const body=$("#panel-body"),pan=$("#panel");body.textContent="";
+  body.append(h("div",{class:"panel-bar"},h("strong",{text:"Display options"}),h("button",{type:"button",class:"btn small",text:"Done"})));
+  $(".panel-bar button",body).addEventListener("click",()=>{pan.open=false;});
+  document.addEventListener("pointerdown",e=>{if(pan.open&&!pan.contains(e.target))pan.open=false;});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")pan.open=false;});
   const go=h("button",{type:"button",class:"btn small",text:"Show"});
   go.addEventListener("click",()=>{let a=parseInt(fi.value,10)||1,b=parseInt(ti.value,10)||size;if(a>b)[a,b]=[b,a];applyRange(Math.max(1,a),Math.min(size,b),true);});
   const autoplay=h("input",{type:"checkbox"});autoplay.checked=cont();autoplay.addEventListener("change",()=>store.set("quran-cont",autoplay.checked));
