@@ -33,7 +33,9 @@ const readingRows=()=>{
   const pick=(name,label,opts,cur,on)=>{const fs=h("fieldset",{class:"grp"},h("legend",{text:label}));
     opts.forEach(([v,tx])=>{const r=h("input",{type:"radio",name});r.checked=v===cur;r.addEventListener("change",()=>on(v));fs.append(h("label",{class:"radio"},r,tx));});return fs;};
   const save=(k,v)=>{ui[k]=v;store.set("quran-ui",ui);if(document.body.dataset.page==="reader")location.reload();};
-  return[pick("rd-mode","Reading style",[["book","Book pages"],["scroll","Continuous scroll"]],ui.mode==="scroll"?"scroll":"book",v=>save("mode",v)),
+  const mode=pick("rd-mode","Reading style",[["scroll","Continuous scroll (default)"],["book","Experimental book pages"]],ui.mode==="book"?"book":"scroll",v=>save("mode",v));
+  mode.append(h("p",{class:"small muted",text:"Book pages are experimental and may contain errors and bugs."}));
+  return[mode,
     pick("rd-dir","Page turning (book pages)",[["rtl","Right to left, like a mushaf"],["ltr","Left to right"]],ui.dir==="ltr"?"ltr":"rtl",v=>save("dir",v))];};
 
 /* ---------- ui helpers ---------- */
@@ -270,7 +272,7 @@ function initReader(){
   /* reading position */
   let last=1,tm;const save=()=>store.set("quran-history",{s,a:last,n:meta.name,t:Date.now()});save();
   flags();
-  if(ui.mode!=="scroll"){
+  if(ui.mode==="book"){
     book=makeBook({sura:s,name:meta.name,arts,rtl:ui.dir!=="ltr",title:[$("h1"),$(".meaning"),$(".facts")],end:[$(".pager"),$(".pager").nextElementSibling],
       onPage:a=>{if(a){last=a;clearTimeout(tm);tm=setTimeout(save,800);}}});
   }else if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)last=+e.target.dataset.a;});clearTimeout(tm);tm=setTimeout(save,1000);},{rootMargin:"0px 0px -75% 0px"});arts.forEach(a=>io.observe(a));}
