@@ -25,8 +25,16 @@ const applyUi=()=>{const r=document.documentElement;
   r.style.setProperty("--tx",ui.tx||1);r.style.setProperty("--ar",ui.ar||2);};
 const sliderRow=(label,key,min,max,step,def)=>{
   const i=h("input",{type:"range",min,max,step,value:ui[key]||def,"aria-label":label});
-  i.addEventListener("input",()=>{ui[key]=+i.value;store.set("quran-ui",ui);applyUi();});
+  i.addEventListener("input",()=>{ui[key]=+i.value;store.set("quran-ui",ui);applyUi();layout();});
   return h("label",{class:"row"},h("span",{text:label}),i);};
+
+const layout=()=>dispatchEvent(new Event("quran:layout"));
+const readingRows=()=>{
+  const pick=(name,label,opts,cur,on)=>{const fs=h("fieldset",{class:"grp"},h("legend",{text:label}));
+    opts.forEach(([v,tx])=>{const r=h("input",{type:"radio",name});r.checked=v===cur;r.addEventListener("change",()=>on(v));fs.append(h("label",{class:"radio"},r,tx));});return fs;};
+  const save=(k,v)=>{ui[k]=v;store.set("quran-ui",ui);if(document.body.dataset.page==="reader")location.reload();};
+  return[pick("rd-mode","Reading style",[["book","Book pages"],["scroll","Continuous scroll"]],ui.mode==="scroll"?"scroll":"book",v=>save("mode",v)),
+    pick("rd-dir","Page turning (book pages)",[["rtl","Right to left, like a mushaf"],["ltr","Left to right"]],ui.dir==="ltr"?"ltr":"rtl",v=>save("dir",v))];};
 
 /* ---------- ui helpers ---------- */
 let tt;const toast=m=>{let t=$("#toast");if(!t){t=h("div",{id:"toast",role:"status","aria-live":"polite"});document.body.append(t);}
@@ -85,10 +93,97 @@ function chips(box,o){
     sets.forEach(fs=>{let any=false;$$(".chip",fs).forEach(l=>{const ok=w.every(x=>l.dataset.s.includes(x));l.hidden=!ok;if(ok)any=true;});fs.hidden=!any;});});
   upd();}
 
+/* ---------- book view: paginated pages with swipe / drag page turns ---------- */
+function makeBook(o){
+  const rtl=o.rtl,reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,all=$$("#verses>*");
+  const sheet=cls=>{const head=h("div",{class:"pg-head",text:"\u00a0"}),body=h("div",{class:"pg-body"}),foot=h("div",{class:"pg-foot",text:"0"});
+    return{head,body,foot,el:h("div",{class:"sheet "+cls},h("div",{class:"pg"},head,body,foot))};};
+  const base=sheet("base"),meas=sheet("meas"),leaf=sheet("leaf");leaf.el.hidden=true;
+  const leaves=h("div",{class:"leaves"},base.el,meas.el,leaf.el),cover=h("div",{class:"cover"},leaves);
+  const prev=h("button",{type:"button",class:"btn bk-btn","aria-label":"Previous page",text:rtl?"\u203A":"\u2039"});
+  const next=h("button",{type:"button",class:"btn bk-btn","aria-label":"Next page",text:rtl?"\u2039":"\u203A"});
+  const slider=h("input",{type:"range",min:1,max:1,value:1,class:"bk-slider","aria-label":"Go to page"});
+  const count=h("span",{class:"bk-count small","aria-live":"polite"});
+  const bar=h("div",{class:"bk-bar"},prev,h("div",{class:"bk-mid"},slider,count),next);
+  $("#verses").before(h("div",{class:"book"+(rtl?" rtl":"")},cover,bar));
+  document.documentElement.classList.add("bookmode","book-ready");
+
+  let pages=[],idx=0,busy=false,turn=null;
+  const isAyah=x=>x.classList.contains("ayah");
+  const firstAyah=i=>{const n=pages[i]&&pages[i].find(isAyah);return n?+n.dataset.a:0;};
+  const groups=()=>{const G=[];let pend=[...o.title];
+    all.forEach(n=>{if(n.hidden)return;if(isAyah(n)){G.push([...pend,n]);pend=[];}else pend.push(n);});
+    G.push([...pend,...o.end]);return G;};
+  const size=()=>{const top=cover.getBoundingClientRect().top+scrollY;
+    leaves.style.height=Math.max(420,Math.min(innerHeight-top-bar.offsetHeight-36,900))+"px";};
+  const fill=(s,i)=>{const pg=pages[i]||[],A=pg.filter(isAyah).map(x=>+x.dataset.a);
+    s.body.replaceChildren(...pg);s.body.scrollTop=0;
+    s.head.replaceChildren(h("span",{text:o.name}),h("span",{text:A.length?(A.length>1?`${o.sura}:${A[0]}\u2013${A[A.length-1]}`:`${o.sura}:${A[0]}`):""}));
+    s.foot.textContent=String(i+1);};
+  const setIdx=i=>{idx=Math.max(0,Math.min(i,pages.length-1));fill(base,idx);base.el.style.setProperty("--cast",0);
+    slider.max=pages.length;slider.value=idx+1;count.textContent=`Page ${idx+1} of ${pages.length}`;
+    prev.disabled=idx===0;next.disabled=idx===pages.length-1;if(o.onPage)o.onPage(firstAyah(idx));};
+  const paginate=()=>{
+    const atEnd=pages.length>1&&idx===pages.length-1,keep=pages.length?firstAyah(idx):0;
+    base.body.replaceChildren();leaf.body.replaceChildren();size();meas.body.replaceChildren();
+    const P=[];let cur=[];
+    groups().forEach(g=>{meas.body.append(...g);
+      if(meas.body.scrollHeight>meas.body.clientHeight+1&&cur.length){meas.body.replaceChildren(...g);P.push(cur);cur=[...g];}else cur.push(...g);});
+    P.push(cur);meas.body.replaceChildren();pages=P;
+    let t=0;if(atEnd)t=P.length-1;else if(keep){const j=P.findIndex(pg=>pg.includes(o.arts[keep-1]));t=j<0?0:j;}
+    setIdx(t);};
+
+  /* page-turn animation: t goes 0 -> 1; the leaf swings about the spine edge */
+  const angle=(t,dir)=>(dir>0?t:1-t)*90*(rtl?1:-1);
+  const draw=t=>{const a=angle(t,turn.dir);leaf.el.style.transform=`rotateY(${a}deg)`;
+    leaf.el.style.setProperty("--shade",Math.abs(a)/90);base.el.style.setProperty("--cast",Math.sin(Math.PI*t));};
+  const begin=dir=>{const to=idx+dir;if(to<0||to>=pages.length)return false;
+    if(dir>0){fill(leaf,idx);fill(base,to);}else{fill(base,idx);fill(leaf,to);}
+    turn={dir,to};leaf.el.hidden=false;draw(dir>0?0:0);return true;};
+  const finish=ok=>{if(ok)idx=turn.to;turn=null;leaf.el.hidden=true;leaf.el.style.transform="";busy=false;setIdx(idx);};
+  const anim=(from,to,ms,done)=>{if(reduce){draw(to);done();return;}const t0=performance.now();
+    const step=now=>{const k=Math.min(1,(now-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;draw(from+(to-from)*e);k<1?requestAnimationFrame(step):done();};
+    requestAnimationFrame(step);};
+  const turnBy=dir=>{if(busy||!begin(dir))return;busy=true;anim(0,1,430,()=>finish(true));};
+
+  /* touch / pen drag follows the finger; mouse uses buttons, keys or horizontal wheel */
+  const fwdSign=rtl?1:-1,st={id:null};
+  leaves.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse"||busy)return;Object.assign(st,{id:e.pointerId,x:e.clientX,y:e.clientY,t0:performance.now(),on:false,t:0,v:0});});
+  leaves.addEventListener("pointermove",e=>{if(st.id!==e.pointerId)return;const dx=e.clientX-st.x,dy=e.clientY-st.y;
+    if(!st.on){if(Math.abs(dx)<10||Math.abs(dx)<Math.abs(dy)*1.3)return;
+      st.dir=dx*fwdSign>0?1:-1;if(!begin(st.dir)){st.id=null;return;}st.on=true;busy=true;try{leaves.setPointerCapture(e.pointerId);}catch{}}
+    const along=dx*fwdSign*st.dir;st.t=Math.max(0,Math.min(1,along/(leaves.clientWidth*.85)));
+    st.v=along/Math.max(1,performance.now()-st.t0);draw(st.t);});
+  const release=cancel=>{if(!st.on){st.id=null;return;}st.id=null;st.on=false;
+    const ok=!cancel&&(st.t>.3||st.v>.45);anim(st.t,ok?1:0,260,()=>finish(ok));};
+  leaves.addEventListener("pointerup",e=>{if(st.id===e.pointerId)release(false);});
+  leaves.addEventListener("pointercancel",e=>{if(st.id===e.pointerId)release(true);});
+  let wl=0;leaves.addEventListener("wheel",e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)&&Math.abs(e.deltaX)>40&&performance.now()-wl>600){
+    wl=performance.now();e.preventDefault();turnBy((e.deltaX>0)!==rtl?1:-1);}},{passive:false});
+  document.addEventListener("keydown",e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest("input,select,textarea,[contenteditable]"))return;
+    if(e.key==="ArrowRight"||e.key==="ArrowLeft")turnBy((e.key==="ArrowRight")!==rtl?1:-1);});
+  prev.addEventListener("click",()=>turnBy(-1));next.addEventListener("click",()=>turnBy(1));
+  slider.addEventListener("input",()=>{if(!busy)setIdx(+slider.value-1);});
+
+  /* re-flow when anything that changes page heights changes */
+  let rt;const refresh=()=>{clearTimeout(rt);rt=setTimeout(()=>busy?refresh():paginate(),90);};
+  addEventListener("quran:layout",refresh);
+  let lw=innerWidth,lh=innerHeight;addEventListener("resize",()=>{if(innerWidth!==lw||Math.abs(innerHeight-lh)>80){lw=innerWidth;lh=innerHeight;refresh();}});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(refresh);
+  const panel=$("#panel");if(panel)panel.addEventListener("toggle",refresh);
+
+  const reveal=(n,flash=true)=>{const i=pages.findIndex(pg=>pg.includes(o.arts[n-1]));if(i<0||busy)return;
+    const done=()=>{const el=o.arts[n-1];base.body.scrollTop=Math.max(0,el.offsetTop-6);if(flash){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);}};
+    if(i===idx)done();else if(Math.abs(i-idx)===1){turnBy(i-idx);setTimeout(done,480);}else{setIdx(i);done();}};
+  paginate();
+  if(!store.get("quran-bk-hint",false)){store.set("quran-bk-hint",true);setTimeout(()=>toast(`Swipe ${rtl?"right":"left"} to turn the page`),700);}
+  return{refresh,reveal};
+}
+
 /* ---------- reader ---------- */
 function initReader(){
   const s=+document.body.dataset.sura,meta=C.suras[s-1],size=meta.size,root=document.documentElement;
-  const arts=$$(".ayah"),bar=$("#rangebar"),statusEl=$("#status");
+  const arts=$$(".ayah"),bar=$("#rangebar"),statusEl=$("#status");let book=null;
   const jump=$("#jump");
   jump.append(h("option",{value:"",text:"Choose a surah"}));
   C.suras.forEach((m,i)=>{const n=i+1;if(n<C.range[0]||n>C.range[1])return;jump.append(h("option",{value:pad(n)+".html",text:`${n}. ${m.name}`,selected:n===s}));});
@@ -103,11 +198,11 @@ function initReader(){
     const full=a===1&&b===size;bar.hidden=full;bar.textContent="";
     if(!full){bar.append(a===b?`Showing verse ${a} of ${size}. `:`Showing verses ${a}–${b} of ${size}. `,h("button",{type:"button",class:"link",text:"Show whole surah"}));
       $("button",bar).addEventListener("click",()=>applyRange(1,size,true));}
-    if(pushHash)history.replaceState(null,"",full?location.pathname+location.search:`#${a}${a===b?"":"-"+b}`);};
-  const focusAyah=n=>{const el=$("#ayah-"+n);if(!el)return;el.scrollIntoView({block:"start"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);};
+    if(pushHash)history.replaceState(null,"",full?location.pathname+location.search:`#${a}${a===b?"":"-"+b}`);if(book)book.refresh();};
+  const focusAyah=n=>{if(book){book.reveal(n);return;}const el=arts[n-1];if(!el)return;el.scrollIntoView({block:"start"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);};
   const route=()=>{const m=/^#(?:ayah-)?(\d+)(?:-(\d+))?$/.exec(location.hash);if(!m)return;
     let a=+m[1],b=m[2]?+m[2]:a;if(a>b){const t=a;a=b;b=t;}if(a<1||a>size)return;b=Math.min(b,size);
-    if(a!==b){applyRange(a,b,false);scrollTo({top:Math.max(0,bar.offsetTop-8)});}else{applyRange(1,size,false);focusAyah(a);}};
+    if(a!==b){applyRange(a,b,false);if(!book)scrollTo({top:Math.max(0,bar.offsetTop-8)});}else{applyRange(1,size,false);focusAyah(a);}};
 
   /* bookmarks */
   const bms=()=>{const b=store.get("quran-bookmark",[]);return Array.isArray(b)?b:[];};
@@ -119,10 +214,10 @@ function initReader(){
   /* audio */
   let au=null;const cont=()=>store.get("quran-cont",true)!==false;
   const setPlay=(art,on)=>{const b=$(".play",art);if(!b)return;const a=+art.dataset.a;b.innerHTML=svg(on?"pause":"play");const l=on?`Pause verse ${a}`:`Play verse ${a}`;b.setAttribute("aria-label",l);b.title=l;};
-  const stopAudio=()=>{if(au){au.pause();au.onended=au.onerror=null;au=null;}$$(".ayah.playing").forEach(x=>{x.classList.remove("playing");setPlay(x,false);});};
-  const play=a=>{stopAudio();const art=$("#ayah-"+a);if(!art)return;
+  const stopAudio=()=>{if(au){au.pause();au.onended=au.onerror=null;au=null;}arts.filter(x=>x.classList.contains("playing")).forEach(x=>{x.classList.remove("playing");setPlay(x,false);});};
+  const play=a=>{stopAudio();const art=arts[a-1];if(!art)return;
     au=new Audio(C.audio.replace("{s}",pad(s)).replace("{a}",pad(a)));art.classList.add("playing");setPlay(art,true);
-    au.onended=()=>{stopAudio();const nx=$("#ayah-"+(a+1));if(cont()&&nx&&!nx.hidden){play(a+1);nx.scrollIntoView({block:"center",behavior:"smooth"});}};
+    au.onended=()=>{stopAudio();const nx=arts[a];if(cont()&&nx&&!nx.hidden){play(a+1);if(book)book.reveal(a+1,false);else nx.scrollIntoView({block:"center",behavior:"smooth"});}};
     au.onerror=()=>{stopAudio();toast("Audio could not be loaded. Check your connection.");};
     au.play().catch(()=>{stopAudio();toast("Couldn’t start audio.");});};
 
@@ -144,14 +239,14 @@ function initReader(){
   const place=(art,t,text)=>{if(!text||$(`[data-t="${t.id}"]`,art))return;
     const list=$(t.kind==="arabic"?".ar-extra":".tr-list",art),ref=[...list.children].find(c=>ORD[c.dataset.t]>ORD[t.id]);list.insertBefore(trNode(t,text),ref||null);};
   const sync=async()=>{
-    $$("[data-t]").forEach(n=>{if(!isOn(n.dataset.t))n.remove();});
-    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!$(`[data-t="${t.id}"]`));
-    if(!need.length){statusEl.textContent="";return;}
+    arts.forEach(a=>$$("[data-t]",a).forEach(n=>{if(!isOn(n.dataset.t))n.remove();}));
+    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!arts.some(a=>$(`[data-t="${t.id}"]`,a)));
+    if(!need.length){statusEl.textContent="";layout();return;}
     statusEl.textContent="Loading…";
     const res=await Promise.all(need.map(t=>load(`surah/${t.id}/${pad(s)}`).then(a=>[t,a],()=>[t,null])));
     const fails=[];
     res.forEach(([t,arr])=>{if(!arr){fails.push(t.label);return;}if(!isOn(t.id))return;arts.forEach(art=>place(art,t,arr[+art.dataset.a-1]));});
-    statusEl.textContent=fails.length?`Couldn’t load ${fails.join(", ")}. Check your connection and try again.`:"";};
+    statusEl.textContent=fails.length?`Couldn’t load ${fails.join(", ")}. Check your connection and try again.`:"";layout();};
 
   /* display panel */
   const body=$("#panel-body");body.textContent="";
@@ -159,7 +254,7 @@ function initReader(){
   go.addEventListener("click",()=>{let a=parseInt(fi.value,10)||1,b=parseInt(ti.value,10)||size;if(a>b)[a,b]=[b,a];applyRange(Math.max(1,a),Math.min(size,b),true);});
   const autoplay=h("input",{type:"checkbox"});autoplay.checked=cont();autoplay.addEventListener("change",()=>store.set("quran-cont",autoplay.checked));
   const chipBox=h("div");
-  body.append(sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2),
+  body.append(...readingRows(),sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2),
     h("div",{class:"row"},h("span",{text:"Show verses"}),fi,"to",ti,go),
     h("label",{class:"radio"},autoplay,"Play the next verse automatically"),
     h("h2",{text:"Shown with each verse"}),chipBox);
@@ -167,7 +262,11 @@ function initReader(){
 
   /* reading position */
   let last=1,tm;const save=()=>store.set("quran-history",{s,a:last,n:meta.name,t:Date.now()});save();
-  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)last=+e.target.dataset.a;});clearTimeout(tm);tm=setTimeout(save,1000);},{rootMargin:"0px 0px -75% 0px"});arts.forEach(a=>io.observe(a));}
+  flags();
+  if(ui.mode!=="scroll"){
+    book=makeBook({sura:s,name:meta.name,arts,rtl:ui.dir!=="ltr",title:[$("h1"),$(".meaning"),$(".facts")],end:[$(".pager"),$(".pager").nextElementSibling],
+      onPage:a=>{if(a){last=a;clearTimeout(tm);tm=setTimeout(save,800);}}});
+  }else if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)last=+e.target.dataset.a;});clearTimeout(tm);tm=setTimeout(save,1000);},{rootMargin:"0px 0px -75% 0px"});arts.forEach(a=>io.observe(a));}
   addEventListener("pagehide",save);addEventListener("hashchange",route);
   flags();sync();route();
 }
@@ -189,7 +288,7 @@ function initIndex(){
 /* ---------- settings ---------- */
 function initConfig(){
   const build=()=>chips($("#cfg-chips"),{audio:true,isOn,set:setOn});build();
-  $("#cfg-sliders").append(sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2));
+  $("#cfg-sliders").append(...readingRows(),sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2));
   $$("input[name=theme]").forEach(r=>{r.checked=r.value===(ui.theme||"auto");
     r.addEventListener("change",()=>{ui.theme=r.value;store.set("quran-ui",ui);applyUi();});});
   $("#cfg-reset").addEventListener("click",()=>{store.del("quran-cf");prefs={};build();toast("Defaults restored");});
@@ -305,5 +404,5 @@ applyUi();
 const top=h("button",{class:"totop",type:"button","aria-label":"Back to top",html:"&#8593;"});
 top.hidden=true;top.addEventListener("click",()=>scrollTo({top:0}));document.body.append(top);
 addEventListener("scroll",()=>{top.hidden=scrollY<700;},{passive:true});
-({reader:initReader,index:initIndex,search:initSearch,config:initConfig,bookmarks:initBookmarks,download:initDownload})[document.body.dataset.page]?.();
+try{({reader:initReader,index:initIndex,search:initSearch,config:initConfig,bookmarks:initBookmarks,download:initDownload})[document.body.dataset.page]?.();}catch(e){document.documentElement.classList.remove("book-pref");console.error(e);}
 })();
