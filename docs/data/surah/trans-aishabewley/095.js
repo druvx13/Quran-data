@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/095",["By the fig and the olive","and Mount Sinai","and this safe land","We created man in the finest mould","Then We reduced him to the lowest of the low","except for those who have iman and do right actions: they will have a wage which never fails","What could make you deny the Reckoning after this","Is Allah not the Justest of Judges"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/110",["When comes the victory of Allah, and the Conquest","And you see mankind entering the Religion of Allah in troops","So extol with the praise of your Lord, and ask Him forgiveness; surely He has (always) been Superbly Relenting"]);

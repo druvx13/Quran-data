@@ -1,0 +1,1 @@
+QData("surah/trans-itani/103",["By time.","The human being is in loss.","Except those who believe, and do good works, and encourage truth, and recommend patience."]);

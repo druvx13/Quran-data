@@ -1,0 +1,1 @@
+QData("surah/translit-en/113",["Qul aAAoothu birabbi alfalaqi","Min sharri ma khalaqa","Wamin sharri ghasiqin itha waqaba","Wamin sharri alnnaffathati fee alAAuqadi","Wamin sharri hasidin itha hasada"]);

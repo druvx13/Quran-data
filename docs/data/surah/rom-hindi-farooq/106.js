@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/106",["kitana hai quraish ko lagae aur parachae rakhana","lagae aur parachae rakhana unhen jaade aur garmee kee yaatra se","atah unhen chaahie ki is ghar (kaaba) ke rab kee bandagee kare","jisane unhen khilaakar bhookh se bachaaya aur nishchintata pradaan karake bhay se bachaaya"]);

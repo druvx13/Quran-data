@@ -1,0 +1,1 @@
+QData("surah/trans-itaninew/111",["Condemned are the hands of Abee Lahab, and he is condemned","His wealth did not avail him, nor did what he acquired","He will burn in a Flaming Fire","And his wife—the firewood carrier","Around her neck is a rope of thorns"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/105",["Have you not considered how your Lord dealt with the owners of the Elephant","Did He not cause their plan to miscarry","and sent birds in flocks against them","which threw stamped clay pellets at them","It left them just like chewed-up chaff"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/107",["Have you considered him who calls the judgment (or Religion) a lie","He it is who pushes the orphan away","And urges not (others) to feed the needy","But woe to those who pray","But are careless in their prayers","Who pretend for show","Yet withhold small kindnesses (or necessaries)"]);

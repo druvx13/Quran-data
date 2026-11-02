@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/111",["LET the hands of ABU LAHAB perish,and let himself perish","His wealth and his gains shall avail him not","Burned shall he be at the fiery flame","And his wife laden with fire wood","On her neck a rope of palm fibre"]);

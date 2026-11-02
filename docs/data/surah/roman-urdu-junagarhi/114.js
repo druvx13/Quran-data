@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/114",["Aap kehdijiey!kay mein logo kay parwardigar ki panah mein ata hun","Logon ky malik ki(aur)","Logon ky maabood ki(Panah mein)","Waswasa dalney waly pechy hut janey waly kay shar say","Jo logon kay seenon mein waswasa daalta hai","(Khua) woh jinn mein say ho ya insaan mein say"]);

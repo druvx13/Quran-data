@@ -1,0 +1,1 @@
+QData("surah/trans-daryabadi/112",["Say thou: He is Allah, the One!","Allah, the Independent,","He begetteth not, nor Was He begotten.","And there hath never been co-equal with Him anyone."]);

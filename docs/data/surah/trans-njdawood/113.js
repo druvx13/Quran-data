@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/113",["SAY: ‘I seek refuge in the Lord of Daybreak","from the mischief of His creation","from the mischief of the night when she spreads her darkness","from the mischief of conjuring witches;¹","from the mischief of the envier, when he envies.‘"]);

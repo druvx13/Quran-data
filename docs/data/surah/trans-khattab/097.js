@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/097",["Indeed, ˹it is˺ We ˹Who˺ sent this ˹Quran˺ down on the Night of Glory","And what will make you realize what the Night of Glory is","The Night of Glory is better than a thousand months","That night the angels and the ˹holy˺ spirit descend, by the permission of their Lord, for every ˹decreed˺ matter","It is all peace until the break of dawn"]);

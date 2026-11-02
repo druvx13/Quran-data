@@ -1,0 +1,1 @@
+QData("surah/trans-qarai/107",["Did you see him who denies the Retribution?","That is the one, who drives away the orphan,","and does not urge the feeding of the needy.","Woe to those who pray","but are heedless of their prayers","—who show off","but deny aid."]);

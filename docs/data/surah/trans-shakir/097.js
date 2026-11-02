@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/097",["Surely We revealed it on the grand night.","And what will make you comprehend what the grand night","The grand night is better than a thousand months.","The angels and Jibreel descend in it by the permission of their Lord for every affair,","Peace! it is till the break of the morning."]);

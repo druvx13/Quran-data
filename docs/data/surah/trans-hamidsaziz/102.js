@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/102",["The rivalry in worldly increase deludes you","Till you visit the graves","Nay! In the end you shall know","And again Nay! In the end you shall know","Nay! Did you but know with certain knowledge","You shall surely see hell","And again you shall surely see it with an eye of certainty","Then you shall surely be asked about pleasure"]);

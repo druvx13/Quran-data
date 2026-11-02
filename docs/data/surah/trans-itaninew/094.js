@@ -1,0 +1,1 @@
+QData("surah/trans-itaninew/094",["Did We not soothe your heart","And lift from you your burden","Which weighed down your back","And raised for you your reputation","With hardship comes ease","With hardship comes ease","When your work is done, turn to devotion","And to your Lord turn for everything"]);

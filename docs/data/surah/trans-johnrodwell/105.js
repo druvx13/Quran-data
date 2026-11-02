@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/105",["HAST thou not seen how thy Lord dealt with the army of the ELEPHANT","Did he not cause their stratagem to miscarry","And he sent against them birds in flocks (ababils)","Claystones did they hurl down upon them","And he made them like stubble eaten down"]);

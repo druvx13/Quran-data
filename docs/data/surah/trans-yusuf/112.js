@@ -1,0 +1,1 @@
+QData("surah/trans-yusuf/112",["Say: He is Allah, the One and Only;","Allah, the Eternal, Absolute;","He begetteth not, nor is He begotten;","And there is none like unto Him."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/111",["Doomed are the hands of Abu Lahab, and he is doomed too","His wealth and all that he gained would not help him","He will burn in a fire strongly glowing","and his wife as well, the carrier of firewood","Around her neck is a rope of palm fiber"]);

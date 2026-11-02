@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/107",["kya tumane use dekha jo deen ko jhuthalaata hai","vahee to hai jo anaath ko dhakke deta hai","aur muhataaj ke khilaane par nahin ukasaata","atah tabaahee hai un namaaziyon ke lie","jo apanee namaaz se gaaphil (asaavadhaan) hain","jo dikhaave ke lie kaary karate hain","aur saadhaaran baratane kee cheez bhee kisee ko nahin dete"]);

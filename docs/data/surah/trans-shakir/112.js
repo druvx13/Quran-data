@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/112",["Say: He, Allah, is One.","Allah is He on Whom all depend.","He begets not, nor is He begotten.","And none is like Him."]);

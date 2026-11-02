@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/113",["Kaho main panaah maangta hoon subah ke Rubb ki","Har us cheez ke shar se jo usne paida ki hai","Aur raat ki tareeki ke sharr se jab ke woh chaa jaye","Aur girhon mein phoonkne walon (ya waliyon) ke sharr se","Aur hasid(envies) ke sharr se jab ke woh hasad(envy) karey"]);

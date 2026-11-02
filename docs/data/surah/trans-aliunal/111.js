@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/111",["May both hands of Abu Lahab be ruined, and are ruined are they","His wealth has not availed him, nor his gains","He will enter a flaming Fire to roast","And (with him) his wife, carrier of firewood (and of evil tales and slander)","Around her neck will be a halter of strongly twisted rope"]);

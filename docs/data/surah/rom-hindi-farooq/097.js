@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/097",["hamane ise qadr kee raat mein avatarit kiya","aur tumhen kya maaloom ki qadr kee raat kya hai","qadr kee raat uttam hai hazaar maheenon se","usamen farishten aur rooh har mahatvapoorn maamalen mein apane rab kee anumati se utarate hai","vah raat poornatah shaanti aur salaamatee hai, ushaakaal ke uday hone tak"]);

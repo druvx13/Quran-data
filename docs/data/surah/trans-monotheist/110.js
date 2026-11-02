@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/110",["When God's victory and conquest comes","And you see mankind entering into God's system in flocks","You shall glorify your Lord's grace, and seek His forgiveness. He is the Redeemer"]);

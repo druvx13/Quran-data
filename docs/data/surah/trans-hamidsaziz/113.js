@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/113",["Say, \"I seek refuge in the Lord of the Dawn","From the evil of created things","And from the evil of the night when it cometh on","And from the evil of those who practice secret arts","And from the evil of the envious when he envies"]);

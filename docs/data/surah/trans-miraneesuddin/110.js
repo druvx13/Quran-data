@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/110",["When God's help and the victory comes","and you see people enter the religion of God in troops","then glorify your Lord by praising Him and seek His protective forgiveness. He is certainly the Accepter of repentance"]);

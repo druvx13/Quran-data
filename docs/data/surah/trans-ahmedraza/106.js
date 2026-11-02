@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedraza/106",["Because of giving alliances to the Quraish.","(We) gave them alliances during both their travels of winter and summer.","So they must worship the Lord of this House. (The Ka’aba)","The One Who gave them food in hunger, and bestowed them safety from a great fear."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/109",["Say: O infidels","I worship not that which you worship","nor will you worship that which I worship","I shall never worship those gods whom you worship","nor it appears will you ever worship Allah, whom I worship","to you be your religion, and to me mine"]);

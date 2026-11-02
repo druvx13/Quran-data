@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/108",["ni:Sanka ame tamane (haujha) kausara (ane ghanum badhu) apyum che","basa! Tu potana palanahara mate namajha padha ane kurabani kara","kharekhara tamaro satru ja varasadara vagarano che, ane badanama che"]);

@@ -1,0 +1,1 @@
+QData("surah/translit-en/111",["Tabbat yada abee lahabin watabba","Ma aghna AAanhu maluhu wama kasaba","Sayasla naran thata lahabin","Waimraatuhu hammalata alhatabi","Fee jeediha hablun min masadin"]);

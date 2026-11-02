@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/110",["When Allah’s ˹ultimate˺ help comes and the victory ˹over Mecca is achieved˺","and you ˹O Prophet˺ see the people embracing Allah’s Way in crowds","then glorify the praises of your Lord and seek His forgiveness, for certainly He is ever Accepting of Repentance"]);

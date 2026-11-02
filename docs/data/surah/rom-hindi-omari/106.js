@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/106",["quraish ke svabhaav banaane ke kaaran","unake jaade tatha garmee kee yaatra ka svabhaav banaane ke kaaran","unhen chaahiye ki is ghar (kaaba) ke prabhu kee pooja karen","jisane unhen bhookh mein khilaaya tatha dar se nidar kar diya"]);

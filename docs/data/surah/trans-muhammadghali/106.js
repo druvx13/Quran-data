@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/106",["For the (customary) accord (Or: joining together) of Quraysh","Their (customary) accord for the winter and summer caravan","So let them worship The Lord of this House","Who has fed them against hunger and secured them from fear"]);

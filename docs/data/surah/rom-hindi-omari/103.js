@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/103",["nichadate din kee shapath","nihsandeh, insaan kshati mein hai","atirikt unake, jo eemaan laaye tatha sadaachaar kiye evan ek-doosare ko saty ka upadesh tatha dhairy ka upadesh dete rahe"]);

@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/111",["Abu Lahab ky dono hath toot gaye aur who (khud) halk ho gaya","Na to uska maal usky kaam aya aur na uski kamai","Who unqareeb bharkney waali aag mein jaey ga","Aur uski biwi bhi(jaeygi)jo lakriyan dhonay waali hai","usski gardan mein post khajoor ki bati hui rassi hogi"]);

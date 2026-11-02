@@ -1,0 +1,1 @@
+QData("surah/trans-literal/112",["Say: \"He is God one","God the Lord/master/intended","(He) did not give birth/procreate , and was not born/procreated","And (there) was not for Him any equal/match"]);

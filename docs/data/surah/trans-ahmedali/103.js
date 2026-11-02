@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedali/103",["TIME AND AGE are witness","Man is certainly loss,","Except those who believe, and do good and enjoin truth on one another, and enjoin one another to bear with fortitude (the trials that befall)."]);

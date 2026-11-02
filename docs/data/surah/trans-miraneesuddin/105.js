@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/105",["Did you not consider, how your Lord dealt with the owners of the elephant","Did He not make their plot useless","and send on them flocks of flying creatures","who pelted them with stones of baked clay","so that He made them like eaten up straw (husk)"]);

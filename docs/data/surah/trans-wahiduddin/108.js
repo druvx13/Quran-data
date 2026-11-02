@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/108",["We have given you abundance.","Pray to your Lord and sacrifice to Him alone.","It is the one who hates you who has been cut off."]);

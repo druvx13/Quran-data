@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/107",["Have you seen the one who denies the Judgment?","That is the one who shoves the orphan aside.","And does not urge the feeding of the poor.","So woe to those who pray.","Those who are heedless of their prayer.","Those who show off.","And withhold small kindnesses."]);

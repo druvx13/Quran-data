@@ -1,0 +1,1 @@
+QData("surah/translit-en/109",["Qul ya ayyuha alkafiroona","La aAAbudu ma taAAbudoona","Wala antum AAabidoona ma aAAbudu","Wala ana AAabidun ma AAabadtum","Wala antum AAabidoona ma aAAbudu","Lakum deenukum waliya deeni"]);

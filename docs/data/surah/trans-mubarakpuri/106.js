@@ -1,0 +1,1 @@
+QData("surah/trans-mubarakpuri/106",["For the Ilaf of the Quraysh.","Their Ilaf caravans, in winter and in summer.","So, let them worship the Lord of this House.","Who has fed them against hunger, and has made them safe from fear."]);

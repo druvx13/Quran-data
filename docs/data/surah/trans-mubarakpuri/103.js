@@ -1,0 +1,1 @@
+QData("surah/trans-mubarakpuri/103",["By Al-`Asr.","Verily, man is in loss.","Except those who believe and do righteous deeds, and recommend one another to the truth, and recommend one another to patience."]);

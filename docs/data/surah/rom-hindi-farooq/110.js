@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-farooq/110",["jab allaah kee sahaayata aa jae aur vijay praapt ho","aur tum logon ko dekho ki ve allaah ke deen (dharm) mein giroh ke giroh pravesh kar rahe hai","to apane rab kee prashansa karo aur usase kshama chaaho. nissandeh vah bada tauba qabool karanevaala hai"]);

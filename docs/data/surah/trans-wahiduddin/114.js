@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/114",["Say, \"I seek refuge in the Lord of people,","the King of people,","the God of people,","from the mischief of every sneaking whis-perer,","who whispers into the hearts of people,","from jinn and men.\""]);

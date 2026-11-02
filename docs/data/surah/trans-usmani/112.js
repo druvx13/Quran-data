@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/112",["Say, “The truth is that Allah is One.","Allah is Besought of all, needing none.","He neither begot anyone, nor was he begotten.","And equal to Him has never been any one.”"]);

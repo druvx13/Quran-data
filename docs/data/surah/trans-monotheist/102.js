@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/102",["Hoarding has distracted you","Until you visit the graves","No, you will find out","Then again, you will find out","No, if only you had the knowledge of certainty","You would then see Hell","Then you will see it with the eye of certainty","Then you will be questioned, on that Day, about the blessings"]);

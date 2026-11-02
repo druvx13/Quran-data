@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/107",["Did you see him who belies religion","Then he is the one who pushes away the orphan","and does not urge on the feeding of the poor","So sorrowful is the state of the worshippers","who are heedless of their worship (salat)","(in the sense that they are) those who make a show (of their worship)","and refuse small kindness"]);

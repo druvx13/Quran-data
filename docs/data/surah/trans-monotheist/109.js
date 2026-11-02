@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/109",["Say: \"O rejecters","I do not serve what you serve","Nor do you serve what I serve","Nor will I serve what you serve","Nor will you serve what I serve","To you is your system, and to me is mine"]);

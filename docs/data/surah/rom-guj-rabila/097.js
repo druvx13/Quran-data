@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/097",["ni:Sanka ame a (kura'ana) ne kadrani ratamam utaryu","tane sum khabara ke kadrani rata sum che","kadrani rata eka hajara mahina'o thi uttama che","te (ratamam dareka karya) karava mate potana palanaharana adesathi pharista'o ane ruha (jibra'ila) utare che","a ratri sampurna salamati vali hoya che ane parodhana udaya sudhi (rahe che)"]);

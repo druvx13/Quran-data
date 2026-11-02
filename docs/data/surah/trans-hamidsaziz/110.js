@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/110",["When there comes Allah´s help and victory","And you shall see men enter into Allah´s religion in crowds","Then celebrate the praises of your Lord, and ask forgiveness of Him, verily, He is Relenting"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-daryabadi/105",["Hast thou not observed what wise thy Lord dealt with the fellows of the elephant?","Put He not their stratagem to straying.","And He sent against them birds in flocks.","They hurled upon them stones of baked clay;","Then He rendered them as stubble devoured."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedali/094",["HAVE WE NOT opened up your breast","And removed your burden","Which had left you devoid of hope,","And exalted your fame?","Surely with hardship there is ease.","With hardship indeed there is ease.","So when you are free work diligently,","And turn to your Lord with all your love."]);

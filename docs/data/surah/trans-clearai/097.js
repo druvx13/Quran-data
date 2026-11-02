@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/097",["Truly, We sent it down on the Night of Decree.","What will make you know what the Night of Decree is?","The Night of Decree is better than a thousand months.","The angels and the Spirit descend in it, by their Lord’s permission, with every command.","It is peace until the rising of dawn."]);

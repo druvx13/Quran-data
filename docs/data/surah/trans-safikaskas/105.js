@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/105",["Have you not seen how your Lord dealt with the army who had Elephants","Did He not utterly bring their perfect planning to nothing","And He sent birds in flocks against them","striking them with stones of hard clay","He made them like eaten straw"]);

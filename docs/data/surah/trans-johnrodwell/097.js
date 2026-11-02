@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/097",["VERILY, we have caused It to descend on the night of POWER","And who shall teach thee what the night of power is","The night of power excelleth a thousand months","Therein descend the angels and the spirit by permission of their Lord for every matter","And all is peace till the breaking of the morn"]);

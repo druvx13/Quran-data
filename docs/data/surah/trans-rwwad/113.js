@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/113",["Say, “I seek refuge with the Lord of the daybreak,","from the harm of all what He has created;","from the harm of darkening [night] when it spreads around,","from the harm of the sorceresses who blow on knots,","and from the harm of the envier when he envies.\""]);

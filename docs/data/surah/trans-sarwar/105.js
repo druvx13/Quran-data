@@ -1,0 +1,1 @@
+QData("surah/trans-sarwar/105",["Have you not considered how your Lord dealt with the people of the elephant?","Did He not cause their evil plots to fail","by sending against them flocks of swallows","which showered them with small pebbles of clay","to turn them into (something) like the left-over grass grazed by cattle."]);

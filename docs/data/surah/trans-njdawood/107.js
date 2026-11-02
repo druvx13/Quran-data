@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/107",["HAVE YOU considered him that denies the Last Judgement","It is he who turns away the orphan","and does not urge the feeding of the destitute","Woe betide those who pray","but are heedless of their prayer","who make a show of piety","and forbid alms-giving"]);

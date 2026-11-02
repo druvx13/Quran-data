@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/112",["Say, \"He is Allah, The Only One","Allah, The Everlasting Sovereign (The Arabic word is sometimes taken to mean all that is mentioned in verses 3 and)","He has not begotten and has not been begotten","And to Him none could be co-equal"]);

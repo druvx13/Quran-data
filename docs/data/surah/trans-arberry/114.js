@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/114",["Say: 'I take refuge with the Lord of men,","the King of men,","the God of men,","from the evil of the slinking whisperer","who whispers in the breasts of men","of jinn and men.'"]);

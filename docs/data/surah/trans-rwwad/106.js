@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/106",["For the accustomed security of the Quraysh,","secure in their winter and summer journeys.","Let them worship the Lord of this [Sacred] House,","Who fed them against hunger and made them secure against fear."]);

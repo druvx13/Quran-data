@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/106",["For the uniting of the tribe of Koreish","their uniting in sending forth the caravan of merchants and purveyors in winter and summer","Let them serve the Lord of this house","who supplieth them with food against hunger, and hath rendered them secure from fear"]);

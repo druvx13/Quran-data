@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/111",["May the hands of Abu Lahab perish, and may he perish!","His wealth did not avail him, nor what he earned.","He will burn in a fire of blazing flame.","And his wife, the carrier of firewood.","Around her neck is a rope of twisted fiber."]);

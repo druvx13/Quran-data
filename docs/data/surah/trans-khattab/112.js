@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/112",["Say, ˹O Prophet,˺ “He is Allah—One ˹and Indivisible˺","Allah—the Sustainer ˹needed by all˺","He has never had offspring, nor was He born","And there is none comparable to Him.”"]);

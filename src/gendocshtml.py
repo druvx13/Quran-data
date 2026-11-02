@@ -24,11 +24,15 @@ Design notes
 from __future__ import annotations
 
 import argparse
+import datetime
+import hashlib
 import html
 import json
 import re
 import shutil
+import struct
 import sys
+import zlib
 from bisect import bisect_right
 from dataclasses import dataclass
 from pathlib import Path
@@ -201,7 +205,10 @@ def _ur(id_, label, name, **kw):
 
 
 CATALOG: list[Source] = [
-    _s("arabic", "Arabic text", G_AR, "ar", _o("arabic"), kind="arabic", default=True),
+    _s("arabic", "Arabic(Uthmanic(minimal))", G_AR, "ar", _o("arabic"),
+       kind="arabic", default=True),
+    _s("arabic-simple", "Arabic(Simple)", G_AR, "ar", _o("arabic_simple"),
+       kind="arabic"),
     _s("translit", "Tanzil", G_TL, "en-Latn", "data/en.transliteration.tanzil.txt",
        kind="transliteration", fmt="pipe"),
     _s("translit-unicode", "Unicode", G_TL, "en-Latn", _o("translit_unicode"),
@@ -327,12 +334,28 @@ def parse_lines(path: Path) -> Verses:
 PARSERS = {"bracket": parse_bracket, "pipe": parse_pipe, "lines": parse_lines}
 
 
+_MARKS = re.compile(r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]")
+_BASMALA = ("\u0628\u0633\u0645", "\u0627\u0644\u0644\u0647",
+            "\u0627\u0644\u0631\u062d\u0645\u0646", "\u0627\u0644\u0631\u062d\u064a\u0645")
+
+
+def strip_basmala(text: str) -> str:
+    """Drop a leading Bismillah (any diacritics, tatweel or alef-wasla spelling)."""
+    words = text.split()
+    plain = tuple(_MARKS.sub("", w).replace("\u0671", "\u0627") for w in words[:4])
+    return " ".join(words[4:]) if plain == _BASMALA else text
+
+
 def load_source(root: Path, src: Source) -> Verses:
     options = [(src.path, src.fmt)] + ([src.fallback] if src.fallback else [])
     for rel, fmt in options:
         f = root / rel
         if f.exists():
             data = PARSERS[fmt](f)
+            if src.id == "arabic-simple":
+                for sura in range(2, 115):
+                    if sura != 9 and (sura, 1) in data:
+                        data[(sura, 1)] = strip_basmala(data[(sura, 1)])
             return {k: v for k, v in data.items()
                     if 1 <= k[0] <= 114 and 1 <= k[1] <= SURA_SIZE[k[0] - 1]}
     return {}
@@ -359,7 +382,7 @@ def js_json(obj) -> str:
             .replace("\u2028", "\\u2028").replace("\u2029", "\\u2029"))
 
 
-CFG = {"fonts": True}
+CFG = {"fonts": True, "base_url": ""}
 FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
              '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
              '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
@@ -369,7 +392,7 @@ FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 # Applied before first paint so saved theme and text sizes never flash.
 EARLY = ('<script>try{var u=JSON.parse(localStorage.getItem("quran-ui")||"{}"),'
          'r=document.documentElement;if(u.theme&&u.theme!=="auto")r.dataset.theme=u.theme;'
-         'if(u.tx)r.style.setProperty("--tx",u.tx);if(u.ar)r.style.setProperty("--ar",u.ar)'
+         'if(u.tx)r.style.setProperty("--tx",u.tx);if(u.ar)r.style.setProperty("--ar",u.ar);if(u.mode==="book")r.classList.add("book-pref")'
          '}catch(e){}</script>')
 
 DISCLAIMER = ("Translations convey the meanings of the Qur’an in another language; "
@@ -382,6 +405,19 @@ def page(title: str, body: str, page_id: str, *, desc: str = "", sura: int = 0,
     sd = f' data-sura="{sura}"' if sura else ""
     desc = desc or "Read the Qur’an in Arabic with transliteration, audio and translations."
     fonts = FONT_LINK if CFG["fonts"] else ""
+    fname = f"{sura:03d}.html" if sura else f"{page_id}.html"
+    seo = ""
+    if CFG["base_url"]:
+        u = f'{CFG["base_url"]}/{fname}'
+        seo = (f'<link rel="canonical" href="{esc(u)}">\n<meta property="og:type" content="website">\n'
+               f'<meta property="og:site_name" content="Qur’an Reader">\n'
+               f'<meta property="og:title" content="{esc(title)}">\n'
+               f'<meta property="og:description" content="{esc(desc)}">\n'
+               f'<meta property="og:url" content="{esc(u)}">\n'
+               f'<meta property="og:image" content="{esc(CFG["base_url"])}/assets/icon-512.png">')
+    pwa = ('<link rel="manifest" href="manifest.webmanifest">\n<meta name="theme-color" content="#0e4c47">\n'
+           '<link rel="icon" type="image/svg+xml" href="assets/icon.svg">\n'
+           '<link rel="apple-touch-icon" href="assets/icon-192.png">')
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -390,9 +426,12 @@ def page(title: str, body: str, page_id: str, *, desc: str = "", sura: int = 0,
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <meta name="color-scheme" content="light dark">
+{pwa}
+{seo}
 {EARLY}
 {fonts}
 <link rel="stylesheet" href="assets/style.css">
+<noscript><style>html.book-pref body[data-page=reader] #verses{{visibility:visible!important}}</style></noscript>
 {head_extra}
 </head>
 <body data-page="{page_id}"{sd}>
@@ -432,7 +471,18 @@ def tr_section(src: Source, text: str) -> str:
             f'lang="{src.lang}"{d}><h3>{esc(src.full)}{tag}</h3><p>{esc(text)}</p></section>')
 
 
-def surah_body(s: int, data: dict[str, Verses], defaults: list[Source]) -> str:
+def alt_section(src: Source, text: str) -> str:
+    """Secondary Arabic text (e.g. Simple). Lives next to the main Arabic, never
+    inside the translation list. Styling switches in CSS via html.simple-primary."""
+    if not text:
+        return ""
+    return (f'<section class="ar-alt" data-t="{src.id}" lang="ar" dir="rtl">'
+            f'<h3>{esc(src.full)}</h3><p>{esc(text)}</p></section>')
+
+
+def surah_body(s: int, data: dict[str, Verses], defaults: list[Source],
+               alts: list[Source] | None = None) -> str:
+    alts = alts or []
     info = sura_info(s)
     parts: list[str] = []
     if s == 9:
@@ -451,12 +501,13 @@ def surah_body(s: int, data: dict[str, Verses], defaults: list[Source]) -> str:
                      'al-tilawah). Schools differ on which verses are counted.">'
                      'Prostration</span>')
         rows = "".join(tr_section(src, data[src.id].get((s, a), "")) for src in defaults)
+        alt_rows = "".join(alt_section(src, data[src.id].get((s, a), "")) for src in alts)
         parts.append(
             f'<article class="ayah" id="ayah-{a}" data-a="{a}">'
             f'<div class="ayah-head"><a class="ayah-no" href="#ayah-{a}" '
             f'aria-label="Verse {a}">{a}</a>{badge}</div>'
-            f'<p class="ar" lang="ar" dir="rtl">{esc(data["arabic"].get((s, a), ""))}</p>'
-            f'<div class="tr-list">{rows}</div></article>')
+            f'<div class="edition-list"><p class="ar" data-t="arabic" lang="ar" dir="rtl">'
+            f'{esc(data["arabic"].get((s, a), ""))}</p>{alt_rows}{rows}</div></article>')
 
     prev_l = nxt_l = ""
     if s > 1:
@@ -472,8 +523,8 @@ def surah_body(s: int, data: dict[str, Verses], defaults: list[Source]) -> str:
 <li>Juz {info['juz']}</li>
 <li title="Standard (Egyptian 1924) chronology; scholars differ on some placements.">Revelation order {info['order']}</li>
 </ul>
-<div class="toolbar"><label for="jump" class="small muted">Go to surah</label><select id="jump" aria-label="Go to surah"></select></div>
-<details class="panel" id="panel"><summary>Display options</summary><div class="panel-body" id="panel-body"><p class="small muted">Loading options…</p></div></details>
+<div class="toolbar"><label for="jump" class="sr">Go to surah</label><select id="jump"></select>
+<details class="panel" id="panel"><summary>Display</summary><div class="panel-body" id="panel-body"><p class="small muted">Loading options…</p></div></details></div>
 <noscript><p class="note">JavaScript is needed for display options, audio, bookmarks and extra translations. The Arabic and default editions are shown below.</p></noscript>
 <div id="rangebar" class="rangebar" hidden></div>
 <p id="status" class="small muted" role="status" aria-live="polite"></p>
@@ -490,7 +541,8 @@ def index_body(sources: list[Source]) -> str:
         i = sura_info(n)
         key = f"{n} {i['name']} {i['meaning']} {type_label(i['type'])}"
         items.append(
-            f'<li data-k="{esc(key)}"><a class="sura-link" href="{n:03d}.html">'
+            f'<li data-k="{esc(key)}" data-n="{n}" data-o="{i["order"]}" data-z="{i["size"]}" '
+            f'data-ty="{i["type"]}"><a class="sura-link" href="{n:03d}.html">'
             f'<span class="sn">{n}</span><span><strong>{esc(i["name"])}</strong>'
             f'<small>{esc(i["meaning"])}</small>'
             f'<small>{type_label(i["type"])}, {i["size"]} verses, Juz {i["juz"]}</small>'
@@ -500,10 +552,12 @@ def index_body(sources: list[Source]) -> str:
         f'title="{esc(SURA_NAMES[s-1][0])} {s}:{a}">Juz {j}</a>'
         for j, (s, a) in enumerate(JUZ_STARTS, 1))
     return f"""<h1>Qur’an Reader</h1>
-<p class="lead">Read the Arabic with transliteration, verse audio and {len(sources) - 1} translations and commentaries. Choose what appears in <a href="config.html">Settings</a>.</p>
+<p class="lead">Read the Arabic with transliteration, verse audio and {sum(1 for s in sources if s.kind != "arabic")} translations and commentaries. Choose what appears in <a href="config.html">Settings</a>.</p>
 <aside id="welcome" class="note" hidden><p><strong>First visit?</strong> Open <a href="config.html">Settings</a> to pick the languages and translations you want with each verse.</p><button type="button" class="btn small" id="welcome-x">Got it</button></aside>
 <section id="resume" hidden aria-label="Continue reading"></section>
 <div class="field-row"><label for="filter">Find a surah</label><input id="filter" class="field" type="search" placeholder="Name, meaning or number" autocomplete="off"><span id="fcount" class="small muted" role="status" aria-live="polite"></span></div>
+<div class="row"><label>Sort <select id="sort"><option value="n">Mushaf order</option><option value="rev">Order of revelation</option><option value="size">Longest first</option></select></label>
+<label>Show <select id="ftype"><option value="">All surahs</option><option value="M">Meccan</option><option value="D">Medinan</option></select></label></div>
 <ul class="sgrid" id="sgrid">
 {chr(10).join(items)}
 </ul>
@@ -522,8 +576,13 @@ def config_body() -> str:
 </fieldset>
 <div id="cfg-sliders"></div></section>
 <section><h2>Shown with each verse</h2><div id="cfg-chips"></div></section>
+<section><h2>Order selected editions</h2>
+<p class="small muted">Drag editions into your preferred order, or use the move buttons. The order is saved in this browser.</p>
+<div id="cfg-order"></div></section>
 <section><h2>Your data</h2>
 <div class="row"><button type="button" class="btn" id="cfg-reset">Restore default selection</button>
+<button type="button" class="btn" id="cfg-export">Export settings</button>
+<label class="btn" for="cfg-import">Import settings</label><input id="cfg-import" type="file" accept="application/json,.json" hidden>
 <button type="button" class="btn danger" id="cfg-clear">Clear bookmarks and reading history</button></div></section>"""
 
 
@@ -543,6 +602,7 @@ def search_body() -> str:
 <input id="q" class="field" type="search" placeholder="A word, a phrase, or a verse like 2:255" autocomplete="off" spellcheck="false">
 <button class="btn primary" type="submit">Search</button></form>
 <p id="scope" class="small muted"></p>
+<p class="small muted">Tip: put a phrase in "quotes" to match it exactly.</p>
 <p id="status" role="status" aria-live="polite"></p>
 <ol class="results" id="results"></ol>
 <button id="more" class="btn" type="button" hidden>Show more</button>"""
@@ -553,17 +613,33 @@ def download_body() -> str:
              ("sources", "Sources"), ("license", "License")]
     chk = "".join(f'<label class="radio"><input type="checkbox" id="dl-p-{p}" checked> {n}</label>'
                   for p, n in pages)
+    fonts_opt = ('<label class="radio"><input type="checkbox" id="dl-fonts" checked> Include fonts in the ZIP '
+                 '(about 1 to 2 MB; keeps the Arabic looking right offline)</label>') if CFG["fonts"] else ""
     return f"""<h1>Offline copy</h1>
-<p class="lead muted">Build a ZIP of this site with only the editions and surahs you want. It runs in your browser.</p>
+<p class="lead muted">Read without internet. <strong>Save in this browser</strong> works like an installed app. <strong>Download ZIP</strong> gives you plain files to keep or share.</p>
+<section><h2>Quick picks</h2><div class="row preset-row">
+<button type="button" class="btn small" id="pre-settings">My Settings selection</button>
+<button type="button" class="btn small" id="pre-arabic">Arabic only</button>
+<button type="button" class="btn small" id="pre-english">Arabic + English</button>
+<button type="button" class="btn small" id="pre-all">Everything except AI</button></div></section>
 <section><h2>Editions</h2><div id="dl-chips"></div></section>
 <section><h2>Surahs</h2><div class="row"><label>From <input id="dl-from" class="num" type="number" min="1" max="114" value="1"></label>
-<label>To <input id="dl-to" class="num" type="number" min="1" max="114" value="114"></label></div></section>
-<section><h2>Pages</h2><div class="row">{chk}
-<label class="radio"><input type="checkbox" id="dl-search" checked> Search (adds each selected edition again, so the ZIP grows)</label></div></section>
-<p class="small muted">Each edition typically adds a few MB. Verse audio still needs an internet connection.</p>
-<button type="button" class="btn primary" id="dl-go">Build ZIP</button>
+<label>To <input id="dl-to" class="num" type="number" min="1" max="114" value="114"></label></div>
+<div class="row preset-row"><button type="button" class="btn small" id="rg-all">All 114</button>
+<button type="button" class="btn small" id="rg-amma">Juz ʿAmma (78 to 114)</button>
+<button type="button" class="btn small" id="rg-here">The surah I’m reading</button></div></section>
+<section><h2>Options</h2><div class="row">
+<label class="radio"><input type="checkbox" id="dl-search" checked> Search (adds each selected edition again)</label>{fonts_opt}</div>
+<p class="small muted">Pages to include in the ZIP:</p><div class="row">{chk}</div></section>
+<div class="note" id="dl-summary" aria-live="polite"></div>
+<div class="dl-actions"><button type="button" class="btn primary" id="dl-save">Save in this browser</button>
+<button type="button" class="btn" id="dl-go">Download ZIP</button>
+<button type="button" class="btn" id="dl-cancel" hidden>Cancel</button></div>
 <progress id="dl-prog" max="100" value="0" hidden></progress>
-<p id="dl-status" role="status" aria-live="polite"></p>"""
+<p id="dl-status" role="status" aria-live="polite"></p>
+<section><h2>Saved in this browser</h2><p id="dl-usage" class="small muted"></p>
+<button type="button" class="btn danger" id="dl-clear">Remove saved offline data</button></section>
+<p class="small muted">Verse audio always needs an internet connection. Bookmarks and settings stay in the browser where you made them; use Export in Settings to move them.</p>"""
 
 
 def sources_body(sources: list[Source]) -> str:
@@ -587,12 +663,13 @@ def license_body(text: str) -> str:
 # ---------------------------------------------------------------------------
 DARK_VARS = ("--bg:#0d1312;--surface:#141d1b;--ink:#e5ece9;--muted:#9aaba6;--line:#27332f;"
              "--soft:#1b2623;--head:#0a2220;--head-ink:#e5ece9;--on:#1e6f66;--on-ink:#fff;"
-             "--link:#74d3c7;--accent:#e2ac52;--warn:#f0b66a;--mark:#5c4a0c;color-scheme:dark;")
+             "--link:#74d3c7;--accent:#e2ac52;--warn:#f0b66a;--mark:#5c4a0c;--paper:#1b201e;--rule:#2c3733;--cover:#0a2926;--desk:#0b0f0e;color-scheme:dark;")
 
 STYLE_CSS = r"""
 :root{--bg:#f3f6f5;--surface:#fff;--ink:#14201e;--muted:#52605c;--line:#d5dedb;--soft:#e8eeec;
 --head:#0e4c47;--head-ink:#fff;--on:#0e4c47;--on-ink:#fff;--link:#0b5a53;--accent:#955a08;
 --warn:#8a4b00;--mark:#ffe08a;--tx:1;--ar:2;
+--paper:#fbf7ec;--rule:#e1d8c2;--cover:#0e4c47;--desk:#d8d2c2;
 --ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 --serif:Literata,Georgia,"Times New Roman",serif;
 --arabic:"Amiri Quran","Scheherazade New","Noto Naskh Arabic","Traditional Arabic",serif;
@@ -605,14 +682,14 @@ color-scheme:light}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.6 var(--ui)}
 [hidden]{display:none!important}
-a{color:var(--link)}
+a{color:var(--link);text-decoration:none}
+p a,.note a,.foot a{font-weight:600}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .skip{position:absolute;left:-999px;top:0}.skip:focus{left:8px;top:8px;z-index:100;background:var(--surface);padding:8px 12px;border-radius:6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .muted{color:var(--muted)}.small{font-size:.875rem}.center{text-align:center}
 .top{background:var(--head);color:var(--head-ink);display:flex;align-items:center;flex-wrap:wrap;gap:0 18px;padding:6px 14px}
 .top a{color:inherit;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
-.top a:hover{text-decoration:underline}
 .brand{font-weight:700;font-size:1.2rem;margin-right:auto}
 .top nav{display:flex;gap:0 18px;flex-wrap:wrap}
 main{max-width:46rem;margin:0 auto;padding:18px 14px 40px}
@@ -637,7 +714,7 @@ h2{font-size:1.15rem;margin:1.6em 0 .5em}
 .btn.small{min-height:36px;padding:4px 10px;font-size:.9rem}
 .btn.primary{background:var(--on);color:var(--on-ink);border-color:var(--on)}
 .btn.danger{color:var(--warn)}
-.link{background:none;border:0;color:var(--link);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.link{background:none;border:0;color:var(--link);font:inherit;text-decoration:none;font-weight:600;cursor:pointer;padding:0}
 .radio{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-right:12px}
 .radio input{width:20px;height:20px}
 .sgrid{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(14.5rem,1fr));gap:8px}
@@ -657,8 +734,22 @@ h2{font-size:1.15rem;margin:1.6em 0 .5em}
 .chip input:checked+span{background:var(--on);color:var(--on-ink);border-color:var(--on)}
 .chip input:checked+span em{color:inherit}
 .chip input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
-.toolbar{display:flex;align-items:center;gap:8px;margin:0 0 12px}
-.toolbar select{flex:1;max-width:20rem}
+.order-list{display:grid;gap:6px;max-width:48rem;padding:0;margin:10px 0;list-style:none}
+.order-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.order-item[aria-grabbed=true]{opacity:.55;border-color:var(--accent)}
+.order-item .order-name{flex:1;min-width:0}
+.order-item .order-name small{display:block;color:var(--muted);font-size:.78rem}
+.order-item .order-drag{cursor:grab;color:var(--muted);font-size:1.15rem;touch-action:none}
+.order-item .order-drag:active{cursor:grabbing}
+.order-item .btn{min-height:36px;padding:4px 9px}
+.toolbar{display:flex;align-items:center;gap:8px;margin:0 0 10px;position:relative;z-index:30}
+.toolbar select{flex:1;min-width:0}
+.toolbar .panel{background:none;border:0;margin:0;flex:none}
+.toolbar .panel>summary{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--link);list-style:none}
+.toolbar .panel>summary::-webkit-details-marker{display:none}
+.toolbar .panel[open]>summary{background:var(--on);color:var(--on-ink);border-color:var(--on)}
+.toolbar .panel-body{position:absolute;left:0;right:0;top:calc(100% + 6px);height:min(68vh,30rem);overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 32px rgba(0,0,0,.35);padding:0 14px 16px}
+.panel-bar{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:center;background:var(--surface);padding:10px 0 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
 .rangebar{background:var(--soft);border-radius:8px;padding:8px 12px;margin:0 0 12px}
 .bismillah{font-family:var(--arabic);font-size:calc(var(--ar)*1.05rem);text-align:center;margin:10px 0 16px;line-height:2}
 .juz-mark{text-align:center;color:var(--muted);font-size:.85rem;margin:18px 0 8px;padding:4px;border-block:1px dashed var(--line)}
@@ -672,6 +763,12 @@ h2{font-size:1.15rem;margin:1.6em 0 .5em}
 .ib:hover{background:var(--soft)}.ib[aria-pressed=true]{color:var(--accent)}.ib[aria-pressed=true] svg{fill:currentColor}
 .ar{font-family:var(--arabic);font-size:calc(var(--ar)*1rem);line-height:2.1;direction:rtl;text-align:right;margin:.3em 0 .4em}
 .no-ar .ar,.no-audio .play{display:none}
+.ar-alt{border-inline-start:3px solid var(--line);padding:2px 0;padding-inline-start:12px;margin:12px 0}
+.ar-alt h3{font:600 .78rem/1.3 var(--ui);color:var(--muted);margin:0 0 3px;direction:ltr;text-align:left}
+.ar-alt p{margin:0;font-family:var(--arabic);font-size:calc(var(--tx)*1.3rem);line-height:2;direction:rtl;text-align:right}
+.simple-primary .ar-alt{border:0;padding:0;margin:.3em 0 .4em}
+.simple-primary .ar-alt h3{display:none}
+.simple-primary .ar-alt p{font-size:calc(var(--ar)*1rem);line-height:2.1}
 .tr{border-inline-start:3px solid var(--line);padding:2px 0;padding-inline-start:12px;margin:12px 0;font-family:var(--serif)}
 .tr[data-kind=transliteration]{border-color:var(--accent)}
 .tr[data-kind=tafsir]{border-color:var(--link)}
@@ -700,6 +797,51 @@ progress{width:100%;height:14px;margin:10px 0}
 .totop{position:fixed;right:16px;bottom:16px;width:46px;height:46px;border-radius:50%;border:0;background:var(--on);color:var(--on-ink);font-size:1.3rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);max-width:90vw;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
 #toast.show{opacity:1}
+html.book-pref:not(.book-ready) body[data-page=reader] #verses{visibility:hidden}
+.bookmode body{background-color:var(--desk);background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.035) 0 1px,transparent 1px 5px),repeating-linear-gradient(0deg,rgba(0,0,0,.025) 0 1px,transparent 1px 7px)}
+.bookmode body{overflow-x:hidden}
+.bookmode main{max-width:42rem;padding:10px 10px 28px}
+.bookmode #toast{bottom:96px}
+.book{max-width:40rem;margin:0 auto}
+.cover{overflow:hidden;background:linear-gradient(145deg,var(--cover),color-mix(in srgb,var(--cover) 70%,#000));padding:9px;border-radius:10px;box-shadow:0 16px 32px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.1)}
+.leaves{position:relative;perspective:1500px;height:560px}
+.leaves,.leaves *{touch-action:pan-y pinch-zoom}
+.sheet{position:absolute;inset:0;background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .25 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");border-radius:3px 7px 7px 3px;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;color:var(--ink)}
+.book.rtl .sheet{transform-origin:right center;border-radius:7px 3px 3px 7px}
+.base{box-shadow:1px 0 0 var(--paper),2px 0 0 var(--rule),3px 0 0 var(--paper),4px 0 0 var(--rule),5px 0 0 var(--paper),6px 0 0 var(--rule)}
+.book.rtl .base{box-shadow:-1px 0 0 var(--paper),-2px 0 0 var(--rule),-3px 0 0 var(--paper),-4px 0 0 var(--rule),-5px 0 0 var(--paper),-6px 0 0 var(--rule)}
+.sheet::before{content:"";position:absolute;inset:0 auto 0 0;width:34px;background:linear-gradient(to right,rgba(60,40,10,.22),transparent);pointer-events:none;z-index:3}
+.book.rtl .sheet::before{inset:0 0 0 auto;background:linear-gradient(to left,rgba(60,40,10,.22),transparent)}
+.sheet::after{content:"";position:absolute;inset:0;background:#000;opacity:calc(var(--shade,0)*.4);pointer-events:none;z-index:4}
+.base::after{background:linear-gradient(to right,rgba(0,0,0,.55),transparent 65%);opacity:calc(var(--cast,0)*.8)}
+.book.rtl .base::after{background:linear-gradient(to left,rgba(0,0,0,.55),transparent 65%)}
+.leaf{z-index:2;box-shadow:0 0 26px rgba(0,0,0,.4)}
+.pg{position:absolute;inset:0;display:flex;flex-direction:column;padding:12px 18px 8px 30px}
+.book.rtl .pg{padding:12px 30px 8px 18px}
+.pg-head{display:flex;justify-content:space-between;gap:8px;font:.72rem/1.4 var(--ui);color:var(--muted);padding-bottom:4px;margin-bottom:6px;border-bottom:1px solid var(--rule)}
+.pg-body{flex:1;min-height:0;overflow:hidden;position:relative}
+.flow{column-fill:auto}
+.flow .ayah-head,.flow .tr h3,.flow .juz-mark,.flow .bismillah,.flow h1{break-after:avoid}
+.flow .tr{break-inside:avoid}.flow p{orphans:2;widows:2}
+.pg-foot{text-align:center;font:.8rem var(--serif);color:var(--muted);padding-top:4px;letter-spacing:.08em}
+.pg-foot::before,.pg-foot::after{content:"\2014";margin:0 .6em;opacity:.45}
+.bookmode .ayah{background:none;border:0;border-bottom:1px solid var(--rule);border-radius:0;margin:0;padding:10px 0 6px}
+.bookmode .ayah.playing{box-shadow:none;background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.bookmode .ayah.flash{animation-name:flashbk}
+@keyframes flashbk{0%{background:var(--mark)}100%{background:transparent}}
+.sheet h1{text-align:center;font-size:1.5rem;margin:.1em 0}.sheet .meaning{text-align:center;margin:0 0 .4em}.sheet .facts{justify-content:center}
+.sheet .pager{margin:14px 0}
+.bk-bar{display:flex;align-items:center;gap:10px;margin:14px 0 0}
+.book.rtl .bk-bar{flex-direction:row-reverse}
+.bk-mid{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.bk-slider{width:100%;accent-color:var(--on)}.book.rtl .bk-slider{direction:rtl}
+.bk-btn{min-width:54px;font-size:1.5rem;line-height:1;background:var(--paper)}
+.bk-count{color:var(--ink)}
+.row label{display:inline-flex;align-items:center;gap:6px}
+.preset-row .btn{min-height:40px}
+.dl-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#dl-summary{margin:12px 0}
+.offline-bar{background:var(--soft);color:var(--ink);border-bottom:2px solid var(--warn);text-align:center;padding:6px 12px;font-size:.9rem}
 @media(max-width:520px){h1{font-size:1.4rem}.row>span:first-child{min-width:100%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{.top,.foot,.panel,.pager,.actions,.totop,#toast,.toolbar,.skip,#rangebar{display:none!important}
@@ -728,14 +870,31 @@ const ago=t=>{const m=Math.round((Date.now()-t)/6e4);return m<1?"just now":m<60?
 let prefs=store.get("quran-cf",{});if(!prefs||typeof prefs!=="object"||Array.isArray(prefs))prefs={};
 const isOn=id=>Object.prototype.hasOwnProperty.call(prefs,id)?!!prefs[id]:!!C.defaults[id];
 const setOn=(id,v)=>{prefs[id]=!!v;store.set("quran-cf",prefs);};
+const selectedOrder=()=>{
+  const saved=store.get("quran-order",[]);
+  const known=Array.isArray(saved)?saved.filter(id=>C.tr.some(t=>t.id===id)):[];
+  return known.concat(C.tr.map(t=>t.id).filter(id=>!known.includes(id)));
+};
+const orderedSelected=()=>selectedOrder().map(id=>C.tr.find(t=>t.id===id)).filter(t=>t&&isOn(t.id));
+const saveOrder=ids=>store.set("quran-order",ids);
 let ui=store.get("quran-ui",{});if(!ui||typeof ui!=="object")ui={};
 const applyUi=()=>{const r=document.documentElement;
   if(ui.theme&&ui.theme!=="auto")r.dataset.theme=ui.theme;else delete r.dataset.theme;
   r.style.setProperty("--tx",ui.tx||1);r.style.setProperty("--ar",ui.ar||2);};
 const sliderRow=(label,key,min,max,step,def)=>{
   const i=h("input",{type:"range",min,max,step,value:ui[key]||def,"aria-label":label});
-  i.addEventListener("input",()=>{ui[key]=+i.value;store.set("quran-ui",ui);applyUi();});
+  i.addEventListener("input",()=>{ui[key]=+i.value;store.set("quran-ui",ui);applyUi();layout();});
   return h("label",{class:"row"},h("span",{text:label}),i);};
+
+const layout=()=>dispatchEvent(new Event("quran:layout"));
+const readingRows=()=>{
+  const pick=(name,label,opts,cur,on)=>{const fs=h("fieldset",{class:"grp"},h("legend",{text:label}));
+    opts.forEach(([v,tx])=>{const r=h("input",{type:"radio",name});r.checked=v===cur;r.addEventListener("change",()=>on(v));fs.append(h("label",{class:"radio"},r,tx));});return fs;};
+  const save=(k,v)=>{ui[k]=v;store.set("quran-ui",ui);if(document.body.dataset.page==="reader")location.reload();};
+  const mode=pick("rd-mode","Reading style",[["scroll","Continuous scroll (default)"],["book","Experimental book pages"]],ui.mode==="book"?"book":"scroll",v=>save("mode",v));
+  mode.append(h("p",{class:"small muted",text:"Book pages are experimental and may contain errors and bugs."}));
+  return[mode,
+    pick("rd-dir","Page turning (book pages)",[["rtl","Right to left, like a mushaf"],["ltr","Left to right"]],ui.dir==="ltr"?"ltr":"rtl",v=>save("dir",v))];};
 
 /* ---------- ui helpers ---------- */
 let tt;const toast=m=>{let t=$("#toast");if(!t){t=h("div",{id:"toast",role:"status","aria-live":"polite"});document.body.append(t);}
@@ -743,6 +902,7 @@ let tt;const toast=m=>{let t=$("#toast");if(!t){t=h("div",{id:"toast",role:"stat
 const copy=async text=>{try{await navigator.clipboard.writeText(text);return true;}catch{
   const t=h("textarea",{style:"position:fixed;opacity:0"});t.value=text;document.body.append(t);t.select();
   let ok=false;try{ok=document.execCommand("copy");}catch{}t.remove();return ok;}};
+const saveBlob=(blob,name)=>{const u=URL.createObjectURL(blob),a=h("a",{href:u,download:name});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);};
 const ICONS={
   play:'<polygon points="6 4 20 12 6 20 6 4"/>',
   pause:'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>',
@@ -769,7 +929,7 @@ const load=k=>new Promise((ok,no)=>{
   if(cache[k])return ok(cache[k]);
   if(wait[k]){wait[k].push([ok,no]);return;}
   wait[k]=[[ok,no]];
-  const s=document.createElement("script");s.src="data/"+k+".js";
+  const s=document.createElement("script");s.src="data/"+k+".js"+(C.dataVer&&location.protocol!=="file:"?"?v="+C.dataVer:"");
   s.onerror=()=>{const w=wait[k];delete wait[k];s.remove();w.forEach(p=>p[1](new Error(k)));};
   document.head.append(s);});
 
@@ -794,29 +954,161 @@ function chips(box,o){
     sets.forEach(fs=>{let any=false;$$(".chip",fs).forEach(l=>{const ok=w.every(x=>l.dataset.s.includes(x));l.hidden=!ok;if(ok)any=true;});fs.hidden=!any;});});
   upd();}
 
+ function editionOrder(box){
+  const render=()=>{
+    box.textContent="";
+    const selected=orderedSelected(),list=h("ol",{class:"order-list","aria-label":"Selected edition order"});
+    if(!selected.length){box.append(h("p",{class:"small muted",text:"Select one or more editions above to arrange them."}));return;}
+    const move=(from,to)=>{
+      const chosen=selected.map(t=>t.id),id=chosen.splice(from,1)[0];
+      chosen.splice(to,0,id);
+      saveOrder(chosen.concat(selectedOrder().filter(x=>!chosen.includes(x))));
+      render();layout();
+    };
+    selected.forEach((t,i)=>{
+      const item=h("li",{class:"order-item","draggable":"true","aria-grabbed":"false","data-id":t.id});
+      const drag=h("span",{class:"order-drag",text:"☷","aria-hidden":"true","title":"Drag to reorder"});
+      const name=h("span",{class:"order-name",text:t.full});name.append(h("small",{text:t.group}));
+      const up=h("button",{type:"button",class:"btn small",text:"Up","aria-label":`Move ${t.full} up`});
+      const down=h("button",{type:"button",class:"btn small",text:"Down","aria-label":`Move ${t.full} down`});
+      up.disabled=i===0;down.disabled=i===selected.length-1;
+      up.addEventListener("click",()=>move(i,i-1));down.addEventListener("click",()=>move(i,i+1));
+      item.append(drag,name,up,down);
+      item.addEventListener("dragstart",e=>{item.setAttribute("aria-grabbed","true");e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",t.id);});
+      item.addEventListener("dragend",()=>item.setAttribute("aria-grabbed","false"));
+      item.addEventListener("dragover",e=>{e.preventDefault();e.dataTransfer.dropEffect="move";});
+      item.addEventListener("drop",e=>{
+        e.preventDefault();const id=e.dataTransfer.getData("text/plain"),from=selected.findIndex(x=>x.id===id);
+        if(from<0||from===i)return;const to=from<i?i-1:i;move(from,to);
+      });
+      list.append(item);
+    });
+    box.append(list);
+  };
+  render();
+  return render;
+ }
+
+/* ---------- book view ----------
+   The verse list becomes ONE container laid out as CSS columns; each column is a page.
+   Verses split naturally across pages, nothing is ever cut off or needs inner scrolling,
+   and the real DOM nodes (buttons, audio, bookmarks) stay where they are. */
+function makeBook(o){
+  const rtl=o.rtl,reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,G=24,flow=$("#verses"),arts=o.arts;
+  const sheet=cls=>{const head=h("div",{class:"pg-head",text:"\u00a0"}),body=h("div",{class:"pg-body"}),foot=h("div",{class:"pg-foot",text:"1"});
+    return{head,body,foot,el:h("div",{class:"sheet "+cls},h("div",{class:"pg"},head,body,foot))};};
+  const base=sheet("base"),leaf=sheet("leaf");leaf.el.hidden=true;
+  const leaves=h("div",{class:"leaves"},base.el,leaf.el),cover=h("div",{class:"cover"},leaves);
+  const prev=h("button",{type:"button",class:"btn bk-btn","aria-label":"Previous page",text:rtl?"\u203A":"\u2039"});
+  const next=h("button",{type:"button",class:"btn bk-btn","aria-label":"Next page",text:rtl?"\u2039":"\u203A"});
+  const slider=h("input",{type:"range",min:1,max:1,value:1,class:"bk-slider","aria-label":"Go to page"});
+  const count=h("span",{class:"bk-count small","aria-live":"polite"});
+  const bar=h("div",{class:"bk-bar"},prev,h("div",{class:"bk-mid"},slider,count),next);
+  flow.before(h("div",{class:"book"+(rtl?" rtl":"")},cover,bar));
+  base.body.append(flow);flow.classList.add("flow");flow.prepend(...o.title);flow.append(...o.end);
+  document.documentElement.classList.add("bookmode","book-ready");
+
+  let W=0,H=0,pages=1,idx=0,busy=false,turn=null,start=[],first=[],last=[],pin=0,pinTm;
+  const stride=()=>W+G;
+  const size=()=>{const top=cover.getBoundingClientRect().top+scrollY;
+    leaves.style.height=Math.max(320,Math.min(innerHeight-top-bar.offsetHeight-36,900))+"px";};
+  const measure=()=>{size();W=base.body.clientWidth;H=base.body.clientHeight;
+    Object.assign(flow.style,{width:W+"px",height:H+"px",columnWidth:W+"px",columnGap:G+"px"});};
+  const mapPages=()=>{start=[];first=[];last=[];const fl=flow.getBoundingClientRect().left,st=stride();
+    pages=Math.max(1,Math.round((base.body.scrollWidth+G)/st));
+    arts.forEach(a=>{if(a.hidden)return;const R=a.getClientRects();if(!R.length)return;const n=+a.dataset.a,pg=x=>Math.max(0,Math.min(pages-1,Math.floor((x-fl+2)/st)));
+      const s=pg(R[0].left),e=Math.max(s,pg(R[R.length-1].left));start[n]=s;
+      for(let p=s;p<=e;p++){if(first[p]===undefined||n<first[p])first[p]=n;if(last[p]===undefined||n>last[p])last[p]=n;}});};
+  const setHead=(s,i)=>{const a=first[i],z=last[i];
+    s.head.replaceChildren(h("span",{text:o.name}),h("span",{text:a?(a===z?`${o.sura}:${a}`:`${o.sura}:${a}\u2013${z}`):""}));s.foot.textContent=String(i+1);};
+  const setIdx=i=>{idx=Math.max(0,Math.min(i,pages-1));base.body.scrollLeft=idx*stride();setHead(base,idx);
+    slider.max=pages;slider.value=idx+1;count.textContent=`Page ${idx+1} of ${pages}`;
+    prev.disabled=idx===0;next.disabled=idx===pages-1;base.el.style.setProperty("--cast",0);
+    if(o.onPage){const s=start.findIndex(x=>x===idx);o.onPage(s>0?s:first[idx]||0);}};
+  const reflow=()=>{const atEnd=pages>1&&idx===pages-1,anchor=start.findIndex(x=>x===idx)>0?start.findIndex(x=>x===idx):first[idx];
+    measure();mapPages();let t=0;
+    if(pin&&start[pin]!==undefined)t=start[pin];else if(atEnd)t=pages-1;else if(anchor&&start[anchor]!==undefined)t=start[anchor];setIdx(t);};
+  /* focus / anchor jumps can scroll the clipped container: snap the page counter to it */
+  base.body.addEventListener("scroll",()=>{if(busy||turn)return;const x=base.body.scrollLeft;if(Math.abs(x-idx*stride())>3){pin=0;setIdx(Math.round(x/stride()));}});
+
+  /* page-turn animation: t goes 0 -> 1; a snapshot of the old/new page swings about the spine */
+  const angle=(t,dir)=>(dir>0?t:1-t)*90*(rtl?1:-1);
+  const draw=t=>{const a=angle(t,turn.dir);leaf.el.style.transform=`rotateY(${a}deg)`;
+    leaf.el.style.setProperty("--shade",Math.abs(a)/90);base.el.style.setProperty("--cast",Math.sin(Math.PI*t));};
+  const begin=dir=>{const to=idx+dir;if(to<0||to>=pages)return false;turn={dir,to};
+    const c=flow.cloneNode(true);c.removeAttribute("id");$$("[id]",c).forEach(x=>x.removeAttribute("id"));c.inert=true;c.setAttribute("aria-hidden","true");
+    leaf.body.replaceChildren(c);const lp=dir>0?idx:to,bp=dir>0?to:idx;
+    leaf.el.hidden=false;leaf.body.scrollLeft=lp*stride();setHead(leaf,lp);base.body.scrollLeft=bp*stride();setHead(base,bp);
+    draw(0);return true;};
+  const finish=ok=>{const to=turn.to;turn=null;leaf.el.hidden=true;leaf.el.style.transform="";leaf.body.replaceChildren();busy=false;setIdx(ok?to:idx);};
+  const anim=(from,to,ms,done)=>{if(reduce){draw(to);done();return;}const t0=performance.now();
+    const step=now=>{const k=Math.min(1,(now-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;draw(from+(to-from)*e);k<1?requestAnimationFrame(step):done();};
+    requestAnimationFrame(step);};
+  const turnBy=dir=>{if(busy||!begin(dir))return;pin=0;busy=true;anim(0,1,430,()=>finish(true));};
+
+  /* touch / pen drag follows the finger; mouse uses buttons, keys or horizontal wheel */
+  const fwdSign=rtl?1:-1,st={id:null};
+  leaves.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse"||busy)return;Object.assign(st,{id:e.pointerId,x:e.clientX,y:e.clientY,t0:performance.now(),on:false,t:0,v:0});});
+  leaves.addEventListener("pointermove",e=>{if(st.id!==e.pointerId)return;const dx=e.clientX-st.x,dy=e.clientY-st.y;
+    if(!st.on){if(Math.abs(dx)<10||Math.abs(dx)<Math.abs(dy)*1.3)return;
+      st.dir=dx*fwdSign>0?1:-1;if(!begin(st.dir)){st.id=null;return;}st.on=true;busy=true;try{leaves.setPointerCapture(e.pointerId);}catch{}}
+    const along=dx*fwdSign*st.dir;st.t=Math.max(0,Math.min(1,along/(leaves.clientWidth*.85)));
+    st.v=along/Math.max(1,performance.now()-st.t0);draw(st.t);});
+  const release=cancel=>{if(!st.on){st.id=null;return;}st.id=null;st.on=false;
+    const ok=!cancel&&(st.t>.3||st.v>.45);anim(st.t,ok?1:0,260,()=>finish(ok));};
+  leaves.addEventListener("pointerup",e=>{if(st.id===e.pointerId)release(false);});
+  leaves.addEventListener("pointercancel",e=>{if(st.id===e.pointerId)release(true);});
+  let wl=0;leaves.addEventListener("wheel",e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)&&Math.abs(e.deltaX)>40&&performance.now()-wl>600){
+    wl=performance.now();e.preventDefault();turnBy((e.deltaX>0)!==rtl?1:-1);}},{passive:false});
+  document.addEventListener("keydown",e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest("input,select,textarea,[contenteditable]"))return;
+    if(e.key==="ArrowRight"||e.key==="ArrowLeft")turnBy((e.key==="ArrowRight")!==rtl?1:-1);});
+  prev.addEventListener("click",()=>turnBy(-1));next.addEventListener("click",()=>turnBy(1));
+  slider.addEventListener("input",()=>{if(!busy){pin=0;setIdx(+slider.value-1);}});
+
+  /* re-flow when anything that changes page content or size changes */
+  let rt;const refresh=()=>{clearTimeout(rt);rt=setTimeout(()=>busy?refresh():reflow(),90);};
+  addEventListener("quran:layout",refresh);
+  let lw=innerWidth,lh=innerHeight;addEventListener("resize",()=>{if(innerWidth!==lw||Math.abs(innerHeight-lh)>80){lw=innerWidth;lh=innerHeight;refresh();}});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(refresh);
+
+  const reveal=(n,flash=true)=>{const p=start[n];if(p===undefined||busy)return;
+    const done=()=>{if(!flash)return;const el=arts[n-1];el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);};
+    if(p===idx)done();else if(Math.abs(p-idx)===1){turnBy(p-idx);setTimeout(done,480);}else{setIdx(p);done();}
+    if(flash){pin=n;clearTimeout(pinTm);pinTm=setTimeout(()=>{pin=0;},6000);}};
+  reflow();
+  if(!store.get("quran-bk-hint",false)){store.set("quran-bk-hint",true);setTimeout(()=>toast(`Swipe ${rtl?"right":"left"} to turn the page`),700);}
+  return{refresh,reveal,get stats(){return{W,H,pages,idx};}};
+}
+
 /* ---------- reader ---------- */
 function initReader(){
   const s=+document.body.dataset.sura,meta=C.suras[s-1],size=meta.size,root=document.documentElement;
-  const arts=$$(".ayah"),bar=$("#rangebar"),statusEl=$("#status");
+  const arts=$$(".ayah"),bar=$("#rangebar"),statusEl=$("#status");let book=null;
   const jump=$("#jump");
   jump.append(h("option",{value:"",text:"Choose a surah"}));
   C.suras.forEach((m,i)=>{const n=i+1;if(n<C.range[0]||n>C.range[1])return;jump.append(h("option",{value:pad(n)+".html",text:`${n}. ${m.name}`,selected:n===s}));});
   jump.addEventListener("change",()=>{if(jump.value)location.href=jump.value;});
-  const flags=()=>{root.classList.toggle("no-ar",!isOn("arabic"));root.classList.toggle("no-audio",!isOn("audio"));};
+  const flags=()=>{root.classList.toggle("no-ar",!isOn("arabic"));root.classList.toggle("simple-primary",!isOn("arabic")&&isOn("arabic-simple"));root.classList.toggle("no-audio",!isOn("audio"));};
 
   /* range + deep links: #5 jumps to a verse, #5-9 shows only those verses */
   let from=1,to=size;const fi=h("input",{type:"number",class:"num",min:1,max:size,value:1,"aria-label":"From verse"}),ti=h("input",{type:"number",class:"num",min:1,max:size,value:size,"aria-label":"To verse"});
-  const applyRange=(a,b,pushHash)=>{from=a;to=b;fi.value=a;ti.value=b;
+  const applyRange=(a,b,pushHash)=>{const moved=a!==from||b!==to;from=a;to=b;fi.value=a;ti.value=b;
     arts.forEach(x=>{const n=+x.dataset.a;x.hidden=n<a||n>b;});
     $$(".juz-mark").forEach(x=>{const n=+x.dataset.a;x.hidden=n<a||n>b;});
     const full=a===1&&b===size;bar.hidden=full;bar.textContent="";
     if(!full){bar.append(a===b?`Showing verse ${a} of ${size}. `:`Showing verses ${a}–${b} of ${size}. `,h("button",{type:"button",class:"link",text:"Show whole surah"}));
       $("button",bar).addEventListener("click",()=>applyRange(1,size,true));}
-    if(pushHash)history.replaceState(null,"",full?location.pathname+location.search:`#${a}${a===b?"":"-"+b}`);};
-  const focusAyah=n=>{const el=$("#ayah-"+n);if(!el)return;el.scrollIntoView({block:"start"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);};
+    if(pushHash)history.replaceState(null,"",full?location.pathname+location.search:`#${a}${a===b?"":"-"+b}`);if(book&&moved)book.refresh();};
+  /* keep the target verse at the top while content above it is still growing (translations, fonts) */
+  let pin=0,pinTm;const unpin=()=>{pin=0;};
+  const toVerse=n=>{const el=arts[n-1];if(el)scrollTo({top:Math.max(0,el.getBoundingClientRect().top+scrollY-12),behavior:"instant"});};
+  const pinTo=n=>{pin=n;clearTimeout(pinTm);pinTm=setTimeout(unpin,6000);
+    ["wheel","touchstart","mousedown","keydown"].forEach(ev=>addEventListener(ev,unpin,{once:true,passive:true}));toVerse(n);};
+  if("ResizeObserver"in window)new ResizeObserver(()=>{if(pin&&!book)toVerse(pin);}).observe($("#verses"));
+  const focusAyah=n=>{if(book){book.reveal(n);return;}const el=arts[n-1];if(!el)return;pinTo(n);el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);};
   const route=()=>{const m=/^#(?:ayah-)?(\d+)(?:-(\d+))?$/.exec(location.hash);if(!m)return;
     let a=+m[1],b=m[2]?+m[2]:a;if(a>b){const t=a;a=b;b=t;}if(a<1||a>size)return;b=Math.min(b,size);
-    if(a!==b){applyRange(a,b,false);scrollTo({top:Math.max(0,bar.offsetTop-8)});}else{applyRange(1,size,false);focusAyah(a);}};
+    if(a!==b){applyRange(a,b,false);if(!book)scrollTo({top:Math.max(0,bar.offsetTop-8)});}else{applyRange(1,size,false);focusAyah(a);}};
 
   /* bookmarks */
   const bms=()=>{const b=store.get("quran-bookmark",[]);return Array.isArray(b)?b:[];};
@@ -828,46 +1120,58 @@ function initReader(){
   /* audio */
   let au=null;const cont=()=>store.get("quran-cont",true)!==false;
   const setPlay=(art,on)=>{const b=$(".play",art);if(!b)return;const a=+art.dataset.a;b.innerHTML=svg(on?"pause":"play");const l=on?`Pause verse ${a}`:`Play verse ${a}`;b.setAttribute("aria-label",l);b.title=l;};
-  const stopAudio=()=>{if(au){au.pause();au.onended=au.onerror=null;au=null;}$$(".ayah.playing").forEach(x=>{x.classList.remove("playing");setPlay(x,false);});};
-  const play=a=>{stopAudio();const art=$("#ayah-"+a);if(!art)return;
+  const stopAudio=()=>{if(au){au.pause();au.onended=au.onerror=null;au=null;}arts.filter(x=>x.classList.contains("playing")).forEach(x=>{x.classList.remove("playing");setPlay(x,false);});};
+  const play=a=>{stopAudio();const art=arts[a-1];if(!art)return;
     au=new Audio(C.audio.replace("{s}",pad(s)).replace("{a}",pad(a)));art.classList.add("playing");setPlay(art,true);
-    au.onended=()=>{stopAudio();const nx=$("#ayah-"+(a+1));if(cont()&&nx&&!nx.hidden){play(a+1);nx.scrollIntoView({block:"center",behavior:"smooth"});}};
+    au.onended=()=>{stopAudio();const nx=arts[a];if(cont()&&nx&&!nx.hidden){play(a+1);if(book)book.reveal(a+1,false);else nx.scrollIntoView({block:"center",behavior:"smooth"});}};
     au.onerror=()=>{stopAudio();toast("Audio could not be loaded. Check your connection.");};
     au.play().catch(()=>{stopAudio();toast("Couldn’t start audio.");});};
 
   const verseText=art=>{const a=+art.dataset.a,L=[`${meta.name} (${s}:${a})`];
     if(isOn("arabic"))L.push($(".ar",art).textContent);
+    $$(".ar-alt",art).forEach(t=>L.push((isOn("arabic")?$("h3",t).textContent+": ":"")+$("p",t).textContent));
     $$(".tr",art).forEach(t=>L.push($("h3",t).firstChild.textContent+": "+$("p",t).textContent));return L.join("\n");};
   arts.forEach(art=>{const a=+art.dataset.a,box=h("div",{class:"actions"});
     box.append(
       iconBtn("play","play",`Play verse ${a}`,()=>{if(au&&art.classList.contains("playing"))stopAudio();else play(a);}),
       (()=>{const b=iconBtn("bm","bookmark",`Bookmark verse ${a}`,b=>toggleBm(a,b));b.setAttribute("aria-pressed",String(bms().some(x=>x.s===s&&x.a===a)));return b;})(),
       iconBtn("cp","copy",`Copy verse ${a} text`,async()=>toast(await copy(verseText(art))?"Verse copied":"Couldn’t copy")),
-      iconBtn("ln","link",`Copy link to verse ${a}`,async()=>toast(await copy(location.href.split("#")[0]+"#"+a)?"Link copied":"Couldn’t copy")));
+      iconBtn("ln","link",navigator.share?`Share verse ${a}`:`Copy link to verse ${a}`,async()=>{const url=location.href.split("#")[0]+"#"+a;
+        if(navigator.share){try{await navigator.share({title:`${meta.name} ${s}:${a}`,text:verseText(art),url});}catch{}return;}
+        toast(await copy(url)?"Link copied":"Couldn’t copy");}));
     $(".ayah-head",art).append(box);});
 
   /* on-demand editions */
-  const trNode=(t,text)=>h("section",{class:"tr","data-t":t.id,"data-kind":t.kind,lang:t.lang,dir:t.rtl?"rtl":false},
+  const trNode=(t,text)=>t.kind==="arabic"?h("section",{class:"ar-alt","data-t":t.id,lang:"ar",dir:"rtl"},h("h3",{text:t.full}),h("p",{text})):h("section",{class:"tr","data-t":t.id,"data-kind":t.kind,lang:t.lang,dir:t.rtl?"rtl":false},
     h("h3",{},t.full,t.tag?h("span",{class:"tag",text:t.tag}):null),h("p",{text}));
-  const place=(art,t,text)=>{if(!text||$(`.tr[data-t="${t.id}"]`,art))return;
-    const list=$(".tr-list",art),ref=[...list.children].find(c=>ORD[c.dataset.t]>ORD[t.id]);list.insertBefore(trNode(t,text),ref||null);};
+  const reorderAll=()=>{const rank=Object.fromEntries(selectedOrder().map((id,i)=>[id,i]));
+    arts.forEach(a=>{const list=$(".edition-list",a);if(!list)return;const kids=[...list.children],srt=[...kids].sort((x,y)=>(rank[x.dataset.t]??999)-(rank[y.dataset.t]??999));
+      if(srt.some((n,i)=>n!==kids[i]))srt.forEach(n=>list.append(n));});};
+  const place=(art,t,text)=>{if(!text||$(`[data-t="${t.id}"]`,art))return;
+    const list=$(".edition-list",art);
+    list.append(trNode(t,text));};
   const sync=async()=>{
-    $$(".tr[data-t]").forEach(n=>{if(!isOn(n.dataset.t))n.remove();});
-    const need=C.tr.filter(t=>t.id!=="arabic"&&isOn(t.id)&&!$(`.tr[data-t="${t.id}"]`));
-    if(!need.length){statusEl.textContent="";return;}
+    arts.forEach(a=>$$("[data-t]",a).forEach(n=>{if(n.dataset.t!=="arabic"&&!isOn(n.dataset.t))n.remove();}));
+    const need=orderedSelected().filter(t=>t.id!=="arabic"&&!arts.some(a=>$(`[data-t="${t.id}"]`,a)));
+    if(!need.length){reorderAll();statusEl.textContent="";layout();return;}
     statusEl.textContent="Loading…";
     const res=await Promise.all(need.map(t=>load(`surah/${t.id}/${pad(s)}`).then(a=>[t,a],()=>[t,null])));
     const fails=[];
     res.forEach(([t,arr])=>{if(!arr){fails.push(t.label);return;}if(!isOn(t.id))return;arts.forEach(art=>place(art,t,arr[+art.dataset.a-1]));});
-    statusEl.textContent=fails.length?`Couldn’t load ${fails.join(", ")}. Check your connection and try again.`:"";};
+    reorderAll();
+    statusEl.textContent=fails.length?`Couldn’t load ${fails.join(", ")}. Check your connection and try again.`:"";layout();};
 
   /* display panel */
-  const body=$("#panel-body");body.textContent="";
+  const body=$("#panel-body"),pan=$("#panel");body.textContent="";
+  body.append(h("div",{class:"panel-bar"},h("strong",{text:"Display options"}),h("button",{type:"button",class:"btn small",text:"Done"})));
+  $(".panel-bar button",body).addEventListener("click",()=>{pan.open=false;});
+  document.addEventListener("pointerdown",e=>{if(pan.open&&!pan.contains(e.target))pan.open=false;});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")pan.open=false;});
   const go=h("button",{type:"button",class:"btn small",text:"Show"});
   go.addEventListener("click",()=>{let a=parseInt(fi.value,10)||1,b=parseInt(ti.value,10)||size;if(a>b)[a,b]=[b,a];applyRange(Math.max(1,a),Math.min(size,b),true);});
   const autoplay=h("input",{type:"checkbox"});autoplay.checked=cont();autoplay.addEventListener("change",()=>store.set("quran-cont",autoplay.checked));
   const chipBox=h("div");
-  body.append(sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2),
+  body.append(...readingRows(),sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2),
     h("div",{class:"row"},h("span",{text:"Show verses"}),fi,"to",ti,go),
     h("label",{class:"radio"},autoplay,"Play the next verse automatically"),
     h("h2",{text:"Shown with each verse"}),chipBox);
@@ -875,17 +1179,26 @@ function initReader(){
 
   /* reading position */
   let last=1,tm;const save=()=>store.set("quran-history",{s,a:last,n:meta.name,t:Date.now()});save();
-  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)last=+e.target.dataset.a;});clearTimeout(tm);tm=setTimeout(save,1000);},{rootMargin:"0px 0px -75% 0px"});arts.forEach(a=>io.observe(a));}
+  flags();
+  if(ui.mode==="book"){
+    book=makeBook({sura:s,name:meta.name,arts,rtl:ui.dir!=="ltr",title:[$("h1"),$(".meaning"),$(".facts")],end:[$(".pager"),$(".pager").nextElementSibling],
+      onPage:a=>{if(a){last=a;clearTimeout(tm);tm=setTimeout(save,800);}}});
+  }else if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)last=+e.target.dataset.a;});clearTimeout(tm);tm=setTimeout(save,1000);},{rootMargin:"0px 0px -75% 0px"});arts.forEach(a=>io.observe(a));}
   addEventListener("pagehide",save);addEventListener("hashchange",route);
   flags();sync();route();
 }
 
 /* ---------- index ---------- */
 function initIndex(){
-  const f=$("#filter"),items=$$("#sgrid li").map(li=>({li,k:norm(li.dataset.k)}));
-  f.addEventListener("input",()=>{const q=norm(f.value).split(/\s+/).filter(Boolean);let n=0;
-    items.forEach(({li,k})=>{const ok=q.every(t=>k.includes(t));li.hidden=!ok;if(ok)n++;});
-    $("#fcount").textContent=q.length?`${n} surah${n===1?"":"s"} found`:"";});
+  const f=$("#filter"),grid=$("#sgrid"),sortEl=$("#sort"),typeEl=$("#ftype");
+  const items=$$("#sgrid li").map(li=>({li,k:norm(li.dataset.k),n:+li.dataset.n,o:+li.dataset.o,z:+li.dataset.z,ty:li.dataset.ty}));
+  const pref=store.get("quran-index",{});sortEl.value=pref.sort||"n";typeEl.value=pref.type||"";
+  const apply=()=>{const q=norm(f.value).split(/\s+/).filter(Boolean);let n=0;
+    items.sort((a,b)=>sortEl.value==="rev"?a.o-b.o:sortEl.value==="size"?b.z-a.z||a.n-b.n:a.n-b.n).forEach(x=>grid.append(x.li));
+    items.forEach(({li,k,ty})=>{const ok=q.every(t=>k.includes(t))&&(!typeEl.value||ty===typeEl.value);li.hidden=!ok;if(ok)n++;});
+    $("#fcount").textContent=(q.length||typeEl.value)?`${n} surah${n===1?"":"s"} found`:"";
+    store.set("quran-index",{sort:sortEl.value,type:typeEl.value});};
+  [f,sortEl,typeEl].forEach(el=>el.addEventListener("input",apply));apply();
   const hist=store.get("quran-history",null),res=$("#resume");
   if(hist&&hist.s&&C.suras[hist.s-1]){res.hidden=false;
     res.append(h("h2",{text:"Continue reading"}),h("a",{class:"btn",href:`${pad(hist.s)}.html#${hist.a||1}`,text:`${sname(hist.s)} ${hist.s}:${hist.a||1}, ${ago(hist.t)}`}));}
@@ -896,12 +1209,22 @@ function initIndex(){
 
 /* ---------- settings ---------- */
 function initConfig(){
-  const build=()=>chips($("#cfg-chips"),{audio:true,isOn,set:setOn});build();
-  $("#cfg-sliders").append(sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2));
+  let renderOrder;
+  const build=()=>{chips($("#cfg-chips"),{audio:true,isOn,set:setOn,change:()=>renderOrder()});renderOrder();};
+  renderOrder=editionOrder($("#cfg-order"));build();
+  $("#cfg-sliders").append(...readingRows(),sliderRow("Translation text size","tx",0.85,1.6,0.05,1),sliderRow("Arabic text size","ar",1.4,3.4,0.1,2));
   $$("input[name=theme]").forEach(r=>{r.checked=r.value===(ui.theme||"auto");
     r.addEventListener("change",()=>{ui.theme=r.value;store.set("quran-ui",ui);applyUi();});});
-  $("#cfg-reset").addEventListener("click",()=>{store.del("quran-cf");prefs={};build();toast("Defaults restored");});
+  $("#cfg-reset").addEventListener("click",()=>{store.del("quran-cf");store.del("quran-order");prefs={};build();toast("Defaults restored");});
   $("#cfg-clear").addEventListener("click",()=>{if(confirm("Remove all bookmarks and reading history from this browser?")){store.del("quran-bookmark");store.del("quran-history");toast("Cleared");}});
+  const KEYS=["quran-cf","quran-ui","quran-order","quran-bookmark","quran-history","quran-cont"];
+  $("#cfg-export").addEventListener("click",()=>{const o={format:"quran-reader-settings",version:1,saved:new Date().toISOString()};
+    KEYS.forEach(k=>{const v=store.get(k,undefined);if(v!==undefined)o[k]=v;});
+    saveBlob(new Blob([JSON.stringify(o,null,2)],{type:"application/json"}),"quran-reader-settings.json");});
+  $("#cfg-import").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||o.format!=="quran-reader-settings")throw new Error("this is not a settings file from this reader");
+      KEYS.forEach(k=>{if(k in o)store.set(k,o[k]);});toast("Imported. Reloading…");setTimeout(()=>location.reload(),600);}catch(err){toast("Import failed: "+err.message);}e.target.value="";};
+    r.readAsText(f);});
 }
 
 /* ---------- bookmarks ---------- */
@@ -929,7 +1252,7 @@ function initBookmarks(){
 /* ---------- search ---------- */
 function initSearch(){
   const form=$("#sform"),q=$("#q"),status=$("#status"),list=$("#results"),more=$("#more");
-  const fields=C.tr.filter(t=>isOn(t.id)),names=fields.map(f=>f.full);
+  const fields=orderedSelected(),names=fields.map(f=>f.full);
   $("#scope").append("Searching in: ",names.length?(names.length>6?`${names.slice(0,5).join(", ")} and ${names.length-5} more`:names.join(", ")):"nothing selected"," ",h("a",{href:"config.html",text:"Change"}));
   const S=[],A=[];C.suras.forEach((m,i)=>{for(let a=1;a<=m.size;a++){S.push(i+1);A.push(a);}});
   const nameN=C.suras.map(m=>norm(m.name+" "+m.meaning)),ncache={};
@@ -952,13 +1275,13 @@ function initSearch(){
     const ref=/^(\d{1,3})\s*[:.]\s*(\d{1,3})$/.exec(text);
     if(ref&&+ref[1]>=1&&+ref[1]<=114&&+ref[2]>=1&&+ref[2]<=C.suras[ref[1]-1].size)
       list.append(h("li",{class:"hit"},h("a",{href:`${pad(+ref[1])}.html#${+ref[2]}`,text:`Go to ${sname(+ref[1])} ${+ref[1]}:${+ref[2]}`})));
-    terms=norm(text).split(/\s+/).filter(Boolean);if(!terms.length)return;
+    terms=[...text.matchAll(/"([^"]+)"|(\S+)/g)].map(m=>norm(m[1]||m[2])).filter(Boolean);if(!terms.length)return;
     nameN.forEach((n,i)=>{if(terms.every(t=>n.includes(t))&&list.children.length<4)list.append(h("li",{class:"hit"},h("a",{href:pad(i+1)+".html",text:`Surah ${i+1}: ${C.suras[i].name} (${C.suras[i].meaning})`})));});
     if(!fields.length){status.textContent="Select at least one edition in Settings to search verse text.";return;}
     status.textContent="Searching…";
     try{arrs=await Promise.all(fields.map(f=>load("search/"+f.id)));}catch{status.textContent="Couldn’t load search data. Check your connection and try again.";return;}
     fields.forEach((f,k)=>{if(!ncache[f.id])ncache[f.id]=arrs[k].map(norm);});
-    for(let i=0;i<S.length;i++){const hay=fields.map(f=>ncache[f.id][i]).join(" ");if(terms.every(t=>hay.includes(t)))hits.push(i);}
+    for(let i=0;i<S.length;i++){if(terms.every(t=>fields.some(f=>ncache[f.id][i].includes(t))))hits.push(i);}
     if(!hits.length){status.textContent="No verses found. Try fewer or simpler words.";return;}
     render();};
   form.addEventListener("submit",e=>{e.preventDefault();run();});
@@ -966,54 +1289,153 @@ function initSearch(){
   const init=new URLSearchParams(location.search).get("q");if(init){q.value=init;run();}
 }
 
-/* ---------- offline ZIP ---------- */
+/* ---------- offline: save inside the browser (Cache API) or download a ZIP ---------- */
 function initDownload(){
-  const sel=Object.fromEntries(C.tr.map(t=>[t.id,!!C.defaults[t.id]]));
-  chips($("#dl-chips"),{isOn:id=>sel[id],set:(id,v)=>{sel[id]=v;}});
-  const st=$("#dl-status"),prog=$("#dl-prog"),btn=$("#dl-go");
-  btn.addEventListener("click",async()=>{
-    if(typeof JSZip==="undefined"){st.textContent="The ZIP library could not be loaded. Check your connection.";return;}
-    const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-    const from=clamp(parseInt($("#dl-from").value,10)||1,1,114),to=clamp(parseInt($("#dl-to").value,10)||114,from,114);
-    const ids=C.tr.filter(t=>sel[t.id]).map(t=>t.id);
-    if(!ids.length){st.textContent="Select at least one edition.";return;}
-    const withSearch=$("#dl-search").checked;
-    const optional=["index","bookmarks","config","sources","license"].filter(p=>$("#dl-p-"+p).checked);
-    const included=new Set(optional.map(p=>p+".html"));if(withSearch)included.add("search.html");
-    const excluded=new Set(["index","bookmarks","config","sources","license","search","download"].map(p=>p+".html").filter(p=>!included.has(p)));
-    const jobs=[{p:"assets/style.css"},{p:"assets/app.js"},{p:"assets/catalog.js",cat:1}];
-    for(let s=from;s<=to;s++){jobs.push({p:pad(s)+".html",page:1});ids.forEach(id=>jobs.push({p:`data/surah/${id}/${pad(s)}.js`}));}
-    included.forEach(p=>jobs.push({p,page:1}));
-    if(withSearch)ids.forEach(id=>jobs.push({p:`data/search/${id}.js`}));
-    btn.disabled=true;prog.hidden=false;prog.value=0;
-    const zip=new JSZip(),missing=[];let done=0;
-    const clean=doc=>{$$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
-      if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
-      $$(".tr[data-t]",doc).forEach(n=>{if(!ids.includes(n.dataset.t))n.remove();});};
-    const run=async j=>{try{const r=await fetch(j.p);if(!r.ok)throw 0;let t=await r.text();
-      if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
-      if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
-        c.tr=c.tr.filter(x=>ids.includes(x.id));c.range=[from,to];
-        const keep=Object.keys(c.defaults).filter(k=>k==="audio"||ids.includes(k)&&c.defaults[k]);
-        c.defaults=Object.fromEntries(keep.map(k=>[k,true]));
-        if(!keep.some(k=>k!=="audio"))ids.slice(0,3).forEach(k=>c.defaults[k]=true);
-        t="window.QURAN_CATALOG="+JSON.stringify(c)+";\n";}
-      zip.file(j.p,t);}catch{missing.push(j.p);}
-      prog.value=Math.round(++done*100/jobs.length);st.textContent=`Fetched ${done} of ${jobs.length} files`;};
-    const queue=jobs.slice();await Promise.all(Array.from({length:8},async()=>{while(queue.length)await run(queue.shift());}));
-    st.textContent="Compressing…";
-    const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE"});
-    const u=URL.createObjectURL(blob),a=h("a",{href:u,download:"quran-reader-offline.zip"});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
-    st.textContent=missing.length?`Done, but ${missing.length} file(s) could not be fetched (for example ${missing[0]}).`:"Done. Open index.html from the extracted folder.";
-    btn.disabled=false;});
+  const SZ=C.sizes||{assetsKB:0,htmlKB:[]},TOTAL=6236,SAVED="quran-saved";
+  const ALL=["index","search","config","bookmarks","sources","license","download"];
+  const E=id=>document.getElementById(id);
+  const sel=Object.fromEntries(C.tr.map(t=>[t.id,!!isOn(t.id)]));
+  const st=E("dl-status"),prog=E("dl-prog"),bZip=E("dl-go"),bSave=E("dl-save"),bStop=E("dl-cancel");
+  let busy=false,cancelled=false,ctl=null;
+  const fmt=kb=>kb>=1024?(kb/1024).toFixed(kb>=10240?0:1)+" MB":Math.round(kb)+" KB";
+  const ids=()=>C.tr.filter(t=>sel[t.id]).map(t=>t.id);
+  const range=()=>{const c=(v,a,b)=>Math.min(b,Math.max(a,v));const f=c(parseInt(E("dl-from").value,10)||1,1,114);
+    return[f,c(parseInt(E("dl-to").value,10)||114,f,114)];};
+  const fontsOn=()=>!!(E("dl-fonts")&&E("dl-fonts").checked);
+  const estimate=zip=>{const[a,b]=range();let verses=0,kb=SZ.assetsKB||0;
+    for(let s=a;s<=b;s++){verses+=C.suras[s-1].size;kb+=(SZ.htmlKB||[])[s-1]||0;}
+    const share=verses/TOTAL,withS=E("dl-search").checked;
+    C.tr.filter(t=>sel[t.id]).forEach(t=>{kb+=(t.kb||0)*share+(withS?(t.skb||0):0);});
+    if(zip&&fontsOn())kb+=1500;return kb;};
+  const summary=()=>{const[a,b]=range(),n=ids().length,kb=estimate(true);
+    E("dl-summary").textContent=`${n} edition${n===1?"":"s"}, ${a===b?"surah "+a:`surahs ${a} to ${b}`}: about ${fmt(kb)} before compression.`+
+      (kb>400*1024?" That is large. A phone may run out of memory building a ZIP, so prefer “Save in this browser” or fewer editions.":"");};
+  const build=()=>chips(E("dl-chips"),{isOn:id=>sel[id],set:(id,v)=>{sel[id]=v;summary();}});
+  const pick=f=>{C.tr.forEach(t=>{sel[t.id]=!!f(t);});build();summary();};
+  const setRange=(a,b)=>{E("dl-from").value=a;E("dl-to").value=b;summary();};
+  E("pre-settings").addEventListener("click",()=>pick(t=>isOn(t.id)));
+  E("pre-arabic").addEventListener("click",()=>pick(t=>t.id==="arabic"));
+  E("pre-english").addEventListener("click",()=>{const en=C.tr.find(t=>t.id==="trans-yusuf")||C.tr.find(t=>t.group==="English"&&t.kind==="translation");
+    pick(t=>t.id==="arabic"||t.id==="translit-unicode"||(en&&t.id===en.id));});
+  E("pre-all").addEventListener("click",()=>pick(t=>t.kind!=="ai"));
+  E("rg-all").addEventListener("click",()=>setRange(1,114));
+  E("rg-amma").addEventListener("click",()=>setRange(78,114));
+  E("rg-here").addEventListener("click",()=>{const h=store.get("quran-history",null);const s=h&&h.s>=1&&h.s<=114?h.s:1;setRange(s,s);});
+  ["dl-from","dl-to","dl-search"].forEach(i=>E(i).addEventListener("input",summary));
+  if(E("dl-fonts"))E("dl-fonts").addEventListener("input",summary);
+  build();summary();
+
+  /* shared plumbing */
+  const lock=on=>{busy=on;bZip.disabled=bSave.disabled=on;bStop.hidden=!on;prog.hidden=!on;if(on){cancelled=false;ctl=new AbortController();prog.value=0;}};
+  bStop.addEventListener("click",()=>{cancelled=true;if(ctl)ctl.abort();st.textContent="Cancelled.";});
+  const pool=async(list,work,conc)=>{const failed=[];let i=0,done=0;
+    const w=async()=>{while(i<list.length&&!cancelled){const j=list[i++];
+      try{await work(j);}catch(e){if(cancelled)return;failed.push(j);}
+      prog.value=Math.round(++done*100/list.length);st.textContent=`${done} of ${list.length} files`;}};
+    await Promise.all(Array.from({length:conc||6},w));return failed;};
+  const withRetry=async(list,work)=>{let f=await pool(list,work,6);
+    if(f.length&&!cancelled){st.textContent=`Retrying ${f.length} file(s)…`;f=await pool(f,work,2);}return f;};
+  const get=async(u,o)=>{const r=await fetch(u,{signal:ctl.signal});if(!r.ok)throw new Error(u+" "+r.status);return o==="buf"?r.arrayBuffer():o==="res"?r:r.text();};
+  const dataJobs=I=>{const[a,b]=range(),J=[];for(let s=a;s<=b;s++)I.forEach(id=>J.push({p:`data/surah/${id}/${pad(s)}.js`,data:1}));
+    if(E("dl-search").checked)I.forEach(id=>J.push({p:`data/search/${id}.js`,data:1}));return J;};
+  const pageJobs=pages=>{const[a,b]=range(),J=[];for(let s=a;s<=b;s++)J.push({p:pad(s)+".html",page:1});pages.forEach(p=>J.push({p:p+".html",page:1}));return J;};
+  const loadZip=()=>typeof JSZip!=="undefined"?Promise.resolve():new Promise((ok,no)=>{
+    const urls=["https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"];let i=0;
+    const next=()=>{if(i>=urls.length)return no(new Error("The ZIP library could not be loaded. Check your connection."));
+      const s=document.createElement("script");s.src=urls[i++];s.onload=()=>ok();s.onerror=()=>{s.remove();next();};document.head.append(s);};next();});
+  const gatherFonts=async I=>{const L=I.map(i=>(C.tr.find(t=>t.id===i)||{}).lang),fam=["Amiri+Quran","Literata:wght@400;600"];
+    if(L.includes("ur"))fam.push("Noto+Nastaliq+Urdu");if(L.some(l=>l==="hi"||l==="ne"))fam.push("Noto+Sans+Devanagari");if(L.includes("gu"))fam.push("Noto+Sans+Gujarati");
+    let css=await get("https://fonts.googleapis.com/css2?"+fam.map(f=>"family="+f).join("&")+"&display=swap");const files=new Map();
+    css=css.replace(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g,(m,u)=>{let x=0;for(const ch of u)x=(x*31+ch.charCodeAt(0))|0;
+      const name=(x>>>0).toString(36)+".woff2";files.set(name,u);return`url(fonts/${name})`;});
+    return{css,files:[...files].map(([name,url])=>({font:url,name}))};};
+
+  /* ---- ZIP ---- */
+  bZip.addEventListener("click",async()=>{
+    if(busy)return;const I=ids();if(!I.length){st.textContent="Select at least one edition.";return;}
+    lock(true);
+    try{
+      await loadZip();
+      const zip=new JSZip(),[from,to]=range(),missing=[];
+      const withSearch=E("dl-search").checked;
+      const extras=["index","bookmarks","config","sources","license"].filter(p=>E("dl-p-"+p).checked);
+      const included=new Set(extras.map(p=>p+".html"));if(withSearch)included.add("search.html");
+      const excluded=new Set(ALL.map(p=>p+".html").filter(p=>!included.has(p)));
+      let pack=null;if(fontsOn()){st.textContent="Fetching fonts…";try{pack=await gatherFonts(I);}catch{st.textContent="Fonts could not be fetched; continuing without them.";}}
+      const clean=doc=>{
+        $$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
+          if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
+        $$("[data-t]",doc).forEach(n=>{if(!I.includes(n.dataset.t))n.remove();});
+        if(pack){$$('link[href*="fonts.googleapis.com"],link[href*="fonts.gstatic.com"]',doc).forEach(l=>l.remove());
+          const css=doc.querySelector('link[href="assets/style.css"]');if(css)css.before(h("link",{rel:"stylesheet",href:"assets/fonts.css"}));}};
+      const list=[{p:"assets/style.css"},{p:"assets/app.js"},{p:"assets/catalog.js",cat:1},{p:"assets/icon.svg"},...pageJobs([...included].map(p=>p.replace(".html",""))),...dataJobs(I)];
+      if(pack){zip.file("assets/fonts.css",pack.css);pack.files.forEach(f=>list.push(f));}
+      const work=async j=>{
+        if(j.font){zip.file("assets/fonts/"+j.name,await get(j.font,"buf"));return;}
+        let t=await get(j.p);
+        if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
+        if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
+          c.tr=c.tr.filter(x=>I.includes(x.id));c.range=[from,to];
+          const keep=Object.keys(c.defaults).filter(k=>k==="audio"||(I.includes(k)&&c.defaults[k]));
+          c.defaults=Object.fromEntries(keep.map(k=>[k,true]));
+          if(!keep.some(k=>k!=="audio"))I.slice(0,3).forEach(k=>c.defaults[k]=true);
+          t="window.QURAN_CATALOG="+JSON.stringify(c)+";\n";}
+        zip.file(j.p,t);};
+      const failed=await withRetry(list,work);failed.forEach(j=>missing.push(j.p||j.name));
+      if(cancelled)return;
+      const names=I.map(i=>C.tr.find(t=>t.id===i).full);
+      zip.file("README.txt",["Qur’an Reader: offline copy","Built "+new Date().toISOString().slice(0,10)+" from "+location.origin+location.pathname.replace(/[^/]*$/,""),"",
+        `Surahs ${from} to ${to}.`,"Editions:",...names.map(n=>"  - "+n),"",
+        "How to use: unzip, then open index.html in any modern browser. No internet is needed,","except for verse audio, which is streamed.",
+        "Bookmarks and settings are saved per browser, so a copy opened from a new folder starts fresh;","use Export / Import in Settings to move them.",
+        ...(missing.length?["","These files could not be fetched and are missing:",...missing.map(m=>"  - "+m)]:[])].join("\n"));
+      const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}},m=>{prog.value=Math.round(m.percent);st.textContent=`Compressing… ${Math.round(m.percent)}%`;});
+      saveBlob(blob,`quran-reader-${from}-${to}-${I.length}ed.zip`);
+      st.textContent=missing.length?`Done (${fmt(blob.size/1024)}), but ${missing.length} file(s) could not be fetched. See README.txt inside the ZIP.`:`Done (${fmt(blob.size/1024)}). Unzip it and open index.html.`;
+    }catch(e){if(!cancelled)st.textContent="Could not build the ZIP: "+e.message;}
+    finally{lock(false);}});
+
+  /* ---- save inside this browser (works offline through the service worker) ---- */
+  bSave.addEventListener("click",async()=>{
+    if(busy)return;const I=ids();if(!I.length){st.textContent="Select at least one edition.";return;}
+    if(!("caches"in window)){st.textContent="Saving inside the browser needs a secure (https) page. Use the ZIP instead.";return;}
+    lock(true);
+    try{
+      if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
+      const cache=await caches.open(SAVED);
+      const list=[...pageJobs(ALL.filter(p=>p!=="search"||E("dl-search").checked)),...dataJobs(I)];
+      const fl=document.querySelector('link[href*="fonts.googleapis.com/css2"]');
+      if(fl){try{const r=await get(fl.href,"res");const css=await r.clone().text();await cache.put(fl.href,r);
+        [...new Set([...css.matchAll(/url\((https:[^)]+)\)/g)].map(m=>m[1]))].forEach(u=>list.push({abs:u}));}catch{}}
+      const work=async j=>{const url=j.abs?j.abs:new URL(j.p+(j.data&&C.dataVer?"?v="+C.dataVer:""),location.href).href;
+        await cache.put(url,await get(url,"res"));};
+      const failed=await withRetry(list,work);
+      if(cancelled)return;
+      st.textContent=failed.length?`Saved, but ${failed.length} file(s) failed. Run it again to retry.`:"Saved. These surahs and editions now work offline in this browser.";
+    }catch(e){if(!cancelled)st.textContent="Could not save: "+e.message;}
+    finally{lock(false);usage();}});
+
+  const usage=async()=>{let t="Saving inside the browser is not available here.";
+    try{if("caches"in window){t="Nothing saved in this browser yet.";
+      if(await caches.has(SAVED)){const n=(await (await caches.open(SAVED)).keys()).length;if(n)t=`${n} files are saved in this browser.`;}
+      const e=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null;
+      if(e&&e.usage!=null)t+=` Site storage in use: ${fmt(e.usage/1024)}${e.quota?` of about ${fmt(e.quota/1024)} available`:""}.`;}}catch{}
+    E("dl-usage").textContent=t;};
+  E("dl-clear").addEventListener("click",async()=>{if(!("caches"in window))return;
+    if(!confirm("Remove all offline data saved by this site in this browser?"))return;await caches.delete(SAVED);usage();toast("Removed");});
+  usage();
 }
 
 /* ---------- boot ---------- */
 applyUi();
+if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+{const off=h("div",{class:"offline-bar",role:"status",text:"You’re offline. Saved surahs and editions still work."});off.hidden=navigator.onLine;
+  const hd=$("header.top");if(hd)hd.after(off);else document.body.prepend(off);
+  addEventListener("online",()=>{off.hidden=true;});addEventListener("offline",()=>{off.hidden=false;});}
 const top=h("button",{class:"totop",type:"button","aria-label":"Back to top",html:"&#8593;"});
 top.hidden=true;top.addEventListener("click",()=>scrollTo({top:0}));document.body.append(top);
 addEventListener("scroll",()=>{top.hidden=scrollY<700;},{passive:true});
-({reader:initReader,index:initIndex,search:initSearch,config:initConfig,bookmarks:initBookmarks,download:initDownload})[document.body.dataset.page]?.();
+try{({reader:initReader,index:initIndex,search:initSearch,config:initConfig,bookmarks:initBookmarks,download:initDownload})[document.body.dataset.page]?.();}catch(e){document.documentElement.classList.remove("book-pref");console.error(e);}
 })();
 """
 
@@ -1021,20 +1443,102 @@ addEventListener("scroll",()=>{top.hidden=scrollY<700;},{passive:true});
 # ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
+ICON_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
+            '<rect width="512" height="512" rx="96" fill="#0e4c47"/>'
+            '<circle cx="256" cy="256" r="136" fill="none" stroke="#e2ac52" stroke-width="34"/>'
+            '<circle cx="256" cy="256" r="36" fill="#fbf7ec"/></svg>\n')
+
+
+def icon_png(size: int) -> bytes:
+    """Dependency-free PNG of the app icon (ayah medallion on deep teal)."""
+    bg, gold, paper = (14, 76, 71), (226, 172, 82), (251, 247, 236)
+    c, ro, ri, rd = (size - 1) / 2, size * 0.299, size * 0.232, size * 0.07
+    raw = bytearray()
+    for y in range(size):
+        raw.append(0)
+        for x in range(size):
+            d = ((x - c) ** 2 + (y - c) ** 2) ** 0.5
+            ring = min(1.0, max(0.0, ro + 0.5 - d)) * min(1.0, max(0.0, d - ri + 0.5))
+            dot = min(1.0, max(0.0, rd + 0.5 - d))
+            px = [bg[k] + (gold[k] - bg[k]) * ring for k in range(3)]
+            px = [px[k] + (paper[k] - px[k]) * dot for k in range(3)]
+            raw += bytes(int(v + 0.5) for v in px)
+
+    def chunk(tag: bytes, body: bytes) -> bytes:
+        return (struct.pack(">I", len(body)) + tag + body
+                + struct.pack(">I", zlib.crc32(tag + body) & 0xFFFFFFFF))
+
+    return (b"\x89PNG\r\n\x1a\n"
+            + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(bytes(raw), 9)) + chunk(b"IEND", b""))
+
+
+MANIFEST = json.dumps({
+    "name": "Qur’an Reader", "short_name": "Qur’an", "start_url": "index.html", "scope": "./",
+    "display": "standalone", "background_color": "#0e4c47", "theme_color": "#0e4c47",
+    "icons": [
+        {"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+        {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+        {"src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml"},
+    ],
+}, ensure_ascii=False, indent=2) + "\n"
+
+# Service worker. Pages/assets: network first (always fresh when online, cached copy offline).
+# Data and fonts: cache first (immutable per data version). Everything visited is kept in
+# "quran-saved", which the Offline copy page can fill in bulk or clear.
+SW_JS = r"""
+const BUILD="__BUILD__",DATAVER="__DATAVER__",CORE="quran-core-"+BUILD,SAVED="quran-saved";
+const PRE=["./","index.html","search.html","config.html","bookmarks.html","sources.html","license.html","download.html",
+  "manifest.webmanifest","assets/style.css","assets/app.js","assets/catalog.js","assets/icon.svg"];
+const EXT=/^(fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net)$/;
+self.addEventListener("install",e=>{e.waitUntil(caches.open(CORE).then(c=>Promise.all(PRE.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()));});
+self.addEventListener("activate",e=>{e.waitUntil((async()=>{
+  for(const k of await caches.keys())if(k.startsWith("quran-core-")&&k!==CORE)await caches.delete(k);
+  try{const c=await caches.open(SAVED);for(const r of await c.keys()){const u=new URL(r.url);
+    if(/\/data\//.test(u.pathname)&&u.searchParams.has("v")&&u.searchParams.get("v")!==DATAVER)await c.delete(r);}}catch{}
+  await self.clients.claim();})());});
+const keep=async(req,res)=>{try{if(res&&(res.ok||res.type==="opaque")){const c=await caches.open(SAVED);await c.put(req,res.clone());}}catch{}return res;};
+const cacheFirst=async req=>{const m=await caches.match(req);if(m)return m;return keep(req,await fetch(req));};
+const networkFirst=async req=>{try{return await keep(req,await fetch(req));}
+  catch{const m=await caches.match(req,{ignoreSearch:true});if(m)return m;
+    if(req.mode==="navigate"){const i=await caches.match("index.html");if(i)return i;}throw new Error("offline");}};
+self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET")return;const u=new URL(r.url);
+  if(u.origin!==location.origin){if(EXT.test(u.hostname))e.respondWith(cacheFirst(r).catch(()=>fetch(r)));return;}
+  e.respondWith(/\/data\/|\/assets\/fonts\//.test(u.pathname)?cacheFirst(r):networkFirst(r));});
+"""
+
+
+def write_bytes(path: Path, data: bytes) -> bool:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists() and path.read_bytes() == data:
+        return False
+    path.write_bytes(data)
+    return True
+
+
+def kb(n: int) -> int:
+    return -(-n // 1024)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--root", default=".", help="repository root (default: .)")
     ap.add_argument("--out", default="docs", help="output folder inside root")
     ap.add_argument("--no-fonts", action="store_true",
                     help="do not link Google Fonts (privacy / fully self-hosted)")
+    ap.add_argument("--base-url", default="",
+                    help="public site URL (e.g. https://user.github.io/Quran-data); adds "
+                         "canonical/Open Graph tags, sitemap.xml and robots.txt")
     ap.add_argument("--clean", action="store_true", help="delete legacy docs/sd/ folder")
     args = ap.parse_args(argv)
     root, out = Path(args.root).resolve(), Path(args.root).resolve() / args.out
     CFG["fonts"] = not args.no_fonts
+    CFG["base_url"] = args.base_url.rstrip("/")
 
     # 1. load editions; drop any that are completely missing
     data: dict[str, Verses] = {}
     sources: list[Source] = []
+    incomplete: list[str] = []
     print("Loading editions")
     for src in CATALOG:
         d = load_source(root, src)
@@ -1043,7 +1547,10 @@ def main(argv=None) -> int:
             continue
         data[src.id] = d
         sources.append(src)
-        flag = "" if len(d) == TOTAL_AYAT else "   <-- incomplete"
+        flag = ""
+        if len(d) != TOTAL_AYAT:
+            flag = "   <-- incomplete"
+            incomplete.append(f"{src.id} ({len(d)}/{TOTAL_AYAT})")
         print(f"  {src.id:<24} {len(d):>5}/{TOTAL_AYAT}{flag}")
     if "arabic" not in data:
         print("ERROR: the Arabic text (output/quran_arabic.txt) is required.", file=sys.stderr)
@@ -1055,59 +1562,105 @@ def main(argv=None) -> int:
         nonlocal changed
         changed += write(path, text)
 
-    defaults = [s for s in sources if s.default and s.id != "arabic"]
+    defaults = [s for s in sources if s.default and s.kind != "arabic"]
+    alts = [s for s in sources if s.default and s.kind == "arabic" and s.id != "arabic"]
 
-    # 2. shared assets
+    # 2. data files (per surah per edition, plus whole-Qur'an files for search); sizes feed the
+    #    offline page's estimate and the hash versions the cached data
+    dh = hashlib.sha1()
+    data_kb: dict[str, int] = {}
+    search_kb: dict[str, int] = {}
+    for src in sources:
+        d = data[src.id]
+        total = 0
+        for s, size in enumerate(SURA_SIZE, 1):
+            arr = [d.get((s, a), "") for a in range(1, size + 1)]
+            text = f'QData("surah/{src.id}/{s:03d}",{js_json(arr)});\n'
+            put(out / "data" / "surah" / src.id / f"{s:03d}.js", text)
+            b = text.encode("utf-8")
+            total += len(b)
+            dh.update(b)
+        full = [d.get((s, a), "") for s, size in enumerate(SURA_SIZE, 1) for a in range(1, size + 1)]
+        text = f'QData("search/{src.id}",{js_json(full)});\n'
+        put(out / "data" / "search" / f"{src.id}.js", text)
+        b = text.encode("utf-8")
+        dh.update(b)
+        data_kb[src.id], search_kb[src.id] = kb(total), kb(len(b))
+    data_ver = dh.hexdigest()[:10]
+    if args.clean and (out / "sd").exists():
+        shutil.rmtree(out / "sd")
+        print("Removed legacy folder docs/sd/")
+
+    # 3. pages (built in memory first: their sizes and content feed the catalog / build id)
+    pages: dict[str, str] = {}
+    for s in range(1, 115):
+        n, m = SURA_NAMES[s - 1]
+        pages[f"{s:03d}.html"] = page(
+            f"Surah {s}: {n} ({m}) | Qur’an Reader", surah_body(s, data, defaults, alts), "reader",
+            desc=f"Surah {s}, {n} ({m}): Arabic text, transliteration, audio and translations.",
+            sura=s)
+    lic = root / "LICENSE"
+    lic_text = lic.read_text(encoding="utf-8") if lic.exists() else "(LICENSE file not found)"
+    pages["index.html"] = page("Qur’an Reader", index_body(sources), "index")
+    pages["search.html"] = page("Search | Qur’an Reader", search_body(), "search")
+    pages["config.html"] = page("Settings | Qur’an Reader", config_body(), "config")
+    pages["bookmarks.html"] = page("Bookmarks | Qur’an Reader", bookmarks_body(), "bookmarks")
+    pages["sources.html"] = page("Sources | Qur’an Reader", sources_body(sources), "sources")
+    pages["license.html"] = page("License | Qur’an Reader", license_body(lic_text), "license")
+    pages["download.html"] = page("Offline copy | Qur’an Reader", download_body(), "download")
+
+    # 4. catalog + shared assets
     catalog = {
         "suras": [{"name": n, "meaning": m, "type": "D" if i in MEDINAN else "M",
                    "order": REV_ORDER[i - 1], "juz": juz_span(i), "size": SURA_SIZE[i - 1]}
                   for i, (n, m) in enumerate(SURA_NAMES, 1)],
         "tr": [{"id": s.id, "label": s.label, "full": s.full, "lang": s.lang,
-                "group": s.group, "kind": s.kind, "tag": s.tag, "rtl": s.rtl}
-               for s in sources if s.id != "arabic" or True],
+                "group": s.group, "kind": s.kind, "tag": s.tag, "rtl": s.rtl,
+                "kb": data_kb[s.id], "skb": search_kb[s.id]} for s in sources],
         "defaults": {**{s.id: s.default for s in sources}, "audio": True},
         "audio": AUDIO_URL,
         "range": [1, 114],
+        "fonts": CFG["fonts"],
+        "dataVer": data_ver,
     }
+    catalog["sizes"] = {
+        "htmlKB": [kb(len(pages[f"{s:03d}.html"].encode("utf-8"))) for s in range(1, 115)],
+        "assetsKB": kb(len(APP_JS) + len(STYLE_CSS) + 40_000
+                       + sum(len(pages[k].encode("utf-8")) for k in pages if not k[0].isdigit())),
+    }
+    h = hashlib.sha1(APP_JS.encode() + STYLE_CSS.encode() + SW_JS.encode() + js_json(catalog).encode())
+    for k in sorted(pages):
+        h.update(pages[k].encode("utf-8"))
+    build = h.hexdigest()[:10]
+    catalog["build"] = build
+
     put(out / "assets" / "catalog.js", "window.QURAN_CATALOG=" + js_json(catalog) + ";\n")
     put(out / "assets" / "style.css", STYLE_CSS.strip() + "\n")
     put(out / "assets" / "app.js", APP_JS.strip() + "\n")
+    for name, text in pages.items():
+        put(out / name, text)
 
-    # 3. data files (per surah per edition, plus whole-Qur'an files for search)
-    for src in sources:
-        d = data[src.id]
-        for s, size in enumerate(SURA_SIZE, 1):
-            arr = [d.get((s, a), "") for a in range(1, size + 1)]
-            put(out / "data" / "surah" / src.id / f"{s:03d}.js",
-                f'QData("surah/{src.id}/{s:03d}",{js_json(arr)});\n')
-        full = [d.get((s, a), "") for s, size in enumerate(SURA_SIZE, 1)
-                for a in range(1, size + 1)]
-        put(out / "data" / "search" / f"{src.id}.js",
-            f'QData("search/{src.id}",{js_json(full)});\n')
-    if args.clean and (out / "sd").exists():
-        shutil.rmtree(out / "sd")
-        print("Removed legacy folder docs/sd/")
+    # 5. installable / offline-capable app shell
+    changed += write_bytes(out / "assets" / "icon-192.png", icon_png(192))
+    changed += write_bytes(out / "assets" / "icon-512.png", icon_png(512))
+    put(out / "assets" / "icon.svg", ICON_SVG)
+    put(out / "manifest.webmanifest", MANIFEST)
+    put(out / "sw.js", SW_JS.strip().replace("__BUILD__", build).replace("__DATAVER__", data_ver) + "\n")
 
-    # 4. pages
-    for s in range(1, 115):
-        n, m = SURA_NAMES[s - 1]
-        put(out / f"{s:03d}.html", page(
-            f"Surah {s}: {n} ({m}) | Qur’an Reader", surah_body(s, data, defaults), "reader",
-            desc=f"Surah {s}, {n} ({m}): Arabic text, transliteration, audio and translations.",
-            sura=s))
-    lic = root / "LICENSE"
-    lic_text = lic.read_text(encoding="utf-8") if lic.exists() else "(LICENSE file not found)"
-    put(out / "index.html", page("Qur’an Reader", index_body(sources), "index"))
-    put(out / "search.html", page("Search | Qur’an Reader", search_body(), "search"))
-    put(out / "config.html", page("Settings | Qur’an Reader", config_body(), "config"))
-    put(out / "bookmarks.html", page("Bookmarks | Qur’an Reader", bookmarks_body(), "bookmarks"))
-    put(out / "sources.html", page("Sources | Qur’an Reader", sources_body(sources), "sources"))
-    put(out / "license.html", page("License | Qur’an Reader", license_body(lic_text), "license"))
-    put(out / "download.html", page(
-        "Offline copy | Qur’an Reader", download_body(), "download",
-        foot_extra='<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>\n'))
+    # 6. SEO files (only when the public URL is known)
+    if CFG["base_url"]:
+        today = datetime.date.today().isoformat()
+        urls = "".join(f"<url><loc>{esc(CFG['base_url'])}/{n}</loc><lastmod>{today}</lastmod></url>\n"
+                       for n in sorted(pages))
+        put(out / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n")
+        put(out / "robots.txt", f"User-agent: *\nAllow: /\nSitemap: {CFG['base_url']}/sitemap.xml\n")
 
-    print(f"Done: {len(sources)} editions, 114 surah pages, {changed} files written/changed.")
+    print(f"Done: {len(sources)} editions, 114 surah pages, {changed} files written/changed "
+          f"(build {build}, data {data_ver}).")
+    if incomplete:
+        print("Incomplete editions (missing verses are left blank): " + ", ".join(incomplete),
+              file=sys.stderr)
     return 0
 
 

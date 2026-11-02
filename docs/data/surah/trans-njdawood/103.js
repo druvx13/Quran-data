@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/103",["I SWEAR by the declining day","that perdition shall be the lot of Man","except for those who believe and do good works; who exhort each other to justice and to fortitude"]);

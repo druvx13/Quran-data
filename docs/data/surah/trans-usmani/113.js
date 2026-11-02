@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/113",["Say, “I seek refuge with the Lord of the daybreak","from the evil of everything He has created,","and from the evil of the dark night when it penetrates,","and from the evil of the women who blow on the knots,","and from the evil of an envier when he envies."]);

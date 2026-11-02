@@ -1,0 +1,1 @@
+QData("surah/trans-shabbirahmed/103",["Time that flies and has flown, bears witness","That man is, and has been, in a state of loss","Except those who have chosen to be graced with belief, do works that help others and exemplify Truth and exemplify perseverance"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-sarwar/106",["For God's favors to them during their summer and winter journeys,","Quraish should worship the Lord of this House.","It is He who has fed them when they were hungry","and has made them secure from fear."]);

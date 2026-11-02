@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/110",["When there comes Allah’s help and the conquest,","and you see people entering Allah’s religion in multitudes,","then glorify the praise of your Lord, and ask His forgiveness. Indeed, He is ever Accepting of Repentance."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/109",["Say, “O disbelievers.","I do not worship what you worship.","Nor do you worship what I worship.","Nor will I worship what you have worshipped.","Nor will you worship what I worship.","To you your religion, and to me mine.”"]);

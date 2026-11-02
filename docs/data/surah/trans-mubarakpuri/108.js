@@ -1,0 +1,1 @@
+QData("surah/trans-mubarakpuri/108",["Verily, We have granted you Al-Kawthar.","Therefore turn in prayer to your Lord and sacrifice.","For he who hates you, he will be cut off."]);

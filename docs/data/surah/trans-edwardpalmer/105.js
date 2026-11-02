@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/105",["Hast thou not seen what thy Lord did with the fellows of the elephant","Did He not make their stratagem lead them astray","and send down on them birds in flocks","to throw down on them stones of baked clay","and make them like blades of herbage eaten down"]);

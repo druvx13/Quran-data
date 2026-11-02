@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/103",["Zamane ki qasam","Insan dar haqeeqat badey khasarey(nuksaan) mein hai","Siwaye un logon ke jo iman laye aur neik aamal karte rahe aur ek dusrey ko haqq ki nasihat aur sabr ki talqeen karte rahe"]);

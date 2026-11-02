@@ -1,0 +1,1 @@
+QData("surah/roman-urdu-junagarhi/094",["Kiya hum nay tera seena nahi khol diya","Aur tujh per say tera bojh hum ney utar diya","Jiss nay teri peth tordi thi","Aur hum nay tera zikar buland kerdiya","Pus yaqenan mushkil kay sath asani hai","By-shak mushkil kay sath asani hai","Pus jab to farigh ho to ibadat mein mehnat ker","Aur apney parwardigar hi ki tareef mein dil laga"]);

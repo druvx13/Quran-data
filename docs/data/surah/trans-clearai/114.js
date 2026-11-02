@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/114",["Say, “I seek refuge in the Lord of mankind.","The King of mankind.","The God of mankind.","From the evil of the retreating whisperer.","Who whispers into the hearts of people.","From among the jinn and mankind.”"]);

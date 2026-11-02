@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/113",["tame kahi do! Ke hum savarana palanaharani saranamam avum chum","dareka te vastuni bura'ithi je tene peda kari","ane andhari ratrini bura'ithi jyare tenum andharu phelaya jaya","ane gantha (lagavine te) mam phunkanarani bura'ithi (pana)","ane irsa karanara'o ni bura'ithi jyare te irsa kare"]);

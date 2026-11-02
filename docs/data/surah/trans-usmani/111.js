@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/111",["Perish the two hands of Abū Lahab, and perish he!","Neither his wealth benefited him, nor what he earned.","He will soon enter a Fire, full of flames,","and his wife as well,-the wicked carrier of firewood.","Around her neck, there is (a collar of iron, like) a well-twisted rope."]);

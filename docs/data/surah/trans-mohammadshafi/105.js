@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/105",["Have you not seen what your Lord did to the companions of the elephant","Did He not bring their plan to naught","And send upon them swarms of birds","Pelting them with stones of baked clay","And then making them look like chewed husk?h"]);

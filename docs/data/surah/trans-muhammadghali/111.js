@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/111",["Would the hands of Abu Lahab be cut up, (i.e., perish) and would he be cut up (too)","In no way did his wealth avail him, neither whatever he earned","He will roast at a flaming Fire, (Literally: fire comprising flame)","And his wife, the constant bearer of firewood","Upon her (long) neck she will have a rope of palm-fibers"]);

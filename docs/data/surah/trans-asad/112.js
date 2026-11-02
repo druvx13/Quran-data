@@ -1,0 +1,1 @@
+QData("surah/trans-asad/112",["SAY: \"He is the One God:","\"God the Eternal, the Uncaused Cause of All Being.","\"He begets not, and neither is He begotten;","\"and there is nothing that could be compared with Him."]);

@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/114",["(ai rasool) tum kah do main logon ke paravaradigaar","logon ke baadashaah","logon ke maabood kee (shaitaanee)","vasavase kee buraee se panaah maangata hoon","jo (khuda ke naam se) peechhe hat jaata hai jo logon ke dilon mein vasavase daala karata hai","jinnaat mein se khvaah aadamiyon mein se"]);

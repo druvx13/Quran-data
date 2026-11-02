@@ -1,0 +1,1 @@
+QData("surah/trans-maududi/109",["Say: “O unbelievers!”","I do not worship those that you worship","neither do you worship Him Whom I worship;","nor will I worship those whom you have worshipped;","nor are you going to worship Him Whom I worship.","To you is your religion, and to me, my religion."]);

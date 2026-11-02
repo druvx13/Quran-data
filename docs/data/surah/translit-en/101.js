@@ -1,0 +1,1 @@
+QData("surah/translit-en/101",["AlqariAAatu","Ma alqariAAatu","Wama adraka ma alqariAAatu","Yawma yakoonu alnnasu kaalfarashi almabthoothi","Watakoonu aljibalu kaalAAihni almanfooshi","Faamma man thaqulat mawazeenuhu","Fahuwa fee AAeeshatin radiyatin","Waamma man khaffat mawazeenuhu","Faommuhu hawiyatun","Wama adraka ma hiyah","Narun hamiyatun"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/114",["Say, I fly for refuge unto the Lord of men","the King of men","the God of men","that He may deliver me from the mischief of the whisperer who slyly withdraweth","who whispereth evil suggestions into the breasts of men","from genii and men"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/106",["(At least) for (God’s constant) favor of concord and security to the Quraysh","Their concord and security in their winter and summer journeys","Let them worship the Lord of this House (the Ka‘bah)","Who has provided them with food against hunger, and made them safe from fear"]);

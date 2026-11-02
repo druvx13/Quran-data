@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/102",["Your greed for more has distracted you","until you go down to your graves","No, indeed you will soon know","Certainly you will soon know","Indeed, If you knew the knowledge of certainty","you would see Hell","then you would surely see it with the eye of certainty","And on that Day you will be asked about the pleasures you enjoyed"]);

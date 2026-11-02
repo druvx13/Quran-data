@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/114",["SAY: I betake me for refuge to the Lord of MEN","The King of men","The God of men","Against the mischief of the stealthily withdrawing whisperer","Who whispereth in man's breast","Against djinn and men"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-yusuf/114",["Say: I seek refuge with the Lord and Cherisher of Mankind,","The King (or Ruler) of Mankind,","The god (or judge) of Mankind,-","From the mischief of the Whisperer (of Evil), who withdraws (after his whisper),-","(The same) who whispers into the hearts of Mankind,-","Among Jinns and among men."]);

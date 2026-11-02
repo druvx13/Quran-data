@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/102",["The contention about numbers deludes you","till ye visit the tombs","Not so! In the end ye shall know","And again not so! In the end ye shall know","Not so! Did ye but know with certain knowledge","Ye shall surely see hell","And again ye shall surely see it with an eye of certainty","Then ye shall surely be asked about pleasure"]);

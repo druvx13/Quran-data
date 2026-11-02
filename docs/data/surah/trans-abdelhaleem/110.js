@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/110",["When God’s help comes and He opens up your way [Prophet],","when you see people embracing God’s faith in crowds,","celebrate the praise of your Lord and ask His forgiveness: He is always ready to accept repentance."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/103",["By the afternoon!","Surely Man is in the way of loss,","save those who believe, and do righteous deeds, and counsel each other unto the truth, and counsel each other to be steadfast."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-muhammadghali/108",["Surely We have given you the Abundance","So pray to your Lord and slaughter (the sacrifice)","Surely your antagonist is he who is without offspring (Literally: curtailed)"]);

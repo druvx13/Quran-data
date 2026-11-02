@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/107",["sum tame (tene pana) joyo je badalana divasane juthalave che","a ja te che je anathane dhakka mare che","ane garibane khavadavavanum protsahana nathi apato","te namajhi'o mate kheda che (ane vaila namani jahannamani jagya) che","je potani namajhathi beparavaha che","je dekhado kare che","ane saman'ya jaruriyatathi roke che"]);

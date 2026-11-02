@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/111",["May the hands of Abu Lahab perish, and he ˹himself˺ perish","Neither his wealth nor ˹worldly˺ gains will benefit him","He will burn in a flaming Fire","and ˹so will˺ his wife, the carrier of ˹thorny˺ kindling","around her neck will be a rope of palm-fibre"]);

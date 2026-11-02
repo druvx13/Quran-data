@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/103",["(I swear) by the Time,","man is in a state of loss indeed,","except those who believed and did righteous deeds, and exhorted each other to follow truth, and exhorted each other to observe patience."]);

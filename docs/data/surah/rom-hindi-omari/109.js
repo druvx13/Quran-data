@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/109",["(he nabee!) kah doh he kaafiro","main un (moortiyon) ko nahin poojata, jinhen tum poojate ho","aur na tum use poojate ho, jise main poojata hoon","aur na main use poojoonga, jise tum poojate ho","aur na tum use poojoge, jise main poojata hoon","tumhaare lie tamhaara dharm tatha mere lie mera dharm hai"]);

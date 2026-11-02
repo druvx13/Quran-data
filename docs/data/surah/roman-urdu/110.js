@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/110",["Jab Allah ki madad aa jaye aur fatah naseeb ho jaye","Aur (aey Nabi s.a.s) tum dekh lo ke log fauj dar fauj Allah ke deen mein dakhil ho rahey hain","To apne Rubb ki hamd ke saath uski tasbeeh karo Aur us se magfirat ki duaa maango. Beshak woh bada tauba qabool karne wala hai"]);

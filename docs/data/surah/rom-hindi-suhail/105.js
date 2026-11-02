@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/105",["ai rasool kya tumane nahin dekha ki tumhaare paravaradigaar ne haathee vaalon ke saath kya kiya","kya usane unakee tamaam tadbeeren galat nahin kar deen (zaroor)","aur un par jhund kee jhund chidiyaan bhej deen","jo un par kharanjon kee kankariyaan phekatee theen","to unhen chabae hue bhoos kee (tabaah) kar diya"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/109",["Say: 'O unbelievers,","I serve not what you serve","and you are not serving what I serve,","nor am I serving what you have served,","neither are you serving what I serve","To you your religion, and to me my religion!'"]);

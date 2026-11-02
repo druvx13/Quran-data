@@ -1,0 +1,1 @@
+QData("surah/trans-mubarakpuri/105",["Have you not seen how your Lord dealt with the Owners of the Elephant","Did He not make their plot go astray","And He sent against them birds, in flocks (Ababil).","Striking them with stones of Sijjil.","And He made them like `Asf, Ma'kul."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/094",["Have We not lifted up your heart,","and removed your burden","that weighed so heavily on your back, and","have We not given you high renown?","So, surely with every hardship there is ease;","surely, with every hardship there is ease.","So, when you are free, strive hard,","and to your Lord turn [all] your attention."]);

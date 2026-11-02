@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/095",["By the fig, by the olive,","by Mount Sinai,","by this safe town,","We create man in the finest state","then reduce him to the lowest of the low,","except those who believe and do good deeds–– they will have an unfailing reward.","After this, what makes you [man] deny the Judgement?","Is God not the most decisive of judges?"]);

@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/108",["(ai rasool) hamanen tumako ko kausar ata kiya","to tum apane paravaradigaar kee namaaz padha karo","aur qurbaanee diya karo beshak tumhaara dushman be aulaad rahega"]);

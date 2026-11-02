@@ -1,0 +1,1 @@
+QData("surah/trans-maududi/105",["Have you not seen how your Lord dealt with the people of the elephants?","Did He not bring their plan to naught?","And He sent against them swarms of birds","which smote them with stones of baked clay,","and made them like straw eaten up (by cattle)."]);

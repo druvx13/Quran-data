@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/114",["Say, “I seek the protection of the Lord of mankind","the King of mankind","the God of mankind","from the evil of the whisperings of (the devil), he who (whispers and then) withdraws","who whispers into the bosoms (hearts or minds) of mankind","from among the jinn and mankind.”"]);

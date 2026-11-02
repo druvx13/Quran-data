@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/111",["May Abo-Lahab´s both hands waste away and may he waste away [as well]","His wealth and what he´s earned will never profit him","he´ll roast in a fire with a flame","while his wife who carries kindling around","will have a palm-fiber rope around her neck"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/110",["When Allah's help and the victory have come","And you see people entering Allah-ordained way of life for mankind, in large numbers","Then glorify your Lord with His praise, and seek His forgiveness. HE is indeed the One to accept repentance"]);

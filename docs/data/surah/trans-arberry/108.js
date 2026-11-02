@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/108",["Surely We have given thee abundance;","so pray unto thy Lord and sacrifice.","Surely he that hates thee, he is the one cut off."]);

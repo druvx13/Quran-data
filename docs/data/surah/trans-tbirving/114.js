@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/114",["SAY: \"I take refuge with the Lord of Mankind","the King of Mankind","the God of Mankind","from the evil of the stealthy Whisperer","who whispers in the breasts of Mankind","whether among sprites or Mankind"]);

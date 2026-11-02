@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/103",["I SWEAR by the declining day","Verily, man's lot is cast amid destruction","Save those who believe and do the things which be right, and enjoin truth and enjoin stedfastness on each other"]);

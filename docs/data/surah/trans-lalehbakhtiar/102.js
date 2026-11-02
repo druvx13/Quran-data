@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/102",["Rivalry diverted you","until you stopped by the cemetery","No indeed! You will know","Again, no indeed! You will know","No indeed! If you will know with the knowledge of certainty","you will, certainly, see hellfire","Again, you will see it with the eye of certainty","Again, you will, certainly, be asked on that day about the bliss"]);

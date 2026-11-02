@@ -1,0 +1,1 @@
+QData("surah/trans-yusuf/107",["Seest thou one who denies the Judgment (to come)?","Then such is the (man) who repulses the orphan (with harshness),","And encourages not the feeding of the indigent.","So woe to the worshippers","Who are neglectful of their prayers,","Those who (want but) to be seen (of men),","But refuse (to supply) (even) neighbourly needs."]);

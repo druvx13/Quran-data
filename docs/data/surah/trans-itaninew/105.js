@@ -1,0 +1,1 @@
+QData("surah/trans-itaninew/105",["Have you not considered how your Lord dealt with the People of the Elephant","Did He not make their plan go wrong","He sent against them swarms of birds","Throwing at them rocks of baked clay","Leaving them like chewed-up leaves"]);

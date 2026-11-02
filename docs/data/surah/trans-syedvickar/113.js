@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/113",["Say: \"I seek shelter (and security) with the Lord (Rab, the Cherisher) of the dawn","From the mischief of the created things","From the mischief of darkness as it spreads over","From the mischief of those who practice secret (and evil) arts as they blow into knots (riddles)","And from the mischief of the envious one as he practices envy"]);

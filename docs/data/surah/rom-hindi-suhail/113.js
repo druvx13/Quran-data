@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-suhail/113",["(ai rasool) tum kah do ki main subah ke maalik kee","har cheez kee buraee se jo usane paida kee panaah maangata hoon","aur andhereeraat kee buraee se jab usaka andhera chha jae","aur gandon par phoonkane vaaliyon kee buraee se","(jab phoonke) aur hasad karane vaale kee buraee se"]);

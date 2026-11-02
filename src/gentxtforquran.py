@@ -9,6 +9,7 @@ Reads source data from data/ and writes output files to output/.
 """
 import json
 import os
+import re
 import zipfile
 
 os.makedirs('output', exist_ok=True)
@@ -24,6 +25,7 @@ translations = [
     ('data/en.pickthall.txt', 'output/quran_english_pickthall.txt', 'Mohammed Marmaduke Pickthall', 'English'),
     ('data/en.yusufali.txt', 'output/quran_english_yusufali.txt', 'Abdullah Yusuf Ali', 'English-Piped'),
     ('data/ar.quran.txt', 'output/quran_arabic.txt', 'Standard Arabic Uthmani Script', 'Arabic'),
+    ('data/quran-simple.txt', 'output/quran_arabic_simple.txt', 'Arabic Simple Script', 'Arabic-Piped'),
     ('data/translit_en.txt', 'output/quran_translit_unicode.txt', 'Quran Unicode Project', 'Transliteration-Sequential'),
     ('data/hindi-mokhtasar.json.zip', 'output/quran_hindi_mokhtasar.txt', 'Al-Mokhtasar Fi Tafsir Al-Quran Al-Karim', 'Hindi-Tafsir-JSON'),
     ('data/abridged-explanation-of-the-quran.json.zip', 'output/quran_english_abridged.txt', 'Abridged Explanation of the Quran', 'English-Tafsir-JSON'),
@@ -108,7 +110,7 @@ for src_file, out_file, translator, lang in translations:
         elif lang in ('English', 'English-Piped', 'English-SuraAyah'):
             out.write("Quran - English Translation\n")
             out.write("Translator: %s\n" % translator)
-        elif lang == 'Arabic':
+        elif lang in ('Arabic', 'Arabic-Piped'):
             out.write("Quran - Arabic\n")
             out.write("Script: %s\n" % translator)
         elif lang == 'Hindi':
@@ -194,6 +196,25 @@ for src_file, out_file, translator, lang in translations:
                         text = raw_line.split('|', 1)[1] if '|' in raw_line else ''
                         out.write("[%d:%d] %s\n" % (sura_num + 1, ayah_num, text))
                     out.write("\n")
+        elif lang == 'Arabic-Piped':
+            ayah_data = {}
+            with open(src_file, 'r', encoding='utf-8') as src:
+                for raw_line in src:
+                    parts = raw_line.rstrip('\n').split('|', 2)
+                    if len(parts) == 3 and parts[0].isdigit() and parts[1].isdigit():
+                        ayah_data[(int(parts[0]), int(parts[1]))] = parts[2]
+            basmala = re.compile(
+                r"^ب[ِّ]سْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ(?:\s+|$)")
+            for sura_num in range(114):
+                out.write("Surah %d: %s\n" % (sura_num + 1, suraname[sura_num]))
+                out.write("-" * 40 + "\n")
+                for ayah_num in range(1, surasize[sura_num] + 1):
+                    text = ayah_data.get((sura_num + 1, ayah_num), '')
+                    if ayah_num == 1 and sura_num + 1 not in (1, 9):
+                        text = basmala.sub('', text, count=1)
+                    out.write("[%d:%d] %s\n" % (
+                        sura_num + 1, ayah_num, text))
+                out.write("\n")
         elif lang in ('English-SuraAyah', 'English-Piped', 'Urdu-SuraAyah'):
             with open(src_file, 'r', encoding='utf-8') as src:
                 for sura_num in range(114):

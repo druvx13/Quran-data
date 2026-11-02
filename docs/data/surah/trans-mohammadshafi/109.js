@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/109",["Say, \"O you who suppress the Truth","I worship not that which you worship","And you worship not Him Whom I worship","And I shall worship not that which you worship","And you worship not Him Whom I worship","For you your way of life and for me, mine"]);

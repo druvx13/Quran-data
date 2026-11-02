@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/114",["Say: I seek refuge in the Lord of the mankind","the King of mankind","the real God of mankind","from the mischief of the slinking whisperers (Satan and his workers)","who whisper into the hearts of people","from among the jinn or from the mankind"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/001",["In the name of God, the Mercygiving, the Merciful","Praise be to God, Lord of the Universe","the Mercygiving, the Merciful","Ruler on the Day for Repayment","You do we worship and You do we call on for help","Guide us along the Straight Road","the road of those whom You have favored, with whom You are not angry, nor who are lost"]);

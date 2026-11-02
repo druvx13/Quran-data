@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/104",["Woe unto every backbiter, slanderer","Who gathered his wealth and counted it","He thinks that his wealth will make him immortal","Never! He will be thrown into the Destroyer","And do you know what is the Destroyer","God's kindled Fire","Which reaches the inside of the hearts","It will confine them therein","In extended columns"]);

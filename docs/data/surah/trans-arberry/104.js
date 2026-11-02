@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/104",["Woe unto every backbiter, slanderer,","who has gathered riches and counted them over","thinking his riches have made him immortal!","No indeed; he shall be thrust into the Crusher;","and what shall teach thee what is the Crusher;","The Fire of God kindled","roaring over the hearts","covered down upon them,","in columns outstretched."]);

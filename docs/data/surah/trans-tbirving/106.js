@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/106",["In dealing with the Quraysh","for their preparations to travel in winter and in summer","let them worship the Lord of this House","Who feeds them against famine and secures them from fear"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/109",["Say: O unbelievers","I will not worship that which ye worship","nor will ye worship that which I worship","Neither do I worship that which ye worship","neither do ye worship that which I worship","Ye have your religion, and I my religion"]);

@@ -1,0 +1,1 @@
+QData("surah/translit-en/114",["Qul aAAoothu birabbi alnnasi","Maliki alnnasi","Ilahi alnnasi","Min sharri alwaswasi alkhannasi","Allathee yuwaswisu fee sudoori alnnasi","Mina aljinnati wa alnnasm"]);

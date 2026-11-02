@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/111",["Ruined were the hands of Abu Lahab and he was ruined","His wealth availed him not nor whatever he earned","He will roast in a fire, possessing flames","and his woman, the carrier of firewood","around her long neck is a rope of palm fibers"]);

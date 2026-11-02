@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/104",["Woe to every scorning backbiter","who has amassed wealth and diversified it","thinking that his wealth will make him immortal","No! He will surely be thrown into the Crusher","And what will convey to you what is the Crusher","It is the kindled Fire of God","reaching right into the hearts","it will engulf them","in extended columns"]);

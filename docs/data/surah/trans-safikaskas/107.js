@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/107",["Have you seen the one who denies this faith","For that is the one who drives the orphan away","and does not encourage the feeding of the poor","So woe to those who pray","but, who do not pay attention to their prayer","Those who make a show [of their deeds]","and withhold assistance to others"]);

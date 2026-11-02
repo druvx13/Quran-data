@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/103",["By the time through the ages","Surely mankind is in loss","except those who believe and do good deeds; exhort one another to the truth and exhort one another to patience"]);

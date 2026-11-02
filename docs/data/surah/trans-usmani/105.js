@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/105",["Have you not seen how your Lord dealt with the People of the Elephant?","Has He not turned their plan into nullity?","And He sent upon them flying birds in flocks,","throwing upon them stones of baked clay,","and thus He turned them into an eaten-up chaff."]);

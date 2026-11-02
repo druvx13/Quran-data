@@ -1,0 +1,1 @@
+QData("surah/trans-asad/110",["WHEN GOD'S SUCCOUR comes, and victory,","and thou seest people enter God's religion in hosts,","extol thy Sustainer's limitless glory, and praise Him, and seek His forgiveness: for, behold, He is ever an acceptor of repentance."]);

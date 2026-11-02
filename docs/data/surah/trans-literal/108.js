@@ -1,0 +1,1 @@
+QData("surah/trans-literal/108",["We (E), We gave/granted you the abundance (of goodness)","So pray to your Lord, and be perfect/excellent/slaughter (for charity)","That truly your hater and enemy, he is the mean and despised/of no good"]);

@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/114",["Kaho, main panah maangta hoon insano ke Rubb","Insano ke badshah","Insano ke hakiki maabood ki","us waswasa dalne wale ke shar se jo baar baar palat kar aata hai","Jo logon ke dilon mei waswasey daalta hai","khwah woh jinno mein se ho ya Insano mein se"]);

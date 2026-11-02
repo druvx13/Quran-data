@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/113",["Say: ´I seek refuge with the Lord of Daybreak","from the evil of what He has created","and from the evil of the darkness when it gathers","and from the evil of women who blow on knots","and from the evil of an envier when he envies.´"]);

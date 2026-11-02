@@ -1,0 +1,1 @@
+QData("surah/trans-asad/103",["CONSIDER the flight of time!","Verily, man is bound to lose himself","unless he be of those who attain to faith, and do good works, and enjoin upon one another the keeping to truth, and enjoin upon one another patience in adversity."]);

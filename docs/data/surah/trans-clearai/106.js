@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/106",["For the solidarity of Quraysh.","Their solidarity in the winter and summer journeys.","Let them worship the Lord of this House.","Who fed them against hunger and secured them against fear."]);

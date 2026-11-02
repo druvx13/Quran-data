@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/111",["Perish the hands of Abu Lahab! And perish he","His wealth and whatever he earned did not avail him anything","Soon he shall be burnt in a flaming fire (a pun on the meaning of Abu Lahab, \"father of flames)","and his wife, the carrier of crackling fire wood","shall have a rope of palm-leaf fibre around her neck"]);

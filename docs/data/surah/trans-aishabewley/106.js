@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/106",["In acknowledgment of the established tradition of Quraysh","their tradition of the winter and summer caravans","so let them worship the Lord of this House","who has preserved them from hunger and secured them from fear"]);

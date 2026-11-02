@@ -1,0 +1,1 @@
+QData("surah/trans-syedvickar/106",["For the agreements (promises) of security and safeguard (enjoyed) by Quraish","Their agreements (covering) journeys by winter and summer—","Let them adore the Lord of this House","(The One) Who provides them with food against hunger, and with security against fear (of danger)"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-qarai/097",["Indeed We sent it down on the Night of Ordainment.","And what will show you what is the Night of Ordainment?","The Night of Ordainment is better than a thousand months.","In it the angels and the Spirit descend, by the leave of their Lord, with every command.","It is peaceful until the rising of the dawn."]);

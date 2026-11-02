@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/108",["We have surely granted you (unceasing) abundant good","So pray to your Lord, and sacrifice (for Him in thankfulness)","Surely it is the one who offends you who is cut off (from unceasing good, including posterity)"]);

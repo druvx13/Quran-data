@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/095",["By the fig and the olive.","And by Mount Sinai.","And by this secure city.","We created man in the finest form.","Then We reduced him to the lowest of the low.","Except those who believe and do good deeds—for them is a reward unending.","So what after this could make you deny the Judgment?","Is God not the most just of judges?"]);

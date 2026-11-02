@@ -1,0 +1,1 @@
+QData("surah/trans-sarwar/110",["(Muhammad), when help and victory comes from God,","you will see large groups of people embracing the religion of God.","Glorify your Lord with praise and ask Him for forgivenes. He accepts repentance."]);

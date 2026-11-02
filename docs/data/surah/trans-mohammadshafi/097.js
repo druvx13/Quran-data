@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/097",["We have indeed bestowed it [the Qur'aan] in the night of Divine Decree","And what do you understand what the night of divine Decree is","The night of divine Decree is better than a thousand months","The angels and the Spirit, by their Lord's leave, descend in that night with all His decrees","Peace it is, until the break of dawn"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/108",["O Muhammad, surely We have granted you the Kauthar (countless blessings, plenty)","Therefore, offer Salah (prayer) to your Lord and sacrifice","Surely your enemy is the one who will be cut off from the root"]);

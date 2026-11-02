@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/104",["Woe to every fault-finding backbiter","who amasses riches, counting them over,","thinking they will make him live for ever.","No indeed! He will be thrust into the Crusher!","What will explain to you what the Crusher is?","It is God’s Fire, made to blaze,","which rises over people’s hearts.","It closes in on them","in towering columns."]);

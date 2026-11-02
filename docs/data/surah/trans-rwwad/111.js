@@ -1,0 +1,1 @@
+QData("surah/trans-rwwad/111",["May the hands of Abu Lahab perish, and may he perish!","Neither his wealth nor his worldly gains will avail him.","He will burn in a Flaming Fire,","and so will his wife, the carrier of firewood,","around her neck will be a rope of palm fiber."]);

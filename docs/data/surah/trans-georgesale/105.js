@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/105",["Hast thou not seen how thy Lord dealt with the masters of the elephant","Did He not make their treacherous design an occasion of drawing them into error","and send against them flocks of birds","which cast down upon them stones of baked clay","and render them like the leaves of corn eaten by cattle"]);

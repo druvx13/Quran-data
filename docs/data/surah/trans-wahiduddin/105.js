@@ -1,0 +1,1 @@
+QData("surah/trans-wahiduddin/105",["Have you not seen how your Lord dealt with the people of the elephant?","Did He not foil their strategy","and send against them flocks of birds,","which pelted them with clay stones?","Thus He made them like stubble cropped by cattle?"]);

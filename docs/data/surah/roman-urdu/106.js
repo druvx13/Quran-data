@@ -1,0 +1,1 @@
+QData("surah/roman-urdu/106",["Chunke Quresh manoos huey","(yani) Jaadey(winter) aur garmi ke safaron se manoos","Lihaza un ko chahiye ke is ghar ke Rubb ki ibadat karein","Jisne unhein bhook se bacha kar khane ko diya aur khauf se bacha kar aman ata kiya"]);

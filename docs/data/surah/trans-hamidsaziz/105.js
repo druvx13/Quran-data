@@ -1,0 +1,1 @@
+QData("surah/trans-hamidsaziz/105",["See you not how your Lord dealt with the people of the elephant","Did He not make their stratagem lead them astray","And sent down on them birds in flocks","To pelt them with stones of baked clay","And make them like stalks left by herbage eaten down"]);

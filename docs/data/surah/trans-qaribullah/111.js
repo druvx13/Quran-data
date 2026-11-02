@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/111",["Perish the hands of AbiLahab, and perish he!","His wealth will not suffice him, neither what he has gained;","he shall roast at a Flaming Fire,","and his wife, laden with firewood","shall have a rope of palmfiber around her neck!"]);

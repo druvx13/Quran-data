@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/102",["YOUR HEARTS are taken up with worldly gain","from the cradle to the grave","No! But you shall learn","No! You then shall surely learn","No! If you knew the Truth with certainty","you would witness Hell","you would then witness it with the certainty of your very eyes","Then, on that day, you shall surely be questioned about your bliss"]);

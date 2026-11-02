@@ -1,0 +1,1 @@
+QData("surah/trans-asad/114",["SAY: \"I seek refuge with the Sustainer of men,","\"the Sovereign of men,","\"the God of men,","\"from the evil of the whispering, elusive tempter","\"who whispers in the hearts of men","\"from all [temptation to evil by] invisible forces as well as men,\""]);

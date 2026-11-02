@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/113",["Say: I take refuge with the Lord of Daybreak","from the worst of things that He created","and from the worst of the darkness of the night when the dark intensified","and from the worst of the women who practice magic, blowing on the knots","and from the worst of one who is jealous when jealous"]);

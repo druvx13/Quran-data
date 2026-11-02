@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/103",["By the time","Indeed, mankind is surely in loss","But not those among them who believe and do good deeds, and exhort one another to Truth, and exhort one another to patience"]);

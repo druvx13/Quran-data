@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/114",["Say: ´I seek refuge with the Lord of mankind","the King of mankind","the God of mankind","from the evil of the insidious whisperer","who whispers in people´s breasts","and comes from the jinn and from mankind.´"]);

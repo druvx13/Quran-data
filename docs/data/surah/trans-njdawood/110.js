@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/110",["WHEN GOD‘S help and victory come","and you see people embrace God‘s Religion in multitudes","give praise and glory to your Lord and seek His forgiveness. He is ever disposed to forgive"]);

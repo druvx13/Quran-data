@@ -1,0 +1,1 @@
+QData("surah/trans-daryabadi/108",["Verily We! We have given thee Kauthar.","Wherefore pray thou Unto thy Lord, and sacrifice.","Verily it is thy traducer who shall be tail-less."]);

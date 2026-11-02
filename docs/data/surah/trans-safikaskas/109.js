@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/109",["Say: \"You who deny the truth","I do not worship what you worship","and you do not worship what I worship","and I will never worship what you worship","Neither will you worship what I worship","You have your own religion, and I have mine"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/094",["Did We not relieve your breast for you","and remove your burden from you","that pressed down upon your back","We have even raised up renown of you","Yet hardship will bring ease","Indeed, hardship must bring ease","So whenever you have finished, still toil on","Towards your Lord direct your longing"]);

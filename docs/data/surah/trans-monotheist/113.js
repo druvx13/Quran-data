@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/113",["Say: \"I seek refuge with the Lord of the dawn","From the evils among His creation","And from the evil of darkness as it falls","And from the evil of those who practice sorcery","And from the evil of the envious when they envy"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-itani/112",["Say, “He is God, the One.","God, the Absolute.","He begets not, nor was He begotten.","And there is nothing comparable to Him.”"]);

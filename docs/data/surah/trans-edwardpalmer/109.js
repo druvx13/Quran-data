@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/109",["Say, O ye misbelievers","I do not serve what ye serve","nor will ye serve what I serve","nor will I serve what ye serve","nor will ye serve what I serve","ye have your religion, and I have my religion"]);

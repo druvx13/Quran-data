@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedali/106",["SINCE THE QURAISH have been united,","United to fit out caravans winter and summer,","Let them worship the Lord of this House,","Who provided them against destitution and gave them security against fear."]);

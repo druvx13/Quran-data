@@ -1,0 +1,1 @@
+QData("surah/trans-miraneesuddin/094",["Did We not expand for you your bosom","and relieve you of your burden","which weighed down your back","and exalted for you your mention","So certainly with difficulty is ease","Certainly with difficulty is ease","So when you are free, then strive","and turn your attention towards your Lord"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-mohammadshafi/111",["Abu Lahab's hands are perished; and he too","His wealth and what he earned was of no avail to him","[In the life to come] he shall burn in a Fire of blazing flames","Along with his wife, carrier of (thorny) wood —","A rope of twisted strands in her neck"]);

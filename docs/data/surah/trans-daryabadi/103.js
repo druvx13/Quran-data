@@ -1,0 +1,1 @@
+QData("surah/trans-daryabadi/103",["By the time,","Verily man is in loss,","But not those who themselves believe and work righteous works, and enjoin upon each other the truth, and enjoin upon each other endurance."]);

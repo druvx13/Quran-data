@@ -1,0 +1,1 @@
+QData("surah/trans-aliunal/113",["Say: \"I seek refuge in the Lord of the daybreak","From the evil of what He has created","And from the evil of the darkness (of night) when it overspreads","And from the evil of the witches who blow on knots (to cast a spell)","And from the evil of the envious one when he envies"]);

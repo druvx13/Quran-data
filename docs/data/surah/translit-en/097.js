@@ -1,0 +1,1 @@
+QData("surah/translit-en/097",["Inna anzalnahu fee laylati alqadri","Wama adraka ma laylatu alqadri","Laylatu alqadri khayrun min alfi shahrin","Tanazzalu almalaikatu waalrroohu feeha biithni rabbihim min kulli amrin","Salamun hiya hatta matlaAAi alfajri"]);

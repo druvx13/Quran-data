@@ -1,0 +1,1 @@
+QData("surah/trans-monotheist/107",["Do you know who rejects the system","It is the one who mistreats the orphans","And does not encourage the feeding of the poor","So woe to those who reach out","But who are totally heedless of their contact-method","They only want to be seen","And they deter from helping others"]);

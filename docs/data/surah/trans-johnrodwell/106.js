@@ -1,0 +1,1 @@
+QData("surah/trans-johnrodwell/106",["For the union of the KOREISCH","Their union in equipping caravans winter and summer","And let them worship the Lord of this house, who hath provided them with food against hunger","And secured them against alarm"]);

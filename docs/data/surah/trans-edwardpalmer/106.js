@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/106",["For the uniting of the Qurais","uniting them for the caravan of winter and summer","So let them serve the Lord of this house","who feeds them against hunger and makes them safe against fear"]);

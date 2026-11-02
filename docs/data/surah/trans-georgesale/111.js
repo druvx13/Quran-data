@@ -1,0 +1,1 @@
+QData("surah/trans-georgesale/111",["The hands of Abu Laheb shall perish, and he shall perish","His riches shall not profit him, neither that which he hath gained","He shall go down to be burned into flaming fire","and his wife also, bearing wood","having on her neck a cord of twisted fibres of a palm-tree"]);

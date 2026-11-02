@@ -1,0 +1,1 @@
+QData("surah/trans-aishabewley/103",["By the Late Afternoon","truly man is in loss —","except for those who have iman and do right actions and urge each other to the truth and urge each other to steadfastness"]);

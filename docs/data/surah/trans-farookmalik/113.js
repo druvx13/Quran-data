@@ -1,0 +1,1 @@
+QData("surah/trans-farookmalik/113",["Say: I seek refuge with the Lord of the dawn","from the mischief of all that He has created","and from the mischief of darkness when it overspreads","from the mischief of those who blow on knots (black magic)","and from the mischief of the envier when he envies"]);

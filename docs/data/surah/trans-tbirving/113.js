@@ -1,0 +1,1 @@
+QData("surah/trans-tbirving/113",["SAY: \"I take refuge with the Lord of Dawn","from the mischief which He has created","and from the evil of dusk as it settles down","and from the mischief of women spitting on knots","and from the evil of some envier when he envies"]);

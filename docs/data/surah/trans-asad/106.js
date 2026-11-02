@@ -1,0 +1,1 @@
+QData("surah/trans-asad/106",["SO THAT the Quraysh might remain secure,","secure in their winter and summer journeys,","Let them, therefore, worship the Sustainer of this Temple;","who has given them food against hunger, and made them safe from danger."]);

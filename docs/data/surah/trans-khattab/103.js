@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/103",["By the ˹passage of˺ time","Surely humanity is in ˹grave˺ loss","except those who have faith, do good, and urge each other to the truth, and urge each other to perseverance"]);

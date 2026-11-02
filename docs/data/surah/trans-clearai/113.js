@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/113",["Say, “I seek refuge in the Lord of the daybreak.","From the evil of what He created.","From the evil of darkness when it settles.","From the evil of those who blow on knots.","From the evil of an envier when he envies.”"]);

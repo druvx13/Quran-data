@@ -1,0 +1,1 @@
+QData("surah/translit-en/107",["Araayta allathee yukaththibu bialddeeni","Fathalika allathee yaduAAAAu alyateema","Wala yahuddu AAala taAAami almiskeeni","Fawaylun lilmusalleena","Allatheena hum AAan salatihim sahoona","Allatheena hum yuraoona","WayamnaAAoona almaAAoona"]);

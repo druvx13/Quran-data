@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/097",["WE REVEALED it on the Night of Qadr.³","Would that you knew what the Night of Qadr is like","Better is the Night of Qadr than a thousand months","On that night the angels and the Spirit by their Lord‘s leave come down with each command","Peace it is, till break of dawn"]);

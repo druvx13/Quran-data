@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/108",["Surely We have given you Kausar,","Therefore pray to your Lord and make a sacrifice.","Surely your enemy is the one who shall be without posterity,"]);

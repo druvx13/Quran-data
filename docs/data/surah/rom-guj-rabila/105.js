@@ -1,0 +1,1 @@
+QData("surah/rom-guj-rabila/105",["sum tame na joyum, ke tamara palanahare hathivala'o sathe sum karyu","sum temani yuktine nisphala na kari didhi","ane temana upara paksi'ona tole-tola mokali didha","je temane mati ane pat'tharani kankari'o mari rahya hata","basa! Temane khadhela bhusa jeva kari nakhya"]);

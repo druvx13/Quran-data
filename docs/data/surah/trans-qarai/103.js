@@ -1,0 +1,1 @@
+QData("surah/trans-qarai/103",["By Time!","Man is indeed in loss,","except those who have faith and do righteous deeds, and enjoin one another to [follow] the truth, and enjoin one another to patience."]);

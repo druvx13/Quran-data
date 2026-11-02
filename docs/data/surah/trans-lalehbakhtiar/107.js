@@ -1,0 +1,1 @@
+QData("surah/trans-lalehbakhtiar/107",["Hadst thou considered one who denies this way of life","And that is he who drives away with force the orphan","and urges not to give food to the needy","So woe to ones who formally pray","ones who are inattentive to their formal prayers","those who make display","yet they repulse giving the assistance"]);

@@ -1,0 +1,1 @@
+QData("surah/trans-mubarakpuri/112",["Say: \"He is Allah, One.\"","\"Allah As-Samad.\"","\"He begets not, nor was He begotten.\"","\"And there is none comparable to Him.\""]);

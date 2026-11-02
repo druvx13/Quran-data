@@ -1,0 +1,1 @@
+QData("surah/trans-arberry/112",["Say: 'He is God, One,","God, the Everlasting Refuge,","who has not begotten, and has not been begotten,","and equal to Him is not any one.'"]);

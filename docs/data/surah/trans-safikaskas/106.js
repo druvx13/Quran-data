@@ -1,0 +1,1 @@
+QData("surah/trans-safikaskas/106",["So that Quraysh remains secure","They are secure in their Winter and Summer journeys","Let them worship the Lord of this House","who has fed them after hunger, and made then safe after fear"]);

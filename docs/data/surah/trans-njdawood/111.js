@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/111",["MAY THE hands of Abu-Lahab² perish! And may he himself perish","Nothing shall his wealth and gains avail him","He shall be burnt in a flaming fire,³","and his wife, laden with firewood","shall have a rope of fibre round her neck"]);

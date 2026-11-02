@@ -1,0 +1,1 @@
+QData("surah/trans-abdelhaleem/114",["Say, ‘I seek refuge with the Lord of people,","the Controller of people,","the God of people,","against the harm of the slinking whisperer––","who whispers into the hearts of people––","whether they be jinn or people.’"]);

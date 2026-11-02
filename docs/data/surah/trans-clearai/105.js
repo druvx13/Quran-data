@@ -1,0 +1,1 @@
+QData("surah/trans-clearai/105",["Have you not seen how your Lord dealt with the People of the Elephant?","Did He not render their scheme utterly futile?","He sent against them birds in flocks.","Pelting them with stones of baked clay.","And made them like devoured husks."]);

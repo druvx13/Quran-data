@@ -1,0 +1,1 @@
+QData("surah/trans-khattab/106",["˹At least˺ for ˹the favour of˺ making Quraysh habitually secure—","secure in their trading caravan ˹to Yemen˺ in the winter and ˹Syria˺ in the summer—","let them worship the Lord of this ˹Sacred˺ House","Who has fed them against hunger and made them secure against fear"]);

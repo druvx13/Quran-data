@@ -1,0 +1,1 @@
+QData("surah/trans-itani/110",["When there comes God’s victory, and conquest.","And you see the people entering God’s religion in multitudes.","Then celebrate the praise of your Lord, and seek His forgiveness. He is the Accepter of Repentance."]);

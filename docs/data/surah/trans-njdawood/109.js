@@ -1,0 +1,1 @@
+QData("surah/trans-njdawood/109",["SAY: ‘YOU blasphemers","I do not worship what you worship","nor do you worship what I worship","I shall never worship what you worship","nor will you ever worship what I worship","You have your religion, and I have my religion.‘"]);

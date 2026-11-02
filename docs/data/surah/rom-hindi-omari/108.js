@@ -1,0 +1,1 @@
+QData("surah/rom-hindi-omari/108",["(he nabee!) hamane tumhen kausar pradaan kiya hai","to tum apane paalanahaar ke lie namaaz padho tatha bali do","nihsandeh tumhaara shatru hee be naam nishaan hai"]);

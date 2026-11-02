@@ -1,0 +1,1 @@
+QData("surah/trans-edwardpalmer/110",["When there comes God's help and victory","And thou shalt see men enter into God's religion by troops","Then celebrate the praises of thy Lord, and ask forgiveness of Him, verily, He is relentant"]);

@@ -1,0 +1,1 @@
+QData("surah/trans/112",["Say: He is Allah, the One!","Allah, the eternally Besought of all!","He begetteth not nor was begotten.","And there is none comparable unto Him."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-shakir/111",["Perdition overtake both hands of Abu Lahab, and he will perish.","His wealth and what he earns will not avail him.","He shall soon burn in fire that flames,","And his wife, the bearer of fuel,","Upon her neck a halter of strongly twisted rope."]);

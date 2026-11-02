@@ -1,0 +1,1 @@
+QData("surah/trans-qaribullah/105",["Have you not seen how Allah dealt with the companions of the Elephant?","Did He not cause their schemes to go astray?","And He sent against them flights of birds","pelting them with stones of baked clay,","so that He made them like straw eaten (by cattle)."]);

@@ -1,0 +1,1 @@
+QData("surah/trans-ahmedraza/112",["Proclaim (O dear Prophet Mohammed – peace and blessings be upon him), “He is Allah, He is One.”","“Allah is the Un-wanting.” (Perfect, does not require anything.)","“He has no offspring, nor is He born from anything.”","“And there is none equal to Him.”"]);

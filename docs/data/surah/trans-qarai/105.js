@@ -1,0 +1,1 @@
+QData("surah/trans-qarai/105",["Have you not regarded how your Lord dealt with the army of the elephants?","Did He not make their stratagems go awry,","and send against them flocks of birds","pelting them with stones of shale,","thus making them like chewed-up straw?"]);

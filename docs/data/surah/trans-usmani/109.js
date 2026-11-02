@@ -1,0 +1,1 @@
+QData("surah/trans-usmani/109",["Say, “O disbelievers,","I do not worship that which you worship,","nor do you worship the One whom I worship.","And neither I am going to worship that which you have worshipped,","nor will you worship the One whom I worship.","For you is your faith, and for me, my faith.”"]);
