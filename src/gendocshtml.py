@@ -24,11 +24,15 @@ Design notes
 from __future__ import annotations
 
 import argparse
+import datetime
+import hashlib
 import html
 import json
 import re
 import shutil
+import struct
 import sys
+import zlib
 from bisect import bisect_right
 from dataclasses import dataclass
 from pathlib import Path
@@ -378,7 +382,7 @@ def js_json(obj) -> str:
             .replace("\u2028", "\\u2028").replace("\u2029", "\\u2029"))
 
 
-CFG = {"fonts": True}
+CFG = {"fonts": True, "base_url": ""}
 FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
              '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
              '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
@@ -401,6 +405,19 @@ def page(title: str, body: str, page_id: str, *, desc: str = "", sura: int = 0,
     sd = f' data-sura="{sura}"' if sura else ""
     desc = desc or "Read the Qur’an in Arabic with transliteration, audio and translations."
     fonts = FONT_LINK if CFG["fonts"] else ""
+    fname = f"{sura:03d}.html" if sura else f"{page_id}.html"
+    seo = ""
+    if CFG["base_url"]:
+        u = f'{CFG["base_url"]}/{fname}'
+        seo = (f'<link rel="canonical" href="{esc(u)}">\n<meta property="og:type" content="website">\n'
+               f'<meta property="og:site_name" content="Qur’an Reader">\n'
+               f'<meta property="og:title" content="{esc(title)}">\n'
+               f'<meta property="og:description" content="{esc(desc)}">\n'
+               f'<meta property="og:url" content="{esc(u)}">\n'
+               f'<meta property="og:image" content="{esc(CFG["base_url"])}/assets/icon-512.png">')
+    pwa = ('<link rel="manifest" href="manifest.webmanifest">\n<meta name="theme-color" content="#0e4c47">\n'
+           '<link rel="icon" type="image/svg+xml" href="assets/icon.svg">\n'
+           '<link rel="apple-touch-icon" href="assets/icon-192.png">')
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -409,6 +426,8 @@ def page(title: str, body: str, page_id: str, *, desc: str = "", sura: int = 0,
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <meta name="color-scheme" content="light dark">
+{pwa}
+{seo}
 {EARLY}
 {fonts}
 <link rel="stylesheet" href="assets/style.css">
@@ -522,7 +541,8 @@ def index_body(sources: list[Source]) -> str:
         i = sura_info(n)
         key = f"{n} {i['name']} {i['meaning']} {type_label(i['type'])}"
         items.append(
-            f'<li data-k="{esc(key)}"><a class="sura-link" href="{n:03d}.html">'
+            f'<li data-k="{esc(key)}" data-n="{n}" data-o="{i["order"]}" data-z="{i["size"]}" '
+            f'data-ty="{i["type"]}"><a class="sura-link" href="{n:03d}.html">'
             f'<span class="sn">{n}</span><span><strong>{esc(i["name"])}</strong>'
             f'<small>{esc(i["meaning"])}</small>'
             f'<small>{type_label(i["type"])}, {i["size"]} verses, Juz {i["juz"]}</small>'
@@ -536,6 +556,8 @@ def index_body(sources: list[Source]) -> str:
 <aside id="welcome" class="note" hidden><p><strong>First visit?</strong> Open <a href="config.html">Settings</a> to pick the languages and translations you want with each verse.</p><button type="button" class="btn small" id="welcome-x">Got it</button></aside>
 <section id="resume" hidden aria-label="Continue reading"></section>
 <div class="field-row"><label for="filter">Find a surah</label><input id="filter" class="field" type="search" placeholder="Name, meaning or number" autocomplete="off"><span id="fcount" class="small muted" role="status" aria-live="polite"></span></div>
+<div class="row"><label>Sort <select id="sort"><option value="n">Mushaf order</option><option value="rev">Order of revelation</option><option value="size">Longest first</option></select></label>
+<label>Show <select id="ftype"><option value="">All surahs</option><option value="M">Meccan</option><option value="D">Medinan</option></select></label></div>
 <ul class="sgrid" id="sgrid">
 {chr(10).join(items)}
 </ul>
@@ -559,6 +581,8 @@ def config_body() -> str:
 <div id="cfg-order"></div></section>
 <section><h2>Your data</h2>
 <div class="row"><button type="button" class="btn" id="cfg-reset">Restore default selection</button>
+<button type="button" class="btn" id="cfg-export">Export settings</button>
+<label class="btn" for="cfg-import">Import settings</label><input id="cfg-import" type="file" accept="application/json,.json" hidden>
 <button type="button" class="btn danger" id="cfg-clear">Clear bookmarks and reading history</button></div></section>"""
 
 
@@ -578,6 +602,7 @@ def search_body() -> str:
 <input id="q" class="field" type="search" placeholder="A word, a phrase, or a verse like 2:255" autocomplete="off" spellcheck="false">
 <button class="btn primary" type="submit">Search</button></form>
 <p id="scope" class="small muted"></p>
+<p class="small muted">Tip: put a phrase in "quotes" to match it exactly.</p>
 <p id="status" role="status" aria-live="polite"></p>
 <ol class="results" id="results"></ol>
 <button id="more" class="btn" type="button" hidden>Show more</button>"""
@@ -588,17 +613,33 @@ def download_body() -> str:
              ("sources", "Sources"), ("license", "License")]
     chk = "".join(f'<label class="radio"><input type="checkbox" id="dl-p-{p}" checked> {n}</label>'
                   for p, n in pages)
+    fonts_opt = ('<label class="radio"><input type="checkbox" id="dl-fonts" checked> Include fonts in the ZIP '
+                 '(about 1 to 2 MB; keeps the Arabic looking right offline)</label>') if CFG["fonts"] else ""
     return f"""<h1>Offline copy</h1>
-<p class="lead muted">Build a ZIP of this site with only the editions and surahs you want. It runs in your browser.</p>
+<p class="lead muted">Read without internet. <strong>Save in this browser</strong> works like an installed app. <strong>Download ZIP</strong> gives you plain files to keep or share.</p>
+<section><h2>Quick picks</h2><div class="row preset-row">
+<button type="button" class="btn small" id="pre-settings">My Settings selection</button>
+<button type="button" class="btn small" id="pre-arabic">Arabic only</button>
+<button type="button" class="btn small" id="pre-english">Arabic + English</button>
+<button type="button" class="btn small" id="pre-all">Everything except AI</button></div></section>
 <section><h2>Editions</h2><div id="dl-chips"></div></section>
 <section><h2>Surahs</h2><div class="row"><label>From <input id="dl-from" class="num" type="number" min="1" max="114" value="1"></label>
-<label>To <input id="dl-to" class="num" type="number" min="1" max="114" value="114"></label></div></section>
-<section><h2>Pages</h2><div class="row">{chk}
-<label class="radio"><input type="checkbox" id="dl-search" checked> Search (adds each selected edition again, so the ZIP grows)</label></div></section>
-<p class="small muted">Each edition typically adds a few MB. Verse audio still needs an internet connection.</p>
-<button type="button" class="btn primary" id="dl-go">Build ZIP</button>
+<label>To <input id="dl-to" class="num" type="number" min="1" max="114" value="114"></label></div>
+<div class="row preset-row"><button type="button" class="btn small" id="rg-all">All 114</button>
+<button type="button" class="btn small" id="rg-amma">Juz ʿAmma (78 to 114)</button>
+<button type="button" class="btn small" id="rg-here">The surah I’m reading</button></div></section>
+<section><h2>Options</h2><div class="row">
+<label class="radio"><input type="checkbox" id="dl-search" checked> Search (adds each selected edition again)</label>{fonts_opt}</div>
+<p class="small muted">Pages to include in the ZIP:</p><div class="row">{chk}</div></section>
+<div class="note" id="dl-summary" aria-live="polite"></div>
+<div class="dl-actions"><button type="button" class="btn primary" id="dl-save">Save in this browser</button>
+<button type="button" class="btn" id="dl-go">Download ZIP</button>
+<button type="button" class="btn" id="dl-cancel" hidden>Cancel</button></div>
 <progress id="dl-prog" max="100" value="0" hidden></progress>
-<p id="dl-status" role="status" aria-live="polite"></p>"""
+<p id="dl-status" role="status" aria-live="polite"></p>
+<section><h2>Saved in this browser</h2><p id="dl-usage" class="small muted"></p>
+<button type="button" class="btn danger" id="dl-clear">Remove saved offline data</button></section>
+<p class="small muted">Verse audio always needs an internet connection. Bookmarks and settings stay in the browser where you made them; use Export in Settings to move them.</p>"""
 
 
 def sources_body(sources: list[Source]) -> str:
@@ -796,6 +837,11 @@ html.book-pref:not(.book-ready) body[data-page=reader] #verses{visibility:hidden
 .bk-slider{width:100%;accent-color:var(--on)}.book.rtl .bk-slider{direction:rtl}
 .bk-btn{min-width:54px;font-size:1.5rem;line-height:1;background:var(--paper)}
 .bk-count{color:var(--ink)}
+.row label{display:inline-flex;align-items:center;gap:6px}
+.preset-row .btn{min-height:40px}
+.dl-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#dl-summary{margin:12px 0}
+.offline-bar{background:var(--soft);color:var(--ink);border-bottom:2px solid var(--warn);text-align:center;padding:6px 12px;font-size:.9rem}
 @media(max-width:520px){h1{font-size:1.4rem}.row>span:first-child{min-width:100%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{.top,.foot,.panel,.pager,.actions,.totop,#toast,.toolbar,.skip,#rangebar{display:none!important}
@@ -856,6 +902,7 @@ let tt;const toast=m=>{let t=$("#toast");if(!t){t=h("div",{id:"toast",role:"stat
 const copy=async text=>{try{await navigator.clipboard.writeText(text);return true;}catch{
   const t=h("textarea",{style:"position:fixed;opacity:0"});t.value=text;document.body.append(t);t.select();
   let ok=false;try{ok=document.execCommand("copy");}catch{}t.remove();return ok;}};
+const saveBlob=(blob,name)=>{const u=URL.createObjectURL(blob),a=h("a",{href:u,download:name});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);};
 const ICONS={
   play:'<polygon points="6 4 20 12 6 20 6 4"/>',
   pause:'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>',
@@ -882,7 +929,7 @@ const load=k=>new Promise((ok,no)=>{
   if(cache[k])return ok(cache[k]);
   if(wait[k]){wait[k].push([ok,no]);return;}
   wait[k]=[[ok,no]];
-  const s=document.createElement("script");s.src="data/"+k+".js";
+  const s=document.createElement("script");s.src="data/"+k+".js"+(C.dataVer&&location.protocol!=="file:"?"?v="+C.dataVer:"");
   s.onerror=()=>{const w=wait[k];delete wait[k];s.remove();w.forEach(p=>p[1](new Error(k)));};
   document.head.append(s);});
 
@@ -1089,7 +1136,9 @@ function initReader(){
       iconBtn("play","play",`Play verse ${a}`,()=>{if(au&&art.classList.contains("playing"))stopAudio();else play(a);}),
       (()=>{const b=iconBtn("bm","bookmark",`Bookmark verse ${a}`,b=>toggleBm(a,b));b.setAttribute("aria-pressed",String(bms().some(x=>x.s===s&&x.a===a)));return b;})(),
       iconBtn("cp","copy",`Copy verse ${a} text`,async()=>toast(await copy(verseText(art))?"Verse copied":"Couldn’t copy")),
-      iconBtn("ln","link",`Copy link to verse ${a}`,async()=>toast(await copy(location.href.split("#")[0]+"#"+a)?"Link copied":"Couldn’t copy")));
+      iconBtn("ln","link",navigator.share?`Share verse ${a}`:`Copy link to verse ${a}`,async()=>{const url=location.href.split("#")[0]+"#"+a;
+        if(navigator.share){try{await navigator.share({title:`${meta.name} ${s}:${a}`,text:verseText(art),url});}catch{}return;}
+        toast(await copy(url)?"Link copied":"Couldn’t copy");}));
     $(".ayah-head",art).append(box);});
 
   /* on-demand editions */
@@ -1141,10 +1190,15 @@ function initReader(){
 
 /* ---------- index ---------- */
 function initIndex(){
-  const f=$("#filter"),items=$$("#sgrid li").map(li=>({li,k:norm(li.dataset.k)}));
-  f.addEventListener("input",()=>{const q=norm(f.value).split(/\s+/).filter(Boolean);let n=0;
-    items.forEach(({li,k})=>{const ok=q.every(t=>k.includes(t));li.hidden=!ok;if(ok)n++;});
-    $("#fcount").textContent=q.length?`${n} surah${n===1?"":"s"} found`:"";});
+  const f=$("#filter"),grid=$("#sgrid"),sortEl=$("#sort"),typeEl=$("#ftype");
+  const items=$$("#sgrid li").map(li=>({li,k:norm(li.dataset.k),n:+li.dataset.n,o:+li.dataset.o,z:+li.dataset.z,ty:li.dataset.ty}));
+  const pref=store.get("quran-index",{});sortEl.value=pref.sort||"n";typeEl.value=pref.type||"";
+  const apply=()=>{const q=norm(f.value).split(/\s+/).filter(Boolean);let n=0;
+    items.sort((a,b)=>sortEl.value==="rev"?a.o-b.o:sortEl.value==="size"?b.z-a.z||a.n-b.n:a.n-b.n).forEach(x=>grid.append(x.li));
+    items.forEach(({li,k,ty})=>{const ok=q.every(t=>k.includes(t))&&(!typeEl.value||ty===typeEl.value);li.hidden=!ok;if(ok)n++;});
+    $("#fcount").textContent=(q.length||typeEl.value)?`${n} surah${n===1?"":"s"} found`:"";
+    store.set("quran-index",{sort:sortEl.value,type:typeEl.value});};
+  [f,sortEl,typeEl].forEach(el=>el.addEventListener("input",apply));apply();
   const hist=store.get("quran-history",null),res=$("#resume");
   if(hist&&hist.s&&C.suras[hist.s-1]){res.hidden=false;
     res.append(h("h2",{text:"Continue reading"}),h("a",{class:"btn",href:`${pad(hist.s)}.html#${hist.a||1}`,text:`${sname(hist.s)} ${hist.s}:${hist.a||1}, ${ago(hist.t)}`}));}
@@ -1163,6 +1217,14 @@ function initConfig(){
     r.addEventListener("change",()=>{ui.theme=r.value;store.set("quran-ui",ui);applyUi();});});
   $("#cfg-reset").addEventListener("click",()=>{store.del("quran-cf");store.del("quran-order");prefs={};build();toast("Defaults restored");});
   $("#cfg-clear").addEventListener("click",()=>{if(confirm("Remove all bookmarks and reading history from this browser?")){store.del("quran-bookmark");store.del("quran-history");toast("Cleared");}});
+  const KEYS=["quran-cf","quran-ui","quran-order","quran-bookmark","quran-history","quran-cont"];
+  $("#cfg-export").addEventListener("click",()=>{const o={format:"quran-reader-settings",version:1,saved:new Date().toISOString()};
+    KEYS.forEach(k=>{const v=store.get(k,undefined);if(v!==undefined)o[k]=v;});
+    saveBlob(new Blob([JSON.stringify(o,null,2)],{type:"application/json"}),"quran-reader-settings.json");});
+  $("#cfg-import").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||o.format!=="quran-reader-settings")throw new Error("this is not a settings file from this reader");
+      KEYS.forEach(k=>{if(k in o)store.set(k,o[k]);});toast("Imported. Reloading…");setTimeout(()=>location.reload(),600);}catch(err){toast("Import failed: "+err.message);}e.target.value="";};
+    r.readAsText(f);});
 }
 
 /* ---------- bookmarks ---------- */
@@ -1213,13 +1275,13 @@ function initSearch(){
     const ref=/^(\d{1,3})\s*[:.]\s*(\d{1,3})$/.exec(text);
     if(ref&&+ref[1]>=1&&+ref[1]<=114&&+ref[2]>=1&&+ref[2]<=C.suras[ref[1]-1].size)
       list.append(h("li",{class:"hit"},h("a",{href:`${pad(+ref[1])}.html#${+ref[2]}`,text:`Go to ${sname(+ref[1])} ${+ref[1]}:${+ref[2]}`})));
-    terms=norm(text).split(/\s+/).filter(Boolean);if(!terms.length)return;
+    terms=[...text.matchAll(/"([^"]+)"|(\S+)/g)].map(m=>norm(m[1]||m[2])).filter(Boolean);if(!terms.length)return;
     nameN.forEach((n,i)=>{if(terms.every(t=>n.includes(t))&&list.children.length<4)list.append(h("li",{class:"hit"},h("a",{href:pad(i+1)+".html",text:`Surah ${i+1}: ${C.suras[i].name} (${C.suras[i].meaning})`})));});
     if(!fields.length){status.textContent="Select at least one edition in Settings to search verse text.";return;}
     status.textContent="Searching…";
     try{arrs=await Promise.all(fields.map(f=>load("search/"+f.id)));}catch{status.textContent="Couldn’t load search data. Check your connection and try again.";return;}
     fields.forEach((f,k)=>{if(!ncache[f.id])ncache[f.id]=arrs[k].map(norm);});
-    for(let i=0;i<S.length;i++){const hay=fields.map(f=>ncache[f.id][i]).join(" ");if(terms.every(t=>hay.includes(t)))hits.push(i);}
+    for(let i=0;i<S.length;i++){if(terms.every(t=>fields.some(f=>ncache[f.id][i].includes(t))))hits.push(i);}
     if(!hits.length){status.textContent="No verses found. Try fewer or simpler words.";return;}
     render();};
   form.addEventListener("submit",e=>{e.preventDefault();run();});
@@ -1227,50 +1289,149 @@ function initSearch(){
   const init=new URLSearchParams(location.search).get("q");if(init){q.value=init;run();}
 }
 
-/* ---------- offline ZIP ---------- */
+/* ---------- offline: save inside the browser (Cache API) or download a ZIP ---------- */
 function initDownload(){
-  const sel=Object.fromEntries(C.tr.map(t=>[t.id,!!C.defaults[t.id]]));
-  chips($("#dl-chips"),{isOn:id=>sel[id],set:(id,v)=>{sel[id]=v;}});
-  const st=$("#dl-status"),prog=$("#dl-prog"),btn=$("#dl-go");
-  btn.addEventListener("click",async()=>{
-    if(typeof JSZip==="undefined"){st.textContent="The ZIP library could not be loaded. Check your connection.";return;}
-    const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-    const from=clamp(parseInt($("#dl-from").value,10)||1,1,114),to=clamp(parseInt($("#dl-to").value,10)||114,from,114);
-    const ids=C.tr.filter(t=>sel[t.id]).map(t=>t.id);
-    if(!ids.length){st.textContent="Select at least one edition.";return;}
-    const withSearch=$("#dl-search").checked;
-    const optional=["index","bookmarks","config","sources","license"].filter(p=>$("#dl-p-"+p).checked);
-    const included=new Set(optional.map(p=>p+".html"));if(withSearch)included.add("search.html");
-    const excluded=new Set(["index","bookmarks","config","sources","license","search","download"].map(p=>p+".html").filter(p=>!included.has(p)));
-    const jobs=[{p:"assets/style.css"},{p:"assets/app.js"},{p:"assets/catalog.js",cat:1}];
-    for(let s=from;s<=to;s++){jobs.push({p:pad(s)+".html",page:1});ids.forEach(id=>jobs.push({p:`data/surah/${id}/${pad(s)}.js`}));}
-    included.forEach(p=>jobs.push({p,page:1}));
-    if(withSearch)ids.forEach(id=>jobs.push({p:`data/search/${id}.js`}));
-    btn.disabled=true;prog.hidden=false;prog.value=0;
-    const zip=new JSZip(),missing=[];let done=0;
-    const clean=doc=>{$$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
-      if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
-      $$("[data-t]",doc).forEach(n=>{if(!ids.includes(n.dataset.t))n.remove();});};
-    const run=async j=>{try{const r=await fetch(j.p);if(!r.ok)throw 0;let t=await r.text();
-      if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
-      if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
-        c.tr=c.tr.filter(x=>ids.includes(x.id));c.range=[from,to];
-        const keep=Object.keys(c.defaults).filter(k=>k==="audio"||ids.includes(k)&&c.defaults[k]);
-        c.defaults=Object.fromEntries(keep.map(k=>[k,true]));
-        if(!keep.some(k=>k!=="audio"))ids.slice(0,3).forEach(k=>c.defaults[k]=true);
-        t="window.QURAN_CATALOG="+JSON.stringify(c)+";\n";}
-      zip.file(j.p,t);}catch{missing.push(j.p);}
-      prog.value=Math.round(++done*100/jobs.length);st.textContent=`Fetched ${done} of ${jobs.length} files`;};
-    const queue=jobs.slice();await Promise.all(Array.from({length:8},async()=>{while(queue.length)await run(queue.shift());}));
-    st.textContent="Compressing…";
-    const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE"});
-    const u=URL.createObjectURL(blob),a=h("a",{href:u,download:"quran-reader-offline.zip"});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
-    st.textContent=missing.length?`Done, but ${missing.length} file(s) could not be fetched (for example ${missing[0]}).`:"Done. Open index.html from the extracted folder.";
-    btn.disabled=false;});
+  const SZ=C.sizes||{assetsKB:0,htmlKB:[]},TOTAL=6236,SAVED="quran-saved";
+  const ALL=["index","search","config","bookmarks","sources","license","download"];
+  const E=id=>document.getElementById(id);
+  const sel=Object.fromEntries(C.tr.map(t=>[t.id,!!isOn(t.id)]));
+  const st=E("dl-status"),prog=E("dl-prog"),bZip=E("dl-go"),bSave=E("dl-save"),bStop=E("dl-cancel");
+  let busy=false,cancelled=false,ctl=null;
+  const fmt=kb=>kb>=1024?(kb/1024).toFixed(kb>=10240?0:1)+" MB":Math.round(kb)+" KB";
+  const ids=()=>C.tr.filter(t=>sel[t.id]).map(t=>t.id);
+  const range=()=>{const c=(v,a,b)=>Math.min(b,Math.max(a,v));const f=c(parseInt(E("dl-from").value,10)||1,1,114);
+    return[f,c(parseInt(E("dl-to").value,10)||114,f,114)];};
+  const fontsOn=()=>!!(E("dl-fonts")&&E("dl-fonts").checked);
+  const estimate=zip=>{const[a,b]=range();let verses=0,kb=SZ.assetsKB||0;
+    for(let s=a;s<=b;s++){verses+=C.suras[s-1].size;kb+=(SZ.htmlKB||[])[s-1]||0;}
+    const share=verses/TOTAL,withS=E("dl-search").checked;
+    C.tr.filter(t=>sel[t.id]).forEach(t=>{kb+=(t.kb||0)*share+(withS?(t.skb||0):0);});
+    if(zip&&fontsOn())kb+=1500;return kb;};
+  const summary=()=>{const[a,b]=range(),n=ids().length,kb=estimate(true);
+    E("dl-summary").textContent=`${n} edition${n===1?"":"s"}, ${a===b?"surah "+a:`surahs ${a} to ${b}`}: about ${fmt(kb)} before compression.`+
+      (kb>400*1024?" That is large. A phone may run out of memory building a ZIP, so prefer “Save in this browser” or fewer editions.":"");};
+  const build=()=>chips(E("dl-chips"),{isOn:id=>sel[id],set:(id,v)=>{sel[id]=v;summary();}});
+  const pick=f=>{C.tr.forEach(t=>{sel[t.id]=!!f(t);});build();summary();};
+  const setRange=(a,b)=>{E("dl-from").value=a;E("dl-to").value=b;summary();};
+  E("pre-settings").addEventListener("click",()=>pick(t=>isOn(t.id)));
+  E("pre-arabic").addEventListener("click",()=>pick(t=>t.id==="arabic"));
+  E("pre-english").addEventListener("click",()=>{const en=C.tr.find(t=>t.id==="trans-yusuf")||C.tr.find(t=>t.group==="English"&&t.kind==="translation");
+    pick(t=>t.id==="arabic"||t.id==="translit-unicode"||(en&&t.id===en.id));});
+  E("pre-all").addEventListener("click",()=>pick(t=>t.kind!=="ai"));
+  E("rg-all").addEventListener("click",()=>setRange(1,114));
+  E("rg-amma").addEventListener("click",()=>setRange(78,114));
+  E("rg-here").addEventListener("click",()=>{const h=store.get("quran-history",null);const s=h&&h.s>=1&&h.s<=114?h.s:1;setRange(s,s);});
+  ["dl-from","dl-to","dl-search"].forEach(i=>E(i).addEventListener("input",summary));
+  if(E("dl-fonts"))E("dl-fonts").addEventListener("input",summary);
+  build();summary();
+
+  /* shared plumbing */
+  const lock=on=>{busy=on;bZip.disabled=bSave.disabled=on;bStop.hidden=!on;prog.hidden=!on;if(on){cancelled=false;ctl=new AbortController();prog.value=0;}};
+  bStop.addEventListener("click",()=>{cancelled=true;if(ctl)ctl.abort();st.textContent="Cancelled.";});
+  const pool=async(list,work,conc)=>{const failed=[];let i=0,done=0;
+    const w=async()=>{while(i<list.length&&!cancelled){const j=list[i++];
+      try{await work(j);}catch(e){if(cancelled)return;failed.push(j);}
+      prog.value=Math.round(++done*100/list.length);st.textContent=`${done} of ${list.length} files`;}};
+    await Promise.all(Array.from({length:conc||6},w));return failed;};
+  const withRetry=async(list,work)=>{let f=await pool(list,work,6);
+    if(f.length&&!cancelled){st.textContent=`Retrying ${f.length} file(s)…`;f=await pool(f,work,2);}return f;};
+  const get=async(u,o)=>{const r=await fetch(u,{signal:ctl.signal});if(!r.ok)throw new Error(u+" "+r.status);return o==="buf"?r.arrayBuffer():o==="res"?r:r.text();};
+  const dataJobs=I=>{const[a,b]=range(),J=[];for(let s=a;s<=b;s++)I.forEach(id=>J.push({p:`data/surah/${id}/${pad(s)}.js`,data:1}));
+    if(E("dl-search").checked)I.forEach(id=>J.push({p:`data/search/${id}.js`,data:1}));return J;};
+  const pageJobs=pages=>{const[a,b]=range(),J=[];for(let s=a;s<=b;s++)J.push({p:pad(s)+".html",page:1});pages.forEach(p=>J.push({p:p+".html",page:1}));return J;};
+  const loadZip=()=>typeof JSZip!=="undefined"?Promise.resolve():new Promise((ok,no)=>{
+    const urls=["https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"];let i=0;
+    const next=()=>{if(i>=urls.length)return no(new Error("The ZIP library could not be loaded. Check your connection."));
+      const s=document.createElement("script");s.src=urls[i++];s.onload=()=>ok();s.onerror=()=>{s.remove();next();};document.head.append(s);};next();});
+  const gatherFonts=async I=>{const L=I.map(i=>(C.tr.find(t=>t.id===i)||{}).lang),fam=["Amiri+Quran","Literata:wght@400;600"];
+    if(L.includes("ur"))fam.push("Noto+Nastaliq+Urdu");if(L.some(l=>l==="hi"||l==="ne"))fam.push("Noto+Sans+Devanagari");if(L.includes("gu"))fam.push("Noto+Sans+Gujarati");
+    let css=await get("https://fonts.googleapis.com/css2?"+fam.map(f=>"family="+f).join("&")+"&display=swap");const files=new Map();
+    css=css.replace(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g,(m,u)=>{let x=0;for(const ch of u)x=(x*31+ch.charCodeAt(0))|0;
+      const name=(x>>>0).toString(36)+".woff2";files.set(name,u);return`url(fonts/${name})`;});
+    return{css,files:[...files].map(([name,url])=>({font:url,name}))};};
+
+  /* ---- ZIP ---- */
+  bZip.addEventListener("click",async()=>{
+    if(busy)return;const I=ids();if(!I.length){st.textContent="Select at least one edition.";return;}
+    lock(true);
+    try{
+      await loadZip();
+      const zip=new JSZip(),[from,to]=range(),missing=[];
+      const withSearch=E("dl-search").checked;
+      const extras=["index","bookmarks","config","sources","license"].filter(p=>E("dl-p-"+p).checked);
+      const included=new Set(extras.map(p=>p+".html"));if(withSearch)included.add("search.html");
+      const excluded=new Set(ALL.map(p=>p+".html").filter(p=>!included.has(p)));
+      let pack=null;if(fontsOn()){st.textContent="Fetching fonts…";try{pack=await gatherFonts(I);}catch{st.textContent="Fonts could not be fetched; continuing without them.";}}
+      const clean=doc=>{
+        $$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
+          if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
+        $$("[data-t]",doc).forEach(n=>{if(!I.includes(n.dataset.t))n.remove();});
+        if(pack){$$('link[href*="fonts.googleapis.com"],link[href*="fonts.gstatic.com"]',doc).forEach(l=>l.remove());
+          const css=doc.querySelector('link[href="assets/style.css"]');if(css)css.before(h("link",{rel:"stylesheet",href:"assets/fonts.css"}));}};
+      const list=[{p:"assets/style.css"},{p:"assets/app.js"},{p:"assets/catalog.js",cat:1},{p:"assets/icon.svg"},...pageJobs([...included].map(p=>p.replace(".html",""))),...dataJobs(I)];
+      if(pack){zip.file("assets/fonts.css",pack.css);pack.files.forEach(f=>list.push(f));}
+      const work=async j=>{
+        if(j.font){zip.file("assets/fonts/"+j.name,await get(j.font,"buf"));return;}
+        let t=await get(j.p);
+        if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
+        if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
+          c.tr=c.tr.filter(x=>I.includes(x.id));c.range=[from,to];
+          const keep=Object.keys(c.defaults).filter(k=>k==="audio"||(I.includes(k)&&c.defaults[k]));
+          c.defaults=Object.fromEntries(keep.map(k=>[k,true]));
+          if(!keep.some(k=>k!=="audio"))I.slice(0,3).forEach(k=>c.defaults[k]=true);
+          t="window.QURAN_CATALOG="+JSON.stringify(c)+";\n";}
+        zip.file(j.p,t);};
+      const failed=await withRetry(list,work);failed.forEach(j=>missing.push(j.p||j.name));
+      if(cancelled)return;
+      const names=I.map(i=>C.tr.find(t=>t.id===i).full);
+      zip.file("README.txt",["Qur’an Reader: offline copy","Built "+new Date().toISOString().slice(0,10)+" from "+location.origin+location.pathname.replace(/[^/]*$/,""),"",
+        `Surahs ${from} to ${to}.`,"Editions:",...names.map(n=>"  - "+n),"",
+        "How to use: unzip, then open index.html in any modern browser. No internet is needed,","except for verse audio, which is streamed.",
+        "Bookmarks and settings are saved per browser, so a copy opened from a new folder starts fresh;","use Export / Import in Settings to move them.",
+        ...(missing.length?["","These files could not be fetched and are missing:",...missing.map(m=>"  - "+m)]:[])].join("\n"));
+      const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}},m=>{prog.value=Math.round(m.percent);st.textContent=`Compressing… ${Math.round(m.percent)}%`;});
+      saveBlob(blob,`quran-reader-${from}-${to}-${I.length}ed.zip`);
+      st.textContent=missing.length?`Done (${fmt(blob.size/1024)}), but ${missing.length} file(s) could not be fetched. See README.txt inside the ZIP.`:`Done (${fmt(blob.size/1024)}). Unzip it and open index.html.`;
+    }catch(e){if(!cancelled)st.textContent="Could not build the ZIP: "+e.message;}
+    finally{lock(false);}});
+
+  /* ---- save inside this browser (works offline through the service worker) ---- */
+  bSave.addEventListener("click",async()=>{
+    if(busy)return;const I=ids();if(!I.length){st.textContent="Select at least one edition.";return;}
+    if(!("caches"in window)){st.textContent="Saving inside the browser needs a secure (https) page. Use the ZIP instead.";return;}
+    lock(true);
+    try{
+      if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
+      const cache=await caches.open(SAVED);
+      const list=[...pageJobs(ALL.filter(p=>p!=="search"||E("dl-search").checked)),...dataJobs(I)];
+      const fl=document.querySelector('link[href*="fonts.googleapis.com/css2"]');
+      if(fl){try{const r=await get(fl.href,"res");const css=await r.clone().text();await cache.put(fl.href,r);
+        [...new Set([...css.matchAll(/url\((https:[^)]+)\)/g)].map(m=>m[1]))].forEach(u=>list.push({abs:u}));}catch{}}
+      const work=async j=>{const url=j.abs?j.abs:new URL(j.p+(j.data&&C.dataVer?"?v="+C.dataVer:""),location.href).href;
+        await cache.put(url,await get(url,"res"));};
+      const failed=await withRetry(list,work);
+      if(cancelled)return;
+      st.textContent=failed.length?`Saved, but ${failed.length} file(s) failed. Run it again to retry.`:"Saved. These surahs and editions now work offline in this browser.";
+    }catch(e){if(!cancelled)st.textContent="Could not save: "+e.message;}
+    finally{lock(false);usage();}});
+
+  const usage=async()=>{let t="Saving inside the browser is not available here.";
+    try{if("caches"in window){t="Nothing saved in this browser yet.";
+      if(await caches.has(SAVED)){const n=(await (await caches.open(SAVED)).keys()).length;if(n)t=`${n} files are saved in this browser.`;}
+      const e=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null;
+      if(e&&e.usage!=null)t+=` Site storage in use: ${fmt(e.usage/1024)}${e.quota?` of about ${fmt(e.quota/1024)} available`:""}.`;}}catch{}
+    E("dl-usage").textContent=t;};
+  E("dl-clear").addEventListener("click",async()=>{if(!("caches"in window))return;
+    if(!confirm("Remove all offline data saved by this site in this browser?"))return;await caches.delete(SAVED);usage();toast("Removed");});
+  usage();
 }
 
 /* ---------- boot ---------- */
 applyUi();
+if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+{const off=h("div",{class:"offline-bar",role:"status",text:"You’re offline. Saved surahs and editions still work."});off.hidden=navigator.onLine;
+  const hd=$("header.top");if(hd)hd.after(off);else document.body.prepend(off);
+  addEventListener("online",()=>{off.hidden=true;});addEventListener("offline",()=>{off.hidden=false;});}
 const top=h("button",{class:"totop",type:"button","aria-label":"Back to top",html:"&#8593;"});
 top.hidden=true;top.addEventListener("click",()=>scrollTo({top:0}));document.body.append(top);
 addEventListener("scroll",()=>{top.hidden=scrollY<700;},{passive:true});
@@ -1282,20 +1443,102 @@ try{({reader:initReader,index:initIndex,search:initSearch,config:initConfig,book
 # ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
+ICON_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
+            '<rect width="512" height="512" rx="96" fill="#0e4c47"/>'
+            '<circle cx="256" cy="256" r="136" fill="none" stroke="#e2ac52" stroke-width="34"/>'
+            '<circle cx="256" cy="256" r="36" fill="#fbf7ec"/></svg>\n')
+
+
+def icon_png(size: int) -> bytes:
+    """Dependency-free PNG of the app icon (ayah medallion on deep teal)."""
+    bg, gold, paper = (14, 76, 71), (226, 172, 82), (251, 247, 236)
+    c, ro, ri, rd = (size - 1) / 2, size * 0.299, size * 0.232, size * 0.07
+    raw = bytearray()
+    for y in range(size):
+        raw.append(0)
+        for x in range(size):
+            d = ((x - c) ** 2 + (y - c) ** 2) ** 0.5
+            ring = min(1.0, max(0.0, ro + 0.5 - d)) * min(1.0, max(0.0, d - ri + 0.5))
+            dot = min(1.0, max(0.0, rd + 0.5 - d))
+            px = [bg[k] + (gold[k] - bg[k]) * ring for k in range(3)]
+            px = [px[k] + (paper[k] - px[k]) * dot for k in range(3)]
+            raw += bytes(int(v + 0.5) for v in px)
+
+    def chunk(tag: bytes, body: bytes) -> bytes:
+        return (struct.pack(">I", len(body)) + tag + body
+                + struct.pack(">I", zlib.crc32(tag + body) & 0xFFFFFFFF))
+
+    return (b"\x89PNG\r\n\x1a\n"
+            + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(bytes(raw), 9)) + chunk(b"IEND", b""))
+
+
+MANIFEST = json.dumps({
+    "name": "Qur’an Reader", "short_name": "Qur’an", "start_url": "index.html", "scope": "./",
+    "display": "standalone", "background_color": "#0e4c47", "theme_color": "#0e4c47",
+    "icons": [
+        {"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+        {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+        {"src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml"},
+    ],
+}, ensure_ascii=False, indent=2) + "\n"
+
+# Service worker. Pages/assets: network first (always fresh when online, cached copy offline).
+# Data and fonts: cache first (immutable per data version). Everything visited is kept in
+# "quran-saved", which the Offline copy page can fill in bulk or clear.
+SW_JS = r"""
+const BUILD="__BUILD__",DATAVER="__DATAVER__",CORE="quran-core-"+BUILD,SAVED="quran-saved";
+const PRE=["./","index.html","search.html","config.html","bookmarks.html","sources.html","license.html","download.html",
+  "manifest.webmanifest","assets/style.css","assets/app.js","assets/catalog.js","assets/icon.svg"];
+const EXT=/^(fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net)$/;
+self.addEventListener("install",e=>{e.waitUntil(caches.open(CORE).then(c=>Promise.all(PRE.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()));});
+self.addEventListener("activate",e=>{e.waitUntil((async()=>{
+  for(const k of await caches.keys())if(k.startsWith("quran-core-")&&k!==CORE)await caches.delete(k);
+  try{const c=await caches.open(SAVED);for(const r of await c.keys()){const u=new URL(r.url);
+    if(/\/data\//.test(u.pathname)&&u.searchParams.has("v")&&u.searchParams.get("v")!==DATAVER)await c.delete(r);}}catch{}
+  await self.clients.claim();})());});
+const keep=async(req,res)=>{try{if(res&&(res.ok||res.type==="opaque")){const c=await caches.open(SAVED);await c.put(req,res.clone());}}catch{}return res;};
+const cacheFirst=async req=>{const m=await caches.match(req);if(m)return m;return keep(req,await fetch(req));};
+const networkFirst=async req=>{try{return await keep(req,await fetch(req));}
+  catch{const m=await caches.match(req,{ignoreSearch:true});if(m)return m;
+    if(req.mode==="navigate"){const i=await caches.match("index.html");if(i)return i;}throw new Error("offline");}};
+self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET")return;const u=new URL(r.url);
+  if(u.origin!==location.origin){if(EXT.test(u.hostname))e.respondWith(cacheFirst(r).catch(()=>fetch(r)));return;}
+  e.respondWith(/\/data\/|\/assets\/fonts\//.test(u.pathname)?cacheFirst(r):networkFirst(r));});
+"""
+
+
+def write_bytes(path: Path, data: bytes) -> bool:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists() and path.read_bytes() == data:
+        return False
+    path.write_bytes(data)
+    return True
+
+
+def kb(n: int) -> int:
+    return -(-n // 1024)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--root", default=".", help="repository root (default: .)")
     ap.add_argument("--out", default="docs", help="output folder inside root")
     ap.add_argument("--no-fonts", action="store_true",
                     help="do not link Google Fonts (privacy / fully self-hosted)")
+    ap.add_argument("--base-url", default="",
+                    help="public site URL (e.g. https://user.github.io/Quran-data); adds "
+                         "canonical/Open Graph tags, sitemap.xml and robots.txt")
     ap.add_argument("--clean", action="store_true", help="delete legacy docs/sd/ folder")
     args = ap.parse_args(argv)
     root, out = Path(args.root).resolve(), Path(args.root).resolve() / args.out
     CFG["fonts"] = not args.no_fonts
+    CFG["base_url"] = args.base_url.rstrip("/")
 
     # 1. load editions; drop any that are completely missing
     data: dict[str, Verses] = {}
     sources: list[Source] = []
+    incomplete: list[str] = []
     print("Loading editions")
     for src in CATALOG:
         d = load_source(root, src)
@@ -1304,7 +1547,10 @@ def main(argv=None) -> int:
             continue
         data[src.id] = d
         sources.append(src)
-        flag = "" if len(d) == TOTAL_AYAT else "   <-- incomplete"
+        flag = ""
+        if len(d) != TOTAL_AYAT:
+            flag = "   <-- incomplete"
+            incomplete.append(f"{src.id} ({len(d)}/{TOTAL_AYAT})")
         print(f"  {src.id:<24} {len(d):>5}/{TOTAL_AYAT}{flag}")
     if "arabic" not in data:
         print("ERROR: the Arabic text (output/quran_arabic.txt) is required.", file=sys.stderr)
@@ -1319,57 +1565,102 @@ def main(argv=None) -> int:
     defaults = [s for s in sources if s.default and s.kind != "arabic"]
     alts = [s for s in sources if s.default and s.kind == "arabic" and s.id != "arabic"]
 
-    # 2. shared assets
+    # 2. data files (per surah per edition, plus whole-Qur'an files for search); sizes feed the
+    #    offline page's estimate and the hash versions the cached data
+    dh = hashlib.sha1()
+    data_kb: dict[str, int] = {}
+    search_kb: dict[str, int] = {}
+    for src in sources:
+        d = data[src.id]
+        total = 0
+        for s, size in enumerate(SURA_SIZE, 1):
+            arr = [d.get((s, a), "") for a in range(1, size + 1)]
+            text = f'QData("surah/{src.id}/{s:03d}",{js_json(arr)});\n'
+            put(out / "data" / "surah" / src.id / f"{s:03d}.js", text)
+            b = text.encode("utf-8")
+            total += len(b)
+            dh.update(b)
+        full = [d.get((s, a), "") for s, size in enumerate(SURA_SIZE, 1) for a in range(1, size + 1)]
+        text = f'QData("search/{src.id}",{js_json(full)});\n'
+        put(out / "data" / "search" / f"{src.id}.js", text)
+        b = text.encode("utf-8")
+        dh.update(b)
+        data_kb[src.id], search_kb[src.id] = kb(total), kb(len(b))
+    data_ver = dh.hexdigest()[:10]
+    if args.clean and (out / "sd").exists():
+        shutil.rmtree(out / "sd")
+        print("Removed legacy folder docs/sd/")
+
+    # 3. pages (built in memory first: their sizes and content feed the catalog / build id)
+    pages: dict[str, str] = {}
+    for s in range(1, 115):
+        n, m = SURA_NAMES[s - 1]
+        pages[f"{s:03d}.html"] = page(
+            f"Surah {s}: {n} ({m}) | Qur’an Reader", surah_body(s, data, defaults, alts), "reader",
+            desc=f"Surah {s}, {n} ({m}): Arabic text, transliteration, audio and translations.",
+            sura=s)
+    lic = root / "LICENSE"
+    lic_text = lic.read_text(encoding="utf-8") if lic.exists() else "(LICENSE file not found)"
+    pages["index.html"] = page("Qur’an Reader", index_body(sources), "index")
+    pages["search.html"] = page("Search | Qur’an Reader", search_body(), "search")
+    pages["config.html"] = page("Settings | Qur’an Reader", config_body(), "config")
+    pages["bookmarks.html"] = page("Bookmarks | Qur’an Reader", bookmarks_body(), "bookmarks")
+    pages["sources.html"] = page("Sources | Qur’an Reader", sources_body(sources), "sources")
+    pages["license.html"] = page("License | Qur’an Reader", license_body(lic_text), "license")
+    pages["download.html"] = page("Offline copy | Qur’an Reader", download_body(), "download")
+
+    # 4. catalog + shared assets
     catalog = {
         "suras": [{"name": n, "meaning": m, "type": "D" if i in MEDINAN else "M",
                    "order": REV_ORDER[i - 1], "juz": juz_span(i), "size": SURA_SIZE[i - 1]}
                   for i, (n, m) in enumerate(SURA_NAMES, 1)],
         "tr": [{"id": s.id, "label": s.label, "full": s.full, "lang": s.lang,
-                "group": s.group, "kind": s.kind, "tag": s.tag, "rtl": s.rtl}
-               for s in sources],
+                "group": s.group, "kind": s.kind, "tag": s.tag, "rtl": s.rtl,
+                "kb": data_kb[s.id], "skb": search_kb[s.id]} for s in sources],
         "defaults": {**{s.id: s.default for s in sources}, "audio": True},
         "audio": AUDIO_URL,
         "range": [1, 114],
+        "fonts": CFG["fonts"],
+        "dataVer": data_ver,
     }
+    catalog["sizes"] = {
+        "htmlKB": [kb(len(pages[f"{s:03d}.html"].encode("utf-8"))) for s in range(1, 115)],
+        "assetsKB": kb(len(APP_JS) + len(STYLE_CSS) + 40_000
+                       + sum(len(pages[k].encode("utf-8")) for k in pages if not k[0].isdigit())),
+    }
+    h = hashlib.sha1(APP_JS.encode() + STYLE_CSS.encode() + SW_JS.encode() + js_json(catalog).encode())
+    for k in sorted(pages):
+        h.update(pages[k].encode("utf-8"))
+    build = h.hexdigest()[:10]
+    catalog["build"] = build
+
     put(out / "assets" / "catalog.js", "window.QURAN_CATALOG=" + js_json(catalog) + ";\n")
     put(out / "assets" / "style.css", STYLE_CSS.strip() + "\n")
     put(out / "assets" / "app.js", APP_JS.strip() + "\n")
+    for name, text in pages.items():
+        put(out / name, text)
 
-    # 3. data files (per surah per edition, plus whole-Qur'an files for search)
-    for src in sources:
-        d = data[src.id]
-        for s, size in enumerate(SURA_SIZE, 1):
-            arr = [d.get((s, a), "") for a in range(1, size + 1)]
-            put(out / "data" / "surah" / src.id / f"{s:03d}.js",
-                f'QData("surah/{src.id}/{s:03d}",{js_json(arr)});\n')
-        full = [d.get((s, a), "") for s, size in enumerate(SURA_SIZE, 1)
-                for a in range(1, size + 1)]
-        put(out / "data" / "search" / f"{src.id}.js",
-            f'QData("search/{src.id}",{js_json(full)});\n')
-    if args.clean and (out / "sd").exists():
-        shutil.rmtree(out / "sd")
-        print("Removed legacy folder docs/sd/")
+    # 5. installable / offline-capable app shell
+    changed += write_bytes(out / "assets" / "icon-192.png", icon_png(192))
+    changed += write_bytes(out / "assets" / "icon-512.png", icon_png(512))
+    put(out / "assets" / "icon.svg", ICON_SVG)
+    put(out / "manifest.webmanifest", MANIFEST)
+    put(out / "sw.js", SW_JS.strip().replace("__BUILD__", build).replace("__DATAVER__", data_ver) + "\n")
 
-    # 4. pages
-    for s in range(1, 115):
-        n, m = SURA_NAMES[s - 1]
-        put(out / f"{s:03d}.html", page(
-            f"Surah {s}: {n} ({m}) | Qur’an Reader", surah_body(s, data, defaults, alts), "reader",
-            desc=f"Surah {s}, {n} ({m}): Arabic text, transliteration, audio and translations.",
-            sura=s))
-    lic = root / "LICENSE"
-    lic_text = lic.read_text(encoding="utf-8") if lic.exists() else "(LICENSE file not found)"
-    put(out / "index.html", page("Qur’an Reader", index_body(sources), "index"))
-    put(out / "search.html", page("Search | Qur’an Reader", search_body(), "search"))
-    put(out / "config.html", page("Settings | Qur’an Reader", config_body(), "config"))
-    put(out / "bookmarks.html", page("Bookmarks | Qur’an Reader", bookmarks_body(), "bookmarks"))
-    put(out / "sources.html", page("Sources | Qur’an Reader", sources_body(sources), "sources"))
-    put(out / "license.html", page("License | Qur’an Reader", license_body(lic_text), "license"))
-    put(out / "download.html", page(
-        "Offline copy | Qur’an Reader", download_body(), "download",
-        foot_extra='<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>\n'))
+    # 6. SEO files (only when the public URL is known)
+    if CFG["base_url"]:
+        today = datetime.date.today().isoformat()
+        urls = "".join(f"<url><loc>{esc(CFG['base_url'])}/{n}</loc><lastmod>{today}</lastmod></url>\n"
+                       for n in sorted(pages))
+        put(out / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n")
+        put(out / "robots.txt", f"User-agent: *\nAllow: /\nSitemap: {CFG['base_url']}/sitemap.xml\n")
 
-    print(f"Done: {len(sources)} editions, 114 surah pages, {changed} files written/changed.")
+    print(f"Done: {len(sources)} editions, 114 surah pages, {changed} files written/changed "
+          f"(build {build}, data {data_ver}).")
+    if incomplete:
+        print("Incomplete editions (missing verses are left blank): " + ", ".join(incomplete),
+              file=sys.stderr)
     return 0
 
 

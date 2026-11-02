@@ -51,6 +51,7 @@ let tt;const toast=m=>{let t=$("#toast");if(!t){t=h("div",{id:"toast",role:"stat
 const copy=async text=>{try{await navigator.clipboard.writeText(text);return true;}catch{
   const t=h("textarea",{style:"position:fixed;opacity:0"});t.value=text;document.body.append(t);t.select();
   let ok=false;try{ok=document.execCommand("copy");}catch{}t.remove();return ok;}};
+const saveBlob=(blob,name)=>{const u=URL.createObjectURL(blob),a=h("a",{href:u,download:name});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);};
 const ICONS={
   play:'<polygon points="6 4 20 12 6 20 6 4"/>',
   pause:'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>',
@@ -77,7 +78,7 @@ const load=k=>new Promise((ok,no)=>{
   if(cache[k])return ok(cache[k]);
   if(wait[k]){wait[k].push([ok,no]);return;}
   wait[k]=[[ok,no]];
-  const s=document.createElement("script");s.src="data/"+k+".js";
+  const s=document.createElement("script");s.src="data/"+k+".js"+(C.dataVer&&location.protocol!=="file:"?"?v="+C.dataVer:"");
   s.onerror=()=>{const w=wait[k];delete wait[k];s.remove();w.forEach(p=>p[1](new Error(k)));};
   document.head.append(s);});
 
@@ -284,7 +285,9 @@ function initReader(){
       iconBtn("play","play",`Play verse ${a}`,()=>{if(au&&art.classList.contains("playing"))stopAudio();else play(a);}),
       (()=>{const b=iconBtn("bm","bookmark",`Bookmark verse ${a}`,b=>toggleBm(a,b));b.setAttribute("aria-pressed",String(bms().some(x=>x.s===s&&x.a===a)));return b;})(),
       iconBtn("cp","copy",`Copy verse ${a} text`,async()=>toast(await copy(verseText(art))?"Verse copied":"Couldn’t copy")),
-      iconBtn("ln","link",`Copy link to verse ${a}`,async()=>toast(await copy(location.href.split("#")[0]+"#"+a)?"Link copied":"Couldn’t copy")));
+      iconBtn("ln","link",navigator.share?`Share verse ${a}`:`Copy link to verse ${a}`,async()=>{const url=location.href.split("#")[0]+"#"+a;
+        if(navigator.share){try{await navigator.share({title:`${meta.name} ${s}:${a}`,text:verseText(art),url});}catch{}return;}
+        toast(await copy(url)?"Link copied":"Couldn’t copy");}));
     $(".ayah-head",art).append(box);});
 
   /* on-demand editions */
@@ -336,10 +339,15 @@ function initReader(){
 
 /* ---------- index ---------- */
 function initIndex(){
-  const f=$("#filter"),items=$$("#sgrid li").map(li=>({li,k:norm(li.dataset.k)}));
-  f.addEventListener("input",()=>{const q=norm(f.value).split(/\s+/).filter(Boolean);let n=0;
-    items.forEach(({li,k})=>{const ok=q.every(t=>k.includes(t));li.hidden=!ok;if(ok)n++;});
-    $("#fcount").textContent=q.length?`${n} surah${n===1?"":"s"} found`:"";});
+  const f=$("#filter"),grid=$("#sgrid"),sortEl=$("#sort"),typeEl=$("#ftype");
+  const items=$$("#sgrid li").map(li=>({li,k:norm(li.dataset.k),n:+li.dataset.n,o:+li.dataset.o,z:+li.dataset.z,ty:li.dataset.ty}));
+  const pref=store.get("quran-index",{});sortEl.value=pref.sort||"n";typeEl.value=pref.type||"";
+  const apply=()=>{const q=norm(f.value).split(/\s+/).filter(Boolean);let n=0;
+    items.sort((a,b)=>sortEl.value==="rev"?a.o-b.o:sortEl.value==="size"?b.z-a.z||a.n-b.n:a.n-b.n).forEach(x=>grid.append(x.li));
+    items.forEach(({li,k,ty})=>{const ok=q.every(t=>k.includes(t))&&(!typeEl.value||ty===typeEl.value);li.hidden=!ok;if(ok)n++;});
+    $("#fcount").textContent=(q.length||typeEl.value)?`${n} surah${n===1?"":"s"} found`:"";
+    store.set("quran-index",{sort:sortEl.value,type:typeEl.value});};
+  [f,sortEl,typeEl].forEach(el=>el.addEventListener("input",apply));apply();
   const hist=store.get("quran-history",null),res=$("#resume");
   if(hist&&hist.s&&C.suras[hist.s-1]){res.hidden=false;
     res.append(h("h2",{text:"Continue reading"}),h("a",{class:"btn",href:`${pad(hist.s)}.html#${hist.a||1}`,text:`${sname(hist.s)} ${hist.s}:${hist.a||1}, ${ago(hist.t)}`}));}
@@ -358,6 +366,14 @@ function initConfig(){
     r.addEventListener("change",()=>{ui.theme=r.value;store.set("quran-ui",ui);applyUi();});});
   $("#cfg-reset").addEventListener("click",()=>{store.del("quran-cf");store.del("quran-order");prefs={};build();toast("Defaults restored");});
   $("#cfg-clear").addEventListener("click",()=>{if(confirm("Remove all bookmarks and reading history from this browser?")){store.del("quran-bookmark");store.del("quran-history");toast("Cleared");}});
+  const KEYS=["quran-cf","quran-ui","quran-order","quran-bookmark","quran-history","quran-cont"];
+  $("#cfg-export").addEventListener("click",()=>{const o={format:"quran-reader-settings",version:1,saved:new Date().toISOString()};
+    KEYS.forEach(k=>{const v=store.get(k,undefined);if(v!==undefined)o[k]=v;});
+    saveBlob(new Blob([JSON.stringify(o,null,2)],{type:"application/json"}),"quran-reader-settings.json");});
+  $("#cfg-import").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||o.format!=="quran-reader-settings")throw new Error("this is not a settings file from this reader");
+      KEYS.forEach(k=>{if(k in o)store.set(k,o[k]);});toast("Imported. Reloading…");setTimeout(()=>location.reload(),600);}catch(err){toast("Import failed: "+err.message);}e.target.value="";};
+    r.readAsText(f);});
 }
 
 /* ---------- bookmarks ---------- */
@@ -408,13 +424,13 @@ function initSearch(){
     const ref=/^(\d{1,3})\s*[:.]\s*(\d{1,3})$/.exec(text);
     if(ref&&+ref[1]>=1&&+ref[1]<=114&&+ref[2]>=1&&+ref[2]<=C.suras[ref[1]-1].size)
       list.append(h("li",{class:"hit"},h("a",{href:`${pad(+ref[1])}.html#${+ref[2]}`,text:`Go to ${sname(+ref[1])} ${+ref[1]}:${+ref[2]}`})));
-    terms=norm(text).split(/\s+/).filter(Boolean);if(!terms.length)return;
+    terms=[...text.matchAll(/"([^"]+)"|(\S+)/g)].map(m=>norm(m[1]||m[2])).filter(Boolean);if(!terms.length)return;
     nameN.forEach((n,i)=>{if(terms.every(t=>n.includes(t))&&list.children.length<4)list.append(h("li",{class:"hit"},h("a",{href:pad(i+1)+".html",text:`Surah ${i+1}: ${C.suras[i].name} (${C.suras[i].meaning})`})));});
     if(!fields.length){status.textContent="Select at least one edition in Settings to search verse text.";return;}
     status.textContent="Searching…";
     try{arrs=await Promise.all(fields.map(f=>load("search/"+f.id)));}catch{status.textContent="Couldn’t load search data. Check your connection and try again.";return;}
     fields.forEach((f,k)=>{if(!ncache[f.id])ncache[f.id]=arrs[k].map(norm);});
-    for(let i=0;i<S.length;i++){const hay=fields.map(f=>ncache[f.id][i]).join(" ");if(terms.every(t=>hay.includes(t)))hits.push(i);}
+    for(let i=0;i<S.length;i++){if(terms.every(t=>fields.some(f=>ncache[f.id][i].includes(t))))hits.push(i);}
     if(!hits.length){status.textContent="No verses found. Try fewer or simpler words.";return;}
     render();};
   form.addEventListener("submit",e=>{e.preventDefault();run();});
@@ -422,50 +438,149 @@ function initSearch(){
   const init=new URLSearchParams(location.search).get("q");if(init){q.value=init;run();}
 }
 
-/* ---------- offline ZIP ---------- */
+/* ---------- offline: save inside the browser (Cache API) or download a ZIP ---------- */
 function initDownload(){
-  const sel=Object.fromEntries(C.tr.map(t=>[t.id,!!C.defaults[t.id]]));
-  chips($("#dl-chips"),{isOn:id=>sel[id],set:(id,v)=>{sel[id]=v;}});
-  const st=$("#dl-status"),prog=$("#dl-prog"),btn=$("#dl-go");
-  btn.addEventListener("click",async()=>{
-    if(typeof JSZip==="undefined"){st.textContent="The ZIP library could not be loaded. Check your connection.";return;}
-    const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-    const from=clamp(parseInt($("#dl-from").value,10)||1,1,114),to=clamp(parseInt($("#dl-to").value,10)||114,from,114);
-    const ids=C.tr.filter(t=>sel[t.id]).map(t=>t.id);
-    if(!ids.length){st.textContent="Select at least one edition.";return;}
-    const withSearch=$("#dl-search").checked;
-    const optional=["index","bookmarks","config","sources","license"].filter(p=>$("#dl-p-"+p).checked);
-    const included=new Set(optional.map(p=>p+".html"));if(withSearch)included.add("search.html");
-    const excluded=new Set(["index","bookmarks","config","sources","license","search","download"].map(p=>p+".html").filter(p=>!included.has(p)));
-    const jobs=[{p:"assets/style.css"},{p:"assets/app.js"},{p:"assets/catalog.js",cat:1}];
-    for(let s=from;s<=to;s++){jobs.push({p:pad(s)+".html",page:1});ids.forEach(id=>jobs.push({p:`data/surah/${id}/${pad(s)}.js`}));}
-    included.forEach(p=>jobs.push({p,page:1}));
-    if(withSearch)ids.forEach(id=>jobs.push({p:`data/search/${id}.js`}));
-    btn.disabled=true;prog.hidden=false;prog.value=0;
-    const zip=new JSZip(),missing=[];let done=0;
-    const clean=doc=>{$$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
-      if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
-      $$("[data-t]",doc).forEach(n=>{if(!ids.includes(n.dataset.t))n.remove();});};
-    const run=async j=>{try{const r=await fetch(j.p);if(!r.ok)throw 0;let t=await r.text();
-      if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
-      if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
-        c.tr=c.tr.filter(x=>ids.includes(x.id));c.range=[from,to];
-        const keep=Object.keys(c.defaults).filter(k=>k==="audio"||ids.includes(k)&&c.defaults[k]);
-        c.defaults=Object.fromEntries(keep.map(k=>[k,true]));
-        if(!keep.some(k=>k!=="audio"))ids.slice(0,3).forEach(k=>c.defaults[k]=true);
-        t="window.QURAN_CATALOG="+JSON.stringify(c)+";\n";}
-      zip.file(j.p,t);}catch{missing.push(j.p);}
-      prog.value=Math.round(++done*100/jobs.length);st.textContent=`Fetched ${done} of ${jobs.length} files`;};
-    const queue=jobs.slice();await Promise.all(Array.from({length:8},async()=>{while(queue.length)await run(queue.shift());}));
-    st.textContent="Compressing…";
-    const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE"});
-    const u=URL.createObjectURL(blob),a=h("a",{href:u,download:"quran-reader-offline.zip"});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
-    st.textContent=missing.length?`Done, but ${missing.length} file(s) could not be fetched (for example ${missing[0]}).`:"Done. Open index.html from the extracted folder.";
-    btn.disabled=false;});
+  const SZ=C.sizes||{assetsKB:0,htmlKB:[]},TOTAL=6236,SAVED="quran-saved";
+  const ALL=["index","search","config","bookmarks","sources","license","download"];
+  const E=id=>document.getElementById(id);
+  const sel=Object.fromEntries(C.tr.map(t=>[t.id,!!isOn(t.id)]));
+  const st=E("dl-status"),prog=E("dl-prog"),bZip=E("dl-go"),bSave=E("dl-save"),bStop=E("dl-cancel");
+  let busy=false,cancelled=false,ctl=null;
+  const fmt=kb=>kb>=1024?(kb/1024).toFixed(kb>=10240?0:1)+" MB":Math.round(kb)+" KB";
+  const ids=()=>C.tr.filter(t=>sel[t.id]).map(t=>t.id);
+  const range=()=>{const c=(v,a,b)=>Math.min(b,Math.max(a,v));const f=c(parseInt(E("dl-from").value,10)||1,1,114);
+    return[f,c(parseInt(E("dl-to").value,10)||114,f,114)];};
+  const fontsOn=()=>!!(E("dl-fonts")&&E("dl-fonts").checked);
+  const estimate=zip=>{const[a,b]=range();let verses=0,kb=SZ.assetsKB||0;
+    for(let s=a;s<=b;s++){verses+=C.suras[s-1].size;kb+=(SZ.htmlKB||[])[s-1]||0;}
+    const share=verses/TOTAL,withS=E("dl-search").checked;
+    C.tr.filter(t=>sel[t.id]).forEach(t=>{kb+=(t.kb||0)*share+(withS?(t.skb||0):0);});
+    if(zip&&fontsOn())kb+=1500;return kb;};
+  const summary=()=>{const[a,b]=range(),n=ids().length,kb=estimate(true);
+    E("dl-summary").textContent=`${n} edition${n===1?"":"s"}, ${a===b?"surah "+a:`surahs ${a} to ${b}`}: about ${fmt(kb)} before compression.`+
+      (kb>400*1024?" That is large. A phone may run out of memory building a ZIP, so prefer “Save in this browser” or fewer editions.":"");};
+  const build=()=>chips(E("dl-chips"),{isOn:id=>sel[id],set:(id,v)=>{sel[id]=v;summary();}});
+  const pick=f=>{C.tr.forEach(t=>{sel[t.id]=!!f(t);});build();summary();};
+  const setRange=(a,b)=>{E("dl-from").value=a;E("dl-to").value=b;summary();};
+  E("pre-settings").addEventListener("click",()=>pick(t=>isOn(t.id)));
+  E("pre-arabic").addEventListener("click",()=>pick(t=>t.id==="arabic"));
+  E("pre-english").addEventListener("click",()=>{const en=C.tr.find(t=>t.id==="trans-yusuf")||C.tr.find(t=>t.group==="English"&&t.kind==="translation");
+    pick(t=>t.id==="arabic"||t.id==="translit-unicode"||(en&&t.id===en.id));});
+  E("pre-all").addEventListener("click",()=>pick(t=>t.kind!=="ai"));
+  E("rg-all").addEventListener("click",()=>setRange(1,114));
+  E("rg-amma").addEventListener("click",()=>setRange(78,114));
+  E("rg-here").addEventListener("click",()=>{const h=store.get("quran-history",null);const s=h&&h.s>=1&&h.s<=114?h.s:1;setRange(s,s);});
+  ["dl-from","dl-to","dl-search"].forEach(i=>E(i).addEventListener("input",summary));
+  if(E("dl-fonts"))E("dl-fonts").addEventListener("input",summary);
+  build();summary();
+
+  /* shared plumbing */
+  const lock=on=>{busy=on;bZip.disabled=bSave.disabled=on;bStop.hidden=!on;prog.hidden=!on;if(on){cancelled=false;ctl=new AbortController();prog.value=0;}};
+  bStop.addEventListener("click",()=>{cancelled=true;if(ctl)ctl.abort();st.textContent="Cancelled.";});
+  const pool=async(list,work,conc)=>{const failed=[];let i=0,done=0;
+    const w=async()=>{while(i<list.length&&!cancelled){const j=list[i++];
+      try{await work(j);}catch(e){if(cancelled)return;failed.push(j);}
+      prog.value=Math.round(++done*100/list.length);st.textContent=`${done} of ${list.length} files`;}};
+    await Promise.all(Array.from({length:conc||6},w));return failed;};
+  const withRetry=async(list,work)=>{let f=await pool(list,work,6);
+    if(f.length&&!cancelled){st.textContent=`Retrying ${f.length} file(s)…`;f=await pool(f,work,2);}return f;};
+  const get=async(u,o)=>{const r=await fetch(u,{signal:ctl.signal});if(!r.ok)throw new Error(u+" "+r.status);return o==="buf"?r.arrayBuffer():o==="res"?r:r.text();};
+  const dataJobs=I=>{const[a,b]=range(),J=[];for(let s=a;s<=b;s++)I.forEach(id=>J.push({p:`data/surah/${id}/${pad(s)}.js`,data:1}));
+    if(E("dl-search").checked)I.forEach(id=>J.push({p:`data/search/${id}.js`,data:1}));return J;};
+  const pageJobs=pages=>{const[a,b]=range(),J=[];for(let s=a;s<=b;s++)J.push({p:pad(s)+".html",page:1});pages.forEach(p=>J.push({p:p+".html",page:1}));return J;};
+  const loadZip=()=>typeof JSZip!=="undefined"?Promise.resolve():new Promise((ok,no)=>{
+    const urls=["https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"];let i=0;
+    const next=()=>{if(i>=urls.length)return no(new Error("The ZIP library could not be loaded. Check your connection."));
+      const s=document.createElement("script");s.src=urls[i++];s.onload=()=>ok();s.onerror=()=>{s.remove();next();};document.head.append(s);};next();});
+  const gatherFonts=async I=>{const L=I.map(i=>(C.tr.find(t=>t.id===i)||{}).lang),fam=["Amiri+Quran","Literata:wght@400;600"];
+    if(L.includes("ur"))fam.push("Noto+Nastaliq+Urdu");if(L.some(l=>l==="hi"||l==="ne"))fam.push("Noto+Sans+Devanagari");if(L.includes("gu"))fam.push("Noto+Sans+Gujarati");
+    let css=await get("https://fonts.googleapis.com/css2?"+fam.map(f=>"family="+f).join("&")+"&display=swap");const files=new Map();
+    css=css.replace(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g,(m,u)=>{let x=0;for(const ch of u)x=(x*31+ch.charCodeAt(0))|0;
+      const name=(x>>>0).toString(36)+".woff2";files.set(name,u);return`url(fonts/${name})`;});
+    return{css,files:[...files].map(([name,url])=>({font:url,name}))};};
+
+  /* ---- ZIP ---- */
+  bZip.addEventListener("click",async()=>{
+    if(busy)return;const I=ids();if(!I.length){st.textContent="Select at least one edition.";return;}
+    lock(true);
+    try{
+      await loadZip();
+      const zip=new JSZip(),[from,to]=range(),missing=[];
+      const withSearch=E("dl-search").checked;
+      const extras=["index","bookmarks","config","sources","license"].filter(p=>E("dl-p-"+p).checked);
+      const included=new Set(extras.map(p=>p+".html"));if(withSearch)included.add("search.html");
+      const excluded=new Set(ALL.map(p=>p+".html").filter(p=>!included.has(p)));
+      let pack=null;if(fontsOn()){st.textContent="Fetching fonts…";try{pack=await gatherFonts(I);}catch{st.textContent="Fonts could not be fetched; continuing without them.";}}
+      const clean=doc=>{
+        $$("a[href]",doc).forEach(a=>{const href=a.getAttribute("href"),m=/^(\d{3})\.html/.exec(href),pg=href.split("#")[0].split("?")[0];
+          if((m&&(+m[1]<from||+m[1]>to))||excluded.has(pg)){const li=a.closest("li");(li&&$$("a",li).length===1?li:a).remove();}});
+        $$("[data-t]",doc).forEach(n=>{if(!I.includes(n.dataset.t))n.remove();});
+        if(pack){$$('link[href*="fonts.googleapis.com"],link[href*="fonts.gstatic.com"]',doc).forEach(l=>l.remove());
+          const css=doc.querySelector('link[href="assets/style.css"]');if(css)css.before(h("link",{rel:"stylesheet",href:"assets/fonts.css"}));}};
+      const list=[{p:"assets/style.css"},{p:"assets/app.js"},{p:"assets/catalog.js",cat:1},{p:"assets/icon.svg"},...pageJobs([...included].map(p=>p.replace(".html",""))),...dataJobs(I)];
+      if(pack){zip.file("assets/fonts.css",pack.css);pack.files.forEach(f=>list.push(f));}
+      const work=async j=>{
+        if(j.font){zip.file("assets/fonts/"+j.name,await get(j.font,"buf"));return;}
+        let t=await get(j.p);
+        if(j.page){const d=new DOMParser().parseFromString(t,"text/html");clean(d);t="<!DOCTYPE html>\n"+d.documentElement.outerHTML;}
+        if(j.cat){const c=JSON.parse(t.slice(t.indexOf("=")+1).replace(/;\s*$/,""));
+          c.tr=c.tr.filter(x=>I.includes(x.id));c.range=[from,to];
+          const keep=Object.keys(c.defaults).filter(k=>k==="audio"||(I.includes(k)&&c.defaults[k]));
+          c.defaults=Object.fromEntries(keep.map(k=>[k,true]));
+          if(!keep.some(k=>k!=="audio"))I.slice(0,3).forEach(k=>c.defaults[k]=true);
+          t="window.QURAN_CATALOG="+JSON.stringify(c)+";\n";}
+        zip.file(j.p,t);};
+      const failed=await withRetry(list,work);failed.forEach(j=>missing.push(j.p||j.name));
+      if(cancelled)return;
+      const names=I.map(i=>C.tr.find(t=>t.id===i).full);
+      zip.file("README.txt",["Qur’an Reader: offline copy","Built "+new Date().toISOString().slice(0,10)+" from "+location.origin+location.pathname.replace(/[^/]*$/,""),"",
+        `Surahs ${from} to ${to}.`,"Editions:",...names.map(n=>"  - "+n),"",
+        "How to use: unzip, then open index.html in any modern browser. No internet is needed,","except for verse audio, which is streamed.",
+        "Bookmarks and settings are saved per browser, so a copy opened from a new folder starts fresh;","use Export / Import in Settings to move them.",
+        ...(missing.length?["","These files could not be fetched and are missing:",...missing.map(m=>"  - "+m)]:[])].join("\n"));
+      const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}},m=>{prog.value=Math.round(m.percent);st.textContent=`Compressing… ${Math.round(m.percent)}%`;});
+      saveBlob(blob,`quran-reader-${from}-${to}-${I.length}ed.zip`);
+      st.textContent=missing.length?`Done (${fmt(blob.size/1024)}), but ${missing.length} file(s) could not be fetched. See README.txt inside the ZIP.`:`Done (${fmt(blob.size/1024)}). Unzip it and open index.html.`;
+    }catch(e){if(!cancelled)st.textContent="Could not build the ZIP: "+e.message;}
+    finally{lock(false);}});
+
+  /* ---- save inside this browser (works offline through the service worker) ---- */
+  bSave.addEventListener("click",async()=>{
+    if(busy)return;const I=ids();if(!I.length){st.textContent="Select at least one edition.";return;}
+    if(!("caches"in window)){st.textContent="Saving inside the browser needs a secure (https) page. Use the ZIP instead.";return;}
+    lock(true);
+    try{
+      if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
+      const cache=await caches.open(SAVED);
+      const list=[...pageJobs(ALL.filter(p=>p!=="search"||E("dl-search").checked)),...dataJobs(I)];
+      const fl=document.querySelector('link[href*="fonts.googleapis.com/css2"]');
+      if(fl){try{const r=await get(fl.href,"res");const css=await r.clone().text();await cache.put(fl.href,r);
+        [...new Set([...css.matchAll(/url\((https:[^)]+)\)/g)].map(m=>m[1]))].forEach(u=>list.push({abs:u}));}catch{}}
+      const work=async j=>{const url=j.abs?j.abs:new URL(j.p+(j.data&&C.dataVer?"?v="+C.dataVer:""),location.href).href;
+        await cache.put(url,await get(url,"res"));};
+      const failed=await withRetry(list,work);
+      if(cancelled)return;
+      st.textContent=failed.length?`Saved, but ${failed.length} file(s) failed. Run it again to retry.`:"Saved. These surahs and editions now work offline in this browser.";
+    }catch(e){if(!cancelled)st.textContent="Could not save: "+e.message;}
+    finally{lock(false);usage();}});
+
+  const usage=async()=>{let t="Saving inside the browser is not available here.";
+    try{if("caches"in window){t="Nothing saved in this browser yet.";
+      if(await caches.has(SAVED)){const n=(await (await caches.open(SAVED)).keys()).length;if(n)t=`${n} files are saved in this browser.`;}
+      const e=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null;
+      if(e&&e.usage!=null)t+=` Site storage in use: ${fmt(e.usage/1024)}${e.quota?` of about ${fmt(e.quota/1024)} available`:""}.`;}}catch{}
+    E("dl-usage").textContent=t;};
+  E("dl-clear").addEventListener("click",async()=>{if(!("caches"in window))return;
+    if(!confirm("Remove all offline data saved by this site in this browser?"))return;await caches.delete(SAVED);usage();toast("Removed");});
+  usage();
 }
 
 /* ---------- boot ---------- */
 applyUi();
+if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+{const off=h("div",{class:"offline-bar",role:"status",text:"You’re offline. Saved surahs and editions still work."});off.hidden=navigator.onLine;
+  const hd=$("header.top");if(hd)hd.after(off);else document.body.prepend(off);
+  addEventListener("online",()=>{off.hidden=true;});addEventListener("offline",()=>{off.hidden=false;});}
 const top=h("button",{class:"totop",type:"button","aria-label":"Back to top",html:"&#8593;"});
 top.hidden=true;top.addEventListener("click",()=>scrollTo({top:0}));document.body.append(top);
 addEventListener("scroll",()=>{top.hidden=scrollY<700;},{passive:true});

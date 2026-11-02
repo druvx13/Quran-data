@@ -6,6 +6,11 @@
 <title>Offline copy | Qur’an Reader</title>
 <meta name="description" content="Read the Qur’an in Arabic with transliteration, audio and translations.">
 <meta name="color-scheme" content="light dark">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e4c47">
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+
 <script>try{var u=JSON.parse(localStorage.getItem("quran-ui")||"{}"),r=document.documentElement;if(u.theme&&u.theme!=="auto")r.dataset.theme=u.theme;if(u.tx)r.style.setProperty("--tx",u.tx);if(u.ar)r.style.setProperty("--ar",u.ar);if(u.mode==="book")r.classList.add("book-pref")}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Literata:wght@400;600&family=Noto+Nastaliq+Urdu&family=Noto+Sans+Devanagari&family=Noto+Sans+Gujarati&display=swap">
 <link rel="stylesheet" href="assets/style.css">
@@ -17,20 +22,33 @@
 <header class="top"><a class="brand" href="index.html">Qur’an</a><nav aria-label="Site"><a href="search.html">Search</a><a href="bookmarks.html">Bookmarks</a><a href="config.html">Settings</a></nav></header>
 <main id="main">
 <h1>Offline copy</h1>
-<p class="lead muted">Build a ZIP of this site with only the editions and surahs you want. It runs in your browser.</p>
+<p class="lead muted">Read without internet. <strong>Save in this browser</strong> works like an installed app. <strong>Download ZIP</strong> gives you plain files to keep or share.</p>
+<section><h2>Quick picks</h2><div class="row preset-row">
+<button type="button" class="btn small" id="pre-settings">My Settings selection</button>
+<button type="button" class="btn small" id="pre-arabic">Arabic only</button>
+<button type="button" class="btn small" id="pre-english">Arabic + English</button>
+<button type="button" class="btn small" id="pre-all">Everything except AI</button></div></section>
 <section><h2>Editions</h2><div id="dl-chips"></div></section>
 <section><h2>Surahs</h2><div class="row"><label>From <input id="dl-from" class="num" type="number" min="1" max="114" value="1"></label>
-<label>To <input id="dl-to" class="num" type="number" min="1" max="114" value="114"></label></div></section>
-<section><h2>Pages</h2><div class="row"><label class="radio"><input type="checkbox" id="dl-p-index" checked> Index</label><label class="radio"><input type="checkbox" id="dl-p-bookmarks" checked> Bookmarks</label><label class="radio"><input type="checkbox" id="dl-p-config" checked> Settings</label><label class="radio"><input type="checkbox" id="dl-p-sources" checked> Sources</label><label class="radio"><input type="checkbox" id="dl-p-license" checked> License</label>
-<label class="radio"><input type="checkbox" id="dl-search" checked> Search (adds each selected edition again, so the ZIP grows)</label></div></section>
-<p class="small muted">Each edition typically adds a few MB. Verse audio still needs an internet connection.</p>
-<button type="button" class="btn primary" id="dl-go">Build ZIP</button>
+<label>To <input id="dl-to" class="num" type="number" min="1" max="114" value="114"></label></div>
+<div class="row preset-row"><button type="button" class="btn small" id="rg-all">All 114</button>
+<button type="button" class="btn small" id="rg-amma">Juz ʿAmma (78 to 114)</button>
+<button type="button" class="btn small" id="rg-here">The surah I’m reading</button></div></section>
+<section><h2>Options</h2><div class="row">
+<label class="radio"><input type="checkbox" id="dl-search" checked> Search (adds each selected edition again)</label><label class="radio"><input type="checkbox" id="dl-fonts" checked> Include fonts in the ZIP (about 1 to 2 MB; keeps the Arabic looking right offline)</label></div>
+<p class="small muted">Pages to include in the ZIP:</p><div class="row"><label class="radio"><input type="checkbox" id="dl-p-index" checked> Index</label><label class="radio"><input type="checkbox" id="dl-p-bookmarks" checked> Bookmarks</label><label class="radio"><input type="checkbox" id="dl-p-config" checked> Settings</label><label class="radio"><input type="checkbox" id="dl-p-sources" checked> Sources</label><label class="radio"><input type="checkbox" id="dl-p-license" checked> License</label></div></section>
+<div class="note" id="dl-summary" aria-live="polite"></div>
+<div class="dl-actions"><button type="button" class="btn primary" id="dl-save">Save in this browser</button>
+<button type="button" class="btn" id="dl-go">Download ZIP</button>
+<button type="button" class="btn" id="dl-cancel" hidden>Cancel</button></div>
 <progress id="dl-prog" max="100" value="0" hidden></progress>
 <p id="dl-status" role="status" aria-live="polite"></p>
+<section><h2>Saved in this browser</h2><p id="dl-usage" class="small muted"></p>
+<button type="button" class="btn danger" id="dl-clear">Remove saved offline data</button></section>
+<p class="small muted">Verse audio always needs an internet connection. Bookmarks and settings stay in the browser where you made them; use Export in Settings to move them.</p>
 </main>
 <footer class="foot"><p><a href="sources.html">Sources</a> <a href="license.html">License</a> <a href="download.html">Offline copy</a> <a href="https://github.com/druvx13/Quran-data" rel="noopener noreferrer">GitHub</a></p><p class="small muted">Translations convey the meanings of the Qur’an in another language; only the Arabic text is the Qur’an itself. Items marked Commentary or AI-generated are explanations or machine output, not scripture.</p></footer>
 <script src="assets/catalog.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <script src="assets/app.js" defer></script>
 </body>
 </html>
